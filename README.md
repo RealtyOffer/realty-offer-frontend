@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1f9e58c3-e24a-42cc-835f-875f18788705/deploy-status)](https://app.netlify.com/sites/realtyoffer/deploys)
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.org">
