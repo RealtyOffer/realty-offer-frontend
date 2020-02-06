@@ -30,8 +30,11 @@
   "devDependencies": {
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
+    "@types/react-helmet": "^5.0.15",
+    "@typescript-eslint/parser": "^2.19.0",
     "babel-eslint": "^10.0.3",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",

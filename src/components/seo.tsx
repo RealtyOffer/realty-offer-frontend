@@ -1,3 +1,4 @@
+
 /**
  * SEO component that queries for data with
  *  Gatsby's useStaticQuery React hook
@@ -12,7 +13,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 
 function SEO({
   description, lang, meta, title,
-}) {
+}: PropTypes.InferProps<typeof SEO.propTypes>) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -28,9 +29,9 @@ function SEO({
   );
 
   const metaDescription = description || site.siteMetadata.description;
-
   return (
     <Helmet
+      // @ts-ignore
       htmlAttributes={{
         lang,
       }}
