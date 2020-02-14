@@ -9,3 +9,7 @@ tags:
   - realty offer
 ---
 some body text
+
+![logo](/img/realtyoffer-logo.png)
+
+more text
