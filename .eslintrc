@@ -6,6 +6,8 @@
   "rules": {
     "strict": 0,
     "import/no-unresolved": "error",
+    "react/destructuring-assignment": [0, "never"],
+    "react/prop-types": 0,
     "react/jsx-filename-extension": [
       1,
       {

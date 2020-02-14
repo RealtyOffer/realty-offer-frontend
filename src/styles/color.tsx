@@ -14,7 +14,7 @@ export const white = '#ffffff';
 
 // Primary
 const blue = '#0077CC';
-const blueVariant = '#56b2c5';
+const blueVariant = '#00A1E8';
 // const skyBlueLighter = '#78d9ee';
 
 // Secondary

@@ -1,4 +1,3 @@
-// @flow
 // Font Families
 export const fontFamilySansSerif = '"Lato", "Open Sans", sans-serif';
 export const fontFamilySerif = 'Georgia, serif';
