@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const path = require('path');
+const webpack = require('webpack');
 const { createFilePath } = require('gatsby-source-filesystem');
 const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 
@@ -85,3 +86,35 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     });
   }
 };
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    plugins: [
+      new webpack.ProvidePlugin({
+        fetch: path.resolve(path.join(__dirname, 'node_modules/isomorphic-fetch/fetch-npm-node')),
+      }),
+    ],
+  });
+};
+
+// // Implement the Gatsby API “onCreatePage”. This is
+// // called after every page is created.
+// exports.onCreatePage = async ({ page, actions }) => {
+//   const { createPage } = actions;
+//   // Only update the `/agent` page.
+//   if (page.path.match(/^\/agent/)) {
+//     // page.matchPath is a special key that's used for matching pages
+//     // with corresponding routes only on the client.
+//     page.matchPath = '/agent/*';
+//     // Update the page.
+//     createPage(page);
+//   }
+//   // Only update the `/consumer` page.
+//   if (page.path.match(/^\/consumer/)) {
+//     // page.matchPath is a special key that's used for matching pages
+//     // with corresponding routes only on the client.
+//     page.matchPath = '/consumer/*';
+//     // Update the page.
+//     createPage(page);
+//   }
+// };

@@ -1,8 +1,8 @@
-import React from 'react'
-import { kebabCase } from 'lodash'
-import Helmet from 'react-helmet'
-import { Link, graphql } from 'gatsby'
-import Layout from '../../components/layout'
+import React from 'react';
+import { kebabCase } from 'lodash';
+import Helmet from 'react-helmet';
+import { Link, graphql } from 'gatsby';
+import { Layout, Header } from '../../components';
 
 const TagsPage = ({
   data: {
@@ -12,33 +12,35 @@ const TagsPage = ({
     },
   },
 }) => (
-    <Layout>
-      <section className="section">
-        <Helmet title={`Tags | ${title}`} />
-        <div className="container content">
-          <div className="columns">
-            <div
-              className="column is-10 is-offset-1"
-              style={{ marginBottom: '6rem' }}
-            >
-              <h1 className="title is-size-2 is-bold-light">Tags</h1>
-              <ul className="taglist">
-                {group.map(tag => (
-                  <li key={tag.fieldValue}>
-                    <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                      {tag.fieldValue} ({tag.totalCount})
+  <Layout>
+    <section className="section">
+      <Helmet title={`Tags | ${title}`} />
+      <div className="container content">
+        <div className="columns">
+          <div
+            className="column is-10 is-offset-1"
+            style={{ marginBottom: '6rem' }}
+          >
+            <Header>Tags</Header>
+            <ul className="taglist">
+              {group.map((tag) => (
+                <li key={tag.fieldValue}>
+                  <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+                    {tag.fieldValue}
+                    {' '}
+                    {`(${tag.totalCount})`}
                   </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </section>
-    </Layout>
-  )
+      </div>
+    </section>
+  </Layout>
+);
 
-export default TagsPage
+export default TagsPage;
 
 export const tagPageQuery = graphql`
   query TagsQuery {
@@ -54,4 +56,4 @@ export const tagPageQuery = graphql`
       }
     }
   }
-`
+`;

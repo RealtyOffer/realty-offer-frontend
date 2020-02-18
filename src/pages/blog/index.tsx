@@ -1,21 +1,20 @@
 import React from 'react';
 
-import Layout from '../../components/Layout';
-import BlogRoll from '../../components/BlogRoll';
+import {
+  Header, Layout, Box, BlogRoll,
+} from '../../components';
 
 const BlogIndexPage = () => (
   <Layout>
     <div>
-      <h1>
+      <Header>
         Latest Stories
-      </h1>
+      </Header>
     </div>
-    <section className="section">
-      <div className="container">
-        <div className="content">
-          <BlogRoll />
-        </div>
-      </div>
+    <section>
+      <Box>
+        <BlogRoll />
+      </Box>
     </section>
   </Layout>
 );

@@ -1,11 +1,16 @@
+import React from 'react';
 import { addDecorator, configure, addParameters } from '@storybook/react';
 import { withOptions } from '@storybook/addon-options';
 
 import { brandPrimary, white, lightestGray } from '../src/styles/color';
+import CssReset from '../src/styles/cssReset';
 
 const req = require.context('../src', true, /.story.tsx$/);
 
 const loadStories = () => req.keys().forEach(filename => req(filename));
+
+// Gatsby internal mocking to prevent unnecessary errors in storybook testing environment
+global.__PATH_PREFIX__ = "";
 
 // If you'd like to add global styles to all stories, modify this component.
 // addDecorator(GlobalStyleDecorator);
@@ -20,6 +25,15 @@ const loadStories = () => req.keys().forEach(filename => req(filename));
 //   }),
 // );
 
+const withGlobal = (cb) => (
+  <React.Fragment>
+    <CssReset />
+    <div style={{ margin: 8 }}>
+      {cb()}
+    </div>
+  </React.Fragment>
+);
+
 addParameters({
   backgrounds: [
     { name: 'brandPrimary', value: brandPrimary },
@@ -28,4 +42,5 @@ addParameters({
   ],
 });
 
+addDecorator(withGlobal);
 configure(loadStories, module);

@@ -10,13 +10,13 @@ const IndexPage = () => (
     <Seo title="Home" />
     <Box zindex={1}>
       <Header>H1</Header>
-      <Button disabled type="link" to="blog" iconLeft={<FaHandPaper />} rightSpacer>Hello</Button>
-      <Button disabled type="button" onClick={() => window.alert('clicked')} color="primaryOutline" iconLeft={<FaHandPaper />} rightSpacer>Hello</Button>
-      <Button disabled type="button" color="success" iconLeft={<FaHandPaper />} rightSpacer />
-      <Button disabled type="button" color="successOutline" iconLeft={<FaChevronRight />} rightSpacer />
-      <Button disabled type="button" color="danger" rightSpacer>Danger</Button>
-      <Button disabled type="button" color="dangerOutline" rightSpacer>Danger Outline</Button>
-      <Button disabled type="button" color="text" iconLeft={<FaUserPlus />} rightSpacer>Add friend</Button>
+      <Button type="link" to="/agent/create-agent" iconLeft={<FaHandPaper />} rightspacer>Hello</Button>
+      <Button type="link" to="/agent" color="primaryOutline" iconLeft={<FaHandPaper />} rightspacer>Hello</Button>
+      <Button type="button" color="success" iconLeft={<FaHandPaper />} rightspacer />
+      <Button type="button" color="successOutline" iconLeft={<FaChevronRight />} rightspacer />
+      <Button type="button" color="danger" rightspacer>Danger</Button>
+      <Button type="button" color="dangerOutline" rightspacer>Danger Outline</Button>
+      <Button type="button" color="text" iconLeft={<FaUserPlus />} rightspacer>Add friend</Button>
     </Box>
     <Box zindex={2}>
       <Header as="h2">H2</Header>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'gatsby';
 
 import {
@@ -15,14 +15,14 @@ import {
   lightGray,
   gray,
 } from '../styles/color';
-import { disabledStyle, baseBorderLightStyle } from '../styles/mixins';
+import { disabledStyle } from '../styles/mixins';
 
 // import Icon from './Icon';
 
 export type ButtonProps = {
-  type:'submit' | 'button' | 'reset' | 'link';
+  type: 'submit' | 'button' | 'reset' | 'link';
   color?: 'text' | 'primary' | 'primaryOutline' | 'success' | 'successOutline' |'danger' | 'dangerOutline';
-  rightSpacer?: boolean;
+  rightspacer?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
   to?: string;
   disabled?: boolean;
@@ -117,7 +117,7 @@ const textButtonStyles = `
   color: ${brandPrimary};
 `;
 
-const StyledButton = styled.button`
+const allStyles = css`
   position: relative;
   display: inline-block;
   ${(props: ButtonProps) => (props.block && 'width: 100%;')}
@@ -134,6 +134,7 @@ const StyledButton = styled.button`
   line-height: 1.5;
   padding: ${halfSpacer} ${baseAndAHalfSpacer};
   transition: all .2s ease-in-out;
+  text-decoration: none;
   
   /* Color */
   ${(props: ButtonProps) => (props.color === 'primary' && primaryButtonStyles)}
@@ -152,8 +153,8 @@ const StyledButton = styled.button`
   /* Disabled state for all other variations: adds opacity and cursor/pointer-events styling */
   ${(props: ButtonProps) => (props.disabled && disabledStyle)}
 
-  /* When button is next to other items, use rightSpacer give them some breathing room */
-  ${(props: ButtonProps) => (props.rightSpacer && `margin-right: ${baseSpacer};`)}
+  /* When button is next to other items, use rightspacer give them some breathing room */
+  ${(props: ButtonProps) => (props.rightspacer && `margin-right: ${baseSpacer};`)}
   
   &:active,
   &:focus {
@@ -161,13 +162,23 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledLink = StyledButton.withComponent(Link);
+const StyledButton = styled.button`
+  ${allStyles}
+`;
+
+const StyledLink = styled.div`
+  ${allStyles}
+
+  & > a {
+    color: inherit;
+  }
+`;
 
 class Button extends Component<ButtonProps> {
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     color: 'primary',
-    rightSpacer: false,
+    rightspacer: false,
     onClick: null,
     to: '',
     disabled: false,
@@ -179,26 +190,27 @@ class Button extends Component<ButtonProps> {
 
   render() {
     const {
-      color, rightSpacer, to, children, type, onClick, disabled, iconLeft, iconRight, title, block,
+      color, rightspacer, to, children, type, onClick, disabled, iconLeft, iconRight, title, block,
     } = this.props;
     let contentToRender;
 
     switch (type) {
       case 'link':
-        contentToRender = (
+        contentToRender = to && (
           <StyledLink
             color={color}
-            rightSpacer={rightSpacer}
-            to={to}
+            rightspacer={rightspacer}
             disabled={disabled}
             title={title || children}
             block={block}
           >
-            {iconLeft}
-            {' '}
-            {children}
-            {' '}
-            {iconRight}
+            <Link to={to}>
+              {iconLeft}
+              {' '}
+              {children}
+              {' '}
+              {iconRight}
+            </Link>
           </StyledLink>
         );
         break;
@@ -210,7 +222,7 @@ class Button extends Component<ButtonProps> {
           <StyledButton
             type={type}
             color={color}
-            rightSpacer={rightSpacer}
+            rightspacer={rightspacer}
             onClick={onClick}
             disabled={disabled}
             title={title || children}

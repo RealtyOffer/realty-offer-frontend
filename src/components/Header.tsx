@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { baseSpacer } from '../styles/size';
-import { white } from '../styles/color';
+import { white, headingsColor } from '../styles/color';
 import {
   fontSizeH1,
   fontSizeH2,
@@ -40,7 +40,7 @@ const renderFontSize = (as: HeadingProps['as']) => {
 const StyledHeading = styled.h1`
   font-weight: 400;
   line-height: ${lineHeightSmall};
-  color: ${(props: HeadingProps) => (props.inverse ? white : 'inherit')};
+  color: ${(props: HeadingProps) => (props.inverse ? white : headingsColor )};
   margin-bottom: ${(props: HeadingProps) => (props.noMargin ? '0' : baseSpacer)};
   text-align: ${(props: HeadingProps) => props.align};
   white-space: pre-line;

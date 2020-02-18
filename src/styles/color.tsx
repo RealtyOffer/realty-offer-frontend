@@ -1,5 +1,6 @@
 // Grayscale for UI (borders, shadows, etc)
 export const black = '#000A19';
+export const darkGray = '#3e3e3e';
 export const gray = '#5E636B';
 export const textGray = '#646c6e';
 export const lightGray = '#C5C7C9';
@@ -50,7 +51,7 @@ export const brandTertiaryHover = darkBlueVariant;
 
 export const textColor = textGray;
 export const textColorLight = lightestGray;
-export const headingsColor = brandSecondary;
+export const headingsColor = darkGray;
 
 // Validation Colors
 export const brandSuccess = supportingGreen;

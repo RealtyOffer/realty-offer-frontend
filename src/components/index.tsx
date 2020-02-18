@@ -7,6 +7,7 @@ import FlexContainer from './FlexContainer';
 import Footer from './Footer';
 import Header from './Header';
 import Image from './Image';
+import Input from './Input';
 import Layout from './Layout';
 import Navbar from './Navbar';
 import PageContainer from './PageContainer';
@@ -25,6 +26,7 @@ export {
   Footer,
   Header,
   Image,
+  Input,
   Layout,
   Navbar,
   PageContainer,

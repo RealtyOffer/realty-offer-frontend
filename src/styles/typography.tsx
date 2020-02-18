@@ -2,6 +2,7 @@
 export const fontFamilySansSerif = '"Lato", "Open Sans", sans-serif';
 export const fontFamilySerif = 'Georgia, serif';
 export const fontFamilyMonospace = 'Consolas, Liberation Mono, Menlo, Courier, monospace';
+export const headingsFontFamily = fontFamilySansSerif;
 
 // Font Sizes
 const fontSizeRoot = 16;

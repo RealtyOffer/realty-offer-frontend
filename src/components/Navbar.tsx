@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
-import PageContainer from './PageContainer';
+import { PageContainer, FlexContainer} from './';
 
 import { brandPrimary, white } from '../styles/color';
-import { baseSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer } from '../styles/size';
 
 // import github from '../img/github-icon.svg'
-// import logo from '../img/logo.svg'
+import logo from '../images/logo.svg';
 
 type NavbarProps = {}
 type NavbarState = {
@@ -45,26 +45,30 @@ class Navbar extends Component<NavbarProps, NavbarState> {
     return (
       <StyledNavbar role="navigation" aria-label="main-navigation">
         <PageContainer>
-          <StyledNavbarLink to="/" title="Logo">
-            <img src="" alt="Realty Offer" />
-          </StyledNavbarLink>
-          <div
-            data-target="navMenu"
-            onClick={() => this.toggleHamburger()}
-            role="menu"
-          >
-            {/* icon here */}
-          </div>
-          <div id="navMenu">
+          <FlexContainer justifyContent="space-between">
+            <StyledNavbarLink to="/" title="Logo">
+              <img src={logo} alt="Realty Offer" height={doubleSpacer} />
+            </StyledNavbarLink>
             <div>
-              <StyledNavbarLink to="/">
-                Home
-              </StyledNavbarLink>
-              <StyledNavbarLink to="/blog">
-                Blog
-              </StyledNavbarLink>
+              <div
+                data-target="navMenu"
+                onClick={() => this.toggleHamburger()}
+                role="menu"
+              >
+                {/* icon here */}
+              </div>
+              <div id="navMenu">
+                <div>
+                  <StyledNavbarLink to="/">
+                    Home
+                </StyledNavbarLink>
+                  <StyledNavbarLink to="/blog">
+                    Blog
+                </StyledNavbarLink>
+                </div>
+              </div>
             </div>
-          </div>
+          </FlexContainer>
         </PageContainer>
       </StyledNavbar>
     );

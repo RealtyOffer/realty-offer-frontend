@@ -1,5 +1,6 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { storiesOf } from '@storybook/react';
 import { checkA11y } from '@storybook/addon-a11y';
 import { withInfo } from '@storybook/addon-info';
 import centered from '@storybook/addon-centered/react';
@@ -25,24 +26,16 @@ const colorOptions = [
   'text', 'primary', 'primaryOutline', 'success', 'successOutline', 'danger', 'dangerOutline',
 ];
 
-// rightSpacer ?: boolean;
-// onClick ? (event: React.MouseEvent<HTMLButtonElement>): void;
-// to ?: string;
-// disabled ?: boolean;
-// iconLeft ?: React.ReactNode;
-// iconRight ?: React.ReactNode;
-// title ?: string;
-// block ?: boolean;
-
 story.add(
   'Button',
   () => (
+    // @ts-ignore
     <Button
       type={select('type', typeOptions, 'button')}
       color={select('color', colorOptions, 'primary')}
-      rightSpacer={boolean('rightSpacer', false)}
+      rightspacer={boolean('rightspacer', false)}
       onClick={action('button-click')}
-      to={text('to', '/home')}
+      to={text('to (for type=link)', '/home')}
       disabled={boolean('disabled', false)}
       title={text('title', 'Hello World')}
     >
