@@ -1,6 +1,10 @@
 import React from 'react';
 import { addDecorator, configure, addParameters } from '@storybook/react';
-import { withOptions } from '@storybook/addon-options';
+import { withKnobs } from '@storybook/addon-knobs';
+import { withA11y } from '@storybook/addon-a11y';
+import { withInfo } from '@storybook/addon-info';
+
+import { defaultParameters } from './constants';
 
 import { brandPrimary, white, lightestGray } from '../src/styles/color';
 import CssReset from '../src/styles/cssReset';
@@ -34,13 +38,16 @@ const withGlobal = (cb) => (
   </React.Fragment>
 );
 
+addDecorator(withInfo);
+addDecorator(withKnobs);
+addDecorator(withA11y);
+addDecorator(withGlobal);
+
 addParameters({
   backgrounds: [
     { name: 'brandPrimary', value: brandPrimary },
     { name: 'white', value: white },
     { name: 'lightestGray', value: lightestGray, default: true },
-  ],
+  ]
 });
-
-addDecorator(withGlobal);
 configure(loadStories, module);

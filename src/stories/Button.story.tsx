@@ -1,23 +1,13 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
-import { checkA11y } from '@storybook/addon-a11y';
-import { withInfo } from '@storybook/addon-info';
 import centered from '@storybook/addon-centered/react';
-import {
-  withKnobs, select, boolean, text,
-} from '@storybook/addon-knobs';
-
-import { defaultParameters } from '../../.storybook/constants';
+import { action } from '@storybook/addon-actions';
+import { select, boolean, text } from '@storybook/addon-knobs';
 
 import Button from '../components/Button';
 
-const story = storiesOf('Components|Button', module)
-  .addDecorator(withKnobs)
-  .addDecorator(checkA11y)
-  .addDecorator(withInfo)
-  .addDecorator(centered)
-  .addParameters(defaultParameters);
+const story = storiesOf('Components', module)
+  .addDecorator(centered);
 
 const typeOptions = [
   'submit', 'button', 'reset', 'link',

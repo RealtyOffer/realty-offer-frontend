@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = ({ config }) => {
   // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
   config.module.rules[0].exclude = [/node_modules\/(?!(gatsby)\/)/];
@@ -49,6 +51,22 @@ module.exports = ({ config }) => {
       },
     ],
     enforce: 'pre',
+  });
+
+  config.module.rules.push({
+    test: /\.tsx?$/,
+    include: path.resolve(__dirname, "../src"),
+    use: [
+      // require.resolve("ts-loader"),
+      {
+        loader: require.resolve("react-docgen-typescript-loader"),
+        options: {
+          // Provide the path to your tsconfig.json so that your stories can
+          // display types from outside each individual story.
+          tsconfigPath: path.resolve(__dirname, "../tsconfig.json"),
+        },
+      },
+    ],
   });
 
   config.resolve.extensions.push('.ts', '.tsx');

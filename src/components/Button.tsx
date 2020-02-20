@@ -17,9 +17,7 @@ import {
 } from '../styles/color';
 import { disabledStyle } from '../styles/mixins';
 
-// import Icon from './Icon';
-
-export type ButtonProps = {
+type ButtonProps = {
   type: 'submit' | 'button' | 'reset' | 'link';
   color?: 'text' | 'primary' | 'primaryOutline' | 'success' | 'successOutline' |'danger' | 'dangerOutline';
   rightspacer?: boolean;
@@ -159,6 +157,7 @@ const allStyles = css`
   &:active,
   &:focus {
     outline: none;
+    filter: brightness(.85);
   }
 `;
 
@@ -171,10 +170,12 @@ const StyledLink = styled.div`
 
   & > a {
     color: inherit;
+    &:hover, &:focus {
+      color: ${(props: ButtonProps) => (props.color === 'text' ? brandPrimaryHover : white)};
+    }
   }
 `;
-
-class Button extends Component<ButtonProps> {
+export class Button extends Component<ButtonProps> {
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     color: 'primary',

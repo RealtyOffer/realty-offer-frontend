@@ -1,20 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { checkA11y } from '@storybook/addon-a11y';
-import { withInfo } from '@storybook/addon-info';
-import {
-  withKnobs, select, number,
-} from '@storybook/addon-knobs';
-
-import { defaultParameters } from '../../.storybook/constants';
+import { select, number } from '@storybook/addon-knobs';
 
 import Box from '../components/Box';
 
-const story = storiesOf('Components|Box', module)
-  .addDecorator(withKnobs)
-  .addDecorator(checkA11y)
-  .addDecorator(withInfo)
-  .addParameters(defaultParameters);
+const story = storiesOf('Components', module);
 
 const numOptions = [1, 2, 3, 4];
 

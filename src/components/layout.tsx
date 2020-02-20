@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Helmet } from 'react-helmet';
 import { withPrefix } from 'gatsby';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import useSiteMetadata from './SiteMetadata';
 import CssReset from '../styles/cssReset';
 
 import { baseSpacer, doubleSpacer, breakpoints } from '../styles/size';
+import { lightestGray } from '../styles/color';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -20,6 +21,7 @@ const LayoutWrapper = styled.div`
 `;
 
 const PageBody = styled.div`
+  background-color: ${lightestGray};
   flex: 1;
   padding: ${baseSpacer} 0;
   @media only screen and (min-width: ${breakpoints.sm}) {
@@ -27,7 +29,9 @@ const PageBody = styled.div`
   }
 `;
 
-const Layout = ({ children }) => {
+type LayoutProps = {}
+
+const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
   const { title, description } = useSiteMetadata();
   return (
     <div>

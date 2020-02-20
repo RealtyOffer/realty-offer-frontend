@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
-import { PageContainer, FlexContainer} from './';
+import PageContainer from './PageContainer';
+import FlexContainer from './FlexContainer';
 
 import { brandPrimary, white } from '../styles/color';
 import { baseSpacer, doubleSpacer } from '../styles/size';
 
-// import github from '../img/github-icon.svg'
 import logo from '../images/logo.svg';
 
 type NavbarProps = {}
@@ -23,7 +23,15 @@ const StyledNavbar = styled.nav`
 
 const StyledNavbarLink = styled(Link)`
   color: ${white};
-  padding-right: ${baseSpacer};
+  text-transform: uppercase;
+
+  &:last-child {
+    padding-left: ${baseSpacer};
+  }
+
+  &:hover, &:focus {
+    color: ${white};
+  }
 `;
 
 class Navbar extends Component<NavbarProps, NavbarState> {
@@ -48,6 +56,8 @@ class Navbar extends Component<NavbarProps, NavbarState> {
           <FlexContainer justifyContent="space-between">
             <StyledNavbarLink to="/" title="Logo">
               <img src={logo} alt="Realty Offer" height={doubleSpacer} />
+              {' '}
+              Realty Offer
             </StyledNavbarLink>
             <div>
               <div
@@ -61,10 +71,10 @@ class Navbar extends Component<NavbarProps, NavbarState> {
                 <div>
                   <StyledNavbarLink to="/">
                     Home
-                </StyledNavbarLink>
+                  </StyledNavbarLink>
                   <StyledNavbarLink to="/blog">
                     Blog
-                </StyledNavbarLink>
+                  </StyledNavbarLink>
                 </div>
               </div>
             </div>
@@ -73,6 +83,6 @@ class Navbar extends Component<NavbarProps, NavbarState> {
       </StyledNavbar>
     );
   }
-};
+}
 
 export default Navbar;

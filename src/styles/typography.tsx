@@ -7,11 +7,11 @@ export const headingsFontFamily = fontFamilySansSerif;
 // Font Sizes
 const fontSizeRoot = 16;
 
-export const fontSizeH1 = `${1.75 * fontSizeRoot}px`;
-export const fontSizeH2 = `${1.625 * fontSizeRoot}px`;
-export const fontSizeH3 = `${1.5 * fontSizeRoot}px`;
-export const fontSizeH4 = `${1.25 * fontSizeRoot}px`;
-export const fontSizeH5 = `${1.125 * fontSizeRoot}px`;
+export const fontSizeH1 = `${3 * fontSizeRoot}px`;
+export const fontSizeH2 = `${2.5 * fontSizeRoot}px`;
+export const fontSizeH3 = `${2 * fontSizeRoot}px`;
+export const fontSizeH4 = `${1.5 * fontSizeRoot}px`;
+export const fontSizeH5 = `${1.25 * fontSizeRoot}px`;
 export const fontSizeH6 = `${1 * fontSizeRoot}px`;
 
 export const fontSizeBase = `${1 * fontSizeRoot}px`;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useField } from 'formik';
 
 import {
-  inputHeight, inputPaddingY, inputPaddingX, baseSpacer, borderRadius,
+  inputHeight, inputPaddingY, inputPaddingX, baseSpacer, borderRadius, quarterSpacer,
 } from '../styles/size';
 import { fontSizeBase, lineHeightBase, fontSizeSmall } from '../styles/typography';
 import {
@@ -19,11 +19,12 @@ type InputProps = {
   disabled: boolean;
   id: string;
   name: string;
+  square: boolean;
 }
 
 const StyledInput = styled.input`
   display: block;
-  width: 100%;
+  width: ${(props: InputProps) => (props.square ? inputHeight : '100%')};
   height: ${inputHeight};
   padding: ${inputPaddingY} ${inputPaddingX};
   font-size: ${fontSizeBase};
@@ -33,6 +34,7 @@ const StyledInput = styled.input`
   background-image: none;
   border: ${baseBorderStyle};
   transition: border-color .2s ease-in-out;
+  ${(props: InputProps) => props.square && `margin: 0 ${quarterSpacer};`}
   
   ${(meta) => (meta.touched && meta.error && `
       border-color: ${brandDanger};
@@ -68,8 +70,8 @@ const Input = ({
   const [field, meta] = useField(name);
   return (
     <InputWrapper>
-      <label htmlFor={id || name}>{label}</label>
-      <StyledInput {...field} {...props} {...meta} placeholder={`Enter ${label}`} />
+      { label && <label htmlFor={id || name}>{label}</label> }
+      <StyledInput {...field} {...props} {...meta} placeholder={!props.square ? `Enter ${label}` : ''} />
       {meta.touched && meta.error ? (
         <StyledErrorMessage className="error">{meta.error}</StyledErrorMessage>
       ) : null}

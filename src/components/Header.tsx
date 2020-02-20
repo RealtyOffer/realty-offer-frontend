@@ -18,36 +18,42 @@ type HeadingProps = {
   inverse?: boolean;
   noMargin?: boolean;
   align?: 'left' | 'center' | 'right';
+  children: string;
 }
 
 const renderFontSize = (as: HeadingProps['as']) => {
   if (as === 'h1') {
     return fontSizeH1;
-  } if (as === 'h2') {
+  }
+  if (as === 'h2') {
     return fontSizeH2;
-  } if (as === 'h3') {
+  }
+  if (as === 'h3') {
     return fontSizeH3;
-  } if (as === 'h4') {
+  }
+  if (as === 'h4') {
     return fontSizeH4;
-  } if (as === 'h5') {
+  }
+  if (as === 'h5') {
     return fontSizeH5;
-  } if (as === 'h6') {
+  }
+  if (as === 'h6') {
     return fontSizeH6;
   }
   return fontSizeH1;
 };
 
 const StyledHeading = styled.h1`
-  font-weight: 400;
+  font-weight: 300;
   line-height: ${lineHeightSmall};
-  color: ${(props: HeadingProps) => (props.inverse ? white : headingsColor )};
+  color: ${(props: HeadingProps) => (props.inverse ? white : headingsColor)};
   margin-bottom: ${(props: HeadingProps) => (props.noMargin ? '0' : baseSpacer)};
   text-align: ${(props: HeadingProps) => props.align};
   white-space: pre-line;
   font-size: ${(props: HeadingProps) => props.as && renderFontSize(props.as)};
 `;
 
-const Header: FunctionComponent<HeadingProps> = (props) => (
+export const Header: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
   <StyledHeading
     as={props.as}
     noMargin={props.noMargin}
@@ -57,5 +63,12 @@ const Header: FunctionComponent<HeadingProps> = (props) => (
     {props.children}
   </StyledHeading>
 );
+
+Header.defaultProps = {
+  as: 'h1',
+  inverse: false,
+  noMargin: false,
+  align: 'left',
+};
 
 export default Header;

@@ -72,7 +72,6 @@ const CssReset = createGlobalStyle`
     font-size: 1rem;
     line-height: 1.5;
     color: ${textColor};
-    background-color: ${lightestGray};
     overflow-x: hidden;
   }
 

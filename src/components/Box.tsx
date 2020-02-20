@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { baseSpacer } from '../styles/size';
@@ -11,7 +11,7 @@ type BoxProps = {
   textAlign?: 'center' | 'left' | 'right';
   height?: number;
   zindex?: 1 | 2 | 3 | 4;
-};
+}
 
 const renderShadow = (zindex: number) => {
   if (zindex === 1) {
@@ -29,7 +29,7 @@ const renderShadow = (zindex: number) => {
   return z1Shadow;
 };
 
-const Box: FunctionComponent<BoxProps> = styled.div`
+const StyledBox = styled.div`
   background: ${white};
   padding: ${baseSpacer};
   margin-bottom: ${baseSpacer};
@@ -38,8 +38,16 @@ const Box: FunctionComponent<BoxProps> = styled.div`
   height: ${(props: BoxProps) => (props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`)};
 `;
 
-Box.defaultProps = {
-  zindex: 1,
-};
+export const Box: FunctionComponent<BoxProps> = ({
+  textAlign, height, zindex, children,
+}) => (
+  <StyledBox
+    textAlign={textAlign}
+    height={height}
+    zindex={zindex}
+  >
+    {children}
+  </StyledBox>
+);
 
 export default Box;

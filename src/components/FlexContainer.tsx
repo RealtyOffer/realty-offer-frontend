@@ -6,6 +6,7 @@ type FlexContainerProps = {
   justifyContent?: 'space-between' | 'space-around' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right';
   alignItems?: 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | 'stretch';
   flexWrap?: 'wrap' | 'nowrap';
+  height?: number;
 };
 
 const FlexContainer: FunctionComponent<FlexContainerProps> = styled.div`
@@ -13,7 +14,7 @@ const FlexContainer: FunctionComponent<FlexContainerProps> = styled.div`
   align-items: ${(props: FlexContainerProps) => props.alignItems};
   justify-content: ${(props: FlexContainerProps) => props.justifyContent};
   max-width: 100%;
-  height: 100%;
+  height: ${(props: FlexContainerProps) => (props.height ? `${props.height}px` : '100%')};
   flex-wrap: ${(props: FlexContainerProps) => props.flexWrap};
   flex-direction: ${(props: FlexContainerProps) => props.flexDirection};
 `;

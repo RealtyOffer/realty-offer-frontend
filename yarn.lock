@@ -2605,6 +2605,11 @@
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.15.1.tgz#c8e84705e08eed430b5e15b39c65b0944e4d1422"
   integrity sha512-eWN5ElDTeBc5lRDh95SqA8x18D0ll2pWudU3uWiyfsRmIZcmUXpEsxPU+7+BsdCrO2vfLRC629u/MmjbmF+2tA==
 
+"@types/yup@^0.26.32":
+  version "0.26.32"
+  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.32.tgz#bd356fb405f3d641eff963854edf7ad854a8e829"
+  integrity sha512-55WFAq8lNYXdRzSP1cenMFFXtPRe7PWsqn5y9ibqKHOQZ/cSLErkcnB1LE89M7W2TSXVDFtx+T7eFePkGoB+xw==
+
 "@types/zen-observable@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
@@ -6556,7 +6561,7 @@ engine.io@~3.4.0:
     engine.io-parser "~2.2.0"
     ws "^7.1.2"
 
-enhanced-resolve@^4.1.0:
+enhanced-resolve@^4.0.0, enhanced-resolve@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-4.1.1.tgz#2937e2b8066cd0fe7ce0990a98f0d71a35189f66"
   integrity sha512-98p2zE+rL7/g/DzMHMTF4zZlCgeVdJ7yr6xzEpJRYwFYrGi9ANdn5DnJURg6RpBkyk60XYDnWIv51VfIhfNGuA==
@@ -11678,7 +11683,7 @@ micromatch@^3.1.10, micromatch@^3.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
-micromatch@^4.0.2:
+micromatch@^4.0.0, micromatch@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.2.tgz#4fcb0999bf9fbc2fcbdd212f6d629b9a56c39259"
   integrity sha512-y7FpHSbMUMoyPbYUSzO6PaZ6FyRnQOpHuKwbo1G+Knck95XVU4QAiKdGEnj5wwoS7PlOgthX/09u5iFJ+aYf5Q==
@@ -14224,6 +14229,15 @@ query-string@^5.0.1:
     decode-uri-component "^0.2.0"
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
+
+query-string@^6.11.0:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.11.0.tgz#dc27a05733d1be66f16d0f83dfa957270f45f66d"
+  integrity sha512-jS+me8X3OEGFTsF6kF+vUUMFG/d3WUCvD7bHhfZP5784nOq1pjj8yau/u86nfOncmcN6ZkSWKWkKAvv/MGxzLA==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
 
 query-string@^6.9.0:
   version "6.10.1"
@@ -17528,6 +17542,17 @@ ts-invariant@^0.4.0:
   integrity sha512-uEtWkFM/sdZvRNNDL3Ehu4WVpwaulhwQszV8mrtcdeE8nN00BV9mAmQ88RkrBhFgl9gMgvjJLAQcZbnPXI9mlA==
   dependencies:
     tslib "^1.9.3"
+
+ts-loader@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-6.2.1.tgz#67939d5772e8a8c6bdaf6277ca023a4812da02ef"
+  integrity sha512-Dd9FekWuABGgjE1g0TlQJ+4dFUfYGbYcs52/HQObE0ZmUNjQlmLAS7xXsSzy23AMaMwipsx5sNHvoEpT2CZq1g==
+  dependencies:
+    chalk "^2.3.0"
+    enhanced-resolve "^4.0.0"
+    loader-utils "^1.0.2"
+    micromatch "^4.0.0"
+    semver "^6.0.0"
 
 ts-pnp@^1.1.2:
   version "1.1.5"

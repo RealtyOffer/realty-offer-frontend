@@ -3,8 +3,9 @@ import { Link } from 'gatsby';
 
 const Agent: FunctionComponent = () => (
   <>
-  <h1>Hi!</h1>
-  <Link to="/agent/create-agent">Create agent</Link>
+    <h1>Hi!</h1>
+    <Link to="/agent/create-agent">Create agent</Link>
+    <Link to="/agent/verify-email?email=tony.mamo@galileo-insights.com">Create agent</Link>
   </>
 );
 
