@@ -71,12 +71,6 @@ const BlogPost = ({ data }) => {
   );
 };
 
-BlogPost.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
-  }),
-};
-
 export default BlogPost;
 
 export const pageQuery = graphql`
