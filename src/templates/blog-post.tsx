@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { kebabCase } from 'lodash';
 import Helmet from 'react-helmet';
 import { graphql, Link } from 'gatsby';
@@ -45,14 +44,6 @@ export const BlogPostTemplate = ({
       </div>
     </section>
   );
-};
-
-BlogPostTemplate.propTypes = {
-  content: PropTypes.node.isRequired,
-  contentComponent: PropTypes.func,
-  description: PropTypes.string,
-  title: PropTypes.string,
-  helmet: PropTypes.object,
 };
 
 const BlogPost = ({ data }) => {
