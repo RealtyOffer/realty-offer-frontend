@@ -93,6 +93,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       new webpack.ProvidePlugin({
         fetch: path.resolve(path.join(__dirname, 'node_modules/isomorphic-fetch/fetch-npm-node')),
       }),
+      new webpack.IgnorePlugin(/\/iconv-loader$/),
     ],
   });
 };
