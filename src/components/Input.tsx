@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 import { useField } from 'formik';
+import StringMask from 'string-mask';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import {
   inputHeight, inputPaddingY, inputPaddingX, baseSpacer, borderRadius, quarterSpacer,
@@ -10,6 +12,7 @@ import {
   textColor, white, brandDanger, brandDangerRGB, brandPrimary, brandPrimaryRGB,
 } from '../styles/color';
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
+
 
 type InputProps = {
   disabled: boolean;
@@ -73,10 +76,22 @@ const StyledLabel = styled.label`
   ${(props: InputProps) => props.hiddenLabel && visuallyHiddenStyle}
 `;
 
+const PasswordWrapper = styled.div`
+  position: relative;
+`;
+
+const PasswordToggle = styled.div`
+  position: absolute;
+  right: ${baseSpacer};
+  top: ${baseSpacer};
+`;
+
 const Input: FunctionComponent<InputProps> = (props) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and also replace ErrorMessage entirely.
   const [field, meta] = useField(props.name);
+  // state for toggling password visibility
+  const [passwordVisibility, setPasswordVisibiility] = useState(false);
 
   let inputTypeToRender;
 
@@ -86,6 +101,51 @@ const Input: FunctionComponent<InputProps> = (props) => {
         <StyledSelect type="select" {...field} {...props} {...meta}>
           {props.children}
         </StyledSelect>
+      );
+      break;
+    case 'tel': {
+      const phoneDelimiter = '-';
+      const phoneMask = '000-000-0000';
+      const removeTrailingCharIfFound = (str: string, char: string) => str
+        .split(char)
+        .filter((segment) => segment !== '')
+        .join(char);
+      const formatValue = (str: string) => {
+        const unmaskedValue = str.split(phoneDelimiter).join('');
+        const formatted = StringMask.process(unmaskedValue, phoneMask);
+        return removeTrailingCharIfFound(formatted.result, phoneDelimiter);
+      };
+      inputTypeToRender = (
+        <StyledInput
+          type="tel"
+          placeholder={!props.square ? `Enter ${props.label}` : ''}
+          {...field}
+          {...props}
+          {...meta}
+          onChange={(event) => {
+            field.onChange(event.target.name)(
+              formatValue(event.target.value),
+            );
+          }}
+        />
+      );
+    }
+      break;
+    case 'password':
+      inputTypeToRender = (
+        <PasswordWrapper>
+          <StyledInput
+            type="password"
+            placeholder={!props.square ? `Enter ${props.label}` : ''}
+            {...field}
+            {...props}
+            {...meta}
+          />
+          <PasswordToggle onClick={() => setPasswordVisibiility(!passwordVisibility)}>
+            {passwordVisibility ? <FaEye /> : <FaEyeSlash />}
+          </PasswordToggle>
+          {passwordVisibility && <span style={{ marginLeft: baseSpacer }}>{field.value}</span>}
+        </PasswordWrapper>
       );
       break;
     default:
@@ -106,7 +166,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
     <InputWrapper>
       {
         props.label && (
-          <StyledLabel htmlFor={props.id || props.name} hidden={props.hiddenLabel}>
+          <StyledLabel htmlFor={props.id || props.name} hiddenLabel={props.hiddenLabel}>
             {props.label}
           </StyledLabel>
         )

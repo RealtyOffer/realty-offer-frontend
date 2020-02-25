@@ -3,7 +3,7 @@ import { kebabCase } from 'lodash';
 import Helmet from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 
-import { Header, Layout } from '../components';
+import { Box, Header, Layout } from '../components';
 import Content, { HTMLContent } from '../components/Content';
 
 export const BlogPostTemplate = ({
@@ -17,32 +17,34 @@ export const BlogPostTemplate = ({
   const PostContent = contentComponent || Content;
 
   return (
-    <section className="section">
-      {helmet || ''}
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <Header>
-              {title}
-            </Header>
-            <p>{description}</p>
-            <PostContent content={content} />
-            {tags && tags.length ? (
-              <div style={{ marginTop: '4rem' }}>
-                <h4>Tags</h4>
-                <ul className="taglist">
-                  {tags.map((tag) => (
-                    <li key={`${tag}tag`}>
-                      <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
+    <Box>
+      <section className="section">
+        {helmet || ''}
+        <div className="container content">
+          <div className="columns">
+            <div className="column is-10 is-offset-1">
+              <Header>
+                {title}
+              </Header>
+              <p>{description}</p>
+              <PostContent content={content} />
+              {tags && tags.length ? (
+                <div style={{ marginTop: '4rem' }}>
+                  <h4>Tags</h4>
+                  <ul className="taglist">
+                    {tags.map((tag) => (
+                      <li key={`${tag}tag`}>
+                        <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </Box>
   );
 };
 
@@ -56,8 +58,8 @@ const BlogPost = ({ data }) => {
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
         helmet={(
-          <Helmet titleTemplate="%s | Blog">
-            <title>{`${post.frontmatter.title}`}</title>
+          <Helmet titleTemplate="%s | Realty Offer Blog">
+            <title>{post.frontmatter.title}</title>
             <meta
               name="description"
               content={`${post.frontmatter.description}`}

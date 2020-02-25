@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, graphql, StaticQuery } from 'gatsby';
-import PreviewCompatibleImage from './PreviewCompatibleImage';
+
+import { Seo, PreviewCompatibleImage } from '../components';
 
 class BlogRoll extends React.Component {
   render() {
@@ -9,6 +10,7 @@ class BlogRoll extends React.Component {
 
     return (
       <div className="columns is-multiline">
+        <Seo title="Latest Stories" />
         {posts
           && posts.map(({ node: post }) => (
             <div className="is-parent column is-6" key={post.id}>

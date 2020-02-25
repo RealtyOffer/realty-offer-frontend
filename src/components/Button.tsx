@@ -167,9 +167,13 @@ const StyledButton = styled.button`
 
 const StyledLink = styled.div`
   ${allStyles}
+  padding: 0; /* remove padding from parent div and use in <a> below */
 
   & > a {
+    padding: ${halfSpacer} ${baseAndAHalfSpacer};
+    display: block;
     color: inherit;
+
     &:hover, &:focus {
       color: ${(props: ButtonProps) => (props.color === 'text' ? brandPrimaryHover : white)};
     }

@@ -123,7 +123,7 @@ const AgentInformation: FunctionComponent<{}> = () => {
                   />
                   <Field
                     as={Input}
-                    type="phone"
+                    type="tel"
                     name="brokerPhoneNumber"
                     label="Broker Phone Number"
                     validate={requiredPhoneNumber}

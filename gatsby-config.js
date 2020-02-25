@@ -36,6 +36,15 @@ module.exports = {
         path: `${__dirname}/src/pages/blog`,
       },
     },
+    {
+      resolve: 'gatsby-plugin-nprogress',
+      options: {
+        // Setting a color is optional.
+        color: 'white',
+        // Disable the loading spinner.
+        showSpinner: false,
+      },
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
@@ -45,13 +54,13 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
+        name: 'realty-offer',
+        short_name: 'realtyoffer',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: '#0077CC',
+        theme_color: '#0077CC',
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        icon: 'src/images/favicon.png', // This path is relative to the root of the site.
       },
     },
     {

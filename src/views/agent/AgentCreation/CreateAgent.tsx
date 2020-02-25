@@ -69,7 +69,7 @@ const CreateAgent: FunctionComponent<{}> = () => {
                   </Row>
                   <Field
                     as={Input}
-                    type="text"
+                    type="tel"
                     name="phoneNumber"
                     label="Phone Number"
                     validate={requiredPhoneNumber}
@@ -82,12 +82,19 @@ const CreateAgent: FunctionComponent<{}> = () => {
                     validate={requiredEmail}
                   />
                   <Field
-                    as={Input}
-                    type="password"
                     name="password"
-                    label="Password"
                     validate={requiredPassword}
-                  />
+                  >
+                    {({ field, form, meta }) => (
+                      <Input
+                        type="password"
+                        label="Password"
+                        {...field}
+                        {...form}
+                        {...meta}
+                      />
+                    )}
+                  </Field>
                   <HorizontalRule />
                   <Button type="submit" disabled={isSubmitting || !isValid} block>
                     Create Account

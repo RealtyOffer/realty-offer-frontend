@@ -1,4 +1,3 @@
-import BlogRoll from './BlogRoll';
 import Box from './Box';
 import Button from './Button';
 import Column from './Column';
@@ -19,7 +18,6 @@ import Seo from './Seo';
 import SiteMetadata from './SiteMetadata';
 
 export {
-  BlogRoll,
   Box,
   Button,
   Column,
