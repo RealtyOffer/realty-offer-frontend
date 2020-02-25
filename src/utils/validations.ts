@@ -13,7 +13,7 @@ export const customFieldLevelValidation = (value: string, validations: Array<Fun
 };
 
 // individual validations
-export const requiredField = (value?: string) => (value ? undefined : 'This field is required');
+export const requiredField = (value: string) => (value ? undefined : 'This field is required');
 
 export const isPhoneNumber = (value: string) => (
   // https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript

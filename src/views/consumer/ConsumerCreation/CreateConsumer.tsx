@@ -1,7 +1,9 @@
 import React, { FunctionComponent } from 'react';
 
+import { Header } from '../../../components';
+
 const CreateConsumer: FunctionComponent = () => (
-  <h1>Hello</h1>
+  <Header>Create Consumer</Header>
 );
 
 export default CreateConsumer;

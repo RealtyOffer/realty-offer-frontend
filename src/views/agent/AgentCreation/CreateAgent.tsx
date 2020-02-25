@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
+import { navigate } from 'gatsby';
 
 import {
-  Box, Button, Input, FlexContainer, Header, Row, Column,
-} from '../../components';
+  Box, Button, Input, FlexContainer, Header, Row, Column, HorizontalRule,
+} from '../../../components';
 import {
   requiredEmail, requiredField, requiredPhoneNumber, requiredPassword,
-} from '../../utils/validations';
+} from '../../../utils/validations';
 
 interface CreateAgentFormValues {
   firstName?: string;
@@ -27,9 +28,9 @@ const CreateAgent: FunctionComponent<{}> = () => {
 
   return (
     <Row>
-      <Column md={4} mdOffset={4}>
+      <Column md={6} mdOffset={3}>
         <div>
-          <Box>
+          <Box largePadding>
             <FlexContainer flexDirection="column">
               <Header>Sign Up!</Header>
               <p>Tell Us About Yourself</p>
@@ -40,6 +41,7 @@ const CreateAgent: FunctionComponent<{}> = () => {
                 setTimeout(() => {
                   alert(JSON.stringify(values, null, 2));
                   setSubmitting(false);
+                  navigate('/agent/verify-email');
                 }, 400);
               }}
             >
@@ -86,6 +88,7 @@ const CreateAgent: FunctionComponent<{}> = () => {
                     label="Password"
                     validate={requiredPassword}
                   />
+                  <HorizontalRule />
                   <Button type="submit" disabled={isSubmitting || !isValid} block>
                     Create Account
                   </Button>

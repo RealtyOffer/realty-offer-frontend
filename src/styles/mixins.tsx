@@ -15,6 +15,16 @@ export const disabledStyle = `
   pointer-events: none;
 `;
 
+export const visuallyHiddenStyle = `
+  position: absolute !important;
+  height: 1px; 
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; /* added line */
+`;
+
 export const z1Shadow = `0 ${quarterSpacer} ${quarterSpacer} 0 rgba(0,0,0,0.1)`;
 export const z2Shadow = `0 ${quarterSpacer} ${halfSpacer} 0 rgba(0,0,0,0.1)`;
 export const z3Shadow = `0 ${quarterSpacer} ${halfSpacer} ${quarterSpacer} rgba(0,0,0,0.1)`;

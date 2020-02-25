@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "realty-offer",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "web application for Realty Offer",
+  "version": "1.0.0",
+  "author": "Tony Mamo <tony.mamo@galileo-insights.com>",
   "dependencies": {
     "@mdx-js/mdx": "^1.5.5",
     "@mdx-js/react": "^1.5.5",
@@ -108,9 +108,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/Galileo-Insights/realty-offer-frontend"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/Galileo-Insights/realty-offer-frontend/issues"
   }
 }

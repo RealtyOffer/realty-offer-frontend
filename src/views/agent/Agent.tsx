@@ -1,11 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 
+import { Header } from '../../components';
+
 const Agent: FunctionComponent = () => (
   <>
-    <h1>Hi!</h1>
-    <Link to="/agent/create-agent">Create agent</Link>
-    <Link to="/agent/verify-email?email=tony.mamo@galileo-insights.com">Create agent</Link>
+    <Header>Agent</Header>
+    <p><Link to="/agent/create-agent">Create agent</Link></p>
+    <p><Link to="/agent/verify-email?email=tony.mamo@galileo-insights.com">Verify Email</Link></p>
+    <p><Link to="/agent/agent-information">Agent Information</Link></p>
+    <p><Link to="/agent/business-information">Business Information</Link></p>
+    <p><Link to="/agent/payment-information">Payment Information</Link></p>
+    <p><Link to="/agent/confirm-payment">Confirm Payment</Link></p>
   </>
 );
 

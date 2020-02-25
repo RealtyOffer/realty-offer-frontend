@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 
+import { Header } from '../../components';
+
 const Consumer: FunctionComponent = () => (
   <>
-    <h1>Hi!</h1>
+    <Header>Consumer</Header>
     <Link to="/consumer/create-consumer">Create consumer</Link>
   </>
 );

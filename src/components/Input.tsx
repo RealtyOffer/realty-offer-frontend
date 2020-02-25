@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { FunctionComponent } from 'react';
+import styled, { css } from 'styled-components';
 import { useField } from 'formik';
 
 import {
@@ -9,20 +9,19 @@ import { fontSizeBase, lineHeightBase, fontSizeSmall } from '../styles/typograph
 import {
   textColor, white, brandDanger, brandDangerRGB, brandPrimary, brandPrimaryRGB,
 } from '../styles/color';
-import { baseBorderStyle, disabledStyle } from '../styles/mixins';
+import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 
 type InputProps = {
-  meta: {
-    touched: boolean;
-    error: string;
-  };
   disabled: boolean;
   id: string;
   name: string;
   square: boolean;
+  hiddenLabel?: boolean;
+  type: string;
+  label: string;
 }
 
-const StyledInput = styled.input`
+const sharedStyles = css`
   display: block;
   width: ${(props: InputProps) => (props.square ? inputHeight : '100%')};
   height: ${inputHeight};
@@ -36,7 +35,7 @@ const StyledInput = styled.input`
   transition: border-color .2s ease-in-out;
   ${(props: InputProps) => props.square && `margin: 0 ${quarterSpacer};`}
   
-  ${(meta) => (meta.touched && meta.error && `
+  ${(meta) => (meta && meta.touched && meta.error && `
       border-color: ${brandDanger};
       border-width: 2px;
       // box-shadow: 0 0 0 ${borderRadius} rgba(${brandDangerRGB},.25);
@@ -53,6 +52,10 @@ const StyledInput = styled.input`
   ${(props: InputProps) => (props.disabled && disabledStyle)}
 `;
 
+const StyledInput = styled.input`
+  ${sharedStyles}
+`;
+
 const StyledErrorMessage = styled.div`
   color: ${brandDanger};
   font-size: ${fontSizeSmall};
@@ -62,19 +65,58 @@ const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
 `;
 
-const Input = ({
-  label, id, name, ...props
-}: { label: string; id: string; name: string; }) => {
+const StyledSelect = styled.select`
+  ${sharedStyles}
+`;
+
+const StyledLabel = styled.label`
+  ${(props: InputProps) => props.hiddenLabel && visuallyHiddenStyle}
+`;
+
+const Input: FunctionComponent<InputProps> = (props) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and also replace ErrorMessage entirely.
-  const [field, meta] = useField(name);
+  const [field, meta] = useField(props.name);
+
+  let inputTypeToRender;
+
+  switch (props.type) {
+    case 'select':
+      inputTypeToRender = (
+        <StyledSelect type="select" {...field} {...props} {...meta}>
+          {props.children}
+        </StyledSelect>
+      );
+      break;
+    default:
+      inputTypeToRender = (
+        <StyledInput
+          type={props.type}
+          square={props.square}
+          placeholder={!props.square ? `Enter ${props.label}` : ''}
+          {...field}
+          {...props}
+          {...meta}
+        />
+      );
+      break;
+  }
+
   return (
     <InputWrapper>
-      { label && <label htmlFor={id || name}>{label}</label> }
-      <StyledInput {...field} {...props} {...meta} placeholder={!props.square ? `Enter ${label}` : ''} />
-      {meta.touched && meta.error ? (
-        <StyledErrorMessage className="error">{meta.error}</StyledErrorMessage>
-      ) : null}
+      {
+        props.label && (
+          <StyledLabel htmlFor={props.id || props.name} hidden={props.hiddenLabel}>
+            {props.label}
+          </StyledLabel>
+        )
+      }
+      {inputTypeToRender}
+      {
+        meta && meta.touched && meta.error && !props.square && (
+          <StyledErrorMessage>{meta.error}</StyledErrorMessage>
+        )
+      }
     </InputWrapper>
   );
 };
