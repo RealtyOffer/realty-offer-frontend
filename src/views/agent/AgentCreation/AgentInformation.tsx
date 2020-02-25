@@ -22,9 +22,7 @@ const AgentInformation: FunctionComponent<{}> = () => {
     brokerPhoneNumber: '',
   };
 
-  const save = () => {
-    console.log('saved');
-  };
+  const save = () => {};
 
   return (
     <Row>

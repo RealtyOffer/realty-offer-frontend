@@ -6,7 +6,7 @@ type FlexContainerProps = {
   justifyContent?: 'space-between' | 'space-around' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right';
   alignItems?: 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | 'stretch';
   flexWrap?: 'wrap' | 'nowrap';
-  height?: 'string';
+  height?: string;
 };
 
 const FlexContainer: FunctionComponent<FlexContainerProps> = styled.div`

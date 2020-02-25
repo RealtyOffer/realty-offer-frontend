@@ -16,8 +16,8 @@ import { doubleSpacer } from '../../../styles/size';
 
 interface BusinessInformationFormValues {
   zip: string;
-  agentType: 'seller' | 'sellerBuyer' | 'Select Agent Type';
-  subscriptionType: 'monthly' | 'yearly' | 'Select a Period';
+  agentType: string;
+  subscriptionType: string;
 }
 
 type BusinessInformationProps = {};
@@ -84,7 +84,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
   }
 
   render() {
-    const { regions, zips } = this.state;
+    const { regions } = this.state;
     const initialValues = {
       zip: '',
       agentType: '',
