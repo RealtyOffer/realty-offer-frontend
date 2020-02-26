@@ -14,9 +14,7 @@ const { store, persistor } = configureStore(initialState);
 export default ({ element }) => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Layout>
-        {element}
-      </Layout>
+      {element}
     </PersistGate>
   </Provider>
 );

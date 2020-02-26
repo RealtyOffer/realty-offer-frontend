@@ -15,13 +15,14 @@ import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/m
 
 
 type InputProps = {
-  disabled: boolean;
-  id: string;
+  disabled?: boolean;
+  id?: string;
   name: string;
-  square: boolean;
+  square?: boolean;
   hiddenLabel?: boolean;
   type: string;
   label: string;
+  helpText?: string;
 }
 
 const sharedStyles = css`
@@ -37,7 +38,7 @@ const sharedStyles = css`
   border: ${baseBorderStyle};
   transition: border-color .2s ease-in-out;
   ${(props: InputProps) => props.square && `margin: 0 ${quarterSpacer};`}
-  
+
   ${(meta) => (meta && meta.touched && meta.error && `
       border-color: ${brandDanger};
       border-width: 2px;
@@ -48,7 +49,7 @@ const sharedStyles = css`
     border-color: ${brandPrimary};
     border-width: 2px;
     outline: 0;
-    // box-shadow: 0 0 0 ${borderRadius} rgba(${brandPrimaryRGB},.25);
+    /* box-shadow: 0 0 0 ${borderRadius} rgba(${brandPrimaryRGB},.25); */
   }
   
   /* Disabled state */
@@ -144,7 +145,11 @@ const Input: FunctionComponent<InputProps> = (props) => {
           <PasswordToggle onClick={() => setPasswordVisibiility(!passwordVisibility)}>
             {passwordVisibility ? <FaEye /> : <FaEyeSlash />}
           </PasswordToggle>
-          {passwordVisibility && <span style={{ marginLeft: baseSpacer }}>{field.value}</span>}
+          {
+            passwordVisibility && field.value.length > 0 && (
+              <span style={{ marginLeft: baseSpacer }}>{field.value}</span>
+            )
+          }
         </PasswordWrapper>
       );
       break;
@@ -172,6 +177,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
         )
       }
       {inputTypeToRender}
+      {props.helpText && <small>{props.helpText}</small>}
       {
         meta && meta.touched && meta.error && !props.square && (
           <StyledErrorMessage>{meta.error}</StyledErrorMessage>

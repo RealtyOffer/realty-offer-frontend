@@ -12,6 +12,7 @@ import CssReset from '../styles/cssReset';
 
 import { baseSpacer, doubleSpacer, breakpoints } from '../styles/size';
 import { lightestGray } from '../styles/color';
+import GlobalAlerts from './GlobalAlerts';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -81,6 +82,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
             {children}
           </PageContainer>
         </PageBody>
+        <GlobalAlerts />
         <Footer />
       </LayoutWrapper>
     </div>

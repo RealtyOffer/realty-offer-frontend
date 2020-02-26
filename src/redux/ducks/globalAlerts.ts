@@ -1,7 +1,6 @@
 import uuidv4 from 'uuid/v4';
 
 import { AUTHENTICATE_CREDENTIALS_SUCCESS, LOGOUT_REQUEST } from './auth';
-// import type { GlobalAlertsActionTypes, GlobalAlertsStoreType, GlobalAlertType } from 'redux/ducks/globalAlerts.flow';
 
 export const ADD_GLOBAL_ALERT = 'ADD_GLOBAL_ALERT';
 export const CLOSE_GLOBAL_ALERT = 'CLOSE_GLOBAL_ALERT';

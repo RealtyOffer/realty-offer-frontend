@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
+import { connect } from 'react-redux';
 
 import {
   Box, Button, Input, FlexContainer, Header, Row, Column, HorizontalRule,
@@ -8,16 +9,21 @@ import {
 import {
   requiredEmail, requiredField, requiredPhoneNumber, requiredPassword,
 } from '../../../utils/validations';
+import { createAccount } from '../../../redux/ducks/auth';
 
 interface CreateAgentFormValues {
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
-  emailAddress?: string;
-  password?: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  password: string;
 }
 
-const CreateAgent: FunctionComponent<{}> = () => {
+type Props = {
+  createAccount: Function,
+}
+
+const CreateAgent: FunctionComponent<Props> = (props) => {
   const initialValues: CreateAgentFormValues = {
     firstName: '',
     lastName: '',
@@ -25,6 +31,8 @@ const CreateAgent: FunctionComponent<{}> = () => {
     emailAddress: '',
     password: '',
   };
+
+  const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
 
   return (
     <Row>
@@ -38,11 +46,13 @@ const CreateAgent: FunctionComponent<{}> = () => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
+                props.createAccount({
+                  ...values,
+                  phoneNumber: reformattedPhone(values.phoneNumber),
+                }).then(() => {
                   setSubmitting(false);
                   navigate('/agent/verify-email');
-                }, 400);
+                });
               }}
             >
               {({ isSubmitting, isValid }) => (
@@ -89,6 +99,7 @@ const CreateAgent: FunctionComponent<{}> = () => {
                       <Input
                         type="password"
                         label="Password"
+                        helpText="Password must contain a minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character."
                         {...field}
                         {...form}
                         {...meta}
@@ -112,4 +123,11 @@ const CreateAgent: FunctionComponent<{}> = () => {
   );
 };
 
-export default CreateAgent;
+const mapDispatchToProps = {
+  createAccount,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(CreateAgent);

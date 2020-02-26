@@ -37,7 +37,12 @@ export const isAlphaNumeric = (value: string) => (
 
 export const isValidPassword = (value: string) => (
   // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-  value && !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[A-Z])[A-Za-z\d!$%@#£€*?&]{8,}$/.test(value) ?
+  // Minimum eight characters
+  // one uppercase letter
+  // one lowercase letter
+  // one number
+  // one special character
+  value && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value) ?
     'Password does not meet the requirements' : undefined
 );
 

@@ -1,5 +1,11 @@
 import { RSAA } from 'redux-api-middleware';
 
+import { AUTH_SIGNUP_ENDPOINT } from '../constants';
+
+export const CREATE_ACCOUNT_REQUEST = 'CREATE_ACCOUNT_REQUEST';
+export const CREATE_ACCOUNT_SUCCESS = 'CREATE_ACCOUNT_SUCCESS';
+export const CREATE_ACCOUNT_FAILURE = 'CREATE_ACCOUNT_FAILURE';
+
 export const AUTHENTICATE_CREDENTIALS_REQUEST = 'AUTHENTICATE_CREDENTIALS_REQUEST';
 export const AUTHENTICATE_CREDENTIALS_SUCCESS = 'AUTHENTICATE_CREDENTIALS_SUCCESS';
 export const AUTHENTICATE_CREDENTIALS_FAILURE = 'AUTHENTICATE_CREDENTIALS_FAILURE';
@@ -22,7 +28,19 @@ export const CONFIRM_ACCOUNT_FAILURE = 'CONFIRM_ACCOUNT_FAILURE';
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
-export const initialState = {
+type AuthStoreType = {
+  isLoading: boolean;
+  hasError: boolean;
+  isLoggedIn: boolean;
+  token: string;
+  message: string;
+}
+
+// type CreateAccountType = typeof createAccount;
+
+// type AuthActionTypes = CreateAccountType;
+
+export const initialState: AuthStoreType = {
   isLoading: false,
   hasError: false,
   isLoggedIn: false,
@@ -31,57 +49,89 @@ export const initialState = {
 };
 
 export default (
-  state = initialState,
+  state: AuthStoreType = initialState,
   action,
 ) => {
   switch (action.type) {
+    case CREATE_ACCOUNT_REQUEST:
     case AUTHENTICATE_CREDENTIALS_REQUEST:
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
     case CHANGE_PASSWORD_REQUEST:
     case CONFIRM_ACCOUNT_REQUEST:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isLoading: true,
         hasError: false,
-      });
+      };
     case AUTHENTICATE_CREDENTIALS_SUCCESS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isLoading: false,
         hasError: false,
         isLoggedIn: true,
         token: action.payload.token,
-      });
+      };
+    case CREATE_ACCOUNT_SUCCESS:
     case FORGOT_PASSWORD_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case CHANGE_PASSWORD_SUCCESS:
     case CONFIRM_ACCOUNT_SUCCESS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isLoading: false,
         hasError: false,
-      });
+      };
     case AUTHENTICATE_CREDENTIALS_FAILURE:
-      return Object.assign({}, initialState, {
+      return {
+        ...initialState,
         isLoading: false,
         hasError: true,
         isLoggedIn: false,
         token: null,
-        message: action.payload.message ? action.payload.message : 'An error occurred. Please try again.',
-      });
+        message: action.payload.message ? action.payload.message : 'An error occurred. Please try again.',};
+    case CREATE_ACCOUNT_FAILURE:
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case CHANGE_PASSWORD_FAILURE:
     case CONFIRM_ACCOUNT_FAILURE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isLoading: false,
         hasError: true,
         message: action.payload.message,
-      });
+      };
     case LOGOUT_REQUEST:
-      return Object.assign({}, initialState);
+      return { ...initialState };
     default:
       return state;
   }
 };
+
+type CreateAccountFormValues = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  password: string;
+}
+
+export const createAccount = (payload: CreateAccountFormValues) => ({
+  [RSAA]: {
+    endpoint: AUTH_SIGNUP_ENDPOINT,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    skipOauth: true,
+    types: [
+      CREATE_ACCOUNT_REQUEST,
+      CREATE_ACCOUNT_SUCCESS,
+      CREATE_ACCOUNT_FAILURE,
+    ],
+  },
+});
 
 export const authenticateCredentials = (payload: {
   username: string,
