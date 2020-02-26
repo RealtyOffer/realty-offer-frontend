@@ -15,7 +15,7 @@ interface CreateAgentFormValues {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  emailAddress: string;
+  email: string;
   password: string;
 }
 
@@ -28,7 +28,7 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
     firstName: '',
     lastName: '',
     phoneNumber: '',
-    emailAddress: '',
+    email: '',
     password: '',
   };
 
@@ -87,7 +87,7 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                   <Field
                     as={Input}
                     type="email"
-                    name="emailAddress"
+                    name="email"
                     label="Email Address"
                     validate={requiredEmail}
                   />
