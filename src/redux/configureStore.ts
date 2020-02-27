@@ -26,12 +26,12 @@ const functionsToCompose = [
 ];
 
 // eslint-disable-next-line
-if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
+// if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
   functionsToCompose.push((typeof window === 'object' &&
     typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ?
     window.__REDUX_DEVTOOLS_EXTENSION__() :
     (f: any) => f);
-}
+//v}
 
 const makeConfiguredStore = (reducer: any, initialState: any) => {
   const persistConfig = {
