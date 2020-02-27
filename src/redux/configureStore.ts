@@ -17,9 +17,9 @@ const middlewares = getMiddlewares();
 const isBrowser = typeof window !== 'undefined';
 
 // eslint-disable-next-line
-// if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
+if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
   middlewares.push(logger);
-// }
+}
 
 const functionsToCompose = [
   applyMiddleware(...middlewares),
