@@ -6,7 +6,15 @@ import { withInfo } from '@storybook/addon-info';
 
 import { defaultParameters } from './constants';
 
-import { brandPrimary, white, lightestGray } from '../src/styles/color';
+import {
+  brandPrimary,
+  white,
+  lightestGray,
+  brandSuccess,
+  brandDanger,
+  brandSecondary,
+  brandTertiary,
+} from '../src/styles/color';
 import CssReset from '../src/styles/cssReset';
 
 const req = require.context('../src', true, /.story.tsx$/);
@@ -45,9 +53,14 @@ addDecorator(withGlobal);
 
 addParameters({
   backgrounds: [
-    { name: 'brandPrimary', value: brandPrimary },
+    
     { name: 'white', value: white },
     { name: 'lightestGray', value: lightestGray, default: true },
+    { name: 'brandPrimary', value: brandPrimary },
+    { name: 'brandSecondary', value: brandSecondary },
+    { name: 'brandTeriary', value: brandTertiary },
+    { name: 'brandSuccess', value: brandSuccess },
+    { name: 'brandDanger', value: brandDanger },
   ]
 });
 configure(loadStories, module);
