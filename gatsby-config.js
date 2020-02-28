@@ -13,7 +13,6 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
-    'gatsby-plugin-netlify',
     'gatsby-plugin-netlify-cms',
     {
       resolve: 'gatsby-plugin-prefetch-google-fonts',
