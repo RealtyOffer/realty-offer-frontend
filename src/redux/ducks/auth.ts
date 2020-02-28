@@ -1,10 +1,17 @@
 import { RSAA } from 'redux-api-middleware';
 
-import { AUTH_SIGNUP_ENDPOINT } from '../constants';
+import { AUTH_SIGNUP_ENDPOINT, AUTH_CONFIRM_ENDPOINT } from '../constants';
+
+// eslint-disable-next-line import/no-cycle
+import { VerifyEmailFormValues } from '../../views/agent/AgentCreation/VerifyEmail';
 
 export const CREATE_ACCOUNT_REQUEST = 'CREATE_ACCOUNT_REQUEST';
 export const CREATE_ACCOUNT_SUCCESS = 'CREATE_ACCOUNT_SUCCESS';
 export const CREATE_ACCOUNT_FAILURE = 'CREATE_ACCOUNT_FAILURE';
+
+export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
+export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
+export const VERIFY_EMAIL_FAILURE = 'VERIFY_EMAIL_FAILURE';
 
 export const AUTHENTICATE_CREDENTIALS_REQUEST = 'AUTHENTICATE_CREDENTIALS_REQUEST';
 export const AUTHENTICATE_CREDENTIALS_SUCCESS = 'AUTHENTICATE_CREDENTIALS_SUCCESS';
@@ -34,6 +41,7 @@ type AuthStoreType = {
   isLoggedIn: boolean;
   token: string;
   message: string;
+  verifiedEmail: boolean;
 }
 
 // type CreateAccountType = typeof createAccount;
@@ -46,6 +54,7 @@ export const initialState: AuthStoreType = {
   isLoggedIn: false,
   token: '',
   message: '',
+  verifiedEmail: false,
 };
 
 export default (
@@ -54,6 +63,7 @@ export default (
 ) => {
   switch (action.type) {
     case CREATE_ACCOUNT_REQUEST:
+    case VERIFY_EMAIL_REQUEST:
     case AUTHENTICATE_CREDENTIALS_REQUEST:
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
@@ -71,6 +81,12 @@ export default (
         hasError: false,
         isLoggedIn: true,
         token: action.payload.token,
+      };
+    case VERIFY_EMAIL_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        verifiedEmail: true,
       };
     case CREATE_ACCOUNT_SUCCESS:
     case FORGOT_PASSWORD_SUCCESS:
@@ -91,6 +107,7 @@ export default (
         token: null,
         message: action.payload.message ? action.payload.message : 'An error occurred. Please try again.',};
     case CREATE_ACCOUNT_FAILURE:
+    case VERIFY_EMAIL_FAILURE:
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case CHANGE_PASSWORD_FAILURE:
@@ -129,6 +146,23 @@ export const createAccount = (payload: CreateAccountFormValues) => ({
       CREATE_ACCOUNT_REQUEST,
       CREATE_ACCOUNT_SUCCESS,
       CREATE_ACCOUNT_FAILURE,
+    ],
+  },
+});
+
+export const verifyEmail = (payload: VerifyEmailFormValues) => ({
+  [RSAA]: {
+    endpoint: AUTH_CONFIRM_ENDPOINT,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    skipOauth: true,
+    types: [
+      VERIFY_EMAIL_REQUEST,
+      VERIFY_EMAIL_SUCCESS,
+      VERIFY_EMAIL_FAILURE,
     ],
   },
 });

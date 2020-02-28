@@ -27,7 +27,7 @@ type InputProps = {
 
 const sharedStyles = css`
   display: block;
-  width: ${(props: InputProps) => (props.square ? inputHeight : '100%')};
+  width: 100%;
   height: ${inputHeight};
   padding: ${inputPaddingY} ${inputPaddingX};
   font-size: ${fontSizeBase};
@@ -37,7 +37,8 @@ const sharedStyles = css`
   background-image: none;
   border: ${baseBorderStyle};
   transition: border-color .2s ease-in-out;
-  ${(props: InputProps) => props.square && `margin: 0 ${quarterSpacer};`}
+
+  ${(props: InputProps) => props.square && 'text-align: center;'}
 
   ${(meta) => (meta && meta.touched && meta.error && `
       border-color: ${brandDanger};
@@ -67,6 +68,7 @@ const StyledErrorMessage = styled.div`
 
 const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
+  ${(props: InputProps) => props.square && `max-width: ${inputHeight};`}
 `;
 
 const StyledSelect = styled.select`
@@ -168,7 +170,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
   }
 
   return (
-    <InputWrapper>
+    <InputWrapper square={props.square}>
       {
         props.label && (
           <StyledLabel htmlFor={props.id || props.name} hiddenLabel={props.hiddenLabel}>
