@@ -1,0 +1,5 @@
+[[redirects]]
+from = "/storybook"
+to = "/storybook/index.html"
+status = 301
+force = false

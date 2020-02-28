@@ -13,6 +13,7 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
+    'gatsby-plugin-netlify',
     'gatsby-plugin-netlify-cms',
     {
       resolve: 'gatsby-plugin-prefetch-google-fonts',
@@ -53,7 +54,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-create-client-paths',
-      options: { prefixes: ['/agent/*', '/consumer/*'] },
+      options: { prefixes: ['/agent/*', '/consumer/*', '/storybook/*'] },
     },
     {
       resolve: 'gatsby-plugin-manifest',

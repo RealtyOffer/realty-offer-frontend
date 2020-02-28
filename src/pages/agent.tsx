@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Router, Redirect } from '@reach/router';
+import { Router } from '@reach/router';
 
 import Agent from '../views/agent/Agent';
 import CreateAgent from '../views/agent/AgentCreation/CreateAgent';
@@ -22,7 +22,6 @@ const App = () => (
       <BusinessInformation path="/business-information" />
       <PaymentInformation path="/payment-information" />
       <ConfirmPayment path="/confirm-payment" />
-      <Redirect from="/storybook" to="/storybook/index.html" />
       <NotFoundPage default />
     </Router>
   </Layout>

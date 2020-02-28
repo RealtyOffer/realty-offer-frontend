@@ -32,6 +32,7 @@
     "gatsby-plugin-create-client-paths": "^2.1.22",
     "gatsby-plugin-eslint": "^2.0.8",
     "gatsby-plugin-manifest": "^2.2.39",
+    "gatsby-plugin-netlify": "^2.1.33",
     "gatsby-plugin-netlify-cms": "^4.1.38",
     "gatsby-plugin-nprogress": "^2.1.19",
     "gatsby-plugin-offline": "^3.0.32",
