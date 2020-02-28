@@ -99,9 +99,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "npm run build:gatsby && npm run build:storybook",
+    "build": "npm run build:storybook && npm run build:gatsby",
     "build:gatsby": "gatsby build",
-    "build:storybook": "build-storybook -c .storybook -o public/storybook",
+    "build:storybook": "build-storybook -c .storybook -o static/storybook",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
