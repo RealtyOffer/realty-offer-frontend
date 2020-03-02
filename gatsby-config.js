@@ -53,7 +53,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-create-client-paths',
-      options: { prefixes: ['/agent/*', '/consumer/*'] },
+      options: { prefixes: ['/agent/*', '/consumer/*', '/storybook/*'] },
     },
     {
       resolve: 'gatsby-plugin-manifest',

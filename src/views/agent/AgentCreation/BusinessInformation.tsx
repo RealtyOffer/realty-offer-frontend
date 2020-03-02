@@ -97,6 +97,12 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
     const getTotals = !noRegionsInCart && regions.map((r) => Number(r.subscriptionType))
       .reduce((total, amount) => total + amount);
 
+    const numberWithCommas = (x: number) => {
+      const parts = x.toString().split('.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return parts.join('.');
+    };
+
     return (
       <Row>
         <Column md={8} mdOffset={2} lg={6} lgOffset={3}>
@@ -149,8 +155,8 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
                           validate={requiredField}
                         >
                           <option value="">Select a Period</option>
-                          <option value="99.99">Monthly ($99.99)</option>
-                          <option value="999.99">Yearly ($999.99)</option>
+                          <option value="199">Monthly ($199)</option>
+                          <option value="2189">Yearly ($2,189)</option>
                         </Field>
                       </Column>
                     </Row>
@@ -167,7 +173,9 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
                       !noRegionsInCart && (
                         <FlexContainer justifyContent="space-between" alignItems="flex-end" height="100px">
                           <strong><FaMapMarkerAlt /> Zip Codes: {regions.length}</strong>
-                          <strong><FaShoppingCart /> Total: ${Number(getTotals).toFixed(2)}</strong>
+                          <strong>
+                            <FaShoppingCart />Total: ${numberWithCommas(Number(getTotals))}
+                          </strong>
                         </FlexContainer>
                       )
                     }
@@ -179,7 +187,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
                           <FlexContainer justifyContent="space-between" height={doubleSpacer}>
                             <span>{r.zip}</span>
                             <span>{r.agentType}</span>
-                            <span>{r.subscriptionType}</span>
+                            <span>${numberWithCommas(Number(r.subscriptionType))}</span>
                             <Button
                               type="button"
                               onClick={() => this.removeFromCart(index)}

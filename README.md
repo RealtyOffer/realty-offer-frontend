@@ -1,27 +1,27 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a421b0d7-a2bc-4ca8-8b1c-ae050c947b33/deploy-status)](https://app.netlify.com/sites/realtyoffer-dev/deploys)
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
+
 <p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
+  <a href="https://realtyoffer-dev.netlify.com/">
+    <img alt="Realty Offer" src="https://realtyoffer-dev.netlify.com/icons/icon-96x96.png" width="96px" />
   </a>
 </p>
 <h1 align="center">
-  Gatsby's default starter
+  Realty Offer - Frontend
 </h1>
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
-
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+A Gatsby project using React, Redux, Styled-Components, Storybook, Formik, and more.
 
 ## 🚀 Quick start
 
-1.  **Create a Gatsby site.**
+1.  **Clone Repo and install dependencies**
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+    Use `git clone`, then `cd` into your local repo and run `yarn` to install dependencies.
 
     ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
+    # Clone and install dependencies
+    git clone https://github.com/Galileo-Insights/realty-offer-frontend.git
+    cd realty-offer-frontend
+    yarn
     ```
 
 1.  **Start developing.**
@@ -29,8 +29,9 @@ _Have another more specific idea? You may want to check out our vibrant collecti
     Navigate into your new site’s directory and start it up.
 
     ```shell
-    cd my-default-starter/
-    gatsby develop
+    cd realty-offer-frontend/
+    # `yarn start` is the same as `gatsby develop`
+    yarn start 
     ```
 
 1.  **Open the source code and start editing!**
@@ -39,8 +40,6 @@ _Have another more specific idea? You may want to check out our vibrant collecti
 
     _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
-
 ## 🧐 What's inside?
 
 A quick look at the top-level files and directories you'll see in a Gatsby project.
@@ -48,6 +47,14 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
     .
     ├── node_modules
     ├── src
+      ├── components
+      ├── pages
+      ├── redux
+      ├── stories
+      ├── styles
+      ├── templates
+      ├── utils
+      ├── views
     ├── .gitignore
     ├── .prettierrc
     ├── gatsby-browser.js
@@ -77,22 +84,18 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
 
 9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
 
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+10. **`yarn.lock`**: This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
 
 11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
 
 12. **`README.md`**: A text file containing useful reference information about your project.
 
-## 🎓 Learning Gatsby
+## 🎓 Learning the Components
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+Looking for more guidance on the components available in this repo? Run `yarn storybook` and access `http://localhost:8001` to see the Storybook which goes over the components and their available `props`.
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
 
 ## 💫 Deploy
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+This project is automatically deployed to Netlify at `https://realtyoffer-dev.netlify.com/` via commits to the `master` branch.
 
-<!-- AUTO-GENERATED-CONTENT:END -->

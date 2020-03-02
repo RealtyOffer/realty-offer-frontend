@@ -1,14 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { RouteComponentProps } from '@reach/router';
 import {
-  Formik,
-  Field,
-  Form,
-  FieldProps,
-  FieldMetaProps,
+  Formik, Field, Form, FormikProps, FieldProps, FieldMetaProps, FormikFormProps,
 } from 'formik';
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import {
   Box,
@@ -27,6 +23,7 @@ import {
   requiredPassword,
 } from '../../../utils/validations';
 import { createAccount } from '../../../redux/ducks/auth';
+import { ActionResponseType } from '../../../redux/constants';
 
 interface CreateAgentFormValues {
   firstName: string
@@ -63,18 +60,18 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
-                props
-                  .createAccount({
-                    ...values,
-                    phoneNumber: reformattedPhone(values.phoneNumber),
-                  })
-                  .then(() => {
-                    setSubmitting(false);
+                props.createAccount({
+                  ...values,
+                  phoneNumber: reformattedPhone(values.phoneNumber),
+                }).then((response: ActionResponseType) => {
+                  setSubmitting(false);
+                  if (!response.error) {
                     navigate('/agent/verify-email');
-                  });
+                  }
+                });
               }}
             >
-              {({ isSubmitting, isValid }) => (
+              {(formikProps: FormikProps<any>) => (
                 <Form>
                   <Row>
                     <Column xs={6}>
@@ -110,19 +107,19 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                     label="Email Address"
                     validate={requiredEmail}
                   />
-                  <Field name="password" validate={requiredPassword}>
+                  <Field
+                    name="password"
+                    validate={requiredPassword}
+                  >
                     {({
-                      field,
-                      form,
-                      meta,
-                    }: {
-                      field: FieldProps
-                      form: string
-                      meta: FieldMetaProps<string>
+                      field, form, meta,
+                    }:{
+                      field: FieldProps, form: FormikFormProps, meta: FieldMetaProps<any>,
                     }) => (
                       <Input
                         type="password"
                         label="Password"
+                        name="password"
                         helpText="Password must contain a minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character."
                         {...field}
                         {...form}
@@ -131,11 +128,7 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                     )}
                   </Field>
                   <HorizontalRule />
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting || !isValid}
-                    block
-                  >
+                  <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
                     Create Account
                   </Button>
                 </Form>
@@ -151,8 +144,9 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
   );
 };
 
-const mapDispatchToProps = {
-  createAccount,
-};
-
-export default connect(null, mapDispatchToProps)(CreateAgent);
+export default connect(
+  null,
+  (dispatch) => ({
+    actions: bindActionCreators({ createAccount }, dispatch),
+  }),
+)(CreateAgent);

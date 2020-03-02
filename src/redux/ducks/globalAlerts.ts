@@ -1,5 +1,6 @@
 import uuidv4 from 'uuid/v4';
 
+// eslint-disable-next-line import/no-cycle
 import { AUTHENTICATE_CREDENTIALS_SUCCESS, LOGOUT_REQUEST } from './auth';
 
 export const ADD_GLOBAL_ALERT = 'ADD_GLOBAL_ALERT';
