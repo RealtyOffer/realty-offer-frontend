@@ -1,4 +1,4 @@
-/* eslint-disable import/no-cycle */
+/* eslint-disable import/no-cycle, jsx-a11y/label-has-associated-control */
 import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { FaRegCheckCircle } from 'react-icons/fa';

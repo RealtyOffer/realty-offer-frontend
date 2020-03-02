@@ -5,6 +5,7 @@ import {
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { RouteComponentProps } from '@reach/router';
 
 import {
   Box,
