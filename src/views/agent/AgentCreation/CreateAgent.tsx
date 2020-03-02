@@ -35,7 +35,9 @@ interface CreateAgentFormValues {
 }
 
 type Props = {
-  createAccount: Function
+  actions: {
+    createAccount: Function;
+  }
 } & RouteComponentProps
 
 const CreateAgent: FunctionComponent<Props> = (props) => {
@@ -61,7 +63,7 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
-                props.createAccount({
+                props.actions.createAccount({
                   ...values,
                   phoneNumber: reformattedPhone(values.phoneNumber),
                 }).then((response: ActionResponseType) => {
