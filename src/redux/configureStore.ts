@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';

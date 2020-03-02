@@ -19,14 +19,13 @@ import { disabledStyle } from '../styles/mixins';
 
 type ButtonProps = {
   type: 'submit' | 'button' | 'reset' | 'link';
-  color?: 'text' | 'primary' | 'primaryOutline' | 'success' | 'successOutline' |'danger' | 'dangerOutline';
+  color?: 'text' | 'primary' | 'primaryOutline' | 'success' | 'successOutline' | 'danger' | 'dangerOutline';
   rightspacer?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
   to?: string;
   disabled?: boolean;
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
-  title?: string;
   block?: boolean;
 };
 
@@ -179,7 +178,7 @@ const StyledLink = styled.div`
     }
   }
 `;
-export class Button extends Component<ButtonProps> {
+class Button extends Component<ButtonProps> {
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     color: 'primary',
@@ -189,13 +188,12 @@ export class Button extends Component<ButtonProps> {
     disabled: false,
     iconLeft: null,
     iconRight: null,
-    title: '',
     block: false,
   };
 
   render() {
     const {
-      color, rightspacer, to, children, type, onClick, disabled, iconLeft, iconRight, title, block,
+      color, rightspacer, to, children, type, onClick, disabled, iconLeft, iconRight, block,
     } = this.props;
     let contentToRender;
 
@@ -206,8 +204,8 @@ export class Button extends Component<ButtonProps> {
             color={color}
             rightspacer={rightspacer}
             disabled={disabled}
-            title={title || children}
             block={block}
+            type={type}
           >
             <Link to={to}>
               {iconLeft}
@@ -230,7 +228,6 @@ export class Button extends Component<ButtonProps> {
             rightspacer={rightspacer}
             onClick={onClick}
             disabled={disabled}
-            title={title || children}
             block={block}
           >
             {iconLeft}

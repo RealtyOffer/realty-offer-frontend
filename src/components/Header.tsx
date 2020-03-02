@@ -53,7 +53,7 @@ const StyledHeading = styled.h1`
   font-size: ${(props: HeadingProps) => props.as && renderFontSize(props.as)};
 `;
 
-export const Header: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
+const Header: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
   <StyledHeading
     as={props.as}
     noMargin={props.noMargin}

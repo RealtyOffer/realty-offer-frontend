@@ -21,10 +21,10 @@ const StyledTrack = styled.div`
   height: ${halfSpacer};
 `;
 
-const StyledBar = styled.div`
+const StyledBar = styled.div<{ value: number }>`
   position: absolute;
   height: ${halfSpacer};
-  width: ${(props: ProgressBarProps) => `${props.value}%`};
+  width: ${(props) => `${props.value}%`};
   background-color: ${brandPrimary};
 `;
 
@@ -33,7 +33,7 @@ const StyledLabel = styled.label`
   margin-bottom: ${baseSpacer};
 `;
 
-export const ProgressBar: FunctionComponent<ProgressBarProps> = ({
+const ProgressBar: FunctionComponent<ProgressBarProps> = ({
   name, value, label,
 }) => (
   <>

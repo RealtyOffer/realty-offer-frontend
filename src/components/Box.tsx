@@ -39,7 +39,7 @@ const StyledBox = styled.div`
   height: ${(props: BoxProps) => (props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`)};
 `;
 
-export const Box: FunctionComponent<BoxProps> = ({
+const Box: FunctionComponent<BoxProps> = ({
   textAlign, height, zindex, children, largePadding,
 }) => (
   <StyledBox

@@ -6,9 +6,9 @@ import Header from '../components/Header';
 
 const story = storiesOf('Components', module);
 
-const asOptions = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+const asOptions = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const;
 
-const alignOptions = ['left', 'center', 'right'];
+const alignOptions = ['left', 'center', 'right'] as const;
 
 story.add(
   'Header',

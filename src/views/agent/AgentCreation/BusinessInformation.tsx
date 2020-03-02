@@ -7,6 +7,7 @@ import {
 } from 'react-icons/fa';
 
 
+import { RouteComponentProps } from '@reach/router';
 import {
   Box, Button, Input, FlexContainer, Header, Row, Column, ProgressBar, HorizontalRule,
 } from '../../../components';
@@ -20,7 +21,7 @@ interface BusinessInformationFormValues {
   subscriptionType: string;
 }
 
-type BusinessInformationProps = {};
+type BusinessInformationProps = {} & RouteComponentProps;
 
 type BusinessInformationState = {
   regions: Array<BusinessInformationFormValues>,

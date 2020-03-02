@@ -2,13 +2,14 @@ import React, { useState, FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 import { FaRegCheckCircle } from 'react-icons/fa';
 
+import { RouteComponentProps } from '@reach/router';
 import {
   Box, Button, FlexContainer, Header, Row, Column,
 } from '../../../components';
 import { brandSuccess } from '../../../styles/color';
 import { fontSizeH1 } from '../../../styles/typography';
 
-const ConfirmPayment: FunctionComponent<{}> = () => {
+const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   const [confirmed, setConfirmed] = useState(false);
 
   return (

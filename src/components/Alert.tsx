@@ -10,7 +10,7 @@ import {
   white,
 } from '../styles/color';
 
-type AlertProps = {
+export type AlertProps = {
   type: 'danger' | 'success' | 'info';
   close?: () => void;
   dismissable?: boolean;

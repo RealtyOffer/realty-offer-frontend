@@ -109,7 +109,7 @@ class GlobalAlerts extends Component<Props, State> {
     });
   }
 
-  dismissAlert = (currentAlert) => {
+  dismissAlert = (currentAlert: any) => {
     this.endAnimation();
     setTimeout(() => { // give time for animation to finish before removing from store
       this.props.actions.closeAlert(currentAlert);

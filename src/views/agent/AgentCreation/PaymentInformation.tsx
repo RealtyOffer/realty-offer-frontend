@@ -1,12 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { navigate } from 'gatsby';
+import { RouteComponentProps } from '@reach/router';
+
 
 import {
   Box, Button, FlexContainer, Header, Row, Column, ProgressBar, HorizontalRule,
 } from '../../../components';
 
-const PaymentInformation: FunctionComponent<{}> = () => {
+const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const save = () => {
+    // eslint-disable-next-line no-console
     console.log('saved');
   };
 

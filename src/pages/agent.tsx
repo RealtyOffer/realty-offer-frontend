@@ -17,7 +17,7 @@ const App = () => (
     <Router basepath="agent">
       <Agent path="/" />
       <CreateAgent path="/create-agent" />
-      <VerifyEmail path="/verify-email" />
+      <VerifyEmail queryString={window.location.search} path="/verify-email" />
       <AgentInformation path="/agent-information" />
       <BusinessInformation path="/business-information" />
       <PaymentInformation path="/payment-information" />

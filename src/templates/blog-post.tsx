@@ -6,6 +6,14 @@ import { graphql, Link } from 'gatsby';
 import { Box, Header, Layout } from '../components';
 import Content, { HTMLContent } from '../components/Content';
 
+interface BlogPostProps {
+  content: any;
+  contentComponent: any;
+  description: any;
+  tags: any;
+  title: any;
+  helmet: any;
+}
 export const BlogPostTemplate = ({
   content,
   contentComponent,
@@ -13,7 +21,7 @@ export const BlogPostTemplate = ({
   tags,
   title,
   helmet,
-}) => {
+}: BlogPostProps) => {
   const PostContent = contentComponent || Content;
 
   return (
@@ -32,7 +40,7 @@ export const BlogPostTemplate = ({
                 <div style={{ marginTop: '4rem' }}>
                   <h4>Tags</h4>
                   <ul className="taglist">
-                    {tags.map((tag) => (
+                    {tags.map((tag: string) => (
                       <li key={`${tag}tag`}>
                         <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
                       </li>
@@ -48,7 +56,7 @@ export const BlogPostTemplate = ({
   );
 };
 
-const BlogPost = ({ data }) => {
+const BlogPost = ({ data }: { data: any}) => {
   const { markdownRemark: post } = data;
 
   return (

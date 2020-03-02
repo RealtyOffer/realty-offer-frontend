@@ -1,27 +1,44 @@
 import React, { FunctionComponent } from 'react';
-import { Formik, Field, Form } from 'formik';
+import { RouteComponentProps } from '@reach/router';
+import {
+  Formik,
+  Field,
+  Form,
+  FieldProps,
+  FieldMetaProps,
+} from 'formik';
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 
 import {
-  Box, Button, Input, FlexContainer, Header, Row, Column, HorizontalRule,
+  Box,
+  Button,
+  Input,
+  FlexContainer,
+  Header,
+  Row,
+  Column,
+  HorizontalRule,
 } from '../../../components';
 import {
-  requiredEmail, requiredField, requiredPhoneNumber, requiredPassword,
+  requiredEmail,
+  requiredField,
+  requiredPhoneNumber,
+  requiredPassword,
 } from '../../../utils/validations';
 import { createAccount } from '../../../redux/ducks/auth';
 
 interface CreateAgentFormValues {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
+  firstName: string
+  lastName: string
+  phoneNumber: string
+  email: string
+  password: string
 }
 
 type Props = {
-  createAccount: Function,
-}
+  createAccount: Function
+} & RouteComponentProps
 
 const CreateAgent: FunctionComponent<Props> = (props) => {
   const initialValues: CreateAgentFormValues = {
@@ -46,13 +63,15 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
-                props.createAccount({
-                  ...values,
-                  phoneNumber: reformattedPhone(values.phoneNumber),
-                }).then(() => {
-                  setSubmitting(false);
-                  navigate('/agent/verify-email');
-                });
+                props
+                  .createAccount({
+                    ...values,
+                    phoneNumber: reformattedPhone(values.phoneNumber),
+                  })
+                  .then(() => {
+                    setSubmitting(false);
+                    navigate('/agent/verify-email');
+                  });
               }}
             >
               {({ isSubmitting, isValid }) => (
@@ -91,11 +110,16 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                     label="Email Address"
                     validate={requiredEmail}
                   />
-                  <Field
-                    name="password"
-                    validate={requiredPassword}
-                  >
-                    {({ field, form, meta }) => (
+                  <Field name="password" validate={requiredPassword}>
+                    {({
+                      field,
+                      form,
+                      meta,
+                    }: {
+                      field: FieldProps
+                      form: string
+                      meta: FieldMetaProps<string>
+                    }) => (
                       <Input
                         type="password"
                         label="Password"
@@ -107,7 +131,11 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                     )}
                   </Field>
                   <HorizontalRule />
-                  <Button type="submit" disabled={isSubmitting || !isValid} block>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || !isValid}
+                    block
+                  >
                     Create Account
                   </Button>
                 </Form>
@@ -127,7 +155,4 @@ const mapDispatchToProps = {
   createAccount,
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(CreateAgent);
+export default connect(null, mapDispatchToProps)(CreateAgent);

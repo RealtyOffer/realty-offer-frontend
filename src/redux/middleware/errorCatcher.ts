@@ -3,7 +3,7 @@ import { logout } from '../ducks/auth';
 import { addAlert } from '../ducks/globalAlerts';
 
 export default (store: { dispatch: Function }) => (next: any) => (
-  action: { payload: { status: number, response: { message: string } }, error: boolean },
+  action: { payload: { status: number, response: { [key:string]: string } }, error: boolean },
 ) => {
   if (action && action.payload) {
     if (action.payload.status === 401) {

@@ -21,9 +21,10 @@ export default (store: any) => (next: any) => (action: any) => {
   }
 
   const state = store.getState();
-  returnAction[RSAA].headers = Object.assign({}, returnAction[RSAA].headers, {
+  returnAction[RSAA].headers = {
+    ...returnAction[RSAA].headers,
     Authorization: `Bearer ${state.auth.token}`,
-  });
+  };
 
   return next(returnAction);
 };
