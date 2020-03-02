@@ -62,7 +62,9 @@ class Navbar extends Component<NavbarProps, NavbarState> {
             <div>
               <div
                 data-target="navMenu"
+                tabIndex={0}
                 onClick={() => this.toggleHamburger()}
+                onKeyDown={() => this.toggleHamburger()}
                 role="menu"
               >
                 {/* icon here */}

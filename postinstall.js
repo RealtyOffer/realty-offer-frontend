@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Fix for iconv loader causing critical dependency error, see
 // https://github.com/andris9/encoding/issues/18#issuecomment-319721150
 // IIFE

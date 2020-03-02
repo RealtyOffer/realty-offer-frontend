@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { RouteComponentProps } from '@reach/router';
 import { Layout, Seo } from '../components';
 
-const NotFoundPage = () => (
+const NotFoundPage = (_: RouteComponentProps) => (
   <Layout>
     <Seo title="404: Not found" />
     <h1>NOT FOUND</h1>

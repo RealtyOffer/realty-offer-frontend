@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
+import { RouteComponentProps } from '@reach/router';
 
 import {
   Box, Button, Input, FlexContainer, Header, Row, Column, ProgressBar, HorizontalRule,
@@ -14,7 +15,7 @@ interface AgentInformationFormValues {
   brokerPhoneNumber?: string;
 }
 
-const AgentInformation: FunctionComponent<{}> = () => {
+const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
   const initialValues: AgentInformationFormValues = {
     state: 'MI',
     agentId: '',
@@ -38,6 +39,7 @@ const AgentInformation: FunctionComponent<{}> = () => {
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
+                  // eslint-disable-next-line no-alert
                   alert(JSON.stringify(values, null, 2));
                   setSubmitting(false);
                   navigate('/agent/business-information');

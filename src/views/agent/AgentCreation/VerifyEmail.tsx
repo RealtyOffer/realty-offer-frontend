@@ -1,10 +1,11 @@
-/* eslint-disable import/no-cycle */
+/* eslint-disable import/no-cycle, jsx-a11y/label-has-associated-control */
 import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { FaRegCheckCircle } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { RouteComponentProps } from '@reach/router';
 import {
   Box, Button, Input, FlexContainer, Header, Row, Column,
 } from '../../../components';
@@ -30,7 +31,7 @@ type VerifyEmailType = {
   actions: {
     verifyEmail: Function;
   },
-  auth: {},
+  auth: {};
 }
 
 const resend = () => {
@@ -38,33 +39,35 @@ const resend = () => {
 };
 
 const focusChange = (e: SyntheticEvent) => { // SyntheticInputEvent not supported by TS yet
-  if (e.target.value.length >= 1) {
-    const currentInputIndex = Number(e.target.name.charAt(5));
+  const target = e.target as HTMLInputElement;
+  if (target.value.length >= 1) {
+    const currentInputIndex = Number(target.name.charAt(5));
     document.getElementsByName(`digit${currentInputIndex + 1}`)[0].focus();
   }
 };
 
-const VerifyEmail: FunctionComponent<VerifyEmailType> = (props: VerifyEmailType) => {
-  const [verified, setVerified] = useState(false);
+const VerifyEmail: FunctionComponent<VerifyEmailType
+  & RouteComponentProps> = (props: VerifyEmailType) => {
+    const [verified, setVerified] = useState(false);
 
-  const initialValues: VerifyEmailFormValues = {
-    email: '',
-    digit1: '',
-    digit2: '',
-    digit3: '',
-    digit4: '',
-    digit5: '',
-    digit6: '',
-  };
+    const initialValues: VerifyEmailFormValues = {
+      email: '',
+      digit1: '',
+      digit2: '',
+      digit3: '',
+      digit4: '',
+      digit5: '',
+      digit6: '',
+    };
 
-  const height = '150px';
+    const height = '150px';
 
-  return (
-    <Row>
-      <Column md={6} mdOffset={3}>
-        <div>
-          <Box largePadding>
-            {
+    return (
+      <Row>
+        <Column md={6} mdOffset={3}>
+          <div>
+            <Box largePadding>
+              {
               !verified ? (
                 <>
                   <FlexContainer flexDirection="column">
@@ -193,12 +196,12 @@ const VerifyEmail: FunctionComponent<VerifyEmailType> = (props: VerifyEmailType)
                 </>
               )
             }
-          </Box>
-        </div>
-      </Column>
-    </Row>
-  );
-};
+            </Box>
+          </div>
+        </Column>
+      </Row>
+    );
+  };
 
 export default connect(
   (state) => ({

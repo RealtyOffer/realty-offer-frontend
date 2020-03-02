@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from 'react';
+import { RouteComponentProps } from '@reach/router';
+
 import { Link } from 'gatsby';
 
 import { Header } from '../../components';
 
-const Agent: FunctionComponent = () => (
+const Agent: FunctionComponent<RouteComponentProps> = () => (
   <>
     <Header>Agent</Header>
     <p><Link to="/agent/create-agent">Create agent</Link></p>

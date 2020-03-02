@@ -1,6 +1,6 @@
 import React, { useState, FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
-import { useField } from 'formik';
+import { useField, FieldMetaProps } from 'formik';
 import StringMask from 'string-mask';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -23,7 +23,7 @@ type InputProps = {
   type: string;
   label: string;
   helpText?: string;
-}
+} & FieldMetaProps<string>
 
 const sharedStyles = css`
   display: block;
@@ -40,7 +40,7 @@ const sharedStyles = css`
 
   ${(props: InputProps) => props.square && 'text-align: center;'}
 
-  ${(meta) => (meta && meta.touched && meta.error && `
+  ${(meta: FieldMetaProps<string>) => (meta && meta.touched && meta.error && `
       border-color: ${brandDanger};
       border-width: 2px;
       // box-shadow: 0 0 0 ${borderRadius} rgba(${brandDangerRGB},.25);
@@ -76,7 +76,7 @@ const StyledSelect = styled.select`
 `;
 
 const StyledLabel = styled.label`
-  ${(props: InputProps) => props.hiddenLabel && visuallyHiddenStyle}
+  ${(props: { hiddenLabel?: boolean }) => props.hiddenLabel && visuallyHiddenStyle}
 `;
 
 const PasswordWrapper = styled.div`
@@ -92,7 +92,7 @@ const PasswordToggle = styled.div`
 const Input: FunctionComponent<InputProps> = (props) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and also replace ErrorMessage entirely.
-  const [field, meta] = useField(props.name);
+  const [field, meta] = useField<string>(props.name);
   // state for toggling password visibility
   const [passwordVisibility, setPasswordVisibiility] = useState(false);
 

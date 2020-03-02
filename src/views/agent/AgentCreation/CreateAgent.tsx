@@ -5,29 +5,40 @@ import {
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { RouteComponentProps } from '@reach/router';
 
 import {
-  Box, Button, Input, FlexContainer, Header, Row, Column, HorizontalRule,
+  Box,
+  Button,
+  Input,
+  FlexContainer,
+  Header,
+  Row,
+  Column,
+  HorizontalRule,
 } from '../../../components';
 import {
-  requiredEmail, requiredField, requiredPhoneNumber, requiredPassword,
+  requiredEmail,
+  requiredField,
+  requiredPhoneNumber,
+  requiredPassword,
 } from '../../../utils/validations';
 import { createAccount } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
 
 interface CreateAgentFormValues {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
+  firstName: string
+  lastName: string
+  phoneNumber: string
+  email: string
+  password: string
 }
 
 type Props = {
   actions: {
     createAccount: Function;
   }
-}
+} & RouteComponentProps
 
 const CreateAgent: FunctionComponent<Props> = (props) => {
   const initialValues: CreateAgentFormValues = {

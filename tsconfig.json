@@ -26,7 +26,8 @@
       "src",
       "stories"
     ],
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "typeRoots": ["./node_modules/@types", "./custom_types"]
   },
   "include": [
     "./src/**/*"

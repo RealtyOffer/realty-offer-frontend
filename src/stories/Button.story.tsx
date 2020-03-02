@@ -27,7 +27,6 @@ story.add(
       onClick={action('button-click')}
       to={text('to (for type=link)', '/home')}
       disabled={boolean('disabled', false)}
-      title={text('title', 'Hello World')}
     >
       {text('children', 'Button')}
     </Button>

@@ -16,7 +16,6 @@ type SeoType = {
   meta?: Array<{
     content: string;
     name: string;
-    property: string;
   }>;
   title?: string;
 }
@@ -80,10 +79,10 @@ const Seo: FunctionComponent<SeoType> = ({
           name: 'twitter:description',
           content: metaDescription,
         },
-      ].concat(meta)}
+      ].concat(meta || [])}
     />
   );
-}
+};
 
 Seo.defaultProps = {
   lang: 'en',
