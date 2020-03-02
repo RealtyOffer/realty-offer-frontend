@@ -23,10 +23,10 @@ import {
   requiredPhoneNumber,
   requiredPassword,
 } from '../../../utils/validations';
-import { createAccount } from '../../../redux/ducks/auth';
+import { createAgent } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
 
-interface CreateAgentFormValues {
+export interface CreateAgentFormValues {
   firstName: string
   lastName: string
   phoneNumber: string
@@ -36,7 +36,7 @@ interface CreateAgentFormValues {
 
 type Props = {
   actions: {
-    createAccount: Function;
+    createAgent: Function;
   }
 } & RouteComponentProps
 
@@ -63,12 +63,12 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
-                props.actions.createAccount({
+                props.actions.createAgent({
                   ...values,
                   phoneNumber: reformattedPhone(values.phoneNumber),
                 }).then((response: ActionResponseType) => {
                   setSubmitting(false);
-                  if (!response.error) {
+                  if (response && !response.error) {
                     navigate('/agent/verify-email');
                   }
                 });
@@ -150,6 +150,6 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
 export default connect(
   null,
   (dispatch) => ({
-    actions: bindActionCreators({ createAccount }, dispatch),
+    actions: bindActionCreators({ createAgent }, dispatch),
   }),
 )(CreateAgent);

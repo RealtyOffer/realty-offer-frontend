@@ -9,7 +9,7 @@ const IndexPage = () => (
     <Seo title="Home" />
     <Box>
       <Button type="link" to="/agent" rightspacer>Agent</Button>
-      <Button type="link" to="/consumer" color="primaryOutline">Consumer</Button>
+      <Button type="link" to="/login" color="primaryOutline">Consumer</Button>
     </Box>
   </Layout>
 );

@@ -173,6 +173,10 @@ const StyledLink = styled.div`
     display: block;
     color: inherit;
   }
+
+  &:hover, &:focus {
+    color: ${(props: ButtonProps) => (props.color === 'text' ? brandPrimaryHover : white)};
+  }
 `;
 class Button extends Component<ButtonProps> {
   // eslint-disable-next-line react/static-property-placement

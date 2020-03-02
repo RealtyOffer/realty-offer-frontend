@@ -1,3 +1,4 @@
+import Alert from './Alert';
 import Box from './Box';
 import Button from './Button';
 import Column from './Column';
@@ -18,6 +19,7 @@ import Seo from './Seo';
 import SiteMetadata from './SiteMetadata';
 
 export {
+  Alert,
   Box,
   Button,
   Column,

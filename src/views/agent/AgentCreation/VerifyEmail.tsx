@@ -90,7 +90,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
                           confirmationCode: combined,
                         }).then((response: ActionResponseType) => {
                           setSubmitting(false);
-                          if (!response.error) {
+                          if (response && !response.error) {
                             setVerified(true);
                           }
                         });

@@ -1,13 +1,20 @@
 import { RSAA } from 'redux-api-middleware';
 
-import { AUTH_SIGNUP_ENDPOINT, AUTH_CONFIRM_ENDPOINT } from '../constants';
+import {
+  AUTH_SIGNUP_ENDPOINT,
+  AUTH_CONFIRM_ENDPOINT,
+  AUTH_LOGIN_ENDPOINT,
+  AUTH_FORGOT_PASSWORD_ENDPOINT,
+  AUTH_RESET_PASSWORD_ENDPOINT,
+} from '../constants';
 
-// eslint-disable-next-line import/no-cycle
 import { VerifyEmailFormValues } from '../../views/agent/AgentCreation/VerifyEmail';
+import { LoginFormValues } from '../../pages/login';
+import { CreateAgentFormValues } from '../../views/agent/AgentCreation/CreateAgent';
 
-export const CREATE_ACCOUNT_REQUEST = 'CREATE_ACCOUNT_REQUEST';
-export const CREATE_ACCOUNT_SUCCESS = 'CREATE_ACCOUNT_SUCCESS';
-export const CREATE_ACCOUNT_FAILURE = 'CREATE_ACCOUNT_FAILURE';
+export const CREATE_AGENT_REQUEST = 'CREATE_AGENT_REQUEST';
+export const CREATE_AGENT_SUCCESS = 'CREATE_AGENT_SUCCESS';
+export const CREATE_AGENT_FAILURE = 'CREATE_AGENT_FAILURE';
 
 export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
 export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
@@ -29,10 +36,6 @@ export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST';
 export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
 export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
 
-export const CONFIRM_ACCOUNT_REQUEST = 'CONFIRM_ACCOUNT_REQUEST';
-export const CONFIRM_ACCOUNT_SUCCESS = 'CONFIRM_ACCOUNT_SUCCESS';
-export const CONFIRM_ACCOUNT_FAILURE = 'CONFIRM_ACCOUNT_FAILURE';
-
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
 type AuthStoreType = {
@@ -43,10 +46,6 @@ type AuthStoreType = {
   message: string;
   verifiedEmail: boolean;
 }
-
-// type CreateAccountType = typeof createAccount;
-
-// type AuthActionTypes = CreateAccountType;
 
 export const initialState: AuthStoreType = {
   isLoading: false,
@@ -62,13 +61,12 @@ export default (
   action,
 ) => {
   switch (action.type) {
-    case CREATE_ACCOUNT_REQUEST:
+    case CREATE_AGENT_REQUEST:
     case VERIFY_EMAIL_REQUEST:
     case AUTHENTICATE_CREDENTIALS_REQUEST:
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
     case CHANGE_PASSWORD_REQUEST:
-    case CONFIRM_ACCOUNT_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -88,11 +86,10 @@ export default (
         isLoading: false,
         verifiedEmail: true,
       };
-    case CREATE_ACCOUNT_SUCCESS:
+    case CREATE_AGENT_SUCCESS:
     case FORGOT_PASSWORD_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case CHANGE_PASSWORD_SUCCESS:
-    case CONFIRM_ACCOUNT_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -105,13 +102,13 @@ export default (
         hasError: true,
         isLoggedIn: false,
         token: null,
-        message: action.payload.message ? action.payload.message : 'An error occurred. Please try again.',};
-    case CREATE_ACCOUNT_FAILURE:
+        message: action.payload.message || 'An error occurred. Please try again.',
+      };
+    case CREATE_AGENT_FAILURE:
     case VERIFY_EMAIL_FAILURE:
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case CHANGE_PASSWORD_FAILURE:
-    case CONFIRM_ACCOUNT_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -125,15 +122,7 @@ export default (
   }
 };
 
-type CreateAccountFormValues = {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  emailAddress: string;
-  password: string;
-}
-
-export const createAccount = (payload: CreateAccountFormValues) => ({
+export const createAgent = (payload: CreateAgentFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_SIGNUP_ENDPOINT,
     method: 'POST',
@@ -143,9 +132,9 @@ export const createAccount = (payload: CreateAccountFormValues) => ({
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [
-      CREATE_ACCOUNT_REQUEST,
-      CREATE_ACCOUNT_SUCCESS,
-      CREATE_ACCOUNT_FAILURE,
+      CREATE_AGENT_REQUEST,
+      CREATE_AGENT_SUCCESS,
+      CREATE_AGENT_FAILURE,
     ],
   },
 });
@@ -167,12 +156,9 @@ export const verifyEmail = (payload: VerifyEmailFormValues) => ({
   },
 });
 
-export const authenticateCredentials = (payload: {
-  username: string,
-  password: string,
-}) => ({
+export const authenticateCredentials = (payload: LoginFormValues) => ({
   [RSAA]: {
-    // endpoint: AUTH_ENDPOINT,
+    endpoint: AUTH_LOGIN_ENDPOINT,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -191,7 +177,7 @@ export const forgotPassword = (payload: {
   email: string,
 }) => ({
   [RSAA]: {
-    // endpoint: FORGOT_PASSWORD_ENDPOINT,
+    endpoint: AUTH_FORGOT_PASSWORD_ENDPOINT,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -212,7 +198,7 @@ export const resetPassword = (payload: {
   token: string,
 }) => ({
   [RSAA]: {
-    // endpoint: RESET_PASSWORD_ENDPOINT,
+    endpoint: AUTH_RESET_PASSWORD_ENDPOINT,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -242,27 +228,6 @@ export const changePassword = (payload: {
       CHANGE_PASSWORD_REQUEST,
       CHANGE_PASSWORD_SUCCESS,
       CHANGE_PASSWORD_FAILURE,
-    ],
-  },
-});
-
-export const confirmAccount = (payload: {
-  userId: string,
-  token: string,
-  password: string,
-}) => ({
-  [RSAA]: {
-    // endpoint: CONFIRM_ACCOUNT_ENDPOINT,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-    skipOauth: true,
-    types: [
-      CONFIRM_ACCOUNT_REQUEST,
-      CONFIRM_ACCOUNT_SUCCESS,
-      CONFIRM_ACCOUNT_FAILURE,
     ],
   },
 });
