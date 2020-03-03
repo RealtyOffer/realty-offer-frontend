@@ -6,11 +6,13 @@ import {
   AUTH_LOGIN_ENDPOINT,
   AUTH_FORGOT_PASSWORD_ENDPOINT,
   AUTH_RESET_PASSWORD_ENDPOINT,
+  AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
 } from '../constants';
 
 import { VerifyEmailFormValues } from '../../views/agent/AgentCreation/VerifyEmail';
 import { LoginFormValues } from '../../pages/login';
 import { CreateAgentFormValues } from '../../views/agent/AgentCreation/CreateAgent';
+import { ResetPasswordFormValues } from '../../pages/reset-password';
 
 export const CREATE_AGENT_REQUEST = 'CREATE_AGENT_REQUEST';
 export const CREATE_AGENT_SUCCESS = 'CREATE_AGENT_SUCCESS';
@@ -19,6 +21,10 @@ export const CREATE_AGENT_FAILURE = 'CREATE_AGENT_FAILURE';
 export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
 export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
 export const VERIFY_EMAIL_FAILURE = 'VERIFY_EMAIL_FAILURE';
+
+export const RESEND_SIGNUP_EMAIL_REQUEST = 'RESEND_SIGNUP_EMAIL_REQUEST';
+export const RESEND_SIGNUP_EMAIL_SUCCESS = 'RESEND_SIGNUP_EMAIL_SUCCESS';
+export const RESEND_SIGNUP_EMAIL_FAILURE = 'RESEND_SIGNUP_EMAIL_FAILURE';
 
 export const AUTHENTICATE_CREDENTIALS_REQUEST = 'AUTHENTICATE_CREDENTIALS_REQUEST';
 export const AUTHENTICATE_CREDENTIALS_SUCCESS = 'AUTHENTICATE_CREDENTIALS_SUCCESS';
@@ -63,6 +69,7 @@ export default (
   switch (action.type) {
     case CREATE_AGENT_REQUEST:
     case VERIFY_EMAIL_REQUEST:
+    case RESEND_SIGNUP_EMAIL_REQUEST:
     case AUTHENTICATE_CREDENTIALS_REQUEST:
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
@@ -87,8 +94,9 @@ export default (
         verifiedEmail: true,
       };
     case CREATE_AGENT_SUCCESS:
-    case FORGOT_PASSWORD_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
+    case FORGOT_PASSWORD_SUCCESS:
+    case RESEND_SIGNUP_EMAIL_SUCCESS:
     case CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,
@@ -106,6 +114,7 @@ export default (
       };
     case CREATE_AGENT_FAILURE:
     case VERIFY_EMAIL_FAILURE:
+    case RESEND_SIGNUP_EMAIL_FAILURE:
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case CHANGE_PASSWORD_FAILURE:
@@ -156,6 +165,23 @@ export const verifyEmail = (payload: VerifyEmailFormValues) => ({
   },
 });
 
+export const resendSignupEmail = (email: string) => ({
+  [RSAA]: {
+    endpoint: AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+    skipOauth: true,
+    types: [
+      RESEND_SIGNUP_EMAIL_REQUEST,
+      RESEND_SIGNUP_EMAIL_SUCCESS,
+      RESEND_SIGNUP_EMAIL_FAILURE,
+    ],
+  },
+});
+
 export const authenticateCredentials = (payload: LoginFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_LOGIN_ENDPOINT,
@@ -192,11 +218,7 @@ export const forgotPassword = (payload: {
   },
 });
 
-export const resetPassword = (payload: {
-  email: string,
-  newPassword: string,
-  token: string,
-}) => ({
+export const resetPassword = (payload: ResetPasswordFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_RESET_PASSWORD_ENDPOINT,
     method: 'POST',
@@ -213,24 +235,24 @@ export const resetPassword = (payload: {
   },
 });
 
-export const changePassword = (payload: {
-  newPassword: string,
-  currentPassword: string,
-}) => ({
-  [RSAA]: {
-    // endpoint: CHANGE_PASSWORD_ENDPOINT,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-    types: [
-      CHANGE_PASSWORD_REQUEST,
-      CHANGE_PASSWORD_SUCCESS,
-      CHANGE_PASSWORD_FAILURE,
-    ],
-  },
-});
+// export const changePassword = (payload: {
+//   newPassword: string,
+//   currentPassword: string,
+// }) => ({
+//   [RSAA]: {
+//     // endpoint: CHANGE_PASSWORD_ENDPOINT,
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(payload),
+//     types: [
+//       CHANGE_PASSWORD_REQUEST,
+//       CHANGE_PASSWORD_SUCCESS,
+//       CHANGE_PASSWORD_FAILURE,
+//     ],
+//   },
+// });
 
 export const logout = () => ({
   type: LOGOUT_REQUEST,

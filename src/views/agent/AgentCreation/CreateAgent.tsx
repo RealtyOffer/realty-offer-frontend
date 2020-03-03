@@ -22,6 +22,7 @@ import {
   requiredField,
   requiredPhoneNumber,
   requiredPassword,
+  passwordRulesString,
 } from '../../../utils/validations';
 import { createAgent } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
@@ -123,7 +124,7 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                         type="password"
                         label="Password"
                         name="password"
-                        helpText="Password must contain a minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character."
+                        helpText={passwordRulesString}
                         {...field}
                         {...form}
                         {...meta}

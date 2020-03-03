@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+// import { FaBars } from 'react-icons/fa';
 
 import PageContainer from './PageContainer';
 import FlexContainer from './FlexContainer';
+import Button from './Button';
 
 import { brandPrimary, white } from '../styles/color';
 import { baseSpacer, doubleSpacer } from '../styles/size';
+import { logout } from '../redux/ducks/auth';
 
 import logo from '../images/logo.svg';
 
-type NavbarProps = {}
+type NavbarProps = {
+  auth: any;
+  actions: {
+    logout: Function;
+  }
+}
 type NavbarState = {
   menuOpen: Boolean;
 }
@@ -60,6 +70,7 @@ class Navbar extends Component<NavbarProps, NavbarState> {
               Realty Offer
             </StyledNavbarLink>
             <div>
+              {/* TODO: mobile navigation menu
               <div
                 data-target="navMenu"
                 tabIndex={0}
@@ -67,16 +78,35 @@ class Navbar extends Component<NavbarProps, NavbarState> {
                 onKeyDown={() => this.toggleHamburger()}
                 role="menu"
               >
-                {/* icon here */}
+                <FaBars />
               </div>
+              */}
               <div id="navMenu">
                 <div>
-                  <StyledNavbarLink to="/">
+                  <Button type="link" to="/">
                     Home
-                  </StyledNavbarLink>
-                  <StyledNavbarLink to="/blog">
+                  </Button>
+                  <Button type="link" to="/blog">
                     Blog
-                  </StyledNavbarLink>
+                  </Button>
+                  {
+                    this.props.auth.isLoggedIn ? (
+                      <Button
+                        type="button"
+                        onClick={() => this.props.actions.logout()}
+                        color="primary"
+                      >
+                        Log Out
+                      </Button>
+                    ) : (
+                      <Button
+                        type="link"
+                        to="/login"
+                      >
+                        Log In
+                      </Button>
+                    )
+                  }
                 </div>
               </div>
             </div>
@@ -87,4 +117,11 @@ class Navbar extends Component<NavbarProps, NavbarState> {
   }
 }
 
-export default Navbar;
+export default connect(
+  (state) => ({
+    auth: state.auth,
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators({ logout }, dispatch),
+  }),
+)(Navbar);
