@@ -9,7 +9,7 @@ import { RouteComponentProps } from '@reach/router';
 import {
   Box, Button, Input, FlexContainer, Header, Row, Column,
 } from '../../../components';
-import { verifyEmail } from '../../../redux/ducks/auth';
+import { verifyEmail, resendSignupEmail } from '../../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../../utils/validations';
 import { brandSuccess } from '../../../styles/color';
 import { fontSizeH1 } from '../../../styles/typography';
@@ -30,19 +30,19 @@ declare const document: Document;
 type VerifyEmailType = {
   actions: {
     verifyEmail: Function;
+    resendSignupEmail: Function;
   },
   auth: {};
 }
 
-const resend = () => {
-  alert('TODO');
-};
-
-const focusChange = (e: SyntheticEvent) => { // SyntheticInputEvent not supported by TS yet
+const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
   const target = e.target as HTMLInputElement;
   if (target.value.length >= 1) {
     const currentInputIndex = Number(target.name.charAt(5));
-    document.getElementsByName(`digit${currentInputIndex + 1}`)[0].focus();
+    const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
+    if (inputToBeFocused) {
+      inputToBeFocused.focus();
+    }
   }
 };
 
@@ -60,7 +60,9 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
       digit6: '',
     };
 
-    const height = '150px';
+    const resend = (email: string) => {
+      props.actions.resendSignupEmail(email);
+    };
 
     return (
       <Row>
@@ -77,7 +79,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
                       your account.
                     </p>
                   </FlexContainer>
-                  <FlexContainer height="400px">
+                  <FlexContainer>
                     <Formik
                       initialValues={initialValues}
                       onSubmit={(values, { setSubmitting }) => {
@@ -107,59 +109,20 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
                           />
                           <label>Verification Code</label>
                           <FlexContainer justifyContent="space-between" flexWrap="nowrap">
-                            <Field
-                              as={Input}
-                              type="text"
-                              name="digit1"
-                              square
-                              maxLength={1}
-                              onInput={(e: SyntheticEvent) => focusChange(e)}
-                              validate={requiredField}
-                            />
-                            <Field
-                              as={Input}
-                              type="text"
-                              name="digit2"
-                              square
-                              maxLength={1}
-                              onInput={(e: SyntheticEvent) => focusChange(e)}
-                              validate={requiredField}
-                            />
-                            <Field
-                              as={Input}
-                              type="text"
-                              name="digit3"
-                              square
-                              maxLength={1}
-                              onInput={(e: SyntheticEvent) => focusChange(e)}
-                              validate={requiredField}
-                            />
-                            <Field
-                              as={Input}
-                              type="text"
-                              name="digit4"
-                              square
-                              maxLength={1}
-                              onInput={(e: SyntheticEvent) => focusChange(e)}
-                              validate={requiredField}
-                            />
-                            <Field
-                              as={Input}
-                              type="text"
-                              name="digit5"
-                              square
-                              maxLength={1}
-                              onInput={(e: SyntheticEvent) => focusChange(e)}
-                              validate={requiredField}
-                            />
-                            <Field
-                              as={Input}
-                              type="text"
-                              name="digit6"
-                              square
-                              maxLength={1}
-                              validate={requiredField}
-                            />
+                            {
+                              ['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
+                                <Field
+                                  key={digit}
+                                  as={Input}
+                                  type="text"
+                                  name={digit}
+                                  square
+                                  maxLength={1}
+                                  onInput={autoFocusNextInput}
+                                  validate={requiredField}
+                                />
+                              ))
+                            }
                           </FlexContainer>
                           <FlexContainer>
                             <Button block type="submit" disabled={isSubmitting || !isValid || values === initialValues}>
@@ -169,15 +132,18 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
                               Cancel
                             </Button>
                           </FlexContainer>
+                          <FlexContainer flexDirection="column">
+                            <p style={{ textAlign: 'center' }}>
+                              Didn&apos;t receive an email? Enter your email address and click the
+                              button below to receive a new verification code.
+                            </p>
+                            <Button type="button" disabled={!values.email} onClick={() => resend(values.email)} color="primaryOutline">
+                              Send Another code
+                            </Button>
+                          </FlexContainer>
                         </Form>
                       )}
                     </Formik>
-                  </FlexContainer>
-                  <FlexContainer height={height} flexDirection="column">
-                    <p>Didn&apos;t receive an email?</p>
-                    <Button type="button" onClick={() => resend()} color="primaryOutline">
-                      Send Another code
-                    </Button>
                   </FlexContainer>
                 </>
               ) : (
@@ -190,7 +156,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
                       You are one step closer to connecting with new clients.
                     </p>
                   </FlexContainer>
-                  <FlexContainer height={height}>
+                  <FlexContainer>
                     <Button type="link" to="/agent/agent-information">Set Up My Profile</Button>
                   </FlexContainer>
                 </>
@@ -208,6 +174,6 @@ export default connect(
     auth: state.auth,
   }),
   (dispatch) => ({
-    actions: bindActionCreators({ verifyEmail }, dispatch),
+    actions: bindActionCreators({ verifyEmail, resendSignupEmail }, dispatch),
   }),
 )(VerifyEmail);

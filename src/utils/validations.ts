@@ -58,3 +58,5 @@ export const requiredPhoneNumber = (value: string) => customFieldLevelValidation
 export const requiredPassword = (value: string) => customFieldLevelValidation(
   value, [requiredField, isValidPassword],
 );
+
+export const passwordRulesString = 'Password must contain a minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.';
