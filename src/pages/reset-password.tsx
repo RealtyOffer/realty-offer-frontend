@@ -39,11 +39,14 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
     digit6: '',
   };
 
-  const focusChange = (e: SyntheticEvent) => { // SyntheticInputEvent not supported by TS yet
+  const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     if (target.value.length >= 1) {
       const currentInputIndex = Number(target.name.charAt(5));
-      document.getElementsByName(`digit${currentInputIndex + 1}`)[0].focus();
+      const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
+      if (inputToBeFocused) {
+        inputToBeFocused.focus();
+      }
     }
   };
 
@@ -51,7 +54,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
     <Layout>
       <Row>
         <Column md={6} mdOffset={3}>
-          <Box>
+          <Box largePadding>
             <Header align="center">Reset Password</Header>
             {
               !submitted ? (
@@ -85,59 +88,20 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
                       />
                       <label>Verification Code</label>
                       <FlexContainer justifyContent="space-between" flexWrap="nowrap">
-                        <Field
-                          as={Input}
-                          type="text"
-                          name="digit1"
-                          square
-                          maxLength={1}
-                          onInput={(e: SyntheticEvent) => focusChange(e)}
-                          validate={requiredField}
-                        />
-                        <Field
-                          as={Input}
-                          type="text"
-                          name="digit2"
-                          square
-                          maxLength={1}
-                          onInput={(e: SyntheticEvent) => focusChange(e)}
-                          validate={requiredField}
-                        />
-                        <Field
-                          as={Input}
-                          type="text"
-                          name="digit3"
-                          square
-                          maxLength={1}
-                          onInput={(e: SyntheticEvent) => focusChange(e)}
-                          validate={requiredField}
-                        />
-                        <Field
-                          as={Input}
-                          type="text"
-                          name="digit4"
-                          square
-                          maxLength={1}
-                          onInput={(e: SyntheticEvent) => focusChange(e)}
-                          validate={requiredField}
-                        />
-                        <Field
-                          as={Input}
-                          type="text"
-                          name="digit5"
-                          square
-                          maxLength={1}
-                          onInput={(e: SyntheticEvent) => focusChange(e)}
-                          validate={requiredField}
-                        />
-                        <Field
-                          as={Input}
-                          type="text"
-                          name="digit6"
-                          square
-                          maxLength={1}
-                          validate={requiredField}
-                        />
+                        {
+                          ['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
+                            <Field
+                              key={digit}
+                              as={Input}
+                              type="text"
+                              name={digit}
+                              square
+                              maxLength={1}
+                              onInput={autoFocusNextInput}
+                              validate={requiredField}
+                            />
+                          ))
+                        }
                       </FlexContainer>
                       <Field
                         name="newPassword"
