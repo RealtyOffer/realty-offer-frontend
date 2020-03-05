@@ -25,7 +25,7 @@ export const BlogPostTemplate = ({
   const PostContent = contentComponent || Content;
 
   return (
-    <Box>
+    <Box largePadding>
       <section className="section">
         {helmet || ''}
         <div className="container content">

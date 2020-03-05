@@ -35,7 +35,7 @@ const Login: FunctionComponent<LoginProps> = (props) => {
     <Layout>
       <Row>
         <Column md={6} mdOffset={3}>
-          <Box>
+          <Box largePadding>
             <Header align="center">Log In</Header>
             <Formik
               initialValues={initialValues}

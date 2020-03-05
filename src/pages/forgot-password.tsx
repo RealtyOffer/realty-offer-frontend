@@ -30,7 +30,7 @@ const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
     <Layout>
       <Row>
         <Column md={6} mdOffset={3}>
-          <Box>
+          <Box largePadding>
             <Header align="center">Forgot Password?</Header>
             {
               !submitted ? (

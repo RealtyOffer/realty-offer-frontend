@@ -11,7 +11,7 @@ const BlogIndexPage = () => (
       </Header>
     </div>
     <section>
-      <Box>
+      <Box largePadding>
         <BlogRoll />
       </Box>
     </section>
