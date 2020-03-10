@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  Box, Button, Column, Header, Input, Layout, Row, HorizontalRule,
+  Box, Button, Column, Header, Input, Row, HorizontalRule, Seo,
 } from '../components';
 
 import { requiredField } from '../utils/validations';
@@ -32,7 +32,8 @@ const Login: FunctionComponent<LoginProps> = (props) => {
   };
 
   return (
-    <Layout>
+    <>
+      <Seo title="Log In" />
       <Row>
         <Column md={6} mdOffset={3}>
           <Box largePadding>
@@ -45,7 +46,7 @@ const Login: FunctionComponent<LoginProps> = (props) => {
                     setSubmitting(false);
                     if (response && !response.error) {
                       // TODO push to user type
-                      navigate('/agent/');
+                      navigate('/agent/listings/new');
                     }
                   });
               }}
@@ -91,7 +92,7 @@ const Login: FunctionComponent<LoginProps> = (props) => {
           </Box>
         </Column>
       </Row>
-    </Layout>
+    </>
   );
 };
 

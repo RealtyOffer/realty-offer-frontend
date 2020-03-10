@@ -60,24 +60,22 @@ const BlogPost = ({ data }: { data: any}) => {
   const { markdownRemark: post } = data;
 
   return (
-    <Layout>
-      <BlogPostTemplate
-        content={post.html}
-        contentComponent={HTMLContent}
-        description={post.frontmatter.description}
-        helmet={(
-          <Helmet titleTemplate="%s | Realty Offer Blog">
-            <title>{post.frontmatter.title}</title>
-            <meta
-              name="description"
-              content={`${post.frontmatter.description}`}
-            />
-          </Helmet>
-        )}
-        tags={post.frontmatter.tags}
-        title={post.frontmatter.title}
-      />
-    </Layout>
+    <BlogPostTemplate
+      content={post.html}
+      contentComponent={HTMLContent}
+      description={post.frontmatter.description}
+      helmet={(
+        <Helmet titleTemplate="%s | Realty Offer Blog">
+          <title>{post.frontmatter.title}</title>
+          <meta
+            name="description"
+            content={`${post.frontmatter.description}`}
+          />
+        </Helmet>
+      )}
+      tags={post.frontmatter.tags}
+      title={post.frontmatter.title}
+    />
   );
 };
 

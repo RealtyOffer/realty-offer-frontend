@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  Alert, Box, Button, Column, Header, Input, Layout, Row, HorizontalRule,
+  Alert, Box, Button, Column, Header, Input, Row, HorizontalRule, Seo,
 } from '../components';
 
 import { requiredField } from '../utils/validations';
@@ -27,7 +27,8 @@ const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
   };
 
   return (
-    <Layout>
+    <>
+      <Seo title="Forgot Password" />
       <Row>
         <Column md={6} mdOffset={3}>
           <Box largePadding>
@@ -80,7 +81,7 @@ const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
           </Box>
         </Column>
       </Row>
-    </Layout>
+    </>
   );
 };
 

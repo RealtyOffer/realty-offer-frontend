@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Header, Layout, Box } from '../../components';
+import { Header, Box } from '../../components';
 import BlogRoll from '../../templates/BlogRoll';
 
 const BlogIndexPage = () => (
-  <Layout>
+  <>
     <div>
       <Header>
         Latest Stories
@@ -15,7 +15,7 @@ const BlogIndexPage = () => (
         <BlogRoll />
       </Box>
     </section>
-  </Layout>
+  </>
 );
 
 export default BlogIndexPage;

@@ -1,6 +1,6 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Router } from '@reach/router';
+import { Router, Redirect } from '@reach/router';
+import { connect } from 'react-redux';
 
 import Agent from '../views/agent/Agent';
 import CreateAgent from '../views/agent/AgentCreation/CreateAgent';
@@ -9,22 +9,38 @@ import AgentInformation from '../views/agent/AgentCreation/AgentInformation';
 import BusinessInformation from '../views/agent/AgentCreation/BusinessInformation';
 import PaymentInformation from '../views/agent/AgentCreation/PaymentInformation';
 import ConfirmPayment from '../views/agent/AgentCreation/ConfirmPayment';
+import NewListings from '../views/agent/Authenticated/Listings/New';
 import NotFoundPage from './404';
-import { Layout } from '../components';
 
-const App = () => (
-  <Layout>
-    <Router basepath="agent">
-      <Agent path="/" />
-      <CreateAgent path="/create-agent" />
-      <VerifyEmail path="/verify-email" />
-      <AgentInformation path="/agent-information" />
-      <BusinessInformation path="/business-information" />
-      <PaymentInformation path="/payment-information" />
-      <ConfirmPayment path="/confirm-payment" />
-      <NotFoundPage default />
-    </Router>
-  </Layout>
+type AgentAppProps = {
+  auth: {
+    isLoggedIn: boolean;
+  };
+}
+
+const AgentApp = (props: AgentAppProps) => (
+  <Router basepath="agent">
+    <Agent path="/" />
+    <CreateAgent path="/create-agent" />
+    <VerifyEmail path="/verify-email" />
+    <AgentInformation path="/agent-information" />
+    <BusinessInformation path="/business-information" />
+    <PaymentInformation path="/payment-information" />
+    <ConfirmPayment path="/confirm-payment" />
+    {
+      props.auth.isLoggedIn && (
+        <>
+          <NewListings path="/listings/new" />
+        </>
+      )
+    }
+    <NotFoundPage default />
+  </Router>
 );
 
-export default App;
+export default connect(
+  (state) => ({
+    auth: state.auth,
+  }),
+  null,
+)(AgentApp);
