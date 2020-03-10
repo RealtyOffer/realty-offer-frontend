@@ -12,11 +12,13 @@ import {
   Button,
   Input,
   FlexContainer,
-  Header,
+  Heading,
   Row,
+  Card,
   Column,
   HorizontalRule,
 } from '../../../components';
+
 import {
   requiredEmail,
   requiredField,
@@ -53,98 +55,93 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
   const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
 
   return (
-    <Row>
-      <Column md={6} mdOffset={3}>
-        <div>
-          <Box largePadding>
-            <FlexContainer flexDirection="column">
-              <Header>Sign Up!</Header>
-              <p>Tell Us About Yourself</p>
-            </FlexContainer>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={(values, { setSubmitting }) => {
-                props.actions.createAgent({
-                  ...values,
-                  phoneNumber: reformattedPhone(values.phoneNumber),
-                }).then((response: ActionResponseType) => {
-                  setSubmitting(false);
-                  if (response && !response.error) {
-                    navigate('/agent/verify-email');
-                  }
-                });
-              }}
-            >
-              {(formikProps: FormikProps<any>) => (
-                <Form>
-                  <Row>
-                    <Column xs={6}>
-                      <Field
-                        as={Input}
-                        type="text"
-                        name="firstName"
-                        label="First Name"
-                        validate={requiredField}
-                      />
-                    </Column>
-                    <Column xs={6}>
-                      <Field
-                        as={Input}
-                        type="text"
-                        name="lastName"
-                        label="Last Name"
-                        validate={requiredField}
-                      />
-                    </Column>
-                  </Row>
+    <Card
+      cardTitle="Sign Up!"
+      cardSubtitle="Tell Us About Yourself"
+    >
+      <>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values, { setSubmitting }) => {
+            props.actions.createAgent({
+              ...values,
+              phoneNumber: reformattedPhone(values.phoneNumber),
+            }).then((response: ActionResponseType) => {
+              setSubmitting(false);
+              if (response && !response.error) {
+                navigate('/agent/verify-email');
+              }
+            });
+          }}
+        >
+          {(formikProps: FormikProps<any>) => (
+            <Form>
+              <Row>
+                <Column xs={6}>
                   <Field
                     as={Input}
-                    type="tel"
-                    name="phoneNumber"
-                    label="Phone Number"
-                    validate={requiredPhoneNumber}
+                    type="text"
+                    name="firstName"
+                    label="First Name"
+                    validate={requiredField}
                   />
+                </Column>
+                <Column xs={6}>
                   <Field
                     as={Input}
-                    type="email"
-                    name="email"
-                    label="Email Address"
-                    validate={requiredEmail}
+                    type="text"
+                    name="lastName"
+                    label="Last Name"
+                    validate={requiredField}
                   />
-                  <Field
+                </Column>
+              </Row>
+              <Field
+                as={Input}
+                type="tel"
+                name="phoneNumber"
+                label="Phone Number"
+                validate={requiredPhoneNumber}
+              />
+              <Field
+                as={Input}
+                type="email"
+                name="email"
+                label="Email Address"
+                validate={requiredEmail}
+              />
+              <Field
+                name="password"
+                validate={requiredPassword}
+              >
+                {({
+                  field, form, meta,
+                }: {
+                  field: FieldProps, form: FormikFormProps, meta: FieldMetaProps<any>,
+                }) => (
+                  <Input
+                    type="password"
+                    label="Password"
                     name="password"
-                    validate={requiredPassword}
-                  >
-                    {({
-                      field, form, meta,
-                    }:{
-                      field: FieldProps, form: FormikFormProps, meta: FieldMetaProps<any>,
-                    }) => (
-                      <Input
-                        type="password"
-                        label="Password"
-                        name="password"
-                        helpText={passwordRulesString}
-                        {...field}
-                        {...form}
-                        {...meta}
-                      />
-                    )}
-                  </Field>
-                  <HorizontalRule />
-                  <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
-                    Create Account
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-            <Button type="link" to="/" color="text" block>
-              Cancel
-            </Button>
-          </Box>
-        </div>
-      </Column>
-    </Row>
+                    helpText={passwordRulesString}
+                    {...field}
+                    {...form}
+                    {...meta}
+                  />
+                )}
+              </Field>
+              <HorizontalRule />
+              <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
+                Create Account
+              </Button>
+            </Form>
+          )}
+        </Formik>
+        <Button type="link" to="/" color="text" block>
+          Cancel
+        </Button>
+      </>
+    </Card>
   );
 };
 

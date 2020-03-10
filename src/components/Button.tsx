@@ -116,11 +116,12 @@ const textButtonStyles = `
 
 const allStyles = css`
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   ${(props: ButtonProps) => (props.block && 'width: 100%;')}
   font-family: ${fontFamilySansSerif};
   font-size: ${fontSizeBase};
-  text-align: center;
+  justify-content: center;
+  align-items: center;
   white-space: nowrap;
   vertical-align: middle;
   touch-action: manipulation;
@@ -170,7 +171,10 @@ const StyledLink = styled.div`
 
   & > a {
     padding: ${halfSpacer} ${baseAndAHalfSpacer};
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     color: inherit;
 
     &:hover,

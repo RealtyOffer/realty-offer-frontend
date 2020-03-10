@@ -1,13 +1,13 @@
 import React from 'react';
 
 import {
-  Box, Seo, Header,
+  Box, Seo, Heading,
 } from '../components';
 
 const PrivacyPolicy = () => (
   <>
     <Seo title="Privacy Policy" />
-    <Header>Privacy Policy</Header>
+    <Heading>Privacy Policy</Heading>
     <Box>
       privacy policy goes here
     </Box>

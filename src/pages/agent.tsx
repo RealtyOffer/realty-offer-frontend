@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Redirect } from '@reach/router';
+import { Router } from '@reach/router';
 import { connect } from 'react-redux';
 
 import Agent from '../views/agent/Agent';
@@ -21,7 +21,7 @@ type AgentAppProps = {
 const AgentApp = (props: AgentAppProps) => (
   <Router basepath="agent">
     <Agent path="/" />
-    <CreateAgent path="/create-agent" />
+    <CreateAgent path="/create" />
     <VerifyEmail path="/verify-email" />
     <AgentInformation path="/agent-information" />
     <BusinessInformation path="/business-information" />

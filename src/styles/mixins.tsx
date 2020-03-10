@@ -1,5 +1,5 @@
 import {
-  borderWidth, quarterSpacer, halfSpacer, baseSpacer,
+  borderWidth, quarterSpacer, halfSpacer, baseSpacer, doubleSpacer,
 } from './size';
 import {
   borderColor,
@@ -25,7 +25,7 @@ export const visuallyHiddenStyle = `
   white-space: nowrap; /* added line */
 `;
 
-export const z1Shadow = `0 ${quarterSpacer} ${quarterSpacer} 0 rgba(0,0,0,0.1)`;
-export const z2Shadow = `0 ${quarterSpacer} ${halfSpacer} 0 rgba(0,0,0,0.1)`;
-export const z3Shadow = `0 ${quarterSpacer} ${halfSpacer} ${quarterSpacer} rgba(0,0,0,0.1)`;
-export const z4Shadow = `0 ${quarterSpacer} ${baseSpacer} ${baseSpacer} rgba(0,0,0,0.1)`;
+export const z1Shadow = `0 1px ${quarterSpacer} 0 rgba(0,0,0,0.2)`;
+export const z2Shadow = `0 ${quarterSpacer} ${halfSpacer} 0 rgba(0,0,0,0.2)`;
+export const z3Shadow = `0 ${halfSpacer} ${baseSpacer} rgba(0,0,0,0.2)`;
+export const z4Shadow = `0 ${baseSpacer} ${doubleSpacer} rgba(0,0,0,0.2)`;

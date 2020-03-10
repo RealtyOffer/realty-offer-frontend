@@ -4,7 +4,7 @@ import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
 import {
-  Box, Button, Input, FlexContainer, Header, Row, Column, ProgressBar, HorizontalRule,
+  Box, Button, Input, FlexContainer, Heading, Row, Column, ProgressBar, HorizontalRule,
 } from '../../../components';
 import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 
@@ -29,9 +29,9 @@ const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
     <Row>
       <Column md={6} mdOffset={3}>
         <div>
-          <Box largePadding>
+          <Box backgroundAccent>
             <FlexContainer flexDirection="column">
-              <Header>Agent Information</Header>
+              <Heading>Agent Information</Heading>
               <p>Get started by simply providing your Agent Information</p>
             </FlexContainer>
             <ProgressBar value={33} label="Step 1/3" name="progress" />

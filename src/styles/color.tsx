@@ -5,6 +5,7 @@ export const gray = '#5E636B';
 export const textGray = '#646c6e';
 export const lightGray = '#C5C7C9';
 export const lightestGray = '#E3E8E9';
+export const offWhite = '#FAFBFE';
 export const white = '#ffffff';
 
 
@@ -16,6 +17,7 @@ export const white = '#ffffff';
 // Primary
 const blue = '#0077CC';
 const blueVariant = '#00A1E8';
+const blueAccentLight = '#E8F4FA';
 
 // Secondary
 const yellow = '#FFBC03';
@@ -43,6 +45,7 @@ export const supportingWhitesmoke = '#F2F2F2';
 // You can add new vars here, but keep the names abstracted.
 export const brandPrimary = blue;
 export const brandPrimaryHover = blueVariant;
+export const brandPrimaryAccentLight = blueAccentLight;
 export const brandSecondary = yellow;
 export const brandSecondaryHover = yellowVariant;
 export const brandTertiary = darkBlue;

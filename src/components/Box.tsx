@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { baseSpacer, doubleSpacer } from '../styles/size';
-import { white } from '../styles/color';
+import { white, brandPrimaryAccentLight } from '../styles/color';
 import {
   z1Shadow, z2Shadow, z3Shadow, z4Shadow,
 } from '../styles/mixins';
@@ -12,6 +12,7 @@ type BoxProps = {
   height?: number;
   zindex?: 1 | 2 | 3 | 4;
   largePadding?: boolean;
+  backgroundAccent?: boolean;
 }
 
 const renderShadow = (zindex: number) => {
@@ -39,8 +40,13 @@ const StyledBox = styled.div`
   height: ${(props: BoxProps) => (props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`)};
 `;
 
+const StyledBoxBackground = styled.div`
+  background-color: ${brandPrimaryAccentLight};
+  padding: ${doubleSpacer};
+`;
+
 const Box: FunctionComponent<BoxProps> = ({
-  textAlign, height, zindex, children, largePadding,
+  textAlign, height, zindex, children, largePadding, backgroundAccent,
 }) => (
   <StyledBox
     textAlign={textAlign}
@@ -48,8 +54,15 @@ const Box: FunctionComponent<BoxProps> = ({
     zindex={zindex}
     largePadding={largePadding}
   >
-    {children}
+    {
+      backgroundAccent ?
+        <StyledBoxBackground>{children}</StyledBoxBackground> : children
+    }
   </StyledBox>
 );
+
+Box.defaultProps = {
+  zindex: 1,
+};
 
 export default Box;

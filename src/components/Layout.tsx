@@ -11,7 +11,7 @@ import useSiteMetadata from './SiteMetadata';
 import CssReset from '../styles/cssReset';
 
 import { baseSpacer, doubleSpacer, breakpoints } from '../styles/size';
-import { lightestGray } from '../styles/color';
+import { offWhite } from '../styles/color';
 import GlobalAlerts from './GlobalAlerts';
 
 const LayoutWrapper = styled.div`
@@ -22,7 +22,7 @@ const LayoutWrapper = styled.div`
 `;
 
 const PageBody = styled.div`
-  background-color: ${lightestGray};
+  background-color: ${offWhite};
   flex: 1;
   padding: ${baseSpacer} 0;
   @media only screen and (min-width: ${breakpoints.sm}) {

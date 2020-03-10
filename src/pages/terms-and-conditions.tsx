@@ -1,13 +1,13 @@
 import React from 'react';
 
 import {
-  Box, Seo, Header,
+  Box, Seo, Heading,
 } from '../components';
 
 const TermsPage = () => (
   <>
     <Seo title="Terms &amp; Conditions" />
-    <Header>Terms &amp; Conditions</Header>
+    <Heading>Terms &amp; Conditions</Heading>
     <Box>
       terms go here
     </Box>

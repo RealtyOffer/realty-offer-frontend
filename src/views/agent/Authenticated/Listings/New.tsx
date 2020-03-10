@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 
-import { Header } from '../../../../components';
+import { Heading } from '../../../../components';
 
 const NewListings: FunctionComponent<RouteComponentProps> = () => (
   <>
-    <Header>New Listings</Header>
+    <Heading>New Listings</Heading>
   </>
 );
 

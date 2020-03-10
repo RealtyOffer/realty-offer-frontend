@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  Alert, Box, Button, Column, Header, Input, Row, HorizontalRule, FlexContainer, Seo,
+  Alert, Box, Button, Column, Heading, Input, Row, HorizontalRule, FlexContainer, Seo,
 } from '../components';
 
 import { requiredField, requiredPassword, passwordRulesString } from '../utils/validations';
@@ -56,7 +56,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
       <Row>
         <Column md={6} mdOffset={3}>
           <Box largePadding>
-            <Header align="center">Reset Password</Header>
+            <Heading align="center">Reset Password</Heading>
             {
               !submitted ? (
                 <Formik

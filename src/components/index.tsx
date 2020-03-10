@@ -1,11 +1,12 @@
 import Alert from './Alert';
 import Box from './Box';
 import Button from './Button';
+import Card from './Card';
 import Column from './Column';
 import Content from './Content';
 import FlexContainer from './FlexContainer';
 import Footer from './Footer';
-import Header from './Header';
+import Heading from './Heading';
 import HorizontalRule from './HorizontalRule';
 import Image from './Image';
 import Input from './Input';
@@ -22,11 +23,12 @@ export {
   Alert,
   Box,
   Button,
+  Card,
   Column,
   Content,
   FlexContainer,
   Footer,
-  Header,
+  Heading,
   HorizontalRule,
   Image,
   Input,

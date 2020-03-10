@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { baseSpacer } from '../styles/size';
-import { white, headingsColor } from '../styles/color';
+import {
+  white, brandPrimary, headingsColor, brandTertiaryHover,
+} from '../styles/color';
 import {
   fontSizeH1,
   fontSizeH2,
@@ -19,6 +21,7 @@ type HeadingProps = {
   noMargin?: boolean;
   align?: 'left' | 'center' | 'right';
   children: string;
+  styledAs?: 'title' | 'subtitle' | null;
 }
 
 const renderFontSize = (as: HeadingProps['as']) => {
@@ -43,6 +46,16 @@ const renderFontSize = (as: HeadingProps['as']) => {
   return fontSizeH1;
 };
 
+const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
+  if (styledAs === 'title') {
+    return css`color: ${brandPrimary}; font-weight: 700;`;
+  }
+  if (styledAs === 'subtitle') {
+    return css`color: ${brandTertiaryHover}; font-weight: 700; font-size: ${fontSizeH4};`;
+  }
+  return null;
+};
+
 const StyledHeading = styled.h1`
   font-weight: 300;
   line-height: ${lineHeightSmall};
@@ -51,24 +64,27 @@ const StyledHeading = styled.h1`
   text-align: ${(props: HeadingProps) => props.align};
   white-space: pre-line;
   font-size: ${(props: HeadingProps) => props.as && renderFontSize(props.as)};
+  ${(props: HeadingProps) => props.styledAs && renderStyledAs(props.styledAs)};
 `;
 
-const Header: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
+const Heading: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
   <StyledHeading
     as={props.as}
     noMargin={props.noMargin}
     inverse={props.inverse}
     align={props.align}
+    styledAs={props.styledAs}
   >
     {props.children}
   </StyledHeading>
 );
 
-Header.defaultProps = {
+Heading.defaultProps = {
   as: 'h1',
   inverse: false,
   noMargin: false,
   align: 'left',
+  styledAs: null,
 };
 
-export default Header;
+export default Heading;
