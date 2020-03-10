@@ -5,7 +5,6 @@ import Column from './Column';
 import Box from './Box';
 import FlexContainer from './FlexContainer';
 import Heading from './Heading';
-import HorizontalRule from './HorizontalRule';
 
 type CardProps = {
   cardTitle: string;
@@ -19,9 +18,8 @@ const Card = (props: CardProps) => (
       <div>
         <Box backgroundAccent>
           <FlexContainer flexDirection="column">
-            <Heading>{props.cardTitle}</Heading>
-            <p>{props.cardSubtitle}</p>
-            <HorizontalRule />
+            <Heading styledAs="title" align="center">{props.cardTitle}</Heading>
+            <Heading as="h2" styledAs="subtitle" align="center">{props.cardSubtitle}</Heading>
           </FlexContainer>
           {props.children}
         </Box>

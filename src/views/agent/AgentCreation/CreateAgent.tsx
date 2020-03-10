@@ -8,11 +8,8 @@ import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 
 import {
-  Box,
   Button,
   Input,
-  FlexContainer,
-  Heading,
   Row,
   Card,
   Column,
