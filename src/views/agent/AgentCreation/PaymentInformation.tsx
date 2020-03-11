@@ -4,7 +4,7 @@ import { RouteComponentProps } from '@reach/router';
 
 
 import {
-  Box, Button, FlexContainer, Header, Row, Column, ProgressBar, HorizontalRule,
+  Box, Button, FlexContainer, Heading, Row, Column, ProgressBar, HorizontalRule,
 } from '../../../components';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
@@ -17,9 +17,9 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     <Row>
       <Column md={6} mdOffset={3}>
         <div>
-          <Box largePadding>
+          <Box backgroundAccent>
             <FlexContainer flexDirection="column">
-              <Header>Payment Information</Header>
+              <Heading>Payment Information</Heading>
               <p>We will save this information for fast, easy, &amp; convenient in-app purchases</p>
             </FlexContainer>
             <ProgressBar value={100} label="Step 3/3" name="progress" />

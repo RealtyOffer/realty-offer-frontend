@@ -1,17 +1,17 @@
 import React from 'react';
 
 import {
-  Box, Layout, Seo, Header,
+  Box, Seo, Heading,
 } from '../components';
 
 const TermsPage = () => (
-  <Layout>
+  <>
     <Seo title="Terms &amp; Conditions" />
-    <Header>Terms &amp; Conditions</Header>
+    <Heading>Terms &amp; Conditions</Heading>
     <Box>
       terms go here
     </Box>
-  </Layout>
+  </>
 );
 
 export default TermsPage;

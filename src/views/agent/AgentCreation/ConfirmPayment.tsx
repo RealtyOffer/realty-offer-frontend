@@ -4,7 +4,7 @@ import { FaRegCheckCircle } from 'react-icons/fa';
 
 import { RouteComponentProps } from '@reach/router';
 import {
-  Box, Button, FlexContainer, Header, Row, Column,
+  Box, Button, FlexContainer, Heading, Row, Column,
 } from '../../../components';
 import { brandSuccess } from '../../../styles/color';
 import { fontSizeH1 } from '../../../styles/typography';
@@ -16,14 +16,14 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
     <Row>
       <Column md={6} mdOffset={3}>
         <div>
-          <Box largePadding>
+          <Box backgroundAccent>
             {
               !confirmed ? (
                 <>
                   <FlexContainer flexDirection="column">
-                    <Header>Confirm Payment</Header>
+                    <Heading>Confirm Payment</Heading>
                     <p>Total Amount Due:</p>
-                    <Header as="h2">$2,388</Header>
+                    <Heading as="h2">$2,388</Heading>
                     <p>Will be paid from Card ending in: 9876</p>
                   </FlexContainer>
                   <Button type="button" color="primary" block onClick={() => setConfirmed(true)}>
@@ -37,7 +37,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
                 <>
                   <FlexContainer flexDirection="column">
                     <FaRegCheckCircle color={brandSuccess} size={fontSizeH1} />
-                    <Header>Confirmed!</Header>
+                    <Heading>Confirmed!</Heading>
                     <p>
                       Text goes here
                     </p>

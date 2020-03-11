@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, graphql, StaticQuery } from 'gatsby';
 
-import { Seo, PreviewCompatibleImage } from '../components';
+import { Seo, Heading, PreviewCompatibleImage } from '../components';
 
 class BlogRoll extends React.Component {
   render() {
@@ -19,7 +19,7 @@ class BlogRoll extends React.Component {
                   post.frontmatter.featuredpost ? 'is-featured' : ''
                 }`}
               >
-                <header>
+                <Heading>
                   {post.frontmatter.featuredimage ? (
                     <div className="featured-thumbnail">
                       <PreviewCompatibleImage
@@ -42,7 +42,7 @@ class BlogRoll extends React.Component {
                       {post.frontmatter.date}
                     </span>
                   </p>
-                </header>
+                </Heading>
                 <p>
                   {post.excerpt}
                   <br />

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import {
@@ -9,7 +9,7 @@ import {
 
 import { RouteComponentProps } from '@reach/router';
 import {
-  Box, Button, Input, FlexContainer, Header, Row, Column, ProgressBar, HorizontalRule,
+  Box, Button, Input, FlexContainer, Heading, Row, Column, ProgressBar, HorizontalRule,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
 import { doubleSpacer } from '../../../styles/size';
@@ -107,9 +107,9 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
       <Row>
         <Column md={8} mdOffset={2} lg={6} lgOffset={3}>
           <div>
-            <Box largePadding>
+            <Box backgroundAccent>
               <FlexContainer flexDirection="column">
-                <Header>Business Information</Header>
+                <Heading>Business Information</Heading>
                 <p>Select the zip codes you would like to receive leads in</p>
               </FlexContainer>
               <ProgressBar value={66} label="Step 2/3" name="progress" />

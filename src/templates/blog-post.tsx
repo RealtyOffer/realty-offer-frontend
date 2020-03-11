@@ -3,7 +3,7 @@ import { kebabCase } from 'lodash';
 import Helmet from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 
-import { Box, Header, Layout } from '../components';
+import { Box, Heading } from '../components';
 import Content, { HTMLContent } from '../components/Content';
 
 interface BlogPostProps {
@@ -31,9 +31,9 @@ export const BlogPostTemplate = ({
         <div className="container content">
           <div className="columns">
             <div className="column is-10 is-offset-1">
-              <Header>
+              <Heading>
                 {title}
-              </Header>
+              </Heading>
               <p>{description}</p>
               <PostContent content={content} />
               {tags && tags.length ? (
@@ -60,24 +60,22 @@ const BlogPost = ({ data }: { data: any}) => {
   const { markdownRemark: post } = data;
 
   return (
-    <Layout>
-      <BlogPostTemplate
-        content={post.html}
-        contentComponent={HTMLContent}
-        description={post.frontmatter.description}
-        helmet={(
-          <Helmet titleTemplate="%s | Realty Offer Blog">
-            <title>{post.frontmatter.title}</title>
-            <meta
-              name="description"
-              content={`${post.frontmatter.description}`}
-            />
-          </Helmet>
-        )}
-        tags={post.frontmatter.tags}
-        title={post.frontmatter.title}
-      />
-    </Layout>
+    <BlogPostTemplate
+      content={post.html}
+      contentComponent={HTMLContent}
+      description={post.frontmatter.description}
+      helmet={(
+        <Helmet titleTemplate="%s | Realty Offer Blog">
+          <title>{post.frontmatter.title}</title>
+          <meta
+            name="description"
+            content={`${post.frontmatter.description}`}
+          />
+        </Helmet>
+      )}
+      tags={post.frontmatter.tags}
+      title={post.frontmatter.title}
+    />
   );
 };
 

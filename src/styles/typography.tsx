@@ -5,19 +5,16 @@ export const fontFamilyMonospace = 'Consolas, Liberation Mono, Menlo, Courier, m
 export const headingsFontFamily = fontFamilySansSerif;
 
 // Font Sizes
-const fontSizeRoot = 16;
+// https://www.codementor.io/@ricardozea/100-responsive-typography-system-using-a-modular-scale-s5rhft58g
+export const fontSizeH1 = '1.912em';
+export const fontSizeH2 = '1.616em';
+export const fontSizeH3 = '1.471em';
+export const fontSizeH4 = '1.3em';
+export const fontSizeH5 = '1.243em';
+export const fontSizeH6 = '1.132em';
 
-export const fontSizeH1 = `${3 * fontSizeRoot}px`;
-export const fontSizeH2 = `${2.5 * fontSizeRoot}px`;
-export const fontSizeH3 = `${2 * fontSizeRoot}px`;
-export const fontSizeH4 = `${1.5 * fontSizeRoot}px`;
-export const fontSizeH5 = `${1.25 * fontSizeRoot}px`;
-export const fontSizeH6 = `${1 * fontSizeRoot}px`;
-
-export const fontSizeBase = `${1 * fontSizeRoot}px`;
-export const fontSizeSmall = `${0.85 * fontSizeRoot}px`;
-export const fontSizeXSmall = `${0.75 * fontSizeRoot}px`;
-export const fontSizeLarge = `${1.25 * fontSizeRoot}px`;
+export const fontSizeBase = '1em';
+export const fontSizeSmall = '.85em';
 
 export const lineHeightBase = '1.5';
 export const lineHeightSmall = '1.1';

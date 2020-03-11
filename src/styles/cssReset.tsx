@@ -6,7 +6,6 @@ import {
   textColor,
   headingsColor,
   lightGray,
-  lightestGray,
   white,
 } from './color';
 
@@ -69,8 +68,9 @@ const CssReset = createGlobalStyle`
 
   body {
     font-family: ${fontFamilySansSerif};
-    font-size: 1rem;
-    line-height: 1.5;
+    /* https://www.codementor.io/@ricardozea/100-responsive-typography-system-using-a-modular-scale-s5rhft58g */
+    font-size: calc(12px + .35vw); /* Responsive base font size */
+    line-height: calc(12px + 1.05vw); /* Responsive Vertical Rhythm */
     color: ${textColor};
     overflow-x: hidden;
   }

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { RouteComponentProps } from '@reach/router';
 import {
-  Box, Button, Input, FlexContainer, Header, Row, Column,
+  Box, Button, Input, FlexContainer, Heading, Row, Column,
 } from '../../../components';
 import { verifyEmail, resendSignupEmail } from '../../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../../utils/validations';
@@ -68,12 +68,12 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
       <Row>
         <Column md={6} mdOffset={3}>
           <div>
-            <Box largePadding>
+            <Box backgroundAccent>
               {
               !verified ? (
                 <>
                   <FlexContainer flexDirection="column">
-                    <Header align="center">Verify Email Address</Header>
+                    <Heading align="center">Verify Email Address</Heading>
                     <p style={{ textAlign: 'center' }}>
                       Please enter your email address and the 6 digit code sent to verify
                       your account.
@@ -150,7 +150,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
                 <>
                   <FlexContainer flexDirection="column">
                     <FaRegCheckCircle color={brandSuccess} size={fontSizeH1} />
-                    <Header>Verified!</Header>
+                    <Heading>Verified!</Heading>
                     <p>
                       You have successfully verified your email.
                       You are one step closer to connecting with new clients.
