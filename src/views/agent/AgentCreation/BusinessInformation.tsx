@@ -9,7 +9,7 @@ import {
 
 import { RouteComponentProps } from '@reach/router';
 import {
-  Box, Button, Input, FlexContainer, Header, Row, Column, ProgressBar, HorizontalRule,
+  Button, Input, FlexContainer, Row, Column, ProgressBar, HorizontalRule, Card,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
 import { doubleSpacer } from '../../../styles/size';
@@ -104,120 +104,115 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
     };
 
     return (
-      <Row>
-        <Column md={8} mdOffset={2} lg={6} lgOffset={3}>
-          <div>
-            <Box largePadding>
-              <FlexContainer flexDirection="column">
-                <Header>Business Information</Header>
-                <p>Select the zip codes you would like to receive leads in</p>
-              </FlexContainer>
-              <ProgressBar value={66} label="Step 2/3" name="progress" />
-              <Formik
-                initialValues={initialValues}
-                onSubmit={(values, actions) => {
-                  this.addToCart(values);
-                  actions.resetForm();
-                }}
-              >
-                {({ isSubmitting, isValid }) => (
-                  <Form>
+      <Card
+        cardTitle='Business Information'
+        cardSubtitle='Select the zip codes you would like to receive leads in'
+      >
+        <>
+          <ProgressBar value={66} label="Step 2/3" name="progress" />
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values, actions) => {
+              this.addToCart(values);
+              actions.resetForm();
+            }}
+          >
+            {({ isSubmitting, isValid }) => (
+              <Form>
+                <Field
+                  as={Input}
+                  type="select"
+                  name="zip"
+                  label="Zip Code"
+                  validate={requiredField}
+                >
+                  <option value="">Select a Zip Code</option>
+                  {this.buildZipOptions()}
+                </Field>
+                <Row>
+                  <Column sm={6}>
                     <Field
                       as={Input}
                       type="select"
-                      name="zip"
-                      label="Zip Code"
+                      name="agentType"
+                      label="Agent Type"
                       validate={requiredField}
                     >
-                      <option value="">Select a Zip Code</option>
-                      {this.buildZipOptions()}
+                      <option value="">Select Agent Type</option>
+                      <option value="Seller only">Seller only</option>
+                      <option value="Seller &amp; Buyer">Seller &amp; Buyer</option>
                     </Field>
-                    <Row>
-                      <Column sm={6}>
-                        <Field
-                          as={Input}
-                          type="select"
-                          name="agentType"
-                          label="Agent Type"
-                          validate={requiredField}
-                        >
-                          <option value="">Select Agent Type</option>
-                          <option value="Seller only">Seller only</option>
-                          <option value="Seller &amp; Buyer">Seller &amp; Buyer</option>
-                        </Field>
-                      </Column>
-                      <Column sm={6}>
-                        <Field
-                          as={Input}
-                          type="select"
-                          name="subscriptionType"
-                          label="Subscription Type"
-                          validate={requiredField}
-                        >
-                          <option value="">Select a Period</option>
-                          <option value="199">Monthly ($199)</option>
-                          <option value="2189">Yearly ($2,189)</option>
-                        </Field>
-                      </Column>
-                    </Row>
-                    <Button
-                      type="submit"
-                      iconLeft={<FaPlus />}
-                      color="success"
-                      disabled={isSubmitting || !isValid}
+                  </Column>
+                  <Column sm={6}>
+                    <Field
+                      as={Input}
+                      type="select"
+                      name="subscriptionType"
+                      label="Subscription Type"
+                      validate={requiredField}
                     >
-                      Add to Cart
-                    </Button>
+                      <option value="">Select a Period</option>
+                      <option value="199">Monthly ($199)</option>
+                      <option value="2189">Yearly ($2,189)</option>
+                    </Field>
+                  </Column>
+                </Row>
+                <Button
+                  type="submit"
+                  iconLeft={<FaPlus />}
+                  color="success"
+                  disabled={isSubmitting || !isValid}
+                >
+                  Add to Cart
+                </Button>
 
-                    {
-                      !noRegionsInCart && (
-                        <FlexContainer justifyContent="space-between" alignItems="flex-end" height="100px">
-                          <strong><FaMapMarkerAlt /> Zip Codes: {regions.length}</strong>
-                          <strong>
-                            <FaShoppingCart />Total: ${numberWithCommas(Number(getTotals))}
-                          </strong>
-                        </FlexContainer>
-                      )
-                    }
+                {
+                  !noRegionsInCart && (
+                    <FlexContainer justifyContent="space-between" alignItems="flex-end" height="100px">
+                      <strong><FaMapMarkerAlt /> Zip Codes: {regions.length}</strong>
+                      <strong>
+                        <FaShoppingCart />Total: ${numberWithCommas(Number(getTotals))}
+                      </strong>
+                    </FlexContainer>
+                  )
+                }
 
-                    <HorizontalRule />
-                    {
-                      regions.map((r: BusinessInformationFormValues, index) => (
-                        <Fragment key={uuidv4()}>
-                          <FlexContainer justifyContent="space-between" height={doubleSpacer}>
-                            <span>{r.zip}</span>
-                            <span>{r.agentType}</span>
-                            <span>${numberWithCommas(Number(r.subscriptionType))}</span>
-                            <Button
-                              type="button"
-                              onClick={() => this.removeFromCart(index)}
-                              iconLeft={<FaTrash />}
-                              color="dangerOutline"
-                            />
-                          </FlexContainer>
-                          <HorizontalRule />
-                        </Fragment>
-                      ))
-                    }
-                    <Button
-                      type="button"
-                      color="primary"
-                      block
-                      disabled={noRegionsInCart}
-                      onClick={() => this.submit()}
-                    >
-                      Checkout
-                    </Button>
-                  </Form>
-                )}
-              </Formik>
-              <Button type="button" onClick={() => this.save()} color="text" block>
-                Save &amp; Complete Later
-              </Button>
-            </Box>
-          </div>
-        </Column>
-      </Row>
+                <HorizontalRule />
+                {
+                  regions.map((r: BusinessInformationFormValues, index) => (
+                    <Fragment key={uuidv4()}>
+                      <FlexContainer justifyContent="space-between" height={doubleSpacer}>
+                        <span>{r.zip}</span>
+                        <span>{r.agentType}</span>
+                        <span>${numberWithCommas(Number(r.subscriptionType))}</span>
+                        <Button
+                          type="button"
+                          onClick={() => this.removeFromCart(index)}
+                          iconLeft={<FaTrash />}
+                          color="dangerOutline"
+                        />
+                      </FlexContainer>
+                      <HorizontalRule />
+                    </Fragment>
+                  ))
+                }
+                <Button
+                  type="button"
+                  color="primary"
+                  block
+                  disabled={noRegionsInCart}
+                  onClick={() => this.submit()}
+                >
+                  Checkout
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <Button type="button" onClick={() => this.save()} color="text" block>
+            Save &amp; Complete Later
+          </Button>
+        </>
+      </Card>
     );
   }
 }

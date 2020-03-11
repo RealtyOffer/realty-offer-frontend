@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  Box, Button, Column, Header, Input, Layout, Row, HorizontalRule,
+  Box, Button, Column, Heading, Input, Layout, Row, HorizontalRule,
 } from '../components';
 
 import { requiredField } from '../utils/validations';
@@ -36,7 +36,7 @@ const Login: FunctionComponent<LoginProps> = (props) => {
       <Row>
         <Column md={6} mdOffset={3}>
           <Box largePadding>
-            <Header align="center">Log In</Header>
+            <Heading align="center">Log In</Heading>
             <Formik
               initialValues={initialValues}
               onSubmit={(values: LoginFormValues, { setSubmitting }) => {

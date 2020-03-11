@@ -3,7 +3,7 @@ import { kebabCase } from 'lodash';
 import Helmet from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 
-import { Box, Header, Layout } from '../components';
+import { Box, Heading, Layout } from '../components';
 import Content, { HTMLContent } from '../components/Content';
 
 interface BlogPostProps {
@@ -31,9 +31,9 @@ export const BlogPostTemplate = ({
         <div className="container content">
           <div className="columns">
             <div className="column is-10 is-offset-1">
-              <Header>
+              <Heading>
                 {title}
-              </Header>
+              </Heading>
               <p>{description}</p>
               <PostContent content={content} />
               {tags && tags.length ? (
