@@ -135,7 +135,7 @@ export const createAgent = (payload: CreateAgentFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_SIGNUP_ENDPOINT,
     method: 'POST',
-    Headings: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
@@ -152,7 +152,7 @@ export const verifyEmail = (payload: VerifyEmailFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_CONFIRM_ENDPOINT,
     method: 'POST',
-    Headings: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
@@ -169,7 +169,7 @@ export const resendSignupEmail = (email: string) => ({
   [RSAA]: {
     endpoint: AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
     method: 'POST',
-    Headings: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email }),
@@ -186,7 +186,7 @@ export const authenticateCredentials = (payload: LoginFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_LOGIN_ENDPOINT,
     method: 'POST',
-    Headings: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
@@ -205,7 +205,7 @@ export const forgotPassword = (payload: {
   [RSAA]: {
     endpoint: AUTH_FORGOT_PASSWORD_ENDPOINT,
     method: 'POST',
-    Headings: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
@@ -222,7 +222,7 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_RESET_PASSWORD_ENDPOINT,
     method: 'POST',
-    Headings: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
@@ -242,7 +242,7 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
 //   [RSAA]: {
 //     // endpoint: CHANGE_PASSWORD_ENDPOINT,
 //     method: 'POST',
-//     Headings: {
+//     headers: {
 //       'Content-Type': 'application/json',
 //     },
 //     body: JSON.stringify(payload),

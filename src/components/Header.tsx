@@ -53,7 +53,7 @@ const StyledHeading = styled.h1`
   font-size: ${(props: HeadingProps) => props.as && renderFontSize(props.as)};
 `;
 
-const Heading: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
+const Header: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
   <StyledHeading
     as={props.as}
     noMargin={props.noMargin}
@@ -64,11 +64,11 @@ const Heading: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
   </StyledHeading>
 );
 
-Heading.defaultProps = {
+Header.defaultProps = {
   as: 'h1',
   inverse: false,
   noMargin: false,
   align: 'left',
 };
 
-export default Heading;
+export default Header;

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Heading, Layout, Box } from '../../components';
+import { Header, Layout, Box } from '../../components';
 import BlogRoll from '../../templates/BlogRoll';
 
 const BlogIndexPage = () => (
   <Layout>
     <div>
-      <Heading>
+      <Header>
         Latest Stories
-      </Heading>
+      </Header>
     </div>
     <section>
       <Box largePadding>

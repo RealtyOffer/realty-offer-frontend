@@ -3,11 +3,11 @@ import { RouteComponentProps } from '@reach/router';
 
 import { Link } from 'gatsby';
 
-import { Heading } from '../../components';
+import { Header } from '../../components';
 
 const Agent: FunctionComponent<RouteComponentProps> = () => (
   <>
-    <Heading>Agent</Heading>
+    <Header>Agent</Header>
     <p><Link to="/agent/create-agent">Create agent</Link></p>
     <p><Link to="/agent/verify-email">Verify Email</Link></p>
     <p><Link to="/agent/agent-information">Agent Information</Link></p>

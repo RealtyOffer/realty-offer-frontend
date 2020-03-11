@@ -2,11 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
-import { Heading } from '../../components';
+import { Header } from '../../components';
 
 const Consumer: FunctionComponent<RouteComponentProps> = () => (
   <>
-    <Heading>Consumer</Heading>
+    <Header>Consumer</Header>
     <Link to="/consumer/create-consumer">Create consumer</Link>
   </>
 );

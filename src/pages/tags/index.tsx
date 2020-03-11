@@ -2,7 +2,7 @@ import React from 'react';
 import { kebabCase } from 'lodash';
 import Helmet from 'react-helmet';
 import { Link, graphql } from 'gatsby';
-import { Layout, Heading } from '../../components';
+import { Layout, Header } from '../../components';
 
 const TagsPage = ({
   data: {
@@ -21,7 +21,7 @@ const TagsPage = ({
             className="column is-10 is-offset-1"
             style={{ marginBottom: '6rem' }}
           >
-            <Heading>Tags</Heading>
+            <Header>Tags</Header>
             <ul className="taglist">
               {group.map((tag) => (
                 <li key={tag.fieldValue}>
