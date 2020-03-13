@@ -105,25 +105,13 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
                         }
                       </FlexContainer>
                       <Field
+                        as={Input}
+                        type="password"
+                        label="New Password"
                         name="newPassword"
+                        helpText={passwordRulesString}
                         validate={requiredPassword}
-                      >
-                        {({
-                          field, form, meta,
-                        }: {
-                          field: FieldProps, form: FormikFormProps, meta: FieldMetaProps<any>,
-                        }) => (
-                          <Input
-                            type="password"
-                            label="New Password"
-                            name="newPassword"
-                            helpText={passwordRulesString}
-                            {...field}
-                            {...form}
-                            {...meta}
-                          />
-                        )}
-                      </Field>
+                      />
                       <HorizontalRule />
                       <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
                         Submit

@@ -38,7 +38,7 @@ const makeConfiguredStore = (reducer: any, initialState: any) => {
   const persistConfig = {
     key: 'realty-offer',
     storage,
-    whitelist: ['auth'],
+    whitelist: ['auth', 'consumer'],
   };
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
