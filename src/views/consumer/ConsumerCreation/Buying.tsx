@@ -63,6 +63,7 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
       >
         <>
           <Formik
+            validateOnMount
             initialValues={initialValues}
             onSubmit={(values) => {
               props.actions.captureConsumerData(values);

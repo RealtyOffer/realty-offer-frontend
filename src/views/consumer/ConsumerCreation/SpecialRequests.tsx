@@ -47,6 +47,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
         cardSubtitle="Providing this additional information helps us match you with the best agent for you"
       >
         <Formik
+          validateOnMount
           initialValues={initialValues}
           onSubmit={(values) => {
             props.actions.captureConsumerData(values);

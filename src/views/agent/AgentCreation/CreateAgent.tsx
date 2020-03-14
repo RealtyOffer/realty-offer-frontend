@@ -50,6 +50,7 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
     >
       <>
         <Formik
+          validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
             props.actions.createUser({

@@ -36,6 +36,7 @@ const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
             {
               !submitted ? (
                 <Formik
+                  validateOnMount
                   initialValues={initialValues}
                   onSubmit={(values, { setSubmitting }) => {
                     props.actions.forgotPassword(values)

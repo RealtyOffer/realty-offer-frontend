@@ -55,6 +55,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
       >
         <>
           <Formik
+            validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               props.actions.captureConsumerData(values);

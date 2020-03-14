@@ -67,6 +67,7 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
       >
         <>
           <Formik
+            validateOnMount
             initialValues={initialValues}
             onSubmit={(values) => {
               props.actions.captureConsumerData(values);

@@ -34,6 +34,7 @@ const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
       <>
         <ProgressBar value={33} label="Step 1/3" name="progress" />
         <Formik
+          validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {

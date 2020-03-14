@@ -111,6 +111,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
         <>
           <ProgressBar value={66} label="Step 2/3" name="progress" />
           <Formik
+            validateOnMount
             initialValues={initialValues}
             onSubmit={(values, actions) => {
               this.addToCart(values);
