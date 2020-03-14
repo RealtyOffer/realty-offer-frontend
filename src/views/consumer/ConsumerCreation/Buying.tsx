@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
-import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -116,7 +116,7 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
                       onClick={() => goBack(values)}
                       block
                       color="primaryOutline"
-                      iconLeft={<FaChevronLeft />}
+                      iconLeft={<FaCaretLeft />}
                     >
                       Back
                     </Button>
@@ -125,7 +125,7 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
                     <Button
                       type="submit"
                       block
-                      iconRight={<FaChevronRight />}
+                      iconRight={<FaCaretRight />}
                       disabled={isSubmitting || !isValid}
                     >
                       Next

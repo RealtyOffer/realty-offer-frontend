@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
-import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -159,7 +159,7 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
                       onClick={() => areYouSure()}
                       block
                       color="primaryOutline"
-                      iconLeft={<FaChevronLeft />}
+                      iconLeft={<FaCaretLeft />}
                     >
                       Back
                     </Button>
@@ -168,7 +168,7 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
                     <Button
                       type="submit"
                       block
-                      iconRight={<FaChevronRight />}
+                      iconRight={<FaCaretRight />}
                       disabled={isSubmitting || !isValid}
                     >
                       Next

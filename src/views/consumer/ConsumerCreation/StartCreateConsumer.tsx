@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { FaChevronRight } from 'react-icons/fa';
+import { FaCaretRight } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { navigate } from 'gatsby';
@@ -45,7 +45,7 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = (props)
               type="button"
               onClick={() => setCustomerType('seller')}
               block
-              iconRight={<FaChevronRight />}
+              iconRight={<FaCaretRight />}
             >
               Sell Your Home
             </Button>
@@ -60,7 +60,7 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = (props)
               type="button"
               onClick={() => setCustomerType('buyer')}
               block
-              iconRight={<FaChevronRight />}
+              iconRight={<FaCaretRight />}
             >
               Buy A Home
             </Button>
@@ -75,7 +75,7 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = (props)
               type="button"
               onClick={() => setCustomerType('buyerSeller')}
               block
-              iconRight={<FaChevronRight />}
+              iconRight={<FaCaretRight />}
             >
               Buy &amp; Sell A Home
             </Button>

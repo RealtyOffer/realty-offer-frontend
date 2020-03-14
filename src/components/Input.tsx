@@ -16,7 +16,6 @@ import {
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 
 type OptionType = { label: string; value: string; }
-type OptionsType = Array<OptionType>
 
 type InputProps = {
   disabled?: boolean;
@@ -28,8 +27,8 @@ type InputProps = {
   label: string;
   helpText?: string;
   checked?: boolean;
-  options?: OptionsType;
-} & FieldMetaProps<string> & FormikHelpers<string> & CommonProps<OptionType | OptionsType>
+  options?: OptionType[];
+} & FieldMetaProps<string> & FormikHelpers<string> & CommonProps<OptionType | OptionType[]>
 
 const sharedStyles = css`
   display: block;
@@ -146,7 +145,7 @@ const multiSelectStyles = {
   }),
   control: (provided: any, state: { isFocused: boolean }) => ({
     ...provided,
-    height: inputHeight,
+    minHeight: inputHeight,
     fontSize: fontSizeBase,
     lineHeight: lineHeightBase,
     color: textColor,
@@ -181,12 +180,12 @@ const Input: FunctionComponent<InputProps> = (props) => {
 
   switch (props.type) {
     case 'select': {
-      const onChange = (option: OptionsType | OptionType) => {
+      const onChange = (option: OptionType[] | OptionType) => {
         props.setFieldValue(
           field.name,
           // eslint-disable-next-line no-nested-ternary
           props.isMulti ?
-            (option ? (option as OptionsType).map((item: OptionType) => item.value) : [])
+            (option ? (option as OptionType[]).map((item: OptionType) => item.value) : [])
             : (option as OptionType).value,
         );
       };
@@ -240,7 +239,6 @@ const Input: FunctionComponent<InputProps> = (props) => {
         <StyledInput
           type="tel"
           id={props.name}
-          placeholder={!props.square ? `Enter ${props.label}` : ''}
           {...field}
           {...props}
           {...meta}
@@ -258,7 +256,6 @@ const Input: FunctionComponent<InputProps> = (props) => {
         <PasswordWrapper>
           <StyledInput
             type="password"
-            placeholder={!props.square ? `Enter ${props.label}` : ''}
             id={props.name}
             {...field}
             {...props}
@@ -281,7 +278,6 @@ const Input: FunctionComponent<InputProps> = (props) => {
           id={props.name}
           type={props.type}
           square={props.square}
-          placeholder={!props.square ? `Enter ${props.label}` : ''}
           {...field}
           {...props}
           {...meta}
