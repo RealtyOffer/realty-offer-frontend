@@ -1,6 +1,6 @@
 import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
 import {
-  Formik, Field, Form, FormikProps, FieldProps, FieldMetaProps, FormikFormProps,
+  Formik, Field, Form, FormikProps,
 } from 'formik';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -60,6 +60,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
             {
               !submitted ? (
                 <Formik
+                  validateOnMount
                   initialValues={initialValues}
                   onSubmit={(values, { setSubmitting }) => {
                     const {

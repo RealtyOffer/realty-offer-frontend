@@ -72,6 +72,14 @@ const StyledErrorMessage = styled.div`
   font-size: ${fontSizeSmall};
 `;
 
+const StyledSelect = styled(Select)`
+  & > div:first-child {
+    ${(props: { invalid?: boolean }) => (props.invalid && `
+      border: 2px solid ${brandDanger};
+  `)}
+  }
+`;
+
 const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
   ${(props: InputProps) => props.square && `max-width: ${inputHeight};`}
@@ -125,6 +133,9 @@ const StyledToggleLabel = styled.label`
 
 const StyledLabel = styled.label`
   ${(props: { hiddenLabel?: boolean }) => props.hiddenLabel && visuallyHiddenStyle}
+  ${(props: { invalid?: boolean }) => (props.invalid && `
+    color: ${brandDanger};
+  `)}
 `;
 
 const PasswordWrapper = styled.div`
@@ -190,7 +201,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
         );
       };
       inputTypeToRender = (
-        <Select
+        <StyledSelect
           styles={multiSelectStyles}
           isMulti={props.isMulti}
           menuPlacement="auto"
@@ -200,6 +211,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
           onChange={(option: OptionType) => onChange(option)}
           onBlur={() => props.setFieldTouched(props.name)}
           isDisabled={props.disabled}
+          invalid={meta && meta.touched && meta.error}
         />
       );
     }
@@ -293,6 +305,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
           <StyledLabel
             htmlFor={props.id || props.name}
             hiddenLabel={props.hiddenLabel}
+            invalid={meta && meta.touched && meta.error}
           >
             {props.label}
           </StyledLabel>
