@@ -11,12 +11,11 @@ import {
 
 import { VerifyEmailFormValues } from '../../views/agent/AgentCreation/VerifyEmail';
 import { LoginFormValues } from '../../pages/login';
-import { CreateAgentFormValues } from '../../views/agent/AgentCreation/CreateAgent';
 import { ResetPasswordFormValues } from '../../pages/reset-password';
 
-export const CREATE_AGENT_REQUEST = 'CREATE_AGENT_REQUEST';
-export const CREATE_AGENT_SUCCESS = 'CREATE_AGENT_SUCCESS';
-export const CREATE_AGENT_FAILURE = 'CREATE_AGENT_FAILURE';
+export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
 
 export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
 export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
@@ -67,7 +66,7 @@ export default (
   action,
 ) => {
   switch (action.type) {
-    case CREATE_AGENT_REQUEST:
+    case CREATE_USER_REQUEST:
     case VERIFY_EMAIL_REQUEST:
     case RESEND_SIGNUP_EMAIL_REQUEST:
     case AUTHENTICATE_CREDENTIALS_REQUEST:
@@ -93,7 +92,7 @@ export default (
         isLoading: false,
         verifiedEmail: true,
       };
-    case CREATE_AGENT_SUCCESS:
+    case CREATE_USER_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case FORGOT_PASSWORD_SUCCESS:
     case RESEND_SIGNUP_EMAIL_SUCCESS:
@@ -112,7 +111,7 @@ export default (
         token: null,
         message: action.payload.message || 'An error occurred. Please try again.',
       };
-    case CREATE_AGENT_FAILURE:
+    case CREATE_USER_FAILURE:
     case VERIFY_EMAIL_FAILURE:
     case RESEND_SIGNUP_EMAIL_FAILURE:
     case FORGOT_PASSWORD_FAILURE:
@@ -131,7 +130,15 @@ export default (
   }
 };
 
-export const createAgent = (payload: CreateAgentFormValues) => ({
+export interface CreateUserFormValues {
+  firstName: string
+  lastName: string
+  phoneNumber: string
+  email: string
+  password: string
+}
+
+export const createUser = (payload: CreateUserFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_SIGNUP_ENDPOINT,
     method: 'POST',
@@ -141,9 +148,9 @@ export const createAgent = (payload: CreateAgentFormValues) => ({
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [
-      CREATE_AGENT_REQUEST,
-      CREATE_AGENT_SUCCESS,
-      CREATE_AGENT_FAILURE,
+      CREATE_USER_REQUEST,
+      CREATE_USER_SUCCESS,
+      CREATE_USER_FAILURE,
     ],
   },
 });

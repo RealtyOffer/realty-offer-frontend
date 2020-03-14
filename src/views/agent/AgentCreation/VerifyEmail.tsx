@@ -76,6 +76,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
           ) : (
             <FlexContainer>
               <Formik
+                validateOnMount
                 initialValues={initialValues}
                 onSubmit={(values, { setSubmitting }) => {
                   const {

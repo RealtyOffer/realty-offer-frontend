@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from '@reach/router';
+import { Router, Redirect } from '@reach/router';
 import { connect } from 'react-redux';
 
 import Agent from '../views/agent/Agent';
@@ -21,7 +21,7 @@ type AgentAppProps = {
 const AgentApp = (props: AgentAppProps) => (
   <Router basepath="agent">
     <Agent path="/" />
-    <CreateAgent path="/create" />
+    <CreateAgent path="/sign-up" />
     <VerifyEmail path="/verify-email" />
     <AgentInformation path="/agent-information" />
     <BusinessInformation path="/business-information" />
@@ -34,6 +34,11 @@ const AgentApp = (props: AgentAppProps) => (
         </>
       )
     }
+    {/*
+      TODO: reimplement PrivateRoute to push people to / when logging out so we dont have to keep
+      updating this list
+    */}
+    <Redirect from="/listings/*" to="/" />
     <NotFoundPage default />
   </Router>
 );

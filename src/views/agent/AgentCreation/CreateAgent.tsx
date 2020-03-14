@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import {
-  Formik, Field, Form, FormikProps, FieldProps, FieldMetaProps, FormikFormProps,
+  Formik, Field, Form, FormikProps,
 } from 'formik';
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
@@ -23,25 +23,17 @@ import {
   requiredPassword,
   passwordRulesString,
 } from '../../../utils/validations';
-import { createAgent } from '../../../redux/ducks/auth';
+import { createUser, CreateUserFormValues } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
-
-export interface CreateAgentFormValues {
-  firstName: string
-  lastName: string
-  phoneNumber: string
-  email: string
-  password: string
-}
 
 type Props = {
   actions: {
-    createAgent: Function;
+    createUser: Function;
   }
 } & RouteComponentProps
 
 const CreateAgent: FunctionComponent<Props> = (props) => {
-  const initialValues: CreateAgentFormValues = {
+  const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -58,9 +50,10 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
     >
       <>
         <Formik
+          validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            props.actions.createAgent({
+            props.actions.createUser({
               ...values,
               phoneNumber: reformattedPhone(values.phoneNumber),
             }).then((response: ActionResponseType) => {
@@ -108,25 +101,13 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                 validate={requiredEmail}
               />
               <Field
+                as={Input}
                 name="password"
+                type="password"
+                label="Password"
+                helpText={passwordRulesString}
                 validate={requiredPassword}
-              >
-                {({
-                  field, form, meta,
-                }: {
-                  field: FieldProps, form: FormikFormProps, meta: FieldMetaProps<any>,
-                }) => (
-                  <Input
-                    type="password"
-                    label="Password"
-                    name="password"
-                    helpText={passwordRulesString}
-                    {...field}
-                    {...form}
-                    {...meta}
-                  />
-                )}
-              </Field>
+              />
               <HorizontalRule />
               <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
                 Create Account
@@ -145,6 +126,6 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
 export default connect(
   null,
   (dispatch) => ({
-    actions: bindActionCreators({ createAgent }, dispatch),
+    actions: bindActionCreators({ createUser }, dispatch),
   }),
 )(CreateAgent);

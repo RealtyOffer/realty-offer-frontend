@@ -1,18 +1,21 @@
 import React, { useState, FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
-import { useField, FieldMetaProps } from 'formik';
+import { useField, FieldMetaProps, FormikHelpers } from 'formik';
 import StringMask from 'string-mask';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Select, { CommonProps } from 'react-select';
 
 import {
-  inputHeight, inputPaddingY, inputPaddingX, baseSpacer, borderRadius, quarterSpacer,
+  inputHeight, inputPaddingY, inputPaddingX, baseSpacer, borderRadius, sextupleSpacer, doubleSpacer,
 } from '../styles/size';
 import { fontSizeBase, lineHeightBase, fontSizeSmall } from '../styles/typography';
 import {
   textColor, white, brandDanger, brandDangerRGB, brandPrimary, brandPrimaryRGB,
+  lightGray, offWhite,
 } from '../styles/color';
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 
+type OptionType = { label: string; value: string; }
 
 type InputProps = {
   disabled?: boolean;
@@ -23,7 +26,9 @@ type InputProps = {
   type: string;
   label: string;
   helpText?: string;
-} & FieldMetaProps<string>
+  checked?: boolean;
+  options?: OptionType[];
+} & FieldMetaProps<string> & FormikHelpers<string> & CommonProps<OptionType | OptionType[]>
 
 const sharedStyles = css`
   display: block;
@@ -36,6 +41,7 @@ const sharedStyles = css`
   background-color: ${white};
   background-image: none;
   border: ${baseBorderStyle};
+  border-radius: ${borderRadius};
   transition: border-color .2s ease-in-out;
 
   ${(props: InputProps) => props.square && 'text-align: center;'}
@@ -71,8 +77,50 @@ const InputWrapper = styled.div`
   ${(props: InputProps) => props.square && `max-width: ${inputHeight};`}
 `;
 
-const StyledSelect = styled.select`
-  ${sharedStyles}
+const StyledToggle = styled.input`
+  height: 0;
+  width: 0;
+  visibility: hidden;
+    
+  &:checked + label {
+    background: ${brandPrimary};
+  }
+
+  &:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+`;
+
+const StyledToggleLabel = styled.label`
+  cursor: pointer;
+  width: ${sextupleSpacer};
+  height: 42px;
+  background: ${lightGray};
+  display: inline-block;
+  border-radius: 42px;
+  position: relative;
+  margin: 0;
+
+  &:after {
+    content: '${(props: InputProps) => (props.checked ? 'Yes' : 'No')}';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: ${doubleSpacer};
+    height: ${doubleSpacer};
+    background: ${white};
+    border-radius: ${doubleSpacer};
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: ${fontSizeSmall};
+    color: ${(props: InputProps) => (props.checked ? brandPrimary : textColor)};
+  }
+
+  /* Disabled state */
+  ${(props: InputProps) => (props.disabled && disabledStyle)}
 `;
 
 const StyledLabel = styled.label`
@@ -89,6 +137,38 @@ const PasswordToggle = styled.div`
   top: ${baseSpacer};
 `;
 
+const multiSelectStyles = {
+  option: (provided: any, state: { isFocused: boolean }) => ({
+    ...provided,
+    color: brandPrimary,
+    backgroundColor: state.isFocused ? offWhite : white,
+  }),
+  control: (provided: any, state: { isFocused: boolean }) => ({
+    ...provided,
+    minHeight: inputHeight,
+    fontSize: fontSizeBase,
+    lineHeight: lineHeightBase,
+    color: textColor,
+    backgroundColor: white,
+    border: state.isFocused ? `2px solid ${brandPrimary}` : baseBorderStyle,
+    boxShadow: state.isFocused && 'none',
+    '&:hover': {
+      border: state.isFocused ? `2px solid ${brandPrimary}` : baseBorderStyle,
+    },
+  }),
+  multiValueRemove: (provided: any) => ({
+    ...provided,
+    '&:hover': {
+      backgroundColor: brandDanger,
+      color: white,
+    },
+  }),
+  placeholder: (provided: any) => ({
+    ...provided,
+    color: textColor,
+  }),
+};
+
 const Input: FunctionComponent<InputProps> = (props) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and also replace ErrorMessage entirely.
@@ -99,11 +179,48 @@ const Input: FunctionComponent<InputProps> = (props) => {
   let inputTypeToRender;
 
   switch (props.type) {
-    case 'select':
+    case 'select': {
+      const onChange = (option: OptionType[] | OptionType) => {
+        props.setFieldValue(
+          field.name,
+          // eslint-disable-next-line no-nested-ternary
+          props.isMulti ?
+            (option ? (option as OptionType[]).map((item: OptionType) => item.value) : [])
+            : (option as OptionType).value,
+        );
+      };
       inputTypeToRender = (
-        <StyledSelect type="select" {...field} {...props} {...meta}>
-          {props.children}
-        </StyledSelect>
+        <Select
+          styles={multiSelectStyles}
+          isMulti={props.isMulti}
+          menuPlacement="auto"
+          value={props.options ? props.options.find((option) => option.value === field.value) : ''}
+          options={props.options}
+          name={props.name}
+          onChange={(option: OptionType) => onChange(option)}
+          onBlur={() => props.setFieldTouched(props.name)}
+          isDisabled={props.disabled}
+        />
+      );
+    }
+      break;
+    case 'checkbox':
+      inputTypeToRender = (
+        <>
+          <StyledLabel>{props.label}</StyledLabel>
+          <StyledToggle
+            {...field}
+            {...props}
+            {...meta}
+            id={props.name}
+            checked={props.checked}
+          />
+          <StyledToggleLabel
+            htmlFor={props.name}
+            disabled={props.disabled}
+            checked={props.checked}
+          />
+        </>
       );
       break;
     case 'tel': {
@@ -121,7 +238,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
       inputTypeToRender = (
         <StyledInput
           type="tel"
-          placeholder={!props.square ? `Enter ${props.label}` : ''}
+          id={props.name}
           {...field}
           {...props}
           {...meta}
@@ -139,7 +256,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
         <PasswordWrapper>
           <StyledInput
             type="password"
-            placeholder={!props.square ? `Enter ${props.label}` : ''}
+            id={props.name}
             {...field}
             {...props}
             {...meta}
@@ -158,9 +275,9 @@ const Input: FunctionComponent<InputProps> = (props) => {
     default:
       inputTypeToRender = (
         <StyledInput
+          id={props.name}
           type={props.type}
           square={props.square}
-          placeholder={!props.square ? `Enter ${props.label}` : ''}
           {...field}
           {...props}
           {...meta}
@@ -172,8 +289,11 @@ const Input: FunctionComponent<InputProps> = (props) => {
   return (
     <InputWrapper square={props.square}>
       {
-        props.label && (
-          <StyledLabel htmlFor={props.id || props.name} hiddenLabel={props.hiddenLabel}>
+        props.label && props.type !== 'checkbox' && (
+          <StyledLabel
+            htmlFor={props.id || props.name}
+            hiddenLabel={props.hiddenLabel}
+          >
             {props.label}
           </StyledLabel>
         )

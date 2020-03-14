@@ -39,6 +39,7 @@ const Login: FunctionComponent<LoginProps> = (props) => {
           <Box largePadding>
             <Heading align="center">Log In</Heading>
             <Formik
+              validateOnMount
               initialValues={initialValues}
               onSubmit={(values: LoginFormValues, { setSubmitting }) => {
                 props.actions.authenticateCredentials(values)
