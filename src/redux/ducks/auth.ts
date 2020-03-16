@@ -9,7 +9,7 @@ import {
   AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
 } from '../constants';
 
-import { VerifyEmailFormValues } from '../../views/agent/AgentCreation/VerifyEmail';
+import { VerifyEmailFormValues } from '../../views/shared/VerifyEmail';
 import { LoginFormValues } from '../../pages/login';
 import { ResetPasswordFormValues } from '../../pages/reset-password';
 
@@ -43,7 +43,7 @@ export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
-type AuthStoreType = {
+export type AuthStoreType = {
   isLoading: boolean;
   hasError: boolean;
   isLoggedIn: boolean;

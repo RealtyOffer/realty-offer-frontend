@@ -58,14 +58,15 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              props.actions.captureConsumerData(values);
+              props.actions.captureConsumerData({ email: values.email });
               props.actions.createUser({
                 ...values,
                 phoneNumber: reformattedPhone(values.phoneNumber),
               }).then((response: ActionResponseType) => {
                 setSubmitting(false);
+                // TODO: post the captured consumer data object from the consumer reducer state
                 if (response && !response.error) {
-                  navigate('/agent/verify-email');
+                  navigate('/consumer/verify-email');
                 }
               });
             }}

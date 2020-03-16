@@ -7,10 +7,10 @@ import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 import {
   Button, Input, FlexContainer, Card,
-} from '../../../components';
-import { verifyEmail, resendSignupEmail } from '../../../redux/ducks/auth';
-import { requiredField, requiredEmail } from '../../../utils/validations';
-import { ActionResponseType } from '../../../redux/constants';
+} from '../../components';
+import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
+import { requiredField, requiredEmail } from '../../utils/validations';
+import { ActionResponseType } from '../../redux/constants';
 
 export interface VerifyEmailFormValues {
   email: string;
@@ -65,13 +65,13 @@ const VerifyEmail: FunctionComponent<VerifyEmailType
       <Card
         cardTitle={verified ? 'Verified!' : 'Verify Email Address'}
         cardSubtitle={verified ?
-          'You have successfully verified your email. You are one step closer to connecting with new clients.' :
+          'You have successfully verified your email. You are one step closer to connecting! You may now log in.' :
           'Please enter your email address and the 6 digit code sent to verify your account.'}
       >
         {
           verified ? (
             <FlexContainer>
-              <Button type="link" to="/agent/agent-information">Set Up My Profile</Button>
+              <Button type="link" to="/login">Log In</Button>
             </FlexContainer>
           ) : (
             <FlexContainer>

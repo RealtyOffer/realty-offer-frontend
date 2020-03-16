@@ -14,6 +14,7 @@ const Agent: FunctionComponent<RouteComponentProps> = () => (
     <p><Link to="/agent/business-information">Business Information</Link></p>
     <p><Link to="/agent/payment-information">Payment Information</Link></p>
     <p><Link to="/agent/confirm-payment">Confirm Payment</Link></p>
+    <p><Link to="/agent/account/profile">Profile</Link></p>
   </>
 );
 

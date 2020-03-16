@@ -14,6 +14,7 @@ import Layout from './Layout';
 import Navbar from './Navbar';
 import PageContainer from './PageContainer';
 import PreviewCompatibleImage from './PreviewCompatibleImage';
+import PrivateRoute from './PrivateRoute';
 import ProgressBar from './ProgressBar';
 import Row from './Row';
 import Seo from './Seo';
@@ -36,6 +37,7 @@ export {
   Navbar,
   PageContainer,
   PreviewCompatibleImage,
+  PrivateRoute,
   ProgressBar,
   Row,
   Seo,

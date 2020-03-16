@@ -19,6 +19,7 @@ export type ConsumerStoreType = {
     sellersMortgageBalance?: string;
     otherLanguage?: string;
     genderPreference?: string;
+    email?: string;
   }
 }
 
