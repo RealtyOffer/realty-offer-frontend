@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import {
   Formik, Field, Form, FormikProps,
 } from 'formik';
@@ -27,6 +27,7 @@ import {
 import { createUser, CreateUserFormValues } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
+import UnsavedChangesModal from './UnsavedChangesModal';
 
 type CreateConsumerProps = {
   actions: {
@@ -36,6 +37,8 @@ type CreateConsumerProps = {
 } & RouteComponentProps
 
 const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',
@@ -45,6 +48,10 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
   };
 
   const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
+
+  const toggleUnsavedChangesModal = () => {
+    setIsOpen(!modalIsOpen);
+  };
 
   return (
     <>
@@ -122,11 +129,21 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
               </Form>
             )}
           </Formik>
-          <Button type="link" to="/" color="text" block>
+          <Button
+            type="button"
+            onClick={() => toggleUnsavedChangesModal()}
+            color="text"
+            block
+          >
             Cancel
           </Button>
         </>
       </Card>
+      <UnsavedChangesModal
+        modalIsOpen={modalIsOpen}
+        toggleModal={toggleUnsavedChangesModal}
+        captureConsumerData={props.actions.captureConsumerData}
+      />
     </>
   );
 };

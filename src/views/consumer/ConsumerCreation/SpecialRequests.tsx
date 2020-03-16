@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
@@ -19,6 +19,7 @@ import { captureConsumerData } from '../../../redux/ducks/consumer';
 
 import languagesList from '../../../utils/languagesList';
 import gendersList from '../../../utils/gendersList';
+import UnsavedChangesModal from './UnsavedChangesModal';
 
 type SpecialRequestsFormValues = {
   otherLanguage: string;
@@ -32,12 +33,16 @@ type SpecialRequestsProps = {
 } & RouteComponentProps
 
 const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   const initialValues: SpecialRequestsFormValues = {
     otherLanguage: 'No Preference',
     genderPreference: 'No Preference',
   };
 
-  const areYouSure = () => { };
+  const toggleUnsavedChangesModal = () => {
+    setIsOpen(!modalIsOpen);
+  };
 
   return (
     <>
@@ -79,7 +84,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
                 <Column xs={6}>
                   <Button
                     type="button"
-                    onClick={() => areYouSure()}
+                    onClick={() => toggleUnsavedChangesModal()}
                     block
                     color="primaryOutline"
                     iconLeft={<FaCaretLeft />}
@@ -102,6 +107,11 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
           )}
         </Formik>
       </Card>
+      <UnsavedChangesModal
+        modalIsOpen={modalIsOpen}
+        toggleModal={toggleUnsavedChangesModal}
+        captureConsumerData={props.actions.captureConsumerData}
+      />
     </>
   );
 };

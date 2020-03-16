@@ -35,7 +35,9 @@ export default (
     case CAPTURE_CONSUMER_DATA:
       return {
         ...state,
-        signupData: {
+        // if payload is empty object, reset the signupData object to empty
+        // so the signup process can be started over from scratch
+        signupData: Object.keys(action.payload).length === 0 ? {} : {
           ...state.signupData,
           ...action.payload,
         },

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
@@ -19,6 +19,7 @@ import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/con
 
 import { requiredField } from '../../../utils/validations';
 import priceRangesList from '../../../utils/priceRangesList';
+import UnsavedChangesModal from './UnsavedChangesModal';
 
 type BuyingFormValues = {
   buyingCity: string | Array<string>;
@@ -42,6 +43,8 @@ type BuyingProps = {
 } & RouteComponentProps
 
 const Buying: FunctionComponent<BuyingProps> = (props) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   const initialValues: BuyingFormValues = {
     buyingCity: '',
     buyingPriceRange: '',
@@ -49,9 +52,8 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
     preApproved: false,
   };
 
-  const goBack = (values: BuyingFormValues) => {
-    props.actions.captureConsumerData(values);
-    navigate('/consumer/start');
+  const toggleUnsavedChangesModal = () => {
+    setIsOpen(!modalIsOpen);
   };
 
   return (
@@ -114,7 +116,7 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
                   <Column xs={6}>
                     <Button
                       type="button"
-                      onClick={() => goBack(values)}
+                      onClick={() => toggleUnsavedChangesModal()}
                       block
                       color="primaryOutline"
                       iconLeft={<FaCaretLeft />}
@@ -138,6 +140,11 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
           </Formik>
         </>
       </Card>
+      <UnsavedChangesModal
+        modalIsOpen={modalIsOpen}
+        toggleModal={toggleUnsavedChangesModal}
+        captureConsumerData={props.actions.captureConsumerData}
+      />
     </>
   );
 };
