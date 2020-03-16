@@ -11,6 +11,7 @@ import HorizontalRule from './HorizontalRule';
 import Image from './Image';
 import Input from './Input';
 import Layout from './Layout';
+import Modal from './Modal';
 import Navbar from './Navbar';
 import PageContainer from './PageContainer';
 import PreviewCompatibleImage from './PreviewCompatibleImage';
@@ -33,6 +34,7 @@ export {
   Image,
   Input,
   Layout,
+  Modal,
   Navbar,
   PageContainer,
   PreviewCompatibleImage,

@@ -34,7 +34,7 @@ export default (
     case CAPTURE_CONSUMER_DATA:
       return {
         ...state,
-        signupData: {
+        signupData: Object.keys(action.payload).length === 0 ? {} : {
           ...state.signupData,
           ...action.payload,
         },
