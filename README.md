@@ -92,7 +92,7 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
 
 ## 🎓 Learning the Components
 
-Looking for more guidance on the components available in this repo? Run `yarn storybook` and access `http://localhost:8001` to see the Storybook which goes over the components and their available `props`.
+Looking for more guidance on the components available in this repo? Run `yarn storybook` and access `http://localhost:8001` to see the Storybook guide, which goes over the components and their available `props`.
 
 
 ## 💫 Deploy

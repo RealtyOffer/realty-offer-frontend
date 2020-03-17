@@ -1,13 +1,25 @@
 import React from 'react';
-
 import { RouteComponentProps } from '@reach/router';
-import { Seo } from '../components';
+
+import { Button, Card, FlexContainer, Seo } from '../components';
 
 const NotFoundPage = (_: RouteComponentProps) => (
   <>
     <Seo title="404: Not found" />
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+    <Card
+      cardTitle="404: Page Not Found"
+    >
+      <FlexContainer>
+        <p>We could not find the page you were looking for. Please try again or visit the home page.</p>
+        <Button
+          type="link"
+          to="/"
+          color="primary"
+        >
+          Home
+        </Button>
+      </FlexContainer>
+    </Card>
   </>
 );
 
