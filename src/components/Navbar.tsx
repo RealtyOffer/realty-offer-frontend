@@ -87,6 +87,7 @@ const StyledMenuToggle = styled.div`
 
 const StyledMenu = styled.div`
   display: flex;
+  align-items: center;
 
   & > a,
   & > a:hover,
@@ -98,6 +99,7 @@ const StyledMenu = styled.div`
 
   ${(props: { isSmallScreen: boolean; menuIsOpen: boolean; }) => (props.isSmallScreen && css`
     flex-direction: column;
+    align-items: normal;
     background-color: ${brandPrimary};
     padding: 0 ${baseSpacer};
     height: 100vh;
