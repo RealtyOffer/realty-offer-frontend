@@ -1,4 +1,4 @@
-import React, { Component, FunctionComponent } from 'react';
+import React, { ComponentType, FunctionComponent } from 'react';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { AuthStoreType } from '../redux/ducks/auth';
 type PrivateRouteProps = {
   auth: AuthStoreType;
   location: any;
-  component: Component;
+  component: ComponentType;
 } & RouteComponentProps
 
 const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
@@ -18,12 +18,12 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
     navigate('/login');
     return null;
   }
-  return <Component {...rest} />;
+  return (<Component {...rest} />);
 };
 
 export default connect(
   (state) => ({
-    auth: state.auth,
+    auth: (state as any).auth,
   }),
   null,
 )(PrivateRoute);

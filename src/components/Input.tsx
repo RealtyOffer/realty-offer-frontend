@@ -82,7 +82,7 @@ const StyledSelect = styled(Select)`
 
 const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
-  ${(props: InputProps) => props.square && `max-width: ${inputHeight};`}
+  ${(props: { square?: boolean }) => props.square && `max-width: ${inputHeight};`}
 `;
 
 const StyledToggle = styled.input`
@@ -100,7 +100,7 @@ const StyledToggle = styled.input`
   }
 `;
 
-const StyledToggleLabel = styled.label`
+const StyledToggleLabel = styled.label<{ checked?: boolean, disabled?: boolean }>`
   cursor: pointer;
   width: ${sextupleSpacer};
   height: 42px;
@@ -111,7 +111,7 @@ const StyledToggleLabel = styled.label`
   margin: 0;
 
   &:after {
-    content: '${(props: InputProps) => (props.checked ? 'Yes' : 'No')}';
+    content: '${(props) => (props.checked ? 'Yes' : 'No')}';
     position: absolute;
     top: 5px;
     left: 5px;
@@ -124,16 +124,16 @@ const StyledToggleLabel = styled.label`
     justify-content: center;
     align-items: center;
     font-size: ${fontSizeSmall};
-    color: ${(props: InputProps) => (props.checked ? brandPrimary : textColor)};
+    color: ${(props) => (props.checked ? brandPrimary : textColor)};
   }
 
   /* Disabled state */
-  ${(props: InputProps) => (props.disabled && disabledStyle)}
+  ${(props) => (props.disabled && disabledStyle)}
 `;
 
-const StyledLabel = styled.label`
-  ${(props: { hiddenLabel?: boolean }) => props.hiddenLabel && visuallyHiddenStyle}
-  ${(props: { invalid?: boolean }) => (props.invalid && `
+const StyledLabel = styled.label<{ hiddenLabel?: boolean, invalid?: boolean }>`
+  ${(props) => props.hiddenLabel && visuallyHiddenStyle}
+  ${(props) => (props.invalid && `
     color: ${brandDanger};
   `)}
 `;
@@ -305,7 +305,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
           <StyledLabel
             htmlFor={props.id || props.name}
             hiddenLabel={props.hiddenLabel}
-            invalid={meta && meta.touched && meta.error}
+            invalid={meta && meta.touched && meta.error != null}
           >
             {props.label}
           </StyledLabel>

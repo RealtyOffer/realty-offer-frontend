@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 // eslint-disable-next-line import/no-cycle
 import { AUTHENTICATE_CREDENTIALS_SUCCESS, LOGOUT_REQUEST } from './auth';

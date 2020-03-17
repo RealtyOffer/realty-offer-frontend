@@ -149,7 +149,7 @@ class GlobalAlerts extends Component<Props, State> {
 }
 
 export default connect((state) => ({
-  globalAlerts: state.globalAlerts,
+  globalAlerts: (state as any).globalAlerts,
 }), (dispatch) => ({
   actions: bindActionCreators({ closeAlert }, dispatch),
 }))(GlobalAlerts);

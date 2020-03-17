@@ -84,6 +84,13 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
     }));
   }
 
+  
+  numberWithCommas = (x: number) => {
+    const parts = x.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  };
+
   render() {
     const { regions } = this.state;
     const initialValues = {
@@ -96,12 +103,6 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
 
     const getTotals = !noRegionsInCart && regions.map((r) => Number(r.subscriptionType))
       .reduce((total, amount) => total + amount);
-
-    const numberWithCommas = (x: number) => {
-      const parts = x.toString().split('.');
-      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      return parts.join('.');
-    };
 
     return (
       <Card
@@ -172,7 +173,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
                     <FlexContainer justifyContent="space-between" alignItems="flex-end" height="100px">
                       <strong><FaMapMarkerAlt /> Zip Codes: {regions.length}</strong>
                       <strong>
-                        <FaShoppingCart />Total: ${numberWithCommas(Number(getTotals))}
+                        <FaShoppingCart />Total: ${this.numberWithCommas(Number(getTotals))}
                       </strong>
                     </FlexContainer>
                   )
@@ -185,7 +186,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
                       <FlexContainer justifyContent="space-between" height={doubleSpacer}>
                         <span>{r.zip}</span>
                         <span>{r.agentType}</span>
-                        <span>${numberWithCommas(Number(r.subscriptionType))}</span>
+                        <span>${this.numberWithCommas(Number(r.subscriptionType))}</span>
                         <Button
                           type="button"
                           onClick={() => this.removeFromCart(index)}

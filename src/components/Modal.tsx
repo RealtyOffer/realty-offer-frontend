@@ -24,7 +24,7 @@ const CloseIcon = styled.span`
 const Modal: FunctionComponent<ModalProps> = (props) => (
   <ReactModal
     isOpen={props.isOpen}
-    onRequestClose={props.toggleModal}
+    onRequestClose={props.toggleModal as any}
     shouldCloseOnOverlayClick
     shouldCloseOnEsc
     style={{
@@ -44,7 +44,7 @@ const Modal: FunctionComponent<ModalProps> = (props) => (
       },
     }}
   >
-    <CloseIcon onClick={props.toggleModal}><FaTimes /></CloseIcon>
+    <CloseIcon onClick={props.toggleModal as any}><FaTimes /></CloseIcon>
     {props.children}
   </ReactModal>
 );

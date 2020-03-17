@@ -40,7 +40,7 @@ const makeConfiguredStore = (reducer: any, initialState: any) => {
     storage,
     whitelist: ['auth', 'consumer'],
   };
-  const persistedReducer = persistReducer(persistConfig, rootReducer);
+  const persistedReducer = persistReducer(persistConfig, reducer);
 
   return createStore(
     persistedReducer,

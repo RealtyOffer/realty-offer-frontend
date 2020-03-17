@@ -211,7 +211,7 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
 
 export default connect(
   (state) => ({
-    auth: state.auth,
+    auth: (state as any).auth,
   }),
   (dispatch) => ({
     actions: bindActionCreators({ logout }, dispatch),

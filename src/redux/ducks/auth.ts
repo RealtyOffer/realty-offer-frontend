@@ -63,7 +63,7 @@ export const initialState: AuthStoreType = {
 
 export default (
   state: AuthStoreType = initialState,
-  action,
+  action: any,
 ) => {
   switch (action.type) {
     case CREATE_USER_REQUEST:

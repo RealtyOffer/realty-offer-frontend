@@ -43,16 +43,27 @@ export const isAlphaNumeric = (value: string) => (
   value && /[^a-zA-Z0-9 ]/i.test(value) ? 'Only alphanumeric characters' : undefined
 );
 
-export const isValidPassword = (value: string) => (
+const allowedSpecialCharacters = '@$!%*?&';
+const disallowedCharactersRegex = new RegExp(`[^A-Za-z\\d${allowedSpecialCharacters}]`, 'g');
+const validPasswordRegex = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[${allowedSpecialCharacters}])[A-Za-z\\d${allowedSpecialCharacters}]{8,}$`, 'g');
+export const isValidPassword = (value: string) => {
   // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
   // Minimum eight characters
   // one uppercase letter
   // one lowercase letter
   // one number
   // one special character
-  value && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value) ?
-    'Password does not meet the requirements' : undefined
-);
+  if (value && !validPasswordRegex.test(value)) {
+    // additionally, check if there are invalid characters (based on allowedSpecialCharacters) to give a better error
+    const invalidCharactersInPassword = value.match(disallowedCharactersRegex);
+    if (invalidCharactersInPassword) {
+      return `Password contains invalid character${invalidCharactersInPassword.length > 1 ? 's' : ''}: ` +
+        invalidCharactersInPassword.filter((a, b) => invalidCharactersInPassword.indexOf(a) === b).join('');
+    }
+    return 'Password does not meet the requirements';
+  }
+  return undefined;
+};
 
 // composed validations for use in Formik Field components
 export const requiredEmail = (value: string) => customFieldLevelValidation(
@@ -67,4 +78,4 @@ export const requiredPassword = (value: string) => customFieldLevelValidation(
   value, [requiredField, isValidPassword],
 );
 
-export const passwordRulesString = 'Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.';
+export const passwordRulesString = `Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and a special character (${allowedSpecialCharacters.split('').join(' ')}).`;
