@@ -98,4 +98,3 @@ Looking for more guidance on the components available in this repo? Run `yarn st
 ## 💫 Deploy
 
 This project is automatically deployed to Netlify at `https://realtyoffer-dev.netlify.com/` via commits to the `master` branch.
-
