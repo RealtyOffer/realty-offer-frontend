@@ -8,7 +8,7 @@ import Heading from './Heading';
 
 type CardProps = {
   cardTitle: string;
-  cardSubtitle: string;
+  cardSubtitle?: string;
   children: any;
 }
 
@@ -19,7 +19,11 @@ const Card = (props: CardProps) => (
         <Box backgroundAccent>
           <FlexContainer flexDirection="column">
             <Heading styledAs="title" align="center">{props.cardTitle}</Heading>
-            <Heading as="h2" styledAs="subtitle" align="center">{props.cardSubtitle}</Heading>
+            {
+              props.cardSubtitle && (
+                <Heading as="h2" styledAs="subtitle" align="center">{props.cardSubtitle}</Heading>
+              )
+            }
           </FlexContainer>
           {props.children}
         </Box>

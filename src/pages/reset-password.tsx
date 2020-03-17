@@ -1,12 +1,10 @@
 import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
-import {
-  Formik, Field, Form, FormikProps,
-} from 'formik';
+import { Formik, Field, Form } from 'formik';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  Alert, Box, Button, Column, Heading, Input, Row, HorizontalRule, FlexContainer, Seo,
+  Alert, Button, Card, Input, HorizontalRule, FlexContainer, Seo,
 } from '../components';
 
 import { requiredField, requiredPassword, passwordRulesString } from '../utils/validations';
@@ -53,90 +51,85 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
   return (
     <>
       <Seo title="Reset Password" />
-      <Row>
-        <Column md={6} mdOffset={3}>
-          <Box largePadding>
-            <Heading align="center">Reset Password</Heading>
-            {
-              !submitted ? (
-                <Formik
-                  validateOnMount
-                  initialValues={initialValues}
-                  onSubmit={(values, { setSubmitting }) => {
-                    const {
-                      digit1, digit2, digit3, digit4, digit5, digit6,
-                    } = values;
-                    const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
-                    props.actions.resetPassword({
-                      ...values,
-                      token: combined,
-                    })
-                      .then((response: ActionResponseType) => {
-                        setSubmitting(false);
-                        if (response && !response.error) {
-                          setSubmitted(true);
-                        }
-                      });
-                  }}
-                >
-                  {(formikProps: FormikProps<any>) => (
-                    <Form>
-                      <Field
-                        as={Input}
-                        type="email"
-                        name="email"
-                        label="Email"
-                        validate={requiredField}
-                      />
-                      <label>Verification Code</label>
-                      <FlexContainer justifyContent="space-between" flexWrap="nowrap">
-                        {
-                          ['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
-                            <Field
-                              key={digit}
-                              as={Input}
-                              type="text"
-                              name={digit}
-                              square
-                              maxLength={1}
-                              onInput={autoFocusNextInput}
-                              validate={requiredField}
-                            />
-                          ))
-                        }
-                      </FlexContainer>
-                      <Field
-                        as={Input}
-                        type="password"
-                        label="New Password"
-                        name="newPassword"
-                        helpText={passwordRulesString}
-                        validate={requiredPassword}
-                      />
-                      <HorizontalRule />
-                      <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
-                        Submit
-                      </Button>
-                      <Button type="link" to="/login" color="text" block>
-                        Cancel
-                      </Button>
-                    </Form>
-                  )}
-                </Formik>
-              ) : (
-                <>
-                  <Alert type="success">
-                    You have successfully reset your password. You may now log in.
-                  </Alert>
-                  <Button type="link" to="/login" color="primary" block>
-                    Log In
+      <Card cardTitle="Reset Password">
+        {
+          !submitted ? (
+            <Formik
+              validateOnMount
+              initialValues={initialValues}
+              onSubmit={(values, { setSubmitting }) => {
+                const {
+                  digit1, digit2, digit3, digit4, digit5, digit6,
+                } = values;
+                const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
+                props.actions.resetPassword({
+                  ...values,
+                  token: combined,
+                })
+                  .then((response: ActionResponseType) => {
+                    setSubmitting(false);
+                    if (response && !response.error) {
+                      setSubmitted(true);
+                    }
+                  });
+              }}
+            >
+              {({ isSubmitting, isValid }) => (
+                <Form>
+                  <Field
+                    as={Input}
+                    type="email"
+                    name="email"
+                    label="Email"
+                    validate={requiredField}
+                  />
+                  <label>Verification Code</label>
+                  <FlexContainer justifyContent="space-between" flexWrap="nowrap">
+                    {
+                      ['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
+                        <Field
+                          key={digit}
+                          as={Input}
+                          type="text"
+                          name={digit}
+                          square
+                          maxLength={1}
+                          onInput={autoFocusNextInput}
+                          validate={requiredField}
+                        />
+                      ))
+                    }
+                  </FlexContainer>
+                  <Field
+                    as={Input}
+                    type="password"
+                    label="New Password"
+                    name="newPassword"
+                    helpText={passwordRulesString}
+                    validate={requiredPassword}
+                  />
+                  <HorizontalRule />
+                  <Button type="submit" disabled={isSubmitting || !isValid} block>
+                    Submit
                   </Button>
-                </>
-              )
-            }
-          </Box>
-        </Column>
-      </Row>
+                  <Button type="link" to="/login" color="text" block>
+                    Cancel
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          ) : (
+            <>
+              <Alert type="success">
+                You have successfully reset your password. You may now log in.
+              </Alert>
+              <Button type="link" to="/login" color="primary" block>
+                Log In
+              </Button>
+            </>
+          )
+        }
+      </Card>
     </>
   );
 };

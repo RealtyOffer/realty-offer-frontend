@@ -1,4 +1,5 @@
 import Alert from './Alert';
+import Avatar from './Avatar';
 import Box from './Box';
 import Button from './Button';
 import Card from './Card';
@@ -23,6 +24,7 @@ import SiteMetadata from './SiteMetadata';
 
 export {
   Alert,
+  Avatar,
   Box,
   Button,
   Card,
