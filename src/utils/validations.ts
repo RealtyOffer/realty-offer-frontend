@@ -72,7 +72,8 @@ export const isValidPassword = (value: string) => {
         invalidCharactersInPassword.length > 1 ? 's' : ''
       }: ${invalidCharactersInPassword
         .filter((a, b) => invalidCharactersInPassword.indexOf(a) === b)
-        .join('')}`
+        .join('')
+        .replace(' ', '(space)')}`
     }
     return 'Password does not meet the requirements'
   }
