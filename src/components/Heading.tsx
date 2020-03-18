@@ -1,10 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import styled, { css } from 'styled-components';
+import React, { FunctionComponent } from 'react'
+import styled, { css } from 'styled-components'
 
-import { baseSpacer } from '../styles/size';
+import { baseSpacer } from '../styles/size'
 import {
-  white, brandPrimary, headingsColor, brandTertiaryHover,
-} from '../styles/color';
+  white,
+  brandPrimary,
+  headingsColor,
+  brandTertiaryHover,
+} from '../styles/color'
 import {
   fontSizeH1,
   fontSizeH2,
@@ -13,59 +16,67 @@ import {
   fontSizeH5,
   fontSizeH6,
   lineHeightSmall,
-} from '../styles/typography';
+} from '../styles/typography'
 
 type HeadingProps = {
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  inverse?: boolean;
-  noMargin?: boolean;
-  align?: 'left' | 'center' | 'right';
-  children: string;
-  styledAs?: 'title' | 'subtitle' | null;
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  inverse?: boolean
+  noMargin?: boolean
+  align?: 'left' | 'center' | 'right'
+  children: string
+  styledAs?: 'title' | 'subtitle' | null
 }
 
 const renderFontSize = (as: HeadingProps['as']) => {
   if (as === 'h1') {
-    return fontSizeH1;
+    return fontSizeH1
   }
   if (as === 'h2') {
-    return fontSizeH2;
+    return fontSizeH2
   }
   if (as === 'h3') {
-    return fontSizeH3;
+    return fontSizeH3
   }
   if (as === 'h4') {
-    return fontSizeH4;
+    return fontSizeH4
   }
   if (as === 'h5') {
-    return fontSizeH5;
+    return fontSizeH5
   }
   if (as === 'h6') {
-    return fontSizeH6;
+    return fontSizeH6
   }
-  return fontSizeH1;
-};
+  return fontSizeH1
+}
 
 const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
   if (styledAs === 'title') {
-    return css`color: ${brandPrimary}; font-weight: 700;`;
+    return css`
+      color: ${brandPrimary};
+      font-weight: 700;
+    `
   }
   if (styledAs === 'subtitle') {
-    return css`color: ${brandTertiaryHover}; font-weight: 700; font-size: ${fontSizeH4};`;
+    return css`
+      color: ${brandTertiaryHover};
+      font-weight: 700;
+      font-size: ${fontSizeH4};
+    `
   }
-  return null;
-};
+  return null
+}
 
 const StyledHeading = styled.h1`
   font-weight: 300;
   line-height: ${lineHeightSmall};
   color: ${(props: HeadingProps) => (props.inverse ? white : headingsColor)};
-  margin-bottom: ${(props: HeadingProps) => (props.noMargin ? '0' : baseSpacer)};
+  margin-bottom: ${(props: HeadingProps) =>
+    props.noMargin ? '0' : baseSpacer};
   text-align: ${(props: HeadingProps) => props.align};
   white-space: pre-line;
   font-size: ${(props: HeadingProps) => props.as && renderFontSize(props.as)};
   ${(props: HeadingProps) => props.styledAs && renderStyledAs(props.styledAs)};
-`;
+`
 
 const Heading: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
   <StyledHeading
@@ -77,7 +88,7 @@ const Heading: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
   >
     {props.children}
   </StyledHeading>
-);
+)
 
 Heading.defaultProps = {
   as: 'h1',
@@ -85,6 +96,6 @@ Heading.defaultProps = {
   noMargin: false,
   align: 'left',
   styledAs: null,
-};
+}
 
-export default Heading;
+export default Heading

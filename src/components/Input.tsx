@@ -1,34 +1,56 @@
-import React, { useState, FunctionComponent } from 'react';
-import styled, { css } from 'styled-components';
-import { useField, FieldMetaProps, FormikHelpers } from 'formik';
-import StringMask from 'string-mask';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import Select, { CommonProps } from 'react-select';
+import React, { useState, FunctionComponent } from 'react'
+import styled, { css } from 'styled-components'
+import { useField, FieldMetaProps, FormikHelpers } from 'formik'
+import StringMask from 'string-mask'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import Select, { CommonProps } from 'react-select'
 
 import {
-  inputHeight, inputPaddingY, inputPaddingX, baseSpacer, borderRadius, sextupleSpacer, doubleSpacer,
-} from '../styles/size';
-import { fontSizeBase, lineHeightBase, fontSizeSmall } from '../styles/typography';
+  inputHeight,
+  inputPaddingY,
+  inputPaddingX,
+  baseSpacer,
+  borderRadius,
+  sextupleSpacer,
+  doubleSpacer,
+} from '../styles/size'
 import {
-  textColor, white, brandDanger, brandDangerRGB, brandPrimary, brandPrimaryRGB,
-  lightGray, offWhite,
-} from '../styles/color';
-import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
+  fontSizeBase,
+  lineHeightBase,
+  fontSizeSmall,
+} from '../styles/typography'
+import {
+  textColor,
+  white,
+  brandDanger,
+  brandDangerRGB,
+  brandPrimary,
+  brandPrimaryRGB,
+  lightGray,
+  offWhite,
+} from '../styles/color'
+import {
+  baseBorderStyle,
+  disabledStyle,
+  visuallyHiddenStyle,
+} from '../styles/mixins'
 
-type OptionType = { label: string; value: string; }
+type OptionType = { label: string; value: string }
 
 type InputProps = {
-  disabled?: boolean;
-  id?: string;
-  name: string;
-  square?: boolean;
-  hiddenLabel?: boolean;
-  type: string;
-  label: string;
-  helpText?: string;
-  checked?: boolean;
-  options?: OptionType[];
-} & FieldMetaProps<string> & FormikHelpers<string> & CommonProps<OptionType | OptionType[]>
+  disabled?: boolean
+  id?: string
+  name: string
+  square?: boolean
+  hiddenLabel?: boolean
+  type: string
+  label: string
+  helpText?: string
+  checked?: boolean
+  options?: OptionType[]
+} & FieldMetaProps<string> &
+  FormikHelpers<string> &
+  CommonProps<OptionType | OptionType[]>
 
 const sharedStyles = css`
   display: block;
@@ -46,11 +68,15 @@ const sharedStyles = css`
 
   ${(props: InputProps) => props.square && 'text-align: center;'}
 
-  ${(meta: FieldMetaProps<string>) => (meta && meta.touched && meta.error && `
+  ${(meta: FieldMetaProps<string>) =>
+    meta &&
+    meta.touched &&
+    meta.error &&
+    `
       border-color: ${brandDanger};
       border-width: 2px;
       // box-shadow: 0 0 0 ${borderRadius} rgba(${brandDangerRGB},.25);
-  `)}
+  `}
   
   &:focus {
     border-color: ${brandPrimary};
@@ -60,36 +86,39 @@ const sharedStyles = css`
   }
   
   /* Disabled state */
-  ${(props: InputProps) => (props.disabled && disabledStyle)}
-`;
+  ${(props: InputProps) => props.disabled && disabledStyle}
+`
 
 const StyledInput = styled.input`
   ${sharedStyles}
-`;
+`
 
 const StyledErrorMessage = styled.div`
   color: ${brandDanger};
   font-size: ${fontSizeSmall};
-`;
+`
 
 const StyledSelect = styled(Select)`
   & > div:first-child {
-    ${(props: { invalid?: boolean }) => (props.invalid && `
+    ${(props: { invalid?: boolean }) =>
+      props.invalid &&
+      `
       border: 2px solid ${brandDanger};
-  `)}
+  `}
   }
-`;
+`
 
 const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
-  ${(props: { square?: boolean }) => props.square && `max-width: ${inputHeight};`}
-`;
+  ${(props: { square?: boolean }) =>
+    props.square && `max-width: ${inputHeight};`}
+`
 
 const StyledToggle = styled.input`
   height: 0;
   width: 0;
   visibility: hidden;
-    
+
   &:checked + label {
     background: ${brandPrimary};
   }
@@ -98,9 +127,12 @@ const StyledToggle = styled.input`
     left: calc(100% - 5px);
     transform: translateX(-100%);
   }
-`;
+`
 
-const StyledToggleLabel = styled.label<{ checked?: boolean, disabled?: boolean }>`
+const StyledToggleLabel = styled.label<{
+  checked?: boolean
+  disabled?: boolean
+}>`
   cursor: pointer;
   width: ${sextupleSpacer};
   height: 42px;
@@ -111,7 +143,7 @@ const StyledToggleLabel = styled.label<{ checked?: boolean, disabled?: boolean }
   margin: 0;
 
   &:after {
-    content: '${(props) => (props.checked ? 'Yes' : 'No')}';
+    content: '${props => (props.checked ? 'Yes' : 'No')}';
     position: absolute;
     top: 5px;
     left: 5px;
@@ -124,29 +156,31 @@ const StyledToggleLabel = styled.label<{ checked?: boolean, disabled?: boolean }
     justify-content: center;
     align-items: center;
     font-size: ${fontSizeSmall};
-    color: ${(props) => (props.checked ? brandPrimary : textColor)};
+    color: ${props => (props.checked ? brandPrimary : textColor)};
   }
 
   /* Disabled state */
-  ${(props) => (props.disabled && disabledStyle)}
-`;
+  ${props => props.disabled && disabledStyle}
+`
 
-const StyledLabel = styled.label<{ hiddenLabel?: boolean, invalid?: boolean }>`
-  ${(props) => props.hiddenLabel && visuallyHiddenStyle}
-  ${(props) => (props.invalid && `
+const StyledLabel = styled.label<{ hiddenLabel?: boolean; invalid?: boolean }>`
+  ${props => props.hiddenLabel && visuallyHiddenStyle}
+  ${props =>
+    props.invalid &&
+    `
     color: ${brandDanger};
-  `)}
-`;
+  `}
+`
 
 const PasswordWrapper = styled.div`
   position: relative;
-`;
+`
 
 const PasswordToggle = styled.div`
   position: absolute;
   right: ${baseSpacer};
   top: ${baseSpacer};
-`;
+`
 
 const multiSelectStyles = {
   option: (provided: any, state: { isFocused: boolean }) => ({
@@ -178,44 +212,51 @@ const multiSelectStyles = {
     ...provided,
     color: textColor,
   }),
-};
+}
 
-const Input: FunctionComponent<InputProps> = (props) => {
+const Input: FunctionComponent<InputProps> = props => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and also replace ErrorMessage entirely.
-  const [field, meta] = useField<string>(props.name);
+  const [field, meta] = useField<string>(props.name)
   // state for toggling password visibility
-  const [passwordVisibility, setPasswordVisibiility] = useState(false);
+  const [passwordVisibility, setPasswordVisibiility] = useState(false)
 
-  let inputTypeToRender;
+  let inputTypeToRender
 
   switch (props.type) {
-    case 'select': {
-      const onChange = (option: OptionType[] | OptionType) => {
-        props.setFieldValue(
-          field.name,
-          // eslint-disable-next-line no-nested-ternary
-          props.isMulti ?
-            (option ? (option as OptionType[]).map((item: OptionType) => item.value) : [])
-            : (option as OptionType).value,
-        );
-      };
-      inputTypeToRender = (
-        <StyledSelect
-          styles={multiSelectStyles}
-          isMulti={props.isMulti}
-          menuPlacement="auto"
-          value={props.options ? props.options.find((option) => option.value === field.value) : ''}
-          options={props.options}
-          name={props.name}
-          onChange={(option: OptionType) => onChange(option)}
-          onBlur={() => props.setFieldTouched(props.name)}
-          isDisabled={props.disabled}
-          invalid={meta && meta.touched && meta.error}
-        />
-      );
-    }
-      break;
+    case 'select':
+      {
+        const onChange = (option: OptionType[] | OptionType) => {
+          props.setFieldValue(
+            field.name,
+            // eslint-disable-next-line no-nested-ternary
+            props.isMulti
+              ? option
+                ? (option as OptionType[]).map((item: OptionType) => item.value)
+                : []
+              : (option as OptionType).value
+          )
+        }
+        inputTypeToRender = (
+          <StyledSelect
+            styles={multiSelectStyles}
+            isMulti={props.isMulti}
+            menuPlacement="auto"
+            value={
+              props.options
+                ? props.options.find(option => option.value === field.value)
+                : ''
+            }
+            options={props.options}
+            name={props.name}
+            onChange={(option: OptionType) => onChange(option)}
+            onBlur={() => props.setFieldTouched(props.name)}
+            isDisabled={props.disabled}
+            invalid={meta && meta.touched && meta.error}
+          />
+        )
+      }
+      break
     case 'checkbox':
       inputTypeToRender = (
         <>
@@ -233,36 +274,36 @@ const Input: FunctionComponent<InputProps> = (props) => {
             checked={props.checked}
           />
         </>
-      );
-      break;
-    case 'tel': {
-      const phoneDelimiter = '-';
-      const phoneMask = '000-000-0000';
-      const removeTrailingCharIfFound = (str: string, char: string) => str
-        .split(char)
-        .filter((segment) => segment !== '')
-        .join(char);
-      const formatValue = (str: string) => {
-        const unmaskedValue = str.split(phoneDelimiter).join('');
-        const formatted = StringMask.process(unmaskedValue, phoneMask);
-        return removeTrailingCharIfFound(formatted.result, phoneDelimiter);
-      };
-      inputTypeToRender = (
-        <StyledInput
-          type="tel"
-          id={props.name}
-          {...field}
-          {...props}
-          {...meta}
-          onChange={(event) => {
-            field.onChange(event.target.name)(
-              formatValue(event.target.value),
-            );
-          }}
-        />
-      );
-    }
-      break;
+      )
+      break
+    case 'tel':
+      {
+        const phoneDelimiter = '-'
+        const phoneMask = '000-000-0000'
+        const removeTrailingCharIfFound = (str: string, char: string) =>
+          str
+            .split(char)
+            .filter(segment => segment !== '')
+            .join(char)
+        const formatValue = (str: string) => {
+          const unmaskedValue = str.split(phoneDelimiter).join('')
+          const formatted = StringMask.process(unmaskedValue, phoneMask)
+          return removeTrailingCharIfFound(formatted.result, phoneDelimiter)
+        }
+        inputTypeToRender = (
+          <StyledInput
+            type="tel"
+            id={props.name}
+            {...field}
+            {...props}
+            {...meta}
+            onChange={event => {
+              field.onChange(event.target.name)(formatValue(event.target.value))
+            }}
+          />
+        )
+      }
+      break
     case 'password':
       inputTypeToRender = (
         <PasswordWrapper>
@@ -273,17 +314,17 @@ const Input: FunctionComponent<InputProps> = (props) => {
             {...props}
             {...meta}
           />
-          <PasswordToggle onClick={() => setPasswordVisibiility(!passwordVisibility)}>
+          <PasswordToggle
+            onClick={() => setPasswordVisibiility(!passwordVisibility)}
+          >
             {passwordVisibility ? <FaEye /> : <FaEyeSlash />}
           </PasswordToggle>
-          {
-            passwordVisibility && field.value.length > 0 && (
-              <span style={{ marginLeft: baseSpacer }}>{field.value}</span>
-            )
-          }
+          {passwordVisibility && field.value.length > 0 && (
+            <span style={{ marginLeft: baseSpacer }}>{field.value}</span>
+          )}
         </PasswordWrapper>
-      );
-      break;
+      )
+      break
     default:
       inputTypeToRender = (
         <StyledInput
@@ -294,32 +335,28 @@ const Input: FunctionComponent<InputProps> = (props) => {
           {...props}
           {...meta}
         />
-      );
-      break;
+      )
+      break
   }
 
   return (
     <InputWrapper square={props.square}>
-      {
-        props.label && props.type !== 'checkbox' && (
-          <StyledLabel
-            htmlFor={props.id || props.name}
-            hiddenLabel={props.hiddenLabel}
-            invalid={meta && meta.touched && meta.error != null}
-          >
-            {props.label}
-          </StyledLabel>
-        )
-      }
+      {props.label && props.type !== 'checkbox' && (
+        <StyledLabel
+          htmlFor={props.id || props.name}
+          hiddenLabel={props.hiddenLabel}
+          invalid={meta && meta.touched && meta.error != null}
+        >
+          {props.label}
+        </StyledLabel>
+      )}
       {inputTypeToRender}
       {props.helpText && <small>{props.helpText}</small>}
-      {
-        meta && meta.touched && meta.error && !props.square && (
-          <StyledErrorMessage>{meta.error}</StyledErrorMessage>
-        )
-      }
+      {meta && meta.touched && meta.error && !props.square && (
+        <StyledErrorMessage>{meta.error}</StyledErrorMessage>
+      )}
     </InputWrapper>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

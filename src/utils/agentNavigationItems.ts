@@ -5,6 +5,6 @@ const agentNavigationItems = [
   { name: 'History', path: '/agent/listings/history', primary: true },
   { name: 'Settings', path: '/agent/account/settings', primary: false },
   { name: 'Profile', path: '/agent/account/profile', primary: false },
-];
+]
 
-export default agentNavigationItems;
+export default agentNavigationItems

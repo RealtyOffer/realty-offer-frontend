@@ -1,25 +1,25 @@
-import React, { FunctionComponent } from 'react';
-import { Helmet } from 'react-helmet';
-import { withPrefix } from 'gatsby';
-import styled from 'styled-components';
+import React, { FunctionComponent } from 'react'
+import { Helmet } from 'react-helmet'
+import { withPrefix } from 'gatsby'
+import styled from 'styled-components'
 
-import Footer from './Footer';
-import Navbar from './Navbar';
-import PageContainer from './PageContainer';
+import Footer from './Footer'
+import Navbar from './Navbar'
+import PageContainer from './PageContainer'
 
-import useSiteMetadata from './SiteMetadata';
-import CssReset from '../styles/cssReset';
+import useSiteMetadata from './SiteMetadata'
+import CssReset from '../styles/cssReset'
 
-import { baseSpacer, doubleSpacer, breakpoints } from '../styles/size';
-import { offWhite } from '../styles/color';
-import GlobalAlerts from './GlobalAlerts';
+import { baseSpacer, doubleSpacer, breakpoints } from '../styles/size'
+import { offWhite } from '../styles/color'
+import GlobalAlerts from './GlobalAlerts'
 
 const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100vw;
-`;
+`
 
 const PageBody = styled.div`
   background-color: ${offWhite};
@@ -28,12 +28,12 @@ const PageBody = styled.div`
   @media only screen and (min-width: ${breakpoints.sm}) {
     padding: ${doubleSpacer} 0;
   }
-`;
+`
 
 type LayoutProps = {}
 
 const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
-  const { title, description } = useSiteMetadata();
+  const { title, description } = useSiteMetadata()
   return (
     <div>
       <Helmet>
@@ -78,15 +78,13 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
       <LayoutWrapper>
         <Navbar />
         <PageBody>
-          <PageContainer>
-            {children}
-          </PageContainer>
+          <PageContainer>{children}</PageContainer>
         </PageBody>
         <GlobalAlerts />
         <Footer />
       </LayoutWrapper>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

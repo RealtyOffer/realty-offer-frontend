@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import styled, { css } from 'styled-components';
-import { Link } from 'gatsby';
+import React, { Component } from 'react'
+import styled, { css } from 'styled-components'
+import { Link } from 'gatsby'
 
 import {
-  baseSpacer, baseAndAHalfSpacer, borderWidth, halfSpacer,
-} from '../styles/size';
-import { fontFamilySansSerif, fontSizeBase } from '../styles/typography';
+  baseSpacer,
+  baseAndAHalfSpacer,
+  borderWidth,
+  halfSpacer,
+} from '../styles/size'
+import { fontFamilySansSerif, fontSizeBase } from '../styles/typography'
 import {
   brandPrimary,
   brandPrimaryHover,
@@ -14,20 +17,27 @@ import {
   brandSuccess,
   lightGray,
   gray,
-} from '../styles/color';
-import { disabledStyle } from '../styles/mixins';
+} from '../styles/color'
+import { disabledStyle } from '../styles/mixins'
 
 type ButtonProps = {
-  type: 'submit' | 'button' | 'reset' | 'link';
-  color?: 'text' | 'primary' | 'primaryOutline' | 'success' | 'successOutline' | 'danger' | 'dangerOutline';
-  rightspacer?: boolean;
-  onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
-  to?: string;
-  disabled?: boolean;
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
-  block?: boolean;
-};
+  type: 'submit' | 'button' | 'reset' | 'link'
+  color?:
+    | 'text'
+    | 'primary'
+    | 'primaryOutline'
+    | 'success'
+    | 'successOutline'
+    | 'danger'
+    | 'dangerOutline'
+  rightspacer?: boolean
+  onClick?(event: React.MouseEvent<HTMLButtonElement>): void
+  to?: string
+  disabled?: boolean
+  iconLeft?: React.ReactNode
+  iconRight?: React.ReactNode
+  block?: boolean
+}
 
 const primaryButtonStyles = `
   background-color: ${brandPrimary};
@@ -38,7 +48,7 @@ const primaryButtonStyles = `
     color: ${white};
     background-color: ${brandPrimaryHover};
   }
-`;
+`
 
 const primaryOutlineButtonStyles = `
   border-color: ${brandPrimary};
@@ -50,22 +60,22 @@ const primaryOutlineButtonStyles = `
     background-color: ${brandPrimary};
     color: ${white};
   }
-`;
+`
 
 const primaryDisabledStyles = `
   background-color: ${lightGray};
   color: ${gray};
-`;
+`
 
 const primaryOutlinedDisabledStyles = `
   background-color: ${white};
   border-color: ${lightGray};
   color: ${gray};
-`;
+`
 
 const textDisabledStyles = `
   color: ${gray};
-`;
+`
 
 const successButtonStyles = `
   background-color: ${brandSuccess};
@@ -75,7 +85,7 @@ const successButtonStyles = `
   &:focus {
     filter: brightness(115%);
   }
-`;
+`
 
 const successOutlineButtonStyles = `
   border-color: ${brandSuccess};
@@ -86,7 +96,7 @@ const successOutlineButtonStyles = `
     background-color: ${brandSuccess};
     color: ${white};
   }
-`;
+`
 
 const dangerButtonStyles = `
   background-color: ${brandDanger};
@@ -96,7 +106,7 @@ const dangerButtonStyles = `
   &:focus {
     filter: brightness(115%);
   }
-`;
+`
 
 const dangerOutlineButtonStyles = `
   border-color: ${brandDanger};
@@ -107,17 +117,17 @@ const dangerOutlineButtonStyles = `
     background-color: ${brandDanger};
     color: ${white};
   }
-`;
+`
 
 const textButtonStyles = `
   background-color: transparent;
   color: ${brandPrimary};
-`;
+`
 
 const allStyles = css`
   position: relative;
   display: inline-flex;
-  ${(props: ButtonProps) => (props.block && 'width: 100%;')}
+  ${(props: ButtonProps) => props.block && 'width: 100%;'}
   font-family: ${fontFamilySansSerif};
   font-size: ${fontSizeBase};
   justify-content: center;
@@ -135,35 +145,43 @@ const allStyles = css`
   text-decoration: none;
   
   /* Color */
-  ${(props: ButtonProps) => (props.color === 'primary' && primaryButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'primaryOutline' && primaryOutlineButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'danger' && dangerButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'dangerOutline' && dangerOutlineButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'success' && successButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'successOutline' && successOutlineButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'text' && textButtonStyles)}
+  ${(props: ButtonProps) => props.color === 'primary' && primaryButtonStyles}
+  ${(props: ButtonProps) =>
+    props.color === 'primaryOutline' && primaryOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'danger' && dangerButtonStyles}
+  ${(props: ButtonProps) =>
+    props.color === 'dangerOutline' && dangerOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'success' && successButtonStyles}
+  ${(props: ButtonProps) =>
+    props.color === 'successOutline' && successOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'text' && textButtonStyles}
 
   /* Disabled - specific color variations */
-  ${(props: ButtonProps) => ((props.color === 'primary' && props.disabled) && primaryDisabledStyles)}
-  ${(props: ButtonProps) => ((props.color === 'primaryOutline' && props.disabled) && primaryOutlinedDisabledStyles)}
-  ${(props: ButtonProps) => ((props.color === 'text' && props.disabled) && textDisabledStyles)}
+  ${(props: ButtonProps) =>
+    props.color === 'primary' && props.disabled && primaryDisabledStyles}
+  ${(props: ButtonProps) =>
+    props.color === 'primaryOutline' &&
+    props.disabled &&
+    primaryOutlinedDisabledStyles}
+  ${(props: ButtonProps) =>
+    props.color === 'text' && props.disabled && textDisabledStyles}
 
   /* Disabled state for all other variations: adds opacity and cursor/pointer-events styling */
-  ${(props: ButtonProps) => (props.disabled && disabledStyle)}
+  ${(props: ButtonProps) => props.disabled && disabledStyle}
 
   /* When button is next to other items, use rightspacer give them some breathing room */
-  ${(props: ButtonProps) => (props.rightspacer && `margin-right: ${baseSpacer};`)}
+  ${(props: ButtonProps) => props.rightspacer && `margin-right: ${baseSpacer};`}
   
   &:active,
   &:focus {
     outline: none;
     filter: brightness(.85);
   }
-`;
+`
 
 const StyledButton = styled.button`
   ${allStyles}
-`;
+`
 
 const StyledLink = styled.div`
   ${allStyles}
@@ -179,10 +197,10 @@ const StyledLink = styled.div`
 
     &:hover,
     &:focus {
-    color: inherit;
+      color: inherit;
     }
   }
-`;
+`
 class Button extends Component<ButtonProps> {
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
@@ -194,13 +212,22 @@ class Button extends Component<ButtonProps> {
     iconLeft: null,
     iconRight: null,
     block: false,
-  };
+  }
 
   render() {
     const {
-      color, rightspacer, to, children, type, onClick, disabled, iconLeft, iconRight, block,
-    } = this.props;
-    let contentToRender;
+      color,
+      rightspacer,
+      to,
+      children,
+      type,
+      onClick,
+      disabled,
+      iconLeft,
+      iconRight,
+      block,
+    } = this.props
+    let contentToRender
 
     switch (type) {
       case 'link':
@@ -213,15 +240,11 @@ class Button extends Component<ButtonProps> {
             type={type}
           >
             <Link to={to}>
-              {iconLeft}
-              {' '}
-              {children}
-              {' '}
-              {iconRight}
+              {iconLeft} {children} {iconRight}
             </Link>
           </StyledLink>
-        );
-        break;
+        )
+        break
       case 'button':
       case 'submit':
       case 'reset':
@@ -235,18 +258,14 @@ class Button extends Component<ButtonProps> {
             disabled={disabled}
             block={block}
           >
-            {iconLeft}
-            {' '}
-            {children}
-            {' '}
-            {iconRight}
+            {iconLeft} {children} {iconRight}
           </StyledButton>
-        );
-        break;
+        )
+        break
     }
 
-    return contentToRender;
+    return contentToRender
   }
 }
 
-export default Button;
+export default Button

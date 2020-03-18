@@ -1,18 +1,20 @@
-import React, { FunctionComponent } from 'react';
-import { RouteComponentProps } from '@reach/router';
-import { Formik, Field, Form } from 'formik';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { FunctionComponent } from 'react'
+import { RouteComponentProps } from '@reach/router'
+import { Formik, Field, Form } from 'formik'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
+import { Box, Input, Heading, Row, Column } from '../../../../components'
 import {
-  Box, Input, Heading, Row, Column,
-} from '../../../../components';
-import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../../utils/validations';
-import languagesList from '../../../../utils/languagesList';
+  requiredField,
+  requiredEmail,
+  requiredPhoneNumber,
+} from '../../../../utils/validations'
+import languagesList from '../../../../utils/languagesList'
 
 type AgentProfileProps = {} & RouteComponentProps
 
-const AgentProfile: FunctionComponent<AgentProfileProps> = (props) => {
+const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -25,7 +27,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = (props) => {
     languagesSpoken: '',
     certificates: '',
     aboutMe: '',
-  };
+  }
 
   return (
     <>
@@ -36,9 +38,9 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = (props) => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             // eslint-disable-next-line no-alert
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+            alert(JSON.stringify(values, null, 2))
+            setSubmitting(false)
+          }, 400)
         }}
       >
         {({ isSubmitting, isValid, ...rest }) => (
@@ -146,14 +148,14 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = (props) => {
         )}
       </Formik>
     </>
-  );
-};
+  )
+}
 
 export default connect(
-  (state) => ({
+  state => ({
     // user: state.user,
   }),
-  (dispatch) => ({
-    actions: bindActionCreators({ }, dispatch),
-  }),
-)(AgentProfile);
+  dispatch => ({
+    actions: bindActionCreators({}, dispatch),
+  })
+)(AgentProfile)

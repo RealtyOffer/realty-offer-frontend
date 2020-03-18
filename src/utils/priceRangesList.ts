@@ -8,6 +8,6 @@ const priceRangesList = [
   { value: '$400,000-450,000', label: '$400,000-450,000' },
   { value: '$450,000-500,000', label: '$450,000-500,000' },
   { value: '$500,000+', label: '$500,000+' },
-];
+]
 
-export default priceRangesList;
+export default priceRangesList

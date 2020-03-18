@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useState } from 'react';
-import { RouteComponentProps } from '@reach/router';
-import { Formik, Field, Form } from 'formik';
-import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
-import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { FunctionComponent, useState } from 'react'
+import { RouteComponentProps } from '@reach/router'
+import { Formik, Field, Form } from 'formik'
+import { FaCaretRight, FaCaretLeft } from 'react-icons/fa'
+import { navigate } from 'gatsby'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import {
   Button,
@@ -14,35 +14,35 @@ import {
   Column,
   Row,
   HorizontalRule,
-} from '../../../components';
-import { captureConsumerData } from '../../../redux/ducks/consumer';
+} from '../../../components'
+import { captureConsumerData } from '../../../redux/ducks/consumer'
 
-import languagesList from '../../../utils/languagesList';
-import gendersList from '../../../utils/gendersList';
-import UnsavedChangesModal from './UnsavedChangesModal';
+import languagesList from '../../../utils/languagesList'
+import gendersList from '../../../utils/gendersList'
+import UnsavedChangesModal from './UnsavedChangesModal'
 
 type SpecialRequestsFormValues = {
-  otherLanguage: string;
-  genderPreference: string;
+  otherLanguage: string
+  genderPreference: string
 }
 
 type SpecialRequestsProps = {
   actions: {
-    captureConsumerData: Function;
+    captureConsumerData: Function
   }
 } & RouteComponentProps
 
-const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
-  const [modalIsOpen, setIsOpen] = useState(false);
+const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   const initialValues: SpecialRequestsFormValues = {
     otherLanguage: 'No Preference',
     genderPreference: 'No Preference',
-  };
+  }
 
   const toggleUnsavedChangesModal = () => {
-    setIsOpen(!modalIsOpen);
-  };
+    setIsOpen(!modalIsOpen)
+  }
 
   return (
     <>
@@ -54,14 +54,12 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={(values) => {
-            props.actions.captureConsumerData(values);
-            navigate('/consumer/sign-up');
+          onSubmit={values => {
+            props.actions.captureConsumerData(values)
+            navigate('/consumer/sign-up')
           }}
         >
-          {({
-            values, isSubmitting, isValid, ...rest
-          }) => (
+          {({ values, isSubmitting, isValid, ...rest }) => (
             <Form>
               <Field
                 as={Input}
@@ -113,12 +111,9 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
         captureConsumerData={props.actions.captureConsumerData}
       />
     </>
-  );
-};
+  )
+}
 
-export default connect(
-  null,
-  (dispatch) => ({
-    actions: bindActionCreators({ captureConsumerData }, dispatch),
-  }),
-)(SpecialRequests);
+export default connect(null, dispatch => ({
+  actions: bindActionCreators({ captureConsumerData }, dispatch),
+}))(SpecialRequests)

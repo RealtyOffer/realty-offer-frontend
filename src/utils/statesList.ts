@@ -50,6 +50,6 @@ const statesList = [
   { value: 'WV', label: 'West Virginia' },
   { value: 'WI', label: 'Wisconsin' },
   { value: 'WY', label: 'Wyoming' },
-];
+]
 
-export default statesList;
+export default statesList

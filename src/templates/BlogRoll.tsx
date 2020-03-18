@@ -1,18 +1,19 @@
-import React from 'react';
-import { Link, graphql, StaticQuery } from 'gatsby';
+/* eslint-disable react/prefer-stateless-function */
+import React from 'react'
+import { Link, graphql, StaticQuery } from 'gatsby'
 
-import { Seo, Heading, PreviewCompatibleImage } from '../components';
+import { Seo, Heading, PreviewCompatibleImage } from '../components'
 
 class BlogRoll extends React.Component {
   render() {
-    const { data } = this.props;
-    const { edges: posts } = data.allMarkdownRemark;
+    const { data } = this.props
+    const { edges: posts } = data.allMarkdownRemark
 
     return (
       <div className="columns is-multiline">
         <Seo title="Latest Stories" />
-        {posts
-          && posts.map(({ node: post }) => (
+        {posts &&
+          posts.map(({ node: post }) => (
             <div className="is-parent column is-6" key={post.id}>
               <article
                 className={`blog-list-item tile is-child box notification ${
@@ -55,7 +56,7 @@ class BlogRoll extends React.Component {
             </div>
           ))}
       </div>
-    );
+    )
   }
 }
 
@@ -88,4 +89,4 @@ export default () => (
     `}
     render={(data, count) => <BlogRoll data={data} count={count} />}
   />
-);
+)

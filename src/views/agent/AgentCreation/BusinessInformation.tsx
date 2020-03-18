@@ -1,36 +1,42 @@
-import React, { Component, Fragment } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { Formik, Field, Form } from 'formik';
-import { navigate } from 'gatsby';
+import React, { Component, Fragment } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import { Formik, Field, Form } from 'formik'
+import { navigate } from 'gatsby'
+import { FaTrash, FaPlus, FaMapMarkerAlt, FaShoppingCart } from 'react-icons/fa'
+
+import { RouteComponentProps } from '@reach/router'
 import {
-  FaTrash, FaPlus, FaMapMarkerAlt, FaShoppingCart,
-} from 'react-icons/fa';
-
-
-import { RouteComponentProps } from '@reach/router';
-import {
-  Button, Input, FlexContainer, Row, Column, ProgressBar, HorizontalRule, Card,
-} from '../../../components';
-import { requiredField } from '../../../utils/validations';
-import { doubleSpacer } from '../../../styles/size';
-
+  Button,
+  Input,
+  FlexContainer,
+  Row,
+  Column,
+  ProgressBar,
+  HorizontalRule,
+  Card,
+} from '../../../components'
+import { requiredField } from '../../../utils/validations'
+import { doubleSpacer } from '../../../styles/size'
 
 interface BusinessInformationFormValues {
-  zip: string;
-  agentType: string;
-  subscriptionType: string;
+  zip: string
+  agentType: string
+  subscriptionType: string
 }
 
-type BusinessInformationProps = {} & RouteComponentProps;
+type BusinessInformationProps = {} & RouteComponentProps
 
 type BusinessInformationState = {
-  regions: Array<BusinessInformationFormValues>,
-  zips: Array<string>,
-};
+  regions: Array<BusinessInformationFormValues>
+  zips: Array<string>
+}
 
-class BusinessInformation extends Component<BusinessInformationProps, BusinessInformationState> {
+class BusinessInformation extends Component<
+  BusinessInformationProps,
+  BusinessInformationState
+> {
   constructor(props: BusinessInformationProps) {
-    super(props);
+    super(props)
     this.state = {
       regions: [],
       zips: [
@@ -39,37 +45,32 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
         '48154 - Livonia',
         '48150 - Livonia',
       ],
-    };
+    }
   }
 
   submit = () => {
     // const { regions } = this.state;
     // console.log(regions);
-    navigate('/agent/payment-information');
+    navigate('/agent/payment-information')
   }
 
-  save = () => {
-  }
+  save = () => {}
 
   addToCart = (values: BusinessInformationFormValues) => {
-    const nextZips = this.state.zips.filter((zip) => zip !== values.zip);
+    const nextZips = this.state.zips.filter(zip => zip !== values.zip)
 
     this.setState((prevState: BusinessInformationState) => ({
-      regions: [
-        ...prevState.regions,
-        values,
-      ],
-      zips: [
-        ...nextZips,
-      ],
-    }));
+      regions: [...prevState.regions, values],
+      zips: [...nextZips],
+    }))
   }
 
-  buildZipOptions = () => (
-    this.state.zips.map((zip) => (
-      <option key={zip} value={zip}>{zip}</option>
+  buildZipOptions = () =>
+    this.state.zips.map(zip => (
+      <option key={zip} value={zip}>
+        {zip}
+      </option>
     ))
-  );
 
   removeFromCart = (index: number) => {
     this.setState((prevState: BusinessInformationState) => ({
@@ -77,32 +78,31 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
         ...prevState.regions.slice(0, index),
         ...prevState.regions.slice(index + 1),
       ],
-      zips: [
-        ...prevState.zips,
-        prevState.regions[index].zip,
-      ],
-    }));
+      zips: [...prevState.zips, prevState.regions[index].zip],
+    }))
   }
 
-
   numberWithCommas = (x: number) => {
-    const parts = x.toString().split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
-  };
+    const parts = x.toString().split('.')
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return parts.join('.')
+  }
 
   render() {
-    const { regions } = this.state;
+    const { regions } = this.state
     const initialValues = {
       zip: '',
       agentType: '',
       subscriptionType: '',
-    };
+    }
 
-    const noRegionsInCart = !Array.isArray(regions) || regions.length === 0;
+    const noRegionsInCart = !Array.isArray(regions) || regions.length === 0
 
-    const getTotals = !noRegionsInCart && regions.map((r) => Number(r.subscriptionType))
-      .reduce((total, amount) => total + amount);
+    const getTotals =
+      !noRegionsInCart &&
+      regions
+        .map(r => Number(r.subscriptionType))
+        .reduce((total, amount) => total + amount)
 
     return (
       <Card
@@ -115,8 +115,8 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, actions) => {
-              this.addToCart(values);
-              actions.resetForm();
+              this.addToCart(values)
+              actions.resetForm()
             }}
           >
             {({ isSubmitting, isValid }) => (
@@ -142,7 +142,9 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
                     >
                       <option value="">Select Agent Type</option>
                       <option value="Seller only">Seller only</option>
-                      <option value="Seller &amp; Buyer">Seller &amp; Buyer</option>
+                      <option value="Seller &amp; Buyer">
+                        Seller &amp; Buyer
+                      </option>
                     </Field>
                   </Column>
                   <Column sm={6}>
@@ -168,36 +170,44 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
                   Add to Cart
                 </Button>
 
-                {
-                  !noRegionsInCart && (
-                    <FlexContainer justifyContent="space-between" alignItems="flex-end" height="100px">
-                      <strong><FaMapMarkerAlt /> Zip Codes: {regions.length}</strong>
-                      <strong>
-                        <FaShoppingCart />Total: ${this.numberWithCommas(Number(getTotals))}
-                      </strong>
-                    </FlexContainer>
-                  )
-                }
+                {!noRegionsInCart && (
+                  <FlexContainer
+                    justifyContent="space-between"
+                    alignItems="flex-end"
+                    height="100px"
+                  >
+                    <strong>
+                      <FaMapMarkerAlt /> Zip Codes: {regions.length}
+                    </strong>
+                    <strong>
+                      <FaShoppingCart />
+                      Total: ${this.numberWithCommas(Number(getTotals))}
+                    </strong>
+                  </FlexContainer>
+                )}
 
                 <HorizontalRule />
-                {
-                  regions.map((r: BusinessInformationFormValues, index) => (
-                    <Fragment key={uuidv4()}>
-                      <FlexContainer justifyContent="space-between" height={doubleSpacer}>
-                        <span>{r.zip}</span>
-                        <span>{r.agentType}</span>
-                        <span>${this.numberWithCommas(Number(r.subscriptionType))}</span>
-                        <Button
-                          type="button"
-                          onClick={() => this.removeFromCart(index)}
-                          iconLeft={<FaTrash />}
-                          color="dangerOutline"
-                        />
-                      </FlexContainer>
-                      <HorizontalRule />
-                    </Fragment>
-                  ))
-                }
+                {regions.map((r: BusinessInformationFormValues, index) => (
+                  <Fragment key={uuidv4()}>
+                    <FlexContainer
+                      justifyContent="space-between"
+                      height={doubleSpacer}
+                    >
+                      <span>{r.zip}</span>
+                      <span>{r.agentType}</span>
+                      <span>
+                        ${this.numberWithCommas(Number(r.subscriptionType))}
+                      </span>
+                      <Button
+                        type="button"
+                        onClick={() => this.removeFromCart(index)}
+                        iconLeft={<FaTrash />}
+                        color="dangerOutline"
+                      />
+                    </FlexContainer>
+                    <HorizontalRule />
+                  </Fragment>
+                ))}
                 <Button
                   type="button"
                   color="primary"
@@ -215,8 +225,8 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
           </Button>
         </>
       </Card>
-    );
+    )
   }
 }
 
-export default BusinessInformation;
+export default BusinessInformation

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 import {
   brandPrimary,
@@ -7,10 +7,10 @@ import {
   headingsColor,
   lightGray,
   white,
-} from './color';
+} from './color'
 
-import { baseSpacer, halfSpacer } from './size';
-import { headingsFontFamily, fontFamilySansSerif } from './typography';
+import { baseSpacer, halfSpacer } from './size'
+import { headingsFontFamily, fontFamilySansSerif } from './typography'
 
 /* eslint no-unused-expressions: ["error", { "allowTaggedTemplates": true }] */
 const CssReset = createGlobalStyle`
@@ -240,6 +240,6 @@ const CssReset = createGlobalStyle`
       color: ${lightGray};
       opacity: 1; /* Firefox */
   }
-`;
+`
 
-export default CssReset;
+export default CssReset

@@ -1,17 +1,20 @@
-import React, { FunctionComponent } from 'react';
-import { navigate } from 'gatsby';
-import { RouteComponentProps } from '@reach/router';
-
+import React, { FunctionComponent } from 'react'
+import { navigate } from 'gatsby'
+import { RouteComponentProps } from '@reach/router'
 
 import {
-  Button, FlexContainer, ProgressBar, HorizontalRule, Card,
-} from '../../../components';
+  Button,
+  FlexContainer,
+  ProgressBar,
+  HorizontalRule,
+  Card,
+} from '../../../components'
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const save = () => {
     // eslint-disable-next-line no-console
-    console.log('saved');
-  };
+    console.log('saved')
+  }
 
   return (
     <Card
@@ -24,7 +27,12 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
           iframe for payment gateway goes here
         </FlexContainer>
         <HorizontalRule />
-        <Button type="button" color="primary" block onClick={() => navigate('/agent/confirm-payment')}>
+        <Button
+          type="button"
+          color="primary"
+          block
+          onClick={() => navigate('/agent/confirm-payment')}
+        >
           Make a Payment
         </Button>
         <Button type="button" onClick={() => save()} color="text" block>
@@ -32,7 +40,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
         </Button>
       </>
     </Card>
-  );
-};
+  )
+}
 
-export default PaymentInformation;
+export default PaymentInformation

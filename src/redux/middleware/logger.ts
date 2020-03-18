@@ -5,13 +5,13 @@
 /* eslint-disable no-console */
 export default (store: any) => (next: any) => (action: any) => {
   if (!console.group) {
-    return next(action);
+    return next(action)
   }
 
-  console.groupCollapsed(action.type);
-  console.info('dispatching', action);
-  const result = next(action);
-  console.log('next state', store.getState());
-  console.groupEnd();
-  return result;
-};
+  console.groupCollapsed(action.type)
+  console.info('dispatching', action)
+  const result = next(action)
+  console.log('next state', store.getState())
+  console.groupEnd()
+  return result
+}

@@ -1,7 +1,5 @@
 {
-  "plugins": [
-    "import"
-  ],
+  "plugins": ["import"],
   "parser": "@typescript-eslint/parser",
   "rules": {
     "strict": 0,
@@ -16,28 +14,20 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".tsx"
-        ]
+        "extensions": [".js", ".tsx"]
       }
     ],
-    "import/extensions": [
-      0,
-      "never"
-    ]
+    "import/extensions": [0, "never"]
   },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "airbnb"
+    "airbnb",
+    "plugin:prettier/recommended"
   ],
   "settings": {
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       // use <root>/tsconfig.json
@@ -47,6 +37,7 @@
     }
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   }
 }

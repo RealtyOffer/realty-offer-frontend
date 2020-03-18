@@ -1,4 +1,3 @@
-
 /**
  * SEO component that queries for data with
  *  Gatsby's useStaticQuery React hook
@@ -6,22 +5,25 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { FunctionComponent } from 'react';
-import Helmet from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
+import React, { FunctionComponent } from 'react'
+import Helmet from 'react-helmet'
+import { useStaticQuery, graphql } from 'gatsby'
 
 type SeoType = {
-  description?: string;
-  lang?: string;
+  description?: string
+  lang?: string
   meta?: Array<{
-    content: string;
-    name: string;
-  }>;
-  title?: string;
+    content: string
+    name: string
+  }>
+  title?: string
 }
 
 const Seo: FunctionComponent<SeoType> = ({
-  description, lang, meta, title,
+  description,
+  lang,
+  meta,
+  title,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -34,10 +36,10 @@ const Seo: FunctionComponent<SeoType> = ({
           }
         }
       }
-    `,
-  );
+    `
+  )
 
-  const metaDescription = description || site.siteMetadata.description;
+  const metaDescription = description || site.siteMetadata.description
   return (
     <Helmet
       // @ts-ignore
@@ -81,13 +83,13 @@ const Seo: FunctionComponent<SeoType> = ({
         },
       ].concat(meta || [])}
     />
-  );
-};
+  )
+}
 
 Seo.defaultProps = {
   lang: 'en',
   meta: [],
   description: '',
-};
+}
 
-export default Seo;
+export default Seo

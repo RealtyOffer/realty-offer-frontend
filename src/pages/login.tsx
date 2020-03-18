@@ -1,33 +1,31 @@
-import React, { FunctionComponent } from 'react';
-import { Formik, Field, Form } from 'formik';
-import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { FunctionComponent } from 'react'
+import { Formik, Field, Form } from 'formik'
+import { navigate } from 'gatsby'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import {
-  Button, Card, Input, HorizontalRule, Seo,
-} from '../components';
+import { Button, Card, Input, HorizontalRule, Seo } from '../components'
 
-import { requiredField } from '../utils/validations';
-import { ActionResponseType } from '../redux/constants';
-import { authenticateCredentials } from '../redux/ducks/auth';
+import { requiredField } from '../utils/validations'
+import { ActionResponseType } from '../redux/constants'
+import { authenticateCredentials } from '../redux/ducks/auth'
 
 type LoginProps = {
   actions: {
-    authenticateCredentials: Function,
-  },
-};
-
-export type LoginFormValues = {
-  email: string;
-  password: string;
+    authenticateCredentials: Function
+  }
 }
 
-const Login: FunctionComponent<LoginProps> = (props) => {
+export type LoginFormValues = {
+  email: string
+  password: string
+}
+
+const Login: FunctionComponent<LoginProps> = props => {
   const initialValues = {
     email: '',
     password: '',
-  };
+  }
 
   return (
     <>
@@ -37,14 +35,15 @@ const Login: FunctionComponent<LoginProps> = (props) => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values: LoginFormValues, { setSubmitting }) => {
-            props.actions.authenticateCredentials(values)
+            props.actions
+              .authenticateCredentials(values)
               .then((response: ActionResponseType) => {
-                setSubmitting(false);
+                setSubmitting(false)
                 if (response && !response.error) {
                   // TODO push to user type
-                  navigate('/agent/listings/new');
+                  navigate('/agent/listings/new')
                 }
-              });
+              })
           }}
         >
           {({ isSubmitting, isValid }) => (
@@ -75,12 +74,9 @@ const Login: FunctionComponent<LoginProps> = (props) => {
         </Button>
       </Card>
     </>
-  );
-};
+  )
+}
 
-export default connect(
-  null,
-  (dispatch) => ({
-    actions: bindActionCreators({ authenticateCredentials }, dispatch),
-  }),
-)(Login);
+export default connect(null, dispatch => ({
+  actions: bindActionCreators({ authenticateCredentials }, dispatch),
+}))(Login)

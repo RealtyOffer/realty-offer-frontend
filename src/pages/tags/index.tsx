@@ -1,8 +1,8 @@
-import React from 'react';
-import { kebabCase } from 'lodash';
-import Helmet from 'react-helmet';
-import { Link, graphql } from 'gatsby';
-import { Heading } from '../../components';
+import React from 'react'
+import { kebabCase } from 'lodash'
+import Helmet from 'react-helmet'
+import { Link, graphql } from 'gatsby'
+import { Heading } from '../../components'
 
 const TagsPage = ({
   data: {
@@ -11,6 +11,8 @@ const TagsPage = ({
       siteMetadata: { title },
     },
   },
+}: {
+  data: any
 }) => (
   <>
     <section className="section">
@@ -23,12 +25,10 @@ const TagsPage = ({
           >
             <Heading>Tags</Heading>
             <ul className="taglist">
-              {group.map((tag) => (
+              {group.map((tag: any) => (
                 <li key={tag.fieldValue}>
                   <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                    {tag.fieldValue}
-                    {' '}
-                    {`(${tag.totalCount})`}
+                    {tag.fieldValue} {`(${tag.totalCount})`}
                   </Link>
                 </li>
               ))}
@@ -38,9 +38,9 @@ const TagsPage = ({
       </div>
     </section>
   </>
-);
+)
 
-export default TagsPage;
+export default TagsPage
 
 export const tagPageQuery = graphql`
   query TagsQuery {
@@ -56,4 +56,4 @@ export const tagPageQuery = graphql`
       }
     }
   }
-`;
+`
