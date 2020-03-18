@@ -57,8 +57,8 @@ export const isValidPassword = (value: string) => {
     // additionally, check if there are invalid characters (based on allowedSpecialCharacters) to give a better error
     const invalidCharactersInPassword = value.match(disallowedCharactersRegex);
     if (invalidCharactersInPassword) {
-      return `Password contains invalid character${invalidCharactersInPassword.length > 1 ? 's' : ''}: ` +
-        invalidCharactersInPassword.filter((a, b) => invalidCharactersInPassword.indexOf(a) === b).join('');
+      return `Password contains invalid character${invalidCharactersInPassword.length > 1 ? 's' : ''}: ${
+        invalidCharactersInPassword.filter((a, b) => invalidCharactersInPassword.indexOf(a) === b).join('')}`;
     }
     return 'Password does not meet the requirements';
   }

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack');
@@ -26,6 +27,7 @@ exports.createPages = ({ actions, graphql }) => {
     }
   `).then((result) => {
     if (result.errors) {
+      // eslint-disable-next-line no-console
       result.errors.forEach((e) => console.error(e.toString()));
       return Promise.reject(result.errors);
     }

@@ -12,7 +12,7 @@ const story = storiesOf('Components', module);
 
 const selectOptions = [
   'danger',
-  'success' ,
+  'success',
   'info',
 ] as const;
 

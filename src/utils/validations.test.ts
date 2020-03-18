@@ -1,19 +1,21 @@
-import { customFieldLevelValidation, requiredField, isPhoneNumber, isEmail, isValidPassword} from './validations';
+import {
+  customFieldLevelValidation, requiredField, isPhoneNumber, isEmail, isValidPassword,
+} from './validations';
 
-describe('validations', () =>{
+describe('validations', () => {
   it('should validate single validations', () => {
     expect(customFieldLevelValidation('existing value', [requiredField])).toBeNull();
     expect(customFieldLevelValidation('', [requiredField])).toBeDefined();
     expect(customFieldLevelValidation('2203303330', [isPhoneNumber])).toBeNull();
     expect(customFieldLevelValidation('', [isPhoneNumber])).toBeDefined();
   });
-  
+
   it('should validate multi-validations', () => {
     expect(customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber, isEmail])).toBeDefined();
     expect(customFieldLevelValidation('', [requiredField, isPhoneNumber, isEmail])).toBeDefined();
     expect(customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber])).toBeNull();
   });
-  
+
   test.each([
     ['(123) 456-7890', undefined],
     ['(123)456-7890', undefined],
@@ -47,4 +49,4 @@ describe('validations', () =>{
   ])('should validate password %s', (value, expectedResult) => {
     expect(isValidPassword(value)).toEqual(expectedResult);
   });
-})
+});
