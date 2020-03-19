@@ -1,8 +1,8 @@
-import { FunctionComponent } from 'react'
-import styled from 'styled-components'
+import { FunctionComponent } from 'react';
+import styled from 'styled-components';
 
 type FlexContainerProps = {
-  flexDirection?: 'row' | 'column'
+  flexDirection?: 'row' | 'column';
   justifyContent?:
     | 'space-between'
     | 'space-around'
@@ -12,7 +12,7 @@ type FlexContainerProps = {
     | 'flex-start'
     | 'flex-end'
     | 'left'
-    | 'right'
+    | 'right';
   alignItems?:
     | 'center'
     | 'start'
@@ -21,10 +21,10 @@ type FlexContainerProps = {
     | 'flex-end'
     | 'left'
     | 'right'
-    | 'stretch'
-  flexWrap?: 'wrap' | 'nowrap'
-  height?: string
-}
+    | 'stretch';
+  flexWrap?: 'wrap' | 'nowrap';
+  height?: string;
+};
 
 const FlexContainer: FunctionComponent<FlexContainerProps> = styled.div`
   display: flex;
@@ -35,13 +35,13 @@ const FlexContainer: FunctionComponent<FlexContainerProps> = styled.div`
     props.height ? props.height : '100%'};
   flex-wrap: ${(props: FlexContainerProps) => props.flexWrap};
   flex-direction: ${(props: FlexContainerProps) => props.flexDirection};
-`
+`;
 
 FlexContainer.defaultProps = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   flexWrap: 'wrap',
-}
+};
 
-export default FlexContainer
+export default FlexContainer;

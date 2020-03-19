@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import React, { FunctionComponent } from 'react';
+import { RouteComponentProps } from '@reach/router';
 
-import { Link } from 'gatsby'
+import { Link } from 'gatsby';
 
-import { Heading } from '../../components'
+import { Heading } from '../../components';
 
 const Agent: FunctionComponent<RouteComponentProps> = () => (
   <>
@@ -30,6 +30,6 @@ const Agent: FunctionComponent<RouteComponentProps> = () => (
       <Link to="/agent/account/profile">Profile</Link>
     </p>
   </>
-)
+);
 
-export default Agent
+export default Agent;

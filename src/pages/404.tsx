@@ -1,7 +1,7 @@
-import React from 'react'
-import { RouteComponentProps } from '@reach/router'
+import React from 'react';
+import { RouteComponentProps } from '@reach/router';
 
-import { Button, Card, FlexContainer, Seo } from '../components'
+import { Button, Card, FlexContainer, Seo } from '../components';
 
 const NotFoundPage = (_: RouteComponentProps) => (
   <>
@@ -18,6 +18,6 @@ const NotFoundPage = (_: RouteComponentProps) => (
       </FlexContainer>
     </Card>
   </>
-)
+);
 
-export default NotFoundPage
+export default NotFoundPage;

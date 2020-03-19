@@ -1,52 +1,52 @@
 /* eslint-disable import/no-cycle, jsx-a11y/label-has-associated-control */
-import React, { useState, FunctionComponent, SyntheticEvent } from 'react'
-import { Formik, Field, Form } from 'formik'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
+import { Formik, Field, Form } from 'formik';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { RouteComponentProps } from '@reach/router'
-import { Button, Input, FlexContainer, Card } from '../../components'
-import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth'
-import { requiredField, requiredEmail } from '../../utils/validations'
-import { ActionResponseType } from '../../redux/constants'
+import { RouteComponentProps } from '@reach/router';
+import { Button, Input, FlexContainer, Card } from '../../components';
+import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
+import { requiredField, requiredEmail } from '../../utils/validations';
+import { ActionResponseType } from '../../redux/constants';
 
 export interface VerifyEmailFormValues {
-  email: string
-  digit1: string
-  digit2: string
-  digit3: string
-  digit4: string
-  digit5: string
-  digit6: string
+  email: string;
+  digit1: string;
+  digit2: string;
+  digit3: string;
+  digit4: string;
+  digit5: string;
+  digit6: string;
 }
 
-declare const document: Document
+declare const document: Document;
 
 type VerifyEmailType = {
   actions: {
-    verifyEmail: Function
-    resendSignupEmail: Function
-  }
-  auth: {}
-}
+    verifyEmail: Function;
+    resendSignupEmail: Function;
+  };
+  auth: {};
+};
 
 const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
-  const target = e.target as HTMLInputElement
+  const target = e.target as HTMLInputElement;
   if (target.value.length >= 1) {
-    const currentInputIndex = Number(target.name.charAt(5))
+    const currentInputIndex = Number(target.name.charAt(5));
     const inputToBeFocused = document.getElementsByName(
-      `digit${currentInputIndex + 1}`
-    )[0]
+      `digit${currentInputIndex + 1}`,
+    )[0];
     if (inputToBeFocused) {
-      inputToBeFocused.focus()
+      inputToBeFocused.focus();
     }
   }
-}
+};
 
 const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
-  props: VerifyEmailType
+  props: VerifyEmailType,
 ) => {
-  const [verified, setVerified] = useState(false)
+  const [verified, setVerified] = useState(false);
 
   const initialValues: VerifyEmailFormValues = {
     email: '',
@@ -56,11 +56,11 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
     digit4: '',
     digit5: '',
     digit6: '',
-  }
+  };
 
   const resend = (email: string) => {
-    props.actions.resendSignupEmail(email)
-  }
+    props.actions.resendSignupEmail(email);
+  };
 
   return (
     <Card
@@ -83,20 +83,20 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              const { digit1, digit2, digit3, digit4, digit5, digit6 } = values
+              const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
               const combined =
-                digit1 + digit2 + digit3 + digit4 + digit5 + digit6
+                digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
               props.actions
                 .verifyEmail({
                   email: values.email,
                   confirmationCode: combined,
                 })
                 .then((response: ActionResponseType) => {
-                  setSubmitting(false)
+                  setSubmitting(false);
                   if (response && !response.error) {
-                    setVerified(true)
+                    setVerified(true);
                   }
-                })
+                });
             }}
           >
             {({ isSubmitting, isValid, values }) => (
@@ -164,8 +164,8 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
         </FlexContainer>
       )}
     </Card>
-  )
-}
+  );
+};
 
 export default connect(
   state => ({
@@ -173,5 +173,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ verifyEmail, resendSignupEmail }, dispatch),
-  })
-)(VerifyEmail)
+  }),
+)(VerifyEmail);

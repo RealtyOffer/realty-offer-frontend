@@ -1,19 +1,19 @@
-import React, { FunctionComponent } from 'react'
-import { navigate } from 'gatsby'
+import React, { FunctionComponent } from 'react';
+import { navigate } from 'gatsby';
 
-import { Button, Modal, Heading, Row, Column } from '../../../components'
+import { Button, Modal, Heading, Row, Column } from '../../../components';
 
 type UnsavedChangesModalProps = {
-  toggleModal: Function
-  modalIsOpen: boolean
-  captureConsumerData: Function
-}
+  toggleModal: Function;
+  modalIsOpen: boolean;
+  captureConsumerData: Function;
+};
 
 const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = props => {
   const clearDataAndNavigate = () => {
-    props.captureConsumerData({})
-    navigate('/consumer')
-  }
+    props.captureConsumerData({});
+    navigate('/consumer');
+  };
 
   return (
     <Modal isOpen={props.modalIsOpen} toggleModal={props.toggleModal}>
@@ -38,7 +38,7 @@ const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = props =
         </Column>
       </Row>
     </Modal>
-  )
-}
+  );
+};
 
-export default UnsavedChangesModal
+export default UnsavedChangesModal;

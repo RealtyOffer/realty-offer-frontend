@@ -1,47 +1,52 @@
-import React, { FunctionComponent } from 'react'
-import styled from 'styled-components'
+import React, { FunctionComponent } from 'react';
+import styled from 'styled-components';
 import {
   FaExclamationCircle,
   FaCheckCircle,
   FaInfoCircle,
-} from 'react-icons/fa'
+} from 'react-icons/fa';
 
-import { baseSpacer, borderRadius, doubleSpacer } from '../styles/size'
-import { brandDanger, brandSuccess, brandPrimary, white } from '../styles/color'
+import { baseSpacer, borderRadius, doubleSpacer } from '../styles/size';
+import {
+  brandDanger,
+  brandSuccess,
+  brandPrimary,
+  white,
+} from '../styles/color';
 
 export type AlertProps = {
-  type: 'danger' | 'success' | 'info'
-  close?: () => void
-  dismissable?: boolean
-  alertNumber?: number
-  alertNumberTotal?: number
-}
+  type: 'danger' | 'success' | 'info';
+  close?: () => void;
+  dismissable?: boolean;
+  alertNumber?: number;
+  alertNumberTotal?: number;
+};
 
 const renderColor = (props: AlertProps) => {
   if (props.type === 'success') {
-    return brandSuccess
+    return brandSuccess;
   }
   if (props.type === 'danger') {
-    return brandDanger
+    return brandDanger;
   }
   if (props.type === 'info') {
-    return brandPrimary
+    return brandPrimary;
   }
-  return brandDanger
-}
+  return brandDanger;
+};
 
 const renderIcon = (props: AlertProps) => {
   if (props.type === 'danger') {
-    return <FaExclamationCircle />
+    return <FaExclamationCircle />;
   }
   if (props.type === 'success') {
-    return <FaCheckCircle />
+    return <FaCheckCircle />;
   }
   if (props.type === 'info') {
-    return <FaInfoCircle />
+    return <FaInfoCircle />;
   }
-  return <FaInfoCircle />
-}
+  return <FaInfoCircle />;
+};
 
 const AlertWrapper = styled.div`
   background-color: ${(props: AlertProps) => props.type && renderColor(props)};
@@ -54,7 +59,7 @@ const AlertWrapper = styled.div`
   & > p {
     margin-bottom: 0;
   }
-`
+`;
 
 const CloseButton = styled.span`
   position: absolute;
@@ -65,7 +70,7 @@ const CloseButton = styled.span`
   &:hover {
     opacity: 1;
   }
-`
+`;
 
 const Alert: FunctionComponent<AlertProps> = props => (
   <AlertWrapper type={props.type}>
@@ -84,6 +89,6 @@ const Alert: FunctionComponent<AlertProps> = props => (
       </CloseButton>
     )}
   </AlertWrapper>
-)
+);
 
-export default Alert
+export default Alert;

@@ -6,6 +6,6 @@ const languagesList = [
   { value: 'Cantonese', label: 'Cantonese' },
   { value: 'Arabic', label: 'Arabic' },
   { value: 'Hindi', label: 'Hindi' },
-]
+];
 
-export default languagesList
+export default languagesList;

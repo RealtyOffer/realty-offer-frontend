@@ -1,10 +1,10 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { text, number } from '@storybook/addon-knobs'
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { text, number } from '@storybook/addon-knobs';
 
-import ProgressBar from '../components/ProgressBar'
+import ProgressBar from '../components/ProgressBar';
 
-const story = storiesOf('Components', module)
+const story = storiesOf('Components', module);
 
 story.add('ProgressBar', () => (
   <ProgressBar
@@ -12,4 +12,4 @@ story.add('ProgressBar', () => (
     name={text('name', 'ProgressBar')}
     label={text('label', 'Step 1')}
   />
-))
+));

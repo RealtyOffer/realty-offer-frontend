@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react'
-import { Formik, Field, Form } from 'formik'
-import { navigate } from 'gatsby'
-import { RouteComponentProps } from '@reach/router'
+import React, { FunctionComponent } from 'react';
+import { Formik, Field, Form } from 'formik';
+import { navigate } from 'gatsby';
+import { RouteComponentProps } from '@reach/router';
 
 import {
   Button,
@@ -9,15 +9,15 @@ import {
   ProgressBar,
   HorizontalRule,
   Card,
-} from '../../../components'
-import { requiredField, requiredPhoneNumber } from '../../../utils/validations'
-import statesList from '../../../utils/statesList'
+} from '../../../components';
+import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
+import statesList from '../../../utils/statesList';
 
 interface AgentInformationFormValues {
-  state: string
-  agentId: string
-  brokerName: string
-  brokerPhoneNumber: string
+  state: string;
+  agentId: string;
+  brokerName: string;
+  brokerPhoneNumber: string;
 }
 
 const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
@@ -26,9 +26,9 @@ const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
     agentId: '',
     brokerName: '',
     brokerPhoneNumber: '',
-  }
+  };
 
-  const save = () => {}
+  const save = () => {};
 
   return (
     <Card
@@ -43,10 +43,10 @@ const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               // eslint-disable-next-line no-alert
-              alert(JSON.stringify(values, null, 2))
-              setSubmitting(false)
-              navigate('/agent/business-information')
-            }, 400)
+              alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+              navigate('/agent/business-information');
+            }, 400);
           }}
         >
           {({ isSubmitting, isValid, ...rest }) => (
@@ -94,7 +94,7 @@ const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
         </Button>
       </>
     </Card>
-  )
-}
+  );
+};
 
-export default AgentInformation
+export default AgentInformation;

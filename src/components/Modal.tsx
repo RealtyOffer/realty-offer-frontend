@@ -1,27 +1,27 @@
-import React, { FunctionComponent } from 'react'
-import ReactModal from 'react-modal'
-import styled from 'styled-components'
-import { FaTimes } from 'react-icons/fa'
+import React, { FunctionComponent } from 'react';
+import ReactModal from 'react-modal';
+import styled from 'styled-components';
+import { FaTimes } from 'react-icons/fa';
 
-import { baseBorderStyle, z1Shadow } from '../styles/mixins'
+import { baseBorderStyle, z1Shadow } from '../styles/mixins';
 import {
   borderRadius,
   halfSpacer,
   screenSizes,
   doubleSpacer,
-} from '../styles/size'
+} from '../styles/size';
 
 type ModalProps = {
-  isOpen: boolean
-  toggleModal: Function
-}
+  isOpen: boolean;
+  toggleModal: Function;
+};
 
 const CloseIcon = styled.span`
   position: absolute;
   top: ${halfSpacer};
   right: ${halfSpacer};
   cursor: pointer;
-`
+`;
 
 const Modal: FunctionComponent<ModalProps> = props => (
   <ReactModal
@@ -51,6 +51,6 @@ const Modal: FunctionComponent<ModalProps> = props => (
     </CloseIcon>
     {props.children}
   </ReactModal>
-)
+);
 
-export default Modal
+export default Modal;

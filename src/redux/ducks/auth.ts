@@ -1,4 +1,4 @@
-import { RSAA } from 'redux-api-middleware'
+import { RSAA } from 'redux-api-middleware';
 
 import {
   AUTH_SIGNUP_ENDPOINT,
@@ -7,53 +7,53 @@ import {
   AUTH_FORGOT_PASSWORD_ENDPOINT,
   AUTH_RESET_PASSWORD_ENDPOINT,
   AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
-} from '../constants'
+} from '../constants';
 
-import { VerifyEmailFormValues } from '../../views/shared/VerifyEmail'
-import { LoginFormValues } from '../../pages/login'
-import { ResetPasswordFormValues } from '../../pages/reset-password'
+import { VerifyEmailFormValues } from '../../views/shared/VerifyEmail';
+import { LoginFormValues } from '../../pages/login';
+import { ResetPasswordFormValues } from '../../pages/reset-password';
 
-export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST'
-export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS'
-export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE'
+export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
 
-export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST'
-export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS'
-export const VERIFY_EMAIL_FAILURE = 'VERIFY_EMAIL_FAILURE'
+export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
+export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
+export const VERIFY_EMAIL_FAILURE = 'VERIFY_EMAIL_FAILURE';
 
-export const RESEND_SIGNUP_EMAIL_REQUEST = 'RESEND_SIGNUP_EMAIL_REQUEST'
-export const RESEND_SIGNUP_EMAIL_SUCCESS = 'RESEND_SIGNUP_EMAIL_SUCCESS'
-export const RESEND_SIGNUP_EMAIL_FAILURE = 'RESEND_SIGNUP_EMAIL_FAILURE'
+export const RESEND_SIGNUP_EMAIL_REQUEST = 'RESEND_SIGNUP_EMAIL_REQUEST';
+export const RESEND_SIGNUP_EMAIL_SUCCESS = 'RESEND_SIGNUP_EMAIL_SUCCESS';
+export const RESEND_SIGNUP_EMAIL_FAILURE = 'RESEND_SIGNUP_EMAIL_FAILURE';
 
 export const AUTHENTICATE_CREDENTIALS_REQUEST =
-  'AUTHENTICATE_CREDENTIALS_REQUEST'
+  'AUTHENTICATE_CREDENTIALS_REQUEST';
 export const AUTHENTICATE_CREDENTIALS_SUCCESS =
-  'AUTHENTICATE_CREDENTIALS_SUCCESS'
+  'AUTHENTICATE_CREDENTIALS_SUCCESS';
 export const AUTHENTICATE_CREDENTIALS_FAILURE =
-  'AUTHENTICATE_CREDENTIALS_FAILURE'
+  'AUTHENTICATE_CREDENTIALS_FAILURE';
 
-export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST'
-export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS'
-export const FORGOT_PASSWORD_FAILURE = 'FORGOT_PASSWORD_FAILURE'
+export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
+export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
+export const FORGOT_PASSWORD_FAILURE = 'FORGOT_PASSWORD_FAILURE';
 
-export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST'
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
-export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE'
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
 
-export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST'
-export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS'
-export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE'
+export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST';
+export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
+export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
 export type AuthStoreType = {
-  isLoading: boolean
-  hasError: boolean
-  isLoggedIn: boolean
-  token: string
-  message: string
-  verifiedEmail: boolean
-}
+  isLoading: boolean;
+  hasError: boolean;
+  isLoggedIn: boolean;
+  token: string;
+  message: string;
+  verifiedEmail: boolean;
+};
 
 export const initialState: AuthStoreType = {
   isLoading: false,
@@ -62,7 +62,7 @@ export const initialState: AuthStoreType = {
   token: '',
   message: '',
   verifiedEmail: false,
-}
+};
 
 export default (state: AuthStoreType = initialState, action: any) => {
   switch (action.type) {
@@ -77,7 +77,7 @@ export default (state: AuthStoreType = initialState, action: any) => {
         ...state,
         isLoading: true,
         hasError: false,
-      }
+      };
     case AUTHENTICATE_CREDENTIALS_SUCCESS:
       return {
         ...state,
@@ -85,13 +85,13 @@ export default (state: AuthStoreType = initialState, action: any) => {
         hasError: false,
         isLoggedIn: true,
         token: action.payload.token,
-      }
+      };
     case VERIFY_EMAIL_SUCCESS:
       return {
         ...state,
         isLoading: false,
         verifiedEmail: true,
-      }
+      };
     case CREATE_USER_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case FORGOT_PASSWORD_SUCCESS:
@@ -101,7 +101,7 @@ export default (state: AuthStoreType = initialState, action: any) => {
         ...state,
         isLoading: false,
         hasError: false,
-      }
+      };
     case AUTHENTICATE_CREDENTIALS_FAILURE:
       return {
         ...initialState,
@@ -111,7 +111,7 @@ export default (state: AuthStoreType = initialState, action: any) => {
         token: null,
         message:
           action.payload.message || 'An error occurred. Please try again.',
-      }
+      };
     case CREATE_USER_FAILURE:
     case VERIFY_EMAIL_FAILURE:
     case RESEND_SIGNUP_EMAIL_FAILURE:
@@ -123,20 +123,20 @@ export default (state: AuthStoreType = initialState, action: any) => {
         isLoading: false,
         hasError: true,
         message: action.payload.message,
-      }
+      };
     case LOGOUT_REQUEST:
-      return { ...initialState }
+      return { ...initialState };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export interface CreateUserFormValues {
-  firstName: string
-  lastName: string
-  phoneNumber: string
-  email: string
-  password: string
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
 }
 
 export const createUser = (payload: CreateUserFormValues) => ({
@@ -150,7 +150,7 @@ export const createUser = (payload: CreateUserFormValues) => ({
     skipOauth: true,
     types: [CREATE_USER_REQUEST, CREATE_USER_SUCCESS, CREATE_USER_FAILURE],
   },
-})
+});
 
 export const verifyEmail = (payload: VerifyEmailFormValues) => ({
   [RSAA]: {
@@ -163,7 +163,7 @@ export const verifyEmail = (payload: VerifyEmailFormValues) => ({
     skipOauth: true,
     types: [VERIFY_EMAIL_REQUEST, VERIFY_EMAIL_SUCCESS, VERIFY_EMAIL_FAILURE],
   },
-})
+});
 
 export const resendSignupEmail = (email: string) => ({
   [RSAA]: {
@@ -180,7 +180,7 @@ export const resendSignupEmail = (email: string) => ({
       RESEND_SIGNUP_EMAIL_FAILURE,
     ],
   },
-})
+});
 
 export const authenticateCredentials = (payload: LoginFormValues) => ({
   [RSAA]: {
@@ -197,7 +197,7 @@ export const authenticateCredentials = (payload: LoginFormValues) => ({
       AUTHENTICATE_CREDENTIALS_FAILURE,
     ],
   },
-})
+});
 
 export const forgotPassword = (payload: { email: string }) => ({
   [RSAA]: {
@@ -214,7 +214,7 @@ export const forgotPassword = (payload: { email: string }) => ({
       FORGOT_PASSWORD_FAILURE,
     ],
   },
-})
+});
 
 export const resetPassword = (payload: ResetPasswordFormValues) => ({
   [RSAA]: {
@@ -231,7 +231,7 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
       RESET_PASSWORD_FAILURE,
     ],
   },
-})
+});
 
 // export const changePassword = (payload: {
 //   newPassword: string,
@@ -254,4 +254,4 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
 
 export const logout = () => ({
   type: LOGOUT_REQUEST,
-})
+});

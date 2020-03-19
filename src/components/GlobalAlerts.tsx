@@ -1,23 +1,23 @@
 // @flow
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import styled, { css, keyframes } from 'styled-components'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import styled, { css, keyframes } from 'styled-components';
 
-import Alert from './Alert'
-import { closeAlert } from '../redux/ducks/globalAlerts'
+import Alert from './Alert';
+import { closeAlert } from '../redux/ducks/globalAlerts';
 
 type Props = {
-  globalAlerts: any
+  globalAlerts: any;
   actions: {
-    closeAlert: Function
-  }
-}
+    closeAlert: Function;
+  };
+};
 
 type State = {
-  animateIn: boolean
-  animateOut: boolean
-}
+  animateIn: boolean;
+  animateOut: boolean;
+};
 
 const AnimateInKeyframes = keyframes`
   0% {
@@ -26,7 +26,7 @@ const AnimateInKeyframes = keyframes`
   100% {
     transform: translateY(0);
   }
-`
+`;
 
 const AnimateOutKeyframes = keyframes`
   0% {
@@ -35,20 +35,20 @@ const AnimateOutKeyframes = keyframes`
   100% {
     transform: translateY(200%);
   }
-`
+`;
 
 type StyleProps = {
-  entering: boolean
-  exiting: boolean
-}
+  entering: boolean;
+  exiting: boolean;
+};
 
 const inAnimation = () => css`
   animation: ${AnimateInKeyframes} 0.5s ease-in-out 1;
-`
+`;
 
 const outAnimation = () => css`
   animation: ${AnimateOutKeyframes} 0.5s ease-in-out 1;
-`
+`;
 
 const GlobalAlertWrapper = styled.div`
   position: fixed;
@@ -61,21 +61,21 @@ const GlobalAlertWrapper = styled.div`
     margin-bottom: 0;
     border-radius: 0;
   }
-`
+`;
 
 class GlobalAlerts extends Component<Props, State> {
   constructor(props: Props) {
-    super(props)
+    super(props);
     this.state = {
       animateIn: false,
       animateOut: false,
-    }
+    };
   }
 
   componentDidUpdate(previousProps: Props) {
     const {
       globalAlerts: { currentAlert, alerts },
-    } = this.props
+    } = this.props;
 
     // alert recently added the first alert or we recently closed one
     if (
@@ -84,12 +84,12 @@ class GlobalAlerts extends Component<Props, State> {
         alerts.length === 1) ||
         previousProps.globalAlerts.alerts.length > alerts.length)
     ) {
-      this.startAnimation()
+      this.startAnimation();
       // self closing alerts need to close themselves
       if (currentAlert && !currentAlert.dismissable) {
         setTimeout(() => {
-          this.dismissAlert(currentAlert)
-        }, 5000)
+          this.dismissAlert(currentAlert);
+        }, 5000);
       }
     }
   }
@@ -98,28 +98,28 @@ class GlobalAlerts extends Component<Props, State> {
     this.setState({
       animateIn: true,
       animateOut: false,
-    })
-  }
+    });
+  };
 
   endAnimation = () => {
     this.setState({
       animateIn: false,
       animateOut: true,
-    })
-  }
+    });
+  };
 
   dismissAlert = (currentAlert: any) => {
-    this.endAnimation()
+    this.endAnimation();
     setTimeout(() => {
       // give time for animation to finish before removing from store
-      this.props.actions.closeAlert(currentAlert)
-    }, 500)
-  }
+      this.props.actions.closeAlert(currentAlert);
+    }, 500);
+  };
 
   render() {
     const {
       globalAlerts: { currentAlert, alerts },
-    } = this.props
+    } = this.props;
 
     return (
       <GlobalAlertWrapper
@@ -139,7 +139,7 @@ class GlobalAlerts extends Component<Props, State> {
           </Alert>
         )}
       </GlobalAlertWrapper>
-    )
+    );
   }
 }
 
@@ -149,5 +149,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ closeAlert }, dispatch),
-  })
-)(GlobalAlerts)
+  }),
+)(GlobalAlerts);

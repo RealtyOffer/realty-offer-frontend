@@ -1,13 +1,13 @@
 /* eslint-disable react/prefer-stateless-function */
-import React from 'react'
-import { Link, graphql, StaticQuery } from 'gatsby'
+import React from 'react';
+import { Link, graphql, StaticQuery } from 'gatsby';
 
-import { Seo, Heading, PreviewCompatibleImage } from '../components'
+import { Seo, Heading, PreviewCompatibleImage } from '../components';
 
 class BlogRoll extends React.Component {
   render() {
-    const { data } = this.props
-    const { edges: posts } = data.allMarkdownRemark
+    const { data } = this.props;
+    const { edges: posts } = data.allMarkdownRemark;
 
     return (
       <div className="columns is-multiline">
@@ -56,7 +56,7 @@ class BlogRoll extends React.Component {
             </div>
           ))}
       </div>
-    )
+    );
   }
 }
 
@@ -89,4 +89,4 @@ export default () => (
     `}
     render={(data, count) => <BlogRoll data={data} count={count} />}
   />
-)
+);

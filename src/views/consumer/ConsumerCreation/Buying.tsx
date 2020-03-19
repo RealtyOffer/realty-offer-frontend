@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useState } from 'react'
-import { RouteComponentProps } from '@reach/router'
-import { Formik, Field, Form } from 'formik'
-import { FaCaretRight, FaCaretLeft } from 'react-icons/fa'
-import { navigate } from 'gatsby'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, { FunctionComponent, useState } from 'react';
+import { RouteComponentProps } from '@reach/router';
+import { Formik, Field, Form } from 'formik';
+import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
+import { navigate } from 'gatsby';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import {
   Button,
@@ -14,50 +14,50 @@ import {
   Column,
   Row,
   HorizontalRule,
-} from '../../../components'
+} from '../../../components';
 import {
   captureConsumerData,
   ConsumerStoreType,
-} from '../../../redux/ducks/consumer'
+} from '../../../redux/ducks/consumer';
 
-import { requiredField } from '../../../utils/validations'
-import priceRangesList from '../../../utils/priceRangesList'
-import UnsavedChangesModal from './UnsavedChangesModal'
+import { requiredField } from '../../../utils/validations';
+import priceRangesList from '../../../utils/priceRangesList';
+import UnsavedChangesModal from './UnsavedChangesModal';
 
 type BuyingFormValues = {
-  buyingCity: string | Array<string>
-  buyingPriceRange: string
-  freeMortgageConsult: boolean
-  preApproved: boolean
-}
+  buyingCity: string | Array<string>;
+  buyingPriceRange: string;
+  freeMortgageConsult: boolean;
+  preApproved: boolean;
+};
 
 const citiesList = [
   { value: 'Plymouth', label: 'Plymouth' },
   { value: 'Livonia', label: 'Livonia' },
   { value: 'Canton', label: 'Canton' },
   { value: 'Northville', label: 'Northville' },
-]
+];
 
 type BuyingProps = {
   actions: {
-    captureConsumerData: Function
-  }
-  consumer: ConsumerStoreType
-} & RouteComponentProps
+    captureConsumerData: Function;
+  };
+  consumer: ConsumerStoreType;
+} & RouteComponentProps;
 
 const Buying: FunctionComponent<BuyingProps> = props => {
-  const [modalIsOpen, setIsOpen] = useState(false)
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: BuyingFormValues = {
     buyingCity: '',
     buyingPriceRange: '',
     freeMortgageConsult: false,
     preApproved: false,
-  }
+  };
 
   const toggleUnsavedChangesModal = () => {
-    setIsOpen(!modalIsOpen)
-  }
+    setIsOpen(!modalIsOpen);
+  };
 
   return (
     <>
@@ -71,12 +71,12 @@ const Buying: FunctionComponent<BuyingProps> = props => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={values => {
-              props.actions.captureConsumerData(values)
+              props.actions.captureConsumerData(values);
               navigate(
                 props.consumer.signupData.consumerType === 'buyerSeller'
                   ? '/consumer/selling'
-                  : '/consumer/special-requests'
-              )
+                  : '/consumer/special-requests',
+              );
             }}
           >
             {({ values, isSubmitting, isValid, ...rest }) => (
@@ -149,8 +149,8 @@ const Buying: FunctionComponent<BuyingProps> = props => {
         captureConsumerData={props.actions.captureConsumerData}
       />
     </>
-  )
-}
+  );
+};
 
 export default connect(
   state => ({
@@ -158,5 +158,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ captureConsumerData }, dispatch),
-  })
-)(Buying)
+  }),
+)(Buying);

@@ -1,30 +1,30 @@
-import { RSAA } from 'redux-api-middleware'
+import { RSAA } from 'redux-api-middleware';
 
 export default (store: any) => (next: any) => (action: any) => {
-  const returnAction = action
+  const returnAction = action;
 
   // Check if the action is a RSAA middleware action
   // Also make sure it doesn't have the skipOauth property set
   if (!returnAction[RSAA]) {
-    return next(action)
+    return next(action);
   }
 
   if (returnAction[RSAA] && returnAction[RSAA].skipOauth) {
-    const skipOauth = !!returnAction[RSAA].skipOauth
+    const skipOauth = !!returnAction[RSAA].skipOauth;
 
     // Have to delete skipOauth or move skipOauth out of RSAA object
-    delete returnAction[RSAA].skipOauth
+    delete returnAction[RSAA].skipOauth;
 
     if (skipOauth) {
-      return next(returnAction)
+      return next(returnAction);
     }
   }
 
-  const state = store.getState()
+  const state = store.getState();
   returnAction[RSAA].headers = {
     ...returnAction[RSAA].headers,
     Authorization: `Bearer ${state.auth.token}`,
-  }
+  };
 
-  return next(returnAction)
-}
+  return next(returnAction);
+};

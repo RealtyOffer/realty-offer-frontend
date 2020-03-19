@@ -1,26 +1,26 @@
-import React, { useState, FunctionComponent } from 'react'
-import { Formik, Field, Form } from 'formik'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, { useState, FunctionComponent } from 'react';
+import { Formik, Field, Form } from 'formik';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { Alert, Button, Card, Input, HorizontalRule, Seo } from '../components'
+import { Alert, Button, Card, Input, HorizontalRule, Seo } from '../components';
 
-import { requiredEmail } from '../utils/validations'
-import { ActionResponseType } from '../redux/constants'
-import { forgotPassword } from '../redux/ducks/auth'
+import { requiredEmail } from '../utils/validations';
+import { ActionResponseType } from '../redux/constants';
+import { forgotPassword } from '../redux/ducks/auth';
 
 type LoginProps = {
   actions: {
-    forgotPassword: Function
-  }
-}
+    forgotPassword: Function;
+  };
+};
 
 const ForgotPassword: FunctionComponent<LoginProps> = props => {
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false);
 
   const initialValues = {
     email: '',
-  }
+  };
 
   return (
     <>
@@ -34,11 +34,11 @@ const ForgotPassword: FunctionComponent<LoginProps> = props => {
               props.actions
                 .forgotPassword(values)
                 .then((response: ActionResponseType) => {
-                  setSubmitting(false)
+                  setSubmitting(false);
                   if (response && !response.error) {
-                    setSubmitted(true)
+                    setSubmitted(true);
                   }
-                })
+                });
             }}
           >
             {({ isSubmitting, isValid }) => (
@@ -73,9 +73,9 @@ const ForgotPassword: FunctionComponent<LoginProps> = props => {
         )}
       </Card>
     </>
-  )
-}
+  );
+};
 
 export default connect(null, dispatch => ({
   actions: bindActionCreators({ forgotPassword }, dispatch),
-}))(ForgotPassword)
+}))(ForgotPassword);

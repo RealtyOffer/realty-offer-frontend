@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import Row from './Row'
-import Column from './Column'
-import Box from './Box'
-import FlexContainer from './FlexContainer'
-import Heading from './Heading'
+import Row from './Row';
+import Column from './Column';
+import Box from './Box';
+import FlexContainer from './FlexContainer';
+import Heading from './Heading';
 
 type CardProps = {
-  cardTitle: string
-  cardSubtitle?: string
-  children: any
-}
+  cardTitle: string;
+  cardSubtitle?: string;
+  children: any;
+};
 
 const Card = (props: CardProps) => (
   <Row>
@@ -32,6 +32,6 @@ const Card = (props: CardProps) => (
       </div>
     </Column>
   </Row>
-)
+);
 
-export default Card
+export default Card;

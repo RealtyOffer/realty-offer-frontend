@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import styled, { css } from 'styled-components'
-import { Link } from 'gatsby'
+import React, { Component } from 'react';
+import styled, { css } from 'styled-components';
+import { Link } from 'gatsby';
 
 import {
   baseSpacer,
   baseAndAHalfSpacer,
   borderWidth,
   halfSpacer,
-} from '../styles/size'
-import { fontFamilySansSerif, fontSizeBase } from '../styles/typography'
+} from '../styles/size';
+import { fontFamilySansSerif, fontSizeBase } from '../styles/typography';
 import {
   brandPrimary,
   brandPrimaryHover,
@@ -17,11 +17,11 @@ import {
   brandSuccess,
   lightGray,
   gray,
-} from '../styles/color'
-import { disabledStyle } from '../styles/mixins'
+} from '../styles/color';
+import { disabledStyle } from '../styles/mixins';
 
 type ButtonProps = {
-  type: 'submit' | 'button' | 'reset' | 'link'
+  type: 'submit' | 'button' | 'reset' | 'link';
   color?:
     | 'text'
     | 'primary'
@@ -29,15 +29,15 @@ type ButtonProps = {
     | 'success'
     | 'successOutline'
     | 'danger'
-    | 'dangerOutline'
-  rightspacer?: boolean
-  onClick?(event: React.MouseEvent<HTMLButtonElement>): void
-  to?: string
-  disabled?: boolean
-  iconLeft?: React.ReactNode
-  iconRight?: React.ReactNode
-  block?: boolean
-}
+    | 'dangerOutline';
+  rightspacer?: boolean;
+  onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
+  to?: string;
+  disabled?: boolean;
+  iconLeft?: React.ReactNode;
+  iconRight?: React.ReactNode;
+  block?: boolean;
+};
 
 const primaryButtonStyles = `
   background-color: ${brandPrimary};
@@ -48,7 +48,7 @@ const primaryButtonStyles = `
     color: ${white};
     background-color: ${brandPrimaryHover};
   }
-`
+`;
 
 const primaryOutlineButtonStyles = `
   border-color: ${brandPrimary};
@@ -60,22 +60,22 @@ const primaryOutlineButtonStyles = `
     background-color: ${brandPrimary};
     color: ${white};
   }
-`
+`;
 
 const primaryDisabledStyles = `
   background-color: ${lightGray};
   color: ${gray};
-`
+`;
 
 const primaryOutlinedDisabledStyles = `
   background-color: ${white};
   border-color: ${lightGray};
   color: ${gray};
-`
+`;
 
 const textDisabledStyles = `
   color: ${gray};
-`
+`;
 
 const successButtonStyles = `
   background-color: ${brandSuccess};
@@ -85,7 +85,7 @@ const successButtonStyles = `
   &:focus {
     filter: brightness(115%);
   }
-`
+`;
 
 const successOutlineButtonStyles = `
   border-color: ${brandSuccess};
@@ -96,7 +96,7 @@ const successOutlineButtonStyles = `
     background-color: ${brandSuccess};
     color: ${white};
   }
-`
+`;
 
 const dangerButtonStyles = `
   background-color: ${brandDanger};
@@ -106,7 +106,7 @@ const dangerButtonStyles = `
   &:focus {
     filter: brightness(115%);
   }
-`
+`;
 
 const dangerOutlineButtonStyles = `
   border-color: ${brandDanger};
@@ -117,12 +117,12 @@ const dangerOutlineButtonStyles = `
     background-color: ${brandDanger};
     color: ${white};
   }
-`
+`;
 
 const textButtonStyles = `
   background-color: transparent;
   color: ${brandPrimary};
-`
+`;
 
 const allStyles = css`
   position: relative;
@@ -177,11 +177,11 @@ const allStyles = css`
     outline: none;
     filter: brightness(.85);
   }
-`
+`;
 
 const StyledButton = styled.button`
   ${allStyles}
-`
+`;
 
 const StyledLink = styled.div`
   ${allStyles}
@@ -200,7 +200,7 @@ const StyledLink = styled.div`
       color: inherit;
     }
   }
-`
+`;
 class Button extends Component<ButtonProps> {
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
@@ -212,7 +212,7 @@ class Button extends Component<ButtonProps> {
     iconLeft: null,
     iconRight: null,
     block: false,
-  }
+  };
 
   render() {
     const {
@@ -226,8 +226,8 @@ class Button extends Component<ButtonProps> {
       iconLeft,
       iconRight,
       block,
-    } = this.props
-    let contentToRender
+    } = this.props;
+    let contentToRender;
 
     switch (type) {
       case 'link':
@@ -243,8 +243,8 @@ class Button extends Component<ButtonProps> {
               {iconLeft} {children} {iconRight}
             </Link>
           </StyledLink>
-        )
-        break
+        );
+        break;
       case 'button':
       case 'submit':
       case 'reset':
@@ -260,12 +260,12 @@ class Button extends Component<ButtonProps> {
           >
             {iconLeft} {children} {iconRight}
           </StyledButton>
-        )
-        break
+        );
+        break;
     }
 
-    return contentToRender
+    return contentToRender;
   }
 }
 
-export default Button
+export default Button;

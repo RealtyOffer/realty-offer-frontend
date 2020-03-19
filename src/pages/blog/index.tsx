@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-import { Heading, Box } from '../../components'
-import BlogRoll from '../../templates/BlogRoll'
+import { Heading, Box } from '../../components';
+import BlogRoll from '../../templates/BlogRoll';
 
 const BlogIndexPage = () => (
   <>
@@ -14,6 +14,6 @@ const BlogIndexPage = () => (
       </Box>
     </section>
   </>
-)
+);
 
-export default BlogIndexPage
+export default BlogIndexPage;

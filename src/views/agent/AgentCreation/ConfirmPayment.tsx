@@ -1,11 +1,11 @@
-import React, { useState, FunctionComponent } from 'react'
-import { Link } from 'gatsby'
+import React, { useState, FunctionComponent } from 'react';
+import { Link } from 'gatsby';
 
-import { RouteComponentProps } from '@reach/router'
-import { Button, FlexContainer, Heading, Card } from '../../../components'
+import { RouteComponentProps } from '@reach/router';
+import { Button, FlexContainer, Heading, Card } from '../../../components';
 
 const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
-  const [confirmed, setConfirmed] = useState(false)
+  const [confirmed, setConfirmed] = useState(false);
 
   return (
     <Card
@@ -39,7 +39,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
         </FlexContainer>
       )}
     </Card>
-  )
-}
+  );
+};
 
-export default ConfirmPayment
+export default ConfirmPayment;

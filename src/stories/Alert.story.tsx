@@ -1,17 +1,17 @@
-import React, { FunctionComponent } from 'react'
-import { storiesOf } from '@storybook/react'
-import { select, boolean, number, text } from '@storybook/addon-knobs'
+import React, { FunctionComponent } from 'react';
+import { storiesOf } from '@storybook/react';
+import { select, boolean, number, text } from '@storybook/addon-knobs';
 import {
   FaExclamationCircle,
   FaCheckCircle,
   FaInfoCircle,
-} from 'react-icons/fa'
+} from 'react-icons/fa';
 
-import Alert from '../components/Alert'
+import Alert from '../components/Alert';
 
-const story = storiesOf('Components', module)
+const story = storiesOf('Components', module);
 
-const selectOptions = ['danger', 'success', 'info'] as const
+const selectOptions = ['danger', 'success', 'info'] as const;
 
 story.add('Alert', () => (
   <Alert
@@ -22,4 +22,4 @@ story.add('Alert', () => (
   >
     {text('children', 'Alert message goes here')}
   </Alert>
-))
+));

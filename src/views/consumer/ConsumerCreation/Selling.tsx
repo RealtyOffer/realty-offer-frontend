@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useState } from 'react'
-import { RouteComponentProps } from '@reach/router'
-import { Formik, Field, Form } from 'formik'
-import { FaCaretRight, FaCaretLeft } from 'react-icons/fa'
-import { navigate } from 'gatsby'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, { FunctionComponent, useState } from 'react';
+import { RouteComponentProps } from '@reach/router';
+import { Formik, Field, Form } from 'formik';
+import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
+import { navigate } from 'gatsby';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import {
   Button,
@@ -14,39 +14,39 @@ import {
   Column,
   Row,
   HorizontalRule,
-} from '../../../components'
-import { captureConsumerData } from '../../../redux/ducks/consumer'
+} from '../../../components';
+import { captureConsumerData } from '../../../redux/ducks/consumer';
 
-import { requiredField } from '../../../utils/validations'
-import statesList from '../../../utils/statesList'
-import priceRangesList from '../../../utils/priceRangesList'
-import UnsavedChangesModal from './UnsavedChangesModal'
+import { requiredField } from '../../../utils/validations';
+import statesList from '../../../utils/statesList';
+import priceRangesList from '../../../utils/priceRangesList';
+import UnsavedChangesModal from './UnsavedChangesModal';
 
 type SellingFormValues = {
-  sellersAddressLine1: string
-  sellersAddressLine2: string
-  sellersCity: string
-  sellersState: string
-  sellersZip: string
-  sellersTimeline: string
-  selleresListingPriceInMind: string
-  sellersMortgageBalance: string
-}
+  sellersAddressLine1: string;
+  sellersAddressLine2: string;
+  sellersCity: string;
+  sellersState: string;
+  sellersZip: string;
+  sellersTimeline: string;
+  selleresListingPriceInMind: string;
+  sellersMortgageBalance: string;
+};
 
 const howSoonOptions = [
   { value: 'Immediately', label: 'Immediately' },
   { value: '3-6 months', label: '3-6 months' },
   { value: '6-12 months', label: '6-12 months' },
-]
+];
 
 type SellingProps = {
   actions: {
-    captureConsumerData: Function
-  }
-} & RouteComponentProps
+    captureConsumerData: Function;
+  };
+} & RouteComponentProps;
 
 const Selling: FunctionComponent<SellingProps> = props => {
-  const [modalIsOpen, setIsOpen] = useState(false)
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: SellingFormValues = {
     sellersAddressLine1: '',
@@ -57,11 +57,11 @@ const Selling: FunctionComponent<SellingProps> = props => {
     sellersTimeline: '',
     selleresListingPriceInMind: '',
     sellersMortgageBalance: '',
-  }
+  };
 
   const toggleUnsavedChangesModal = () => {
-    setIsOpen(!modalIsOpen)
-  }
+    setIsOpen(!modalIsOpen);
+  };
 
   return (
     <>
@@ -75,8 +75,8 @@ const Selling: FunctionComponent<SellingProps> = props => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={values => {
-              props.actions.captureConsumerData(values)
-              navigate('/consumer/special-requests')
+              props.actions.captureConsumerData(values);
+              navigate('/consumer/special-requests');
             }}
           >
             {({ values, isSubmitting, isValid, ...rest }) => (
@@ -193,9 +193,9 @@ const Selling: FunctionComponent<SellingProps> = props => {
         captureConsumerData={props.actions.captureConsumerData}
       />
     </>
-  )
-}
+  );
+};
 
 export default connect(null, dispatch => ({
   actions: bindActionCreators({ captureConsumerData }, dispatch),
-}))(Selling)
+}))(Selling);

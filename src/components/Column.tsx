@@ -1,58 +1,58 @@
-import { FunctionComponent } from 'react'
-import styled from 'styled-components'
+import { FunctionComponent } from 'react';
+import styled from 'styled-components';
 
-import { baseSpacerUnit, breakpoints, baseSpacer } from '../styles/size'
+import { baseSpacerUnit, breakpoints, baseSpacer } from '../styles/size';
 
 function createColumnSpan(breakpoint: number) {
-  const width = (breakpoint / 12) * 100
+  const width = (breakpoint / 12) * 100;
   return `
     width: ${width}%;
     margin-left: 0;
-  `
+  `;
 }
 
 function createColumnOffset(breakpoint: number) {
-  const width = (breakpoint / 12) * 100
-  return `margin-left: ${width}%;`
+  const width = (breakpoint / 12) * 100;
+  return `margin-left: ${width}%;`;
 }
 
 function setOrder(order: number) {
-  return `order: ${order}`
+  return `order: ${order}`;
 }
 
-type allowedNumbers = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+type allowedNumbers = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 type ColumnProps = {
-  xs?: allowedNumbers
-  sm?: allowedNumbers
-  md?: allowedNumbers
-  lg?: allowedNumbers
-  xl?: allowedNumbers
-  xsOffset?: allowedNumbers
-  smOffset?: allowedNumbers
-  mdOffset?: allowedNumbers
-  lgOffset?: allowedNumbers
-  xlOffset?: allowedNumbers
-  xsOrder?: allowedNumbers
-  smOrder?: allowedNumbers
-  mdOrder?: allowedNumbers
-  lgOrder?: allowedNumbers
-  xlOrder?: allowedNumbers
+  xs?: allowedNumbers;
+  sm?: allowedNumbers;
+  md?: allowedNumbers;
+  lg?: allowedNumbers;
+  xl?: allowedNumbers;
+  xsOffset?: allowedNumbers;
+  smOffset?: allowedNumbers;
+  mdOffset?: allowedNumbers;
+  lgOffset?: allowedNumbers;
+  xlOffset?: allowedNumbers;
+  xsOrder?: allowedNumbers;
+  smOrder?: allowedNumbers;
+  mdOrder?: allowedNumbers;
+  lgOrder?: allowedNumbers;
+  xlOrder?: allowedNumbers;
   // Adds a bottom margin when stacking in responsive layout
-  xsSpacer?: boolean
-  smSpacer?: boolean
-  mdSpacer?: boolean
-  lgSpacer?: boolean
-  xlSpacer?: boolean
-}
+  xsSpacer?: boolean;
+  smSpacer?: boolean;
+  mdSpacer?: boolean;
+  lgSpacer?: boolean;
+  xlSpacer?: boolean;
+};
 
 const bottomSpacer = `
   margin-bottom: ${baseSpacer};
-`
+`;
 
 const noSpacer = `
   margin-bottom: 0;
-`
+`;
 
 const Column: FunctionComponent<ColumnProps> = styled.div`
   position: relative;
@@ -99,6 +99,6 @@ const Column: FunctionComponent<ColumnProps> = styled.div`
     ${(props: ColumnProps) => props.xlOrder && setOrder(props.xlOrder)};
     ${(props: ColumnProps) => (props.xlSpacer ? bottomSpacer : noSpacer)};
   }
-`
+`;
 
-export default Column
+export default Column;

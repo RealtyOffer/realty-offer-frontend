@@ -1,7 +1,7 @@
-import React, { useState, FunctionComponent, SyntheticEvent } from 'react'
-import { Formik, Field, Form } from 'formik'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
+import { Formik, Field, Form } from 'formik';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import {
   Alert,
@@ -11,30 +11,30 @@ import {
   HorizontalRule,
   FlexContainer,
   Seo,
-} from '../components'
+} from '../components';
 
 import {
   requiredField,
   requiredPassword,
   passwordRulesString,
-} from '../utils/validations'
-import { ActionResponseType } from '../redux/constants'
-import { resetPassword } from '../redux/ducks/auth'
+} from '../utils/validations';
+import { ActionResponseType } from '../redux/constants';
+import { resetPassword } from '../redux/ducks/auth';
 
 type ResetPasswordProps = {
   actions: {
-    resetPassword: Function
-  }
-}
+    resetPassword: Function;
+  };
+};
 
 export type ResetPasswordFormValues = {
-  email: string
-  newPassword: string
-  token: string
-}
+  email: string;
+  newPassword: string;
+  token: string;
+};
 
 const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false);
 
   const initialValues = {
     email: '',
@@ -45,20 +45,20 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
     digit4: '',
     digit5: '',
     digit6: '',
-  }
+  };
 
   const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement
+    const target = e.target as HTMLInputElement;
     if (target.value.length >= 1) {
-      const currentInputIndex = Number(target.name.charAt(5))
+      const currentInputIndex = Number(target.name.charAt(5));
       const inputToBeFocused = document.getElementsByName(
-        `digit${currentInputIndex + 1}`
-      )[0]
+        `digit${currentInputIndex + 1}`,
+      )[0];
       if (inputToBeFocused) {
-        inputToBeFocused.focus()
+        inputToBeFocused.focus();
       }
     }
-  }
+  };
 
   return (
     <>
@@ -69,20 +69,20 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              const { digit1, digit2, digit3, digit4, digit5, digit6 } = values
+              const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
               const combined =
-                digit1 + digit2 + digit3 + digit4 + digit5 + digit6
+                digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
               props.actions
                 .resetPassword({
                   ...values,
                   token: combined,
                 })
                 .then((response: ActionResponseType) => {
-                  setSubmitting(false)
+                  setSubmitting(false);
                   if (response && !response.error) {
-                    setSubmitted(true)
+                    setSubmitted(true);
                   }
-                })
+                });
             }}
           >
             {({ isSubmitting, isValid }) => (
@@ -151,9 +151,9 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
         )}
       </Card>
     </>
-  )
-}
+  );
+};
 
 export default connect(null, dispatch => ({
   actions: bindActionCreators({ resetPassword }, dispatch),
-}))(ResetPassword)
+}))(ResetPassword);

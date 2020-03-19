@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Seo, Heading } from '../components'
+import { Box, Seo, Heading } from '../components';
 
 const PrivacyPolicy = () => (
   <>
@@ -8,6 +8,6 @@ const PrivacyPolicy = () => (
     <Heading>Privacy Policy</Heading>
     <Box>privacy policy goes here</Box>
   </>
-)
+);
 
-export default PrivacyPolicy
+export default PrivacyPolicy;

@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Seo } from '../components'
+import { Box, Button, Seo } from '../components';
 
 const IndexPage = () => (
   <>
@@ -14,6 +14,6 @@ const IndexPage = () => (
       </Button>
     </Box>
   </>
-)
+);
 
-export default IndexPage
+export default IndexPage;

@@ -1,12 +1,12 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { select, text } from '@storybook/addon-knobs'
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { select, text } from '@storybook/addon-knobs';
 
-import FlexContainer from '../components/FlexContainer'
+import FlexContainer from '../components/FlexContainer';
 
-const story = storiesOf('Components', module)
+const story = storiesOf('Components', module);
 
-const directionOptions = ['row', 'column'] as const
+const directionOptions = ['row', 'column'] as const;
 
 const justifyOptions = [
   'space-between',
@@ -18,7 +18,7 @@ const justifyOptions = [
   'flex-end',
   'left',
   'right',
-] as const
+] as const;
 
 const alignOptions = [
   'center',
@@ -29,9 +29,9 @@ const alignOptions = [
   'left',
   'right',
   'stretch',
-] as const
+] as const;
 
-const wrapOptions = ['wrap', 'nowrap'] as const
+const wrapOptions = ['wrap', 'nowrap'] as const;
 
 story.add('FlexContainer', () => (
   <FlexContainer
@@ -47,4 +47,4 @@ story.add('FlexContainer', () => (
     <div>Item Four</div>
     <div>Item Five</div>
   </FlexContainer>
-))
+));

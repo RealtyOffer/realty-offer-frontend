@@ -1,44 +1,44 @@
-import React, { useState, FunctionComponent } from 'react'
-import { Link } from 'gatsby'
-import styled, { css } from 'styled-components'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { FaBars, FaTimes, FaCaretDown } from 'react-icons/fa'
+import React, { useState, FunctionComponent } from 'react';
+import { Link } from 'gatsby';
+import styled, { css } from 'styled-components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { FaBars, FaTimes, FaCaretDown } from 'react-icons/fa';
 
-import PageContainer from './PageContainer'
-import FlexContainer from './FlexContainer'
-import Avatar from './Avatar'
-import HorizontalRule from './HorizontalRule'
-import Button from './Button'
+import PageContainer from './PageContainer';
+import FlexContainer from './FlexContainer';
+import Avatar from './Avatar';
+import HorizontalRule from './HorizontalRule';
+import Button from './Button';
 
-import { brandPrimary, white } from '../styles/color'
+import { brandPrimary, white } from '../styles/color';
 import {
   baseSpacer,
   doubleSpacer,
   octupleSpacer,
   halfSpacer,
   screenSizes,
-} from '../styles/size'
-import { z1Shadow, baseBorderStyle } from '../styles/mixins'
-import { fontSizeH6 } from '../styles/typography'
-import { logout } from '../redux/ducks/auth'
-import logo from '../images/logo.svg'
-import useWindowSize from '../utils/useWindowSize'
-import agentNavigationItems from '../utils/agentNavigationItems'
+} from '../styles/size';
+import { z1Shadow, baseBorderStyle } from '../styles/mixins';
+import { fontSizeH6 } from '../styles/typography';
+import { logout } from '../redux/ducks/auth';
+import logo from '../images/logo.svg';
+import useWindowSize from '../utils/useWindowSize';
+import agentNavigationItems from '../utils/agentNavigationItems';
 
 type NavbarProps = {
-  auth: any
+  auth: any;
   actions: {
-    logout: Function
-  }
-}
+    logout: Function;
+  };
+};
 
 const StyledNavbar = styled.nav`
   background: ${brandPrimary};
   padding: ${baseSpacer} 0;
   color: ${white};
   position: relative;
-`
+`;
 
 const StyledLogoLink = styled(Link)`
   color: ${white};
@@ -47,7 +47,7 @@ const StyledLogoLink = styled(Link)`
   &:focus {
     color: ${white};
   }
-`
+`;
 
 const StyledDropdown = styled.div`
   position: absolute;
@@ -66,7 +66,7 @@ const StyledDropdown = styled.div`
     padding: ${halfSpacer} ${baseSpacer};
     display: block;
   }
-`
+`;
 
 const StyledDropdownWrapper = styled.div`
   position: relative;
@@ -80,14 +80,14 @@ const StyledDropdownWrapper = styled.div`
   &:hover ${StyledDropdown}, &:focus ${StyledDropdown} {
     display: block;
   }
-`
+`;
 
 const StyledMenuToggle = styled.div`
   position: absolute;
   left: ${baseSpacer};
   cursor: pointer;
   font-size: ${fontSizeH6};
-`
+`;
 
 const StyledMenu = styled.div`
   display: flex;
@@ -118,22 +118,24 @@ const StyledMenu = styled.div`
         padding: ${halfSpacer} 0;
       }
     `}
-`
+`;
 
 const Navbar: FunctionComponent<NavbarProps> = props => {
-  const [menuIsOpen, setMenuIsOpen] = useState(false)
-  const size = useWindowSize()
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const size = useWindowSize();
   const isSmallScreen = Boolean(
-    size && size.width && size.width < screenSizes.small
-  )
-  const primaryNavigation = agentNavigationItems.filter(item => item.primary)
-  const secondaryNavigation = agentNavigationItems.filter(item => !item.primary)
+    size && size.width && size.width < screenSizes.small,
+  );
+  const primaryNavigation = agentNavigationItems.filter(item => item.primary);
+  const secondaryNavigation = agentNavigationItems.filter(
+    item => !item.primary,
+  );
 
   const toggleMenuAndLogout = () => {
     if (isSmallScreen) {
-      setMenuIsOpen(false)
+      setMenuIsOpen(false);
     }
-  }
+  };
 
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
@@ -215,8 +217,8 @@ const Navbar: FunctionComponent<NavbarProps> = props => {
         </FlexContainer>
       </PageContainer>
     </StyledNavbar>
-  )
-}
+  );
+};
 
 export default connect(
   state => ({
@@ -224,5 +226,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ logout }, dispatch),
-  })
-)(Navbar)
+  }),
+)(Navbar);
