@@ -3,59 +3,59 @@
 // from https://medium.com/@hasibsahibzada/formik-composed-field-level-validation-e40d6380b2d7
 export const customFieldLevelValidation = (
   value: string,
-  validations: Array<Function>
+  validations: Array<Function>,
 ) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const validation of validations) {
-    const result = validation(value)
+    const result = validation(value);
     if (result) {
-      return result
+      return result;
     }
   }
-  return null
-}
+  return null;
+};
 
 // individual validations
 export const requiredField = (value: string | Array<string>) => {
   if (Array.isArray(value) && value.length === 0) {
-    return 'This field is required'
+    return 'This field is required';
   }
   if (!value) {
-    return 'This field is required'
+    return 'This field is required';
   }
-  return undefined
-}
+  return undefined;
+};
 
 export const isPhoneNumber = (value: string) =>
   // https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript
   value &&
   !/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im.test(value)
     ? 'Invalid phone number, must be 10 digits'
-    : undefined
+    : undefined;
 
 export const isEmail = (value: string) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email address'
-    : undefined
+    : undefined;
 
 export const isNumber = (value: string) =>
   // eslint-disable-next-line no-restricted-globals
-  value && isNaN(Number(value)) ? 'Must be a number' : undefined
+  value && isNaN(Number(value)) ? 'Must be a number' : undefined;
 
 export const isAlphaNumeric = (value: string) =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
     ? 'Only alphanumeric characters'
-    : undefined
+    : undefined;
 
-const allowedSpecialCharacters = '!@#$%^&*()\\-_=+\\[{\\]}|;:\\\\\'",<.>/?`~'
+const allowedSpecialCharacters = '!@#$%^&*()\\-_=+\\[{\\]}|;:\\\\\'",<.>/?`~';
 const disallowedCharactersRegex = new RegExp(
   `[^A-Za-z\\d${allowedSpecialCharacters}]`,
-  'g'
-)
+  'g',
+);
 const validPasswordRegex = new RegExp(
   `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[${allowedSpecialCharacters}])[A-Za-z\\d${allowedSpecialCharacters}]{8,}$`,
-  'g'
-)
+  'g',
+);
 export const isValidPassword = (value: string) => {
   // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
   // Minimum eight characters
@@ -66,28 +66,28 @@ export const isValidPassword = (value: string) => {
 
   // additionally, check if there are invalid characters to give a better error
   if (value && !validPasswordRegex.test(value)) {
-    const invalidCharactersInPassword = value.match(disallowedCharactersRegex)
+    const invalidCharactersInPassword = value.match(disallowedCharactersRegex);
     if (invalidCharactersInPassword) {
       return `Password contains invalid character${
         invalidCharactersInPassword.length > 1 ? 's' : ''
       }: ${invalidCharactersInPassword
         .filter((a, b) => invalidCharactersInPassword.indexOf(a) === b)
         .join('')
-        .replace(' ', '(space)')}`
+        .replace(' ', '(space)')}`;
     }
-    return 'Password does not meet the requirements'
+    return 'Password does not meet the requirements';
   }
-  return undefined
-}
+  return undefined;
+};
 
 // composed validations for use in Formik Field components
 export const requiredEmail = (value: string) =>
-  customFieldLevelValidation(value, [requiredField, isEmail])
+  customFieldLevelValidation(value, [requiredField, isEmail]);
 
 export const requiredPhoneNumber = (value: string) =>
-  customFieldLevelValidation(value, [requiredField, isPhoneNumber])
+  customFieldLevelValidation(value, [requiredField, isPhoneNumber]);
 
 export const requiredPassword = (value: string) =>
-  customFieldLevelValidation(value, [requiredField, isValidPassword])
+  customFieldLevelValidation(value, [requiredField, isValidPassword]);
 
-export const passwordRulesString = `Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and a special character.`
+export const passwordRulesString = `Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and a special character.`;

@@ -4,17 +4,19 @@ import {
   isPhoneNumber,
   isEmail,
   isValidPassword,
-} from './validations'
+} from './validations';
 
 describe('validations', () => {
   it('should validate single validations', () => {
     expect(
-      customFieldLevelValidation('existing value', [requiredField])
-    ).toBeNull()
-    expect(customFieldLevelValidation('', [requiredField])).toBeDefined()
-    expect(customFieldLevelValidation('2203303330', [isPhoneNumber])).toBeNull()
-    expect(customFieldLevelValidation('', [isPhoneNumber])).toBeDefined()
-  })
+      customFieldLevelValidation('existing value', [requiredField]),
+    ).toBeNull();
+    expect(customFieldLevelValidation('', [requiredField])).toBeDefined();
+    expect(
+      customFieldLevelValidation('2203303330', [isPhoneNumber]),
+    ).toBeNull();
+    expect(customFieldLevelValidation('', [isPhoneNumber])).toBeDefined();
+  });
 
   it('should validate multi-validations', () => {
     expect(
@@ -22,15 +24,15 @@ describe('validations', () => {
         requiredField,
         isPhoneNumber,
         isEmail,
-      ])
-    ).toBeDefined()
+      ]),
+    ).toBeDefined();
     expect(
-      customFieldLevelValidation('', [requiredField, isPhoneNumber, isEmail])
-    ).toBeDefined()
+      customFieldLevelValidation('', [requiredField, isPhoneNumber, isEmail]),
+    ).toBeDefined();
     expect(
-      customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber])
-    ).toBeNull()
-  })
+      customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber]),
+    ).toBeNull();
+  });
 
   test.each([
     ['(123) 456-7890', undefined],
@@ -43,16 +45,16 @@ describe('validations', () => {
     ['330907533', 'Invalid phone number, must be 10 digits'],
     ['', undefined],
   ])('should validate phone number %s', (value, expectedResult) => {
-    expect(isPhoneNumber(value)).toEqual(expectedResult)
-  })
+    expect(isPhoneNumber(value)).toEqual(expectedResult);
+  });
 
   test.each([
     ['email@domain.tld', undefined],
     ['email@domainnotld', 'Invalid email address'],
     ['', undefined],
   ])('should validate email address %s', (value, expectedResult) => {
-    expect(isEmail(value)).toEqual(expectedResult)
-  })
+    expect(isEmail(value)).toEqual(expectedResult);
+  });
 
   test.each([
     ['1234567', 'Password does not meet the requirements'],
@@ -62,6 +64,6 @@ describe('validations', () => {
     ['12345678Aa!', undefined],
     ['', undefined],
   ])('should validate password %s', (value, expectedResult) => {
-    expect(isValidPassword(value)).toEqual(expectedResult)
-  })
-})
+    expect(isValidPassword(value)).toEqual(expectedResult);
+  });
+});
