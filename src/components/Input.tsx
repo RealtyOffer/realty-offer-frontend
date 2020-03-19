@@ -14,11 +14,7 @@ import {
   sextupleSpacer,
   doubleSpacer,
 } from '../styles/size';
-import {
-  fontSizeBase,
-  lineHeightBase,
-  fontSizeSmall,
-} from '../styles/typography';
+import { fontSizeBase, lineHeightBase, fontSizeSmall } from '../styles/typography';
 import {
   textColor,
   white,
@@ -29,11 +25,7 @@ import {
   lightGray,
   offWhite,
 } from '../styles/color';
-import {
-  baseBorderStyle,
-  disabledStyle,
-  visuallyHiddenStyle,
-} from '../styles/mixins';
+import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 
 type OptionType = { label: string; value: string };
 
@@ -110,8 +102,7 @@ const StyledSelect = styled(Select)`
 
 const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
-  ${(props: { square?: boolean }) =>
-    props.square && `max-width: ${inputHeight};`}
+  ${(props: { square?: boolean }) => props.square && `max-width: ${inputHeight};`}
 `;
 
 const StyledToggle = styled.input`
@@ -234,7 +225,7 @@ const Input: FunctionComponent<InputProps> = props => {
               ? option
                 ? (option as OptionType[]).map((item: OptionType) => item.value)
                 : []
-              : (option as OptionType).value,
+              : (option as OptionType).value
           );
         };
         inputTypeToRender = (
@@ -242,11 +233,7 @@ const Input: FunctionComponent<InputProps> = props => {
             styles={multiSelectStyles}
             isMulti={props.isMulti}
             menuPlacement="auto"
-            value={
-              props.options
-                ? props.options.find(option => option.value === field.value)
-                : ''
-            }
+            value={props.options ? props.options.find(option => option.value === field.value) : ''}
             options={props.options}
             name={props.name}
             onChange={(option: OptionType) => onChange(option)}
@@ -261,13 +248,7 @@ const Input: FunctionComponent<InputProps> = props => {
       inputTypeToRender = (
         <>
           <StyledLabel>{props.label}</StyledLabel>
-          <StyledToggle
-            {...field}
-            {...props}
-            {...meta}
-            id={props.name}
-            checked={props.checked}
-          />
+          <StyledToggle {...field} {...props} {...meta} id={props.name} checked={props.checked} />
           <StyledToggleLabel
             htmlFor={props.name}
             disabled={props.disabled}
@@ -298,9 +279,7 @@ const Input: FunctionComponent<InputProps> = props => {
             {...props}
             {...meta}
             onChange={event => {
-              field.onChange(event.target.name)(
-                formatValue(event.target.value),
-              );
+              field.onChange(event.target.name)(formatValue(event.target.value));
             }}
           />
         );
@@ -309,16 +288,8 @@ const Input: FunctionComponent<InputProps> = props => {
     case 'password':
       inputTypeToRender = (
         <PasswordWrapper>
-          <StyledInput
-            type="password"
-            id={props.name}
-            {...field}
-            {...props}
-            {...meta}
-          />
-          <PasswordToggle
-            onClick={() => setPasswordVisibiility(!passwordVisibility)}
-          >
+          <StyledInput type="password" id={props.name} {...field} {...props} {...meta} />
+          <PasswordToggle onClick={() => setPasswordVisibiility(!passwordVisibility)}>
             {passwordVisibility ? <FaEye /> : <FaEyeSlash />}
           </PasswordToggle>
           {passwordVisibility && field.value.length > 0 && (

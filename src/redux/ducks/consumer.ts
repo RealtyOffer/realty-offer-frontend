@@ -47,9 +47,7 @@ export default (state: ConsumerStoreType = initialState, action: any) => {
   }
 };
 
-export const captureConsumerData = (
-  payload: ConsumerStoreType['signupData'],
-) => ({
+export const captureConsumerData = (payload: ConsumerStoreType['signupData']) => ({
   type: CAPTURE_CONSUMER_DATA,
   payload,
 });

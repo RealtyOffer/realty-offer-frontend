@@ -80,8 +80,7 @@ class GlobalAlerts extends Component<Props, State> {
     // alert recently added the first alert or we recently closed one
     if (
       alerts.length > 0 &&
-      ((previousProps.globalAlerts.alerts.length === 0 &&
-        alerts.length === 1) ||
+      ((previousProps.globalAlerts.alerts.length === 0 && alerts.length === 1) ||
         previousProps.globalAlerts.alerts.length > alerts.length)
     ) {
       this.startAnimation();
@@ -122,10 +121,7 @@ class GlobalAlerts extends Component<Props, State> {
     } = this.props;
 
     return (
-      <GlobalAlertWrapper
-        entering={this.state.animateIn}
-        exiting={this.state.animateOut}
-      >
+      <GlobalAlertWrapper entering={this.state.animateIn} exiting={this.state.animateOut}>
         {currentAlert && currentAlert.id && (
           <Alert
             key={`alert-${currentAlert.id}`}
@@ -149,5 +145,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ closeAlert }, dispatch),
-  }),
+  })
 )(GlobalAlerts);

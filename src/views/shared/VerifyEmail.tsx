@@ -34,9 +34,7 @@ const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
   const target = e.target as HTMLInputElement;
   if (target.value.length >= 1) {
     const currentInputIndex = Number(target.name.charAt(5));
-    const inputToBeFocused = document.getElementsByName(
-      `digit${currentInputIndex + 1}`,
-    )[0];
+    const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
     if (inputToBeFocused) {
       inputToBeFocused.focus();
     }
@@ -44,7 +42,7 @@ const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
 };
 
 const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
-  props: VerifyEmailType,
+  props: VerifyEmailType
 ) => {
   const [verified, setVerified] = useState(false);
 
@@ -84,8 +82,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
-              const combined =
-                digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
+              const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
               props.actions
                 .verifyEmail({
                   email: values.email,
@@ -110,14 +107,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
                 />
                 <label>Verification Code</label>
                 <FlexContainer justifyContent="space-between" flexWrap="nowrap">
-                  {[
-                    'digit1',
-                    'digit2',
-                    'digit3',
-                    'digit4',
-                    'digit5',
-                    'digit6',
-                  ].map(digit => (
+                  {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map(digit => (
                     <Field
                       key={digit}
                       as={Input}
@@ -134,9 +124,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
                   <Button
                     block
                     type="submit"
-                    disabled={
-                      isSubmitting || !isValid || values === initialValues
-                    }
+                    disabled={isSubmitting || !isValid || values === initialValues}
                   >
                     Confirm Email
                   </Button>
@@ -146,8 +134,8 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
                 </FlexContainer>
                 <FlexContainer flexDirection="column">
                   <p style={{ textAlign: 'center' }}>
-                    Didn&apos;t receive an email? Enter your email address and
-                    click the button below to receive a new verification code.
+                    Didn&apos;t receive an email? Enter your email address and click the button
+                    below to receive a new verification code.
                   </p>
                   <Button
                     type="button"
@@ -173,5 +161,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ verifyEmail, resendSignupEmail }, dispatch),
-  }),
+  })
 )(VerifyEmail);

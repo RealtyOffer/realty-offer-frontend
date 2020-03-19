@@ -6,15 +6,7 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Button,
-  Card,
-  Input,
-  Seo,
-  Column,
-  Row,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 
 import languagesList from '../../../utils/languagesList';

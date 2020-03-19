@@ -4,12 +4,7 @@ import styled from 'styled-components';
 import { FaTimes } from 'react-icons/fa';
 
 import { baseBorderStyle, z1Shadow } from '../styles/mixins';
-import {
-  borderRadius,
-  halfSpacer,
-  screenSizes,
-  doubleSpacer,
-} from '../styles/size';
+import { borderRadius, halfSpacer, screenSizes, doubleSpacer } from '../styles/size';
 
 type ModalProps = {
   isOpen: boolean;

@@ -33,11 +33,7 @@ const StyledLabel = styled.label`
   margin-bottom: ${baseSpacer};
 `;
 
-const ProgressBar: FunctionComponent<ProgressBarProps> = ({
-  name,
-  value,
-  label,
-}) => (
+const ProgressBar: FunctionComponent<ProgressBarProps> = ({ name, value, label }) => (
   <>
     <StyledTrack>
       <StyledBar value={value} />

@@ -19,10 +19,7 @@ const TagsPage = ({
       <Helmet title={`Tags | ${title}`} />
       <div className="container content">
         <div className="columns">
-          <div
-            className="column is-10 is-offset-1"
-            style={{ marginBottom: '6rem' }}
-          >
+          <div className="column is-10 is-offset-1" style={{ marginBottom: '6rem' }}>
             <Heading>Tags</Heading>
             <ul className="taglist">
               {group.map((tag: any) => (

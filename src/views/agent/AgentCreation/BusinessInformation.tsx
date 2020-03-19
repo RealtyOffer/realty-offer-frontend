@@ -2,12 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
-import {
-  FaTrash,
-  FaPlus,
-  FaMapMarkerAlt,
-  FaShoppingCart,
-} from 'react-icons/fa';
+import { FaTrash, FaPlus, FaMapMarkerAlt, FaShoppingCart } from 'react-icons/fa';
 
 import { RouteComponentProps } from '@reach/router';
 import {
@@ -36,20 +31,12 @@ type BusinessInformationState = {
   zips: Array<string>;
 };
 
-class BusinessInformation extends Component<
-  BusinessInformationProps,
-  BusinessInformationState
-> {
+class BusinessInformation extends Component<BusinessInformationProps, BusinessInformationState> {
   constructor(props: BusinessInformationProps) {
     super(props);
     this.state = {
       regions: [],
-      zips: [
-        '48170 - Plymouth',
-        '48152 - Livonia',
-        '48154 - Livonia',
-        '48150 - Livonia',
-      ],
+      zips: ['48170 - Plymouth', '48152 - Livonia', '48154 - Livonia', '48150 - Livonia'],
     };
   }
 
@@ -79,10 +66,7 @@ class BusinessInformation extends Component<
 
   removeFromCart = (index: number) => {
     this.setState((prevState: BusinessInformationState) => ({
-      regions: [
-        ...prevState.regions.slice(0, index),
-        ...prevState.regions.slice(index + 1),
-      ],
+      regions: [...prevState.regions.slice(0, index), ...prevState.regions.slice(index + 1)],
       zips: [...prevState.zips, prevState.regions[index].zip],
     }));
   };
@@ -105,9 +89,7 @@ class BusinessInformation extends Component<
 
     const getTotals =
       !noRegionsInCart &&
-      regions
-        .map(r => Number(r.subscriptionType))
-        .reduce((total, amount) => total + amount);
+      regions.map(r => Number(r.subscriptionType)).reduce((total, amount) => total + amount);
 
     return (
       <Card
@@ -147,9 +129,7 @@ class BusinessInformation extends Component<
                     >
                       <option value="">Select Agent Type</option>
                       <option value="Seller only">Seller only</option>
-                      <option value="Seller &amp; Buyer">
-                        Seller &amp; Buyer
-                      </option>
+                      <option value="Seller &amp; Buyer">Seller &amp; Buyer</option>
                     </Field>
                   </Column>
                   <Column sm={6}>
@@ -194,15 +174,10 @@ class BusinessInformation extends Component<
                 <HorizontalRule />
                 {regions.map((r: BusinessInformationFormValues, index) => (
                   <Fragment key={uuidv4()}>
-                    <FlexContainer
-                      justifyContent="space-between"
-                      height={doubleSpacer}
-                    >
+                    <FlexContainer justifyContent="space-between" height={doubleSpacer}>
                       <span>{r.zip}</span>
                       <span>{r.agentType}</span>
-                      <span>
-                        ${this.numberWithCommas(Number(r.subscriptionType))}
-                      </span>
+                      <span>${this.numberWithCommas(Number(r.subscriptionType))}</span>
                       <Button
                         type="button"
                         onClick={() => this.removeFromCart(index)}

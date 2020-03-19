@@ -8,30 +8,18 @@ import {
 
 describe('validations', () => {
   it('should validate single validations', () => {
-    expect(
-      customFieldLevelValidation('existing value', [requiredField]),
-    ).toBeNull();
+    expect(customFieldLevelValidation('existing value', [requiredField])).toBeNull();
     expect(customFieldLevelValidation('', [requiredField])).toBeDefined();
-    expect(
-      customFieldLevelValidation('2203303330', [isPhoneNumber]),
-    ).toBeNull();
+    expect(customFieldLevelValidation('2203303330', [isPhoneNumber])).toBeNull();
     expect(customFieldLevelValidation('', [isPhoneNumber])).toBeDefined();
   });
 
   it('should validate multi-validations', () => {
     expect(
-      customFieldLevelValidation('2203303330', [
-        requiredField,
-        isPhoneNumber,
-        isEmail,
-      ]),
+      customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber, isEmail])
     ).toBeDefined();
-    expect(
-      customFieldLevelValidation('', [requiredField, isPhoneNumber, isEmail]),
-    ).toBeDefined();
-    expect(
-      customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber]),
-    ).toBeNull();
+    expect(customFieldLevelValidation('', [requiredField, isPhoneNumber, isEmail])).toBeDefined();
+    expect(customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber])).toBeNull();
   });
 
   test.each([

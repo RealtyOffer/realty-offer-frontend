@@ -1,11 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, boolean, number, text } from '@storybook/addon-knobs';
-import {
-  FaExclamationCircle,
-  FaCheckCircle,
-  FaInfoCircle,
-} from 'react-icons/fa';
+import { FaExclamationCircle, FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
 
 import Alert from '../components/Alert';
 

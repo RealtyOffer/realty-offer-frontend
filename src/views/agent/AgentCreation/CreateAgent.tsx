@@ -5,14 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 
-import {
-  Button,
-  Input,
-  Row,
-  Card,
-  Column,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Input, Row, Card, Column, HorizontalRule } from '../../../components';
 
 import {
   requiredEmail,

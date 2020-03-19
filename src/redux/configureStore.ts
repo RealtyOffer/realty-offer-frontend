@@ -18,25 +18,18 @@ const middlewares = getMiddlewares();
 const isBrowser = typeof window !== 'undefined';
 
 // eslint-disable-next-line
-if (
-  isBrowser &&
-  (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')
-) {
+if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
   middlewares.push(logger);
 }
 
 const functionsToCompose = [applyMiddleware(...middlewares)];
 
 // eslint-disable-next-line
-if (
-  isBrowser &&
-  (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')
-) {
+if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
   functionsToCompose.push(
-    typeof window === 'object' &&
-      typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
+    typeof window === 'object' && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
       ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : (f: any) => f,
+      : (f: any) => f
   );
 }
 
@@ -48,11 +41,7 @@ const makeConfiguredStore = (reducer: any, initialState: any) => {
   };
   const persistedReducer = persistReducer(persistConfig, reducer);
 
-  return createStore(
-    persistedReducer,
-    initialState,
-    compose(...functionsToCompose),
-  );
+  return createStore(persistedReducer, initialState, compose(...functionsToCompose));
 };
 
 const configureStore = (initialState: any = {}) => {

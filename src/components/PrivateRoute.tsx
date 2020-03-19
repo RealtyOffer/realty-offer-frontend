@@ -28,5 +28,5 @@ export default connect(
   state => ({
     auth: (state as any).auth,
   }),
-  null,
+  null
 )(PrivateRoute);

@@ -5,11 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Box, Input, Heading, Row, Column } from '../../../../components';
-import {
-  requiredField,
-  requiredEmail,
-  requiredPhoneNumber,
-} from '../../../../utils/validations';
+import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../../utils/validations';
 import languagesList from '../../../../utils/languagesList';
 
 type AgentProfileProps = {} & RouteComponentProps;
@@ -127,12 +123,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
             </Box>
             <Box>
               <Heading as="h2">Certificates</Heading>
-              <Field
-                as={Input}
-                type="text"
-                name="certificates"
-                label="Certificates"
-              />
+              <Field as={Input} type="text" name="certificates" label="Certificates" />
             </Box>
             <Box>
               <Heading as="h2">About Me</Heading>
@@ -157,5 +148,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({}, dispatch),
-  }),
+  })
 )(AgentProfile);

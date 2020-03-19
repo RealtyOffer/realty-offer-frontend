@@ -20,10 +20,7 @@ export const borderWidth = '1px';
 export const borderRadius = '3px';
 
 // Input Heights
-export const inputHeight = `${baseSpacerUnit +
-  baseSpacerUnit +
-  baseSpacerUnit +
-  2}px`;
+export const inputHeight = `${baseSpacerUnit + baseSpacerUnit + baseSpacerUnit + 2}px`;
 export const inputPaddingX = `${baseSpacerUnit * 1}px`;
 export const inputPaddingY = `${baseSpacerUnit * 0.5}px`;
 

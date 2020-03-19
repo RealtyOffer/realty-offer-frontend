@@ -6,19 +6,8 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Button,
-  Card,
-  Input,
-  Seo,
-  Column,
-  Row,
-  HorizontalRule,
-} from '../../../components';
-import {
-  captureConsumerData,
-  ConsumerStoreType,
-} from '../../../redux/ducks/consumer';
+import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
+import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
 
 import { requiredField } from '../../../utils/validations';
 import priceRangesList from '../../../utils/priceRangesList';
@@ -75,7 +64,7 @@ const Buying: FunctionComponent<BuyingProps> = props => {
               navigate(
                 props.consumer.signupData.consumerType === 'buyerSeller'
                   ? '/consumer/selling'
-                  : '/consumer/special-requests',
+                  : '/consumer/special-requests'
               );
             }}
           >
@@ -158,5 +147,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ captureConsumerData }, dispatch),
-  }),
+  })
 )(Buying);

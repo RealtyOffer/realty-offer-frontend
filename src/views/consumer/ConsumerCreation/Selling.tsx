@@ -6,15 +6,7 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Button,
-  Card,
-  Input,
-  Seo,
-  Column,
-  Row,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 
 import { requiredField } from '../../../utils/validations';
@@ -88,12 +80,7 @@ const Selling: FunctionComponent<SellingProps> = props => {
                   label="Address Line 1"
                   validate={requiredField}
                 />
-                <Field
-                  as={Input}
-                  type="text"
-                  name="sellersAddressLine2"
-                  label="Address Line 2"
-                />
+                <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
                 <Field
                   as={Input}
                   type="text"

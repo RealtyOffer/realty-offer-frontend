@@ -1,10 +1,7 @@
 // Formik doesn't allow multiple validation functions in its Field property `validate`, so
 // we compose them using this function below
 // from https://medium.com/@hasibsahibzada/formik-composed-field-level-validation-e40d6380b2d7
-export const customFieldLevelValidation = (
-  value: string,
-  validations: Array<Function>,
-) => {
+export const customFieldLevelValidation = (value: string, validations: Array<Function>) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const validation of validations) {
     const result = validation(value);
@@ -28,8 +25,7 @@ export const requiredField = (value: string | Array<string>) => {
 
 export const isPhoneNumber = (value: string) =>
   // https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript
-  value &&
-  !/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im.test(value)
+  value && !/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im.test(value)
     ? 'Invalid phone number, must be 10 digits'
     : undefined;
 
@@ -43,18 +39,13 @@ export const isNumber = (value: string) =>
   value && isNaN(Number(value)) ? 'Must be a number' : undefined;
 
 export const isAlphaNumeric = (value: string) =>
-  value && /[^a-zA-Z0-9 ]/i.test(value)
-    ? 'Only alphanumeric characters'
-    : undefined;
+  value && /[^a-zA-Z0-9 ]/i.test(value) ? 'Only alphanumeric characters' : undefined;
 
 const allowedSpecialCharacters = '!@#$%^&*()\\-_=+\\[{\\]}|;:\\\\\'",<.>/?`~';
-const disallowedCharactersRegex = new RegExp(
-  `[^A-Za-z\\d${allowedSpecialCharacters}]`,
-  'g',
-);
+const disallowedCharactersRegex = new RegExp(`[^A-Za-z\\d${allowedSpecialCharacters}]`, 'g');
 const validPasswordRegex = new RegExp(
   `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[${allowedSpecialCharacters}])[A-Za-z\\d${allowedSpecialCharacters}]{8,}$`,
-  'g',
+  'g'
 );
 export const isValidPassword = (value: string) => {
   // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a

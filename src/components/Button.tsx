@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'gatsby';
 
-import {
-  baseSpacer,
-  baseAndAHalfSpacer,
-  borderWidth,
-  halfSpacer,
-} from '../styles/size';
+import { baseSpacer, baseAndAHalfSpacer, borderWidth, halfSpacer } from '../styles/size';
 import { fontFamilySansSerif, fontSizeBase } from '../styles/typography';
 import {
   brandPrimary,
@@ -146,25 +141,18 @@ const allStyles = css`
   
   /* Color */
   ${(props: ButtonProps) => props.color === 'primary' && primaryButtonStyles}
-  ${(props: ButtonProps) =>
-    props.color === 'primaryOutline' && primaryOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'primaryOutline' && primaryOutlineButtonStyles}
   ${(props: ButtonProps) => props.color === 'danger' && dangerButtonStyles}
-  ${(props: ButtonProps) =>
-    props.color === 'dangerOutline' && dangerOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'dangerOutline' && dangerOutlineButtonStyles}
   ${(props: ButtonProps) => props.color === 'success' && successButtonStyles}
-  ${(props: ButtonProps) =>
-    props.color === 'successOutline' && successOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'successOutline' && successOutlineButtonStyles}
   ${(props: ButtonProps) => props.color === 'text' && textButtonStyles}
 
   /* Disabled - specific color variations */
+  ${(props: ButtonProps) => props.color === 'primary' && props.disabled && primaryDisabledStyles}
   ${(props: ButtonProps) =>
-    props.color === 'primary' && props.disabled && primaryDisabledStyles}
-  ${(props: ButtonProps) =>
-    props.color === 'primaryOutline' &&
-    props.disabled &&
-    primaryOutlinedDisabledStyles}
-  ${(props: ButtonProps) =>
-    props.color === 'text' && props.disabled && textDisabledStyles}
+    props.color === 'primaryOutline' && props.disabled && primaryOutlinedDisabledStyles}
+  ${(props: ButtonProps) => props.color === 'text' && props.disabled && textDisabledStyles}
 
   /* Disabled state for all other variations: adds opacity and cursor/pointer-events styling */
   ${(props: ButtonProps) => props.disabled && disabledStyle}

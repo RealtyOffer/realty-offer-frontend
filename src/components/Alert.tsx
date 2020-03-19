@@ -1,18 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import {
-  FaExclamationCircle,
-  FaCheckCircle,
-  FaInfoCircle,
-} from 'react-icons/fa';
+import { FaExclamationCircle, FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
 
 import { baseSpacer, borderRadius, doubleSpacer } from '../styles/size';
-import {
-  brandDanger,
-  brandSuccess,
-  brandPrimary,
-  white,
-} from '../styles/color';
+import { brandDanger, brandSuccess, brandPrimary, white } from '../styles/color';
 
 export type AlertProps = {
   type: 'danger' | 'success' | 'info';

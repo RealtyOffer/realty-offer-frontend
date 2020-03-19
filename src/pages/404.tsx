@@ -9,8 +9,7 @@ const NotFoundPage = (_: RouteComponentProps) => (
     <Card cardTitle="404: Page Not Found">
       <FlexContainer>
         <p>
-          We could not find the page you were looking for. Please try again or
-          visit the home page.
+          We could not find the page you were looking for. Please try again or visit the home page.
         </p>
         <Button type="link" to="/" color="primary">
           Home

@@ -35,26 +35,18 @@ const Login: FunctionComponent<LoginProps> = props => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values: LoginFormValues, { setSubmitting }) => {
-            props.actions
-              .authenticateCredentials(values)
-              .then((response: ActionResponseType) => {
-                setSubmitting(false);
-                if (response && !response.error) {
-                  // TODO push to user type
-                  navigate('/agent/listings/new');
-                }
-              });
+            props.actions.authenticateCredentials(values).then((response: ActionResponseType) => {
+              setSubmitting(false);
+              if (response && !response.error) {
+                // TODO push to user type
+                navigate('/agent/listings/new');
+              }
+            });
           }}
         >
           {({ isSubmitting, isValid }) => (
             <Form>
-              <Field
-                as={Input}
-                type="email"
-                name="email"
-                label="Email"
-                validate={requiredField}
-              />
+              <Field as={Input} type="email" name="email" label="Email" validate={requiredField} />
               <Field
                 as={Input}
                 type="password"

@@ -12,13 +12,7 @@ import HorizontalRule from './HorizontalRule';
 import Button from './Button';
 
 import { brandPrimary, white } from '../styles/color';
-import {
-  baseSpacer,
-  doubleSpacer,
-  octupleSpacer,
-  halfSpacer,
-  screenSizes,
-} from '../styles/size';
+import { baseSpacer, doubleSpacer, octupleSpacer, halfSpacer, screenSizes } from '../styles/size';
 import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import { fontSizeH6 } from '../styles/typography';
 import { logout } from '../redux/ducks/auth';
@@ -123,13 +117,9 @@ const StyledMenu = styled.div`
 const Navbar: FunctionComponent<NavbarProps> = props => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const size = useWindowSize();
-  const isSmallScreen = Boolean(
-    size && size.width && size.width < screenSizes.small,
-  );
+  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.small);
   const primaryNavigation = agentNavigationItems.filter(item => item.primary);
-  const secondaryNavigation = agentNavigationItems.filter(
-    item => !item.primary,
-  );
+  const secondaryNavigation = agentNavigationItems.filter(item => !item.primary);
 
   const toggleMenuAndLogout = () => {
     if (isSmallScreen) {
@@ -141,13 +131,10 @@ const Navbar: FunctionComponent<NavbarProps> = props => {
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
         <FlexContainer
-          justifyContent={
-            props.auth.isLoggedIn && isSmallScreen ? 'center' : 'space-between'
-          }
+          justifyContent={props.auth.isLoggedIn && isSmallScreen ? 'center' : 'space-between'}
         >
           <StyledLogoLink to="/" title="Logo">
-            <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty
-            Offer
+            <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
           </StyledLogoLink>
           {!props.auth.isLoggedIn && (
             <Button type="link" to="/login">
@@ -166,17 +153,9 @@ const Navbar: FunctionComponent<NavbarProps> = props => {
             </StyledMenuToggle>
           )}
           {props.auth.isLoggedIn && (
-            <StyledMenu
-              id="navMenu"
-              isSmallScreen={isSmallScreen}
-              menuIsOpen={menuIsOpen}
-            >
+            <StyledMenu id="navMenu" isSmallScreen={isSmallScreen} menuIsOpen={menuIsOpen}>
               {primaryNavigation.map(navItem => (
-                <Link
-                  key={navItem.name}
-                  to={navItem.path}
-                  onClick={() => toggleMenuAndLogout()}
-                >
+                <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenuAndLogout()}>
                   {navItem.name}
                 </Link>
               ))}
@@ -226,5 +205,5 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ logout }, dispatch),
-  }),
+  })
 )(Navbar);

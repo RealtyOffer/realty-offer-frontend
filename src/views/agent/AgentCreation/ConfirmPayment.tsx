@@ -22,12 +22,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
         <FlexContainer justifyContent="center" flexDirection="column">
           <Heading as="h2">$2,388</Heading>
           <p>Will be paid from Card ending in: 9876</p>
-          <Button
-            type="button"
-            color="primary"
-            block
-            onClick={() => setConfirmed(true)}
-          >
+          <Button type="button" color="primary" block onClick={() => setConfirmed(true)}>
             Confirm Payment
           </Button>
           <FlexContainer height="100px">

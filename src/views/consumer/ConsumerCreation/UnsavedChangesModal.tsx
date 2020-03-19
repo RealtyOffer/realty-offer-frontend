@@ -22,12 +22,7 @@ const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = props =
       <p>Are you sure you want to cancel your registration?</p>
       <Row>
         <Column xs={6}>
-          <Button
-            type="button"
-            onClick={() => props.toggleModal()}
-            color="primaryOutline"
-            block
-          >
+          <Button type="button" onClick={() => props.toggleModal()} color="primaryOutline" block>
             No
           </Button>
         </Column>

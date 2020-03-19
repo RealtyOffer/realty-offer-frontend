@@ -5,15 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 
-import {
-  Button,
-  Seo,
-  Input,
-  Row,
-  Card,
-  Column,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Seo, Input, Row, Card, Column, HorizontalRule } from '../../../components';
 
 import {
   requiredEmail,
@@ -130,12 +122,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = props => {
               </Form>
             )}
           </Formik>
-          <Button
-            type="button"
-            onClick={() => toggleUnsavedChangesModal()}
-            color="text"
-            block
-          >
+          <Button type="button" onClick={() => toggleUnsavedChangesModal()} color="text" block>
             Cancel
           </Button>
         </>

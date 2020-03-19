@@ -3,21 +3,9 @@ import { Formik, Field, Form } from 'formik';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Alert,
-  Button,
-  Card,
-  Input,
-  HorizontalRule,
-  FlexContainer,
-  Seo,
-} from '../components';
+import { Alert, Button, Card, Input, HorizontalRule, FlexContainer, Seo } from '../components';
 
-import {
-  requiredField,
-  requiredPassword,
-  passwordRulesString,
-} from '../utils/validations';
+import { requiredField, requiredPassword, passwordRulesString } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
 import { resetPassword } from '../redux/ducks/auth';
 
@@ -51,9 +39,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
     const target = e.target as HTMLInputElement;
     if (target.value.length >= 1) {
       const currentInputIndex = Number(target.name.charAt(5));
-      const inputToBeFocused = document.getElementsByName(
-        `digit${currentInputIndex + 1}`,
-      )[0];
+      const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
       if (inputToBeFocused) {
         inputToBeFocused.focus();
       }
@@ -70,8 +56,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
-              const combined =
-                digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
+              const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
               props.actions
                 .resetPassword({
                   ...values,
@@ -96,18 +81,8 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
                 />
                 <label htmlFor="digit1">
                   Verification Code
-                  <FlexContainer
-                    justifyContent="space-between"
-                    flexWrap="nowrap"
-                  >
-                    {[
-                      'digit1',
-                      'digit2',
-                      'digit3',
-                      'digit4',
-                      'digit5',
-                      'digit6',
-                    ].map(digit => (
+                  <FlexContainer justifyContent="space-between" flexWrap="nowrap">
+                    {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map(digit => (
                       <Field
                         key={digit}
                         as={Input}

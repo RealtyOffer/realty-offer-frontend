@@ -15,13 +15,9 @@ type StartCreateConsumerProps = {
 } & RouteComponentProps;
 
 const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = props => {
-  const setCustomerType = (
-    consumerType: 'buyer' | 'seller' | 'buyerSeller',
-  ) => {
+  const setCustomerType = (consumerType: 'buyer' | 'seller' | 'buyerSeller') => {
     props.actions.captureConsumerData({ consumerType });
-    navigate(
-      consumerType === 'seller' ? '/consumer/selling' : '/consumer/buying',
-    );
+    navigate(consumerType === 'seller' ? '/consumer/selling' : '/consumer/buying');
   };
 
   return (
@@ -37,8 +33,8 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = props =
               Sell My Home
             </Heading>
             <p>
-              Within 24 hours, multiple agents will offer less than commission
-              to sell your home, in order to win your business!
+              Within 24 hours, multiple agents will offer less than commission to sell your home, in
+              order to win your business!
             </p>
             <Button
               type="button"
@@ -54,9 +50,8 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = props =
               Buy A Home
             </Heading>
             <p>
-              Within 24 hours, multiple agents will offer part of their
-              commission in order to pay for your closing costs, in order to win
-              your business!
+              Within 24 hours, multiple agents will offer part of their commission in order to pay
+              for your closing costs, in order to win your business!
             </p>
             <Button
               type="button"
@@ -72,8 +67,8 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = props =
               Buy &amp; Sell A Home
             </Heading>
             <p>
-              Within 24 hours, multiple agents will offer less commission to
-              sell your home, or part of their commission to find you a home!
+              Within 24 hours, multiple agents will offer less commission to sell your home, or part
+              of their commission to find you a home!
             </p>
             <Button
               type="button"

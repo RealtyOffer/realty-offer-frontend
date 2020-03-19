@@ -3,13 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
-import {
-  Button,
-  Input,
-  ProgressBar,
-  HorizontalRule,
-  Card,
-} from '../../../components';
+import { Button, Input, ProgressBar, HorizontalRule, Card } from '../../../components';
 import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import statesList from '../../../utils/statesList';
 

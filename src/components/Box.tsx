@@ -31,11 +31,9 @@ const renderShadow = (zindex: number) => {
 
 const StyledBox = styled.div`
   background: ${white};
-  padding: ${(props: BoxProps) =>
-    props.largePadding ? doubleSpacer : baseSpacer};
+  padding: ${(props: BoxProps) => (props.largePadding ? doubleSpacer : baseSpacer)};
   margin-bottom: ${baseSpacer};
-  box-shadow: ${(props: BoxProps) =>
-    props.zindex && renderShadow(props.zindex)};
+  box-shadow: ${(props: BoxProps) => props.zindex && renderShadow(props.zindex)};
   text-align: ${(props: BoxProps) => props.textAlign};
   height: ${(props: BoxProps) =>
     props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`};
@@ -54,17 +52,8 @@ const Box: FunctionComponent<BoxProps> = ({
   largePadding,
   backgroundAccent,
 }) => (
-  <StyledBox
-    textAlign={textAlign}
-    height={height}
-    zindex={zindex}
-    largePadding={largePadding}
-  >
-    {backgroundAccent ? (
-      <StyledBoxBackground>{children}</StyledBoxBackground>
-    ) : (
-      children
-    )}
+  <StyledBox textAlign={textAlign} height={height} zindex={zindex} largePadding={largePadding}>
+    {backgroundAccent ? <StyledBoxBackground>{children}</StyledBoxBackground> : children}
   </StyledBox>
 );
 

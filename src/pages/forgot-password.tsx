@@ -31,14 +31,12 @@ const ForgotPassword: FunctionComponent<LoginProps> = props => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              props.actions
-                .forgotPassword(values)
-                .then((response: ActionResponseType) => {
-                  setSubmitting(false);
-                  if (response && !response.error) {
-                    setSubmitted(true);
-                  }
-                });
+              props.actions.forgotPassword(values).then((response: ActionResponseType) => {
+                setSubmitting(false);
+                if (response && !response.error) {
+                  setSubmitted(true);
+                }
+              });
             }}
           >
             {({ isSubmitting, isValid }) => (
@@ -63,8 +61,8 @@ const ForgotPassword: FunctionComponent<LoginProps> = props => {
         ) : (
           <>
             <Alert type="success">
-              If your email is found, you will receive an email with next steps
-              for resetting your password.
+              If your email is found, you will receive an email with next steps for resetting your
+              password.
             </Alert>
             <Button type="link" to="/login" color="text" block>
               Back to Login

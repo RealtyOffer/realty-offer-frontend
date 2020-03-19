@@ -25,12 +25,9 @@ export const RESEND_SIGNUP_EMAIL_REQUEST = 'RESEND_SIGNUP_EMAIL_REQUEST';
 export const RESEND_SIGNUP_EMAIL_SUCCESS = 'RESEND_SIGNUP_EMAIL_SUCCESS';
 export const RESEND_SIGNUP_EMAIL_FAILURE = 'RESEND_SIGNUP_EMAIL_FAILURE';
 
-export const AUTHENTICATE_CREDENTIALS_REQUEST =
-  'AUTHENTICATE_CREDENTIALS_REQUEST';
-export const AUTHENTICATE_CREDENTIALS_SUCCESS =
-  'AUTHENTICATE_CREDENTIALS_SUCCESS';
-export const AUTHENTICATE_CREDENTIALS_FAILURE =
-  'AUTHENTICATE_CREDENTIALS_FAILURE';
+export const AUTHENTICATE_CREDENTIALS_REQUEST = 'AUTHENTICATE_CREDENTIALS_REQUEST';
+export const AUTHENTICATE_CREDENTIALS_SUCCESS = 'AUTHENTICATE_CREDENTIALS_SUCCESS';
+export const AUTHENTICATE_CREDENTIALS_FAILURE = 'AUTHENTICATE_CREDENTIALS_FAILURE';
 
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
@@ -109,8 +106,7 @@ export default (state: AuthStoreType = initialState, action: any) => {
         hasError: true,
         isLoggedIn: false,
         token: null,
-        message:
-          action.payload.message || 'An error occurred. Please try again.',
+        message: action.payload.message || 'An error occurred. Please try again.',
       };
     case CREATE_USER_FAILURE:
     case VERIFY_EMAIL_FAILURE:
@@ -174,11 +170,7 @@ export const resendSignupEmail = (email: string) => ({
     },
     body: JSON.stringify({ email }),
     skipOauth: true,
-    types: [
-      RESEND_SIGNUP_EMAIL_REQUEST,
-      RESEND_SIGNUP_EMAIL_SUCCESS,
-      RESEND_SIGNUP_EMAIL_FAILURE,
-    ],
+    types: [RESEND_SIGNUP_EMAIL_REQUEST, RESEND_SIGNUP_EMAIL_SUCCESS, RESEND_SIGNUP_EMAIL_FAILURE],
   },
 });
 
@@ -208,11 +200,7 @@ export const forgotPassword = (payload: { email: string }) => ({
     },
     body: JSON.stringify(payload),
     skipOauth: true,
-    types: [
-      FORGOT_PASSWORD_REQUEST,
-      FORGOT_PASSWORD_SUCCESS,
-      FORGOT_PASSWORD_FAILURE,
-    ],
+    types: [FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE],
   },
 });
 
@@ -225,11 +213,7 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
     },
     body: JSON.stringify(payload),
     skipOauth: true,
-    types: [
-      RESET_PASSWORD_REQUEST,
-      RESET_PASSWORD_SUCCESS,
-      RESET_PASSWORD_FAILURE,
-    ],
+    types: [RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE],
   },
 });
 

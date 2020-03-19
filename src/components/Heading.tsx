@@ -2,12 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 
 import { baseSpacer } from '../styles/size';
-import {
-  white,
-  brandPrimary,
-  headingsColor,
-  brandTertiaryHover,
-} from '../styles/color';
+import { white, brandPrimary, headingsColor, brandTertiaryHover } from '../styles/color';
 import {
   fontSizeH1,
   fontSizeH2,
@@ -70,8 +65,7 @@ const StyledHeading = styled.h1`
   font-weight: 300;
   line-height: ${lineHeightSmall};
   color: ${(props: HeadingProps) => (props.inverse ? white : headingsColor)};
-  margin-bottom: ${(props: HeadingProps) =>
-    props.noMargin ? '0' : baseSpacer};
+  margin-bottom: ${(props: HeadingProps) => (props.noMargin ? '0' : baseSpacer)};
   text-align: ${(props: HeadingProps) => props.align};
   white-space: pre-line;
   font-size: ${(props: HeadingProps) => props.as && renderFontSize(props.as)};

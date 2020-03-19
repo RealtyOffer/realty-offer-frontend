@@ -4,9 +4,7 @@ import { addAlert } from '../ducks/globalAlerts';
 
 import { ActionResponseType } from '../constants';
 
-export default (store: { dispatch: Function }) => (next: any) => (
-  action: ActionResponseType,
-) => {
+export default (store: { dispatch: Function }) => (next: any) => (action: ActionResponseType) => {
   if (action && action.payload) {
     if (action.payload.status === 401) {
       // If we've gotten to this point, a request snuck through with a bad token
@@ -15,10 +13,9 @@ export default (store: { dispatch: Function }) => (next: any) => (
 
       return store.dispatch(
         addAlert({
-          message:
-            'You have been logged out because of an error. Please log in again to continue.',
+          message: 'You have been logged out because of an error. Please log in again to continue.',
           type: 'danger',
-        }),
+        })
       );
     }
     if (action.error) {
@@ -32,7 +29,7 @@ export default (store: { dispatch: Function }) => (next: any) => (
                 addAlert({
                   message: error,
                   type: 'danger',
-                }),
+                })
               );
             });
           });
@@ -41,7 +38,7 @@ export default (store: { dispatch: Function }) => (next: any) => (
             addAlert({
               message: action.payload.response.title,
               type: 'danger',
-            }),
+            })
           );
         }
       }
@@ -49,10 +46,9 @@ export default (store: { dispatch: Function }) => (next: any) => (
       if (!action.payload.response) {
         store.dispatch(
           addAlert({
-            message:
-              'An error has occurred on the server. Please try again later.',
+            message: 'An error has occurred on the server. Please try again later.',
             type: 'danger',
-          }),
+          })
         );
       }
       // Finally, return the next action so it continues going

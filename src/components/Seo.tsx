@@ -19,12 +19,7 @@ type SeoType = {
   title?: string;
 };
 
-const Seo: FunctionComponent<SeoType> = ({
-  description,
-  lang,
-  meta,
-  title,
-}) => {
+const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -36,7 +31,7 @@ const Seo: FunctionComponent<SeoType> = ({
           }
         }
       }
-    `,
+    `
   );
 
   const metaDescription = description || site.siteMetadata.description;

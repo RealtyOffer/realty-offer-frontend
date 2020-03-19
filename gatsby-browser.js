@@ -7,4 +7,4 @@
 // You can delete this file if you're not using it
 
 // eslint-disable-next-line import/prefer-default-export
-export { default as wrapRootElement } from './src/redux/ReduxWrapper'
+export { default as wrapRootElement } from './src/redux/ReduxWrapper';

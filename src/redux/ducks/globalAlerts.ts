@@ -28,13 +28,8 @@ export default (state = initialState, action: any) => {
       };
     }
     case CLOSE_GLOBAL_ALERT: {
-      const index = state.alerts.findIndex(
-        (x: any) => x.id === action.payload.id,
-      );
-      const alerts = [
-        ...state.alerts.slice(0, index),
-        ...state.alerts.slice(index + 1),
-      ];
+      const index = state.alerts.findIndex((x: any) => x.id === action.payload.id);
+      const alerts = [...state.alerts.slice(0, index), ...state.alerts.slice(index + 1)];
 
       if (index === -1) {
         return state;

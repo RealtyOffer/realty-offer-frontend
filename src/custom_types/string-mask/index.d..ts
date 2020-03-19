@@ -9,6 +9,6 @@ declare module 'string-mask' {
   export function process(
     value: unknown,
     pattern: string,
-    options?: StringMaskOptions,
+    options?: StringMaskOptions
   ): StringMaskResult;
 }

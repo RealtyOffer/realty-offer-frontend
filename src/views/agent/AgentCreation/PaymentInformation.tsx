@@ -2,13 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
-import {
-  Button,
-  FlexContainer,
-  ProgressBar,
-  HorizontalRule,
-  Card,
-} from '../../../components';
+import { Button, FlexContainer, ProgressBar, HorizontalRule, Card } from '../../../components';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const save = () => {
@@ -23,9 +17,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     >
       <>
         <ProgressBar value={100} label="Step 3/3" name="progress" />
-        <FlexContainer height="300px">
-          iframe for payment gateway goes here
-        </FlexContainer>
+        <FlexContainer height="300px">iframe for payment gateway goes here</FlexContainer>
         <HorizontalRule />
         <Button
           type="button"
