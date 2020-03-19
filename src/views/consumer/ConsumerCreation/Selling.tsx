@@ -29,7 +29,7 @@ type SellingFormValues = {
   sellersState: string;
   sellersZip: string;
   sellersTimeline: string;
-  selleresListingPriceInMind: string;
+  sellersListingPriceInMind: string;
   sellersMortgageBalance: string;
 }
 
@@ -55,7 +55,7 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
     sellersState: 'MI',
     sellersZip: '',
     sellersTimeline: '',
-    selleresListingPriceInMind: '',
+    sellersListingPriceInMind: '',
     sellersMortgageBalance: '',
   };
 
@@ -138,7 +138,7 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
                 <Field
                   as={Input}
                   type="select"
-                  name="selleresListingPriceInMind"
+                    name="sellersListingPriceInMind"
                   label="Do you have a listing price in mind?"
                   validate={requiredField}
                   options={priceRangesList}
