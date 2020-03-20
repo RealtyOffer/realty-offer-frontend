@@ -37,7 +37,6 @@ const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => 
   const metaDescription = description || site.siteMetadata.description;
   return (
     <Helmet
-      // @ts-ignore
       htmlAttributes={{
         lang,
       }}

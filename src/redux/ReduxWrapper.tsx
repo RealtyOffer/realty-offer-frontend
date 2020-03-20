@@ -13,6 +13,7 @@ const { store, persistor } = configureStore(initialState);
 
 Modal.setAppElement('#___gatsby');
 
+// eslint-disable-next-line react/display-name
 export default ({ element }: { element: any }) => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>

@@ -3,6 +3,7 @@ import { RouteComponentProps } from '@reach/router';
 
 import { Button, Card, FlexContainer, Seo } from '../components';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const NotFoundPage = (_: RouteComponentProps) => (
   <>
     <Seo title="404: Not found" />

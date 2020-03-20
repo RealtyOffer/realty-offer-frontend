@@ -4,7 +4,7 @@ import { Link, graphql, StaticQuery } from 'gatsby';
 
 import { Seo, Heading, PreviewCompatibleImage } from '../components';
 
-class BlogRoll extends React.Component {
+class BlogRoll extends React.Component<{ data: any }> {
   render() {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
@@ -13,7 +13,7 @@ class BlogRoll extends React.Component {
       <div className="columns is-multiline">
         <Seo title="Latest Stories" />
         {posts &&
-          posts.map(({ node: post }) => (
+          posts.map(({ node: post }: any) => (
             <div className="is-parent column is-6" key={post.id}>
               <article
                 className={`blog-list-item tile is-child box notification ${
@@ -55,6 +55,7 @@ class BlogRoll extends React.Component {
   }
 }
 
+// eslint-disable-next-line react/display-name
 export default () => (
   <StaticQuery
     query={graphql`

@@ -23,8 +23,18 @@ const AgentApp: FunctionComponent<{}> = () => (
     <BusinessInformation path="/business-information" />
     <PaymentInformation path="/payment-information" />
     <ConfirmPayment path="/confirm-payment" />
-    <PrivateRoute component={NewListings} path="/listings/new" />
-    <PrivateRoute component={AgentProfile} path="/account/profile" />
+    <PrivateRoute
+      component={NewListings}
+      auth={{ isLoggedIn: false } as any}
+      location={null}
+      path="/listings/new"
+    />
+    <PrivateRoute
+      component={AgentProfile as any}
+      auth={{ isLoggedIn: false } as any}
+      location={null}
+      path="/account/profile"
+    />
     <NotFoundPage default />
   </Router>
 );

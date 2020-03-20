@@ -8,7 +8,7 @@ import Button from '../components/Button';
 
 const story = storiesOf('Components', module).addDecorator(centered);
 
-const typeOptions = ['submit', 'button', 'reset', 'link'];
+const typeOptions = ['submit', 'button', 'reset', 'link'] as const;
 const colorOptions = [
   'text',
   'primary',
@@ -17,10 +17,9 @@ const colorOptions = [
   'successOutline',
   'danger',
   'dangerOutline',
-];
+] as const;
 
 story.add('Button', () => (
-  // @ts-ignore
   <Button
     type={select('type', typeOptions, 'button')}
     color={select('color', colorOptions, 'primary')}
