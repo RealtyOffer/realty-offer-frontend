@@ -4,9 +4,7 @@ import { addAlert } from '../ducks/globalAlerts';
 
 import { ActionResponseType } from '../constants';
 
-export default (store: { dispatch: Function }) => (next: any) => (
-  action: ActionResponseType,
-) => {
+export default (store: { dispatch: Function }) => (next: any) => (action: ActionResponseType) => {
   if (action && action.payload) {
     if (action.payload.status === 401) {
       // If we've gotten to this point, a request snuck through with a bad token
@@ -17,7 +15,7 @@ export default (store: { dispatch: Function }) => (next: any) => (
         addAlert({
           message: 'You have been logged out because of an error. Please log in again to continue.',
           type: 'danger',
-        }),
+        })
       );
     }
     if (action.error) {
@@ -25,13 +23,13 @@ export default (store: { dispatch: Function }) => (next: any) => (
       // so first add an alert for each error message in the response
       if (action.payload.response) {
         if (action.payload.response.errors) {
-          Object.values(action.payload.response.errors).forEach((errorObject) => {
+          Object.values(action.payload.response.errors).forEach(errorObject => {
             Object.values(errorObject).forEach((error: string) => {
               store.dispatch(
                 addAlert({
                   message: error,
                   type: 'danger',
-                }),
+                })
               );
             });
           });
@@ -40,7 +38,7 @@ export default (store: { dispatch: Function }) => (next: any) => (
             addAlert({
               message: action.payload.response.title,
               type: 'danger',
-            }),
+            })
           );
         }
       }
@@ -50,7 +48,7 @@ export default (store: { dispatch: Function }) => (next: any) => (
           addAlert({
             message: 'An error has occurred on the server. Please try again later.',
             type: 'danger',
-          }),
+          })
         );
       }
       // Finally, return the next action so it continues going

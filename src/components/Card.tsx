@@ -10,7 +10,7 @@ type CardProps = {
   cardTitle: string;
   cardSubtitle?: string;
   children: any;
-}
+};
 
 const Card = (props: CardProps) => (
   <Row>
@@ -18,12 +18,14 @@ const Card = (props: CardProps) => (
       <div>
         <Box backgroundAccent>
           <FlexContainer flexDirection="column">
-            <Heading styledAs="title" align="center">{props.cardTitle}</Heading>
-            {
-              props.cardSubtitle && (
-                <Heading as="h2" styledAs="subtitle" align="center">{props.cardSubtitle}</Heading>
-              )
-            }
+            <Heading styledAs="title" align="center">
+              {props.cardTitle}
+            </Heading>
+            {props.cardSubtitle && (
+              <Heading as="h2" styledAs="subtitle" align="center">
+                {props.cardSubtitle}
+              </Heading>
+            )}
           </FlexContainer>
           {props.children}
         </Box>

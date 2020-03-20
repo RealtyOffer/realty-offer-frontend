@@ -1,4 +1,3 @@
-
 /**
  * SEO component that queries for data with
  *  Gatsby's useStaticQuery React hook
@@ -18,11 +17,9 @@ type SeoType = {
     name: string;
   }>;
   title?: string;
-}
+};
 
-const Seo: FunctionComponent<SeoType> = ({
-  description, lang, meta, title,
-}) => {
+const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -34,13 +31,12 @@ const Seo: FunctionComponent<SeoType> = ({
           }
         }
       }
-    `,
+    `
   );
 
   const metaDescription = description || site.siteMetadata.description;
   return (
     <Helmet
-      // @ts-ignore
       htmlAttributes={{
         lang,
       }}

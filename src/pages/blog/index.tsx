@@ -6,9 +6,7 @@ import BlogRoll from '../../templates/BlogRoll';
 const BlogIndexPage = () => (
   <>
     <div>
-      <Heading>
-        Latest Stories
-      </Heading>
+      <Heading>Latest Stories</Heading>
     </div>
     <section>
       <Box largePadding>

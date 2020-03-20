@@ -1,9 +1,10 @@
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { Link, graphql, StaticQuery } from 'gatsby';
 
 import { Seo, Heading, PreviewCompatibleImage } from '../components';
 
-class BlogRoll extends React.Component {
+class BlogRoll extends React.Component<{ data: any }> {
   render() {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
@@ -11,8 +12,8 @@ class BlogRoll extends React.Component {
     return (
       <div className="columns is-multiline">
         <Seo title="Latest Stories" />
-        {posts
-          && posts.map(({ node: post }) => (
+        {posts &&
+          posts.map(({ node: post }: any) => (
             <div className="is-parent column is-6" key={post.id}>
               <article
                 className={`blog-list-item tile is-child box notification ${
@@ -31,16 +32,11 @@ class BlogRoll extends React.Component {
                     </div>
                   ) : null}
                   <p className="post-meta">
-                    <Link
-                      className="title has-text-primary is-size-4"
-                      to={post.fields.slug}
-                    >
+                    <Link className="title has-text-primary is-size-4" to={post.fields.slug}>
                       {post.frontmatter.title}
                     </Link>
                     <span> &bull; </span>
-                    <span className="subtitle is-size-5 is-block">
-                      {post.frontmatter.date}
-                    </span>
+                    <span className="subtitle is-size-5 is-block">{post.frontmatter.date}</span>
                   </p>
                 </Heading>
                 <p>
@@ -59,6 +55,7 @@ class BlogRoll extends React.Component {
   }
 }
 
+// eslint-disable-next-line react/display-name
 export default () => (
   <StaticQuery
     query={graphql`

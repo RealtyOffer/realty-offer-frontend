@@ -7,7 +7,8 @@
     "lib": [
       "dom",
       "es2015",
-      "es2017"
+      "es2017",
+      "ESNext"
     ], // "allowJs": true,                       /* Allow javascript files to be compiled. */ // "checkJs": true,                       /* Report errors in .js files. */
     /* Specify library files to be included in the compilation. */
     "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
@@ -27,12 +28,14 @@
       "stories"
     ],
     "baseUrl": "src",
-    "typeRoots": ["./node_modules/@types", "./custom_types"]
+    "typeRoots": ["./node_modules/@types", "./custom_types"],
+    "esModuleInterop": true
   },
   "include": [
     "./src/**/*"
   ],
   "exclude": [
     "./storybook/**/*",
+    "*.test.js"
   ]
 }

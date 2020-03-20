@@ -18,9 +18,9 @@ export type ActionResponseType = {
     response: {
       errors: {
         [key: string]: string;
-      },
+      };
       title: string;
       errorCode: string;
-    },
-  },
-}
+    };
+  };
+};

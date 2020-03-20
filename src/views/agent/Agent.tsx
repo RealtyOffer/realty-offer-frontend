@@ -8,13 +8,27 @@ import { Heading } from '../../components';
 const Agent: FunctionComponent<RouteComponentProps> = () => (
   <>
     <Heading>Agent</Heading>
-    <p><Link to="/agent/sign-up">Sign Up</Link></p>
-    <p><Link to="/agent/verify-email">Verify Email</Link></p>
-    <p><Link to="/agent/agent-information">Agent Information</Link></p>
-    <p><Link to="/agent/business-information">Business Information</Link></p>
-    <p><Link to="/agent/payment-information">Payment Information</Link></p>
-    <p><Link to="/agent/confirm-payment">Confirm Payment</Link></p>
-    <p><Link to="/agent/account/profile">Profile</Link></p>
+    <p>
+      <Link to="/agent/sign-up">Sign Up</Link>
+    </p>
+    <p>
+      <Link to="/agent/verify-email">Verify Email</Link>
+    </p>
+    <p>
+      <Link to="/agent/agent-information">Agent Information</Link>
+    </p>
+    <p>
+      <Link to="/agent/business-information">Business Information</Link>
+    </p>
+    <p>
+      <Link to="/agent/payment-information">Payment Information</Link>
+    </p>
+    <p>
+      <Link to="/agent/confirm-payment">Confirm Payment</Link>
+    </p>
+    <p>
+      <Link to="/agent/account/profile">Profile</Link>
+    </p>
   </>
 );
 

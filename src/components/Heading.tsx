@@ -2,9 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 
 import { baseSpacer } from '../styles/size';
-import {
-  white, brandPrimary, headingsColor, brandTertiaryHover,
-} from '../styles/color';
+import { white, brandPrimary, headingsColor, brandTertiaryHover } from '../styles/color';
 import {
   fontSizeH1,
   fontSizeH2,
@@ -22,7 +20,7 @@ type HeadingProps = {
   align?: 'left' | 'center' | 'right';
   children: string;
   styledAs?: 'title' | 'subtitle' | null;
-}
+};
 
 const renderFontSize = (as: HeadingProps['as']) => {
   if (as === 'h1') {
@@ -48,10 +46,17 @@ const renderFontSize = (as: HeadingProps['as']) => {
 
 const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
   if (styledAs === 'title') {
-    return css`color: ${brandPrimary}; font-weight: 700;`;
+    return css`
+      color: ${brandPrimary};
+      font-weight: 700;
+    `;
   }
   if (styledAs === 'subtitle') {
-    return css`color: ${brandTertiaryHover}; font-weight: 700; font-size: ${fontSizeH4};`;
+    return css`
+      color: ${brandTertiaryHover};
+      font-weight: 700;
+      font-size: ${fontSizeH4};
+    `;
   }
   return null;
 };

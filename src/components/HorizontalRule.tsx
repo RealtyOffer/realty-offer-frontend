@@ -5,7 +5,7 @@ import { halfSpacer, baseSpacer } from '../styles/size';
 import { baseBorderStyle } from '../styles/mixins';
 
 type HRProps = {
-  compact?: boolean,
+  compact?: boolean;
 };
 
 const StyledHorizontalRule = styled.hr`

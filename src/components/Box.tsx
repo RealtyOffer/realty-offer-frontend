@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 import { baseSpacer, doubleSpacer } from '../styles/size';
 import { white, brandPrimaryAccentLight } from '../styles/color';
-import {
-  z1Shadow, z2Shadow, z3Shadow, z4Shadow,
-} from '../styles/mixins';
+import { z1Shadow, z2Shadow, z3Shadow, z4Shadow } from '../styles/mixins';
 
 type BoxProps = {
   textAlign?: 'center' | 'left' | 'right';
@@ -13,7 +11,7 @@ type BoxProps = {
   zindex?: 1 | 2 | 3 | 4;
   largePadding?: boolean;
   backgroundAccent?: boolean;
-}
+};
 
 const renderShadow = (zindex: number) => {
   if (zindex === 1) {
@@ -37,7 +35,8 @@ const StyledBox = styled.div`
   margin-bottom: ${baseSpacer};
   box-shadow: ${(props: BoxProps) => props.zindex && renderShadow(props.zindex)};
   text-align: ${(props: BoxProps) => props.textAlign};
-  height: ${(props: BoxProps) => (props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`)};
+  height: ${(props: BoxProps) =>
+    props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`};
 `;
 
 const StyledBoxBackground = styled.div`
@@ -46,18 +45,15 @@ const StyledBoxBackground = styled.div`
 `;
 
 const Box: FunctionComponent<BoxProps> = ({
-  textAlign, height, zindex, children, largePadding, backgroundAccent,
+  textAlign,
+  height,
+  zindex,
+  children,
+  largePadding,
+  backgroundAccent,
 }) => (
-  <StyledBox
-    textAlign={textAlign}
-    height={height}
-    zindex={zindex}
-    largePadding={largePadding}
-  >
-    {
-      backgroundAccent ?
-        <StyledBoxBackground>{children}</StyledBoxBackground> : children
-    }
+  <StyledBox textAlign={textAlign} height={height} zindex={zindex} largePadding={largePadding}>
+    {backgroundAccent ? <StyledBoxBackground>{children}</StyledBoxBackground> : children}
   </StyledBox>
 );
 

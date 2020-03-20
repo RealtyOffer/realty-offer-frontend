@@ -6,15 +6,7 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Button,
-  Card,
-  Input,
-  Seo,
-  Column,
-  Row,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 
 import languagesList from '../../../utils/languagesList';
@@ -24,15 +16,15 @@ import UnsavedChangesModal from './UnsavedChangesModal';
 type SpecialRequestsFormValues = {
   otherLanguage: string;
   genderPreference: string;
-}
+};
 
 type SpecialRequestsProps = {
   actions: {
     captureConsumerData: Function;
-  }
-} & RouteComponentProps
+  };
+} & RouteComponentProps;
 
-const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
+const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: SpecialRequestsFormValues = {
@@ -54,14 +46,12 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={(values) => {
+          onSubmit={values => {
             props.actions.captureConsumerData(values);
             navigate('/consumer/sign-up');
           }}
         >
-          {({
-            values, isSubmitting, isValid, ...rest
-          }) => (
+          {({ values, isSubmitting, isValid, ...rest }) => (
             <Form>
               <Field
                 as={Input}
@@ -116,9 +106,6 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
   );
 };
 
-export default connect(
-  null,
-  (dispatch) => ({
-    actions: bindActionCreators({ captureConsumerData }, dispatch),
-  }),
-)(SpecialRequests);
+export default connect(null, dispatch => ({
+  actions: bindActionCreators({ captureConsumerData }, dispatch),
+}))(SpecialRequests);

@@ -6,29 +6,28 @@ import { select, boolean, text } from '@storybook/addon-knobs';
 
 import Button from '../components/Button';
 
-const story = storiesOf('Components', module)
-  .addDecorator(centered);
+const story = storiesOf('Components', module).addDecorator(centered);
 
-const typeOptions = [
-  'submit', 'button', 'reset', 'link',
-];
+const typeOptions = ['submit', 'button', 'reset', 'link'] as const;
 const colorOptions = [
-  'text', 'primary', 'primaryOutline', 'success', 'successOutline', 'danger', 'dangerOutline',
-];
+  'text',
+  'primary',
+  'primaryOutline',
+  'success',
+  'successOutline',
+  'danger',
+  'dangerOutline',
+] as const;
 
-story.add(
-  'Button',
-  () => (
-    // @ts-ignore
-    <Button
-      type={select('type', typeOptions, 'button')}
-      color={select('color', colorOptions, 'primary')}
-      rightspacer={boolean('rightspacer', false)}
-      onClick={action('button-click')}
-      to={text('to (for type=link)', '/home')}
-      disabled={boolean('disabled', false)}
-    >
-      {text('children', 'Button')}
-    </Button>
-  ),
-);
+story.add('Button', () => (
+  <Button
+    type={select('type', typeOptions, 'button')}
+    color={select('color', colorOptions, 'primary')}
+    rightspacer={boolean('rightspacer', false)}
+    onClick={action('button-click')}
+    to={text('to (for type=link)', '/home')}
+    disabled={boolean('disabled', false)}
+  >
+    {text('children', 'Button')}
+  </Button>
+));

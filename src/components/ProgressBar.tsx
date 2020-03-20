@@ -8,7 +8,7 @@ type ProgressBarProps = {
   value: number;
   name: string;
   label: string;
-}
+};
 
 const StyledProgressBar = styled.progress`
   display: none;
@@ -24,7 +24,7 @@ const StyledTrack = styled.div`
 const StyledBar = styled.div<{ value: number }>`
   position: absolute;
   height: ${halfSpacer};
-  width: ${(props) => `${props.value}%`};
+  width: ${props => `${props.value}%`};
   background-color: ${brandPrimary};
 `;
 
@@ -33,9 +33,7 @@ const StyledLabel = styled.label`
   margin-bottom: ${baseSpacer};
 `;
 
-const ProgressBar: FunctionComponent<ProgressBarProps> = ({
-  name, value, label,
-}) => (
+const ProgressBar: FunctionComponent<ProgressBarProps> = ({ name, value, label }) => (
   <>
     <StyledTrack>
       <StyledBar value={value} />

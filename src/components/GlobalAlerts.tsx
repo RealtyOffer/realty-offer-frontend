@@ -8,15 +8,15 @@ import Alert from './Alert';
 import { closeAlert } from '../redux/ducks/globalAlerts';
 
 type Props = {
-  globalAlerts: any,
+  globalAlerts: any;
   actions: {
-    closeAlert: Function,
-  },
+    closeAlert: Function;
+  };
 };
 
 type State = {
-  animateIn: boolean,
-  animateOut: boolean,
+  animateIn: boolean;
+  animateOut: boolean;
 };
 
 const AnimateInKeyframes = keyframes`
@@ -38,16 +38,16 @@ const AnimateOutKeyframes = keyframes`
 `;
 
 type StyleProps = {
-  entering: boolean,
-  exiting: boolean,
+  entering: boolean;
+  exiting: boolean;
 };
 
 const inAnimation = () => css`
-  animation: ${AnimateInKeyframes} .5s ease-in-out 1;
+  animation: ${AnimateInKeyframes} 0.5s ease-in-out 1;
 `;
 
 const outAnimation = () => css`
-  animation: ${AnimateOutKeyframes} .5s ease-in-out 1;
+  animation: ${AnimateOutKeyframes} 0.5s ease-in-out 1;
 `;
 
 const GlobalAlertWrapper = styled.div`
@@ -74,16 +74,14 @@ class GlobalAlerts extends Component<Props, State> {
 
   componentDidUpdate(previousProps: Props) {
     const {
-      globalAlerts: {
-        currentAlert,
-        alerts,
-      },
+      globalAlerts: { currentAlert, alerts },
     } = this.props;
 
     // alert recently added the first alert or we recently closed one
-    if (alerts.length > 0 &&
+    if (
+      alerts.length > 0 &&
       ((previousProps.globalAlerts.alerts.length === 0 && alerts.length === 1) ||
-        (previousProps.globalAlerts.alerts.length > alerts.length))
+        previousProps.globalAlerts.alerts.length > alerts.length)
     ) {
       this.startAnimation();
       // self closing alerts need to close themselves
@@ -100,56 +98,52 @@ class GlobalAlerts extends Component<Props, State> {
       animateIn: true,
       animateOut: false,
     });
-  }
+  };
 
   endAnimation = () => {
     this.setState({
       animateIn: false,
       animateOut: true,
     });
-  }
+  };
 
   dismissAlert = (currentAlert: any) => {
     this.endAnimation();
-    setTimeout(() => { // give time for animation to finish before removing from store
+    setTimeout(() => {
+      // give time for animation to finish before removing from store
       this.props.actions.closeAlert(currentAlert);
     }, 500);
-  }
+  };
 
   render() {
     const {
-      globalAlerts: {
-        currentAlert,
-        alerts,
-      },
+      globalAlerts: { currentAlert, alerts },
     } = this.props;
 
     return (
-      <GlobalAlertWrapper
-        entering={this.state.animateIn}
-        exiting={this.state.animateOut}
-      >
-        {
-          currentAlert && currentAlert.id && (
-            <Alert
-              key={`alert-${currentAlert.id}`}
-              type={currentAlert.type}
-              close={() => this.dismissAlert(currentAlert)}
-              dismissable={currentAlert.dismissable}
-              alertNumber={1}
-              alertNumberTotal={alerts.length}
-            >
-              {currentAlert.message || 'An error occurred. Please try again.'}
-            </Alert>
-          )
-}
+      <GlobalAlertWrapper entering={this.state.animateIn} exiting={this.state.animateOut}>
+        {currentAlert && currentAlert.id && (
+          <Alert
+            key={`alert-${currentAlert.id}`}
+            type={currentAlert.type}
+            close={() => this.dismissAlert(currentAlert)}
+            dismissable={currentAlert.dismissable}
+            alertNumber={1}
+            alertNumberTotal={alerts.length}
+          >
+            {currentAlert.message || 'An error occurred. Please try again.'}
+          </Alert>
+        )}
       </GlobalAlertWrapper>
     );
   }
 }
 
-export default connect((state) => ({
-  globalAlerts: state.globalAlerts,
-}), (dispatch) => ({
-  actions: bindActionCreators({ closeAlert }, dispatch),
-}))(GlobalAlerts);
+export default connect(
+  state => ({
+    globalAlerts: (state as any).globalAlerts,
+  }),
+  dispatch => ({
+    actions: bindActionCreators({ closeAlert }, dispatch),
+  })
+)(GlobalAlerts);

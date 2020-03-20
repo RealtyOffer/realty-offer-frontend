@@ -33,21 +33,18 @@ const alignOptions = [
 
 const wrapOptions = ['wrap', 'nowrap'] as const;
 
-story.add(
-  'FlexContainer',
-  () => (
-    <FlexContainer
-      flexDirection={select('flexDirection', directionOptions, 'row')}
-      justifyContent={select('justifyContent', justifyOptions, 'center')}
-      alignItems={select('alignItems', alignOptions, 'center')}
-      flexWrap={select('flexWrap', wrapOptions, 'wrap')}
-      height={text('height in px', '0px')}
-    >
-      <div>Item One</div>
-      <div>Item Two</div>
-      <div>Item Three</div>
-      <div>Item Four</div>
-      <div>Item Five</div>
-    </FlexContainer>
-  ),
-);
+story.add('FlexContainer', () => (
+  <FlexContainer
+    flexDirection={select('flexDirection', directionOptions, 'row')}
+    justifyContent={select('justifyContent', justifyOptions, 'center')}
+    alignItems={select('alignItems', alignOptions, 'center')}
+    flexWrap={select('flexWrap', wrapOptions, 'wrap')}
+    height={text('height in px', '0px')}
+  >
+    <div>Item One</div>
+    <div>Item Two</div>
+    <div>Item Three</div>
+    <div>Item Four</div>
+    <div>Item Five</div>
+  </FlexContainer>
+));

@@ -2,9 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { FaUserCircle } from 'react-icons/fa';
 
-import {
-  baseAndAHalfSpacer, doubleSpacer, tripleSpacer, quadrupleSpacer,
-} from '../styles/size';
+import { baseAndAHalfSpacer, doubleSpacer, tripleSpacer, quadrupleSpacer } from '../styles/size';
 import { baseBorderStyle } from '../styles/mixins';
 
 type AvatarProps = {
@@ -32,7 +30,7 @@ const AvatarImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   height: ${(props: { size: AvatarProps['size'] }) => props.size && renderSize(props.size)};
-  width: ${(props: { size: AvatarProps['size']}) => props.size && renderSize(props.size)};
+  width: ${(props: { size: AvatarProps['size'] }) => props.size && renderSize(props.size)};
   border: ${baseBorderStyle};
 `;
 
@@ -43,15 +41,9 @@ const StyledAvatar = styled.div`
   vertical-align: middle;
 `;
 
-const Avatar: FunctionComponent<AvatarProps> = (props) => {
+const Avatar: FunctionComponent<AvatarProps> = props => {
   if (props.src) {
-    return (
-      <AvatarImage
-        src={props.src}
-        size={props.size}
-        alt=""
-      />
-    );
+    return <AvatarImage src={props.src} size={props.size} alt="" />;
   }
   if (!props.src) {
     return (

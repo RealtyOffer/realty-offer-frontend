@@ -1,7 +1,5 @@
 {
-  "plugins": [
-    "import"
-  ],
+  "plugins": ["import"],
   "parser": "@typescript-eslint/parser",
   "rules": {
     "strict": 0,
@@ -16,28 +14,25 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".tsx"
-        ]
+        "extensions": [".js", ".tsx"]
       }
     ],
-    "import/extensions": [
-      0,
-      "never"
-    ]
+    "import/extensions": [0, "never"],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-function": "off"
   },
   "extends": [
-    "eslint:recommended",
+    "airbnb",
     "plugin:react/recommended",
-    "airbnb"
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    "plugin:prettier/recommended",
+    "prettier/react"
   ],
   "settings": {
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       // use <root>/tsconfig.json
@@ -47,6 +42,7 @@
     }
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   }
 }

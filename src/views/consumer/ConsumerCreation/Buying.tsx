@@ -6,15 +6,7 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Button,
-  Card,
-  Input,
-  Seo,
-  Column,
-  Row,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
 import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
 
 import { requiredField } from '../../../utils/validations';
@@ -26,7 +18,7 @@ type BuyingFormValues = {
   buyingPriceRange: string;
   freeMortgageConsult: boolean;
   preApproved: boolean;
-}
+};
 
 const citiesList = [
   { value: 'Plymouth', label: 'Plymouth' },
@@ -38,11 +30,11 @@ const citiesList = [
 type BuyingProps = {
   actions: {
     captureConsumerData: Function;
-  }
-  consumer: ConsumerStoreType,
-} & RouteComponentProps
+  };
+  consumer: ConsumerStoreType;
+} & RouteComponentProps;
 
-const Buying: FunctionComponent<BuyingProps> = (props) => {
+const Buying: FunctionComponent<BuyingProps> = props => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: BuyingFormValues = {
@@ -67,16 +59,16 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
           <Formik
             validateOnMount
             initialValues={initialValues}
-            onSubmit={(values) => {
+            onSubmit={values => {
               props.actions.captureConsumerData(values);
-              navigate(props.consumer.signupData.consumerType === 'buyerSeller' ?
-                '/consumer/selling' :
-                '/consumer/special-requests');
+              navigate(
+                props.consumer.signupData.consumerType === 'buyerSeller'
+                  ? '/consumer/selling'
+                  : '/consumer/special-requests'
+              );
             }}
           >
-            {({
-              values, isSubmitting, isValid, ...rest
-            }) => (
+            {({ values, isSubmitting, isValid, ...rest }) => (
               <Form>
                 <Field
                   as={Input}
@@ -150,10 +142,10 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
 };
 
 export default connect(
-  (state) => ({
-    consumer: state.consumer,
+  state => ({
+    consumer: (state as any).consumer,
   }),
-  (dispatch) => ({
+  dispatch => ({
     actions: bindActionCreators({ captureConsumerData }, dispatch),
-  }),
+  })
 )(Buying);

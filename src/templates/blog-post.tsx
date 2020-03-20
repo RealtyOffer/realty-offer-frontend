@@ -31,9 +31,7 @@ export const BlogPostTemplate = ({
         <div className="container content">
           <div className="columns">
             <div className="column is-10 is-offset-1">
-              <Heading>
-                {title}
-              </Heading>
+              <Heading>{title}</Heading>
               <p>{description}</p>
               <PostContent content={content} />
               {tags && tags.length ? (
@@ -56,23 +54,21 @@ export const BlogPostTemplate = ({
   );
 };
 
-const BlogPost = ({ data }: { data: any}) => {
+const BlogPost = ({ data }: { data: any }) => {
   const { markdownRemark: post } = data;
+  const helmet = (
+    <Helmet titleTemplate="%s | Realty Offer Blog">
+      <title>{post.frontmatter.title}</title>
+      <meta name="description" content={`${post.frontmatter.description}`} />
+    </Helmet>
+  );
 
   return (
     <BlogPostTemplate
       content={post.html}
       contentComponent={HTMLContent}
       description={post.frontmatter.description}
-      helmet={(
-        <Helmet titleTemplate="%s | Realty Offer Blog">
-          <title>{post.frontmatter.title}</title>
-          <meta
-            name="description"
-            content={`${post.frontmatter.description}`}
-          />
-        </Helmet>
-      )}
+      helmet={helmet}
       tags={post.frontmatter.tags}
       title={post.frontmatter.title}
     />

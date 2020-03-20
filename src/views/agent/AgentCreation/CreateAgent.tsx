@@ -1,20 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import {
-  Formik, Field, Form, FormikProps,
-} from 'formik';
+import { Formik, Field, Form, FormikProps } from 'formik';
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 
-import {
-  Button,
-  Input,
-  Row,
-  Card,
-  Column,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Input, Row, Card, Column, HorizontalRule } from '../../../components';
 
 import {
   requiredEmail,
@@ -29,10 +20,10 @@ import { ActionResponseType } from '../../../redux/constants';
 type Props = {
   actions: {
     createUser: Function;
-  }
-} & RouteComponentProps
+  };
+} & RouteComponentProps;
 
-const CreateAgent: FunctionComponent<Props> = (props) => {
+const CreateAgent: FunctionComponent<Props> = props => {
   const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',
@@ -44,24 +35,23 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
   const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
 
   return (
-    <Card
-      cardTitle="Sign Up!"
-      cardSubtitle="Tell Us About Yourself"
-    >
+    <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
       <>
         <Formik
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            props.actions.createUser({
-              ...values,
-              phoneNumber: reformattedPhone(values.phoneNumber),
-            }).then((response: ActionResponseType) => {
-              setSubmitting(false);
-              if (response && !response.error) {
-                navigate('/agent/verify-email');
-              }
-            });
+            props.actions
+              .createUser({
+                ...values,
+                phoneNumber: reformattedPhone(values.phoneNumber),
+              })
+              .then((response: ActionResponseType) => {
+                setSubmitting(false);
+                if (response && !response.error) {
+                  navigate('/agent/verify-email');
+                }
+              });
           }}
         >
           {(formikProps: FormikProps<any>) => (
@@ -109,7 +99,11 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
                 validate={requiredPassword}
               />
               <HorizontalRule />
-              <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
+              <Button
+                type="submit"
+                disabled={formikProps.isSubmitting || !formikProps.isValid}
+                block
+              >
                 Create Account
               </Button>
             </Form>
@@ -123,9 +117,6 @@ const CreateAgent: FunctionComponent<Props> = (props) => {
   );
 };
 
-export default connect(
-  null,
-  (dispatch) => ({
-    actions: bindActionCreators({ createUser }, dispatch),
-  }),
-)(CreateAgent);
+export default connect(null, dispatch => ({
+  actions: bindActionCreators({ createUser }, dispatch),
+}))(CreateAgent);

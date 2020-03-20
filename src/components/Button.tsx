@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'gatsby';
 
-import {
-  baseSpacer, baseAndAHalfSpacer, borderWidth, halfSpacer,
-} from '../styles/size';
+import { baseSpacer, baseAndAHalfSpacer, borderWidth, halfSpacer } from '../styles/size';
 import { fontFamilySansSerif, fontSizeBase } from '../styles/typography';
 import {
   brandPrimary,
@@ -19,7 +17,14 @@ import { disabledStyle } from '../styles/mixins';
 
 type ButtonProps = {
   type: 'submit' | 'button' | 'reset' | 'link';
-  color?: 'text' | 'primary' | 'primaryOutline' | 'success' | 'successOutline' | 'danger' | 'dangerOutline';
+  color?:
+    | 'text'
+    | 'primary'
+    | 'primaryOutline'
+    | 'success'
+    | 'successOutline'
+    | 'danger'
+    | 'dangerOutline';
   rightspacer?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
   to?: string;
@@ -117,7 +122,7 @@ const textButtonStyles = `
 const allStyles = css`
   position: relative;
   display: inline-flex;
-  ${(props: ButtonProps) => (props.block && 'width: 100%;')}
+  ${(props: ButtonProps) => props.block && 'width: 100%;'}
   font-family: ${fontFamilySansSerif};
   font-size: ${fontSizeBase};
   justify-content: center;
@@ -135,24 +140,25 @@ const allStyles = css`
   text-decoration: none;
   
   /* Color */
-  ${(props: ButtonProps) => (props.color === 'primary' && primaryButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'primaryOutline' && primaryOutlineButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'danger' && dangerButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'dangerOutline' && dangerOutlineButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'success' && successButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'successOutline' && successOutlineButtonStyles)}
-  ${(props: ButtonProps) => (props.color === 'text' && textButtonStyles)}
+  ${(props: ButtonProps) => props.color === 'primary' && primaryButtonStyles}
+  ${(props: ButtonProps) => props.color === 'primaryOutline' && primaryOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'danger' && dangerButtonStyles}
+  ${(props: ButtonProps) => props.color === 'dangerOutline' && dangerOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'success' && successButtonStyles}
+  ${(props: ButtonProps) => props.color === 'successOutline' && successOutlineButtonStyles}
+  ${(props: ButtonProps) => props.color === 'text' && textButtonStyles}
 
   /* Disabled - specific color variations */
-  ${(props: ButtonProps) => ((props.color === 'primary' && props.disabled) && primaryDisabledStyles)}
-  ${(props: ButtonProps) => ((props.color === 'primaryOutline' && props.disabled) && primaryOutlinedDisabledStyles)}
-  ${(props: ButtonProps) => ((props.color === 'text' && props.disabled) && textDisabledStyles)}
+  ${(props: ButtonProps) => props.color === 'primary' && props.disabled && primaryDisabledStyles}
+  ${(props: ButtonProps) =>
+    props.color === 'primaryOutline' && props.disabled && primaryOutlinedDisabledStyles}
+  ${(props: ButtonProps) => props.color === 'text' && props.disabled && textDisabledStyles}
 
   /* Disabled state for all other variations: adds opacity and cursor/pointer-events styling */
-  ${(props: ButtonProps) => (props.disabled && disabledStyle)}
+  ${(props: ButtonProps) => props.disabled && disabledStyle}
 
   /* When button is next to other items, use rightspacer give them some breathing room */
-  ${(props: ButtonProps) => (props.rightspacer && `margin-right: ${baseSpacer};`)}
+  ${(props: ButtonProps) => props.rightspacer && `margin-right: ${baseSpacer};`}
   
   &:active,
   &:focus {
@@ -179,7 +185,7 @@ const StyledLink = styled.div`
 
     &:hover,
     &:focus {
-    color: inherit;
+      color: inherit;
     }
   }
 `;
@@ -198,7 +204,16 @@ class Button extends Component<ButtonProps> {
 
   render() {
     const {
-      color, rightspacer, to, children, type, onClick, disabled, iconLeft, iconRight, block,
+      color,
+      rightspacer,
+      to,
+      children,
+      type,
+      onClick,
+      disabled,
+      iconLeft,
+      iconRight,
+      block,
     } = this.props;
     let contentToRender;
 
@@ -213,11 +228,7 @@ class Button extends Component<ButtonProps> {
             type={type}
           >
             <Link to={to}>
-              {iconLeft}
-              {' '}
-              {children}
-              {' '}
-              {iconRight}
+              {iconLeft} {children} {iconRight}
             </Link>
           </StyledLink>
         );
@@ -235,11 +246,7 @@ class Button extends Component<ButtonProps> {
             disabled={disabled}
             block={block}
           >
-            {iconLeft}
-            {' '}
-            {children}
-            {' '}
-            {iconRight}
+            {iconLeft} {children} {iconRight}
           </StyledButton>
         );
         break;

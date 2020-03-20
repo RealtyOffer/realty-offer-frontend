@@ -8,7 +8,6 @@ export const lightestGray = '#E3E8E9';
 export const offWhite = '#FAFBFE';
 export const white = '#ffffff';
 
-
 // Add new colors named after their color here,
 // and then assign to an abstract variable in the next group
 // DO NOT USE THESE IN ANY OTHER FILE BUT THIS ONE!!!

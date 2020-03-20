@@ -11,24 +11,21 @@ const TagsPage = ({
       siteMetadata: { title },
     },
   },
+}: {
+  data: any;
 }) => (
   <>
     <section className="section">
       <Helmet title={`Tags | ${title}`} />
       <div className="container content">
         <div className="columns">
-          <div
-            className="column is-10 is-offset-1"
-            style={{ marginBottom: '6rem' }}
-          >
+          <div className="column is-10 is-offset-1" style={{ marginBottom: '6rem' }}>
             <Heading>Tags</Heading>
             <ul className="taglist">
-              {group.map((tag) => (
+              {group.map((tag: any) => (
                 <li key={tag.fieldValue}>
                   <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                    {tag.fieldValue}
-                    {' '}
-                    {`(${tag.totalCount})`}
+                    {tag.fieldValue} {`(${tag.totalCount})`}
                   </Link>
                 </li>
               ))}

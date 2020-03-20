@@ -1,10 +1,5 @@
-import {
-  borderWidth, quarterSpacer, halfSpacer, baseSpacer, doubleSpacer,
-} from './size';
-import {
-  borderColor,
-  lightestGray,
-} from './color';
+import { borderWidth, quarterSpacer, halfSpacer, baseSpacer, doubleSpacer } from './size';
+import { borderColor, lightestGray } from './color';
 
 export const baseBorderStyle = `${borderWidth} solid ${borderColor}`;
 export const baseBorderLightStyle = `${borderWidth} solid ${lightestGray}`;

@@ -9,8 +9,6 @@ export const HTMLContent = ({ className, content }: ContentType) => (
   <div className={className} dangerouslySetInnerHTML={{ __html: content }} />
 );
 
-const Content = ({ className, content }: ContentType) => (
-  <div className={className}>{content}</div>
-);
+const Content = ({ className, content }: ContentType) => <div className={className}>{content}</div>;
 
 export default Content;

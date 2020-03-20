@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 // eslint-disable-next-line import/no-cycle
 import { AUTHENTICATE_CREDENTIALS_SUCCESS, LOGOUT_REQUEST } from './auth';
@@ -11,10 +11,7 @@ export const initialState = {
   currentAlert: null,
 };
 
-export default (
-  state = initialState,
-  action: any,
-) => {
+export default (state = initialState, action: any) => {
   switch (action.type) {
     case LOGOUT_REQUEST:
     case AUTHENTICATE_CREDENTIALS_SUCCESS:
@@ -23,10 +20,7 @@ export default (
       // eslint-disable-next-line
       action.payload.id = action.payload.id || uuidv4();
 
-      const alerts = [
-        ...state.alerts,
-        action.payload,
-      ];
+      const alerts = [...state.alerts, action.payload];
 
       return {
         alerts,
@@ -35,10 +29,7 @@ export default (
     }
     case CLOSE_GLOBAL_ALERT: {
       const index = state.alerts.findIndex((x: any) => x.id === action.payload.id);
-      const alerts = [
-        ...state.alerts.slice(0, index),
-        ...state.alerts.slice(index + 1),
-      ];
+      const alerts = [...state.alerts.slice(0, index), ...state.alerts.slice(index + 1)];
 
       if (index === -1) {
         return state;
@@ -56,4 +47,7 @@ export default (
 
 export const addAlert = (payload: any) => ({ type: ADD_GLOBAL_ALERT, payload });
 
-export const closeAlert = (payload: any) => ({ type: CLOSE_GLOBAL_ALERT, payload });
+export const closeAlert = (payload: any) => ({
+  type: CLOSE_GLOBAL_ALERT,
+  payload,
+});

@@ -6,15 +6,7 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Button,
-  Card,
-  Input,
-  Seo,
-  Column,
-  Row,
-  HorizontalRule,
-} from '../../../components';
+import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 
 import { requiredField } from '../../../utils/validations';
@@ -31,7 +23,7 @@ type SellingFormValues = {
   sellersTimeline: string;
   sellersListingPriceInMind: string;
   sellersMortgageBalance: string;
-}
+};
 
 const howSoonOptions = [
   { value: 'Immediately', label: 'Immediately' },
@@ -42,10 +34,10 @@ const howSoonOptions = [
 type SellingProps = {
   actions: {
     captureConsumerData: Function;
-  }
-} & RouteComponentProps
+  };
+} & RouteComponentProps;
 
-const Selling: FunctionComponent<SellingProps> = (props) => {
+const Selling: FunctionComponent<SellingProps> = props => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: SellingFormValues = {
@@ -74,14 +66,12 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
           <Formik
             validateOnMount
             initialValues={initialValues}
-            onSubmit={(values) => {
+            onSubmit={values => {
               props.actions.captureConsumerData(values);
               navigate('/consumer/special-requests');
             }}
           >
-            {({
-              values, isSubmitting, isValid, ...rest
-            }) => (
+            {({ values, isSubmitting, isValid, ...rest }) => (
               <Form>
                 <Field
                   as={Input}
@@ -90,12 +80,7 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
                   label="Address Line 1"
                   validate={requiredField}
                 />
-                <Field
-                  as={Input}
-                  type="text"
-                  name="sellersAddressLine2"
-                  label="Address Line 2"
-                />
+                <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
                 <Field
                   as={Input}
                   type="text"
@@ -138,7 +123,7 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
                 <Field
                   as={Input}
                   type="select"
-                    name="sellersListingPriceInMind"
+                  name="sellersListingPriceInMind"
                   label="Do you have a listing price in mind?"
                   validate={requiredField}
                   options={priceRangesList}
@@ -152,7 +137,10 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
                   validate={requiredField}
                   options={[
                     { value: 'Not sure', label: 'Not sure' },
-                    { value: 'Less than $100,000', label: 'Less than $100,000' },
+                    {
+                      value: 'Less than $100,000',
+                      label: 'Less than $100,000',
+                    },
                     ...priceRangesList,
                   ]}
                   {...rest}
@@ -195,9 +183,6 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
   );
 };
 
-export default connect(
-  null,
-  (dispatch) => ({
-    actions: bindActionCreators({ captureConsumerData }, dispatch),
-  }),
-)(Selling);
+export default connect(null, dispatch => ({
+  actions: bindActionCreators({ captureConsumerData }, dispatch),
+}))(Selling);

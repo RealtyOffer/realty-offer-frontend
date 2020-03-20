@@ -30,7 +30,7 @@ const PageBody = styled.div`
   }
 `;
 
-type LayoutProps = {}
+type LayoutProps = {};
 
 const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
   const { title, description } = useSiteMetadata();
@@ -69,18 +69,13 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
         <meta property="og:type" content="business.business" />
         <meta property="og:title" content={title} />
         <meta property="og:url" content="/" />
-        <meta
-          property="og:image"
-          content={`${withPrefix('/')}img/og-image.jpg`}
-        />
+        <meta property="og:image" content={`${withPrefix('/')}img/og-image.jpg`} />
       </Helmet>
       <CssReset />
       <LayoutWrapper>
         <Navbar />
         <PageBody>
-          <PageContainer>
-            {children}
-          </PageContainer>
+          <PageContainer>{children}</PageContainer>
         </PageBody>
         <GlobalAlerts />
         <Footer />

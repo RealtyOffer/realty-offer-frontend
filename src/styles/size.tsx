@@ -35,8 +35,8 @@ export const breakpoints = {
 
 // Breakpoints in pixels using above breakpoints
 export const screenSizes = {
-  small: (Number(breakpoints.sm.slice(0, -3)) * 16),
-  medium: (Number(breakpoints.md.slice(0, -3)) * 16),
-  large: (Number(breakpoints.lg.slice(0, -3)) * 16),
-  xlarge: (Number(breakpoints.xl.slice(0, -3)) * 16),
+  small: Number(breakpoints.sm.slice(0, -3)) * 16,
+  medium: Number(breakpoints.md.slice(0, -3)) * 16,
+  large: Number(breakpoints.lg.slice(0, -3)) * 16,
+  xlarge: Number(breakpoints.xl.slice(0, -3)) * 16,
 };

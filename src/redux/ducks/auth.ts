@@ -50,7 +50,7 @@ export type AuthStoreType = {
   token: string;
   message: string;
   verifiedEmail: boolean;
-}
+};
 
 export const initialState: AuthStoreType = {
   isLoading: false,
@@ -61,10 +61,7 @@ export const initialState: AuthStoreType = {
   verifiedEmail: false,
 };
 
-export default (
-  state: AuthStoreType = initialState,
-  action,
-) => {
+export default (state: AuthStoreType = initialState, action: any) => {
   switch (action.type) {
     case CREATE_USER_REQUEST:
     case VERIFY_EMAIL_REQUEST:
@@ -131,11 +128,11 @@ export default (
 };
 
 export interface CreateUserFormValues {
-  firstName: string
-  lastName: string
-  phoneNumber: string
-  email: string
-  password: string
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
 }
 
 export const createUser = (payload: CreateUserFormValues) => ({
@@ -147,11 +144,7 @@ export const createUser = (payload: CreateUserFormValues) => ({
     },
     body: JSON.stringify(payload),
     skipOauth: true,
-    types: [
-      CREATE_USER_REQUEST,
-      CREATE_USER_SUCCESS,
-      CREATE_USER_FAILURE,
-    ],
+    types: [CREATE_USER_REQUEST, CREATE_USER_SUCCESS, CREATE_USER_FAILURE],
   },
 });
 
@@ -164,11 +157,7 @@ export const verifyEmail = (payload: VerifyEmailFormValues) => ({
     },
     body: JSON.stringify(payload),
     skipOauth: true,
-    types: [
-      VERIFY_EMAIL_REQUEST,
-      VERIFY_EMAIL_SUCCESS,
-      VERIFY_EMAIL_FAILURE,
-    ],
+    types: [VERIFY_EMAIL_REQUEST, VERIFY_EMAIL_SUCCESS, VERIFY_EMAIL_FAILURE],
   },
 });
 
@@ -181,11 +170,7 @@ export const resendSignupEmail = (email: string) => ({
     },
     body: JSON.stringify({ email }),
     skipOauth: true,
-    types: [
-      RESEND_SIGNUP_EMAIL_REQUEST,
-      RESEND_SIGNUP_EMAIL_SUCCESS,
-      RESEND_SIGNUP_EMAIL_FAILURE,
-    ],
+    types: [RESEND_SIGNUP_EMAIL_REQUEST, RESEND_SIGNUP_EMAIL_SUCCESS, RESEND_SIGNUP_EMAIL_FAILURE],
   },
 });
 
@@ -206,9 +191,7 @@ export const authenticateCredentials = (payload: LoginFormValues) => ({
   },
 });
 
-export const forgotPassword = (payload: {
-  email: string,
-}) => ({
+export const forgotPassword = (payload: { email: string }) => ({
   [RSAA]: {
     endpoint: AUTH_FORGOT_PASSWORD_ENDPOINT,
     method: 'POST',
@@ -217,11 +200,7 @@ export const forgotPassword = (payload: {
     },
     body: JSON.stringify(payload),
     skipOauth: true,
-    types: [
-      FORGOT_PASSWORD_REQUEST,
-      FORGOT_PASSWORD_SUCCESS,
-      FORGOT_PASSWORD_FAILURE,
-    ],
+    types: [FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE],
   },
 });
 
@@ -234,11 +213,7 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
     },
     body: JSON.stringify(payload),
     skipOauth: true,
-    types: [
-      RESET_PASSWORD_REQUEST,
-      RESET_PASSWORD_SUCCESS,
-      RESET_PASSWORD_FAILURE,
-    ],
+    types: [RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE],
   },
 });
 

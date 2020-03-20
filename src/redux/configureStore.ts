@@ -22,16 +22,15 @@ if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')
   middlewares.push(logger);
 }
 
-const functionsToCompose = [
-  applyMiddleware(...middlewares),
-];
+const functionsToCompose = [applyMiddleware(...middlewares)];
 
 // eslint-disable-next-line
 if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
-  functionsToCompose.push((typeof window === 'object' &&
-    typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ?
-    window.__REDUX_DEVTOOLS_EXTENSION__() :
-    (f: any) => f);
+  functionsToCompose.push(
+    typeof window === 'object' && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : (f: any) => f
+  );
 }
 
 const makeConfiguredStore = (reducer: any, initialState: any) => {
@@ -40,18 +39,12 @@ const makeConfiguredStore = (reducer: any, initialState: any) => {
     storage,
     whitelist: ['auth', 'consumer'],
   };
-  const persistedReducer = persistReducer(persistConfig, rootReducer);
+  const persistedReducer = persistReducer(persistConfig, reducer);
 
-  return createStore(
-    persistedReducer,
-    initialState,
-    compose(...functionsToCompose),
-  );
+  return createStore(persistedReducer, initialState, compose(...functionsToCompose));
 };
 
-const configureStore = (
-  initialState: any = {},
-) => {
+const configureStore = (initialState: any = {}) => {
   const store = { ...makeConfiguredStore(rootReducer, initialState) };
   const persistor = persistStore(store);
 

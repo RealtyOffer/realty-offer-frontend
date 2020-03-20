@@ -3,8 +3,25 @@ import styled from 'styled-components';
 
 type FlexContainerProps = {
   flexDirection?: 'row' | 'column';
-  justifyContent?: 'space-between' | 'space-around' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right';
-  alignItems?: 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | 'stretch';
+  justifyContent?:
+    | 'space-between'
+    | 'space-around'
+    | 'center'
+    | 'start'
+    | 'end'
+    | 'flex-start'
+    | 'flex-end'
+    | 'left'
+    | 'right';
+  alignItems?:
+    | 'center'
+    | 'start'
+    | 'end'
+    | 'flex-start'
+    | 'flex-end'
+    | 'left'
+    | 'right'
+    | 'stretch';
   flexWrap?: 'wrap' | 'nowrap';
   height?: string;
 };
