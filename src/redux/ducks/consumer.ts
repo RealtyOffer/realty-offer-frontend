@@ -15,7 +15,7 @@ export type ConsumerStoreType = {
     sellersState?: string;
     sellersZip?: number;
     sellersTimeline?: string;
-    selleresListingPriceInMind?: string;
+    sellersListingPriceInMind?: string;
     sellersMortgageBalance?: string;
     otherLanguage?: string;
     genderPreference?: string;
