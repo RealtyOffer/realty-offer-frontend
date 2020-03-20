@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import PageContainer from '../components/PageContainer';
