@@ -11,7 +11,7 @@ import Avatar from './Avatar';
 import HorizontalRule from './HorizontalRule';
 import Button from './Button';
 
-import { brandPrimary, white } from '../styles/color';
+import { brandPrimary, white, offWhite, brandPrimaryHover } from '../styles/color';
 import { baseSpacer, doubleSpacer, octupleSpacer, halfSpacer, screenSizes } from '../styles/size';
 import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import { fontSizeH6 } from '../styles/typography';
@@ -53,12 +53,17 @@ const StyledDropdown = styled.div`
   display: none;
   width: ${octupleSpacer};
 
-  & > a,
-  & > a:hover,
-  & > a:focus {
+  & > a {
     color: ${brandPrimary};
     padding: ${halfSpacer} ${baseSpacer};
     display: block;
+    border-bottom: ${baseBorderStyle};
+  }
+
+  & > a:hover,
+  & > a:focus {
+    color: ${brandPrimaryHover};
+    background-color: ${offWhite};
   }
 `;
 
@@ -73,6 +78,7 @@ const StyledDropdownWrapper = styled.div`
 
   &:hover ${StyledDropdown}, &:focus ${StyledDropdown} {
     display: block;
+    z-index: 1;
   }
 `;
 

@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { FaExclamationCircle, FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
+import { FaTimes, FaExclamationCircle, FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
 
-import { baseSpacer, borderRadius, doubleSpacer } from '../styles/size';
+import { halfSpacer, baseSpacer, borderRadius, doubleSpacer } from '../styles/size';
 import { brandDanger, brandSuccess, brandPrimary, white } from '../styles/color';
 
 export type AlertProps = {
@@ -54,10 +54,11 @@ const AlertWrapper = styled.div`
 
 const CloseButton = styled.span`
   position: absolute;
-  top: 0;
-  right: ${baseSpacer};
+  top: ${halfSpacer};
+  right: ${halfSpacer};
   opacity: 0.65;
   cursor: pointer;
+  color: ${white};
   &:hover {
     opacity: 1;
   }
@@ -66,7 +67,7 @@ const CloseButton = styled.span`
 const Alert: FunctionComponent<AlertProps> = props => (
   <AlertWrapper type={props.type}>
     {renderIcon(props)} {props.children}
-    {props.alertNumber && props.alertNumberTotal && props.alertNumberTotal > 1 && (
+    {props.alertNumber && !!props.alertNumberTotal && props.alertNumberTotal > 1 && (
       <small>
         <em>
           {' '}
@@ -76,7 +77,7 @@ const Alert: FunctionComponent<AlertProps> = props => (
     )}
     {props.dismissable && (
       <CloseButton onClick={props.close}>
-        <FaExclamationCircle />
+        <FaTimes />
       </CloseButton>
     )}
   </AlertWrapper>
