@@ -47,18 +47,34 @@ export type AuthStoreType = {
   isLoading: boolean;
   hasError: boolean;
   isLoggedIn: boolean;
-  token: string;
   message: string;
   verifiedEmail: boolean;
+  accessToken: string;
+  refreshToken: string;
+  expirationTime: string;
+  issuedTime: string;
+  roles: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
 };
 
 export const initialState: AuthStoreType = {
   isLoading: false,
   hasError: false,
   isLoggedIn: false,
-  token: '',
   message: '',
   verifiedEmail: false,
+  accessToken: '',
+  refreshToken: '',
+  expirationTime: '',
+  issuedTime: '',
+  roles: '',
+  firstName: '',
+  lastName: '',
+  phoneNumber: '',
+  email: '',
 };
 
 export default (state: AuthStoreType = initialState, action: any) => {
@@ -81,7 +97,7 @@ export default (state: AuthStoreType = initialState, action: any) => {
         isLoading: false,
         hasError: false,
         isLoggedIn: true,
-        token: action.payload.token,
+        ...action.payload,
       };
     case VERIFY_EMAIL_SUCCESS:
       return {
@@ -105,7 +121,6 @@ export default (state: AuthStoreType = initialState, action: any) => {
         isLoading: false,
         hasError: true,
         isLoggedIn: false,
-        token: null,
         message: action.payload.message || 'An error occurred. Please try again.',
       };
     case CREATE_USER_FAILURE:
@@ -133,6 +148,7 @@ export interface CreateUserFormValues {
   phoneNumber: string;
   email: string;
   password: string;
+  roles: 'Consumer' | 'Agent';
 }
 
 export const createUser = (payload: CreateUserFormValues) => ({
