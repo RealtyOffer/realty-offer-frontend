@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Helmet } from 'react-helmet';
 import { withPrefix } from 'gatsby';
 import styled from 'styled-components';
+import { IconContext } from 'react-icons';
 
 import Footer from './Footer';
 import Navbar from './Navbar';
@@ -72,14 +73,16 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
         <meta property="og:image" content={`${withPrefix('/')}img/og-image.jpg`} />
       </Helmet>
       <CssReset />
-      <LayoutWrapper>
-        <Navbar />
-        <PageBody>
-          <PageContainer>{children}</PageContainer>
-        </PageBody>
-        <GlobalAlerts />
-        <Footer />
-      </LayoutWrapper>
+      <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
+        <LayoutWrapper>
+          <Navbar />
+          <PageBody>
+            <PageContainer>{children}</PageContainer>
+          </PageBody>
+          <GlobalAlerts />
+          <Footer />
+        </LayoutWrapper>
+      </IconContext.Provider>
     </div>
   );
 };

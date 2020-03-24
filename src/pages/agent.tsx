@@ -9,7 +9,7 @@ import BusinessInformation from '../views/agent/AgentCreation/BusinessInformatio
 import PaymentInformation from '../views/agent/AgentCreation/PaymentInformation';
 import ConfirmPayment from '../views/agent/AgentCreation/ConfirmPayment';
 import NewListings from '../views/agent/Authenticated/Listings/New';
-import AgentProfile from '../views/agent/Authenticated/Account/Profile';
+import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
 import { PrivateRoute } from '../components';
@@ -23,18 +23,8 @@ const AgentApp: FunctionComponent<{}> = () => (
     <BusinessInformation path="/business-information" />
     <PaymentInformation path="/payment-information" />
     <ConfirmPayment path="/confirm-payment" />
-    <PrivateRoute
-      component={NewListings}
-      auth={{ isLoggedIn: false } as any}
-      location={null}
-      path="/listings/new"
-    />
-    <PrivateRoute
-      component={AgentProfile as any}
-      auth={{ isLoggedIn: false } as any}
-      location={null}
-      path="/account/profile"
-    />
+    <PrivateRoute component={NewListings} path="/listings/new" />
+    <PrivateRoute component={AgentAccount} path="/account/*" />
     <NotFoundPage default />
   </Router>
 );

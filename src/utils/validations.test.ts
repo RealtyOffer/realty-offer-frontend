@@ -9,6 +9,7 @@ import {
 describe('validations', () => {
   it('should validate single validations', () => {
     expect(customFieldLevelValidation('existing value', [requiredField])).toBeNull();
+    expect(customFieldLevelValidation('   ', [requiredField])).toBeDefined();
     expect(customFieldLevelValidation('', [requiredField])).toBeDefined();
     expect(customFieldLevelValidation('2203303330', [isPhoneNumber])).toBeNull();
     expect(customFieldLevelValidation('', [isPhoneNumber])).toBeDefined();
