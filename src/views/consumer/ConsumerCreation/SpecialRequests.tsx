@@ -46,7 +46,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={values => {
+          onSubmit={(values) => {
             props.actions.captureConsumerData(values);
             navigate('/consumer/sign-up');
           }}
@@ -58,7 +58,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
                 type="select"
                 name="otherLanguage"
                 label="Do you have a language preference other than English?"
-                options={languagesList}
+                options={[...languagesList, { value: 'No Preference', label: 'No Preference' }]}
                 {...rest}
               />
               <Field
