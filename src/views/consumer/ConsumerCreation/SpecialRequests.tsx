@@ -24,7 +24,7 @@ type SpecialRequestsProps = {
   };
 } & RouteComponentProps;
 
-const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
+const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: SpecialRequestsFormValues = {
@@ -51,7 +51,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
             navigate('/consumer/sign-up');
           }}
         >
-          {({ values, isSubmitting, isValid, ...rest }) => (
+          {({ isSubmitting, isValid, ...rest }) => (
             <Form>
               <Field
                 as={Input}
@@ -106,6 +106,6 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ captureConsumerData }, dispatch),
 }))(SpecialRequests);

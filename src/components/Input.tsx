@@ -47,7 +47,7 @@ type InputProps = {
 const sharedStyles = css`
   display: block;
   width: 100%;
-  height: ${inputHeight};
+  height: ${(props: InputProps) => (props.type === 'textarea' ? 'auto' : inputHeight)};
   padding: ${inputPaddingY} ${inputPaddingX};
   font-size: ${fontSizeBase};
   line-height: ${lineHeightBase};
@@ -82,6 +82,12 @@ const sharedStyles = css`
 `;
 
 const StyledInput = styled.input`
+  ${sharedStyles}
+`;
+
+const StyledTextarea = styled.textarea`
+  resize: none;
+  min-height: ${inputHeight};
   ${sharedStyles}
 `;
 
@@ -134,7 +140,7 @@ const StyledToggleLabel = styled.label<{
   margin: 0;
 
   &:after {
-    content: '${props => (props.checked ? 'Yes' : 'No')}';
+    content: '${(props) => (props.checked ? 'Yes' : 'No')}';
     position: absolute;
     top: 5px;
     left: 5px;
@@ -147,16 +153,16 @@ const StyledToggleLabel = styled.label<{
     justify-content: center;
     align-items: center;
     font-size: ${fontSizeSmall};
-    color: ${props => (props.checked ? brandPrimary : textColor)};
+    color: ${(props) => (props.checked ? brandPrimary : textColor)};
   }
 
   /* Disabled state */
-  ${props => props.disabled && disabledStyle}
+  ${(props) => props.disabled && disabledStyle}
 `;
 
 const StyledLabel = styled.label<{ hiddenLabel?: boolean; invalid?: boolean }>`
-  ${props => props.hiddenLabel && visuallyHiddenStyle}
-  ${props =>
+  ${(props) => props.hiddenLabel && visuallyHiddenStyle}
+  ${(props) =>
     props.invalid &&
     `
     color: ${brandDanger};
@@ -205,7 +211,7 @@ const multiSelectStyles = {
   }),
 };
 
-const Input: FunctionComponent<InputProps> = props => {
+const Input: FunctionComponent<InputProps> = (props) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and also replace ErrorMessage entirely.
   const [field, meta] = useField<string>(props.name);
@@ -233,7 +239,9 @@ const Input: FunctionComponent<InputProps> = props => {
             styles={multiSelectStyles}
             isMulti={props.isMulti}
             menuPlacement="auto"
-            value={props.options ? props.options.find(option => option.value === field.value) : ''}
+            value={
+              props.options ? props.options.find((option) => option.value === field.value) : ''
+            }
             options={props.options}
             name={props.name}
             onChange={(option: OptionType) => onChange(option)}
@@ -264,7 +272,7 @@ const Input: FunctionComponent<InputProps> = props => {
         const removeTrailingCharIfFound = (str: string, char: string) =>
           str
             .split(char)
-            .filter(segment => segment !== '')
+            .filter((segment) => segment !== '')
             .join(char);
         const formatValue = (str: string) => {
           const unmaskedValue = str.split(phoneDelimiter).join('');
@@ -278,7 +286,7 @@ const Input: FunctionComponent<InputProps> = props => {
             {...field}
             {...props}
             {...meta}
-            onChange={event => {
+            onChange={(event) => {
               field.onChange(event.target.name)(formatValue(event.target.value));
             }}
           />
@@ -296,6 +304,11 @@ const Input: FunctionComponent<InputProps> = props => {
             <span style={{ marginLeft: baseSpacer }}>{field.value}</span>
           )}
         </PasswordWrapper>
+      );
+      break;
+    case 'textarea':
+      inputTypeToRender = (
+        <StyledTextarea id={props.name} rows={3} {...field} {...props} {...meta} />
       );
       break;
     default:

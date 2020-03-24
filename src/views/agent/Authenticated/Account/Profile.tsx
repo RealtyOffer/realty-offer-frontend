@@ -167,7 +167,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 {...rest}
               />
               <Field as={Input} type="text" name="certificates" label="Certificates" />
-              <Field as={Input} type="text" name="aboutMe" label="Bio" />
+              <Field as={Input} type="textarea" name="aboutMe" label="Bio" />
               <AutoSave />
             </Box>
           </Form>
