@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState, FunctionComponent, Fragment } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -59,15 +59,15 @@ const ForgotPassword: FunctionComponent<LoginProps> = props => {
             )}
           </Formik>
         ) : (
-          <>
-            <Alert type="success">
+          <Fragment data-cy="forgot-password">
+            <Alert type="success" data-cy="alert">
               If your email is found, you will receive an email with next steps for resetting your
               password.
             </Alert>
             <Button type="link" to="/login" color="text" block>
               Back to Login
             </Button>
-          </>
+          </Fragment>
         )}
       </Card>
     </>
