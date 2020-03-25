@@ -26,7 +26,7 @@ type CreateConsumerProps = {
   };
 } & RouteComponentProps;
 
-const CreateConsumer: FunctionComponent<CreateConsumerProps> = props => {
+const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: CreateUserFormValues = {
@@ -137,6 +137,6 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ createUser, captureConsumerData }, dispatch),
 }))(CreateConsumer);

@@ -18,7 +18,7 @@ const CloseIcon = styled.span`
   cursor: pointer;
 `;
 
-const Modal: FunctionComponent<ModalProps> = props => (
+const Modal: FunctionComponent<ModalProps> = (props) => (
   <ReactModal
     isOpen={props.isOpen}
     onRequestClose={props.toggleModal as any}

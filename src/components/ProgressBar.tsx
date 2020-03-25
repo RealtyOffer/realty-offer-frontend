@@ -24,7 +24,7 @@ const StyledTrack = styled.div`
 const StyledBar = styled.div<{ value: number }>`
   position: absolute;
   height: ${halfSpacer};
-  width: ${props => `${props.value}%`};
+  width: ${(props) => `${props.value}%`};
   background-color: ${brandPrimary};
 `;
 

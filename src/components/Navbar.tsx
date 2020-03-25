@@ -122,12 +122,12 @@ const StyledMenu = styled.div`
     `}
 `;
 
-const Navbar: FunctionComponent<NavbarProps> = props => {
+const Navbar: FunctionComponent<NavbarProps> = (props) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const size = useWindowSize();
   const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.small);
-  const primaryNavigation = agentNavigationItems.filter(item => item.primary);
-  const secondaryNavigation = agentNavigationItems.filter(item => !item.primary);
+  const primaryNavigation = agentNavigationItems.filter((item) => item.primary);
+  const secondaryNavigation = agentNavigationItems.filter((item) => !item.primary);
 
   const toggleMenuAndLogout = () => {
     if (isSmallScreen) {
@@ -162,7 +162,7 @@ const Navbar: FunctionComponent<NavbarProps> = props => {
           )}
           {props.auth.isLoggedIn && (
             <StyledMenu id="navMenu" isSmallScreen={isSmallScreen} menuIsOpen={menuIsOpen}>
-              {primaryNavigation.map(navItem => (
+              {primaryNavigation.map((navItem) => (
                 <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenuAndLogout()}>
                   {navItem.name}
                 </Link>
@@ -170,7 +170,7 @@ const Navbar: FunctionComponent<NavbarProps> = props => {
               {isSmallScreen ? (
                 <>
                   <HorizontalRule />
-                  {secondaryNavigation.map(navItem => (
+                  {secondaryNavigation.map((navItem) => (
                     <Link
                       key={navItem.name}
                       to={navItem.path}
@@ -188,7 +188,7 @@ const Navbar: FunctionComponent<NavbarProps> = props => {
                   <Avatar />
                   <FaCaretDown />
                   <StyledDropdown>
-                    {secondaryNavigation.map(navItem => (
+                    {secondaryNavigation.map((navItem) => (
                       <Link key={navItem.name} to={navItem.path}>
                         {navItem.name}
                       </Link>
@@ -208,10 +208,10 @@ const Navbar: FunctionComponent<NavbarProps> = props => {
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     auth: (state as any).auth,
   }),
-  dispatch => ({
+  (dispatch) => ({
     actions: bindActionCreators({ logout }, dispatch),
   })
 )(Navbar);

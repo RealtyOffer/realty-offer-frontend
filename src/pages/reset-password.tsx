@@ -21,7 +21,7 @@ export type ResetPasswordFormValues = {
   token: string;
 };
 
-const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
+const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
   const [submitted, setSubmitted] = useState(false);
 
   const initialValues = {
@@ -82,7 +82,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
                 <label htmlFor="digit1">
                   Verification Code
                   <FlexContainer justifyContent="space-between" flexWrap="nowrap">
-                    {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map(digit => (
+                    {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
                       <Field
                         key={digit}
                         as={Input}
@@ -129,6 +129,6 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ resetPassword }, dispatch),
 }))(ResetPassword);

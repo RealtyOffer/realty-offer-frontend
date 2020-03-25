@@ -34,7 +34,7 @@ type BuyingProps = {
   consumer: ConsumerStoreType;
 } & RouteComponentProps;
 
-const Buying: FunctionComponent<BuyingProps> = props => {
+const Buying: FunctionComponent<BuyingProps> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: BuyingFormValues = {
@@ -59,7 +59,7 @@ const Buying: FunctionComponent<BuyingProps> = props => {
           <Formik
             validateOnMount
             initialValues={initialValues}
-            onSubmit={values => {
+            onSubmit={(values) => {
               props.actions.captureConsumerData(values);
               navigate(
                 props.consumer.signupData.consumerType === 'buyerSeller'
@@ -142,10 +142,10 @@ const Buying: FunctionComponent<BuyingProps> = props => {
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     consumer: (state as any).consumer,
   }),
-  dispatch => ({
+  (dispatch) => ({
     actions: bindActionCreators({ captureConsumerData }, dispatch),
   })
 )(Buying);

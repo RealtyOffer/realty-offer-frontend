@@ -14,7 +14,7 @@ type StartCreateConsumerProps = {
   };
 } & RouteComponentProps;
 
-const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = props => {
+const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = (props) => {
   const setCustomerType = (consumerType: 'buyer' | 'seller' | 'buyerSeller') => {
     props.actions.captureConsumerData({ consumerType });
     navigate(consumerType === 'seller' ? '/consumer/selling' : '/consumer/buying');
@@ -85,6 +85,6 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = props =
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ captureConsumerData }, dispatch),
 }))(StartCreateConsumer);

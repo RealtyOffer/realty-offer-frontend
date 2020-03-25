@@ -108,7 +108,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
                 />
                 <label>Verification Code</label>
                 <FlexContainer justifyContent="space-between" flexWrap="nowrap">
-                  {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map(digit => (
+                  {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
                     <Field
                       key={digit}
                       as={Input}
@@ -157,10 +157,10 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     auth: (state as any).auth,
   }),
-  dispatch => ({
+  (dispatch) => ({
     actions: bindActionCreators({ verifyEmail, resendSignupEmail }, dispatch),
   })
 )(VerifyEmail);

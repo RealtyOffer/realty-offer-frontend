@@ -23,5 +23,5 @@ describe('User visits forgot password page', () => {
   it('can go back to login screen after', () => {
     cy.contains('Back to Login').click();
     cy.url().should('include', '/login');
-  })
-})
+  });
+});

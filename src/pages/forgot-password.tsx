@@ -15,7 +15,7 @@ type LoginProps = {
   };
 };
 
-const ForgotPassword: FunctionComponent<LoginProps> = props => {
+const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
   const [submitted, setSubmitted] = useState(false);
 
   const initialValues = {
@@ -74,6 +74,6 @@ const ForgotPassword: FunctionComponent<LoginProps> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ forgotPassword }, dispatch),
 }))(ForgotPassword);

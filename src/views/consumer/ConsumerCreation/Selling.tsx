@@ -37,7 +37,7 @@ type SellingProps = {
   };
 } & RouteComponentProps;
 
-const Selling: FunctionComponent<SellingProps> = props => {
+const Selling: FunctionComponent<SellingProps> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: SellingFormValues = {
@@ -66,12 +66,12 @@ const Selling: FunctionComponent<SellingProps> = props => {
           <Formik
             validateOnMount
             initialValues={initialValues}
-            onSubmit={values => {
+            onSubmit={(values) => {
               props.actions.captureConsumerData(values);
               navigate('/consumer/special-requests');
             }}
           >
-            {({ values, isSubmitting, isValid, ...rest }) => (
+            {({ isSubmitting, isValid, ...rest }) => (
               <Form>
                 <Field
                   as={Input}
@@ -183,6 +183,6 @@ const Selling: FunctionComponent<SellingProps> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ captureConsumerData }, dispatch),
 }))(Selling);

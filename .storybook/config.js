@@ -19,10 +19,10 @@ import CssReset from '../src/styles/cssReset';
 
 const req = require.context('../src', true, /.story.tsx$/);
 
-const loadStories = () => req.keys().forEach(filename => req(filename));
+const loadStories = () => req.keys().forEach((filename) => req(filename));
 
 // Gatsby internal mocking to prevent unnecessary errors in storybook testing environment
-global.__PATH_PREFIX__ = "";
+global.__PATH_PREFIX__ = '';
 
 // If you'd like to add global styles to all stories, modify this component.
 // addDecorator(GlobalStyleDecorator);
@@ -40,9 +40,7 @@ global.__PATH_PREFIX__ = "";
 const withGlobal = (cb) => (
   <React.Fragment>
     <CssReset />
-    <div style={{ margin: 8 }}>
-      {cb()}
-    </div>
+    <div style={{ margin: 8 }}>{cb()}</div>
   </React.Fragment>
 );
 
@@ -53,7 +51,6 @@ addDecorator(withGlobal);
 
 addParameters({
   backgrounds: [
-    
     { name: 'white', value: white },
     { name: 'lightestGray', value: lightestGray, default: true },
     { name: 'brandPrimary', value: brandPrimary },
@@ -61,6 +58,6 @@ addParameters({
     { name: 'brandTeriary', value: brandTertiary },
     { name: 'brandSuccess', value: brandSuccess },
     { name: 'brandDanger', value: brandDanger },
-  ]
+  ],
 });
 configure(loadStories, module);

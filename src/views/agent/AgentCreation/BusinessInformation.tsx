@@ -50,7 +50,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
   save = () => {};
 
   addToCart = (values: BusinessInformationFormValues) => {
-    const nextZips = this.state.zips.filter(zip => zip !== values.zip);
+    const nextZips = this.state.zips.filter((zip) => zip !== values.zip);
 
     this.setState((prevState: BusinessInformationState) => ({
       regions: [...prevState.regions, values],
@@ -59,7 +59,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
   };
 
   buildZipOptions = () =>
-    this.state.zips.map(zip => (
+    this.state.zips.map((zip) => (
       <option key={zip} value={zip}>
         {zip}
       </option>
@@ -90,7 +90,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
 
     const getTotals =
       !noRegionsInCart &&
-      regions.map(r => Number(r.subscriptionType)).reduce((total, amount) => total + amount);
+      regions.map((r) => Number(r.subscriptionType)).reduce((total, amount) => total + amount);
 
     return (
       <Card

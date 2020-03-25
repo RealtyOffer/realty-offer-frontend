@@ -9,7 +9,7 @@ type UnsavedChangesModalProps = {
   captureConsumerData: Function;
 };
 
-const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = props => {
+const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = (props) => {
   const clearDataAndNavigate = () => {
     props.captureConsumerData({});
     navigate('/consumer');

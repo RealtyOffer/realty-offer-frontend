@@ -41,7 +41,7 @@ const StyledAvatar = styled.div`
   vertical-align: middle;
 `;
 
-const Avatar: FunctionComponent<AvatarProps> = props => {
+const Avatar: FunctionComponent<AvatarProps> = (props) => {
   if (props.src) {
     return <AvatarImage src={props.src} size={props.size} alt="" />;
   }

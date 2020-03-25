@@ -31,7 +31,7 @@ A Gatsby project using React, Redux, Styled-Components, Storybook, Formik, and m
     ```shell
     cd realty-offer-frontend/
     # `yarn start` is the same as `gatsby develop`
-    yarn start 
+    yarn start
     ```
 
 1.  **Open the source code and start editing!**
@@ -93,7 +93,6 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
 ## 🎓 Learning the Components
 
 Looking for more guidance on the components available in this repo? Run `yarn storybook` and access `http://localhost:8001` to see the Storybook guide, which goes over the components and their available `props`.
-
 
 ## 💫 Deploy
 

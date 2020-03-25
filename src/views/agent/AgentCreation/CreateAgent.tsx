@@ -23,7 +23,7 @@ type Props = {
   };
 } & RouteComponentProps;
 
-const CreateAgent: FunctionComponent<Props> = props => {
+const CreateAgent: FunctionComponent<Props> = (props) => {
   const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',
@@ -119,6 +119,6 @@ const CreateAgent: FunctionComponent<Props> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ createUser }, dispatch),
 }))(CreateAgent);

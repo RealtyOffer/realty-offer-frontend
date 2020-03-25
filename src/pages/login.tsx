@@ -21,7 +21,7 @@ export type LoginFormValues = {
   password: string;
 };
 
-const Login: FunctionComponent<LoginProps> = props => {
+const Login: FunctionComponent<LoginProps> = (props) => {
   const initialValues = {
     email: '',
     password: '',
@@ -77,6 +77,6 @@ const Login: FunctionComponent<LoginProps> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ authenticateCredentials }, dispatch),
 }))(Login);

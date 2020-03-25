@@ -23,7 +23,7 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
       // so first add an alert for each error message in the response
       if (action.payload.response) {
         if (action.payload.response.errors) {
-          Object.values(action.payload.response.errors).forEach(errorObject => {
+          Object.values(action.payload.response.errors).forEach((errorObject) => {
             Object.values(errorObject).forEach((error: string) => {
               store.dispatch(
                 addAlert({

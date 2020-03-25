@@ -10,14 +10,14 @@ module.exports = ({ config }) => {
   // use @babel/preset-react for JSX and env (instead of staged presets)
   config.module.rules[0].use[0].options.presets = [
     require.resolve('@babel/preset-react'),
-    require.resolve('@babel/preset-env')
+    require.resolve('@babel/preset-env'),
   ];
 
   config.module.rules[0].use[0].options.plugins = [
     // use @babel/plugin-proposal-class-properties for class arrow functions
     require.resolve('@babel/plugin-proposal-class-properties'),
     // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
-    require.resolve('babel-plugin-remove-graphql-queries')
+    require.resolve('babel-plugin-remove-graphql-queries'),
   ];
 
   // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
@@ -31,9 +31,9 @@ module.exports = ({ config }) => {
       plugins: [
         require.resolve('@babel/plugin-proposal-class-properties'),
         // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
-        require.resolve('babel-plugin-remove-graphql-queries')
-      ]
-    }
+        require.resolve('babel-plugin-remove-graphql-queries'),
+      ],
+    },
   });
 
   config.module.rules.push({
@@ -55,15 +55,15 @@ module.exports = ({ config }) => {
 
   config.module.rules.push({
     test: /\.tsx?$/,
-    include: path.resolve(__dirname, "../src"),
+    include: path.resolve(__dirname, '../src'),
     use: [
       // require.resolve("ts-loader"),
       {
-        loader: require.resolve("react-docgen-typescript-loader"),
+        loader: require.resolve('react-docgen-typescript-loader'),
         options: {
           // Provide the path to your tsconfig.json so that your stories can
           // display types from outside each individual story.
-          tsconfigPath: path.resolve(__dirname, "../tsconfig.json"),
+          tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
         },
       },
     ],

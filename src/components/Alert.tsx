@@ -64,7 +64,7 @@ const CloseButton = styled.span`
   }
 `;
 
-const Alert: FunctionComponent<AlertProps> = props => (
+const Alert: FunctionComponent<AlertProps> = (props) => (
   <AlertWrapper type={props.type}>
     {renderIcon(props)} {props.children}
     {props.alertNumber && !!props.alertNumberTotal && props.alertNumberTotal > 1 && (

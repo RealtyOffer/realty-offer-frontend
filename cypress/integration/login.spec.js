@@ -5,10 +5,10 @@ describe('User Logs In', () => {
     cy.url().should('include', '/login');
   });
   it('enters login credentials', () => {
-      cy.get('#email')
-        .type('fake@email.com')
-        .should('have.value', 'fake@email.com');
-      cy.get('#password')
+    cy.get('#email')
+      .type('fake@email.com')
+      .should('have.value', 'fake@email.com');
+    cy.get('#password')
       .type('fakepassword')
       .should('have.value', 'fakepassword');
   });
@@ -17,4 +17,4 @@ describe('User Logs In', () => {
     cy.get('button[type=submit]').click();
     cy.url().should('include', '/login');
   });
-})
+});
