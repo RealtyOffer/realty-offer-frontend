@@ -3,7 +3,8 @@ import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { FaBars, FaTimes, FaCaretDown } from 'react-icons/fa';
+import { FaCaretDown } from 'react-icons/fa';
+import { Spin as Hamburger } from 'hamburger-react';
 
 import PageContainer from './PageContainer';
 import FlexContainer from './FlexContainer';
@@ -93,11 +94,14 @@ const StyledMenu = styled.div`
   display: flex;
   align-items: center;
 
+  & > a {
+    padding: 0 ${halfSpacer};
+  }
+
   & > a,
   & > a:hover,
   & > a:focus {
     color: ${white};
-    padding: 0 ${halfSpacer};
     display: inline-block;
   }
 
@@ -150,14 +154,12 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
             </Button>
           )}
           {props.auth.isLoggedIn && isSmallScreen && (
-            <StyledMenuToggle
-              data-target="navMenu"
-              tabIndex={0}
-              onClick={() => setMenuIsOpen(!menuIsOpen)}
-              onKeyDown={() => setMenuIsOpen(!menuIsOpen)}
-              role="menu"
-            >
-              {menuIsOpen ? <FaTimes /> : <FaBars />}
+            <StyledMenuToggle>
+              <Hamburger
+                color={white}
+                toggled={menuIsOpen}
+                toggle={() => setMenuIsOpen(!menuIsOpen)}
+              />
             </StyledMenuToggle>
           )}
           {props.auth.isLoggedIn && (

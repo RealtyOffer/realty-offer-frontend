@@ -50,6 +50,7 @@
     "gatsby-source-filesystem": "^2.1.55",
     "gatsby-transformer-remark": "^2.6.58",
     "gatsby-transformer-sharp": "^2.3.18",
+    "hamburger-react": "^1.2.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.15",
     "netlify-cms-app": "^2.11.29",
