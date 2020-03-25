@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { RouteComponentProps } from '@reach/router';
-import { Button, Input, FlexContainer, Card } from '../../components';
+import { Button, Input, FlexContainer, Card, Seo } from '../../components';
 import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../utils/validations';
 import { ActionResponseType } from '../../redux/constants';
@@ -69,6 +69,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
           : 'Please enter your email address and the 6 digit code sent to verify your account.'
       }
     >
+      <Seo title="Verify Email" />
       {verified ? (
         <FlexContainer>
           <Button type="link" to="/login">
@@ -157,7 +158,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
 
 export default connect(
   state => ({
-    auth: state.auth,
+    auth: (state as any).auth,
   }),
   dispatch => ({
     actions: bindActionCreators({ verifyEmail, resendSignupEmail }, dispatch),

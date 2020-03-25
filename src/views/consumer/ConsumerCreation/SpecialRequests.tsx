@@ -51,7 +51,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
             navigate('/consumer/sign-up');
           }}
         >
-          {({ values, isSubmitting, isValid, ...rest }) => (
+          {({ isSubmitting, isValid, ...rest }) => (
             <Form>
               <Field
                 as={Input}

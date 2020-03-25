@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, Input, Row, Card, Column, HorizontalRule } from '../../../components';
+import { Button, Input, Row, Card, Column, HorizontalRule, Seo } from '../../../components';
 
 import {
   requiredEmail,
@@ -37,6 +37,7 @@ const CreateAgent: FunctionComponent<Props> = props => {
   return (
     <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
       <>
+        <Seo title="Sign Up" />
         <Formik
           validateOnMount
           initialValues={initialValues}

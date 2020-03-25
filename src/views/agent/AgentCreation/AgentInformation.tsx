@@ -3,7 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, Input, ProgressBar, HorizontalRule, Card } from '../../../components';
+import { Button, Input, ProgressBar, HorizontalRule, Card, Seo } from '../../../components';
 import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import statesList from '../../../utils/statesList';
 
@@ -30,6 +30,7 @@ const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
       cardSubtitle="Get started by simply providing your Agent Information"
     >
       <>
+        <Seo title="Agent Information" />
         <ProgressBar value={33} label="Step 1/3" name="progress" />
         <Formik
           validateOnMount

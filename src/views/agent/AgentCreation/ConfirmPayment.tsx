@@ -2,7 +2,7 @@ import React, { useState, FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 
 import { RouteComponentProps } from '@reach/router';
-import { Button, FlexContainer, Heading, Card } from '../../../components';
+import { Button, FlexContainer, Heading, Card, Seo } from '../../../components';
 
 const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   const [confirmed, setConfirmed] = useState(false);
@@ -12,6 +12,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
       cardTitle={confirmed ? 'Confirmed!' : 'Confirm Payment'}
       cardSubtitle={confirmed ? 'Todo: Text goes here' : 'Total Amount Due:'}
     >
+      <Seo title="Confirm Payment" />
       {confirmed ? (
         <FlexContainer height="100px">
           <Button type="link" to="/">

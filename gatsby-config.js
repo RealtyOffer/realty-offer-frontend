@@ -1,3 +1,4 @@
+/* eslint-disable */
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -10,7 +11,7 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-typescript',
-    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
     'gatsby-plugin-netlify-cms',
