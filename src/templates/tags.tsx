@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Link, graphql } from 'gatsby';
 
 class TagRoute extends React.Component<{ data: any; pageContext: any }> {

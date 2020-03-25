@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, FlexContainer, ProgressBar, HorizontalRule, Card } from '../../../components';
+import { Button, FlexContainer, ProgressBar, HorizontalRule, Card, Seo } from '../../../components';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const save = () => {
@@ -16,6 +16,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
       cardSubtitle="We will save this information for fast, easy, &amp; convenient in-app purchases"
     >
       <>
+        <Seo title="Payment Information" />
         <ProgressBar value={100} label="Step 3/3" name="progress" />
         <FlexContainer height="300px">iframe for payment gateway goes here</FlexContainer>
         <HorizontalRule />

@@ -4,7 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Box, Input, Heading, Row, Column } from '../../../../components';
+import { Box, Input, Heading, Row, Column, Seo } from '../../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../../utils/validations';
 import languagesList from '../../../../utils/languagesList';
 import AutoSave from '../../../../utils/autoSave';
@@ -32,6 +32,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
 
   return (
     <>
+      <Seo title="My Profile" />
       <Heading>My Profile</Heading>
       <Formik
         validateOnMount

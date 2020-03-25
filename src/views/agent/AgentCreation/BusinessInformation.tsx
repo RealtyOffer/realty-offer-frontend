@@ -14,6 +14,7 @@ import {
   ProgressBar,
   HorizontalRule,
   Card,
+  Seo,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
 import { doubleSpacer } from '../../../styles/size';
@@ -97,6 +98,7 @@ class BusinessInformation extends Component<BusinessInformationProps, BusinessIn
         cardSubtitle="Select the zip codes you would like to receive leads in"
       >
         <>
+          <Seo title="Business Information" />
           <ProgressBar value={66} label="Step 2/3" name="progress" />
           <Formik
             validateOnMount

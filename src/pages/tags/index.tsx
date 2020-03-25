@@ -1,6 +1,6 @@
 import React from 'react';
 import { kebabCase } from 'lodash';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Link, graphql } from 'gatsby';
 import { Heading } from '../../components';
 
