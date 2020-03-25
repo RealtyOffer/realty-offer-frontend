@@ -49,6 +49,7 @@ const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
     return css`
       color: ${brandPrimary};
       font-weight: 700;
+      font-size: ${fontSizeH1};
     `;
   }
   if (styledAs === 'subtitle') {
