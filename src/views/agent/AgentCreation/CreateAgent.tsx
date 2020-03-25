@@ -30,6 +30,7 @@ const CreateAgent: FunctionComponent<Props> = props => {
     phoneNumber: '',
     email: '',
     password: '',
+    roles: 'Agent',
   };
 
   const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;

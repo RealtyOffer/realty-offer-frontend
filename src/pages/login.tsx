@@ -8,7 +8,7 @@ import { Button, Card, Input, HorizontalRule, Seo } from '../components';
 
 import { requiredField } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
-import { authenticateCredentials } from '../redux/ducks/auth';
+import { authenticateCredentials, CreateUserFormValues } from '../redux/ducks/auth';
 
 type LoginProps = {
   actions: {
@@ -35,13 +35,21 @@ const Login: FunctionComponent<LoginProps> = props => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values: LoginFormValues, { setSubmitting }) => {
-            props.actions.authenticateCredentials(values).then((response: ActionResponseType) => {
-              setSubmitting(false);
-              if (response && !response.error) {
-                // TODO push to user type
-                navigate('/agent/listings/new');
-              }
-            });
+            props.actions
+              .authenticateCredentials(values)
+              .then((response: ActionResponseType | { payload: CreateUserFormValues }) => {
+                setSubmitting(false);
+                if ((response as ActionResponseType) && !(response as ActionResponseType).error) {
+                  if ((response as { payload: CreateUserFormValues }).payload.roles === 'Agent') {
+                    navigate('/agent/listings/new');
+                  }
+                  if (
+                    (response as { payload: CreateUserFormValues }).payload.roles === 'Consumer'
+                  ) {
+                    navigate('/consumer/home');
+                  }
+                }
+              });
           }}
         >
           {({ isSubmitting, isValid }) => (

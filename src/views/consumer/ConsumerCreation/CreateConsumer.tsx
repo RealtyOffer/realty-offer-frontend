@@ -35,6 +35,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = props => {
     phoneNumber: '',
     email: '',
     password: '',
+    roles: 'Consumer',
   };
 
   const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
