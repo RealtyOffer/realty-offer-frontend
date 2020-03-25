@@ -7,19 +7,24 @@ import { bindActionCreators } from 'redux';
 import { Box, Input, Heading, Row, Column, Seo } from '../../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../../utils/validations';
 import languagesList from '../../../../utils/languagesList';
+import AutoSave from '../../../../utils/autoSave';
 
 type AgentProfileProps = {} & RouteComponentProps;
 
-const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    agentId: '',
-    brokerName: '',
-    brokerPhoneNumber: '',
+const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
+  const personalInfoInitialValues = {
+    firstName: 'Test',
+    lastName: 'User',
+    phoneNumber: '1234567890',
+    email: 'testuser@realtyoffer.com',
+  };
+  const agentInfoInitialValues = {
+    agentId: '1',
+    brokerName: '1',
+    brokerPhoneNumber: '1234567890',
     brokerAddress: '',
+  };
+  const aboutMeInitialValues = {
     languagesSpoken: '',
     certificates: '',
     aboutMe: '',
@@ -31,21 +36,21 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
       <Heading>My Profile</Heading>
       <Formik
         validateOnMount
-        initialValues={initialValues}
+        initialValues={personalInfoInitialValues}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            // eslint-disable-next-line no-alert
-            alert(JSON.stringify(values, null, 2));
+            // eslint-disable-next-line no-console
+            console.log(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400);
         }}
       >
-        {({ isSubmitting, isValid, ...rest }) => (
+        {() => (
           <Form>
             <Box>
               <Heading as="h2">Personal Information</Heading>
               <Row>
-                <Column xs={6}>
+                <Column sm={6}>
                   <Field
                     as={Input}
                     type="text"
@@ -54,7 +59,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
                     validate={requiredField}
                   />
                 </Column>
-                <Column xs={6}>
+                <Column sm={6}>
                   <Field
                     as={Input}
                     type="text"
@@ -63,55 +68,96 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
                     validate={requiredField}
                   />
                 </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="tel"
+                    name="phoneNumber"
+                    label="Phone Number"
+                    validate={requiredPhoneNumber}
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="email"
+                    name="email"
+                    label="Email Address"
+                    validate={requiredEmail}
+                  />
+                </Column>
               </Row>
-              <Field
-                as={Input}
-                type="tel"
-                name="phoneNumber"
-                label="Phone Number"
-                validate={requiredPhoneNumber}
-              />
-              <Field
-                as={Input}
-                type="email"
-                name="email"
-                label="Email Address"
-                validate={requiredEmail}
-              />
+              <AutoSave />
             </Box>
+          </Form>
+        )}
+      </Formik>
+      <Formik
+        initialValues={agentInfoInitialValues}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            // eslint-disable-next-line no-console
+            console.log(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
+      >
+        {() => (
+          <Form>
             <Box>
               <Heading as="h2">Agent Information</Heading>
-              <Field
-                as={Input}
-                type="text"
-                name="agentId"
-                label="Agent ID"
-                validate={requiredField}
-              />
-              <Field
-                as={Input}
-                type="text"
-                name="brokerName"
-                label="Broker Name"
-                validate={requiredField}
-              />
-              <Field
-                as={Input}
-                type="tel"
-                name="brokerPhoneNumber"
-                label="Broker Phone Number"
-                validate={requiredPhoneNumber}
-              />
-              <Field
-                as={Input}
-                type="text"
-                name="brokerAddress"
-                label="Broker Address"
-                validate={requiredField}
-              />
+              <Row>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="agentId"
+                    label="Agent ID"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="brokerName"
+                    label="Broker Name"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="tel"
+                    name="brokerPhoneNumber"
+                    label="Broker Phone Number"
+                    validate={requiredPhoneNumber}
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field as={Input} type="text" name="brokerAddress" label="Broker Address" />
+                </Column>
+              </Row>
+              <AutoSave />
             </Box>
+          </Form>
+        )}
+      </Formik>
+      <Formik
+        validateOnMount
+        initialValues={aboutMeInitialValues}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            // eslint-disable-next-line no-console
+            console.log(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
+      >
+        {({ ...rest }) => (
+          <Form>
             <Box>
-              <Heading as="h2">Languages Spoken</Heading>
+              <Heading as="h2">About You</Heading>
               <Field
                 as={Input}
                 type="select"
@@ -121,20 +167,9 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
                 options={languagesList}
                 {...rest}
               />
-            </Box>
-            <Box>
-              <Heading as="h2">Certificates</Heading>
               <Field as={Input} type="text" name="certificates" label="Certificates" />
-            </Box>
-            <Box>
-              <Heading as="h2">About Me</Heading>
-              <Field
-                as={Input}
-                type="text"
-                name="aboutMe"
-                label="About Me"
-                validate={requiredField}
-              />
+              <Field as={Input} type="textarea" name="aboutMe" label="Bio" />
+              <AutoSave />
             </Box>
           </Form>
         )}
@@ -143,11 +178,6 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = props => {
   );
 };
 
-export default connect(
-  state => ({
-    // user: state.user,
-  }),
-  dispatch => ({
-    actions: bindActionCreators({}, dispatch),
-  })
-)(AgentProfile);
+export default connect(null, (dispatch) => ({
+  actions: bindActionCreators({}, dispatch),
+}))(AgentProfile);

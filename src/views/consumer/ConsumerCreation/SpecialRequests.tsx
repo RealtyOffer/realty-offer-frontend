@@ -24,7 +24,7 @@ type SpecialRequestsProps = {
   };
 } & RouteComponentProps;
 
-const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
+const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialValues: SpecialRequestsFormValues = {
@@ -46,7 +46,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={values => {
+          onSubmit={(values) => {
             props.actions.captureConsumerData(values);
             navigate('/consumer/sign-up');
           }}
@@ -58,7 +58,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
                 type="select"
                 name="otherLanguage"
                 label="Do you have a language preference other than English?"
-                options={languagesList}
+                options={[...languagesList, { value: 'No Preference', label: 'No Preference' }]}
                 {...rest}
               />
               <Field
@@ -106,6 +106,6 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = props => {
   );
 };
 
-export default connect(null, dispatch => ({
+export default connect(null, (dispatch) => ({
   actions: bindActionCreators({ captureConsumerData }, dispatch),
 }))(SpecialRequests);

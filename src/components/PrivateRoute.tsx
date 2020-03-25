@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { AuthStoreType } from '../redux/ducks/auth';
 
 type PrivateRouteProps = {
-  auth: AuthStoreType;
-  location: any;
+  auth?: AuthStoreType;
+  location?: any;
   component: ComponentType;
+  path: string;
 };
 
 const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
@@ -16,7 +17,7 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   location,
   ...rest
 }) => {
-  if (!auth.isLoggedIn && location.pathname !== '/login') {
+  if (auth && !auth.isLoggedIn && location.pathname !== '/login') {
     navigate('/login');
     return null;
   }
@@ -24,7 +25,7 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     auth: (state as any).auth,
   }),
   null

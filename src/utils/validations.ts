@@ -17,7 +17,7 @@ export const requiredField = (value: string | Array<string>) => {
   if (Array.isArray(value) && value.length === 0) {
     return 'This field is required';
   }
-  if (!value) {
+  if (!value || (value as string).trim() === '') {
     return 'This field is required';
   }
   return undefined;
