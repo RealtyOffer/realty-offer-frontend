@@ -8,11 +8,17 @@ import { Button, Card, Input, HorizontalRule, Seo } from '../components';
 
 import { requiredField } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
-import { authenticateCredentials, CreateUserFormValues } from '../redux/ducks/auth';
+import { authenticateCredentials } from '../redux/ducks/auth';
 
 type LoginProps = {
   actions: {
     authenticateCredentials: Function;
+  };
+};
+
+type LoginResponseType = {
+  payload: {
+    roles: 'Agent' | 'Consumer';
   };
 };
 
@@ -37,15 +43,13 @@ const Login: FunctionComponent<LoginProps> = (props) => {
           onSubmit={(values: LoginFormValues, { setSubmitting }) => {
             props.actions
               .authenticateCredentials(values)
-              .then((response: ActionResponseType | { payload: CreateUserFormValues }) => {
+              .then((response: ActionResponseType | LoginResponseType) => {
                 setSubmitting(false);
                 if ((response as ActionResponseType) && !(response as ActionResponseType).error) {
-                  if ((response as { payload: CreateUserFormValues }).payload.roles === 'Agent') {
+                  if ((response as LoginResponseType).payload.roles === 'Agent') {
                     navigate('/agent/listings/new');
                   }
-                  if (
-                    (response as { payload: CreateUserFormValues }).payload.roles === 'Consumer'
-                  ) {
+                  if ((response as LoginResponseType).payload.roles === 'Consumer') {
                     navigate('/consumer/home');
                   }
                 }
