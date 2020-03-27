@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Profile from './Profile';
 import Settings from './Settings';
 import Security from './Security';
+import Notifications from './Notifications';
 import { Row, Column } from '../../../../components';
 import { baseBorderStyle, z1Shadow } from '../../../../styles/mixins';
 import { baseSpacer } from '../../../../styles/size';
@@ -48,6 +49,7 @@ const AgentSettings: FunctionComponent<AgentSettingsProps> = () => (
         <Profile path="/profile" />
         <Settings path="/settings" />
         <Security path="/security" />
+        <Notifications path="/notifications" />
       </Router>
     </Column>
   </Row>
