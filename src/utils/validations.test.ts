@@ -1,6 +1,7 @@
 import {
   customFieldLevelValidation,
   requiredField,
+  requiredSelect,
   isPhoneNumber,
   isEmail,
   isValidPassword,
@@ -14,6 +15,9 @@ describe('validations', () => {
     expect(customFieldLevelValidation('', [requiredField])).toBeDefined();
     expect(customFieldLevelValidation('2203303330', [isPhoneNumber])).toBeNull();
     expect(customFieldLevelValidation('', [isPhoneNumber])).toBeDefined();
+    expect(customFieldLevelValidation(['Livonia', 'Plymouth'], [requiredSelect])).toBeNull();
+    expect(customFieldLevelValidation('Livonia', [requiredSelect])).toBeNull();
+    expect(customFieldLevelValidation('', [requiredSelect])).toBeDefined();
   });
 
   it('should validate multi-validations', () => {
