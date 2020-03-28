@@ -30,17 +30,6 @@ type VerifyEmailType = {
   auth: {};
 };
 
-const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
-  const target = e.target as HTMLInputElement;
-  if (target.value.length >= 1) {
-    const currentInputIndex = Number(target.name.charAt(5));
-    const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
-    if (inputToBeFocused) {
-      inputToBeFocused.focus();
-    }
-  }
-};
-
 const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
   props: VerifyEmailType
 ) => {
@@ -58,6 +47,37 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
 
   const resend = (email: string) => {
     props.actions.resendSignupEmail(email);
+  };
+
+  const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target.value.length >= 1) {
+      const currentInputIndex = Number(target.name.charAt(5));
+      const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
+      if (inputToBeFocused) {
+        inputToBeFocused.focus();
+      }
+    }
+  };
+
+  const handlePasteEvent = (e: ClipboardEvent, setFieldValue: Function, validateForm: Function) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const pastedData = e.clipboardData && e.clipboardData.getData('Text');
+
+    if (pastedData && pastedData.toString().length === 6) {
+      setFieldValue('digit1', pastedData[0]);
+      setFieldValue('digit2', pastedData[1]);
+      setFieldValue('digit3', pastedData[2]);
+      setFieldValue('digit4', pastedData[3]);
+      setFieldValue('digit5', pastedData[4]);
+      setFieldValue('digit6', pastedData[5]);
+      const inputToBeFocused = document.getElementsByName('digit6')[0];
+      if (inputToBeFocused) {
+        validateForm().then(() => inputToBeFocused.focus());
+      }
+    }
   };
 
   return (
@@ -97,7 +117,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
                 });
             }}
           >
-            {({ isSubmitting, isValid, values }) => (
+            {({ isSubmitting, isValid, values, setFieldValue, validateForm }) => (
               <Form style={{ width: '100%' }}>
                 <Field
                   as={Input}
@@ -117,6 +137,9 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
                       square
                       maxLength={1}
                       onInput={autoFocusNextInput}
+                      onPaste={(e: ClipboardEvent) =>
+                        handlePasteEvent(e, setFieldValue, validateForm)
+                      }
                       validate={requiredField}
                     />
                   ))}
