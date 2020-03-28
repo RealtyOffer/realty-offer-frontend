@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { RouteComponentProps } from '@reach/router';
-import { Button, Input, FlexContainer, Card, Seo } from '../../components';
+import { Button, Input, FlexContainer, Card, Seo, HorizontalRule } from '../../components';
 import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../utils/validations';
 import { ActionResponseType } from '../../redux/constants';
@@ -156,6 +156,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
                     Cancel
                   </Button>
                 </FlexContainer>
+                <HorizontalRule />
                 <FlexContainer flexDirection="column">
                   <p style={{ textAlign: 'center' }}>
                     Didn&apos;t receive an email? Enter your email address and click the button
