@@ -9,24 +9,68 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => (
     <Seo title="New Listings" />
     <Heading>New Listings</Heading>
     <Row>
-      <Column md={4}>
+      <Column sm={6} lg={4}>
         <BidCard
-          index={1}
-          total={25}
           priceRange="$350-375k"
           type="selling"
           location="48178"
-          expiresAt={String(addHours(new Date(), 22))}
+          expiresAt={addHours(new Date(), 22)}
         />
       </Column>
-      <Column md={4}>
+      <Column sm={6} lg={4}>
         <BidCard
-          index={2}
-          total={25}
           priceRange="$350-375k"
           type="buying"
           location={['48170', '48152']}
-          expiresAt={String(addHours(new Date(), 23))}
+          expiresAt={addHours(new Date(), 1)}
+        />
+      </Column>
+      <Column sm={6} lg={4}>
+        <BidCard
+          priceRange="$350-375k"
+          type="selling"
+          location="48178"
+          expiresAt={addHours(new Date(), 10)}
+        />
+      </Column>
+      <Column sm={6} lg={4}>
+        <BidCard
+          priceRange="$350-375k"
+          type="buying"
+          location={['48170', '48152']}
+          expiresAt={addHours(new Date(), 13)}
+        />
+      </Column>
+      <Column sm={6} lg={4}>
+        <BidCard
+          priceRange="$350-375k"
+          type="selling"
+          location="48178"
+          expiresAt={addHours(new Date(), 22)}
+        />
+      </Column>
+      <Column sm={6} lg={4}>
+        <BidCard
+          priceRange="$350-375k"
+          type="buying"
+          location={['48170', '48152']}
+          expiresAt={addHours(new Date(), 1)}
+        />
+      </Column>
+      <Column sm={6} lg={4}>
+        <BidCard
+          priceRange="$350-375k"
+          type="selling"
+          location="48178"
+          expiresAt={addHours(new Date(), 10)}
+        />
+      </Column>
+      <Column sm={6} lg={4}>
+        <BidCard
+          priceRange="$350-375k"
+          type="buying"
+          location={['48170', '48152']}
+          expiresAt={addHours(new Date(), 13)}
         />
       </Column>
     </Row>

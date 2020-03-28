@@ -12,9 +12,9 @@ import Avatar from './Avatar';
 import HorizontalRule from './HorizontalRule';
 import Button from './Button';
 
-import { brandPrimary, white, offWhite, brandPrimaryHover } from '../styles/color';
+import { brandPrimary, white, offWhite, brandPrimaryHover, brandTertiary } from '../styles/color';
 import { baseSpacer, doubleSpacer, octupleSpacer, halfSpacer, screenSizes } from '../styles/size';
-import { z1Shadow, baseBorderStyle } from '../styles/mixins';
+import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
 import { fontSizeH6 } from '../styles/typography';
 import { logout } from '../redux/ducks/auth';
 import logo from '../images/logo.svg';
@@ -110,7 +110,7 @@ const StyledMenu = styled.div`
     css`
       flex-direction: column;
       align-items: normal;
-      background-color: ${brandPrimary};
+      background-color: ${brandTertiary};
       padding: 0 ${baseSpacer};
       height: 100vh;
       position: absolute;
@@ -119,6 +119,7 @@ const StyledMenu = styled.div`
       width: 75%;
       z-index: 10;
       transition: left 200ms linear;
+      ${props.menuIsOpen && `box-shadow: ${z4Shadow}`};
 
       & > a {
         padding: ${halfSpacer} 0;
