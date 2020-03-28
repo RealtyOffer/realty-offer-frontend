@@ -5,7 +5,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, Seo, Input, Row, Card, Column, HorizontalRule } from '../../../components';
+import {
+  Button,
+  Seo,
+  Input,
+  Row,
+  Card,
+  Column,
+  HorizontalRule,
+  ProgressBar,
+} from '../../../components';
 
 import {
   requiredEmail,
@@ -16,7 +25,7 @@ import {
 } from '../../../utils/validations';
 import { createUser, CreateUserFormValues } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
-import { captureConsumerData } from '../../../redux/ducks/consumer';
+import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
 import UnsavedChangesModal from './UnsavedChangesModal';
 
 type CreateConsumerProps = {
@@ -24,6 +33,7 @@ type CreateConsumerProps = {
     createUser: Function;
     captureConsumerData: Function;
   };
+  consumer: ConsumerStoreType;
 } & RouteComponentProps;
 
 const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
@@ -44,11 +54,18 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
+  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+
   return (
     <>
       <Seo title="Ready to buy or sell a home?" />
       <Card cardTitle="Create Account" cardSubtitle="Tell Us About Yourself">
         <>
+          <ProgressBar
+            value={100}
+            label={`Step ${isBuyerAndSeller ? 4 : 3}/${isBuyerAndSeller ? 4 : 3}`}
+            name="progress"
+          />
           <Formik
             validateOnMount
             initialValues={initialValues}
@@ -137,6 +154,11 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ createUser, captureConsumerData }, dispatch),
-}))(CreateConsumer);
+export default connect(
+  (state) => ({
+    consumer: (state as any).consumer,
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators({ createUser, captureConsumerData }, dispatch),
+  })
+)(CreateConsumer);
