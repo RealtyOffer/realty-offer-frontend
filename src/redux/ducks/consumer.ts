@@ -1,6 +1,12 @@
-// import { RSAA } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
+
+import { CREATE_CONSUMER_PROFILE_ENDPOINT } from '../constants';
 
 export const CAPTURE_CONSUMER_DATA = 'CAPTURE_CONSUMER_DATA';
+
+export const CREATE_CONSUMER_PROFILE_REQUEST = 'CREATE_CONSUMER_PROFILE_REQUEST';
+export const CREATE_CONSUMER_PROFILE_SUCCESS = 'CREATE_CONSUMER_PROFILE_SUCCESS';
+export const CREATE_CONSUMER_PROFILE_FAILURE = 'CREATE_CONSUMER_PROFILE_FAILURE';
 
 export type ConsumerStoreType = {
   signupData: {
@@ -13,7 +19,7 @@ export type ConsumerStoreType = {
     sellersAddressLine2?: string;
     sellersCity?: string;
     sellersState?: string;
-    sellersZip?: number;
+    sellersZip?: string;
     sellersTimeline?: string;
     sellersListingPriceInMind?: string;
     sellersMortgageBalance?: string;
@@ -21,10 +27,14 @@ export type ConsumerStoreType = {
     genderPreference?: string;
     email?: string;
   };
+  isLoading: boolean;
+  hasError: boolean;
 };
 
 export const initialState: ConsumerStoreType = {
   signupData: {},
+  isLoading: false,
+  hasError: false,
 };
 
 export default (state: ConsumerStoreType = initialState, action: any) => {
@@ -42,6 +52,27 @@ export default (state: ConsumerStoreType = initialState, action: any) => {
                 ...action.payload,
               },
       };
+    case CREATE_CONSUMER_PROFILE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false,
+      };
+    case CREATE_CONSUMER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        signupData: {
+          ...action.payload,
+        },
+      };
+    case CREATE_CONSUMER_PROFILE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+      };
     default:
       return state;
   }
@@ -50,4 +81,21 @@ export default (state: ConsumerStoreType = initialState, action: any) => {
 export const captureConsumerData = (payload: ConsumerStoreType['signupData']) => ({
   type: CAPTURE_CONSUMER_DATA,
   payload,
+});
+
+export const createConsumerProfile = (payload: ConsumerStoreType['signupData']) => ({
+  [RSAA]: {
+    endpoint: CREATE_CONSUMER_PROFILE_ENDPOINT,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    skipOauth: true,
+    types: [
+      CREATE_CONSUMER_PROFILE_REQUEST,
+      CREATE_CONSUMER_PROFILE_SUCCESS,
+      CREATE_CONSUMER_PROFILE_FAILURE,
+    ],
+  },
 });

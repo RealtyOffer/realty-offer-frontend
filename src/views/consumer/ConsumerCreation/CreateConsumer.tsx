@@ -18,20 +18,27 @@ import {
 
 import {
   requiredEmail,
-  requiredField,
+  requiredSelect,
   requiredPhoneNumber,
   requiredPassword,
   passwordRulesString,
 } from '../../../utils/validations';
 import { createUser, CreateUserFormValues } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
-import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
+import {
+  captureConsumerData,
+  createConsumerProfile,
+  ConsumerStoreType,
+} from '../../../redux/ducks/consumer';
 import UnsavedChangesModal from './UnsavedChangesModal';
+import { addAlert } from '../../../redux/ducks/globalAlerts';
 
 type CreateConsumerProps = {
   actions: {
     createUser: Function;
     captureConsumerData: Function;
+    createConsumerProfile: Function;
+    addAlert: Function;
   };
   consumer: ConsumerStoreType;
 } & RouteComponentProps;
@@ -78,8 +85,20 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
                 })
                 .then((response: ActionResponseType) => {
                   setSubmitting(false);
-                  // TODO: post the captured consumer data object from the consumer reducer state
                   if (response && !response.error) {
+                    props.actions
+                      .createConsumerProfile({
+                        ...props.consumer.signupData,
+                        sellersZip: String(props.consumer.signupData.sellersZip),
+                      })
+                      .then((secondRes: ActionResponseType) => {
+                        if (secondRes && !secondRes.error) {
+                          props.actions.addAlert({
+                            message: 'Successfully created your profile!',
+                            type: 'success',
+                          });
+                        }
+                      });
                     navigate('/consumer/verify-email');
                   }
                 });
@@ -94,7 +113,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
                       type="text"
                       name="firstName"
                       label="First Name"
-                      validate={requiredField}
+                      validate={requiredSelect}
                     />
                   </Column>
                   <Column xs={6}>
@@ -103,7 +122,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
                       type="text"
                       name="lastName"
                       label="Last Name"
-                      validate={requiredField}
+                      validate={requiredSelect}
                     />
                   </Column>
                 </Row>
@@ -159,6 +178,9 @@ export default connect(
     consumer: (state as any).consumer,
   }),
   (dispatch) => ({
-    actions: bindActionCreators({ createUser, captureConsumerData }, dispatch),
+    actions: bindActionCreators(
+      { createUser, captureConsumerData, createConsumerProfile, addAlert },
+      dispatch
+    ),
   })
 )(CreateConsumer);

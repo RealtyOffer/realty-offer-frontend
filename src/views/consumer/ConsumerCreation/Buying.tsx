@@ -18,7 +18,7 @@ import {
 } from '../../../components';
 import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
 
-import { requiredField } from '../../../utils/validations';
+import { requiredSelect } from '../../../utils/validations';
 import priceRangesList from '../../../utils/priceRangesList';
 import UnsavedChangesModal from './UnsavedChangesModal';
 
@@ -89,7 +89,7 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
                   name="buyingCity"
                   options={citiesList}
                   label="What city/cities are you looking to move to?"
-                  validate={requiredField}
+                  validate={requiredSelect}
                   {...rest}
                 />
                 <Field
@@ -98,7 +98,7 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
                   name="buyingPriceRange"
                   options={priceRangesList}
                   label="Do you have a purchase price in mind?"
-                  validate={requiredField}
+                  validate={requiredSelect}
                   {...rest}
                 />
                 <Field
