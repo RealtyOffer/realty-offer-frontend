@@ -6,8 +6,17 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
-import { captureConsumerData } from '../../../redux/ducks/consumer';
+import {
+  Button,
+  Card,
+  Input,
+  Seo,
+  Column,
+  Row,
+  HorizontalRule,
+  ProgressBar,
+} from '../../../components';
+import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
 
 import languagesList from '../../../utils/languagesList';
 import gendersList from '../../../utils/gendersList';
@@ -22,6 +31,7 @@ type SpecialRequestsProps = {
   actions: {
     captureConsumerData: Function;
   };
+  consumer: ConsumerStoreType;
 } & RouteComponentProps;
 
 const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
@@ -36,6 +46,8 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
+  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+
   return (
     <>
       <Seo title="Any Special Requests" />
@@ -43,6 +55,11 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
         cardTitle="Any Special Requests"
         cardSubtitle="Providing this additional information helps us match you with the best agent for you"
       >
+        <ProgressBar
+          value={isBuyerAndSeller ? 75 : 66}
+          label={`Step ${isBuyerAndSeller ? 3 : 2}/${isBuyerAndSeller ? 4 : 3}`}
+          name="progress"
+        />
         <Formik
           validateOnMount
           initialValues={initialValues}
@@ -106,6 +123,11 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ captureConsumerData }, dispatch),
-}))(SpecialRequests);
+export default connect(
+  (state) => ({
+    consumer: (state as any).consumer,
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators({ captureConsumerData }, dispatch),
+  })
+)(SpecialRequests);

@@ -6,8 +6,17 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
-import { captureConsumerData } from '../../../redux/ducks/consumer';
+import {
+  Button,
+  Card,
+  Input,
+  Seo,
+  Column,
+  Row,
+  HorizontalRule,
+  ProgressBar,
+} from '../../../components';
+import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
 
 import { requiredField } from '../../../utils/validations';
 import statesList from '../../../utils/statesList';
@@ -35,6 +44,7 @@ type SellingProps = {
   actions: {
     captureConsumerData: Function;
   };
+  consumer: ConsumerStoreType;
 } & RouteComponentProps;
 
 const Selling: FunctionComponent<SellingProps> = (props) => {
@@ -55,6 +65,8 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
+  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+
   return (
     <>
       <Seo title="Sell Your Home" />
@@ -63,6 +75,11 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
         cardSubtitle="No contracts, no obligation, no awkward negotiations"
       >
         <>
+          <ProgressBar
+            value={isBuyerAndSeller ? 50 : 33}
+            label={`Step ${isBuyerAndSeller ? 2 : 1}/${isBuyerAndSeller ? 4 : 3}`}
+            name="progress"
+          />
           <Formik
             validateOnMount
             initialValues={initialValues}
@@ -183,6 +200,11 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ captureConsumerData }, dispatch),
-}))(Selling);
+export default connect(
+  (state) => ({
+    consumer: (state as any).consumer,
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators({ captureConsumerData }, dispatch),
+  })
+)(Selling);
