@@ -5,7 +5,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, Seo, Input, Row, Card, Column, HorizontalRule } from '../../../components';
+import {
+  Button,
+  Seo,
+  Input,
+  Row,
+  Card,
+  Column,
+  HorizontalRule,
+  ProgressBar,
+} from '../../../components';
 
 import {
   requiredEmail,
@@ -52,11 +61,18 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
+  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+
   return (
     <>
       <Seo title="Ready to buy or sell a home?" />
       <Card cardTitle="Create Account" cardSubtitle="Tell Us About Yourself">
         <>
+          <ProgressBar
+            value={100}
+            label={`Step ${isBuyerAndSeller ? 4 : 3}/${isBuyerAndSeller ? 4 : 3}`}
+            name="progress"
+          />
           <Formik
             validateOnMount
             initialValues={initialValues}

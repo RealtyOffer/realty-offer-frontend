@@ -6,7 +6,16 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Card, Input, Seo, Column, Row, HorizontalRule } from '../../../components';
+import {
+  Button,
+  Card,
+  Input,
+  Seo,
+  Column,
+  Row,
+  HorizontalRule,
+  ProgressBar,
+} from '../../../components';
 import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
 
 import { requiredSelect } from '../../../utils/validations';
@@ -48,6 +57,8 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
+  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+
   return (
     <>
       <Seo title="Buy A Home" />
@@ -56,16 +67,17 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
         cardSubtitle="No contracts, no obligation, no awkward negotiations"
       >
         <>
+          <ProgressBar
+            value={isBuyerAndSeller ? 25 : 33}
+            label={`Step 1/${isBuyerAndSeller ? 4 : 3}`}
+            name="progress"
+          />
           <Formik
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values) => {
               props.actions.captureConsumerData(values);
-              navigate(
-                props.consumer.signupData.consumerType === 'buyerSeller'
-                  ? '/consumer/selling'
-                  : '/consumer/special-requests'
-              );
+              navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/special-requests');
             }}
           >
             {({ values, isSubmitting, isValid, ...rest }) => (
