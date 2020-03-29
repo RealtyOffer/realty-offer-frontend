@@ -1,7 +1,10 @@
 // Formik doesn't allow multiple validation functions in its Field property `validate`, so
 // we compose them using this function below
 // from https://medium.com/@hasibsahibzada/formik-composed-field-level-validation-e40d6380b2d7
-export const customFieldLevelValidation = (value: string, validations: Array<Function>) => {
+export const customFieldLevelValidation = (
+  value: string | Array<string>,
+  validations: Array<Function>
+) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const validation of validations) {
     const result = validation(value);
@@ -13,11 +16,20 @@ export const customFieldLevelValidation = (value: string, validations: Array<Fun
 };
 
 // individual validations
-export const requiredField = (value: string | Array<string>) => {
+export const requiredField = (value: string) => {
+  if (!value || String(value).trim() === '') {
+    return 'This field is required';
+  }
+  return undefined;
+};
+
+export const requiredSelect = (value: Array<string> | string) => {
+  // input type select can have multiple values as an array of strings, so check that first
   if (Array.isArray(value) && value.length === 0) {
     return 'This field is required';
   }
-  if (!value || (value as string).trim() === '') {
+  // otherwise, for a single value it is just a string
+  if ((value as string) === '') {
     return 'This field is required';
   }
   return undefined;

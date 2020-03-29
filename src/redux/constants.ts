@@ -10,6 +10,10 @@ export const AUTH_FORGOT_PASSWORD_ENDPOINT = `${API_ROOT}/auth/forgot-password`;
 export const AUTH_RESET_PASSWORD_ENDPOINT = `${API_ROOT}/auth/reset-password`;
 export const AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT = `${API_ROOT}/auth/resend-signup-email`;
 
+// Consumer
+export const CREATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/profile`;
+export const UPDATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
+
 // Action Response Type
 export type ActionResponseType = {
   error: number;
