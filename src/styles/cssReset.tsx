@@ -45,7 +45,8 @@ const CssReset = createGlobalStyle`
   input{line-height:normal}
   input[type="text"],input[type="password"],input[type="email"],input[type="url"],textarea{appearance:none}
   input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
-  input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}
+  input[type="number"]{-moz-appearance: textfield;}
+  input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto;-webkit-appearance:none;margin: 0;}
   input[type="search"]{-webkit-appearance:textfield}
   input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
   fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em}
