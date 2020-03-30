@@ -1,5 +1,6 @@
 import Alert from './Alert';
 import Avatar from './Avatar';
+import BidCard from './BidCard';
 import Box from './Box';
 import Button from './Button';
 import Card from './Card';
@@ -25,6 +26,7 @@ import SiteMetadata from './SiteMetadata';
 export {
   Alert,
   Avatar,
+  BidCard,
   Box,
   Button,
   Card,

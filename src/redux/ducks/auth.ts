@@ -148,7 +148,7 @@ export interface CreateUserFormValues {
   phoneNumber: string;
   email: string;
   password: string;
-  roles: 'Consumer' | 'Agent';
+  role: 'Consumer' | 'Agent';
 }
 
 export const createUser = (payload: CreateUserFormValues) => ({
