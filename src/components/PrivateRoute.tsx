@@ -4,20 +4,31 @@ import { connect } from 'react-redux';
 
 import { AuthStoreType } from '../redux/ducks/auth';
 
+type AllowedRoleType = 'Agent' | 'Consumer' | 'Admin';
+
 type PrivateRouteProps = {
   auth?: AuthStoreType;
   location?: any;
   component: ComponentType;
   path: string;
+  allowedRole: AllowedRoleType;
 };
+
+const isRoleAllowed = (roles: string, allowedRole: AllowedRoleType) => roles.includes(allowedRole);
 
 const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   auth,
+  allowedRole,
   component: Component,
   location,
   ...rest
 }) => {
-  if (auth && !auth.isLoggedIn && location.pathname !== '/login') {
+  if (
+    auth &&
+    !auth.isLoggedIn &&
+    location.pathname !== '/login' &&
+    isRoleAllowed(auth.roles, allowedRole)
+  ) {
     navigate('/login');
     return null;
   }
