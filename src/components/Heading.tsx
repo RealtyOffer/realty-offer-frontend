@@ -18,7 +18,6 @@ type HeadingProps = {
   inverse?: boolean;
   noMargin?: boolean;
   align?: 'left' | 'center' | 'right';
-  children: string;
   styledAs?: 'title' | 'subtitle' | null;
 };
 
@@ -73,7 +72,7 @@ const StyledHeading = styled.h1`
   ${(props: HeadingProps) => props.styledAs && renderStyledAs(props.styledAs)};
 `;
 
-const Heading: FunctionComponent<HeadingProps> = (props: HeadingProps) => (
+const Heading: FunctionComponent<HeadingProps> = (props) => (
   <StyledHeading
     as={props.as}
     noMargin={props.noMargin}

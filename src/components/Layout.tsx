@@ -20,6 +20,7 @@ const LayoutWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
   width: 100vw;
+  overflow: hidden;
 `;
 
 const PageBody = styled.div`
