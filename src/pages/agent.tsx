@@ -26,11 +26,11 @@ const AgentApp: FunctionComponent<{}> = () => (
     <BusinessInformation path="/business-information" />
     <PaymentInformation path="/payment-information" />
     <ConfirmPayment path="/confirm-payment" />
-    <PrivateRoute component={NewListings} path="/listings/new" />
+    <PrivateRoute component={NewListings} path="/listings/new" allowedRole="Agent" />
     <PrivateRoute component={PendingListings} path="/listings/pending" />
     <PrivateRoute component={AwardedListings} path="/listings/awarded" />
     <PrivateRoute component={ListingHistory} path="/listings/history" />
-    <PrivateRoute component={AgentAccount} path="/account/*" />
+    <PrivateRoute component={AgentAccount} path="/account/*" allowedRole="Agent" />
     <NotFoundPage default />
   </Router>
 );

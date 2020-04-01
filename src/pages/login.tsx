@@ -46,10 +46,10 @@ const Login: FunctionComponent<LoginProps> = (props) => {
               .then((response: ActionResponseType | LoginResponseType) => {
                 setSubmitting(false);
                 if ((response as ActionResponseType) && !(response as ActionResponseType).error) {
-                  if ((response as LoginResponseType).payload.roles === 'Agent') {
+                  if ((response as LoginResponseType).payload.roles.includes('Agent')) {
                     navigate('/agent/listings/new');
                   }
-                  if ((response as LoginResponseType).payload.roles === 'Consumer') {
+                  if ((response as LoginResponseType).payload.roles.includes('Consumer')) {
                     navigate('/consumer/home');
                   }
                 }

@@ -15,13 +15,13 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
   const personalInfoInitialValues = {
     firstName: 'Test',
     lastName: 'User',
-    phoneNumber: '1234567890',
+    phoneNumber: '123-456-7890',
     email: 'testuser@realtyoffer.com',
   };
   const agentInfoInitialValues = {
     agentId: '1',
     brokerName: '1',
-    brokerPhoneNumber: '1234567890',
+    brokerPhoneNumber: '123-456-7890',
     brokerAddress: '',
   };
   const aboutMeInitialValues = {
