@@ -15,44 +15,40 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
     confirmPassword: '',
   };
   return (
-    <>
-      <Box>
-        <Heading>Security</Heading>
-        <Formik
-          validateOnMount
-          initialValues={initialValues}
-          onSubmit={(values) => console.log(values)}
-        >
-          {() => (
-            <Form>
-              <Field
-                as={Input}
-                type="password"
-                name="currentPassword"
-                label="Current Password"
-              />
-              <Field
-                as={Input}
-                type="password"
-                name="newPassword"
-                label="New Password"
-                validate={requiredPassword}
-                helpText={passwordRulesString}
-              />
-              <Field
-                as={Input}
-                type="password"
-                name="confirmPassword"
-                label="Confirm Password"
-              />
-            </Form>
-          )}
-        </Formik>
-        <Button type="submit" color="text" block>
-          Submit
-        </Button>
-      </Box>
-    </>
+    <Box>
+      <Heading>Security</Heading>
+      <Formik
+        validateOnMount
+        initialValues={initialValues}
+        onSubmit={(values) => console.log(values)}
+      >
+        {() => (
+          <Form>
+            <Field
+              as={Input}
+              type="password"
+              name="currentPassword"
+              label="Current Password"
+            />
+            <Field
+              as={Input}
+              type="password"
+              name="newPassword"
+              label="New Password"
+              validate={requiredPassword}
+              helpText={passwordRulesString}
+            />
+            <Field
+              as={Input}
+              type="password"
+              name="confirmPassword"
+              label="Confirm Password"
+            />
+            <Button type="submit" color="text" block>Submit</Button>
+          </Form>
+        )}
+      </Formik>
+    </Box>
   );
 };
 
