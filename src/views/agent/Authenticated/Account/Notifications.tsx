@@ -12,9 +12,13 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
   };
   return (
     <>
+      <Heading>Notifications</Heading>
       <Box>
-        <Heading>Notifications</Heading>
-        <Formik validateOnMount initialValues={initialValues} onSubmit>
+        <Formik
+          validateOnMount
+          initialValues={initialValues}
+          onSubmit={(values) => console.log(values)}
+        >
           {() => (
             <Form>
               <Field as={Input} type="text" name="email" label="Email" />

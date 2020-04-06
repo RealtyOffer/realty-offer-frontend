@@ -13,6 +13,7 @@ import {
   borderRadius,
   sextupleSpacer,
   doubleSpacer,
+  threeQuarterSpacer,
 } from '../styles/size';
 import { fontSizeBase, lineHeightBase, fontSizeSmall } from '../styles/typography';
 import {
@@ -176,7 +177,7 @@ const PasswordWrapper = styled.div`
 const PasswordToggle = styled.div`
   position: absolute;
   right: ${baseSpacer};
-  top: ${baseSpacer};
+  top: ${threeQuarterSpacer};
 `;
 
 const multiSelectStyles = {
