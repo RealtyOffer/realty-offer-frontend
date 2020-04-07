@@ -6,6 +6,7 @@ import Button from './Button';
 import Card from './Card';
 import Column from './Column';
 import Content from './Content';
+import EmptyListingsView from './EmptyListingsView';
 import FlexContainer from './FlexContainer';
 import Footer from './Footer';
 import Heading from './Heading';
@@ -32,6 +33,7 @@ export {
   Card,
   Column,
   Content,
+  EmptyListingsView,
   FlexContainer,
   Footer,
   Heading,
