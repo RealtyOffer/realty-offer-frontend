@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import addHours from 'date-fns/addHours';
-import { FaFrown } from 'react-icons/fa';
+import { FaRegFrown } from 'react-icons/fa';
 
 import {
   Box,
@@ -19,10 +19,10 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => (
   <>
     <Seo title="New Listings" />
     <Heading>New Listings</Heading>
-    {true && ( // TODO: look at new listings length to show this dynamically
+    {false && ( // TODO: look at new listings length to show this dynamically
       <Box>
         <FlexContainer height="500px" flexDirection="column">
-          <FaFrown fontSize={64} style={{ margin: doubleSpacer }} />
+          <FaRegFrown fontSize={64} style={{ margin: doubleSpacer }} />
           <Heading styledAs="title" align="center">
             There are no new bids in your current sales area.
           </Heading>

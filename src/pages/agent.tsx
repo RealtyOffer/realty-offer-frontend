@@ -12,6 +12,7 @@ import NewListings from '../views/agent/Authenticated/Listings/New';
 import PendingListings from '../views/agent/Authenticated/Listings/Pending';
 import AwardedListings from '../views/agent/Authenticated/Listings/Awarded';
 import ListingHistory from '../views/agent/Authenticated/Listings/History';
+import ListingDetail from '../views/agent/Authenticated/Listings/Detail';
 import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
@@ -26,10 +27,11 @@ const AgentApp: FunctionComponent<{}> = () => (
     <BusinessInformation path="/business-information" />
     <PaymentInformation path="/payment-information" />
     <ConfirmPayment path="/confirm-payment" />
+    <PrivateRoute component={ListingDetail} path="/listings/:listingId" allowedRole="Agent" />
     <PrivateRoute component={NewListings} path="/listings/new" allowedRole="Agent" />
-    <PrivateRoute component={PendingListings} path="/listings/pending" />
-    <PrivateRoute component={AwardedListings} path="/listings/awarded" />
-    <PrivateRoute component={ListingHistory} path="/listings/history" />
+    <PrivateRoute component={PendingListings} path="/listings/pending" allowedRole="Agent" />
+    <PrivateRoute component={AwardedListings} path="/listings/awarded" allowedRole="Agent" />
+    <PrivateRoute component={ListingHistory} path="/listings/history" allowedRole="Agent" />
     <PrivateRoute component={AgentAccount} path="/account/*" allowedRole="Agent" />
     <NotFoundPage default />
   </Router>
