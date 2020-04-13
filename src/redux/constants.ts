@@ -10,9 +10,19 @@ export const AUTH_FORGOT_PASSWORD_ENDPOINT = `${API_ROOT}/auth/forgot-password`;
 export const AUTH_RESET_PASSWORD_ENDPOINT = `${API_ROOT}/auth/reset-password`;
 export const AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT = `${API_ROOT}/auth/resend-signup-email`;
 
+// Agent
+export const AGENT_PROFILE_ENDPOINT = `${API_ROOT}/agent/profile`;
+export const AGENT_BANNERS_ENDPOINT = `${API_ROOT}/agent/site-banners`;
+
+// Agent Listings/Bidding
+export const LISTINGS_ENDPOINT = `${API_ROOT}/agent/listings`;
+export const BIDDING_ENDPOINT = `${API_ROOT}/agent/bids`;
+export const LISTING_BY_ID_ENDPOINT = (id: number) => `${LISTINGS_ENDPOINT}/${id}`;
+
 // Consumer
 export const CREATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/profile`;
 export const UPDATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
+export const CONSUMER_BANNERS_ENDPOINT = `${API_ROOT}/consumer/site-banners`;
 
 // Action Response Type
 export type ActionResponseType = {

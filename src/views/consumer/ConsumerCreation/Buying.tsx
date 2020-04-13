@@ -17,6 +17,7 @@ import {
   ProgressBar,
 } from '../../../components';
 import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
+import { RootState } from '../../../redux/ducks';
 
 import { requiredSelect } from '../../../utils/validations';
 import priceRangesList from '../../../utils/priceRangesList';
@@ -154,8 +155,8 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
 };
 
 export default connect(
-  (state) => ({
-    consumer: (state as any).consumer,
+  (state: RootState) => ({
+    consumer: state.consumer,
   }),
   (dispatch) => ({
     actions: bindActionCreators({ captureConsumerData }, dispatch),

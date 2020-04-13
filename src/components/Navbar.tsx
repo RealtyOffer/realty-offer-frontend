@@ -17,6 +17,7 @@ import { baseSpacer, doubleSpacer, octupleSpacer, halfSpacer, screenSizes } from
 import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
 import { fontSizeH6 } from '../styles/typography';
 import { logout } from '../redux/ducks/auth';
+import { RootState } from '../redux/ducks';
 import logo from '../images/logo.svg';
 import useWindowSize from '../utils/useWindowSize';
 import agentNavigationItems from '../utils/agentNavigationItems';
@@ -221,8 +222,8 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
 };
 
 export default connect(
-  (state) => ({
-    auth: (state as any).auth,
+  (state: RootState) => ({
+    auth: state.auth,
   }),
   (dispatch) => ({
     actions: bindActionCreators({ logout }, dispatch),

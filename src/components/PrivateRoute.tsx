@@ -3,6 +3,7 @@ import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
 
 import { AuthStoreType } from '../redux/ducks/auth';
+import { RootState } from '../redux/ducks';
 
 type AllowedRoleType = 'Agent' | 'Consumer' | 'Admin';
 
@@ -36,8 +37,8 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
 };
 
 export default connect(
-  (state) => ({
-    auth: (state as any).auth,
+  (state: RootState) => ({
+    auth: state.auth,
   }),
   null
 )(PrivateRoute);

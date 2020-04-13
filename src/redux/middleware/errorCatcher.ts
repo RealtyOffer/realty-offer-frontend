@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+import { navigate } from 'gatsby';
 import { logout } from '../ducks/auth';
 import { addAlert } from '../ducks/globalAlerts';
 
@@ -10,6 +11,7 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
       // If we've gotten to this point, a request snuck through with a bad token
       // Call logout to nuke the data
       store.dispatch(logout());
+      navigate('/login');
 
       return store.dispatch(
         addAlert({

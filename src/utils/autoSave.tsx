@@ -6,6 +6,7 @@ import styled, { keyframes } from 'styled-components';
 
 import usePrevious from './usePrevious';
 import { brandDanger, brandPrimary, brandSuccess } from '../styles/color';
+import { ActionResponseType } from '../redux/constants';
 
 const opacityTransition = keyframes`
   0%, 100% {
@@ -33,8 +34,15 @@ const AutoSave: FunctionComponent<{}> = () => {
       setIsMessageShowing(true);
       if (formik.isValid) {
         formik.submitForm().then(
-          () => {
-            setIsSaving(false);
+          (response: ActionResponseType) => {
+            if (response && !response.error) {
+              setIsSaving(false);
+              setHasError(false);
+            }
+            if (!response || response.error) {
+              setIsSaving(false);
+              setHasError(true);
+            }
           },
           () => {
             setIsSaving(false);

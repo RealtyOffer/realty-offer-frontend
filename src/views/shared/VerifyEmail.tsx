@@ -9,6 +9,7 @@ import { Button, Input, FlexContainer, Card, Seo, HorizontalRule } from '../../c
 import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../utils/validations';
 import { ActionResponseType } from '../../redux/constants';
+import { RootState } from '../../redux/ducks';
 
 export interface VerifyEmailFormValues {
   email: string;
@@ -181,8 +182,8 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
 };
 
 export default connect(
-  (state) => ({
-    auth: (state as any).auth,
+  (state: RootState) => ({
+    auth: state.auth,
   }),
   (dispatch) => ({
     actions: bindActionCreators({ verifyEmail, resendSignupEmail }, dispatch),

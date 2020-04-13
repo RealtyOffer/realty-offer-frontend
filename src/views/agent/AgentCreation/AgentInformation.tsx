@@ -1,11 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
 import { Button, Input, ProgressBar, HorizontalRule, Card, Seo } from '../../../components';
 import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import statesList from '../../../utils/statesList';
+import { createAgentProfile } from '../../../redux/ducks/agent';
+import { ActionResponseType } from '../../../redux/constants';
 
 interface AgentInformationFormValues {
   state: string;
@@ -14,7 +17,10 @@ interface AgentInformationFormValues {
   brokerPhoneNumber: string;
 }
 
-const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
+type AgentInformationProps = {};
+
+const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponentProps> = () => {
+  const dispatch = useDispatch();
   const initialValues: AgentInformationFormValues = {
     state: 'MI',
     agentId: '',
@@ -36,12 +42,12 @@ const AgentInformation: FunctionComponent<RouteComponentProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              // eslint-disable-next-line no-alert
-              alert(JSON.stringify(values, null, 2));
+            dispatch(createAgentProfile(values)).then((response: ActionResponseType) => {
               setSubmitting(false);
-              navigate('/agent/business-information');
-            }, 400);
+              if (response && !response.error) {
+                navigate('/agent/business-information');
+              }
+            });
           }}
         >
           {({ isSubmitting, isValid, ...rest }) => (

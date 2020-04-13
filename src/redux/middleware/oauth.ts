@@ -23,7 +23,7 @@ export default (store: any) => (next: any) => (action: any) => {
   const state = store.getState();
   returnAction[RSAA].headers = {
     ...returnAction[RSAA].headers,
-    Authorization: `Bearer ${state.auth.token}`,
+    Authorization: `Bearer ${state.auth.accessToken}`,
   };
 
   return next(returnAction);

@@ -32,6 +32,7 @@ import {
 } from '../../../redux/ducks/consumer';
 import UnsavedChangesModal from './UnsavedChangesModal';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
+import { RootState } from '../../../redux/ducks';
 
 type CreateConsumerProps = {
   actions: {
@@ -174,8 +175,8 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
 };
 
 export default connect(
-  (state) => ({
-    consumer: (state as any).consumer,
+  (state: RootState) => ({
+    consumer: state.consumer,
   }),
   (dispatch) => ({
     actions: bindActionCreators(

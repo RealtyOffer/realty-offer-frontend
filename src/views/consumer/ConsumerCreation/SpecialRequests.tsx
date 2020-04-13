@@ -17,6 +17,7 @@ import {
   ProgressBar,
 } from '../../../components';
 import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
+import { RootState } from '../../../redux/ducks';
 
 import languagesList from '../../../utils/languagesList';
 import gendersList from '../../../utils/gendersList';
@@ -124,8 +125,8 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
 };
 
 export default connect(
-  (state) => ({
-    consumer: (state as any).consumer,
+  (state: RootState) => ({
+    consumer: state.consumer,
   }),
   (dispatch) => ({
     actions: bindActionCreators({ captureConsumerData }, dispatch),

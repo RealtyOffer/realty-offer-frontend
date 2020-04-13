@@ -17,13 +17,13 @@ import {
 import { createUser, CreateUserFormValues } from '../../../redux/ducks/auth';
 import { ActionResponseType } from '../../../redux/constants';
 
-type Props = {
+type CreateAgentProps = {
   actions: {
     createUser: Function;
   };
 } & RouteComponentProps;
 
-const CreateAgent: FunctionComponent<Props> = (props) => {
+const CreateAgent: FunctionComponent<CreateAgentProps> = (props) => {
   const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',

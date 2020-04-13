@@ -6,6 +6,7 @@ import styled, { css, keyframes } from 'styled-components';
 
 import Alert from './Alert';
 import { closeAlert } from '../redux/ducks/globalAlerts';
+import { RootState } from '../redux/ducks';
 
 type Props = {
   globalAlerts: any;
@@ -140,8 +141,8 @@ class GlobalAlerts extends Component<Props, State> {
 }
 
 export default connect(
-  (state) => ({
-    globalAlerts: (state as any).globalAlerts,
+  (state: RootState) => ({
+    globalAlerts: state.globalAlerts,
   }),
   (dispatch) => ({
     actions: bindActionCreators({ closeAlert }, dispatch),
