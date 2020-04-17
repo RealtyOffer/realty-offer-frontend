@@ -109,7 +109,7 @@ const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
         )}
       </BidCardBody>
       <BidCardFooter>
-        <Button type="link" to={`/agent/listings/${listing.id}`} block state={listing}>
+        <Button type="link" to={`/agent/listings/${listing.id}`} block>
           Listing Details
         </Button>
       </BidCardFooter>
