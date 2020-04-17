@@ -32,6 +32,7 @@ type ButtonProps = {
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
   block?: boolean;
+  state?: any;
 };
 
 const primaryButtonStyles = `
@@ -214,6 +215,7 @@ class Button extends Component<ButtonProps> {
       iconLeft,
       iconRight,
       block,
+      state,
     } = this.props;
     let contentToRender;
 
@@ -227,7 +229,7 @@ class Button extends Component<ButtonProps> {
             block={block}
             type={type}
           >
-            <Link to={to}>
+            <Link to={to} state={state}>
               {iconLeft} {children} {iconRight}
             </Link>
           </StyledLink>

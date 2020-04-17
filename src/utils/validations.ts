@@ -82,6 +82,24 @@ export const isValidPassword = (value: string) => {
   return undefined;
 };
 
+export const isCommissionAmount = (value: string) => {
+  if (value && Number(value) < 1) {
+    return 'Commission must be above 1%';
+  }
+  if (value && Number(value) >= 4.00000001) {
+    return 'Commission must be below 4%';
+  }
+  return undefined;
+};
+
+export const isDollarAmount = (value: string) => {
+  const amountRegex = /^\$?[0-9]+\.?[0-9]?[0-9]?$/;
+  if (value && !amountRegex.test(value)) {
+    return 'Must be a dollar amount';
+  }
+  return undefined;
+};
+
 // composed validations for use in Formik Field components
 export const requiredEmail = (value: string) =>
   customFieldLevelValidation(value, [requiredField, isEmail]);
@@ -93,3 +111,9 @@ export const requiredPassword = (value: string) =>
   customFieldLevelValidation(value, [requiredField, isValidPassword]);
 
 export const passwordRulesString = `Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and a special character.`;
+
+export const requiredCommissionAmount = (value: string) =>
+  customFieldLevelValidation(value, [requiredField, isCommissionAmount]);
+
+export const requiredDollarAmount = (value: string) =>
+  customFieldLevelValidation(value, [requiredField, isDollarAmount]);

@@ -2,9 +2,13 @@ import {
   customFieldLevelValidation,
   requiredField,
   requiredSelect,
+  requiredCommissionAmount,
+  requiredDollarAmount,
   isPhoneNumber,
   isEmail,
   isValidPassword,
+  isCommissionAmount,
+  isDollarAmount,
 } from './validations';
 
 describe('validations', () => {
@@ -18,6 +22,11 @@ describe('validations', () => {
     expect(customFieldLevelValidation(['Livonia', 'Plymouth'], [requiredSelect])).toBeNull();
     expect(customFieldLevelValidation('Livonia', [requiredSelect])).toBeNull();
     expect(customFieldLevelValidation('', [requiredSelect])).toBeDefined();
+    expect(customFieldLevelValidation('2', [requiredCommissionAmount])).toBeNull();
+    expect(customFieldLevelValidation('0.9', [requiredCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('4.1', [requiredCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('1000.00', [requiredDollarAmount])).toBeNull();
+    expect(customFieldLevelValidation('', [requiredDollarAmount])).toBeDefined();
   });
 
   it('should validate multi-validations', () => {
@@ -26,6 +35,11 @@ describe('validations', () => {
     ).toBeDefined();
     expect(customFieldLevelValidation('', [requiredField, isPhoneNumber, isEmail])).toBeDefined();
     expect(customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber])).toBeNull();
+    expect(customFieldLevelValidation('2', [requiredField, isCommissionAmount])).toBeNull();
+    expect(customFieldLevelValidation('0.9', [requiredField, isCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('4.1', [requiredField, isCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('1000.00', [requiredField, isDollarAmount])).toBeNull();
+    expect(customFieldLevelValidation('', [requiredField, isDollarAmount])).toBeDefined();
   });
 
   test.each([

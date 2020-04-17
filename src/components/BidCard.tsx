@@ -15,7 +15,7 @@ import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import FlexContainer from './FlexContainer';
 import HorizontalRule from './HorizontalRule';
 
-import { ListingType } from '../redux/ducks/listings';
+import { ListingType } from '../redux/ducks/listings.d';
 
 type BidCardProps = {
   listing: ListingType;
@@ -109,7 +109,7 @@ const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
         )}
       </BidCardBody>
       <BidCardFooter>
-        <Button type="link" to={`/agent/listings/${listing.id}`} block>
+        <Button type="link" to={`/agent/listings/${listing.id}`} block state={listing}>
           Listing Details
         </Button>
       </BidCardFooter>
