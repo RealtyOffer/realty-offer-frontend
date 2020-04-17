@@ -13,6 +13,8 @@ export const AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT = `${API_ROOT}/auth/resend-signup
 // Agent
 export const AGENT_PROFILE_ENDPOINT = `${API_ROOT}/agent/profile`;
 export const AGENT_BANNERS_ENDPOINT = `${API_ROOT}/agent/site-banners`;
+export const AGENT_BIDS_ENDPOINT = `${API_ROOT}/agent/bids`;
+export const AGENT_BID_BY_ID_ENDPOINT = (id: number) => `${AGENT_BIDS_ENDPOINT}/${id}`;
 
 // Agent Listings/Bidding
 export const LISTINGS_ENDPOINT = `${API_ROOT}/agent/listings`;

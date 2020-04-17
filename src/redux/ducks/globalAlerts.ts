@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // eslint-disable-next-line import/no-cycle
 import { AUTHENTICATE_CREDENTIALS_SUCCESS, LOGOUT_REQUEST } from './auth';
+import { GlobalAlertsStoreType, AlertType, GlobalAlertsActions } from './globalAlerts.d';
 
 export const ADD_GLOBAL_ALERT = 'ADD_GLOBAL_ALERT';
 export const CLOSE_GLOBAL_ALERT = 'CLOSE_GLOBAL_ALERT';
@@ -11,7 +12,10 @@ export const initialState = {
   currentAlert: null,
 };
 
-export default (state = initialState, action: any) => {
+export default (
+  state: GlobalAlertsStoreType = initialState,
+  action: GlobalAlertsActions
+): GlobalAlertsStoreType => {
   switch (action.type) {
     case LOGOUT_REQUEST:
     case AUTHENTICATE_CREDENTIALS_SUCCESS:
@@ -45,9 +49,9 @@ export default (state = initialState, action: any) => {
   }
 };
 
-export const addAlert = (payload: any) => ({ type: ADD_GLOBAL_ALERT, payload });
+export const addAlert = (payload: AlertType) => ({ type: ADD_GLOBAL_ALERT, payload });
 
-export const closeAlert = (payload: any) => ({
+export const closeAlert = (payload: AlertType) => ({
   type: CLOSE_GLOBAL_ALERT,
   payload,
 });

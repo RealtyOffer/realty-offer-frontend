@@ -2,34 +2,13 @@ import { RSAA } from 'redux-api-middleware';
 
 import { CREATE_CONSUMER_PROFILE_ENDPOINT } from '../constants';
 
+import { ConsumerStoreType, SignupDataType, ConsumerStoreActions } from './consumer.d';
+
 export const CAPTURE_CONSUMER_DATA = 'CAPTURE_CONSUMER_DATA';
 
 export const CREATE_CONSUMER_PROFILE_REQUEST = 'CREATE_CONSUMER_PROFILE_REQUEST';
 export const CREATE_CONSUMER_PROFILE_SUCCESS = 'CREATE_CONSUMER_PROFILE_SUCCESS';
 export const CREATE_CONSUMER_PROFILE_FAILURE = 'CREATE_CONSUMER_PROFILE_FAILURE';
-
-export type ConsumerStoreType = {
-  signupData: {
-    consumerType?: 'buyer' | 'seller' | 'buyerSeller';
-    buyingCity?: string | Array<string>;
-    buyingPriceRange?: string;
-    freeMortgageConsult?: boolean;
-    preApproved?: boolean;
-    sellersAddressLine1?: string;
-    sellersAddressLine2?: string;
-    sellersCity?: string;
-    sellersState?: string;
-    sellersZip?: string;
-    sellersTimeline?: string;
-    sellersListingPriceInMind?: string;
-    sellersMortgageBalance?: string;
-    otherLanguage?: string;
-    genderPreference?: string;
-    email?: string;
-  };
-  isLoading: boolean;
-  hasError: boolean;
-};
 
 export const initialState: ConsumerStoreType = {
   signupData: {},
@@ -37,7 +16,10 @@ export const initialState: ConsumerStoreType = {
   hasError: false,
 };
 
-export default (state: ConsumerStoreType = initialState, action: any) => {
+export default (
+  state: ConsumerStoreType = initialState,
+  action: ConsumerStoreActions
+): ConsumerStoreType => {
   switch (action.type) {
     case CAPTURE_CONSUMER_DATA:
       return {
@@ -78,12 +60,12 @@ export default (state: ConsumerStoreType = initialState, action: any) => {
   }
 };
 
-export const captureConsumerData = (payload: ConsumerStoreType['signupData']) => ({
+export const captureConsumerData = (payload: SignupDataType) => ({
   type: CAPTURE_CONSUMER_DATA,
   payload,
 });
 
-export const createConsumerProfile = (payload: ConsumerStoreType['signupData']) => ({
+export const createConsumerProfile = (payload: SignupDataType) => ({
   [RSAA]: {
     endpoint: CREATE_CONSUMER_PROFILE_ENDPOINT,
     method: 'POST',

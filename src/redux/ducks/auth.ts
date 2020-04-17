@@ -9,6 +9,8 @@ import {
   AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
 } from '../constants';
 
+import { AuthStoreType, AuthActionTypes, CreateUserFormValues } from './auth.d';
+
 import { VerifyEmailFormValues } from '../../views/shared/VerifyEmail';
 import { LoginFormValues } from '../../pages/login';
 import { ResetPasswordFormValues } from '../../pages/reset-password';
@@ -37,28 +39,11 @@ export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
 
-export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST';
-export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
-export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
+// export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST';
+// export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
+// export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-
-export type AuthStoreType = {
-  isLoading: boolean;
-  hasError: boolean;
-  isLoggedIn: boolean;
-  message: string;
-  verifiedEmail: boolean;
-  accessToken: string;
-  refreshToken: string;
-  expirationTime: string;
-  issuedTime: string;
-  roles: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-};
 
 export const initialState: AuthStoreType = {
   isLoading: false,
@@ -77,7 +62,7 @@ export const initialState: AuthStoreType = {
   email: '',
 };
 
-export default (state: AuthStoreType = initialState, action: any) => {
+export default (state: AuthStoreType = initialState, action: AuthActionTypes): AuthStoreType => {
   switch (action.type) {
     case CREATE_USER_REQUEST:
     case VERIFY_EMAIL_REQUEST:
@@ -85,7 +70,7 @@ export default (state: AuthStoreType = initialState, action: any) => {
     case AUTHENTICATE_CREDENTIALS_REQUEST:
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
-    case CHANGE_PASSWORD_REQUEST:
+      // case CHANGE_PASSWORD_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -109,7 +94,7 @@ export default (state: AuthStoreType = initialState, action: any) => {
     case RESET_PASSWORD_SUCCESS:
     case FORGOT_PASSWORD_SUCCESS:
     case RESEND_SIGNUP_EMAIL_SUCCESS:
-    case CHANGE_PASSWORD_SUCCESS:
+      // case CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -128,12 +113,12 @@ export default (state: AuthStoreType = initialState, action: any) => {
     case RESEND_SIGNUP_EMAIL_FAILURE:
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
-    case CHANGE_PASSWORD_FAILURE:
+      // case CHANGE_PASSWORD_FAILURE:
       return {
         ...state,
         isLoading: false,
         hasError: true,
-        message: action.payload.message,
+        message: action.payload.message || 'An error occurred. Please try again.',
       };
     case LOGOUT_REQUEST:
       return { ...initialState };
@@ -141,15 +126,6 @@ export default (state: AuthStoreType = initialState, action: any) => {
       return state;
   }
 };
-
-export interface CreateUserFormValues {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  role: 'Consumer' | 'Agent';
-}
 
 export const createUser = (payload: CreateUserFormValues) => ({
   [RSAA]: {

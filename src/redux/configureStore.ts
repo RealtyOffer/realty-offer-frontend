@@ -7,10 +7,16 @@ import storage from 'redux-persist/lib/storage';
 // Note: imported 'isomorphic-fetch' this way so that in reducer tests we can mock Fetch/Response
 import 'isomorphic-fetch';
 
-import rootReducer from './ducks/index';
+import rootReducer, { RootState } from './ducks/index';
 import logger from './middleware/logger';
 import oauth from './middleware/oauth';
 import errorCatcher from './middleware/errorCatcher';
+
+import { initialState as authInitialState } from './ducks/auth';
+import { initialState as agentInitialState } from './ducks/agent';
+import { initialState as consumerInitialState } from './ducks/consumer';
+import { initialState as globalAlertsInitialState } from './ducks/globalAlerts';
+import { initialState as listingsInitialState } from './ducks/listings';
 
 export const getMiddlewares = () => [oauth, apiMiddleware, errorCatcher, thunk];
 
@@ -44,7 +50,15 @@ const makeConfiguredStore = (reducer: any, initialState: any) => {
   return createStore(persistedReducer, initialState, compose(...functionsToCompose));
 };
 
-const configureStore = (initialState: any = {}) => {
+const configureStore = (
+  initialState: RootState = {
+    auth: authInitialState,
+    agent: agentInitialState,
+    consumer: consumerInitialState,
+    globalAlerts: globalAlertsInitialState,
+    listings: listingsInitialState,
+  }
+) => {
   const store = { ...makeConfiguredStore(rootReducer, initialState) };
   const persistor = persistStore(store);
 
