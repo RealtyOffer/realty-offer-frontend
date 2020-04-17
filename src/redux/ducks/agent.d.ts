@@ -37,7 +37,7 @@ export type BannerType = {
 
 export type BidType = {
   id?: number;
-  listingId: number;
+  listingId?: number | string;
   sellerCommission?: number;
   buyerCommission?: number;
   sellingComplianceFee?: number;

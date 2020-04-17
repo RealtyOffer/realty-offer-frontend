@@ -3,7 +3,7 @@ import { RSAA } from 'redux-api-middleware';
 import { LISTINGS_ENDPOINT } from '../constants';
 import { LOGOUT_REQUEST } from './auth';
 
-import { ListingStoreType, ListingType } from './listings.d';
+import { ListingStoreType, ListingType, ListingsStoreActions } from './listings.d';
 
 export const GET_LISTINGS_REQUEST = 'GET_LISTINGS_REQUEST';
 export const GET_LISTINGS_SUCCESS = 'GET_LISTINGS_SUCCESS';
@@ -12,10 +12,24 @@ export const GET_LISTINGS_FAILURE = 'GET_LISTINGS_FAILURE';
 export const initialState: ListingStoreType = {
   isLoading: false,
   hasError: false,
-  listings: [],
+  listings: [
+    // TODO: remove
+    {
+      id: 3,
+      type: 'buyerSeller',
+      sellersListingPriceInMind: '$300-350k',
+      sellersCity: 'Livonia',
+      buyingPriceRange: '$350-375k',
+      buyingCities: ['Plymouth', 'Livonia'],
+      createDateTime: new Date(),
+    },
+  ],
 };
 
-export default (state: ListingStoreType = initialState, action: any): ListingStoreType => {
+export default (
+  state: ListingStoreType = initialState,
+  action: ListingsStoreActions
+): ListingStoreType => {
   switch (action.type) {
     case GET_LISTINGS_REQUEST:
       return {
@@ -28,9 +42,9 @@ export default (state: ListingStoreType = initialState, action: any): ListingSto
         ...state,
         isLoading: false,
         hasError: false,
-        listings: {
-          ...action.payload,
-        },
+        // listings: {
+        //   ...action.payload,
+        // },
       };
     case GET_LISTINGS_FAILURE:
       return {

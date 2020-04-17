@@ -1,18 +1,32 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 
-import { Box, Button, Heading, Input, Row, Column } from '../../../../components';
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  Row,
+  Column,
+  EmptyListingsView,
+} from '../../../../components';
 import { requiredCommissionAmount, requiredDollarAmount } from '../../../../utils/validations';
 import { createAgentBid } from '../../../../redux/ducks/agent';
+import { RootState } from '../../../../redux/ducks';
+import { ListingType } from '../../../../redux/ducks/listings.d';
 
-type DetailProps = {} & RouteComponentProps;
+type DetailProps = {
+  listingId?: string;
+} & RouteComponentProps;
 
 const ListingDetail: FunctionComponent<DetailProps> = (props) => {
+  const listings = useSelector((state: RootState) => state.listings.listings);
   const dispatch = useDispatch();
-  const isBuyer = props.location.state.type.toLowerCase().includes('buyer');
-  const isSeller = props.location.state.type.toLowerCase().includes('seller');
+  const listing = listings.find((l: ListingType) => String(l.id) === props.listingId);
+  const isBuyer = listing && listing.type.toLowerCase().includes('buyer');
+  const isSeller = listing && listing.type.toLowerCase().includes('seller');
   const initialValues = {
     sellerCommission: '',
     buyerCommission: '',
@@ -22,20 +36,26 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
     homeInspectionAmount: '',
     preInspectionFee: '',
     buyingComplianceFee: '',
-    listingId: props.location.state.id,
+    listingId: props.listingId,
   };
+  if (!listing || !props.listingId) {
+    return (
+      <EmptyListingsView
+        title="Sorry, we couldn't find that listing. Please try again."
+        buttonText="View New Listings"
+        to="/agent/listings/new"
+      />
+    );
+  }
   return (
     <Box>
       <Heading styledAs="title">
         {isBuyer &&
-          `Buying for ${props.location?.state.buyingPriceRange} in ${Array.isArray(
-            props.location.state.buyingCities
-          ) &&
-            props.location.state.buyingCities.length > 0 &&
-            props.location.state.buyingCities.toString().replace(/,/g, ', ')}`}
+          `Buying for ${listing.buyingPriceRange} in ${Array.isArray(listing.buyingCities) &&
+            listing.buyingCities.length > 0 &&
+            listing.buyingCities.toString().replace(/,/g, ', ')}`}
         {isSeller && isBuyer && <br />}
-        {isSeller &&
-          `Selling for ${props.location?.state.sellersListingPriceInMind} in ${props.location.state.sellersCity}`}
+        {isSeller && `Selling for ${listing.sellersListingPriceInMind} in ${listing.sellersCity}`}
       </Heading>
       <Heading as="h2" styledAs="subtitle">
         Additional Listing Information
@@ -48,21 +68,22 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
       <Formik
         validateOnMount
         initialValues={initialValues}
-        onSubmit={(values) =>
+        onSubmit={(values) => {
           dispatch(
             createAgentBid({
-              sellerCommission: Number(values.sellerCommission) || undefined,
-              buyerCommission: Number(values.buyerCommission) || undefined,
-              sellingComplianceFee: Number(values.sellingComplianceFee) || undefined,
-              closingCostsCommission: Number(values.closingCostsCommission) || undefined,
-              homeWarrantyAmount: Number(values.homeWarrantyAmount) || undefined,
-              homeInspectionAmount: Number(values.homeInspectionAmount) || undefined,
-              preInspectionFee: Number(values.preInspectionFee) || undefined,
-              buyingComplianceFee: Number(values.buyingComplianceFee) || undefined,
-              listingId: props.location.state.id,
+              // API requires numbers, Formik outputs strings so convert them here
+              sellerCommission: Number(values.sellerCommission),
+              buyerCommission: Number(values.buyerCommission),
+              sellingComplianceFee: Number(values.sellingComplianceFee),
+              closingCostsCommission: Number(values.closingCostsCommission),
+              homeWarrantyAmount: Number(values.homeWarrantyAmount),
+              homeInspectionAmount: Number(values.homeInspectionAmount),
+              preInspectionFee: Number(values.preInspectionFee),
+              buyingComplianceFee: Number(values.buyingComplianceFee),
+              listingId: Number(props.listingId),
             })
-          )
-        }
+          );
+        }}
       >
         {({ isValid, isSubmitting }) => (
           <Form>
