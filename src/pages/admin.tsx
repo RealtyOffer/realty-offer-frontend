@@ -6,11 +6,11 @@ import NotFoundPage from './404';
 
 import { PrivateRoute } from '../components';
 
-const AgentApp: FunctionComponent<{}> = () => (
-  <Router basepath="admin">
-    <PrivateRoute path="/" component={Admin} allowedRole="Admin" />
+const AdminApp: FunctionComponent<{}> = () => (
+  <Router>
+    <PrivateRoute component={Admin} path="/admin/*" allowedRole="Admin" />
     <NotFoundPage default />
   </Router>
 );
 
-export default AgentApp;
+export default AdminApp;

@@ -22,12 +22,15 @@ import { getAgentSiteBanners, getAgentProfile } from '../redux/ducks/agent';
 import { RootState } from '../redux/ducks';
 
 const AgentApp: FunctionComponent<{}> = () => {
-  const banner = useSelector((state: RootState) => state.agent.banner);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  // const banners = useSelector((state: RootState) => state.agent.banners);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAgentSiteBanners());
-    dispatch(getAgentProfile());
+    if (isLoggedIn) {
+      dispatch(getAgentSiteBanners());
+      dispatch(getAgentProfile());
+    }
   }, []);
 
   return (

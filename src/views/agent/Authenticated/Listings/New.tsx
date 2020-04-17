@@ -35,7 +35,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
               listing={{
                 id: 1,
                 type: 'seller',
-                sellersListingPriceInMind: '$350-375k',
+                sellersListingPriceInMind: '$300-350k',
                 sellersCity: 'Livonia',
                 createDateTime: addHours(new Date(), 22),
               }}
@@ -57,7 +57,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
               listing={{
                 id: 3,
                 type: 'buyerSeller',
-                sellersListingPriceInMind: '$350-375k',
+                sellersListingPriceInMind: '$300-350k',
                 sellersCity: 'Livonia',
                 buyingPriceRange: '$350-375k',
                 buyingCities: ['Plymouth', 'Livonia'],

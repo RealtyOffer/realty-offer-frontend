@@ -1,16 +1,17 @@
 import React, { ComponentType, FunctionComponent } from 'react';
 import { navigate } from 'gatsby';
 import { connect } from 'react-redux';
+import { RouteComponentProps, WindowLocation } from '@reach/router';
 
-import { AuthStoreType } from '../redux/ducks/auth';
+import { AuthStoreType } from '../redux/ducks/auth.d';
 import { RootState } from '../redux/ducks';
 
 type AllowedRoleType = 'Agent' | 'Consumer' | 'Admin';
 
 type PrivateRouteProps = {
   auth?: AuthStoreType;
-  location?: any;
-  component: ComponentType;
+  location?: WindowLocation;
+  component: ComponentType & RouteComponentProps;
   path: string;
   allowedRole: AllowedRoleType;
 };
@@ -27,13 +28,14 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   if (
     auth &&
     !auth.isLoggedIn &&
+    location &&
     location.pathname !== '/login' &&
     isRoleAllowed(auth.roles, allowedRole)
   ) {
     navigate('/login');
     return null;
   }
-  return <Component {...rest} />;
+  return <Component {...rest} location={location} />;
 };
 
 export default connect(

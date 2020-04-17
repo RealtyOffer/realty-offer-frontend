@@ -20,7 +20,7 @@ import { logout } from '../redux/ducks/auth';
 import { RootState } from '../redux/ducks';
 import logo from '../images/logo.svg';
 import useWindowSize from '../utils/useWindowSize';
-import agentNavigationItems from '../utils/agentNavigationItems';
+import { agentNavigationItems } from '../utils/agentNavigationItems';
 
 type NavbarProps = {
   auth: any;

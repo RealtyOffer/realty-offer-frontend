@@ -22,6 +22,7 @@ import PrivateRoute from './PrivateRoute';
 import ProgressBar from './ProgressBar';
 import Row from './Row';
 import Seo from './Seo';
+import SubNav from './SubNav';
 import SiteMetadata from './SiteMetadata';
 
 export {
@@ -49,5 +50,6 @@ export {
   ProgressBar,
   Row,
   Seo,
+  SubNav,
   SiteMetadata,
 };

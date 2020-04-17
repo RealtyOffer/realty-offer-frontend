@@ -100,8 +100,7 @@ const CssReset = createGlobalStyle`
   }
 
   ol,
-  ul,
-  dl {
+  ul {
     margin-top: 0;
     margin-bottom: ${baseSpacer};
     padding-left: ${baseSpacer};
@@ -112,6 +111,12 @@ const CssReset = createGlobalStyle`
   ol ul,
   ul ol {
     margin-bottom: 0;
+  }
+
+  dl {
+    margin-top: 0;
+    margin-bottom: ${baseSpacer};
+    padding-left: 0;
   }
 
   dt {
