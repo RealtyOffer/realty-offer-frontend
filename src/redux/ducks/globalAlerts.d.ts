@@ -4,7 +4,7 @@ import { LogoutRequestAction, AuthenticateCredentialsSuccessAction } from './aut
 export type AlertType = {
   message: string;
   type: string;
-  id: string;
+  id?: string;
 };
 
 export type GlobalAlertsStoreType = {

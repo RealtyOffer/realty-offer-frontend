@@ -76,7 +76,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
           <meta property="og:image" content={`${withPrefix('/')}img/og-image.jpg`} />
         </Helmet>
         <CssReset />
-        <IconContext.Provider value={{ style: { position: 'relative', top: '.125em' } }}>
+        <IconContext.Provider value={{ style: { position: 'relative' } }}>
           <LayoutWrapper>
             <Navbar />
             <PageBody>

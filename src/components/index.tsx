@@ -24,6 +24,7 @@ import Row from './Row';
 import Seo from './Seo';
 import SubNav from './SubNav';
 import SiteMetadata from './SiteMetadata';
+import Table from './Table';
 
 export {
   Alert,
@@ -52,4 +53,5 @@ export {
   Seo,
   SubNav,
   SiteMetadata,
+  Table,
 };

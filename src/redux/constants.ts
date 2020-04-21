@@ -26,6 +26,11 @@ export const CREATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/profile`;
 export const UPDATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
 export const CONSUMER_BANNERS_ENDPOINT = `${API_ROOT}/consumer/site-banners`;
 
+// Admin
+export const ADMIN_SITE_BANNERS_ENDPOINT = `${API_ROOT}/admin/site-banners`;
+export const ADMIN_SITE_BANNER_BY_ID_ENDPOINT = (id: number) =>
+  `${ADMIN_SITE_BANNERS_ENDPOINT}/${id}`;
+
 // Action Response Type
 export type ActionResponseType = {
   error: number;

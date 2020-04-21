@@ -184,7 +184,7 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
                     </Link>
                   ))}
                   {props.auth.roles.includes('Admin') && (
-                    <Link to="/admin" onClick={() => toggleMenuAndLogout()}>
+                    <Link to="/admin/banners" onClick={() => toggleMenuAndLogout()}>
                       Admin
                     </Link>
                   )}
@@ -203,7 +203,7 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
                       </Link>
                     ))}
                     {props.auth.roles.includes('Admin') && (
-                      <Link to="/admin" onClick={() => toggleMenuAndLogout()}>
+                      <Link to="/admin/banners" onClick={() => toggleMenuAndLogout()}>
                         Admin
                       </Link>
                     )}

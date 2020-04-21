@@ -16,6 +16,8 @@ import {
   CREATE_AGENT_BID_FAILURE,
 } from './agent';
 
+import { BannerType } from './admin.d';
+
 export type AgentProfileType = {
   id?: number;
   state?: string;
@@ -23,16 +25,6 @@ export type AgentProfileType = {
   brokerName?: string;
   brokerPhoneNumber?: string;
   brokerAddress?: string;
-};
-
-export type BannerType = {
-  id: number;
-  message: string;
-  dismissable: boolean;
-  callToActionLink: string;
-  expirationDate: string;
-  audience: string;
-  styling: string;
 };
 
 export type BidType = {

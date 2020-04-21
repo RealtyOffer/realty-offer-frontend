@@ -23,13 +23,11 @@ import {
   requiredPassword,
   passwordRulesString,
 } from '../../../utils/validations';
-import { createUser, CreateUserFormValues } from '../../../redux/ducks/auth';
+import { createUser } from '../../../redux/ducks/auth';
+import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
-import {
-  captureConsumerData,
-  createConsumerProfile,
-  ConsumerStoreType,
-} from '../../../redux/ducks/consumer';
+import { captureConsumerData, createConsumerProfile } from '../../../redux/ducks/consumer';
+import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
 import UnsavedChangesModal from './UnsavedChangesModal';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { RootState } from '../../../redux/ducks';

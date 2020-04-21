@@ -1,18 +1,30 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Form, Field } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
+import { FaCaretLeft } from 'react-icons/fa';
+import { navigate } from 'gatsby';
+import format from 'date-fns/format';
 
-import { Heading, Input, Row, Column } from '../../components';
+import { Button, FlexContainer, Heading, Input, Row, Column } from '../../components';
+import { RootState } from '../../redux/ducks';
+import { createSiteBanner, updateSiteBanner } from '../../redux/ducks/admin';
+import { ActionResponseType } from '../../redux/constants';
+import { addAlert } from '../../redux/ducks/globalAlerts';
+import { requiredField, requiredSelect } from '../../utils/validations';
 
 type BannerDetailsProps = {
-  id?: number;
+  id?: string;
 } & RouteComponentProps;
 
 const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
+  const banners = useSelector((state: RootState) => state.agent.banners);
+  const dispatch = useDispatch();
+
   const stylingOptions = [
-    { value: 'success', label: 'Success' },
+    { value: 'success', label: 'success' },
     { value: 'info', label: 'info' },
-    { value: 'danger', label: 'Danger' },
+    { value: 'danger', label: 'danger' },
   ];
 
   const dismissableOptions = [
@@ -21,33 +33,86 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
   ];
 
   const audienceOptions = [
-    { value: 'agent', label: 'Agent' },
-    { value: 'consumer', label: 'Consumer' },
-    { value: 'both', label: 'Both' },
+    { value: 'agent', label: 'agent' },
+    { value: 'consumer', label: 'consumer' },
+    { value: 'both', label: 'both' },
   ];
+
+  const newBannerInitialValues = {
+    message: '',
+    callToActionLink: '',
+    styling: '',
+    dismissable: false,
+    expirationDate: String(format(new Date(), `yyyy-MM-dd'T'HH:mm`)),
+    audience: '',
+    id: 0,
+  };
+
+  const isNewBanner = props.id === 'new';
+  const matchingBanner =
+    (banners && banners.find((b) => b.id === Number(props.id))) || newBannerInitialValues;
+
+  const activeBanner = isNewBanner
+    ? newBannerInitialValues
+    : {
+        expirationDate: String(
+          format(new Date(matchingBanner.expirationDate), `yyyy-MM-dd'T'HH:mm`)
+        ),
+        ...matchingBanner,
+      };
+
+  if (!props.id || !banners || !activeBanner) {
+    return null;
+  }
 
   return (
     <>
-      <Heading as="h2">Edit Banner</Heading>
+      <FlexContainer justifyContent="space-between">
+        <Heading noMargin>{isNewBanner ? 'Add New' : 'Edit'} Banner</Heading>
+        <Button type="link" to="/admin/banners" iconLeft={<FaCaretLeft />} color="text">
+          Back to All Banners
+        </Button>
+      </FlexContainer>
       <Formik
         validateOnMount
-        initialValues={props.location?.state || {}}
+        initialValues={{ ...activeBanner }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            // eslint-disable-next-line no-console
-            console.log(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          dispatch(isNewBanner ? createSiteBanner(values) : updateSiteBanner(values)).then(
+            (response: ActionResponseType) => {
+              if (response && !response.error) {
+                dispatch(
+                  addAlert({
+                    message: `Successfully ${isNewBanner ? 'added' : 'edited'} site banner`,
+                    type: 'success',
+                  })
+                );
+                setSubmitting(false);
+                navigate('/admin/banners');
+              }
+            }
+          );
         }}
       >
-        {({ ...rest }) => (
+        {({ isValid, isSubmitting, ...rest }) => (
           <Form>
             <Row>
               <Column md={6}>
-                <Field as={Input} name="message" type="text" label="Message" />
+                <Field
+                  as={Input}
+                  name="message"
+                  type="text"
+                  label="Message"
+                  validate={requiredField}
+                />
               </Column>
               <Column md={6}>
-                <Field as={Input} name="callToActionLink" type="text" label="Call to Action Link" />
+                <Field
+                  as={Input}
+                  name="callToActionLink"
+                  type="text"
+                  label="Call to Action Link"
+                  validate={requiredField}
+                />
               </Column>
               <Column md={3}>
                 <Field
@@ -56,6 +121,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   type="select"
                   options={stylingOptions}
                   label="Type"
+                  validate={requiredSelect}
                   {...rest}
                 />
               </Column>
@@ -65,12 +131,19 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   name="dismissable"
                   type="select"
                   options={dismissableOptions}
+                  validate={requiredSelect}
                   label="Dismissable"
                   {...rest}
                 />
               </Column>
               <Column md={3}>
-                <Field as={Input} name="expirationDate" type="date" label="Expiration Date" />
+                <Field
+                  as={Input}
+                  name="expirationDate"
+                  type="datetime-local"
+                  label="Expiration Date"
+                  validate={requiredField}
+                />
               </Column>
               <Column md={3}>
                 <Field
@@ -80,9 +153,13 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   options={audienceOptions}
                   label="Audience"
                   {...rest}
+                  validate={requiredSelect}
                 />
               </Column>
             </Row>
+            <Button type="submit" disabled={!isValid || isSubmitting}>
+              Submit
+            </Button>
           </Form>
         )}
       </Formik>
