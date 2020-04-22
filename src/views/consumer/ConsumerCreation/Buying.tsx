@@ -1,10 +1,9 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { useEffect, FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
 import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Button,
@@ -16,39 +15,35 @@ import {
   HorizontalRule,
   ProgressBar,
 } from '../../../components';
-import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
+import { captureConsumerData, getConsumerCities } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
-
 import { requiredSelect } from '../../../utils/validations';
 import priceRangesList from '../../../utils/priceRangesList';
 import UnsavedChangesModal from './UnsavedChangesModal';
+import createOptionsFromArray from '../../../utils/createOptionsFromArray';
+import { CityType } from '../../../redux/ducks/admin.d';
 
 type BuyingFormValues = {
-  buyingCity: string | Array<string>;
+  buyingCities: Array<string>;
   buyingPriceRange: string;
   freeMortgageConsult: boolean;
   preApproved: boolean;
 };
 
-const citiesList = [
-  { value: 'Plymouth', label: 'Plymouth' },
-  { value: 'Livonia', label: 'Livonia' },
-  { value: 'Canton', label: 'Canton' },
-  { value: 'Northville', label: 'Northville' },
-];
+type BuyingProps = {} & RouteComponentProps;
 
-type BuyingProps = {
-  actions: {
-    captureConsumerData: Function;
-  };
-  consumer: ConsumerStoreType;
-} & RouteComponentProps;
-
-const Buying: FunctionComponent<BuyingProps> = (props) => {
+const Buying: FunctionComponent<BuyingProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const signupData = useSelector((state: RootState) => state.consumer.signupData);
+  const cities = useSelector((state: RootState) => state.consumer.cities);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getConsumerCities());
+  }, []);
 
   const initialValues: BuyingFormValues = {
-    buyingCity: '',
+    buyingCities: [],
     buyingPriceRange: '',
     freeMortgageConsult: false,
     preApproved: false,
@@ -58,7 +53,8 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+  const isBuyerAndSeller = signupData.consumerType === 'buyerSeller';
+  const cityOptions = cities && createOptionsFromArray(cities, 'name');
 
   return (
     <>
@@ -77,7 +73,18 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values) => {
-              props.actions.captureConsumerData(values);
+              // return array of CityType DTOs
+              const cityDTOs =
+                cities &&
+                values.buyingCities.map(
+                  (value) => cities.find((city) => city.name === value) as CityType
+                );
+              dispatch(
+                captureConsumerData({
+                  ...values,
+                  buyingCities: cityDTOs,
+                })
+              );
               navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/special-requests');
             }}
           >
@@ -87,8 +94,8 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
                   as={Input}
                   type="select"
                   isMulti
-                  name="buyingCity"
-                  options={citiesList}
+                  name="buyingCities"
+                  options={cityOptions}
                   label="What city/cities are you looking to move to?"
                   validate={requiredSelect}
                   {...rest}
@@ -145,20 +152,9 @@ const Buying: FunctionComponent<BuyingProps> = (props) => {
           </Formik>
         </>
       </Card>
-      <UnsavedChangesModal
-        modalIsOpen={modalIsOpen}
-        toggleModal={toggleUnsavedChangesModal}
-        captureConsumerData={props.actions.captureConsumerData}
-      />
+      <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
     </>
   );
 };
 
-export default connect(
-  (state: RootState) => ({
-    consumer: state.consumer,
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators({ captureConsumerData }, dispatch),
-  })
-)(Buying);
+export default Buying;

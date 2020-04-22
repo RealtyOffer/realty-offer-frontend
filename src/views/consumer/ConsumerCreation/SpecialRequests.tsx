@@ -3,8 +3,7 @@ import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
 import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Button,
@@ -16,7 +15,7 @@ import {
   HorizontalRule,
   ProgressBar,
 } from '../../../components';
-import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
+import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
 
 import languagesList from '../../../utils/languagesList';
@@ -28,15 +27,12 @@ type SpecialRequestsFormValues = {
   genderPreference: string;
 };
 
-type SpecialRequestsProps = {
-  actions: {
-    captureConsumerData: Function;
-  };
-  consumer: ConsumerStoreType;
-} & RouteComponentProps;
+type SpecialRequestsProps = {} & RouteComponentProps;
 
-const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
+const SpecialRequests: FunctionComponent<SpecialRequestsProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const consumer = useSelector((state: RootState) => state.consumer);
+  const dispatch = useDispatch();
 
   const initialValues: SpecialRequestsFormValues = {
     otherLanguage: 'No Preference',
@@ -47,7 +43,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+  const isBuyerAndSeller = consumer.signupData.consumerType === 'buyerSeller';
 
   return (
     <>
@@ -65,7 +61,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values) => {
-            props.actions.captureConsumerData(values);
+            dispatch(captureConsumerData(values));
             navigate('/consumer/sign-up');
           }}
         >
@@ -115,20 +111,9 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = (props) => {
           )}
         </Formik>
       </Card>
-      <UnsavedChangesModal
-        modalIsOpen={modalIsOpen}
-        toggleModal={toggleUnsavedChangesModal}
-        captureConsumerData={props.actions.captureConsumerData}
-      />
+      <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
     </>
   );
 };
 
-export default connect(
-  (state: RootState) => ({
-    consumer: state.consumer,
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators({ captureConsumerData }, dispatch),
-  })
-)(SpecialRequests);
+export default SpecialRequests;

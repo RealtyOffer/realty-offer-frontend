@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { FaCaretRight } from 'react-icons/fa';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 
 import { Box, Button, Card, Heading, Seo } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
+import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
 
 type StartCreateConsumerProps = {
   actions: {
@@ -14,9 +14,10 @@ type StartCreateConsumerProps = {
   };
 } & RouteComponentProps;
 
-const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = (props) => {
-  const setCustomerType = (consumerType: 'buyer' | 'seller' | 'buyerSeller') => {
-    props.actions.captureConsumerData({ consumerType });
+const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
+  const dispatch = useDispatch();
+  const setCustomerType = (consumerType: ConsumerStoreType['signupData']['consumerType']) => {
+    dispatch(captureConsumerData({ consumerType }));
     navigate(consumerType === 'seller' ? '/consumer/selling' : '/consumer/buying');
   };
 
@@ -85,6 +86,4 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = (props)
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ captureConsumerData }, dispatch),
-}))(StartCreateConsumer);
+export default StartCreateConsumer;

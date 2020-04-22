@@ -24,6 +24,7 @@ type TableProps = {
 
 const StyledTable = styled.table`
   margin-bottom: ${baseSpacer};
+  width: 100%;
 `;
 
 const StyledTr = styled.tr`

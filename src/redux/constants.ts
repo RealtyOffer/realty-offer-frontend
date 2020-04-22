@@ -15,6 +15,7 @@ export const AGENT_PROFILE_ENDPOINT = `${API_ROOT}/agent/profile`;
 export const AGENT_BANNERS_ENDPOINT = `${API_ROOT}/agent/site-banners`;
 export const AGENT_BIDS_ENDPOINT = `${API_ROOT}/agent/bids`;
 export const AGENT_BID_BY_ID_ENDPOINT = (id: number) => `${AGENT_BIDS_ENDPOINT}/${id}`;
+export const AGENT_CITIES_ENDPOINT = `${API_ROOT}/agent/cities`;
 
 // Agent Listings/Bidding
 export const LISTINGS_ENDPOINT = `${API_ROOT}/agent/listings`;
@@ -25,11 +26,14 @@ export const LISTING_BY_ID_ENDPOINT = (id: number) => `${LISTINGS_ENDPOINT}/${id
 export const CREATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/profile`;
 export const UPDATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
 export const CONSUMER_BANNERS_ENDPOINT = `${API_ROOT}/consumer/site-banners`;
+export const CONSUMER_CITIES_ENDPOINT = `${API_ROOT}/consumer/cities`;
 
 // Admin
 export const ADMIN_SITE_BANNERS_ENDPOINT = `${API_ROOT}/admin/site-banners`;
 export const ADMIN_SITE_BANNER_BY_ID_ENDPOINT = (id: number) =>
   `${ADMIN_SITE_BANNERS_ENDPOINT}/${id}`;
+export const ADMIN_CITIES_ENDPOINT = `${API_ROOT}/admin/cities`;
+export const ADMIN_CITY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_CITIES_ENDPOINT}/${id}`;
 
 // Action Response Type
 export type ActionResponseType = {

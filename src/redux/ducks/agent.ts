@@ -1,6 +1,11 @@
 import { RSAA } from 'redux-api-middleware';
 
-import { AGENT_PROFILE_ENDPOINT, AGENT_BANNERS_ENDPOINT, AGENT_BIDS_ENDPOINT } from '../constants';
+import {
+  AGENT_PROFILE_ENDPOINT,
+  AGENT_BANNERS_ENDPOINT,
+  AGENT_BIDS_ENDPOINT,
+  AGENT_CITIES_ENDPOINT,
+} from '../constants';
 import { AgentStoreType, AgentActionTypes, AgentProfileType, BidType } from './agent.d';
 
 export const CREATE_AGENT_PROFILE_REQUEST = 'CREATE_AGENT_PROFILE_REQUEST';
@@ -19,6 +24,10 @@ export const GET_AGENT_BANNERS_REQUEST = 'GET_AGENT_BANNERS_REQUEST';
 export const GET_AGENT_BANNERS_SUCCESS = 'GET_AGENT_BANNERS_SUCCESS';
 export const GET_AGENT_BANNERS_FAILURE = 'GET_AGENT_BANNERS_FAILURE';
 
+export const GET_AGENT_CITIES_REQUEST = 'GET_AGENT_CITIES_REQUEST';
+export const GET_AGENT_CITIES_SUCCESS = 'GET_AGENT_CITIES_SUCCESS';
+export const GET_AGENT_CITIES_FAILURE = 'GET_AGENT_CITIES_FAILURE';
+
 export const CREATE_AGENT_BID_REQUEST = 'CREATE_AGENT_BID_REQUEST';
 export const CREATE_AGENT_BID_SUCCESS = 'CREATE_AGENT_BID_SUCCESS';
 export const CREATE_AGENT_BID_FAILURE = 'CREATE_AGENT_BID_FAILURE';
@@ -33,6 +42,7 @@ export const initialState: AgentStoreType = {
   hasError: false,
   bids: [],
   banners: [],
+  cities: [],
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {
@@ -41,6 +51,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
     case UPDATE_AGENT_PROFILE_REQUEST:
     case GET_AGENT_PROFILE_REQUEST:
     case GET_AGENT_BANNERS_REQUEST:
+    case GET_AGENT_CITIES_REQUEST:
     case CREATE_AGENT_BID_REQUEST:
       return {
         ...state,
@@ -63,6 +74,13 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         hasError: false,
         banners: [...action.payload],
       };
+    case GET_AGENT_CITIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        cities: [...action.payload],
+      };
     case CREATE_AGENT_BID_SUCCESS:
       return {
         ...state,
@@ -80,12 +98,24 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
     case CREATE_AGENT_PROFILE_FAILURE:
     case UPDATE_AGENT_PROFILE_FAILURE:
     case GET_AGENT_PROFILE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+      };
     case GET_AGENT_BANNERS_FAILURE:
       return {
         ...state,
         isLoading: false,
         hasError: true,
         banners: [],
+      };
+    case GET_AGENT_CITIES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        cities: [],
       };
     default:
       return state;
@@ -143,6 +173,17 @@ export const getAgentSiteBanners = () => ({
       'Content-Type': 'application/json',
     },
     types: [GET_AGENT_BANNERS_REQUEST, GET_AGENT_BANNERS_SUCCESS, GET_AGENT_BANNERS_FAILURE],
+  },
+});
+
+export const getAgentCities = () => ({
+  [RSAA]: {
+    endpoint: AGENT_CITIES_ENDPOINT,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    types: [GET_AGENT_CITIES_REQUEST, GET_AGENT_CITIES_SUCCESS, GET_AGENT_CITIES_FAILURE],
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'gatsby';
 
@@ -140,7 +140,7 @@ const allStyles = css`
   text-decoration: none;
   
   /* Color */
-  ${(props: ButtonProps) => props.color === 'primary' && primaryButtonStyles}
+  ${primaryButtonStyles}
   ${(props: ButtonProps) => props.color === 'primaryOutline' && primaryOutlineButtonStyles}
   ${(props: ButtonProps) => props.color === 'danger' && dangerButtonStyles}
   ${(props: ButtonProps) => props.color === 'dangerOutline' && dangerOutlineButtonStyles}
@@ -189,71 +189,50 @@ const StyledLink = styled.div`
     }
   }
 `;
-class Button extends Component<ButtonProps> {
-  // eslint-disable-next-line react/static-property-placement
-  static defaultProps = {
-    color: 'primary',
-    rightspacer: false,
-    onClick: null,
-    to: '',
-    disabled: false,
-    iconLeft: null,
-    iconRight: null,
-    block: false,
-  };
 
-  render() {
-    const {
-      color,
-      rightspacer,
-      to,
-      children,
-      type,
-      onClick,
-      disabled,
-      iconLeft,
-      iconRight,
-      block,
-    } = this.props;
-    let contentToRender;
-
-    switch (type) {
-      case 'link':
-        contentToRender = to && (
-          <StyledLink
-            color={color}
-            rightspacer={rightspacer}
-            disabled={disabled}
-            block={block}
-            type={type}
-          >
-            <Link to={to}>
-              {iconLeft} {children} {iconRight}
-            </Link>
-          </StyledLink>
-        );
-        break;
-      case 'button':
-      case 'submit':
-      case 'reset':
-      default:
-        contentToRender = (
-          <StyledButton
-            type={type}
-            color={color}
-            rightspacer={rightspacer}
-            onClick={onClick}
-            disabled={disabled}
-            block={block}
-          >
-            {iconLeft} {children} {iconRight}
-          </StyledButton>
-        );
-        break;
-    }
-
-    return contentToRender;
+const Button: FunctionComponent<ButtonProps> = ({
+  color,
+  rightspacer,
+  to,
+  children,
+  type,
+  onClick,
+  disabled,
+  iconLeft,
+  iconRight,
+  block,
+}) => {
+  if (type === 'link' && to) {
+    return (
+      <StyledLink
+        color={color}
+        rightspacer={rightspacer}
+        disabled={disabled}
+        block={block}
+        type={type}
+      >
+        <Link to={to}>
+          {iconLeft} {children} {iconRight}
+        </Link>
+      </StyledLink>
+    );
   }
-}
+
+  if (type !== 'link') {
+    return (
+      <StyledButton
+        type={type}
+        color={color}
+        rightspacer={rightspacer}
+        onClick={onClick}
+        disabled={disabled}
+        block={block}
+      >
+        {iconLeft} {children} {iconRight}
+      </StyledButton>
+    );
+  }
+  return null;
+};
 
 export default Button;

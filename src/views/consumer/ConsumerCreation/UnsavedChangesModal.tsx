@@ -1,17 +1,19 @@
 import React, { FunctionComponent } from 'react';
 import { navigate } from 'gatsby';
+import { useDispatch } from 'react-redux';
 
 import { Button, Modal, Heading, Row, Column } from '../../../components';
+import { captureConsumerData } from '../../../redux/ducks/consumer';
 
 type UnsavedChangesModalProps = {
   toggleModal: Function;
   modalIsOpen: boolean;
-  captureConsumerData: Function;
 };
 
 const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = (props) => {
+  const dispatch = useDispatch();
   const clearDataAndNavigate = () => {
-    props.captureConsumerData({});
+    dispatch(captureConsumerData({}));
     navigate('/consumer');
   };
 

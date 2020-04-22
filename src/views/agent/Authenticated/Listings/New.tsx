@@ -1,7 +1,6 @@
 import React, { useEffect, FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
-import addHours from 'date-fns/addHours';
 
 import { BidCard, Column, EmptyListingsView, Heading, Seo, Row } from '../../../../components';
 
@@ -9,7 +8,7 @@ import { getListings } from '../../../../redux/ducks/listings';
 import { RootState } from '../../../../redux/ducks';
 
 const NewListings: FunctionComponent<RouteComponentProps> = () => {
-  const listings = useSelector((state: RootState) => state.listings);
+  const listings = useSelector((state: RootState) => state.listings.listings);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,43 +27,13 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
         />
       ) // TODO: look at new listings length to show this dynamically
       }
-      {true && (
+      {listings && listings.length > 0 && (
         <Row>
-          <Column sm={6} lg={4}>
-            <BidCard
-              listing={{
-                id: 1,
-                type: 'seller',
-                sellersListingPriceInMind: '$300-350k',
-                sellersCity: 'Livonia',
-                createDateTime: addHours(new Date(), 22),
-              }}
-            />
-          </Column>
-          <Column sm={6} lg={4}>
-            <BidCard
-              listing={{
-                id: 2,
-                type: 'buyer',
-                buyingPriceRange: '$350-375k',
-                buyingCities: ['Plymouth', 'Livonia', 'Novi', 'Canton', 'Northville'],
-                createDateTime: addHours(new Date(), 1),
-              }}
-            />
-          </Column>
-          <Column sm={6} lg={4}>
-            <BidCard
-              listing={{
-                id: 3,
-                type: 'buyerSeller',
-                sellersListingPriceInMind: '$300-350k',
-                sellersCity: 'Livonia',
-                buyingPriceRange: '$350-375k',
-                buyingCities: ['Plymouth', 'Livonia'],
-                createDateTime: addHours(new Date(), 3),
-              }}
-            />
-          </Column>
+          {listings.map((listing) => (
+            <Column sm={6} lg={4} key={listing.id}>
+              <BidCard listing={listing} />
+            </Column>
+          ))}
         </Row>
       )}
     </>

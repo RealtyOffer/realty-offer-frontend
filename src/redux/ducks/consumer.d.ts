@@ -6,20 +6,22 @@ import {
   GET_CONSUMER_BANNERS_REQUEST,
   GET_CONSUMER_BANNERS_SUCCESS,
   GET_CONSUMER_BANNERS_FAILURE,
+  GET_CONSUMER_CITIES_REQUEST,
+  GET_CONSUMER_CITIES_SUCCESS,
+  GET_CONSUMER_CITIES_FAILURE,
 } from './consumer';
 
-import { BannerType } from './admin.d';
+import { BannerType, CityType } from './admin.d';
 
 export type SignupDataType = {
   consumerType?: 'buyer' | 'seller' | 'buyerSeller';
-  buyingCity?: string | Array<string>;
+  buyingCities?: Array<CityType>;
   buyingPriceRange?: string;
   freeMortgageConsult?: boolean;
   preApproved?: boolean;
   sellersAddressLine1?: string;
   sellersAddressLine2?: string;
-  sellersCity?: string;
-  sellersState?: string;
+  sellersCity?: CityType;
   sellersZip?: string;
   sellersTimeline?: string;
   sellersListingPriceInMind?: string;
@@ -34,6 +36,7 @@ export type ConsumerStoreType = {
   isLoading: boolean;
   hasError: boolean;
   banners?: Array<BannerType>;
+  cities?: Array<CityType>;
 };
 
 export type CaptureConsumerDataAction = {
@@ -68,6 +71,19 @@ export type GetConsumerBannersFailureAction = {
   type: typeof GET_CONSUMER_BANNERS_FAILURE;
 };
 
+export type GetConsumerCitiesRequestAction = {
+  type: typeof GET_CONSUMER_CITIES_REQUEST;
+};
+
+export type GetConsumerCitiesSuccessAction = {
+  type: typeof GET_CONSUMER_CITIES_SUCCESS;
+  payload: Array<CityType>;
+};
+
+export type GetConsumerCitiesFailureAction = {
+  type: typeof GET_CONSUMER_CITIES_FAILURE;
+};
+
 export type ConsumerStoreActions =
   | CaptureConsumerDataAction
   | CreateConsumerProfileRequestAction
@@ -75,4 +91,7 @@ export type ConsumerStoreActions =
   | CreateConsumerProfileFailureAction
   | GetConsumerBannersRequestAction
   | GetConsumerBannersSuccessAction
-  | GetConsumerBannersFailureAction;
+  | GetConsumerBannersFailureAction
+  | GetConsumerCitiesRequestAction
+  | GetConsumerCitiesSuccessAction
+  | GetConsumerCitiesFailureAction;

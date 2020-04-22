@@ -65,7 +65,8 @@ const BidCardFooter = styled.div`
 const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
   // difference in minutes from expiration date to now, divided by 1440 which is number of minutes
   // in a day (24*60). Then multiply that by 100 to get percentage value
-  const timeDifference = (differenceInMinutes(listing.createDateTime, Date.now()) / 1440) * 100;
+  const timeDifference =
+    (differenceInMinutes(new Date(listing.createDateTime), Date.now()) / 1440) * 100;
   const expiringSoon = timeDifference < 8.3333333; // 2 hours out of 24
 
   return (
@@ -91,7 +92,9 @@ const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
                   line={1}
                   element="span"
                   truncateText="…"
-                  text={listing.buyingCities.toString().replace(/,/g, ', ')}
+                  text={Array(listing.buyingCities.map((city) => city.name))
+                    .toString()
+                    .replace(/,/g, ', ')}
                   textTruncateChild={<Link to={`/agent/listings/${listing.id}`}>More</Link>}
                 />
               )}
@@ -104,7 +107,7 @@ const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
             <Heading as="h1" noMargin>
               {listing.sellersListingPriceInMind}
             </Heading>
-            <span>Selling in {listing.sellersCity}</span>
+            <span>Selling in {listing.sellersCity?.name}</span>
           </>
         )}
       </BidCardBody>

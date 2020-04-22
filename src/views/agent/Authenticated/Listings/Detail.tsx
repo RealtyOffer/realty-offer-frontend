@@ -53,9 +53,12 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
         {isBuyer &&
           `Buying for ${listing.buyingPriceRange} in ${Array.isArray(listing.buyingCities) &&
             listing.buyingCities.length > 0 &&
-            listing.buyingCities.toString().replace(/,/g, ', ')}`}
+            Array(listing.buyingCities.map((city) => city.name))
+              .toString()
+              .replace(/,/g, ', ')}`}
         {isSeller && isBuyer && <br />}
-        {isSeller && `Selling for ${listing.sellersListingPriceInMind} in ${listing.sellersCity}`}
+        {isSeller &&
+          `Selling for ${listing.sellersListingPriceInMind} in ${listing.sellersCity?.name}`}
       </Heading>
       <Heading as="h2" styledAs="subtitle">
         Additional Listing Information

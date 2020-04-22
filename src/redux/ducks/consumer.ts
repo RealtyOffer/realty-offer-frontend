@@ -1,6 +1,10 @@
 import { RSAA } from 'redux-api-middleware';
 
-import { CREATE_CONSUMER_PROFILE_ENDPOINT, CONSUMER_BANNERS_ENDPOINT } from '../constants';
+import {
+  CREATE_CONSUMER_PROFILE_ENDPOINT,
+  CONSUMER_BANNERS_ENDPOINT,
+  CONSUMER_CITIES_ENDPOINT,
+} from '../constants';
 
 import { ConsumerStoreType, SignupDataType, ConsumerStoreActions } from './consumer.d';
 
@@ -14,11 +18,16 @@ export const GET_CONSUMER_BANNERS_REQUEST = 'GET_CONSUMER_BANNERS_REQUEST';
 export const GET_CONSUMER_BANNERS_SUCCESS = 'GET_CONSUMER_BANNERS_SUCCESS';
 export const GET_CONSUMER_BANNERS_FAILURE = 'GET_CONSUMER_BANNERS_FAILURE';
 
+export const GET_CONSUMER_CITIES_REQUEST = 'GET_CONSUMER_CITIES_REQUEST';
+export const GET_CONSUMER_CITIES_SUCCESS = 'GET_CONSUMER_CITIES_SUCCESS';
+export const GET_CONSUMER_CITIES_FAILURE = 'GET_CONSUMER_CITIES_FAILURE';
+
 export const initialState: ConsumerStoreType = {
   signupData: {},
   isLoading: false,
   hasError: false,
   banners: [],
+  cities: [],
 };
 
 export default (
@@ -41,6 +50,7 @@ export default (
       };
     case CREATE_CONSUMER_PROFILE_REQUEST:
     case GET_CONSUMER_BANNERS_REQUEST:
+    case GET_CONSUMER_CITIES_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -62,6 +72,13 @@ export default (
         hasError: false,
         banners: [...action.payload],
       };
+    case GET_CONSUMER_CITIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        cities: [...action.payload],
+      };
     case CREATE_CONSUMER_PROFILE_FAILURE:
       return {
         ...state,
@@ -74,6 +91,13 @@ export default (
         isLoading: false,
         hasError: true,
         banners: [],
+      };
+    case GET_CONSUMER_CITIES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        cities: [],
       };
     default:
       return state;
@@ -114,5 +138,16 @@ export const getConsumerSiteBanners = () => ({
       GET_CONSUMER_BANNERS_SUCCESS,
       GET_CONSUMER_BANNERS_FAILURE,
     ],
+  },
+});
+
+export const getConsumerCities = () => ({
+  [RSAA]: {
+    endpoint: CONSUMER_CITIES_ENDPOINT,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    types: [GET_CONSUMER_CITIES_REQUEST, GET_CONSUMER_CITIES_SUCCESS, GET_CONSUMER_CITIES_FAILURE],
   },
 });

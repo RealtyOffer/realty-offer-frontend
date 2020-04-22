@@ -1,17 +1,18 @@
 import { GET_LISTINGS_REQUEST, GET_LISTINGS_SUCCESS, GET_LISTINGS_FAILURE } from './listings';
 import { LogoutRequestAction } from './auth.d';
+import { CityType } from './admin.d';
 
 export type ListingType = {
   id: number;
   type: 'seller' | 'buyer' | 'buyerSeller';
   listingType?: 'new' | 'pending' | 'awarded' | 'history';
-  buyingCities?: Array<string>;
+  buyingCities?: Array<CityType>;
   buyingPriceRange?: string;
   freeMortgageConsult?: boolean;
   preApproved?: boolean;
-  sellersCity?: string;
+  sellersCity?: CityType;
   sellersListingPriceInMind?: string;
-  createDateTime: Date;
+  createDateTime: string;
 };
 
 export type ListingStoreType = {

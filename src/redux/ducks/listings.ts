@@ -1,5 +1,8 @@
 import { RSAA } from 'redux-api-middleware';
 
+// TODO remove
+import addHours from 'date-fns/addHours';
+
 import { LISTINGS_ENDPOINT } from '../constants';
 import { LOGOUT_REQUEST } from './auth';
 
@@ -18,10 +21,28 @@ export const initialState: ListingStoreType = {
       id: 3,
       type: 'buyerSeller',
       sellersListingPriceInMind: '$300-350k',
-      sellersCity: 'Livonia',
+      sellersCity: {
+        id: 4,
+        name: 'Livonia',
+        state: 'MI',
+        monthlyPrice: 10,
+      },
       buyingPriceRange: '$350-375k',
-      buyingCities: ['Plymouth', 'Livonia'],
-      createDateTime: new Date(),
+      buyingCities: [
+        {
+          id: 3,
+          name: 'Plymouth',
+          state: 'MI',
+          monthlyPrice: 10,
+        },
+        {
+          id: 4,
+          name: 'Livonia',
+          state: 'MI',
+          monthlyPrice: 10,
+        },
+      ],
+      createDateTime: String(addHours(new Date(), 22)),
     },
   ],
 };

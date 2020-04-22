@@ -14,9 +14,12 @@ import {
   CREATE_AGENT_BID_REQUEST,
   CREATE_AGENT_BID_SUCCESS,
   CREATE_AGENT_BID_FAILURE,
+  GET_AGENT_CITIES_REQUEST,
+  GET_AGENT_CITIES_SUCCESS,
+  GET_AGENT_CITIES_FAILURE,
 } from './agent';
 
-import { BannerType } from './admin.d';
+import { BannerType, CityType } from './admin.d';
 
 export type AgentProfileType = {
   id?: number;
@@ -45,6 +48,7 @@ export type AgentStoreType = {
   hasError: boolean;
   bids: Array<BidType>;
   banners?: Array<BannerType>;
+  cities?: Array<CityType>;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {
@@ -101,6 +105,19 @@ export type GetAgentBannersFailureAction = {
   type: typeof GET_AGENT_BANNERS_FAILURE;
 };
 
+export type GetAgentCitiesRequestAction = {
+  type: typeof GET_AGENT_CITIES_REQUEST;
+};
+
+export type GetAgentCitiesSuccessAction = {
+  type: typeof GET_AGENT_CITIES_SUCCESS;
+  payload: Array<CityType>;
+};
+
+export type GetAgentCitiesFailureAction = {
+  type: typeof GET_AGENT_CITIES_FAILURE;
+};
+
 export type CreateAgentBidRequestAction = {
   type: typeof CREATE_AGENT_BID_REQUEST;
   payload: BidType;
@@ -128,6 +145,9 @@ export type AgentActionTypes =
   | GetAgentBannersRequestAction
   | GetAgentBannersSuccessAction
   | GetAgentBannersFailureAction
+  | GetAgentCitiesRequestAction
+  | GetAgentCitiesSuccessAction
+  | GetAgentCitiesFailureAction
   | CreateAgentBidRequestAction
   | CreateAgentBidSuccessAction
   | CreateAgentBidFailureAction;

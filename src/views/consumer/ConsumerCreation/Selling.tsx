@@ -1,10 +1,9 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { useEffect, FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
 import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Button,
@@ -16,19 +15,20 @@ import {
   HorizontalRule,
   ProgressBar,
 } from '../../../components';
-import { captureConsumerData, ConsumerStoreType } from '../../../redux/ducks/consumer';
+import { captureConsumerData, getConsumerCities } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
 
-import { requiredField } from '../../../utils/validations';
-import statesList from '../../../utils/statesList';
+import { requiredField, requiredSelect } from '../../../utils/validations';
 import priceRangesList from '../../../utils/priceRangesList';
 import UnsavedChangesModal from './UnsavedChangesModal';
+import createOptionsFromArray from '../../../utils/createOptionsFromArray';
+import { CityType } from '../../../redux/ducks/admin.d';
 
 type SellingFormValues = {
   sellersAddressLine1: string;
   sellersAddressLine2: string;
   sellersCity: string;
-  sellersState: string;
+
   sellersZip: string;
   sellersTimeline: string;
   sellersListingPriceInMind: string;
@@ -41,21 +41,22 @@ const howSoonOptions = [
   { value: '6-12 months', label: '6-12 months' },
 ];
 
-type SellingProps = {
-  actions: {
-    captureConsumerData: Function;
-  };
-  consumer: ConsumerStoreType;
-} & RouteComponentProps;
+type SellingProps = {} & RouteComponentProps;
 
-const Selling: FunctionComponent<SellingProps> = (props) => {
+const Selling: FunctionComponent<SellingProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const signupData = useSelector((state: RootState) => state.consumer.signupData);
+  const cities = useSelector((state: RootState) => state.consumer.cities);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getConsumerCities());
+  }, []);
 
   const initialValues: SellingFormValues = {
     sellersAddressLine1: '',
     sellersAddressLine2: '',
     sellersCity: '',
-    sellersState: 'MI',
     sellersZip: '',
     sellersTimeline: '',
     sellersListingPriceInMind: '',
@@ -66,7 +67,8 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+  const isBuyerAndSeller = signupData.consumerType === 'buyerSeller';
+  const cityOptions = cities && createOptionsFromArray(cities, 'name');
 
   return (
     <>
@@ -85,7 +87,15 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values) => {
-              props.actions.captureConsumerData(values);
+              // return array of CityType DTOs
+              const cityDTO =
+                cities && (cities.find((city) => city.name === values.sellersCity) as CityType);
+              dispatch(
+                captureConsumerData({
+                  ...values,
+                  sellersCity: cityDTO,
+                })
+              );
               navigate('/consumer/special-requests');
             }}
           >
@@ -99,23 +109,16 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
                   validate={requiredField}
                 />
                 <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
-                <Field
-                  as={Input}
-                  type="text"
-                  name="sellersCity"
-                  label="City"
-                  validate={requiredField}
-                />
+
                 <Row>
                   <Column xs={6}>
                     <Field
                       as={Input}
                       type="select"
-                      name="sellersState"
-                      label="State"
-                      disabled
-                      validate={requiredField}
-                      options={statesList}
+                      name="sellersCity"
+                      options={cityOptions}
+                      label="City"
+                      validate={requiredSelect}
                       {...rest}
                     />
                   </Column>
@@ -192,20 +195,9 @@ const Selling: FunctionComponent<SellingProps> = (props) => {
           </Formik>
         </>
       </Card>
-      <UnsavedChangesModal
-        modalIsOpen={modalIsOpen}
-        toggleModal={toggleUnsavedChangesModal}
-        captureConsumerData={props.actions.captureConsumerData}
-      />
+      <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
     </>
   );
 };
 
-export default connect(
-  (state: RootState) => ({
-    consumer: state.consumer,
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators({ captureConsumerData }, dispatch),
-  })
-)(Selling);
+export default Selling;
