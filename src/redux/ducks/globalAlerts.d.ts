@@ -3,8 +3,9 @@ import { LogoutRequestAction, AuthenticateCredentialsSuccessAction } from './aut
 
 export type AlertType = {
   message: string;
-  type: string;
+  type: 'danger' | 'success' | 'info';
   id?: string;
+  dismissable?: boolean;
 };
 
 export type GlobalAlertsStoreType = {

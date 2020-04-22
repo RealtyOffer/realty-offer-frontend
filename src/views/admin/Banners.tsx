@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import format from 'date-fns/format';
 
 import { Button, FlexContainer, Heading, Table } from '../../components';
-import { getAgentSiteBanners } from '../../redux/ducks/agent';
+import { getAllSiteBanners } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 import BannerDetails from './BannerDetails';
 
 const Banners: FunctionComponent<RouteComponentProps> = () => {
-  const agent = useSelector((state: RootState) => state.agent);
+  const banners = useSelector((state: RootState) => state.admin.banners);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAgentSiteBanners());
+    dispatch(getAllSiteBanners());
   }, []);
 
   const columns = useMemo(
@@ -50,7 +50,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
     []
   );
 
-  const data = agent.banners?.map((banner) => {
+  const data = banners?.map((banner) => {
     return {
       ...banner,
       dismissable: banner.dismissable.toString(),
@@ -62,12 +62,10 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
   return (
     <>
       <FlexContainer justifyContent="space-between">
-        <Heading noMargin>Site Banners</Heading>
-        <p>
-          <Button type="link" to="/admin/banners/new">
-            Add New Banner
-          </Button>
-        </p>
+        <Heading>Site Banners</Heading>
+        <Button type="link" to="/admin/banners/new">
+          Add New Banner
+        </Button>
       </FlexContainer>
       {data && <Table columns={columns} data={data} />}
       <Router>

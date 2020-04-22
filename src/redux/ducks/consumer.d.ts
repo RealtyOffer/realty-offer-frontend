@@ -3,7 +3,12 @@ import {
   CREATE_CONSUMER_PROFILE_REQUEST,
   CREATE_CONSUMER_PROFILE_SUCCESS,
   CREATE_CONSUMER_PROFILE_FAILURE,
+  GET_CONSUMER_BANNERS_REQUEST,
+  GET_CONSUMER_BANNERS_SUCCESS,
+  GET_CONSUMER_BANNERS_FAILURE,
 } from './consumer';
+
+import { BannerType } from './admin.d';
 
 export type SignupDataType = {
   consumerType?: 'buyer' | 'seller' | 'buyerSeller';
@@ -28,6 +33,7 @@ export type ConsumerStoreType = {
   signupData: SignupDataType;
   isLoading: boolean;
   hasError: boolean;
+  banners?: Array<BannerType>;
 };
 
 export type CaptureConsumerDataAction = {
@@ -49,8 +55,24 @@ export type CreateConsumerProfileFailureAction = {
   type: typeof CREATE_CONSUMER_PROFILE_FAILURE;
 };
 
+export type GetConsumerBannersRequestAction = {
+  type: typeof GET_CONSUMER_BANNERS_REQUEST;
+};
+
+export type GetConsumerBannersSuccessAction = {
+  type: typeof GET_CONSUMER_BANNERS_SUCCESS;
+  payload: Array<BannerType>;
+};
+
+export type GetConsumerBannersFailureAction = {
+  type: typeof GET_CONSUMER_BANNERS_FAILURE;
+};
+
 export type ConsumerStoreActions =
   | CaptureConsumerDataAction
   | CreateConsumerProfileRequestAction
   | CreateConsumerProfileSuccessAction
-  | CreateConsumerProfileFailureAction;
+  | CreateConsumerProfileFailureAction
+  | GetConsumerBannersRequestAction
+  | GetConsumerBannersSuccessAction
+  | GetConsumerBannersFailureAction;

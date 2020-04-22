@@ -20,7 +20,7 @@ export type BannerType = {
   callToActionLink: string;
   expirationDate: string;
   audience: string;
-  styling: string;
+  styling: 'danger' | 'success' | 'info';
 };
 
 export type AdminStoreType = {

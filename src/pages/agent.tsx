@@ -1,6 +1,7 @@
 import React, { useEffect, FunctionComponent } from 'react';
 import { Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
+import { isEqual } from 'lodash';
 
 import Agent from '../views/agent/Agent';
 import CreateAgent from '../views/agent/AgentCreation/CreateAgent';
@@ -20,18 +21,34 @@ import NotFoundPage from './404';
 import { PrivateRoute } from '../components';
 import { getAgentSiteBanners, getAgentProfile } from '../redux/ducks/agent';
 import { RootState } from '../redux/ducks';
+import { addAlert } from '../redux/ducks/globalAlerts';
+import usePrevious from '../utils/usePrevious';
 
 const AgentApp: FunctionComponent<{}> = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  // const banners = useSelector((state: RootState) => state.agent.banners);
+  const banners = useSelector((state: RootState) => state.agent.banners);
   const dispatch = useDispatch();
 
+  const prevBanners = usePrevious(banners);
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && !prevBanners) {
       dispatch(getAgentSiteBanners());
       dispatch(getAgentProfile());
     }
-  }, []);
+    if (!isEqual(prevBanners, banners)) {
+      if (banners) {
+        banners.forEach((banner) => {
+          dispatch(
+            addAlert({
+              message: banner.message,
+              type: banner.styling,
+              dismissable: banner.dismissable,
+            })
+          );
+        });
+      }
+    }
+  }, [banners]);
 
   return (
     <Router basepath="agent">

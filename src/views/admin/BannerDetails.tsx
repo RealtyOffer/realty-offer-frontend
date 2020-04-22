@@ -18,7 +18,7 @@ type BannerDetailsProps = {
 } & RouteComponentProps;
 
 const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
-  const banners = useSelector((state: RootState) => state.agent.banners);
+  const banners = useSelector((state: RootState) => state.admin.banners);
   const dispatch = useDispatch();
 
   const stylingOptions = [
@@ -68,7 +68,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
   return (
     <>
       <FlexContainer justifyContent="space-between">
-        <Heading noMargin>{isNewBanner ? 'Add New' : 'Edit'} Banner</Heading>
+        <Heading>{isNewBanner ? 'Add New' : 'Edit'} Banner</Heading>
         <Button type="link" to="/admin/banners" iconLeft={<FaCaretLeft />} color="text">
           Back to All Banners
         </Button>
