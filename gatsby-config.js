@@ -14,7 +14,12 @@ module.exports = {
     'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
-    'gatsby-plugin-netlify-cms',
+    {
+      resolve: 'gatsby-plugin-netlify-cms',
+      options: {
+        publicPath: 'cms',
+      },
+    },
     {
       resolve: 'gatsby-plugin-prefetch-google-fonts',
       options: {
