@@ -8,12 +8,13 @@ const IndexPagePreview = ({ entry, getAsset }: { entry: any; getAsset: Function 
   if (data) {
     return (
       <IndexPageTemplate
-        image={getAsset(data.image)}
+        heroImage={getAsset(data.heroImage)}
         title={data.title}
-        heading={data.heading}
-        subheading={data.subheading}
-        description={data.description}
-        mainpitch={data.mainpitch || {}}
+        heroHeading={data.heroHeading}
+        heroSubheading={data.heroSubheading}
+        mainpitch={data.mainpitch}
+        heroCTALink={data.heroCTALink}
+        heroCTAText={data.heroCTAText}
       />
     );
   }
