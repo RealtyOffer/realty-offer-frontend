@@ -13,7 +13,7 @@ declare const document: Document;
 
 type VerifyEmailType = {};
 
-const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = () => {
+const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (props) => {
   const [verified, setVerified] = useState(false);
   const dispatch = useDispatch();
 
@@ -62,20 +62,22 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
     }
   };
 
+  const isAgent = props.location?.pathname.includes('agent');
+
   return (
     <Card
       cardTitle={verified ? 'Verified!' : 'Verify Email Address'}
       cardSubtitle={
         verified
-          ? 'You have successfully verified your email. You are one step closer to connecting! You may now log in.'
+          ? 'You have successfully verified your email. You are one step closer to connecting!'
           : 'Please enter your email address and the 6 digit code sent to verify your account.'
       }
     >
       <Seo title="Verify Email" />
       {verified ? (
         <FlexContainer>
-          <Button type="link" to="/login">
-            Log In
+          <Button type="link" to={isAgent ? '/agent/agent-information' : '/login'}>
+            {isAgent ? 'Continue' : 'Log In'}
           </Button>
         </FlexContainer>
       ) : (
