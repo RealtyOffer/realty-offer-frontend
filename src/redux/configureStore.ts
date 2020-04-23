@@ -12,6 +12,7 @@ import logger from './middleware/logger';
 import oauth from './middleware/oauth';
 import errorCatcher from './middleware/errorCatcher';
 
+import { initialState as adminInitialState } from './ducks/admin';
 import { initialState as authInitialState } from './ducks/auth';
 import { initialState as agentInitialState } from './ducks/agent';
 import { initialState as consumerInitialState } from './ducks/consumer';
@@ -51,7 +52,8 @@ const makeConfiguredStore = (reducer: any, initialState: any) => {
 };
 
 const configureStore = (
-  initialState: RootState = {
+  initialState: string | RootState = {
+    admin: adminInitialState,
     auth: authInitialState,
     agent: agentInitialState,
     consumer: consumerInitialState,

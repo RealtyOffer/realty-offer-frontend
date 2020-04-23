@@ -15,12 +15,6 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
     {
-      resolve: 'gatsby-plugin-netlify-cms',
-      options: {
-        publicPath: 'cms',
-      },
-    },
-    {
       resolve: 'gatsby-plugin-prefetch-google-fonts',
       options: {
         fonts: [
@@ -30,6 +24,21 @@ module.exports = {
             subsets: ['latin'],
           },
         ],
+      },
+    },
+    {
+      // keep as first gatsby-source-filesystem plugin for gatsby image support
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/static/img`,
+        name: 'uploads',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/pages`,
+        name: 'pages',
       },
     },
     {
@@ -99,6 +108,13 @@ module.exports = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-netlify-cms',
+      options: {
+        publicPath: 'cms',
+        modulePath: `${__dirname}/src/cms/cms.ts`,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
