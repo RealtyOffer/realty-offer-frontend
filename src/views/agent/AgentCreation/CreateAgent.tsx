@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form, FormikProps } from 'formik';
 import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 
 import { Button, Input, Row, Card, Column, HorizontalRule, Seo } from '../../../components';
@@ -14,16 +13,14 @@ import {
   requiredPassword,
   passwordRulesString,
 } from '../../../utils/validations';
-import { createUser, CreateUserFormValues } from '../../../redux/ducks/auth';
+import { createUser } from '../../../redux/ducks/auth';
+import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
 
-type CreateAgentProps = {
-  actions: {
-    createUser: Function;
-  };
-} & RouteComponentProps;
+type CreateAgentProps = {} & RouteComponentProps;
 
-const CreateAgent: FunctionComponent<CreateAgentProps> = (props) => {
+const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
+  const dispatch = useDispatch();
   const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',
@@ -43,17 +40,17 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = (props) => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            props.actions
-              .createUser({
+            dispatch(
+              createUser({
                 ...values,
                 phoneNumber: reformattedPhone(values.phoneNumber),
               })
-              .then((response: ActionResponseType) => {
-                setSubmitting(false);
-                if (response && !response.error) {
-                  navigate('/agent/verify-email');
-                }
-              });
+            ).then((response: ActionResponseType) => {
+              setSubmitting(false);
+              if (response && !response.error) {
+                navigate('/agent/verify-email');
+              }
+            });
           }}
         >
           {(formikProps: FormikProps<any>) => (
@@ -119,6 +116,4 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = (props) => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ createUser }, dispatch),
-}))(CreateAgent);
+export default CreateAgent;

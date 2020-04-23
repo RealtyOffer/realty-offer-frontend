@@ -9,6 +9,7 @@ import Content from './Content';
 import EmptyListingsView from './EmptyListingsView';
 import FlexContainer from './FlexContainer';
 import Footer from './Footer';
+import HeroImage from './HeroImage';
 import Heading from './Heading';
 import HorizontalRule from './HorizontalRule';
 import Image from './Image';
@@ -38,6 +39,7 @@ export {
   EmptyListingsView,
   FlexContainer,
   Footer,
+  HeroImage,
   Heading,
   HorizontalRule,
   Image,

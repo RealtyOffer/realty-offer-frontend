@@ -1,8 +1,7 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretDown } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 
@@ -22,12 +21,7 @@ import logo from '../images/logo.svg';
 import useWindowSize from '../utils/useWindowSize';
 import { agentNavigationItems } from '../utils/agentNavigationItems';
 
-type NavbarProps = {
-  auth: any;
-  actions: {
-    logout: Function;
-  };
-};
+type NavbarProps = {};
 
 const StyledNavbar = styled.nav`
   background: ${brandPrimary};
@@ -128,7 +122,9 @@ const StyledMenu = styled.div`
     `}
 `;
 
-const Navbar: FunctionComponent<NavbarProps> = (props) => {
+const Navbar: FunctionComponent<NavbarProps> = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const size = useWindowSize();
   const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.small);
@@ -145,17 +141,17 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
         <FlexContainer
-          justifyContent={props.auth.isLoggedIn && isSmallScreen ? 'center' : 'space-between'}
+          justifyContent={auth.isLoggedIn && isSmallScreen ? 'center' : 'space-between'}
         >
           <StyledLogoLink to="/" title="Logo">
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
           </StyledLogoLink>
-          {!props.auth.isLoggedIn && (
+          {!auth.isLoggedIn && (
             <Button type="link" to="/login">
               Log In
             </Button>
           )}
-          {props.auth.isLoggedIn && isSmallScreen && (
+          {auth.isLoggedIn && isSmallScreen && (
             <StyledMenuToggle>
               <Hamburger
                 color={white}
@@ -164,7 +160,7 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
               />
             </StyledMenuToggle>
           )}
-          {props.auth.isLoggedIn && (
+          {auth.isLoggedIn && (
             <StyledMenu id="navMenu" isSmallScreen={isSmallScreen} menuIsOpen={menuIsOpen}>
               {primaryNavigation.map((navItem) => (
                 <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenuAndLogout()}>
@@ -183,12 +179,12 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
                       {navItem.name}
                     </Link>
                   ))}
-                  {props.auth.roles.includes('Admin') && (
+                  {auth.roles.includes('Admin') && (
                     <Link to="/admin/banners" onClick={() => toggleMenuAndLogout()}>
                       Admin
                     </Link>
                   )}
-                  <Link to="/" onClick={() => props.actions.logout()}>
+                  <Link to="/" onClick={() => dispatch(logout())}>
                     Log Out
                   </Link>
                 </>
@@ -202,12 +198,12 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
                         {navItem.name}
                       </Link>
                     ))}
-                    {props.auth.roles.includes('Admin') && (
+                    {auth.roles.includes('Admin') && (
                       <Link to="/admin/banners" onClick={() => toggleMenuAndLogout()}>
                         Admin
                       </Link>
                     )}
-                    <Link to="/" onClick={() => props.actions.logout()}>
+                    <Link to="/" onClick={() => dispatch(logout())}>
                       Log Out
                     </Link>
                   </StyledDropdown>
@@ -221,11 +217,4 @@ const Navbar: FunctionComponent<NavbarProps> = (props) => {
   );
 };
 
-export default connect(
-  (state: RootState) => ({
-    auth: state.auth,
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators({ logout }, dispatch),
-  })
-)(Navbar);
+export default Navbar;

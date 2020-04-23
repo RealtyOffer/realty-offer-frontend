@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, Card, FlexContainer, Seo } from '../components';
+import { PageContainer, Button, Card, FlexContainer, Seo } from '../components';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const NotFoundPage = (_: RouteComponentProps) => (
-  <>
+const NotFoundPage: FunctionComponent<RouteComponentProps> = () => (
+  <PageContainer>
     <Seo title="404: Not found" />
     <Card cardTitle="404: Page Not Found">
       <FlexContainer>
@@ -17,7 +16,7 @@ const NotFoundPage = (_: RouteComponentProps) => (
         </Button>
       </FlexContainer>
     </Card>
-  </>
+  </PageContainer>
 );
 
 export default NotFoundPage;

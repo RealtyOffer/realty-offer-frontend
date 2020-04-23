@@ -12,6 +12,7 @@ import CreateConsumer from '../views/consumer/ConsumerCreation/CreateConsumer';
 import VerifyEmail from '../views/shared/VerifyEmail';
 import NotFoundPage from './404';
 
+import { PageContainer } from '../components';
 import { getConsumerSiteBanners } from '../redux/ducks/consumer';
 import { RootState } from '../redux/ducks';
 import { addAlert } from '../redux/ducks/globalAlerts';
@@ -43,16 +44,18 @@ const ConsumerApp: FunctionComponent<{}> = () => {
   }, [banners]);
 
   return (
-    <Router basepath="consumer">
-      <Consumer path="/" />
-      <StartCreateConsumer path="/start" />
-      <Buying path="/buying" />
-      <Selling path="/selling" />
-      <SpecialRequests path="/special-requests" />
-      <CreateConsumer path="/sign-up" />
-      <VerifyEmail path="/verify-email" />
-      <NotFoundPage default />
-    </Router>
+    <PageContainer>
+      <Router basepath="consumer">
+        <Consumer path="/" />
+        <StartCreateConsumer path="/start" />
+        <Buying path="/buying" />
+        <Selling path="/selling" />
+        <SpecialRequests path="/special-requests" />
+        <CreateConsumer path="/sign-up" />
+        <VerifyEmail path="/verify-email" />
+        <NotFoundPage default />
+      </Router>
+    </PageContainer>
   );
 };
 

@@ -1,8 +1,16 @@
 import React from 'react';
-import Img from 'gatsby-image';
+import Img, { FluidObject } from 'gatsby-image';
 
-const PreviewCompatibleImage = ({ imageInfo }: { imageInfo: any }) => {
-  const imageStyle = { borderRadius: '5px' };
+const PreviewCompatibleImage = ({
+  imageInfo,
+}: {
+  imageInfo: {
+    childImageSharp?: { fluid: FluidObject };
+    image: { childImageSharp: { fluid: FluidObject } };
+    alt: string;
+  };
+}) => {
+  const imageStyle = { borderRadius: '5px', width: 200 };
   const { alt = '', childImageSharp, image } = imageInfo;
 
   if (!!image && !!image.childImageSharp) {

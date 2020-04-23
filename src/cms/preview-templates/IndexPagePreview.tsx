@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { IndexPageTemplate } from '../../templates/index-page';
 
-const IndexPagePreview = ({ entry, getAsset }) => {
+const IndexPagePreview = ({ entry, getAsset }: { entry: any; getAsset: Function }) => {
   const data = entry.getIn(['data']).toJS();
 
   if (data) {

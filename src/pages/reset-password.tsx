@@ -1,28 +1,27 @@
 import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 
-import { Alert, Button, Card, Input, HorizontalRule, FlexContainer, Seo } from '../components';
+import {
+  PageContainer,
+  Alert,
+  Button,
+  Card,
+  Input,
+  HorizontalRule,
+  FlexContainer,
+  Seo,
+} from '../components';
 
 import { requiredField, requiredPassword, passwordRulesString } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
 import { resetPassword } from '../redux/ducks/auth';
 
-type ResetPasswordProps = {
-  actions: {
-    resetPassword: Function;
-  };
-};
+type ResetPasswordProps = {};
 
-export type ResetPasswordFormValues = {
-  email: string;
-  newPassword: string;
-  token: string;
-};
-
-const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
+const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
   const [submitted, setSubmitted] = useState(false);
+  const dispatch = useDispatch();
 
   const initialValues = {
     email: '',
@@ -47,7 +46,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
   };
 
   return (
-    <>
+    <PageContainer>
       <Seo title="Reset Password" />
       <Card cardTitle="Reset Password">
         {!submitted ? (
@@ -57,17 +56,17 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
             onSubmit={(values, { setSubmitting }) => {
               const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
               const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
-              props.actions
-                .resetPassword({
+              dispatch(
+                resetPassword({
                   ...values,
                   token: combined,
                 })
-                .then((response: ActionResponseType) => {
-                  setSubmitting(false);
-                  if (response && !response.error) {
-                    setSubmitted(true);
-                  }
-                });
+              ).then((response: ActionResponseType) => {
+                setSubmitting(false);
+                if (response && !response.error) {
+                  setSubmitted(true);
+                }
+              });
             }}
           >
             {({ isSubmitting, isValid }) => (
@@ -125,10 +124,8 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = (props) => {
           </>
         )}
       </Card>
-    </>
+    </PageContainer>
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ resetPassword }, dispatch),
-}))(ResetPassword);
+export default ResetPassword;

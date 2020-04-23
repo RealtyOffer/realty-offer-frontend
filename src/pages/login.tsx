@@ -1,20 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 
-import { Button, Card, Input, HorizontalRule, Seo } from '../components';
+import { PageContainer, Button, Card, Input, HorizontalRule, Seo } from '../components';
 
 import { requiredField } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
 import { authenticateCredentials } from '../redux/ducks/auth';
 
-type LoginProps = {
-  actions: {
-    authenticateCredentials: Function;
-  };
-};
+type LoginProps = {};
 
 type LoginResponseType = {
   payload: {
@@ -22,28 +17,23 @@ type LoginResponseType = {
   };
 };
 
-export type LoginFormValues = {
-  email: string;
-  password: string;
-};
-
-const Login: FunctionComponent<LoginProps> = (props) => {
+const Login: FunctionComponent<LoginProps> = () => {
+  const dispatch = useDispatch();
   const initialValues = {
     email: '',
     password: '',
   };
 
   return (
-    <>
+    <PageContainer>
       <Seo title="Log In" />
       <Card cardTitle="Log In">
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={(values: LoginFormValues, { setSubmitting }) => {
-            props.actions
-              .authenticateCredentials(values)
-              .then((response: ActionResponseType | LoginResponseType) => {
+          onSubmit={(values, { setSubmitting }) => {
+            dispatch(authenticateCredentials(values)).then(
+              (response: ActionResponseType | LoginResponseType) => {
                 setSubmitting(false);
                 if ((response as ActionResponseType) && !(response as ActionResponseType).error) {
                   if ((response as LoginResponseType).payload.roles.includes('Agent')) {
@@ -53,7 +43,8 @@ const Login: FunctionComponent<LoginProps> = (props) => {
                     navigate('/consumer/home');
                   }
                 }
-              });
+              }
+            );
           }}
         >
           {({ isSubmitting, isValid }) => (
@@ -77,10 +68,8 @@ const Login: FunctionComponent<LoginProps> = (props) => {
           Forgot Password?
         </Button>
       </Card>
-    </>
+    </PageContainer>
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ authenticateCredentials }, dispatch),
-}))(Login);
+export default Login;

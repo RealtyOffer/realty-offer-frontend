@@ -8,7 +8,7 @@ import { borderRadius, halfSpacer, screenSizes, doubleSpacer } from '../styles/s
 
 type ModalProps = {
   isOpen: boolean;
-  toggleModal: Function;
+  toggleModal: () => void;
 };
 
 const CloseIcon = styled.span`
@@ -21,7 +21,7 @@ const CloseIcon = styled.span`
 const Modal: FunctionComponent<ModalProps> = (props) => (
   <ReactModal
     isOpen={props.isOpen}
-    onRequestClose={props.toggleModal as any}
+    onRequestClose={props.toggleModal}
     shouldCloseOnOverlayClick
     shouldCloseOnEsc
     style={{
@@ -41,7 +41,7 @@ const Modal: FunctionComponent<ModalProps> = (props) => (
       },
     }}
   >
-    <CloseIcon onClick={props.toggleModal as any}>
+    <CloseIcon onClick={props.toggleModal}>
       <FaTimes />
     </CloseIcon>
     {props.children}

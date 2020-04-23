@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Input, Heading, Row, Column, Seo } from '../../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../../utils/validations';
@@ -185,6 +184,4 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({}, dispatch),
-}))(AgentProfile);
+export default AgentProfile;

@@ -20,9 +20,21 @@ import {
   LOGOUT_REQUEST,
 } from './auth';
 
-import { VerifyEmailFormValues } from '../../views/shared/VerifyEmail';
-import { LoginFormValues } from '../../pages/login';
-import { ResetPasswordFormValues } from '../../pages/reset-password';
+export type LoginFormValues = {
+  email: string;
+  password: string;
+};
+
+export type VerifyEmailFormValues = {
+  email: string;
+  confirmationCode: string;
+};
+
+export type ResetPasswordFormValues = {
+  email: string;
+  newPassword: string;
+  token: string;
+};
 
 export type AuthActionPayloadType = {
   accessToken: string;

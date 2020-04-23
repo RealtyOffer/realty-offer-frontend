@@ -8,11 +8,7 @@ import { Box, Button, Card, Heading, Seo } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
 
-type StartCreateConsumerProps = {
-  actions: {
-    captureConsumerData: Function;
-  };
-} & RouteComponentProps;
+type StartCreateConsumerProps = {} & RouteComponentProps;
 
 const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
   const dispatch = useDispatch();

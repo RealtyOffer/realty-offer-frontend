@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Formik, Field, Form, FormikProps } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 
 import {
@@ -27,23 +26,16 @@ import { createUser } from '../../../redux/ducks/auth';
 import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
 import { captureConsumerData, createConsumerProfile } from '../../../redux/ducks/consumer';
-import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
 import UnsavedChangesModal from './UnsavedChangesModal';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { RootState } from '../../../redux/ducks';
 
-type CreateConsumerProps = {
-  actions: {
-    createUser: Function;
-    captureConsumerData: Function;
-    createConsumerProfile: Function;
-    addAlert: Function;
-  };
-  consumer: ConsumerStoreType;
-} & RouteComponentProps;
+type CreateConsumerProps = {} & RouteComponentProps;
 
-const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
+const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const consumer = useSelector((state: RootState) => state.consumer);
+  const dispatch = useDispatch();
 
   const initialValues: CreateUserFormValues = {
     firstName: '',
@@ -60,7 +52,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = props.consumer.signupData.consumerType === 'buyerSeller';
+  const isBuyerAndSeller = consumer.signupData.consumerType === 'buyerSeller';
 
   return (
     <>
@@ -76,34 +68,36 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              props.actions.captureConsumerData({ email: values.email });
-              props.actions
-                .createUser({
+              dispatch(captureConsumerData({ email: values.email }));
+              dispatch(
+                createUser({
                   ...values,
                   phoneNumber: reformattedPhone(values.phoneNumber),
                 })
-                .then((response: ActionResponseType) => {
-                  setSubmitting(false);
-                  if (response && !response.error) {
-                    props.actions
-                      .createConsumerProfile({
-                        ...props.consumer.signupData,
-                        sellersZip: String(props.consumer.signupData.sellersZip),
-                      })
-                      .then((secondRes: ActionResponseType) => {
-                        if (secondRes && !secondRes.error) {
-                          props.actions.addAlert({
-                            message: 'Successfully created your profile!',
-                            type: 'success',
-                          });
-                        }
-                      });
-                    navigate('/consumer/verify-email');
-                  }
-                });
+              ).then((response: ActionResponseType) => {
+                setSubmitting(false);
+                if (response && !response.error) {
+                  dispatch(
+                    createConsumerProfile({
+                      ...consumer.signupData,
+                      sellersZip: String(consumer.signupData.sellersZip),
+                    })
+                  ).then((secondRes: ActionResponseType) => {
+                    if (secondRes && !secondRes.error) {
+                      dispatch(
+                        addAlert({
+                          message: 'Successfully created your profile!',
+                          type: 'success',
+                        })
+                      );
+                    }
+                  });
+                  navigate('/consumer/verify-email');
+                }
+              });
             }}
           >
-            {(formikProps: FormikProps<any>) => (
+            {({ isSubmitting, isValid }) => (
               <Form>
                 <Row>
                   <Column xs={6}>
@@ -148,11 +142,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
                   validate={requiredPassword}
                 />
                 <HorizontalRule />
-                <Button
-                  type="submit"
-                  disabled={formikProps.isSubmitting || !formikProps.isValid}
-                  block
-                >
+                <Button type="submit" disabled={isSubmitting || !isValid} block>
                   Create Account
                 </Button>
               </Form>
@@ -163,23 +153,9 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = (props) => {
           </Button>
         </>
       </Card>
-      <UnsavedChangesModal
-        modalIsOpen={modalIsOpen}
-        toggleModal={toggleUnsavedChangesModal}
-        captureConsumerData={props.actions.captureConsumerData}
-      />
+      <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
     </>
   );
 };
 
-export default connect(
-  (state: RootState) => ({
-    consumer: state.consumer,
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(
-      { createUser, captureConsumerData, createConsumerProfile, addAlert },
-      dispatch
-    ),
-  })
-)(CreateConsumer);
+export default CreateConsumer;

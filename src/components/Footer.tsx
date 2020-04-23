@@ -28,6 +28,7 @@ const Footer = () => (
   <StyledFooter>
     <PageContainer>
       <StyledFooterLink to="/">Home</StyledFooterLink>
+      <StyledFooterLink to="/about">About</StyledFooterLink>
       <StyledFooterLink to="/terms-and-conditions">Terms &amp; Conditions</StyledFooterLink>
       <StyledFooterLink to="/privacy-policy">Privacy Policy</StyledFooterLink>
     </PageContainer>

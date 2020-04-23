@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Router } from '@reach/router';
 
-import { Box, Column, Row, SubNav, Heading, PrivateRoute } from '../components';
+import { PageContainer, Box, Column, Row, SubNav, Heading, PrivateRoute } from '../components';
 import adminNavigationitems from '../utils/adminNavigationItems';
 
 import Banners from '../views/admin/Banners';
@@ -11,7 +11,7 @@ import CityDetails from '../views/admin/CityDetails';
 import NotFoundPage from './404';
 
 const AdminApp: FunctionComponent<{}> = () => (
-  <>
+  <PageContainer>
     <Heading>Admin</Heading>
     <Row>
       <Column sm={3}>
@@ -29,7 +29,7 @@ const AdminApp: FunctionComponent<{}> = () => (
         </Box>
       </Column>
     </Row>
-  </>
+  </PageContainer>
 );
 
 export default AdminApp;

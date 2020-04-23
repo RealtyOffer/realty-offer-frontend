@@ -2,7 +2,8 @@ import React from 'react';
 import { kebabCase } from 'lodash';
 import { Helmet } from 'react-helmet-async';
 import { Link, graphql } from 'gatsby';
-import { Heading } from '../../components';
+
+import { PageContainer, Box, Heading } from '../../components';
 
 const TagsPage = ({
   data: {
@@ -14,27 +15,21 @@ const TagsPage = ({
 }: {
   data: any;
 }) => (
-  <>
-    <section className="section">
-      <Helmet title={`Tags | ${title}`} />
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1" style={{ marginBottom: '6rem' }}>
-            <Heading>Tags</Heading>
-            <ul className="taglist">
-              {group.map((tag: any) => (
-                <li key={tag.fieldValue}>
-                  <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                    {tag.fieldValue} {`(${tag.totalCount})`}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  </>
+  <PageContainer>
+    <Helmet title={`Tags | ${title}`} />
+    <Box>
+      <Heading>Tags</Heading>
+      <ul>
+        {group.map((tag: any) => (
+          <li key={tag.fieldValue}>
+            <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+              {tag.fieldValue} {`(${tag.totalCount})`}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Box>
+  </PageContainer>
 );
 
 export default TagsPage;

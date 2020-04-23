@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import Row from './Row';
 import Column from './Column';
@@ -9,25 +9,24 @@ import Heading from './Heading';
 type CardProps = {
   cardTitle: string;
   cardSubtitle?: string;
-  children: any;
 };
 
-const Card = (props: CardProps) => (
+const Card: FunctionComponent<CardProps> = ({ cardTitle, cardSubtitle, children }) => (
   <Row>
     <Column md={6} mdOffset={3}>
       <div>
         <Box backgroundAccent>
           <FlexContainer flexDirection="column">
             <Heading styledAs="title" align="center">
-              {props.cardTitle}
+              {cardTitle}
             </Heading>
-            {props.cardSubtitle && (
+            {cardSubtitle && (
               <Heading as="h2" styledAs="subtitle" align="center">
-                {props.cardSubtitle}
+                {cardSubtitle}
               </Heading>
             )}
           </FlexContainer>
-          {props.children}
+          {children}
         </Box>
       </div>
     </Column>

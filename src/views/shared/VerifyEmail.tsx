@@ -1,42 +1,23 @@
 /* eslint-disable import/no-cycle, jsx-a11y/label-has-associated-control */
 import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 
 import { RouteComponentProps } from '@reach/router';
 import { Button, Input, FlexContainer, Card, Seo, HorizontalRule } from '../../components';
 import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../utils/validations';
 import { ActionResponseType } from '../../redux/constants';
-import { RootState } from '../../redux/ducks';
-
-export interface VerifyEmailFormValues {
-  email: string;
-  digit1: string;
-  digit2: string;
-  digit3: string;
-  digit4: string;
-  digit5: string;
-  digit6: string;
-}
 
 declare const document: Document;
 
-type VerifyEmailType = {
-  actions: {
-    verifyEmail: Function;
-    resendSignupEmail: Function;
-  };
-  auth: {};
-};
+type VerifyEmailType = {};
 
-const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
-  props: VerifyEmailType
-) => {
+const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = () => {
   const [verified, setVerified] = useState(false);
+  const dispatch = useDispatch();
 
-  const initialValues: VerifyEmailFormValues = {
+  const initialValues = {
     email: '',
     digit1: '',
     digit2: '',
@@ -47,7 +28,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
   };
 
   const resend = (email: string) => {
-    props.actions.resendSignupEmail(email);
+    dispatch(resendSignupEmail(email));
   };
 
   const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
@@ -105,17 +86,17 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
             onSubmit={(values, { setSubmitting }) => {
               const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
               const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
-              props.actions
-                .verifyEmail({
+              dispatch(
+                verifyEmail({
                   email: values.email,
                   confirmationCode: combined,
                 })
-                .then((response: ActionResponseType) => {
-                  setSubmitting(false);
-                  if (response && !response.error) {
-                    setVerified(true);
-                  }
-                });
+              ).then((response: ActionResponseType) => {
+                setSubmitting(false);
+                if (response && !response.error) {
+                  setVerified(true);
+                }
+              });
             }}
           >
             {({ isSubmitting, isValid, values, setFieldValue, validateForm }) => (
@@ -181,11 +162,4 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (
   );
 };
 
-export default connect(
-  (state: RootState) => ({
-    auth: state.auth,
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators({ verifyEmail, resendSignupEmail }, dispatch),
-  })
-)(VerifyEmail);
+export default VerifyEmail;

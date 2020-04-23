@@ -1,29 +1,25 @@
 import React, { useState, FunctionComponent, Fragment } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 
-import { Alert, Button, Card, Input, HorizontalRule, Seo } from '../components';
+import { PageContainer, Alert, Button, Card, Input, HorizontalRule, Seo } from '../components';
 
 import { requiredEmail } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
 import { forgotPassword } from '../redux/ducks/auth';
 
-type LoginProps = {
-  actions: {
-    forgotPassword: Function;
-  };
-};
+type LoginProps = {};
 
-const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
+const ForgotPassword: FunctionComponent<LoginProps> = () => {
   const [submitted, setSubmitted] = useState(false);
+  const dispatch = useDispatch();
 
   const initialValues = {
     email: '',
   };
 
   return (
-    <>
+    <PageContainer>
       <Seo title="Forgot Password" />
       <Card cardTitle="Forgot Password?">
         {!submitted ? (
@@ -31,7 +27,7 @@ const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              props.actions.forgotPassword(values).then((response: ActionResponseType) => {
+              dispatch(forgotPassword(values)).then((response: ActionResponseType) => {
                 setSubmitting(false);
                 if (response && !response.error) {
                   setSubmitted(true);
@@ -70,10 +66,8 @@ const ForgotPassword: FunctionComponent<LoginProps> = (props) => {
           </Fragment>
         )}
       </Card>
-    </>
+    </PageContainer>
   );
 };
 
-export default connect(null, (dispatch) => ({
-  actions: bindActionCreators({ forgotPassword }, dispatch),
-}))(ForgotPassword);
+export default ForgotPassword;

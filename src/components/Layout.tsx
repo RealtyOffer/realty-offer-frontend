@@ -6,8 +6,6 @@ import { IconContext } from 'react-icons';
 
 import Footer from './Footer';
 import Navbar from './Navbar';
-import PageContainer from './PageContainer';
-
 import useSiteMetadata from './SiteMetadata';
 import CssReset from '../styles/cssReset';
 
@@ -79,9 +77,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
         <IconContext.Provider value={{ style: { position: 'relative' } }}>
           <LayoutWrapper>
             <Navbar />
-            <PageBody>
-              <PageContainer>{children}</PageContainer>
-            </PageBody>
+            <PageBody>{children}</PageBody>
             <GlobalAlerts />
             <Footer />
           </LayoutWrapper>

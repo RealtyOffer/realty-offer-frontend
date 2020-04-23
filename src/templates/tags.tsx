@@ -1,41 +1,60 @@
-/* eslint-disable */
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, graphql } from 'gatsby';
 
-class TagRoute extends React.Component<{ data: any; pageContext: any }> {
-  render() {
-    const posts = this.props.data.allMarkdownRemark.edges;
-    const postLinks = posts.map((post: any) => (
-      <li key={post.node.fields.slug}>
-        <Link to={post.node.fields.slug}>
-          <h2 className="is-size-2">{post.node.frontmatter.title}</h2>
-        </Link>
-      </li>
-    ));
-    const { tag } = this.props.pageContext;
-    const { title } = this.props.data.site.siteMetadata;
-    const { totalCount } = this.props.data.allMarkdownRemark;
-    const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with “${tag}”`;
+import { PageContainer, Box, Heading } from '../components';
 
-    return (
-      <section className="section">
-        <Helmet title={`${tag} | ${title}`} />
-        <div className="container content">
-          <div className="columns">
-            <div className="column is-10 is-offset-1" style={{ marginBottom: '6rem' }}>
-              <h3 className="title is-size-4 is-bold-light">{tagHeader}</h3>
-              <ul className="taglist">{postLinks}</ul>
-              <p>
-                <Link to="/tags/">Browse all tags</Link>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-}
+type TagRouteProps = {
+  data: {
+    allMarkdownRemark: {
+      totalCount: number;
+      edges: Array<{
+        node: {
+          frontmatter: {
+            title: string;
+          };
+          fields: {
+            slug: string;
+          };
+        };
+      }>;
+    };
+    site: {
+      siteMetadata: {
+        title: string;
+      };
+    };
+  };
+  pageContext: {
+    tag: string;
+  };
+};
+
+const TagRoute: FunctionComponent<TagRouteProps> = ({ data, pageContext }) => {
+  const posts = data.allMarkdownRemark.edges;
+  const postLinks = posts.map((post: any) => (
+    <li key={post.node.fields.slug}>
+      <Link to={post.node.fields.slug}>{post.node.frontmatter.title}</Link>
+    </li>
+  ));
+  const { tag } = pageContext;
+  const { title } = data.site.siteMetadata;
+  const { totalCount } = data.allMarkdownRemark;
+  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with “${tag}”`;
+
+  return (
+    <PageContainer>
+      <Helmet title={`${tag} | ${title}`} />
+      <Box>
+        <Heading>{tagHeader}</Heading>
+        <ul>{postLinks}</ul>
+        <p>
+          <Link to="/tags/">Browse all tags</Link>
+        </p>
+      </Box>
+    </PageContainer>
+  );
+};
 
 export default TagRoute;
 

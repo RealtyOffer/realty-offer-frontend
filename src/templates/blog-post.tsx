@@ -3,7 +3,7 @@ import { kebabCase } from 'lodash';
 import { Helmet } from 'react-helmet-async';
 import { graphql, Link } from 'gatsby';
 
-import { Box, Heading } from '../components';
+import { PageContainer, Box, Heading } from '../components';
 import Content, { HTMLContent } from '../components/Content';
 
 interface BlogPostProps {
@@ -25,32 +25,26 @@ export const BlogPostTemplate = ({
   const PostContent = contentComponent || Content;
 
   return (
-    <Box largePadding>
-      <section className="section">
+    <PageContainer>
+      <Box>
         {helmet || ''}
-        <div className="container content">
-          <div className="columns">
-            <div className="column is-10 is-offset-1">
-              <Heading>{title}</Heading>
-              <p>{description}</p>
-              <PostContent content={content} />
-              {tags && tags.length ? (
-                <div style={{ marginTop: '4rem' }}>
-                  <h4>Tags</h4>
-                  <ul className="taglist">
-                    {tags.map((tag: string) => (
-                      <li key={`${tag}tag`}>
-                        <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </section>
-    </Box>
+        <Heading>{title}</Heading>
+        <p>{description}</p>
+        <PostContent content={content} />
+        {tags && tags.length ? (
+          <>
+            <h4>Tags</h4>
+            <ul>
+              {tags.map((tag: string) => (
+                <li key={`${tag}tag`}>
+                  <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+      </Box>
+    </PageContainer>
   );
 };
 

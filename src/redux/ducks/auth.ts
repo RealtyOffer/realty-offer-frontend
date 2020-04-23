@@ -9,11 +9,14 @@ import {
   AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
 } from '../constants';
 
-import { AuthStoreType, AuthActionTypes, CreateUserFormValues } from './auth.d';
-
-import { VerifyEmailFormValues } from '../../views/shared/VerifyEmail';
-import { LoginFormValues } from '../../pages/login';
-import { ResetPasswordFormValues } from '../../pages/reset-password';
+import {
+  AuthStoreType,
+  AuthActionTypes,
+  CreateUserFormValues,
+  VerifyEmailFormValues,
+  LoginFormValues,
+  ResetPasswordFormValues,
+} from './auth.d';
 
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
