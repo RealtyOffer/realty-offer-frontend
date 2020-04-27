@@ -9,20 +9,26 @@ heroCTAText: Signup now
 mainpitch:
   title: Need More Info?
   cards:
-    - text: card text
-      title: Card Title
+    - text: >-
+        Reach new audiences with our technology and marketing solutions to drive
+        …
+      title: Sell A House
       image: /img/index-jumbotron.png
       link: /login
       linkText: Card 1 CTA
       linkType: button
-    - text: card text 2
-      title: Card Title 2
+    - text: >-
+        Reach new audiences with our technology and marketing solutions to drive
+        …
+      title: Buy A House
       icon: /img/realtyoffer-logo.png
       link: /login
       linkText: Card 2 CTA
       linkType: link
-    - text: card text 3
-      title: Card Title 3
+    - text: >-
+        Reach new audiences with our technology and marketing solutions to drive
+        …
+      title: Buy And Sell A House
       image: /img/index-jumbotron.png
       link: /login
       linkText: Card 3 CTA
