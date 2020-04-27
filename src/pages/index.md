@@ -29,7 +29,7 @@ mainpitch:
         Reach new audiences with our technology and marketing solutions to drive
         …
       title: Buy And Sell A House
-      image: /img/index-jumbotron.png
+      image: /img/home-jumbotron.jpg
       link: /login
       linkText: Card 3 CTA
       linkType: button
