@@ -11,6 +11,10 @@ backend:
 media_folder: static/img
 public_folder: /img
 
+logo_url: https://realtyoffer-dev.netlify.app/img/realtyoffer-logo.png
+display_url: https://realtyoffer-dev.netlify.app
+site_url: https://realtyoffer-dev.netlify.app
+
 collections:
   - name: "blog"
     label: "Blog"
