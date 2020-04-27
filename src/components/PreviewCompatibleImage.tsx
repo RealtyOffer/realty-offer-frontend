@@ -7,10 +7,10 @@ const PreviewCompatibleImage = ({
   imageInfo: {
     childImageSharp?: { fluid: FluidObject };
     image: { childImageSharp: { fluid: FluidObject } };
-    alt: string;
+    alt?: string;
   };
 }) => {
-  const imageStyle = { borderRadius: '5px', width: 200 };
+  const imageStyle = { width: '100%' };
   const { alt = '', childImageSharp, image } = imageInfo;
 
   if (!!image && !!image.childImageSharp) {

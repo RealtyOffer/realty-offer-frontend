@@ -45,21 +45,17 @@ const BlogRoll: FunctionComponent<BlogRollProps> = ({ data }) => {
                   }}
                 />
               )}
-              <Heading>
+              <small>{post.frontmatter.date}</small>
+              <Heading as="h1" styledAs="subtitle">
                 <Link className="title has-text-primary is-size-4" to={post.fields.slug}>
                   {post.frontmatter.title}
                 </Link>
               </Heading>
-              <small>{post.frontmatter.date}</small>
               <HorizontalRule />
-              <p>
-                {post.excerpt}
-                <br />
-                <br />
-                <Link className="button" to={post.fields.slug}>
-                  Keep Reading →
-                </Link>
-              </p>
+              <p>{post.excerpt}</p>
+              <Link className="button" to={post.fields.slug}>
+                Keep Reading
+              </Link>
             </Box>
           </Column>
         ))}
@@ -90,7 +86,7 @@ export default () => (
                 featuredpost
                 featuredimage {
                   childImageSharp {
-                    fluid(maxWidth: 120, quality: 100) {
+                    fluid(maxWidth: 400, quality: 100) {
                       ...GatsbyImageSharpFluid
                     }
                   }

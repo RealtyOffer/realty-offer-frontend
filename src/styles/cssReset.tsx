@@ -161,6 +161,9 @@ const CssReset = createGlobalStyle`
 
   img {
     vertical-align: middle;
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 
   [role="button"] {

@@ -117,6 +117,13 @@ const dangerOutlineButtonStyles = `
 const textButtonStyles = `
   background-color: transparent;
   color: ${brandPrimary};
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: ${brandPrimaryHover};
+    text-decoration: underline;
+  }
 `;
 
 const allStyles = css`

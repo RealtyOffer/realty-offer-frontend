@@ -7,7 +7,9 @@ const BlogIndexPage = () => (
   <PageContainer>
     <Seo title="Latest Stories" />
     <div>
-      <Heading>Latest Stories</Heading>
+      <Heading as="h1" styledAs="title">
+        Latest Stories
+      </Heading>
     </div>
     <section>
       <Box>
