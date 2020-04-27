@@ -37,7 +37,7 @@ secondpitch:
     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   caption: caption
-  image: /img/index-jumbotron.png
+  image: /img/img-2x.png
   link: /login
   linkText: Learn More
   linkType: button
