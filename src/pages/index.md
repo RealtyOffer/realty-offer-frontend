@@ -2,7 +2,7 @@
 templateKey: index-page
 title: Same Agent Less Commission
 heroImage: /img/index-jumbotron.png
-heroHeading: Start here, free...
+heroHeading: 'Start here, free...'
 heroSubheading: Top agents that will earn less for your business!
 heroCTALink: /agent/sign-up
 heroCTAText: Signup now
@@ -29,7 +29,13 @@ mainpitch:
       linkType: link
 secondpitch:
   title: R Estimate
-  text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  text: >-
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   caption: caption
   image: /img/index-jumbotron.png
   link: /login
@@ -39,7 +45,7 @@ thirdpitch:
   title: Mortgage Consultation
   text: Reach new audiences with our technology and marketing solutions to drive
   caption: caption
-  image: /img/index-jumbotron.png
+  image: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x.png
   link: /login
   linkText: cta
   linkType: button
