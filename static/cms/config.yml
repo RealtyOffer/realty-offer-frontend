@@ -66,7 +66,7 @@ collections:
                     widget: list,
                     fields:
                       [
-                        { label: Title, name: cardTitle, widget: text },
+                        { label: Title, name: title, widget: text },
                         { label: Text, name: text, widget: text },
                         {
                           label: Image,
