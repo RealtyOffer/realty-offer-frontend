@@ -13,20 +13,20 @@ mainpitch:
       title: Card Title
       image: /img/index-jumbotron.png
       link: /login
-      linkText: I'm a button
+      linkText: Card 1 CTA
       linkType: button
     - text: card text 2
       title: Card Title 2
       icon: /img/realtyoffer-logo.png
       link: /login
-      linkText: I'm a button2
+      linkText: Card 2 CTA
       linkType: link
     - text: card text 3
       title: Card Title 3
       image: /img/index-jumbotron.png
       link: /login
-      linkText: I'm a button2
-      linkType: link
+      linkText: Card 3 CTA
+      linkType: button
 secondpitch:
   title: R Estimate
   text: >-
@@ -36,7 +36,7 @@ secondpitch:
     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  caption: caption
+  caption: ImageBox with caption
   image: /img/img-2x.png
   link: /login
   linkText: Learn More

@@ -11,6 +11,7 @@ import {
   FlexContainer,
   HeroImage,
   Heading,
+  NegativeMarginContainer,
   PageContainer,
   PreviewCompatibleImage,
   Seo,
@@ -96,7 +97,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
       </PageContainer>
     </HeroImage>
     <PageContainer>
-      <Heading as="h2" styledAs="title">
+      <Heading as="h2" styledAs="sectionHeading">
         {mainpitch.title}
       </Heading>
       <Row>
@@ -104,8 +105,16 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           <Column md={4} key={card.title}>
             <Box>
               <FlexContainer flexDirection="column">
-                {card.image && <PreviewCompatibleImage imageInfo={{ image: card.image }} />}
-                {card.icon && <PreviewCompatibleImage imageInfo={{ image: card.icon }} />}
+                {card.image && (
+                  <NegativeMarginContainer top right left>
+                    <PreviewCompatibleImage imageInfo={{ image: card.image }} />
+                  </NegativeMarginContainer>
+                )}
+                {card.icon && (
+                  <div style={{ width: '100%', maxWidth: 200, marginBottom: 16 }}>
+                    <PreviewCompatibleImage imageInfo={{ image: card.icon }} />
+                  </div>
+                )}
                 <Heading as="h4" styledAs="subtitle">
                   {card.title}
                 </Heading>
@@ -140,18 +149,21 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           </Box>
         </Column>
         <Column md={4}>
-          <Box>
-            {secondpitch.caption}
-            <PreviewCompatibleImage imageInfo={{ image: secondpitch.image }} />
+          <Box bgSrc={secondpitch.image}>
+            <Heading as="h4" styledAs="title" align="center">
+              {secondpitch.caption}
+            </Heading>
           </Box>
         </Column>
       </Row>
       <Box>
         <Row>
-          <Column md={8}>
-            <PreviewCompatibleImage imageInfo={{ image: thirdpitch.image }} />
+          <Column xs={6} md={8}>
+            <NegativeMarginContainer top bottom left>
+              <PreviewCompatibleImage imageInfo={{ image: thirdpitch.image }} />
+            </NegativeMarginContainer>
           </Column>
-          <Column md={4}>
+          <Column xs={6} md={4}>
             <Heading as="h4" styledAs="subtitle">
               {thirdpitch.title}
             </Heading>
@@ -166,8 +178,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           </Column>
         </Row>
       </Box>
-      <Heading as="h3" styledAs="title">
-        Latest stories
+      <Heading as="h3" styledAs="sectionHeading">
+        Latest Stories
       </Heading>
       <BlogRoll />
     </PageContainer>

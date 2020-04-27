@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
+import { FluidObject } from 'gatsby-image';
 
 import { baseSpacer, doubleSpacer } from '../styles/size';
 import { white, brandPrimaryAccentLight } from '../styles/color';
@@ -11,6 +12,11 @@ type BoxProps = {
   zindex?: 1 | 2 | 3 | 4;
   largePadding?: boolean;
   backgroundAccent?: boolean;
+  bgSrc?: {
+    childImageSharp: {
+      fluid: FluidObject;
+    };
+  };
 };
 
 const renderShadow = (zindex: number) => {
@@ -30,18 +36,27 @@ const renderShadow = (zindex: number) => {
 };
 
 const StyledBox = styled.div`
-  background: ${white};
   padding: ${(props: BoxProps) => (props.largePadding ? doubleSpacer : baseSpacer)};
   margin-bottom: ${baseSpacer};
   box-shadow: ${(props: BoxProps) => props.zindex && renderShadow(props.zindex)};
   text-align: ${(props: BoxProps) => props.textAlign};
   height: ${(props: BoxProps) =>
     props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`};
+  background: ${(props: BoxProps) =>
+    props.bgSrc
+      ? `url(${props.bgSrc.childImageSharp.fluid.src}) center center / cover no-repeat`
+      : white};
 `;
 
 const StyledBoxBackground = styled.div`
   background-color: ${brandPrimaryAccentLight};
   padding: ${doubleSpacer};
+`;
+
+const BackgroundImageOverlay = styled.div`
+  background-color: rgba(255, 255, 255, 0.75);
+  height: 100%;
+  padding: ${baseSpacer};
 `;
 
 const Box: FunctionComponent<BoxProps> = ({
@@ -51,9 +66,18 @@ const Box: FunctionComponent<BoxProps> = ({
   children,
   largePadding,
   backgroundAccent,
+  bgSrc,
 }) => (
-  <StyledBox textAlign={textAlign} height={height} zindex={zindex} largePadding={largePadding}>
-    {backgroundAccent ? <StyledBoxBackground>{children}</StyledBoxBackground> : children}
+  <StyledBox
+    bgSrc={bgSrc}
+    textAlign={textAlign}
+    height={height}
+    zindex={zindex}
+    largePadding={largePadding}
+  >
+    {bgSrc && !backgroundAccent && <BackgroundImageOverlay>{children}</BackgroundImageOverlay>}
+    {!bgSrc && backgroundAccent && <StyledBoxBackground>{children}</StyledBoxBackground>}
+    {!bgSrc && !backgroundAccent && children}
   </StyledBox>
 );
 

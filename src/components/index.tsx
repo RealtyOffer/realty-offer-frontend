@@ -17,6 +17,7 @@ import Input from './Input';
 import Layout from './Layout';
 import Modal from './Modal';
 import Navbar from './Navbar';
+import NegativeMarginContainer from './NegativeMarginContainer';
 import PageContainer from './PageContainer';
 import PreviewCompatibleImage from './PreviewCompatibleImage';
 import PrivateRoute from './PrivateRoute';
@@ -47,6 +48,7 @@ export {
   Layout,
   Modal,
   Navbar,
+  NegativeMarginContainer,
   PageContainer,
   PreviewCompatibleImage,
   PrivateRoute,

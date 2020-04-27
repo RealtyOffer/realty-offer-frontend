@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 
-import { baseSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer } from '../styles/size';
 import { white, brandPrimary, headingsColor, brandTertiaryHover } from '../styles/color';
 import {
   fontSizeH1,
@@ -18,7 +18,7 @@ type HeadingProps = {
   inverse?: boolean;
   noMargin?: boolean;
   align?: 'left' | 'center' | 'right';
-  styledAs?: 'title' | 'subtitle' | null;
+  styledAs?: 'title' | 'subtitle' | 'sectionHeading' | null;
 };
 
 const renderFontSize = (as: HeadingProps['as']) => {
@@ -56,6 +56,33 @@ const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
       color: ${brandTertiaryHover};
       font-weight: 700;
       font-size: ${fontSizeH4};
+    `;
+  }
+  if (styledAs === 'sectionHeading') {
+    return css`
+      font-weight: 700;
+      color: ${brandTertiaryHover};
+      text-align: center;
+      display: table;
+      white-space: nowrap;
+      overflow: hidden;
+      margin: ${doubleSpacer} 0;
+
+      &:before,
+      &:after {
+        border-top: 1px solid ${brandTertiaryHover};
+        content: '';
+        display: table-cell;
+        position: relative;
+        top: 0.5em;
+        width: 45%;
+      }
+      &:before {
+        right: 1.5%;
+      }
+      &:after {
+        left: 1.5%;
+      }
     `;
   }
   return null;
