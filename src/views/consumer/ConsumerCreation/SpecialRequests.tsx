@@ -19,7 +19,7 @@ import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
 
 import languagesList from '../../../utils/languagesList';
-import gendersList from '../../../utils/gendersList';
+import { genderPreferenceOptions } from '../../../utils/gendersList';
 import UnsavedChangesModal from './UnsavedChangesModal';
 
 type SpecialRequestsFormValues = {
@@ -80,7 +80,7 @@ const SpecialRequests: FunctionComponent<SpecialRequestsProps> = () => {
                 type="select"
                 name="genderPreference"
                 label="Agent Gender Preference"
-                options={gendersList}
+                options={genderPreferenceOptions}
                 {...rest}
               />
               <HorizontalRule />

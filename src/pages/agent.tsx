@@ -18,7 +18,7 @@ import ListingDetail from '../views/agent/Authenticated/Listings/Detail';
 import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
-import { PageContainer, PrivateRoute } from '../components';
+import { Alert, PageContainer, PrivateRoute } from '../components';
 import { getAgentSiteBanners, getAgentProfile } from '../redux/ducks/agent';
 import { RootState } from '../redux/ducks';
 import { addBanner } from '../redux/ducks/globalAlerts';
@@ -27,6 +27,7 @@ import usePrevious from '../utils/usePrevious';
 const AgentApp: FunctionComponent<{}> = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const banners = useSelector((state: RootState) => state.agent.banners);
+  // const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
 
   const prevBanners = usePrevious(banners);
@@ -54,6 +55,14 @@ const AgentApp: FunctionComponent<{}> = () => {
 
   return (
     <PageContainer>
+      {false && ( // TODO: once we have languages/gender/bio/certification fields, hook this up
+        <Alert
+          type="info"
+          message="Increase your chances of matching with potential clients by updating your profile with additional information."
+          callToActionLink="/agent/account/profile"
+          callToActionLinkText="Update Profile"
+        />
+      )}
       <Router basepath="agent">
         <Agent path="/" />
         <CreateAgent path="/sign-up" />

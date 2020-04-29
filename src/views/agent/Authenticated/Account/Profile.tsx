@@ -4,11 +4,17 @@ import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Input, Heading, Row, Column, Seo } from '../../../../components';
-import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../../utils/validations';
+import {
+  requiredField,
+  requiredEmail,
+  requiredPhoneNumber,
+  requiredSelect,
+} from '../../../../utils/validations';
 import languagesList from '../../../../utils/languagesList';
 import AutoSave from '../../../../utils/autoSave';
 import { RootState } from '../../../../redux/ducks';
 import { updateAgentProfile } from '../../../../redux/ducks/agent';
+import { gendersListOptions } from '../../../../utils/gendersList';
 
 type AgentProfileProps = {} & RouteComponentProps;
 
@@ -44,13 +50,14 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         initialValues={personalInfoInitialValues}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
+            // TODO: endpoint(s) to update these values
             // eslint-disable-next-line no-console
             console.log(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400);
         }}
       >
-        {() => (
+        {({ ...rest }) => (
           <Form>
             <Box>
               <Heading as="h2">Personal Information</Heading>
@@ -73,7 +80,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                     validate={requiredField}
                   />
                 </Column>
-                <Column sm={6}>
+                <Column sm={4}>
                   <Field
                     as={Input}
                     type="tel"
@@ -82,13 +89,24 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                     validate={requiredPhoneNumber}
                   />
                 </Column>
-                <Column sm={6}>
+                <Column sm={4}>
                   <Field
                     as={Input}
                     type="email"
                     name="email"
                     label="Email Address"
                     validate={requiredEmail}
+                  />
+                </Column>
+                <Column sm={4}>
+                  <Field
+                    as={Input}
+                    type="select"
+                    name="gender"
+                    label="Gender"
+                    options={gendersListOptions}
+                    validate={requiredSelect}
+                    {...rest}
                   />
                 </Column>
               </Row>
@@ -169,7 +187,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 type="select"
                 isMulti
                 name="languagesSpoken"
-                label="Languages Spoken"
+                label="Languages Spoken (other than English)"
                 options={languagesList}
                 {...rest}
               />

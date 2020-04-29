@@ -73,6 +73,7 @@ const CloseButton = styled.span`
 
 const StyledLink = styled(Link)`
   color: ${white};
+  margin-left: ${halfSpacer};
   border-bottom: 1px solid ${white};
   &:hover,
   &:focus {
