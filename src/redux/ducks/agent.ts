@@ -1,4 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
+import addDays from 'date-fns/addDays';
 
 import {
   AGENT_PROFILE_ENDPOINT,
@@ -32,6 +33,8 @@ export const CREATE_AGENT_BID_REQUEST = 'CREATE_AGENT_BID_REQUEST';
 export const CREATE_AGENT_BID_SUCCESS = 'CREATE_AGENT_BID_SUCCESS';
 export const CREATE_AGENT_BID_FAILURE = 'CREATE_AGENT_BID_FAILURE';
 
+export const RESET_PROFILE_COMPLETE_ALERT = 'RESET_PROFILE_COMPLETE_ALERT';
+
 export const initialState: AgentStoreType = {
   id: undefined,
   state: '',
@@ -43,6 +46,7 @@ export const initialState: AgentStoreType = {
   bids: [],
   banners: [],
   cities: [],
+  profileCompleteResetDate: undefined,
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {
@@ -116,6 +120,12 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         isLoading: false,
         hasError: true,
         cities: [],
+      };
+    case RESET_PROFILE_COMPLETE_ALERT:
+      return {
+        ...state,
+        // don't show banner again for another 30 days
+        profileCompleteResetDate: addDays(new Date(), 30),
       };
     default:
       return state;
@@ -197,4 +207,8 @@ export const createAgentBid = (payload: BidType) => ({
     body: JSON.stringify(payload),
     types: [CREATE_AGENT_BID_REQUEST, CREATE_AGENT_BID_SUCCESS, CREATE_AGENT_BID_FAILURE],
   },
+});
+
+export const resetProfileCompleteAlert = () => ({
+  type: RESET_PROFILE_COMPLETE_ALERT,
 });

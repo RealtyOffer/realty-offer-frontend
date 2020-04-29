@@ -17,6 +17,7 @@ import {
   GET_AGENT_CITIES_REQUEST,
   GET_AGENT_CITIES_SUCCESS,
   GET_AGENT_CITIES_FAILURE,
+  RESET_PROFILE_COMPLETE_ALERT,
 } from './agent';
 
 import { BannerType, CityType } from './admin.d';
@@ -28,6 +29,7 @@ export type AgentProfileType = {
   brokerName?: string;
   brokerPhoneNumber?: string;
   brokerAddress?: string;
+  profileCompleteResetDate?: Date;
 };
 
 export type BidType = {
@@ -132,6 +134,10 @@ export type CreateAgentBidFailureAction = {
   type: typeof CREATE_AGENT_BID_FAILURE;
 };
 
+export type ResetProfileCompleteAlertAction = {
+  type: typeof RESET_PROFILE_COMPLETE_ALERT;
+};
+
 export type AgentActionTypes =
   | CreateAgentProfileRequestAction
   | CreateAgentProfileSuccessAction
@@ -150,4 +156,5 @@ export type AgentActionTypes =
   | GetAgentCitiesFailureAction
   | CreateAgentBidRequestAction
   | CreateAgentBidSuccessAction
-  | CreateAgentBidFailureAction;
+  | CreateAgentBidFailureAction
+  | ResetProfileCompleteAlertAction;
