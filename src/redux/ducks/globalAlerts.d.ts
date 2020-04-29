@@ -1,4 +1,9 @@
-import { ADD_GLOBAL_ALERT, CLOSE_GLOBAL_ALERT } from './globalAlerts';
+import {
+  ADD_GLOBAL_ALERT,
+  CLOSE_GLOBAL_ALERT,
+  ADD_GLOBAL_BANNER,
+  CLOSE_GLOBAL_BANNER,
+} from './globalAlerts';
 import { LogoutRequestAction, AuthenticateCredentialsSuccessAction } from './auth.d';
 
 export type AlertType = {
@@ -6,11 +11,15 @@ export type AlertType = {
   type: 'danger' | 'success' | 'info';
   id?: string;
   dismissable?: boolean;
+  callToActionLink?: string;
+  callToActionLinkText?: string;
 };
 
 export type GlobalAlertsStoreType = {
   alerts: Array<AlertType>;
   currentAlert: AlertType | null;
+  banners: Array<AlertType>;
+  currentBanner: AlertType | null;
 };
 
 export type AddGlobalAlertAction = {
@@ -23,8 +32,20 @@ export type CloseGlobalAlertAction = {
   payload: AlertType;
 };
 
+export type AddGlobalBannerAction = {
+  type: typeof ADD_GLOBAL_BANNER;
+  payload: AlertType;
+};
+
+export type CloseGlobalBannerAction = {
+  type: typeof CLOSE_GLOBAL_BANNER;
+  payload: AlertType;
+};
+
 export type GlobalAlertsActions =
   | AddGlobalAlertAction
   | CloseGlobalAlertAction
+  | AddGlobalBannerAction
+  | CloseGlobalBannerAction
   | LogoutRequestAction
   | AuthenticateCredentialsSuccessAction;

@@ -30,6 +30,7 @@ export type BannerType = {
   message: string;
   dismissable: boolean;
   callToActionLink: string;
+  callToActionLinkText: string;
   expirationDate: string;
   audience: string;
   styling: 'danger' | 'success' | 'info';

@@ -31,8 +31,12 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
         accessor: 'dismissable',
       },
       {
-        header: 'Call To Action Link',
+        header: 'CTA Link',
         accessor: 'callToActionLink',
+      },
+      {
+        header: 'CTA Text',
+        accessor: 'callToActionLinkText',
       },
       {
         header: 'Expires',

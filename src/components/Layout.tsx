@@ -12,6 +12,8 @@ import CssReset from '../styles/cssReset';
 import { baseSpacer, doubleSpacer, breakpoints } from '../styles/size';
 import { offWhite } from '../styles/color';
 import GlobalAlerts from './GlobalAlerts';
+import GlobalBanners from './GlobalBanners';
+import PageContainer from './PageContainer';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -77,7 +79,12 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
         <IconContext.Provider value={{ style: { position: 'relative' } }}>
           <LayoutWrapper>
             <Navbar />
-            <PageBody>{children}</PageBody>
+            <PageBody>
+              <PageContainer>
+                <GlobalBanners />
+              </PageContainer>
+              {children}
+            </PageBody>
             <GlobalAlerts />
             <Footer />
           </LayoutWrapper>

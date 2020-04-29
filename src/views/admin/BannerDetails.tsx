@@ -9,6 +9,7 @@ import format from 'date-fns/format';
 import { Button, FlexContainer, Heading, Input, Row, Column } from '../../components';
 import { RootState } from '../../redux/ducks';
 import { createSiteBanner, updateSiteBanner } from '../../redux/ducks/admin';
+import { BannerType } from '../../redux/ducks/admin.d';
 import { ActionResponseType } from '../../redux/constants';
 import { addAlert } from '../../redux/ducks/globalAlerts';
 import { requiredField, requiredSelect } from '../../utils/validations';
@@ -38,10 +39,11 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
     { value: 'both', label: 'both' },
   ];
 
-  const newBannerInitialValues = {
+  const newBannerInitialValues: BannerType = {
     message: '',
     callToActionLink: '',
-    styling: '',
+    callToActionLinkText: '',
+    styling: 'info',
     dismissable: false,
     expirationDate: String(format(new Date(), `yyyy-MM-dd'T'HH:mm`)),
     audience: '',
@@ -96,7 +98,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
         {({ isValid, isSubmitting, ...rest }) => (
           <Form>
             <Row>
-              <Column md={6}>
+              <Column md={4}>
                 <Field
                   as={Input}
                   name="message"
@@ -105,12 +107,21 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   validate={requiredField}
                 />
               </Column>
-              <Column md={6}>
+              <Column md={4}>
                 <Field
                   as={Input}
                   name="callToActionLink"
                   type="text"
-                  label="Call to Action Link"
+                  label="CTA Link"
+                  validate={requiredField}
+                />
+              </Column>
+              <Column md={4}>
+                <Field
+                  as={Input}
+                  name="callToActionLinkText"
+                  type="text"
+                  label="CTA Text"
                   validate={requiredField}
                 />
               </Column>

@@ -15,7 +15,7 @@ import NotFoundPage from './404';
 import { PageContainer } from '../components';
 import { getConsumerSiteBanners } from '../redux/ducks/consumer';
 import { RootState } from '../redux/ducks';
-import { addAlert } from '../redux/ducks/globalAlerts';
+import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 
 const ConsumerApp: FunctionComponent<{}> = () => {
@@ -32,10 +32,12 @@ const ConsumerApp: FunctionComponent<{}> = () => {
       if (banners) {
         banners.forEach((banner) => {
           dispatch(
-            addAlert({
+            addBanner({
               message: banner.message,
               type: banner.styling,
               dismissable: banner.dismissable,
+              callToActionLink: banner.callToActionLink,
+              callToActionLinkText: banner.callToActionLinkText,
             })
           );
         });

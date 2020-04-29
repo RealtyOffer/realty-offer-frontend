@@ -1,46 +1,53 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { FaTimes, FaExclamationCircle, FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
+import { Link } from 'gatsby';
+import {
+  FaTimes,
+  FaExclamationCircle,
+  FaCheckCircle,
+  FaInfoCircle,
+  FaLongArrowAltRight,
+} from 'react-icons/fa';
 
 import { halfSpacer, baseSpacer, borderRadius, doubleSpacer } from '../styles/size';
 import { brandDanger, brandSuccess, brandPrimary, white } from '../styles/color';
+import { AlertType } from '../redux/ducks/globalAlerts.d';
 
 export type AlertProps = {
-  type: 'danger' | 'success' | 'info';
   close?: () => void;
-  dismissable?: boolean;
   alertNumber?: number;
   alertNumberTotal?: number;
-};
+} & AlertType;
 
-const renderColor = (props: AlertProps) => {
-  if (props.type === 'success') {
+const renderColor = (type: AlertType['type']) => {
+  if (type === 'success') {
     return brandSuccess;
   }
-  if (props.type === 'danger') {
+  if (type === 'danger') {
     return brandDanger;
   }
-  if (props.type === 'info') {
+  if (type === 'info') {
     return brandPrimary;
   }
   return brandDanger;
 };
 
-const renderIcon = (props: AlertProps) => {
-  if (props.type === 'danger') {
+const renderIcon = (type: AlertType['type']) => {
+  if (type === 'danger') {
     return <FaExclamationCircle />;
   }
-  if (props.type === 'success') {
+  if (type === 'success') {
     return <FaCheckCircle />;
   }
-  if (props.type === 'info') {
+  if (type === 'info') {
     return <FaInfoCircle />;
   }
   return <FaInfoCircle />;
 };
 
 const AlertWrapper = styled.div`
-  background-color: ${(props: AlertProps) => props.type && renderColor(props)};
+  background-color: ${(props: { type: AlertType['type'] }) =>
+    props.type && renderColor(props.type)};
   padding: ${baseSpacer} ${doubleSpacer} ${baseSpacer} ${baseSpacer};
   color: ${white};
   margin-bottom: ${baseSpacer};
@@ -64,9 +71,23 @@ const CloseButton = styled.span`
   }
 `;
 
+const StyledLink = styled(Link)`
+  color: ${white};
+  border-bottom: 1px solid ${white};
+  &:hover,
+  &:focus {
+    color: ${white};
+  }
+`;
+
 const Alert: FunctionComponent<AlertProps> = (props) => (
   <AlertWrapper type={props.type}>
-    {renderIcon(props)} {props.children}
+    {renderIcon(props.type)} {props.message}{' '}
+    {props.callToActionLink && (
+      <StyledLink to={props.callToActionLink}>
+        {props.callToActionLinkText} <FaLongArrowAltRight />
+      </StyledLink>
+    )}
     {props.alertNumber && !!props.alertNumberTotal && props.alertNumberTotal > 1 && (
       <small>
         <em>
