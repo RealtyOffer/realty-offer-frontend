@@ -35,6 +35,10 @@ const GlobalBanners: FunctionComponent<GlobalBannersProps> = () => {
     }
   }, [banners, currentBanner]);
 
+  if (!currentBanner) {
+    return null;
+  }
+
   return (
     <GlobalBannersWrapper>
       {currentBanner && currentBanner.id && (

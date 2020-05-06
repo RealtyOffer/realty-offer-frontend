@@ -9,7 +9,6 @@ import PageContainer from './PageContainer';
 import FlexContainer from './FlexContainer';
 import Avatar from './Avatar';
 import HorizontalRule from './HorizontalRule';
-import Button from './Button';
 
 import { brandPrimary, white, offWhite, brandPrimaryHover, brandTertiary } from '../styles/color';
 import { baseSpacer, doubleSpacer, octupleSpacer, halfSpacer, screenSizes } from '../styles/size';
@@ -20,6 +19,7 @@ import { RootState } from '../redux/ducks';
 import logo from '../images/logo.svg';
 import useWindowSize from '../utils/useWindowSize';
 import { agentNavigationItems } from '../utils/agentNavigationItems';
+import unauthenticatedNavigationItems from '../utils/unauthenticatedNavigationItems';
 
 type NavbarProps = {};
 
@@ -79,15 +79,23 @@ const StyledDropdownWrapper = styled.div`
 `;
 
 const StyledMenuToggle = styled.div`
-  position: absolute;
-  left: ${baseSpacer};
+  /* position: absolute;
+  left: ${baseSpacer}; */
   cursor: pointer;
   font-size: ${fontSizeH6};
 `;
 
+type StyledMenuProps = {
+  isSmallScreen: boolean;
+  menuIsOpen: boolean;
+  isLoggedIn: boolean;
+};
+
 const StyledMenu = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex: 1;
 
   & > a {
     padding: 0 ${halfSpacer};
@@ -100,16 +108,41 @@ const StyledMenu = styled.div`
     display: inline-block;
   }
 
-  ${(props: { isSmallScreen: boolean; menuIsOpen: boolean }) =>
+  ${(props: StyledMenuProps) =>
+    !props.isSmallScreen &&
+    css`
+      & > a.active,
+      & > a.active:hover,
+      & > a.active:focus {
+        position: relative;
+        &:before {
+          content: '';
+          border-bottom: ${halfSpacer} solid ${white};
+          position: absolute;
+          top: 36px;
+          left: 0;
+          right: 0;
+        }
+      }
+    `}
+
+  ${(props: StyledMenuProps) =>
+    !props.isLoggedIn &&
+    css`
+      justify-content: space-evenly;
+    `}
+
+  ${(props: StyledMenuProps) =>
     props.isSmallScreen &&
     css`
       flex-direction: column;
+      justify-content: flex-start;
       align-items: normal;
       background-color: ${brandTertiary};
       padding: 0 ${baseSpacer};
       height: 100vh;
       position: absolute;
-      top: 64px;
+      top: 80px;
       left: ${props.menuIsOpen ? 0 : '-75%'};
       width: 75%;
       z-index: 10;
@@ -117,7 +150,7 @@ const StyledMenu = styled.div`
       ${props.menuIsOpen && `box-shadow: ${z4Shadow}`};
 
       & > a {
-        padding: ${halfSpacer} 0;
+        padding: ${baseSpacer} 0;
       }
     `}
 `;
@@ -127,31 +160,25 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const dispatch = useDispatch();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const size = useWindowSize();
-  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.small);
+  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
   const primaryNavigation = agentNavigationItems.filter((item) => item.primary);
   const secondaryNavigation = agentNavigationItems.filter((item) => !item.primary);
 
-  const toggleMenuAndLogout = () => {
+  const toggleMenu = () => {
     if (isSmallScreen) {
       setMenuIsOpen(false);
     }
   };
 
+  const menuItemsToRender = auth.isLoggedIn
+    ? [...primaryNavigation]
+    : [...unauthenticatedNavigationItems];
+
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
-        <FlexContainer
-          justifyContent={auth.isLoggedIn && isSmallScreen ? 'center' : 'space-between'}
-        >
-          <StyledLogoLink to="/" title="Logo">
-            <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
-          </StyledLogoLink>
-          {!auth.isLoggedIn && (
-            <Button type="link" to="/login">
-              Log In
-            </Button>
-          )}
-          {auth.isLoggedIn && isSmallScreen && (
+        <FlexContainer justifyContent={!isSmallScreen ? 'space-between' : 'start'}>
+          {isSmallScreen && (
             <StyledMenuToggle>
               <Hamburger
                 color={white}
@@ -160,57 +187,78 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               />
             </StyledMenuToggle>
           )}
-          {auth.isLoggedIn && (
-            <StyledMenu id="navMenu" isSmallScreen={isSmallScreen} menuIsOpen={menuIsOpen}>
-              {primaryNavigation.map((navItem) => (
-                <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenuAndLogout()}>
-                  {navItem.name}
+
+          <StyledLogoLink to="/" title="Logo">
+            <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
+          </StyledLogoLink>
+
+          <StyledMenu
+            id="navMenu"
+            isLoggedIn={auth.isLoggedIn}
+            isSmallScreen={isSmallScreen}
+            menuIsOpen={menuIsOpen}
+          >
+            {menuItemsToRender.map((navItem) => (
+              <Link
+                key={navItem.name}
+                to={navItem.path}
+                activeClassName="active"
+                onClick={() => toggleMenu()}
+              >
+                {navItem.name}
+              </Link>
+            ))}
+            {isSmallScreen && auth.isLoggedIn && (
+              <>
+                <HorizontalRule />
+                {secondaryNavigation.map((navItem) => (
+                  <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
+                    {navItem.name}
+                  </Link>
+                ))}
+                {auth.roles.includes('Admin') && (
+                  <Link to="/admin/banners" onClick={() => toggleMenu()}>
+                    Admin
+                  </Link>
+                )}
+                <Link
+                  to="/"
+                  onClick={() => {
+                    toggleMenu();
+                    dispatch(logout());
+                  }}
+                >
+                  Log Out
                 </Link>
-              ))}
-              {isSmallScreen ? (
-                <>
-                  <HorizontalRule />
+              </>
+            )}
+            {!isSmallScreen && auth.isLoggedIn && (
+              <StyledDropdownWrapper>
+                <Avatar />
+                <FaCaretDown />
+                <StyledDropdown>
                   {secondaryNavigation.map((navItem) => (
-                    <Link
-                      key={navItem.name}
-                      to={navItem.path}
-                      onClick={() => toggleMenuAndLogout()}
-                    >
+                    <Link key={navItem.name} to={navItem.path}>
                       {navItem.name}
                     </Link>
                   ))}
                   {auth.roles.includes('Admin') && (
-                    <Link to="/admin/banners" onClick={() => toggleMenuAndLogout()}>
+                    <Link to="/admin/banners" onClick={() => toggleMenu()}>
                       Admin
                     </Link>
                   )}
                   <Link to="/" onClick={() => dispatch(logout())}>
                     Log Out
                   </Link>
-                </>
-              ) : (
-                <StyledDropdownWrapper>
-                  <Avatar />
-                  <FaCaretDown />
-                  <StyledDropdown>
-                    {secondaryNavigation.map((navItem) => (
-                      <Link key={navItem.name} to={navItem.path}>
-                        {navItem.name}
-                      </Link>
-                    ))}
-                    {auth.roles.includes('Admin') && (
-                      <Link to="/admin/banners" onClick={() => toggleMenuAndLogout()}>
-                        Admin
-                      </Link>
-                    )}
-                    <Link to="/" onClick={() => dispatch(logout())}>
-                      Log Out
-                    </Link>
-                  </StyledDropdown>
-                </StyledDropdownWrapper>
-              )}
-            </StyledMenu>
-          )}
+                </StyledDropdown>
+              </StyledDropdownWrapper>
+            )}
+            {!auth.isLoggedIn && (
+              <Link to="/login" activeClassName="active" onClick={() => toggleMenu()}>
+                Log In
+              </Link>
+            )}
+          </StyledMenu>
         </FlexContainer>
       </PageContainer>
     </StyledNavbar>
