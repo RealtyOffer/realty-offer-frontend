@@ -86,8 +86,6 @@ const StyledDropdownWrapper = styled.div`
 `;
 
 const StyledMenuToggle = styled.div`
-  /* position: absolute;
-  left: ${baseSpacer}; */
   cursor: pointer;
   font-size: ${fontSizeH6};
 `;

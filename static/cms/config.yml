@@ -38,7 +38,7 @@ collections:
     label: "Pages"
     files:
       - file: "src/pages/index.md"
-        label: "Landing Page"
+        label: "Home Page"
         name: "index"
         fields:
           - {
@@ -130,6 +130,67 @@ collections:
                     widget: select,
                     options: ["button", "link"],
                   },
+                ],
+            }
+      - file: "src/pages/landing.md"
+        label: "Landing Page"
+        name: "landing"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "landing-page",
+            }
+          - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: "Hero Heading", name: heroHeading, widget: string }
+          - { label: "Hero Subheading", name: heroSubheading, widget: string }
+          - { label: "Consumer Heading", name: consumerHeading, widget: string }
+          - {
+              label: "Consumer Description",
+              name: consumerDescription,
+              widget: string,
+            }
+          - { label: "Consumer CTA", name: consumerCTA, widget: string }
+          - { label: "Agent Heading", name: agentHeading, widget: string }
+          - {
+              label: "Agent Description",
+              name: agentDescription,
+              widget: string,
+            }
+          - { label: "Agent CTA", name: agentCTA, widget: string }
+          - {
+              label: Mainpitch,
+              name: mainpitch,
+              widget: object,
+              fields:
+                [
+                  { label: Title, name: title, widget: string },
+                  {
+                    label: Steps,
+                    name: steps,
+                    widget: list,
+                    fields:
+                      [
+                        { label: Title, name: title, widget: text },
+                        { label: Text, name: text, widget: text },
+                        { label: Image, name: image, widget: image },
+                      ],
+                  },
+                ],
+            }
+          - {
+              label: SecondPitch,
+              name: secondpitch,
+              widget: object,
+              fields:
+                [
+                  { label: Title, name: title, widget: string },
+                  { label: Text, name: text, widget: string },
+                  { label: Image, name: image, widget: image },
+                  { label: Link, name: link, widget: text },
+                  { label: LinkText, name: linkText, widget: text },
                 ],
             }
       - file: "src/pages/about/index.md"
