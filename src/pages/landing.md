@@ -2,8 +2,8 @@
 templateKey: landing-page
 title: Same Agent Less Commission
 heroImage: /img/index-jumbotron.png
-heroHeading: 'Welcome to RealtyOffer™'
-heroSubheading: Then one-stop shop shop for Buyer, Seller, and Agent
+heroHeading: Welcome to RealtyOffer™
+heroSubheading: The one-stop shop shop for Buyer, Seller, and Agent
 consumerHeading: Buyers & Sellers
 consumerDescription: need to sell
 consumerCTA: Connect with a RealtyOffer Specialist

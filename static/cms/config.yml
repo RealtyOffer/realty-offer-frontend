@@ -26,13 +26,13 @@ collections:
           widget: "hidden",
           default: "blog-post",
         }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Featured Post", name: "featuredpost", widget: "boolean" }
-      - { label: "Featured Image", name: "featuredimage", widget: image }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: Title, name: title, widget: string }
+      - { label: "Publish Date", name: date, widget: datetime }
+      - { label: Description, name: description, widget: text }
+      - { label: "Featured Post", name: featuredpost, widget: boolean }
+      - { label: "Featured Image", name: featuredimage, widget: image }
+      - { label: Body, name: body, widget: markdown }
+      - { label: Tags, name: tags, widget: list }
 
   - name: "pages"
     label: "Pages"
@@ -66,7 +66,7 @@ collections:
                     widget: list,
                     fields:
                       [
-                        { label: Title, name: title, widget: text },
+                        { label: Title, name: title, widget: string },
                         { label: Text, name: text, widget: text },
                         {
                           label: Image,
@@ -80,8 +80,8 @@ collections:
                           widget: image,
                           required: false,
                         },
-                        { label: Link, name: link, widget: text },
-                        { label: LinkText, name: linkText, widget: text },
+                        { label: Link, name: link, widget: string },
+                        { label: LinkText, name: linkText, widget: string },
                         {
                           label: LinkType,
                           name: linkType,
@@ -99,11 +99,11 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
-                  { label: Text, name: text, widget: string },
+                  { label: Text, name: text, widget: text },
                   { label: Caption, name: caption, widget: string },
                   { label: Image, name: image, widget: image, required: false },
-                  { label: Link, name: link, widget: text },
-                  { label: LinkText, name: linkText, widget: text },
+                  { label: Link, name: link, widget: string },
+                  { label: LinkText, name: linkText, widget: string },
                   {
                     label: LinkType,
                     name: linkType,
@@ -119,11 +119,11 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
-                  { label: Text, name: text, widget: string },
+                  { label: Text, name: text, widget: text },
                   { label: Caption, name: caption, widget: string },
                   { label: Image, name: image, widget: image, required: false },
-                  { label: Link, name: link, widget: text },
-                  { label: LinkText, name: linkText, widget: text },
+                  { label: Link, name: link, widget: string },
+                  { label: LinkText, name: linkText, widget: string },
                   {
                     label: LinkType,
                     name: linkType,
@@ -150,15 +150,11 @@ collections:
           - {
               label: "Consumer Description",
               name: consumerDescription,
-              widget: string,
+              widget: text,
             }
           - { label: "Consumer CTA", name: consumerCTA, widget: string }
           - { label: "Agent Heading", name: agentHeading, widget: string }
-          - {
-              label: "Agent Description",
-              name: agentDescription,
-              widget: string,
-            }
+          - { label: "Agent Description", name: agentDescription, widget: text }
           - { label: "Agent CTA", name: agentCTA, widget: string }
           - {
               label: Mainpitch,
@@ -173,7 +169,7 @@ collections:
                     widget: list,
                     fields:
                       [
-                        { label: Title, name: title, widget: text },
+                        { label: Title, name: title, widget: string },
                         { label: Text, name: text, widget: text },
                         { label: Image, name: image, widget: image },
                       ],
@@ -187,10 +183,10 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
-                  { label: Text, name: text, widget: string },
+                  { label: Text, name: text, widget: text },
                   { label: Image, name: image, widget: image },
-                  { label: Link, name: link, widget: text },
-                  { label: LinkText, name: linkText, widget: text },
+                  { label: Link, name: link, widget: string },
+                  { label: LinkText, name: linkText, widget: string },
                 ],
             }
       - file: "src/pages/about/index.md"
@@ -203,8 +199,8 @@ collections:
               widget: "hidden",
               default: "about-page",
             }
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Body", name: "body", widget: "markdown" }
+          - { label: Title, name: title, widget: string }
+          - { label: Body, name: body, widget: markdown }
       # - file: "src/pages/products/index.md"
       #   label: "Products Page"
       #   name: "products"
