@@ -11,7 +11,14 @@ import Avatar from './Avatar';
 import HorizontalRule from './HorizontalRule';
 
 import { brandPrimary, white, offWhite, brandPrimaryHover, brandTertiary } from '../styles/color';
-import { baseSpacer, doubleSpacer, octupleSpacer, halfSpacer, screenSizes } from '../styles/size';
+import {
+  baseSpacer,
+  doubleSpacer,
+  quadrupleSpacer,
+  octupleSpacer,
+  halfSpacer,
+  screenSizes,
+} from '../styles/size';
 import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
 import { fontSizeH6 } from '../styles/typography';
 import { logout } from '../redux/ducks/auth';
@@ -25,9 +32,9 @@ type NavbarProps = {};
 
 const StyledNavbar = styled.nav`
   background: ${brandPrimary};
-  padding: ${baseSpacer} 0;
   color: ${white};
   position: relative;
+  height: ${quadrupleSpacer};
 `;
 
 const StyledLogoLink = styled(Link)`
@@ -119,7 +126,7 @@ const StyledMenu = styled.div`
           content: '';
           border-bottom: ${halfSpacer} solid ${white};
           position: absolute;
-          top: 36px;
+          top: 37px;
           left: 0;
           right: 0;
         }
@@ -142,7 +149,7 @@ const StyledMenu = styled.div`
       padding: 0 ${baseSpacer};
       height: 100vh;
       position: absolute;
-      top: 80px;
+      top: ${quadrupleSpacer};
       left: ${props.menuIsOpen ? 0 : '-75%'};
       width: 75%;
       z-index: 10;
@@ -177,7 +184,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
-        <FlexContainer justifyContent={!isSmallScreen ? 'space-between' : 'start'}>
+        <FlexContainer
+          justifyContent={!isSmallScreen ? 'space-between' : 'start'}
+          height={quadrupleSpacer}
+        >
           {isSmallScreen && (
             <StyledMenuToggle>
               <Hamburger
