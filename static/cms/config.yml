@@ -150,16 +150,28 @@ collections:
           - { label: "Hero Image", name: heroImage, widget: image }
           - { label: "Hero Heading", name: heroHeading, widget: string }
           - { label: "Hero Subheading", name: heroSubheading, widget: string }
-          - { label: "Consumer Heading", name: consumerHeading, widget: string }
           - {
-              label: "Consumer Description",
-              name: consumerDescription,
-              widget: text,
+              label: Consumer,
+              name: consumer,
+              widget: object,
+              fields:
+                [
+                  { label: Title, name: title, widget: string },
+                  { label: Body, name: body, widget: markdown },
+                  { label: CTA, name: cta, widget: string },
+                ],
             }
-          - { label: "Consumer CTA", name: consumerCTA, widget: string }
-          - { label: "Agent Heading", name: agentHeading, widget: string }
-          - { label: "Agent Description", name: agentDescription, widget: text }
-          - { label: "Agent CTA", name: agentCTA, widget: string }
+          - {
+              label: Agent,
+              name: agent,
+              widget: object,
+              fields:
+                [
+                  { label: Title, name: title, widget: string },
+                  { label: Body, name: body, widget: markdown },
+                  { label: CTA, name: cta, widget: string },
+                ],
+            }
           - {
               label: Mainpitch,
               name: mainpitch,
@@ -174,7 +186,7 @@ collections:
                     fields:
                       [
                         { label: Title, name: title, widget: string },
-                        { label: Text, name: text, widget: text },
+                        { label: Text, name: body, widget: markdown },
                         { label: Image, name: image, widget: image },
                       ],
                   },
@@ -187,7 +199,7 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
-                  { label: Text, name: text, widget: text },
+                  { label: Text, name: body, widget: markdown },
                   { label: Image, name: image, widget: image },
                   { label: Link, name: link, widget: string },
                   { label: LinkText, name: linkText, widget: string },

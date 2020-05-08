@@ -16,22 +16,28 @@ import {
   Seo,
 } from '../components';
 
+import { HTMLContent } from '../components/Content';
+
 type LandingPageProps = {
   title: string;
   heroHeading: string;
   heroSubheading: string;
   heroImage: { childImageSharp: { fluid: FluidObject } };
-  consumerHeading: string;
-  consumerDescription: string;
-  consumerCTA: string;
-  agentHeading: string;
-  agentDescription: string;
-  agentCTA: string;
+  consumer: {
+    title: string;
+    cta: string;
+    body: any;
+  };
+  agent: {
+    title: string;
+    cta: string;
+    body: any;
+  };
   mainpitch: {
     title: string;
     steps: Array<{
       title: string;
-      text: string;
+      body: any;
       image: {
         childImageSharp: {
           fluid: FluidObject;
@@ -41,7 +47,7 @@ type LandingPageProps = {
   };
   secondpitch: {
     title: string;
-    text: string;
+    body: any;
     image: {
       childImageSharp: {
         fluid: FluidObject;
@@ -57,40 +63,42 @@ export const LandingPageTemplate: FunctionComponent<LandingPageProps> = ({
   title,
   heroHeading,
   heroSubheading,
-  consumerHeading,
-  consumerDescription,
-  consumerCTA,
-  agentHeading,
-  agentDescription,
-  agentCTA,
+  consumer,
+  agent,
   mainpitch,
   secondpitch,
 }) => (
   <div>
     <Seo title={title} />
-    <HeroImage src={heroImage.childImageSharp.fluid.src}>
+    <HeroImage src={heroImage.childImageSharp.fluid.src} height="500px">
       <PageContainer>
         <Box backgroundAccent>
           <Heading styledAs="title">{heroHeading}</Heading>
-          <Heading styledAs="subtitle">{heroSubheading}</Heading>
+          <Heading styledAs="subtitle" as="h2">
+            {heroSubheading}
+          </Heading>
         </Box>
       </PageContainer>
     </HeroImage>
     <PageContainer>
-      <section>
+      <section style={{ marginTop: '-100px' }}>
         <Row>
           <Column md={6}>
             <Box>
-              <Heading as="h2">{consumerHeading}</Heading>
-              <p>{consumerDescription}</p>
-              <p>{consumerCTA}</p>
+              <Heading as="h3" styledAs="title" align="center">
+                {consumer.title}
+              </Heading>
+              <HTMLContent content={consumer.body} />
+              <p>{consumer.cta}</p>
             </Box>
           </Column>
           <Column md={6}>
             <Box>
-              <Heading as="h2">{agentHeading}</Heading>
-              <p>{agentDescription}</p>
-              <p>{agentCTA}</p>
+              <Heading as="h3" styledAs="title" align="center">
+                {agent.title}
+              </Heading>
+              <HTMLContent content={agent.body} />
+              <p>{agent.cta}</p>
             </Box>
           </Column>
         </Row>
@@ -111,7 +119,7 @@ export const LandingPageTemplate: FunctionComponent<LandingPageProps> = ({
                 <Heading as="h4" styledAs="subtitle">
                   {step.title}
                 </Heading>
-                <p>{step.text}</p>
+                <HTMLContent content={step.body} />
               </FlexContainer>
             </Box>
           </Column>
@@ -123,7 +131,7 @@ export const LandingPageTemplate: FunctionComponent<LandingPageProps> = ({
             <Heading as="h4" styledAs="subtitle">
               {secondpitch.title}
             </Heading>
-            <p>{secondpitch.text}</p>
+            <HTMLContent content={secondpitch.body} />
             <Button type="link" to={secondpitch.link}>
               {secondpitch.linkText}
             </Button>
@@ -146,12 +154,8 @@ const LandingPage = ({ data }: { data: { markdownRemark: { frontmatter: LandingP
       title={frontmatter.title}
       heroHeading={frontmatter.heroHeading}
       heroSubheading={frontmatter.heroSubheading}
-      consumerHeading={frontmatter.consumerHeading}
-      consumerDescription={frontmatter.consumerDescription}
-      consumerCTA={frontmatter.consumerCTA}
-      agentHeading={frontmatter.agentHeading}
-      agentDescription={frontmatter.agentDescription}
-      agentCTA={frontmatter.agentCTA}
+      consumer={frontmatter.consumer}
+      agent={frontmatter.agent}
       mainpitch={frontmatter.mainpitch}
       secondpitch={frontmatter.secondpitch}
     />
@@ -174,17 +178,21 @@ export const pageQuery = graphql`
         }
         heroHeading
         heroSubheading
-        consumerHeading
-        consumerDescription
-        consumerCTA
-        agentHeading
-        agentDescription
-        agentCTA
+        consumer {
+          title
+          body
+          cta
+        }
+        agent {
+          title
+          body
+          cta
+        }
         mainpitch {
           title
           steps {
             title
-            text
+            body
             image {
               childImageSharp {
                 fluid(maxWidth: 512, quality: 100) {
@@ -196,7 +204,7 @@ export const pageQuery = graphql`
         }
         secondpitch {
           title
-          text
+          body
           image {
             childImageSharp {
               fluid(maxWidth: 400, quality: 100) {
