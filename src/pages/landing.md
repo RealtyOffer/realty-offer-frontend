@@ -11,8 +11,12 @@ consumer:
     will simply offer less to charge less commission to win your business!
 
 
+
+
     Need to buy a home? To earn your business, agents will offer part of their
     commission to be used toward your closing costs.
+
+
 
 
     No contracts, no obligation, no awkward negotiations.
@@ -27,8 +31,8 @@ agent:
     Do you need consistency?
 
 
-    RealtyOffer will connect you with serious clients, while removing the upfront
-    awkward negotiation out of the way.
+    RealtyOffer will connect you with serious clients, while removing the
+    upfront awkward negotiation out of the way.
   cta: Become a RealtyOffer Agent
 mainpitch:
   title: 'Wondering how it works? Simple as 1, 2, 3...'
@@ -69,12 +73,8 @@ secondpitch:
     right thing for you?
 
 
-    Welcome to RealtyOffer...
-
-
-    Same agent, less commission...
-
-    Agents that will earn less for your business...
+    Welcome to RealtyOffer. Same agent, less commission... Agents that will earn
+    less for your business...
   image: /img/shutterstock_image5.jpg
   link: /faqs
   linkText: Learn More
