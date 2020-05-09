@@ -58,14 +58,15 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
                 })
               )
             )
-            .catch(() =>
+            .catch((error) => {
+              console.log(error);
               dispatch(
                 addAlert({
                   message: 'Something went wrong, please try again.',
                   type: 'danger',
                 })
-              )
-            );
+              );
+            });
         }}
       >
         {({ values, isSubmitting, isValid, ...rest }) => (
