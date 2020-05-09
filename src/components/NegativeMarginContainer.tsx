@@ -8,6 +8,7 @@ type NegativeMarginContainerProps = {
   right?: boolean;
   bottom?: boolean;
   left?: boolean;
+  height?: string;
 };
 
 const NegativeMarginContainer: FunctionComponent<NegativeMarginContainerProps> = styled.div`
@@ -19,6 +20,8 @@ const NegativeMarginContainer: FunctionComponent<NegativeMarginContainerProps> =
   margin-left: ${(props: NegativeMarginContainerProps) => (props.left ? `-${baseSpacer}` : 0)};
   width: ${(props: NegativeMarginContainerProps) =>
     props.left && props.right ? `calc(100% + ${doubleSpacer})` : `calc(100% + ${baseSpacer})`};
+  height: ${(props: NegativeMarginContainerProps) => (props.height ? props.height : 'auto')};
+  overflow: hidden;
 `;
 
 export default NegativeMarginContainer;

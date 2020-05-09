@@ -21,6 +21,7 @@ consumer:
 
     No contracts, no obligation, no awkward negotiations.
   cta: Connect with a RealtyOffer Specialist
+  icon: /img/np_real-estate_3187456_000000.svg
 agent:
   title: Agents
   body: >-
@@ -34,6 +35,7 @@ agent:
     RealtyOffer will connect you with serious clients, while removing the
     upfront awkward negotiation out of the way.
   cta: Become a RealtyOffer Agent
+  icon: /img/np_real-estate_3048021_000000.svg
 mainpitch:
   title: 'Wondering how it works? Simple as 1, 2, 3...'
   steps:
@@ -77,5 +79,5 @@ secondpitch:
     less for your business...
   image: /img/shutterstock_image5.jpg
   link: /faqs
-  linkText: Learn More
+  linkText: Learn More About RealtyOffer
 ---

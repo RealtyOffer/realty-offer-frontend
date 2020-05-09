@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FluidObject } from 'gatsby-image';
 
-import { baseSpacer, doubleSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer, quadrupleSpacer } from '../styles/size';
 import { white, brandPrimaryAccentLight } from '../styles/color';
 import { z1Shadow, z2Shadow, z3Shadow, z4Shadow } from '../styles/mixins';
 
@@ -12,6 +12,7 @@ type BoxProps = {
   zindex?: 1 | 2 | 3 | 4;
   largePadding?: boolean;
   backgroundAccent?: boolean;
+  footer?: JSX.Element;
   bgSrc?: {
     childImageSharp: {
       fluid: FluidObject;
@@ -46,6 +47,12 @@ const StyledBox = styled.div`
     props.bgSrc
       ? `url(${props.bgSrc.childImageSharp.fluid.src}) center center / cover no-repeat`
       : white};
+  ${(props: BoxProps) =>
+    props.footer &&
+    css`
+      position: relative;
+      padding-bottom: ${quadrupleSpacer};
+    `}
 `;
 
 const StyledBoxBackground = styled.div`
@@ -59,6 +66,13 @@ const BackgroundImageOverlay = styled.div`
   padding: ${baseSpacer};
 `;
 
+const StyledBoxFooter = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
 const Box: FunctionComponent<BoxProps> = ({
   textAlign,
   height,
@@ -67,6 +81,7 @@ const Box: FunctionComponent<BoxProps> = ({
   largePadding,
   backgroundAccent,
   bgSrc,
+  footer,
 }) => (
   <StyledBox
     bgSrc={bgSrc}
@@ -74,10 +89,12 @@ const Box: FunctionComponent<BoxProps> = ({
     height={height}
     zindex={zindex}
     largePadding={largePadding}
+    footer={footer}
   >
     {bgSrc && !backgroundAccent && <BackgroundImageOverlay>{children}</BackgroundImageOverlay>}
     {!bgSrc && backgroundAccent && <StyledBoxBackground>{children}</StyledBoxBackground>}
     {!bgSrc && !backgroundAccent && children}
+    {footer && <StyledBoxFooter>{footer}</StyledBoxFooter>}
   </StyledBox>
 );
 

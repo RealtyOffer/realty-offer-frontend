@@ -47,20 +47,17 @@ const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
   if (styledAs === 'title') {
     return css`
       color: ${brandPrimary};
-      font-weight: 700;
       font-size: ${fontSizeH1};
     `;
   }
   if (styledAs === 'subtitle') {
     return css`
       color: ${brandTertiaryHover};
-      font-weight: 700;
       font-size: ${fontSizeH4};
     `;
   }
   if (styledAs === 'sectionHeading') {
     return css`
-      font-weight: 700;
       color: ${brandTertiaryHover};
       text-align: center;
       display: table;
@@ -89,7 +86,7 @@ const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
 };
 
 const StyledHeading = styled.h1`
-  font-weight: 300;
+  font-weight: 700;
   line-height: ${lineHeightSmall};
   color: ${(props: HeadingProps) => (props.inverse ? white : headingsColor)};
   margin-bottom: ${(props: HeadingProps) => (props.noMargin ? '0' : baseSpacer)};

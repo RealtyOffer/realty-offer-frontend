@@ -7,6 +7,7 @@ const PageContainer = styled.div`
   margin-left: auto;
   padding-right: ${halfSpacer};
   padding-left: ${halfSpacer};
+  width: 100%;
   max-width: ${breakpoints.xl};
 
   @media only screen and (min-width: ${breakpoints.sm}) {

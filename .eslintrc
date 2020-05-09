@@ -44,5 +44,6 @@
   "env": {
     "browser": true,
     "jest": true
-  }
+  },
+  "ignorePatterns": ["graphql-types.ts"]
 }

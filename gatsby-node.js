@@ -6,6 +6,20 @@ const webpack = require('webpack');
 const { createFilePath } = require('gatsby-source-filesystem');
 const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDefs = `
+    type MarkdownRemarkFrontmatter {
+      title: String!
+    }
+    type MarkdownRemark implements Node {
+      frontmatter: MarkdownRemarkFrontmatter!
+    }
+    
+  `;
+  createTypes(typeDefs);
+};
+
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 

@@ -12,6 +12,8 @@ import {
   brandSuccess,
   lightGray,
   gray,
+  brandTertiary,
+  brandTertiaryHover,
 } from '../styles/color';
 import { disabledStyle } from '../styles/mixins';
 
@@ -24,7 +26,8 @@ type ButtonProps = {
     | 'success'
     | 'successOutline'
     | 'danger'
-    | 'dangerOutline';
+    | 'dangerOutline'
+    | 'tertiary';
   rightspacer?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
   to?: string;
@@ -126,6 +129,17 @@ const textButtonStyles = `
   }
 `;
 
+const tertiaryButtonStyles = `
+  background-color: ${brandTertiary};
+  color: ${white};
+  
+  &:hover,
+  &:focus {
+    color: ${white};
+    background-color: ${brandTertiaryHover};
+  }
+`;
+
 const allStyles = css`
   position: relative;
   display: inline-flex;
@@ -154,6 +168,7 @@ const allStyles = css`
   ${(props: ButtonProps) => props.color === 'success' && successButtonStyles}
   ${(props: ButtonProps) => props.color === 'successOutline' && successOutlineButtonStyles}
   ${(props: ButtonProps) => props.color === 'text' && textButtonStyles}
+  ${(props: ButtonProps) => props.color === 'tertiary' && tertiaryButtonStyles}
 
   /* Disabled - specific color variations */
   ${(props: ButtonProps) => props.color === 'primary' && props.disabled && primaryDisabledStyles}

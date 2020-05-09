@@ -6,7 +6,7 @@ import { Button, Modal, Heading, Row, Column } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 
 type UnsavedChangesModalProps = {
-  toggleModal: Function;
+  toggleModal: () => void;
   modalIsOpen: boolean;
 };
 
