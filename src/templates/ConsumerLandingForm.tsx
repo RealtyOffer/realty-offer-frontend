@@ -42,7 +42,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values) => {
-          fetch('/', {
+          fetch('https://realtyoffer.com/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: encode({
@@ -130,7 +130,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
               validate={requiredSelect}
               {...rest}
             />
-            <Field as={Input} type="text" name="where" label="Where?" />
+            <Field as={Input} type="text" name="where" label="Where?" validate={requiredField} />
             <Field
               as={Input}
               type="checkbox"
