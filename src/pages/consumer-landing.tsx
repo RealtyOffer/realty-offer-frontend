@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { FaCaretRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
+import { navigate } from 'gatsby';
 
 import {
   Box,
@@ -59,16 +60,16 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = () => {
                     ...values,
                   }),
                 })
-                  .then(() =>
+                  .then(() => {
+                    navigate('/landing');
                     dispatch(
                       addAlert({
                         message: 'Thanks for your interest! We will be reaching out shortly.',
                         type: 'success',
                       })
-                    )
-                  )
-                  .catch((error) => {
-                    console.log(error);
+                    );
+                  })
+                  .catch(() => {
                     dispatch(
                       addAlert({
                         message: 'Something went wrong, please try again.',
