@@ -175,7 +175,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     }
   };
 
-  const menuItemsToRender = auth.isLoggedIn ? [...primaryNavigation] : [];
+  const menuItemsToRender = auth.isLoggedIn
+    ? [...primaryNavigation]
+    : [...unauthenticatedNavigationItems];
 
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">

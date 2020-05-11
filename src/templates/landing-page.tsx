@@ -187,7 +187,7 @@ export const LandingPageTemplate: FunctionComponent<LandingPageProps> = ({
                 {secondpitch.title}
               </Heading>
               <ReactMarkdown source={secondpitch.body} />
-              <Button type="link" to="/">
+              <Button type="link" to={secondpitch.link}>
                 {secondpitch.linkText}
               </Button>
             </FlexContainer>

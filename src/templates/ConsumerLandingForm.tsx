@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { FaCaretRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import fetch from 'node-fetch';
 
 import { Button, HorizontalRule, Input, Modal, Heading, Row, Column } from '../components';
 import {
@@ -78,7 +77,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
             data-netlify="true"
           >
             <input type="hidden" name="bot-field" />
-            <input type="hidden" name="consumer-landing" value="contact" />
+            <input type="hidden" name="consumer-landing" />
             <Row>
               <Column sm={6}>
                 <Field
