@@ -29,8 +29,12 @@ Modal.setAppElement('#___gatsby');
 // eslint-disable-next-line react/display-name
 export default ({ element }: { element: any }) => (
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    {process.env.BROWSER ? (
+      <PersistGate loading={null} persistor={persistor}>
+        <Layout>{element}</Layout>
+      </PersistGate>
+    ) : (
       <Layout>{element}</Layout>
-    </PersistGate>
+    )}
   </Provider>
 );

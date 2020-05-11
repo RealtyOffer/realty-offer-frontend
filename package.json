@@ -130,7 +130,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "clean && npm run build:gatsby && npm run build:storybook",
+    "build": "npm run build:gatsby && npm run build:storybook",
     "build:gatsby": "gatsby build",
     "build:storybook": "build-storybook -c .storybook -o public/storybook",
     "develop": "gatsby develop",
