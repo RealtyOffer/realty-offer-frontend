@@ -36,7 +36,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
   };
 
   return (
-    <>
+    <Modal isOpen={props.modalIsOpen} toggleModal={props.toggleModal}>
       <Heading styledAs="title">Connect with a RealtyOffer Specialist</Heading>
       <Formik
         validateOnMount
@@ -76,7 +76,6 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
             netlify-honeypot="bot-field"
             data-netlify="true"
           >
-            <input type="hidden" name="bot-field" />
             <input type="hidden" name="form-name" value="consumer-landing" />
             <Row>
               <Column sm={6}>
@@ -116,6 +115,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
                 />
               </Column>
             </Row>
+
             <Field
               as={Input}
               type="select"
@@ -138,6 +138,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
               label="Would you like a free mortgage consultation?"
             />
             <HorizontalRule />
+
             <Button
               type="submit"
               block
@@ -149,7 +150,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
           </Form>
         )}
       </Formik>
-    </>
+    </Modal>
   );
 };
 
