@@ -36,7 +36,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
   };
 
   return (
-    <Modal isOpen={props.modalIsOpen} toggleModal={props.toggleModal}>
+    <>
       <Heading styledAs="title">Connect with a RealtyOffer Specialist</Heading>
       <Formik
         validateOnMount
@@ -151,7 +151,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
           </Form>
         )}
       </Formik>
-    </Modal>
+    </>
   );
 };
 

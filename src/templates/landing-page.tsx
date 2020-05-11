@@ -85,7 +85,7 @@ export const LandingPageTemplate: FunctionComponent<LandingPageProps> = ({
   mainpitch,
   secondpitch,
 }) => {
-  const [consumerFormVisible, setConsumerFormVisible] = useState(false);
+  const [consumerFormVisible, setConsumerFormVisible] = useState(true);
   const [agentFormVisible, setAgentFormVisible] = useState(false);
 
   return (
