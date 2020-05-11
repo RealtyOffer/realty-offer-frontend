@@ -77,7 +77,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
             data-netlify="true"
           >
             <input type="hidden" name="bot-field" />
-            <input type="hidden" name="consumer-landing" />
+            <input type="hidden" name="consumer-landing" value="consumer-landing" />
             <Row>
               <Column sm={6}>
                 <Field
@@ -116,7 +116,6 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
                 />
               </Column>
             </Row>
-
             <Field
               as={Input}
               type="select"
@@ -139,7 +138,6 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
               label="Would you like a free mortgage consultation?"
             />
             <HorizontalRule />
-
             <Button
               type="submit"
               block
