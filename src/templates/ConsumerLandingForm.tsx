@@ -77,7 +77,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
             data-netlify="true"
           >
             <input type="hidden" name="bot-field" />
-            <input type="hidden" name="consumer-landing" value="consumer-landing" />
+            <input type="hidden" name="form-name" value="consumer-landing" />
             <Row>
               <Column sm={6}>
                 <Field
