@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { FaCaretRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
+import fetch from 'node-fetch';
 
 import { Button, HorizontalRule, Input, Modal, Heading, Row, Column } from '../components';
 import {
@@ -79,7 +80,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
             <input type="hidden" name="bot-field" />
             <input type="hidden" name="consumer-landing" value="contact" />
             <Row>
-              <Column xs={6}>
+              <Column sm={6}>
                 <Field
                   as={Input}
                   type="text"
@@ -88,7 +89,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
                   validate={requiredField}
                 />
               </Column>
-              <Column xs={6}>
+              <Column sm={6}>
                 <Field
                   as={Input}
                   type="text"
@@ -97,7 +98,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
                   validate={requiredField}
                 />
               </Column>
-              <Column xs={6}>
+              <Column sm={6}>
                 <Field
                   as={Input}
                   type="tel"
@@ -106,7 +107,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
                   validate={requiredPhoneNumber}
                 />
               </Column>
-              <Column xs={6}>
+              <Column sm={6}>
                 <Field
                   as={Input}
                   type="email"
