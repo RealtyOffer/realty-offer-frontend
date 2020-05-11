@@ -42,7 +42,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values) => {
-          fetch('https://realtyoffer.com/landing/', {
+          fetch('https://realtyoffer.com/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: encode({
