@@ -42,7 +42,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values) => {
-          fetch('https://realtyoffer.com/', {
+          fetch('https://realtyoffer.com/?no-cache=1', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: encode({
@@ -70,13 +70,9 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = (props)
         }}
       >
         {({ values, isSubmitting, isValid, ...rest }) => (
-          <Form
-            name="consumer-landing"
-            method="post"
-            netlify-honeypot="bot-field"
-            data-netlify="true"
-          >
+          <Form name="consumer-landing" method="post" netlify-honeypot="bot-field" netlify="true">
             <input type="hidden" name="form-name" value="consumer-landing" />
+            <input type="hidden" name="bot-field" />
             <Row>
               <Column sm={6}>
                 <Field
