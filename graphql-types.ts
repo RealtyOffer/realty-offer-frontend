@@ -3016,10 +3016,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___plugins___version'
   | 'pluginCreator___pluginOptions___plugins___browserAPIs'
   | 'pluginCreator___pluginOptions___plugins___pluginFilepath'
-  | 'pluginCreator___pluginOptions___fonts'
-  | 'pluginCreator___pluginOptions___fonts___family'
-  | 'pluginCreator___pluginOptions___fonts___variants'
-  | 'pluginCreator___pluginOptions___fonts___subsets'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___color'
@@ -3232,10 +3228,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___pluginOptions___destinationDir'
   | 'pluginOptions___plugins___browserAPIs'
   | 'pluginOptions___plugins___pluginFilepath'
-  | 'pluginOptions___fonts'
-  | 'pluginOptions___fonts___family'
-  | 'pluginOptions___fonts___variants'
-  | 'pluginOptions___fonts___subsets'
   | 'pluginOptions___path'
   | 'pluginOptions___name'
   | 'pluginOptions___color'
@@ -3367,7 +3359,6 @@ export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
 
 export type SitePluginPluginOptions = {
   plugins?: Maybe<Array<Maybe<SitePluginPluginOptionsPlugins>>>;
-  fonts?: Maybe<Array<Maybe<SitePluginPluginOptionsFonts>>>;
   path?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   color?: Maybe<Scalars['String']>;
@@ -3387,7 +3378,6 @@ export type SitePluginPluginOptions = {
 
 export type SitePluginPluginOptionsFilterInput = {
   plugins?: Maybe<SitePluginPluginOptionsPluginsFilterListInput>;
-  fonts?: Maybe<SitePluginPluginOptionsFontsFilterListInput>;
   path?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   color?: Maybe<StringQueryOperatorInput>;
@@ -3403,22 +3393,6 @@ export type SitePluginPluginOptionsFilterInput = {
   destinationDir?: Maybe<StringQueryOperatorInput>;
   publicPath?: Maybe<StringQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsFonts = {
-  family?: Maybe<Scalars['String']>;
-  variants?: Maybe<Array<Maybe<Scalars['String']>>>;
-  subsets?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type SitePluginPluginOptionsFontsFilterInput = {
-  family?: Maybe<StringQueryOperatorInput>;
-  variants?: Maybe<StringQueryOperatorInput>;
-  subsets?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsFontsFilterListInput = {
-  elemMatch?: Maybe<SitePluginPluginOptionsFontsFilterInput>;
 };
 
 export type SitePluginPluginOptionsPlugins = {

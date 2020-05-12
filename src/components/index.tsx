@@ -4,6 +4,7 @@ import BidCard from './BidCard';
 import Box from './Box';
 import Button from './Button';
 import Card from './Card';
+import ClientOnly from './ClientOnly';
 import Column from './Column';
 import Content from './Content';
 import EmptyListingsView from './EmptyListingsView';
@@ -35,6 +36,7 @@ export {
   Box,
   Button,
   Card,
+  ClientOnly,
   Column,
   Content,
   EmptyListingsView,

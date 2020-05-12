@@ -1,19 +1,18 @@
 import React, { FunctionComponent } from 'react';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { withPrefix } from 'gatsby';
 import styled from 'styled-components';
 import { IconContext } from 'react-icons';
+import Modal from 'react-modal';
+import 'typeface-lato';
 
 import Footer from './Footer';
 import Navbar from './Navbar';
-import useSiteMetadata from './SiteMetadata';
-import CssReset from '../styles/cssReset';
 
 import { baseSpacer, doubleSpacer, breakpoints } from '../styles/size';
 import { offWhite } from '../styles/color';
 import GlobalAlerts from './GlobalAlerts';
 import GlobalBanners from './GlobalBanners';
 import PageContainer from './PageContainer';
+import CssReset from '../styles/cssReset';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -32,66 +31,27 @@ const PageBody = styled.div`
   }
 `;
 
-type LayoutProps = {};
+type LayoutProps = { element: any };
 
-const helmetContext = {};
+Modal.setAppElement('#___gatsby');
 
-const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
-  const { title, description } = useSiteMetadata();
-  return (
-    <div>
-      <HelmetProvider context={helmetContext}>
-        <Helmet>
-          <html lang="en" />
-          <title>{title}</title>
-          <meta name="description" content={description} />
-
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href={`${withPrefix('/')}img/apple-touch-icon.png`}
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            href={`${withPrefix('/')}img/favicon-32x32.png`}
-            sizes="32x32"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            href={`${withPrefix('/')}img/favicon-16x16.png`}
-            sizes="16x16"
-          />
-
-          <link
-            rel="mask-icon"
-            href={`${withPrefix('/')}img/safari-pinned-tab.svg`}
-            color="#ff4400"
-          />
-          <meta name="theme-color" content="#fff" />
-          <meta property="og:type" content="business.business" />
-          <meta property="og:title" content={title} />
-          <meta property="og:url" content="/" />
-          <meta property="og:image" content={`${withPrefix('/')}img/og-image.jpg`} />
-        </Helmet>
-        <CssReset />
-        <IconContext.Provider value={{ style: { position: 'relative' } }}>
-          <LayoutWrapper>
-            <Navbar />
-            <PageBody>
-              <PageContainer>
-                <GlobalBanners />
-              </PageContainer>
-              {children}
-            </PageBody>
-            <GlobalAlerts />
-            <Footer />
-          </LayoutWrapper>
-        </IconContext.Provider>
-      </HelmetProvider>
-    </div>
-  );
-};
+const Layout: FunctionComponent<LayoutProps> = ({ element }) => (
+  <>
+    <CssReset />
+    <IconContext.Provider value={{ style: { position: 'relative' } }}>
+      <LayoutWrapper>
+        <Navbar />
+        <PageBody>
+          <PageContainer>
+            <GlobalBanners />
+          </PageContainer>
+          {element}
+        </PageBody>
+        <GlobalAlerts />
+        <Footer />
+      </LayoutWrapper>
+    </IconContext.Provider>
+  </>
+);
 
 export default Layout;

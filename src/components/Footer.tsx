@@ -3,15 +3,12 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 
 import PageContainer from './PageContainer';
+import FlexContainer from './FlexContainer';
 
 import { brandTertiary, white } from '../styles/color';
-import { baseSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer } from '../styles/size';
 
-// import logo from '../img/logo.svg'
-// import facebook from '../img/social/facebook.svg'
-// import instagram from '../img/social/instagram.svg'
-// import twitter from '../img/social/twitter.svg'
-// import vimeo from '../img/social/vimeo.svg'
+import logo from '../images/logo.svg';
 
 const StyledFooter = styled.footer`
   background-color: ${brandTertiary};
@@ -19,18 +16,25 @@ const StyledFooter = styled.footer`
   padding: ${baseSpacer};
 `;
 
-const StyledFooterLink = styled(Link)`
+const StyledLogoLink = styled(Link)`
   color: ${white};
-  padding-right: ${baseSpacer};
+
+  &:hover,
+  &:focus {
+    color: ${white};
+  }
 `;
 
 const Footer = () => (
   <StyledFooter>
     <PageContainer>
-      <StyledFooterLink to="/">Home</StyledFooterLink>
-      <StyledFooterLink to="/about">About</StyledFooterLink>
-      <StyledFooterLink to="/terms-and-conditions">Terms &amp; Conditions</StyledFooterLink>
-      <StyledFooterLink to="/privacy-policy">Privacy Policy</StyledFooterLink>
+      <FlexContainer flexDirection="column">
+        {/* TODO for PROD: update to / */}
+        <StyledLogoLink to="/landing" title="Logo">
+          <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
+        </StyledLogoLink>
+        <small>Copyright &copy; {new Date().getFullYear()}</small>
+      </FlexContainer>
     </PageContainer>
   </StyledFooter>
 );

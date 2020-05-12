@@ -6,7 +6,7 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: 'Realty Offer',
-    description: 'Realty Offer web app',
+    description: 'Realty Offer',
     author: '@realtyoffer',
   },
   plugins: [
@@ -16,18 +16,6 @@ module.exports = {
     'gatsby-plugin-eslint',
     'gatsby-plugin-graphql-codegen',
     'gatsby-plugin-smoothscroll',
-    {
-      resolve: 'gatsby-plugin-prefetch-google-fonts',
-      options: {
-        fonts: [
-          {
-            family: 'Lato',
-            variants: ['300', '300i', '400', '400i', '700', '700i'],
-            subsets: ['latin'],
-          },
-        ],
-      },
-    },
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',

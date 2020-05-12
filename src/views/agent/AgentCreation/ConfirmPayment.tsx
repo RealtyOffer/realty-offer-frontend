@@ -29,7 +29,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
           <FlexContainer height="100px">
             <small>
               By clicking &quot;Confirm Payment&quot;, I agree to the{' '}
-              <Link to="/">Terms &amp; Conditions</Link>.
+              <Link to="/terms-and-conditions">Terms &amp; Conditions</Link>.
             </small>
           </FlexContainer>
         </FlexContainer>

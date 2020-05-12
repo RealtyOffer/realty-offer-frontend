@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { graphql } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 
 import BlogRoll from './BlogRoll';
@@ -188,6 +188,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
 
 const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageProps } } }) => {
   const { frontmatter } = data.markdownRemark;
+
+  if (process && process.env && process.env.ENVIRONMENT === 'DEVELOP') {
+    navigate('/landing');
+    return null;
+  }
 
   return (
     <IndexPageTemplate
