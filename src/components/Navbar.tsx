@@ -189,7 +189,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           <StyledLogoLink to="/landing" title="Logo">
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
           </StyledLogoLink>
-          {isSmallScreen && (
+          {/* TODO for PROD */}
+          {isSmallScreen && process.env.ENVIRONMENT === 'DEVELOP' && (
             <ClientOnly>
               <StyledMenuToggle>
                 <Hamburger

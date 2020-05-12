@@ -25,14 +25,14 @@ const middlewares = getMiddlewares();
 const isBrowser = typeof window !== 'undefined';
 
 // eslint-disable-next-line
-if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
+if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'PRODUCTION')) {
   middlewares.push(logger);
 }
 
 const functionsToCompose = [applyMiddleware(...middlewares)];
 
 // eslint-disable-next-line
-if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'production')) {
+if (isBrowser && (window.__ENVIRONMENT || process.env.NODE_ENV !== 'PRODUCTION')) {
   functionsToCompose.push(
     typeof window === 'object' && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
       ? window.__REDUX_DEVTOOLS_EXTENSION__()
