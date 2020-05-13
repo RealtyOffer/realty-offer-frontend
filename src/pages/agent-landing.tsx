@@ -4,16 +4,7 @@ import { FaCaretRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 
-import {
-  Box,
-  Button,
-  HorizontalRule,
-  Input,
-  Heading,
-  Row,
-  Column,
-  PageContainer,
-} from '../components';
+import { Card, Button, HorizontalRule, Input, Row, Column, PageContainer } from '../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 
@@ -38,113 +29,108 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
 
   return (
     <PageContainer>
-      <Row>
-        <Column md={6} mdOffset={3}>
-          <Box>
-            <Heading styledAs="title">Become a RealtyOffer Agent</Heading>
-            <Formik
-              validateOnMount
-              initialValues={initialValues}
-              onSubmit={(values) => {
-                fetch('/', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                  body: encode({
-                    'form-name': 'agent-landing',
-                    ...values,
-                  }),
-                })
-                  .then(() => {
-                    navigate('/landing');
-                    dispatch(
-                      addAlert({
-                        message: 'Thanks for your interest! We will be reaching out shortly.',
-                        type: 'success',
-                      })
-                    );
+      <Card cardTitle="Become a RealtyOffer Agent">
+        <Formik
+          validateOnMount
+          initialValues={initialValues}
+          onSubmit={(values) => {
+            fetch('/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: encode({
+                'form-name': 'agent-landing',
+                ...values,
+              }),
+            })
+              .then(() => {
+                navigate('/landing');
+                dispatch(
+                  addAlert({
+                    message: 'Thanks for your interest! We will be reaching out shortly.',
+                    type: 'success',
                   })
-                  .catch(() =>
-                    dispatch(
-                      addAlert({
-                        message: 'Something went wrong, please try again.',
-                        type: 'danger',
-                      })
-                    )
-                  );
-              }}
+                );
+              })
+              .catch(() =>
+                dispatch(
+                  addAlert({
+                    message: 'Something went wrong, please try again.',
+                    type: 'danger',
+                  })
+                )
+              );
+          }}
+        >
+          {({ isSubmitting, isValid }) => (
+            <Form
+              name="agent-landing"
+              method="post"
+              netlify-honeypot="bot-field"
+              data-netlify="true"
             >
-              {({ isSubmitting, isValid }) => (
-                <Form
-                  name="agent-landing"
-                  method="post"
-                  netlify-honeypot="bot-field"
-                  data-netlify="true"
-                >
-                  <input type="hidden" name="bot-field" />
-                  <input type="hidden" name="agent-landing" value="contact" />
-                  <Row>
-                    <Column xs={6}>
-                      <Field
-                        as={Input}
-                        type="text"
-                        name="firstName"
-                        label="First Name"
-                        validate={requiredField}
-                      />
-                    </Column>
-                    <Column xs={6}>
-                      <Field
-                        as={Input}
-                        type="text"
-                        name="lastName"
-                        label="Last Name"
-                        validate={requiredField}
-                      />
-                    </Column>
-                    <Column xs={6}>
-                      <Field
-                        as={Input}
-                        type="tel"
-                        name="phone"
-                        label="Phone Number"
-                        validate={requiredPhoneNumber}
-                      />
-                    </Column>
-                    <Column xs={6}>
-                      <Field
-                        as={Input}
-                        type="email"
-                        name="email"
-                        label="Email"
-                        validate={requiredEmail}
-                      />
-                    </Column>
-                  </Row>
-
+              <input type="hidden" name="bot-field" />
+              <input type="hidden" name="agent-landing" value="contact" />
+              <Row>
+                <Column xs={6}>
                   <Field
                     as={Input}
                     type="text"
-                    name="agentId"
-                    label="Agent ID"
+                    name="firstName"
+                    label="First Name"
                     validate={requiredField}
                   />
-                  <Field as={Input} type="text" name="brokerName" label="Broker" />
-                  <HorizontalRule />
+                </Column>
+                <Column xs={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="lastName"
+                    label="Last Name"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column xs={6}>
+                  <Field
+                    as={Input}
+                    type="tel"
+                    name="phone"
+                    label="Phone Number"
+                    validate={requiredPhoneNumber}
+                  />
+                </Column>
+                <Column xs={6}>
+                  <Field
+                    as={Input}
+                    type="email"
+                    name="email"
+                    label="Email"
+                    validate={requiredEmail}
+                  />
+                </Column>
+              </Row>
 
-                  <Button
-                    type="submit"
-                    block
-                    iconRight={<FaCaretRight />}
-                    disabled={isSubmitting || !isValid}
-                  >
-                    Submit
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </Box>
-        </Column>
-      </Row>
+              <Field
+                as={Input}
+                type="text"
+                name="agentId"
+                label="Agent ID"
+                validate={requiredField}
+              />
+              <Field as={Input} type="text" name="brokerName" label="Broker" />
+              <HorizontalRule />
+
+              <Button
+                type="submit"
+                block
+                iconRight={<FaCaretRight />}
+                disabled={isSubmitting || !isValid}
+              >
+                Submit
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </Card>
     </PageContainer>
   );
 };

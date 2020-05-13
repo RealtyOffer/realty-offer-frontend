@@ -82,7 +82,7 @@ const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
       <BidCardBody>
         {listing.type.includes('buyer') && (
           <>
-            <Heading as="h1" noMargin>
+            <Heading as="h1" noMargin styledAs="title">
               {listing.buyingPriceRange}
             </Heading>
             <span>
@@ -104,7 +104,7 @@ const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
         {listing.type === 'buyerSeller' && <HorizontalRule />}
         {listing.type.toLowerCase().includes('seller') && (
           <>
-            <Heading as="h1" noMargin>
+            <Heading as="h1" noMargin styledAs="title">
               {listing.sellersListingPriceInMind}
             </Heading>
             <span>Selling in {listing.sellersCity?.name}</span>

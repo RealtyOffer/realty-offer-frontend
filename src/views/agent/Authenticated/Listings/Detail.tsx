@@ -11,6 +11,7 @@ import {
   Row,
   Column,
   EmptyListingsView,
+  HorizontalRule,
 } from '../../../../components';
 import { requiredCommissionAmount, requiredDollarAmount } from '../../../../utils/validations';
 import { createAgentBid } from '../../../../redux/ducks/agent';
@@ -64,9 +65,8 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
         Additional Listing Information
       </Heading>
       <p>TODO: additional info goes here</p>
-      <Heading as="h3" styledAs="title">
-        Bid Details
-      </Heading>
+      <HorizontalRule />
+      <Heading as="h3">Bid Details</Heading>
       <p>To increase your odds of winning this bid, you can provide additional funds.</p>
       <Formik
         validateOnMount
@@ -92,9 +92,7 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
           <Form>
             {isSeller && (
               <>
-                <Heading as="h4" styledAs="subtitle">
-                  Home for Sale
-                </Heading>
+                <Heading as="h4">Home for Sale</Heading>
                 <Row>
                   <Column md={4}>
                     <Field
@@ -137,9 +135,7 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
             )}
             {isBuyer && (
               <>
-                <Heading as="h4" styledAs="subtitle">
-                  New Home Purchase
-                </Heading>
+                <Heading as="h4">New Home Purchase</Heading>
                 <Row>
                   <Column md={4}>
                     <Field
