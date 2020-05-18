@@ -204,7 +204,7 @@ collections:
                     fields:
                       [
                         { label: Question, name: question, widget: string },
-                        { label: Answer, name: answer, widget: mardown },
+                        { label: Answer, name: answer, widget: markdown },
                       ],
                   },
                 ],
@@ -222,7 +222,7 @@ collections:
                     fields:
                       [
                         { label: Question, name: question, widget: string },
-                        { label: Answer, name: answer, widget: mardown },
+                        { label: Answer, name: answer, widget: markdown },
                       ],
                   },
                 ],
