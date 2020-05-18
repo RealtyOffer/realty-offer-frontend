@@ -7,8 +7,3 @@
 # these settings.
 [context.develop.environment] # 'develop' is a branch name
   ENVIRONMENT = "DEVELOP"
-
-[[redirects]]
-  from = '/*'
-  to = '/landing'
-  status = 302
