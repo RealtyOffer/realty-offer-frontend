@@ -31,7 +31,7 @@ const Footer = () => (
       <FlexContainer flexDirection="column">
         {/* TODO for PROD: update to / */}
         <StyledLogoLink to="/landing" title="Logo">
-          <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
+          <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
         </StyledLogoLink>
         <small>Copyright &copy; {new Date().getFullYear()}</small>
       </FlexContainer>

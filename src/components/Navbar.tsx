@@ -187,7 +187,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         <FlexContainer justifyContent="space-between" height={quadrupleSpacer}>
           {/* TODO for PROD: update link to / */}
           <StyledLogoLink to="/landing" title="Logo">
-            <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
+            <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
           </StyledLogoLink>
           {/* TODO for PROD */}
           {isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
