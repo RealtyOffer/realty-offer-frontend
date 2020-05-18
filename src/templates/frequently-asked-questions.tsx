@@ -12,6 +12,7 @@ import {
   AccordionItemState,
 } from 'react-accessible-accordion';
 import { FaChevronCircleUp, FaChevronCircleDown } from 'react-icons/fa';
+import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import {
   Box,
@@ -24,7 +25,7 @@ import {
   HorizontalRule,
 } from '../components';
 
-import { doubleSpacer, baseSpacer } from '../styles/size';
+import { doubleSpacer, baseSpacer, breakpoints } from '../styles/size';
 import { lightestGray } from '../styles/color';
 
 type FAQPageProps = {
@@ -49,6 +50,7 @@ type FAQPageProps = {
 const HeroBox = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   padding: ${doubleSpacer};
+  max-width: ${breakpoints.md};
 `;
 
 export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
@@ -69,7 +71,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
             <Heading inverse as="h2">
               {heroSubheading}
             </Heading>
-            <Button type="link" to="/landing">
+            <Button type="button" onClick={() => scrollTo('#start')}>
               Get Started
             </Button>
           </HeroBox>
