@@ -24,7 +24,7 @@ import {
   HorizontalRule,
 } from '../components';
 
-import { doubleSpacer } from '../styles/size';
+import { doubleSpacer, baseSpacer } from '../styles/size';
 import { lightestGray } from '../styles/color';
 
 type FAQPageProps = {
@@ -107,7 +107,9 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
                   </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                  <ReactMarkdown source={item.answer} />
+                  <div style={{ paddingTop: baseSpacer }}>
+                    <ReactMarkdown source={item.answer} />
+                  </div>
                 </AccordionItemPanel>
                 <HorizontalRule />
               </AccordionItem>
@@ -140,7 +142,9 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
                   </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                  <ReactMarkdown source={item.answer} />
+                  <div style={{ paddingTop: baseSpacer }}>
+                    <ReactMarkdown source={item.answer} />
+                  </div>
                 </AccordionItemPanel>
                 <HorizontalRule />
               </AccordionItem>
