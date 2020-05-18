@@ -78,6 +78,6 @@ secondpitch:
     Welcome to RealtyOffer. Same agent, less commission... Agents that will earn
     less for your business...
   image: /img/shutterstock_image5.jpg
-  link: /faqs
+  link: /frequently-asked-questions
   linkText: Learn More About RealtyOffer
 ---

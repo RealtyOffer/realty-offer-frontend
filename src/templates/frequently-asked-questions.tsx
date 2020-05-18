@@ -80,6 +80,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
       <PageContainer>
         <Box>
           <Heading styledAs="title">Frequently Asked Questions (FAQs)</Heading>
+          <br />
           <Heading as="h2" styledAs="subtitle">
             Consumers looking to buy or sell FAQs
           </Heading>
@@ -112,6 +113,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
               </AccordionItem>
             ))}
           </Accordion>
+          <br />
           <Heading as="h2" styledAs="subtitle">
             Agent FAQs
           </Heading>
