@@ -189,7 +189,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
 const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageProps } } }) => {
   const { frontmatter } = data.markdownRemark;
 
-  if (process.env.ENVIRONMENT === 'PRODUCTION') {
+  if (process.env.GATSBY_ENVIRONMENT === 'PRODUCTION') {
     navigate('/landing');
     return null;
   }

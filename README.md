@@ -1,8 +1,8 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a421b0d7-a2bc-4ca8-8b1c-ae050c947b33/deploy-status)](https://app.netlify.com/sites/realtyoffer-dev/deploys)
 
 <p align="center">
-  <a href="https://realtyoffer-dev.netlify.com/">
-    <img alt="Realty Offer" src="https://realtyoffer-dev.netlify.com/icons/icon-96x96.png" width="96px" />
+  <a href="https://realtyoffer.com/">
+    <img alt="Realty Offer" src="https://realtyoffer.com/icons/icon-96x96.png" width="96px" />
   </a>
 </p>
 <h1 align="center">

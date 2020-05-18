@@ -190,7 +190,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> Realty Offer
           </StyledLogoLink>
           {/* TODO for PROD */}
-          {isSmallScreen && process.env.ENVIRONMENT === 'DEVELOP' && (
+          {isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
             <ClientOnly>
               <StyledMenuToggle>
                 <Hamburger
@@ -264,7 +264,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </StyledDropdownWrapper>
               )}
               {/* TODO for PROD */}
-              {!auth.isLoggedIn && process.env.ENVIRONMENT === 'DEVELOP' && (
+              {!auth.isLoggedIn && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
                 <Link to="/login" activeClassName="active" onClick={() => toggleMenu()}>
                   Log In
                 </Link>
