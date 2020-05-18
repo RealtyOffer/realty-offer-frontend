@@ -9,6 +9,6 @@
   ENVIRONMENT = "DEVELOP"
 
 [[redirects]]
-from = '/'
+from = '/*'
 to = '/landing'
 status = 200
