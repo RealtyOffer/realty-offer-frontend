@@ -188,8 +188,9 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
 
 const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageProps } } }) => {
   const { frontmatter } = data.markdownRemark;
+  const isClient = typeof window === 'object';
 
-  if (process.env.GATSBY_ENVIRONMENT === 'PRODUCTION') {
+  if (isClient && process.env.GATSBY_ENVIRONMENT === 'PRODUCTION') {
     navigate('/landing');
     return null;
   }
