@@ -11,5 +11,4 @@
 [[redirects]]
   from = '/*'
   to = '/landing'
-  status = 200
-  force = true
+  status = 302
