@@ -9,6 +9,7 @@ import { initialState as agentInitialState } from './ducks/agent';
 import { initialState as consumerInitialState } from './ducks/consumer';
 import { initialState as globalAlertsInitialState } from './ducks/globalAlerts';
 import { initialState as listingsInitialState } from './ducks/listings';
+import { initialState as userInitialState } from './ducks/user';
 
 export const initialState = process.env.BROWSER // eslint-disable-next-line no-underscore-dangle
   ? window.__INITIAL_STATE__
@@ -19,6 +20,7 @@ export const initialState = process.env.BROWSER // eslint-disable-next-line no-u
       consumer: consumerInitialState,
       globalAlerts: globalAlertsInitialState,
       listings: listingsInitialState,
+      user: userInitialState,
     };
 const { store, persistor } = configureStore(initialState);
 

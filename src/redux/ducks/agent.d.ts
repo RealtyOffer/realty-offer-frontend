@@ -8,19 +8,14 @@ import {
   GET_AGENT_PROFILE_REQUEST,
   GET_AGENT_PROFILE_SUCCESS,
   GET_AGENT_PROFILE_FAILURE,
-  GET_AGENT_BANNERS_REQUEST,
-  GET_AGENT_BANNERS_SUCCESS,
-  GET_AGENT_BANNERS_FAILURE,
   CREATE_AGENT_BID_REQUEST,
   CREATE_AGENT_BID_SUCCESS,
   CREATE_AGENT_BID_FAILURE,
-  GET_AGENT_CITIES_REQUEST,
-  GET_AGENT_CITIES_SUCCESS,
-  GET_AGENT_CITIES_FAILURE,
   RESET_PROFILE_COMPLETE_ALERT,
+  CAPTURE_AGENT_SIGNUP_DATA,
 } from './agent';
 
-import { BannerType, CityType } from './admin.d';
+import { CityType } from './admin.d';
 
 export type AgentProfileType = {
   id?: number;
@@ -45,12 +40,16 @@ export type BidType = {
   buyingComplianceFee?: number;
 };
 
+export type AgentSignupDataType = {
+  agentProfileComplete?: boolean;
+  cities?: Array<CityType>;
+};
+
 export type AgentStoreType = {
   isLoading: boolean;
   hasError: boolean;
   bids: Array<BidType>;
-  banners?: Array<BannerType>;
-  cities?: Array<CityType>;
+  signupData: AgentSignupDataType;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {
@@ -94,32 +93,6 @@ export type GetAgentProfileFailureAction = {
   type: typeof GET_AGENT_PROFILE_FAILURE;
 };
 
-export type GetAgentBannersRequestAction = {
-  type: typeof GET_AGENT_BANNERS_REQUEST;
-};
-
-export type GetAgentBannersSuccessAction = {
-  type: typeof GET_AGENT_BANNERS_SUCCESS;
-  payload: Array<BannerType>;
-};
-
-export type GetAgentBannersFailureAction = {
-  type: typeof GET_AGENT_BANNERS_FAILURE;
-};
-
-export type GetAgentCitiesRequestAction = {
-  type: typeof GET_AGENT_CITIES_REQUEST;
-};
-
-export type GetAgentCitiesSuccessAction = {
-  type: typeof GET_AGENT_CITIES_SUCCESS;
-  payload: Array<CityType>;
-};
-
-export type GetAgentCitiesFailureAction = {
-  type: typeof GET_AGENT_CITIES_FAILURE;
-};
-
 export type CreateAgentBidRequestAction = {
   type: typeof CREATE_AGENT_BID_REQUEST;
   payload: BidType;
@@ -138,6 +111,11 @@ export type ResetProfileCompleteAlertAction = {
   type: typeof RESET_PROFILE_COMPLETE_ALERT;
 };
 
+export type CaptureAgentSignupDataAction = {
+  type: typeof CAPTURE_AGENT_SIGNUP_DATA;
+  payload: AgentSignupDataType;
+};
+
 export type AgentActionTypes =
   | CreateAgentProfileRequestAction
   | CreateAgentProfileSuccessAction
@@ -148,13 +126,8 @@ export type AgentActionTypes =
   | GetAgentProfileRequestAction
   | GetAgentProfileSuccessAction
   | GetAgentProfileFailureAction
-  | GetAgentBannersRequestAction
-  | GetAgentBannersSuccessAction
-  | GetAgentBannersFailureAction
-  | GetAgentCitiesRequestAction
-  | GetAgentCitiesSuccessAction
-  | GetAgentCitiesFailureAction
   | CreateAgentBidRequestAction
   | CreateAgentBidSuccessAction
   | CreateAgentBidFailureAction
-  | ResetProfileCompleteAlertAction;
+  | ResetProfileCompleteAlertAction
+  | CaptureAgentSignupDataAction;

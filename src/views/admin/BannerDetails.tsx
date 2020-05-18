@@ -46,7 +46,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
     styling: 'info',
     dismissable: false,
     expirationDate: String(format(new Date(), `yyyy-MM-dd'T'HH:mm`)),
-    audience: '',
+    audience: 'agent',
     id: 0,
   };
 

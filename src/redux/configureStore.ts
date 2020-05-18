@@ -18,6 +18,7 @@ import { initialState as agentInitialState } from './ducks/agent';
 import { initialState as consumerInitialState } from './ducks/consumer';
 import { initialState as globalAlertsInitialState } from './ducks/globalAlerts';
 import { initialState as listingsInitialState } from './ducks/listings';
+import { initialState as userInitialState } from './ducks/user';
 
 export const getMiddlewares = () => [oauth, apiMiddleware, errorCatcher, thunk];
 
@@ -59,6 +60,7 @@ const configureStore = (
     consumer: consumerInitialState,
     globalAlerts: globalAlertsInitialState,
     listings: listingsInitialState,
+    user: userInitialState,
   }
 ) => {
   const store = { ...makeConfiguredStore(rootReducer, initialState) };

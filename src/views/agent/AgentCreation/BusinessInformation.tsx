@@ -1,214 +1,136 @@
-import React, { Component, Fragment } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { FunctionComponent, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
-import { FaTrash, FaPlus, FaMapMarkerAlt, FaShoppingCart } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { RouteComponentProps } from '@reach/router';
 import {
+  FlexContainer,
+  Heading,
   Button,
   Input,
-  FlexContainer,
-  Row,
-  Column,
   ProgressBar,
-  HorizontalRule,
   Card,
   Seo,
+  HorizontalRule,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
-import { doubleSpacer } from '../../../styles/size';
-
-interface BusinessInformationFormValues {
-  zip: string;
-  agentType: string;
-  subscriptionType: string;
-}
+import { getUserCities } from '../../../redux/ducks/user';
+import { captureAgentSignupData } from '../../../redux/ducks/agent';
+import { RootState } from '../../../redux/ducks';
+import { CityType } from '../../../redux/ducks/admin.d';
 
 type BusinessInformationProps = {} & RouteComponentProps;
 
-type BusinessInformationState = {
-  regions: Array<BusinessInformationFormValues>;
-  zips: Array<string>;
-};
+const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
+  const cities = useSelector((state: RootState) => state.user.cities);
+  const dispatch = useDispatch();
 
-class BusinessInformation extends Component<BusinessInformationProps, BusinessInformationState> {
-  constructor(props: BusinessInformationProps) {
-    super(props);
-    this.state = {
-      regions: [],
-      zips: ['48170 - Plymouth', '48152 - Livonia', '48154 - Livonia', '48150 - Livonia'],
-    };
-  }
-
-  submit = () => {
-    // const { regions } = this.state;
-    // console.log(regions);
-    navigate('/agent/payment-information');
-  };
-
-  save = () => {};
-
-  addToCart = (values: BusinessInformationFormValues) => {
-    const nextZips = this.state.zips.filter((zip) => zip !== values.zip);
-
-    this.setState((prevState: BusinessInformationState) => ({
-      regions: [...prevState.regions, values],
-      zips: [...nextZips],
-    }));
-  };
-
-  buildZipOptions = () =>
-    this.state.zips.map((zip) => (
-      <option key={zip} value={zip}>
-        {zip}
-      </option>
-    ));
-
-  removeFromCart = (index: number) => {
-    this.setState((prevState: BusinessInformationState) => ({
-      regions: [...prevState.regions.slice(0, index), ...prevState.regions.slice(index + 1)],
-      zips: [...prevState.zips, prevState.regions[index].zip],
-    }));
-  };
-
-  numberWithCommas = (x: number) => {
+  const numberWithCommas = (x: number) => {
     const parts = x.toString().split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');
   };
 
-  render() {
-    const { regions } = this.state;
-    const initialValues = {
-      zip: '',
-      agentType: '',
-      subscriptionType: '',
-    };
+  useEffect(() => {
+    dispatch(getUserCities());
+  }, []);
 
-    const noRegionsInCart = !Array.isArray(regions) || regions.length === 0;
-
-    const getTotals =
-      !noRegionsInCart &&
-      regions.map((r) => Number(r.subscriptionType)).reduce((total, amount) => total + amount);
-
-    return (
-      <Card
-        cardTitle="Business Information"
-        cardSubtitle="Select the zip codes you would like to receive leads in"
-      >
-        <>
-          <Seo title="Business Information" />
-          <ProgressBar value={66} label="Step 2/3" name="progress" />
-          <Formik
-            validateOnMount
-            initialValues={initialValues}
-            onSubmit={(values, actions) => {
-              this.addToCart(values);
-              actions.resetForm();
-            }}
-          >
-            {({ isSubmitting, isValid }) => (
-              <Form>
-                <Field
-                  as={Input}
-                  type="select"
-                  name="zip"
-                  label="Zip Code"
-                  validate={requiredField}
-                >
-                  <option value="">Select a Zip Code</option>
-                  {this.buildZipOptions()}
-                </Field>
-                <Row>
-                  <Column sm={6}>
-                    <Field
-                      as={Input}
-                      type="select"
-                      name="agentType"
-                      label="Agent Type"
-                      validate={requiredField}
-                    >
-                      <option value="">Select Agent Type</option>
-                      <option value="Seller only">Seller only</option>
-                      <option value="Seller &amp; Buyer">Seller &amp; Buyer</option>
-                    </Field>
-                  </Column>
-                  <Column sm={6}>
-                    <Field
-                      as={Input}
-                      type="select"
-                      name="subscriptionType"
-                      label="Subscription Type"
-                      validate={requiredField}
-                    >
-                      <option value="">Select a Period</option>
-                      <option value="199">Monthly ($199)</option>
-                      <option value="2189">Yearly ($2,189)</option>
-                    </Field>
-                  </Column>
-                </Row>
-                <Button
-                  type="submit"
-                  iconLeft={<FaPlus />}
-                  color="success"
-                  disabled={isSubmitting || !isValid}
-                >
-                  Add to Cart
-                </Button>
-
-                {!noRegionsInCart && (
-                  <FlexContainer
-                    justifyContent="space-between"
-                    alignItems="flex-end"
-                    height="100px"
-                  >
-                    <strong>
-                      <FaMapMarkerAlt /> Zip Codes: {regions.length}
-                    </strong>
-                    <strong>
-                      <FaShoppingCart />
-                      Total: ${this.numberWithCommas(Number(getTotals))}
-                    </strong>
-                  </FlexContainer>
-                )}
-
-                <HorizontalRule />
-                {regions.map((r: BusinessInformationFormValues, index) => (
-                  <Fragment key={uuidv4()}>
-                    <FlexContainer justifyContent="space-between" height={doubleSpacer}>
-                      <span>{r.zip}</span>
-                      <span>{r.agentType}</span>
-                      <span>${this.numberWithCommas(Number(r.subscriptionType))}</span>
-                      <Button
-                        type="button"
-                        onClick={() => this.removeFromCart(index)}
-                        iconLeft={<FaTrash />}
-                        color="dangerOutline"
-                      />
-                    </FlexContainer>
-                    <HorizontalRule />
-                  </Fragment>
-                ))}
-                <Button
-                  type="button"
-                  color="primary"
-                  block
-                  disabled={noRegionsInCart}
-                  onClick={() => this.submit()}
-                >
-                  Checkout
-                </Button>
-              </Form>
-            )}
-          </Formik>
-          <Button type="button" onClick={() => this.save()} color="text" block>
-            Save &amp; Complete Later
-          </Button>
-        </>
-      </Card>
+  const save = () => {
+    dispatch(
+      captureAgentSignupData({
+        agentProfileComplete: false,
+        cities: [],
+      })
     );
-  }
-}
+  };
+
+  const cityOptions =
+    cities &&
+    cities.map((city) => {
+      const obj = { value: '', label: '' };
+      obj.value = city.name;
+      obj.label = `${city.name} - $${numberWithCommas(city.monthlyPrice)}/mo`;
+      return obj;
+    });
+  const initialValues = {
+    cities: [],
+  };
+
+  const getTotal = (cityVals: string | string[]) => {
+    const selectedCities = cities?.filter((city) => cityVals.includes(city.name));
+
+    return selectedCities?.reduce((acc, curr) => {
+      return acc + curr.monthlyPrice;
+    }, 0);
+  };
+
+  return (
+    <Card
+      cardTitle="Business Information"
+      cardSubtitle="Select the cities you would like to receive leads in"
+    >
+      <>
+        <Seo title="Business Information" />
+        <ProgressBar value={66} label="Step 2/3" name="progress" />
+        <Formik
+          validateOnMount
+          initialValues={initialValues}
+          onSubmit={(values, { setSubmitting }) => {
+            const cityDTOs =
+              cities &&
+              values.cities.map(
+                (value: string) => cities.find((city) => city.name === value) as CityType
+              );
+            dispatch(
+              captureAgentSignupData({
+                cities: cityDTOs,
+              })
+            );
+            setSubmitting(false);
+            navigate('/agent/payment-information');
+          }}
+        >
+          {({ isSubmitting, isValid, values, ...rest }) => (
+            <Form>
+              <Field
+                as={Input}
+                type="select"
+                isMulti
+                name="cities"
+                label="Cities"
+                options={cityOptions}
+                validate={requiredField}
+                {...rest}
+              />
+              <HorizontalRule />
+              <FlexContainer justifyContent="space-between">
+                <Heading as="h5" noMargin>
+                  Total:
+                </Heading>
+                <Heading as="h5" noMargin>
+                  ${numberWithCommas(Number(getTotal(values.cities)))}
+                </Heading>
+              </FlexContainer>
+              <FlexContainer justifyContent="space-between">
+                <p>
+                  {values.cities.length === 1 ? '1 city' : `${values.cities.length} cities`}{' '}
+                  selected
+                </p>
+                <p>per month</p>
+              </FlexContainer>
+              <Button type="submit" color="primary" block disabled={isSubmitting || !isValid}>
+                Checkout
+              </Button>
+            </Form>
+          )}
+        </Formik>
+        <Button type="button" onClick={() => save()} color="text" block>
+          Save &amp; Complete Later
+        </Button>
+      </>
+    </Card>
+  );
+};
 
 export default BusinessInformation;

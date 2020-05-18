@@ -6,6 +6,7 @@ import auth from './auth';
 import consumer from './consumer';
 import globalAlerts from './globalAlerts';
 import listings from './listings';
+import user from './user';
 
 const rootReducer = combineReducers({
   admin,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   consumer,
   globalAlerts,
   listings,
+  user,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

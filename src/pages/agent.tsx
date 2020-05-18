@@ -20,25 +20,22 @@ import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
 import { Alert, PageContainer, PrivateRoute } from '../components';
-import {
-  getAgentSiteBanners,
-  getAgentProfile,
-  resetProfileCompleteAlert,
-} from '../redux/ducks/agent';
+import { getAgentProfile, resetProfileCompleteAlert } from '../redux/ducks/agent';
+import { getUserSiteBanners } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 
 const AgentApp: FunctionComponent<{}> = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const banners = useSelector((state: RootState) => state.agent.banners);
+  const banners = useSelector((state: RootState) => state.user.banners);
   const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
 
   const prevBanners = usePrevious(banners);
   useEffect(() => {
     if (isLoggedIn && !prevBanners) {
-      dispatch(getAgentSiteBanners());
+      dispatch(getUserSiteBanners('agent'));
       dispatch(getAgentProfile());
     }
     if (!isEqual(prevBanners, banners)) {

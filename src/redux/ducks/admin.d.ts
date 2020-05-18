@@ -32,7 +32,7 @@ export type BannerType = {
   callToActionLink: string;
   callToActionLinkText: string;
   expirationDate: string;
-  audience: string;
+  audience: 'agent' | 'consumer' | 'both';
   styling: 'danger' | 'success' | 'info';
 };
 

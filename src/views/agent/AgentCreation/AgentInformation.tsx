@@ -7,7 +7,7 @@ import { RouteComponentProps } from '@reach/router';
 import { Button, Input, ProgressBar, HorizontalRule, Card, Seo } from '../../../components';
 import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import statesList from '../../../utils/statesList';
-import { createAgentProfile } from '../../../redux/ducks/agent';
+import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks/agent';
 import { ActionResponseType } from '../../../redux/constants';
 
 interface AgentInformationFormValues {
@@ -28,7 +28,13 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     brokerPhoneNumber: '',
   };
 
-  const save = () => {};
+  const save = () => {
+    dispatch(
+      captureAgentSignupData({
+        agentProfileComplete: false,
+      })
+    );
+  };
 
   return (
     <Card
@@ -44,6 +50,11 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
           onSubmit={(values, { setSubmitting }) => {
             dispatch(createAgentProfile(values)).then((response: ActionResponseType) => {
               setSubmitting(false);
+              dispatch(
+                captureAgentSignupData({
+                  agentProfileComplete: true,
+                })
+              );
               if (response && !response.error) {
                 navigate('/agent/business-information');
               }

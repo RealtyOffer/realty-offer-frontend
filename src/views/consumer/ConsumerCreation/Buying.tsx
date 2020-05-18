@@ -15,7 +15,8 @@ import {
   HorizontalRule,
   ProgressBar,
 } from '../../../components';
-import { captureConsumerData, getConsumerCities } from '../../../redux/ducks/consumer';
+import { captureConsumerData } from '../../../redux/ducks/consumer';
+import { getUserCities } from '../../../redux/ducks/user';
 import { RootState } from '../../../redux/ducks';
 import { requiredSelect } from '../../../utils/validations';
 import priceRangesList from '../../../utils/priceRangesList';
@@ -35,11 +36,11 @@ type BuyingProps = {} & RouteComponentProps;
 const Buying: FunctionComponent<BuyingProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const signupData = useSelector((state: RootState) => state.consumer.signupData);
-  const cities = useSelector((state: RootState) => state.consumer.cities);
+  const cities = useSelector((state: RootState) => state.user.cities);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getConsumerCities());
+    dispatch(getUserCities());
   }, []);
 
   const initialValues: BuyingFormValues = {

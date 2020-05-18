@@ -13,20 +13,20 @@ import VerifyEmail from '../views/shared/VerifyEmail';
 import NotFoundPage from './404';
 
 import { PageContainer } from '../components';
-import { getConsumerSiteBanners } from '../redux/ducks/consumer';
+import { getUserSiteBanners } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 
 const ConsumerApp: FunctionComponent<{}> = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const banners = useSelector((state: RootState) => state.consumer.banners);
+  const banners = useSelector((state: RootState) => state.user.banners);
   const dispatch = useDispatch();
 
   const prevBanners = usePrevious(banners);
   useEffect(() => {
     if (isLoggedIn && !prevBanners) {
-      dispatch(getConsumerSiteBanners());
+      dispatch(getUserSiteBanners('consumer'));
     }
     if (!isEqual(prevBanners, banners)) {
       if (banners) {
