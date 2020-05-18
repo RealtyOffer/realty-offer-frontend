@@ -6,6 +6,10 @@ const webpack = require('webpack');
 const { createFilePath } = require('gatsby-source-filesystem');
 const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
