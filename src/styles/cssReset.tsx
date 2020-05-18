@@ -246,6 +246,9 @@ const CssReset = createGlobalStyle`
       color: ${lightGray};
       opacity: 1; /* Firefox */
   }
+  .accordion *:focus {
+    outline: none;
+  }
 `;
 
 export default CssReset;
