@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
@@ -81,6 +81,9 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
     <section style={{ marginTop: '-100px', marginBottom: 50 }} id="start">
       <PageContainer>
         <Box>
+          <p>
+            <Link to="/landing">Home</Link> &gt; FAQs
+          </p>
           <Heading styledAs="title">Frequently Asked Questions (FAQs)</Heading>
           <br />
           <Heading as="h2" styledAs="subtitle">
@@ -152,6 +155,11 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
               </AccordionItem>
             ))}
           </Accordion>
+          <FlexContainer justifyContent="center">
+            <Button type="link" to="/landing">
+              Back to Home
+            </Button>
+          </FlexContainer>
         </Box>
       </PageContainer>
     </section>
