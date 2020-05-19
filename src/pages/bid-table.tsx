@@ -13,7 +13,7 @@ import {
   PageContainer,
   Heading,
 } from '../components';
-import { requiredDollarAmount } from '../utils/validations';
+import { requiredDollarAmount, requiredField } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 
 type BidTableProps = {};
@@ -135,6 +135,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="sellCommission"
                     label="Seller Commission"
                     helpText="Offer commission to sell 2% to 8%"
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -142,7 +143,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="sellBrokerComplianceFee"
                     label="Compliance Fee"
                     helpText="Broker compliance fee $0 to $595"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -150,7 +151,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="sellPreInspectionFee"
                     label="Pre Inspection Fee"
                     helpText="Offer to pay for a PRE home inspection fee $0 to $350"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -158,7 +159,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="sellPreCertifyFee"
                     label="Pre Certification"
                     helpText="Offer to pay for home certification $0 to $250"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -166,7 +167,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="sellMovingCosts"
                     label="Moving Costs"
                     helpText="Offer to pay for moving costs $0 to $1000"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -174,7 +175,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="sellPhotographyCosts"
                     label="Photography"
                     helpText="Offer to pay photography $0 to $300"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Heading as="h3">Total: ${numberWithCommas(sellTotal(values))}</Heading>
                 </Column>
@@ -190,6 +191,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="buyCommission"
                     label="Buyer Commission Concession"
                     helpText="Offer Commission towards closing 0% to 2%"
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -197,7 +199,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="buyBrokerComplianceFee"
                     label="Compliance Fee"
                     helpText="Broker compliance fee $0 to $595"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -205,7 +207,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="buyInspectionFee"
                     label="Inspection Fee"
                     helpText="Offer to pay for home inspection fee $0 to $350"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
 
                   <Field
@@ -214,7 +216,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="buyHomeWarranty"
                     label="Home Warranty"
                     helpText="Offer to pay for home warranty $0 to ???"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -222,7 +224,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="buyAppraisal"
                     label="Appraisal"
                     helpText="Offer to pay for appraisal $0 to $800"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Field
                     as={Input}
@@ -230,7 +232,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     name="buyMovingCosts"
                     label="Moving Costs"
                     helpText="Offer to pay for moving costs $0 to $1000"
-                    validate={requiredDollarAmount}
+                    validate={requiredField}
                   />
                   <Heading as="h3">Total: ${numberWithCommas(buyTotal(values))}</Heading>
                 </Column>
