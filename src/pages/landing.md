@@ -8,15 +8,11 @@ consumer:
   title: Buyers & Sellers
   body: >-
     Need to sell your home, but don't want to pay that crazy commission? Agents
-    will simply offer less to charge less commission to win your business!
-
-
+    will simply offer to charge less commission, to win your business!
 
 
     Need to buy a home? To earn your business, agents will offer part of their
     commission to be used toward your closing costs.
-
-
 
 
     No contracts, no obligation, no awkward negotiations.
@@ -56,7 +52,7 @@ mainpitch:
 
 
         The bidding works both ways: Agents simply discount their commission in
-        order to sell your home or offer part of their commission towards your
+        order to sell your home, or offer part of their commission towards your
         closing costs for you to purchase a home.
       image: /img/shutterstock_image3_landingpage.jpg
     - body: >-
@@ -64,7 +60,7 @@ mainpitch:
         agents in your area.
 
 
-        Choose your best offer and simply get connected while removing the
+        Choose your best offer and simply get connected, while removing the
         upfront awkward negotiation out of the way.
       title: Step 3
       image: /img/shutterstock_image4_landingpage.jpg
