@@ -12,7 +12,6 @@ import {
   AccordionItemState,
 } from 'react-accessible-accordion';
 import { FaChevronCircleUp, FaChevronCircleDown } from 'react-icons/fa';
-import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import {
   Box,
@@ -71,9 +70,6 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
             <Heading inverse as="h2">
               {heroSubheading}
             </Heading>
-            <Button type="button" onClick={() => scrollTo('#start')}>
-              Get Started
-            </Button>
           </HeroBox>
         </FlexContainer>
       </PageContainer>
