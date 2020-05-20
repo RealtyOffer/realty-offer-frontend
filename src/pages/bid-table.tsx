@@ -13,7 +13,7 @@ import {
   PageContainer,
   Heading,
 } from '../components';
-import { requiredDollarAmount, requiredField } from '../utils/validations';
+import { requiredField } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 
 type BidTableProps = {};

@@ -68,8 +68,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
               netlify-honeypot="bot-field"
               data-netlify="true"
             >
-              <input type="hidden" name="bot-field" />
-              <input type="hidden" name="agent-landing" value="contact" />
+              <input type="hidden" name="form-name" value="agent-landing" />
               <Row>
                 <Column xs={6}>
                   <Field
