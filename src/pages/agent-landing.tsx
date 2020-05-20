@@ -34,7 +34,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values) => {
-            fetch('/', {
+            fetch('https://realtyoffer.com/', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: encode({
@@ -51,14 +51,14 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                   })
                 );
               })
-              .catch(() =>
+              .catch(() => {
                 dispatch(
                   addAlert({
                     message: 'Something went wrong, please try again.',
                     type: 'danger',
                   })
-                )
-              );
+                );
+              });
           }}
         >
           {({ isSubmitting, isValid }) => (
