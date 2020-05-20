@@ -26,12 +26,12 @@ consumerFaq:
         struggle to become a premier agent.
 
 
-        We want to take the anxiety of the most major transaction a person will
-        ever go through, whether a mortgage or buying and selling a home.
+        Our goal is to make buying/selling a home, or getting a mortgage, as
+        easy and stress-free as possible.
 
 
-        Our proprietary digital format will make it painless and free until you
-        sign with one of our agents.
+        Our proprietary digital format will make it painless and free, while
+        connecting you with one of our top-rated agents.
     - question: Will a consultant call or email me for free?
       answer: 'Yes, we will!'
     - question: Are your mortgage advisors credible?
@@ -45,28 +45,29 @@ consumerFaq:
       answer: >-
         There is never a guarantee in the market. Our agents will guide you and
         give you the best advice in order to sell your home at a discount
-        commission, which will maximize yourprofits. We refuse to mislead and
-        offer you a sentence that your home will sell in 24 hours. Although
+        commission, which will maximize your profits. We refuse to mislead and
+        offer you a guarantee that your home will sell in 24 hours. Although
         sometimes this happens, it is never guaranteed.
-    - question: Do you sell every kind of homes?
+    - question: Do you sell every type of home?
       answer: 'No, at this time we do not have a mobile or manufactured home division.'
     - question: Are there any contracts that I need to sign with RealtyOffer?
       answer: >-
-        No. The questionnaire E-signed is free and Non-binding agreement to use
-        our service. It is up to you to sign your agent agreement with the agent
-        you choose, after the criteria match and bidding process occurs.
-    - question: Does any agent compete for my service?
+        No. The questionnaire we require you to e-sign is free, and is a
+        non-binding agreement to use our service. It is up to you to sign your
+        agent agreement with the agent you choose, after the criteria match and
+        bidding process occurs.
+    - question: Can any agent compete for my service?
       answer: >-
         No. Only vetted and compatible licensed agents that are specialized in
-        your home area and meet your criteria after you answer some simple
-        questions, are allowed to bid for your business.
+        your home area, and meet your criteria are permitted to bid for your
+        business.
     - question: Do I need a pre-approval to put an offer on a home?
       answer: >-
         Yes. All agents require a pre-approval before placing offers on homes,
-        on your behalf. This is the first thing you need to do. Our mortgage
-        affiliates will guide you step-by-step for a free pre-approval. There is
-        no upfront cost for this service.
-    - question: 'As a consumer, am I forced to use the awarded agent?'
+        on your behalf. This is the first step in the home-buying process. Our
+        mortgage affiliates will guide you step-by-step for a free pre-approval.
+        There is no up-front cost for this service.
+    - question: 'As a consumer, am I obligated to use the awarded agent?'
       answer: >-
         After a bid is awarded, a client has the ability to meet or discuss with
         his agent in private. It is up to you and the agent to make the choice
@@ -75,8 +76,8 @@ consumerFaq:
         save you thousands of dollars.
     - question: Will my personal informational shared?
       answer: >-
-        No. Your personal information is very important to us and will NEVER be
-        shared to third parties.
+        No. Your privacy is very important to us. We will NEVER share your
+        personal information with third parties.
 agentFaq:
   items:
     - question: What is RealtyOffer?
@@ -91,13 +92,13 @@ agentFaq:
 
 
         Here’s how it works: After a vetting process, agents automatically
-        qualify for a one-month subscription to try our service for **FREE. (One
-        Time Offer-Freemium Subscription)**This is limited to the city of where
-        your license is parked.At any time, agents can expand their territory
-        into multiple Cities. Restrictions do apply.
+        qualify for a three-month subscription to try our service for **FREE.
+        (One Time Offer-Freemium Subscription)**This is limited to the city of
+        where your license is parked. At any time, agents can expand their
+        territory into multiple cities. Restrictions do apply.
     - question: How does my freemium subscription work?
       answer: >-
-        Your brokers City will be free for 1 month.
+        The city in which your office is located is free for 30 days.
 
 
         If a bid is awarded and a sale or purchase is consummated, **RealtyOffer
@@ -108,11 +109,10 @@ agentFaq:
         awarded a bid? 
       answer: >-
         There is no guarantee. RealtyOffer is designed to connect a serious
-        client with a serious agent. Clients and agents have a choice after
-        meeting with each other if they would like to move forward. The
-        objective is for the agent to sign his agreement with the client after
-        the awkward negotiation has been done through our proprietary bidding
-        platform.
+        client with a serious agent. Clients and agents have a  mutual choice
+        after meeting, if they would like to move forward. The objective is for
+        the agent to sign his agreement with the client after the awkward
+        negotiation has been done through our proprietary bidding platform.
     - question: Is there a contract that an agent needs to sign with RealtyOffer?
       answer: >-
         Yes.
@@ -156,8 +156,8 @@ agentFaq:
         No.
 
 
-        Your personal information is very important to us and will NEVER be
-        shared to third parties.
+        Your privacy is very important to us. Your personal information will
+        NEVER be shared to third parties.
 
 
         **RealtyOffer** reserves the right to cancel at anytime.
