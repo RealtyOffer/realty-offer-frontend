@@ -98,7 +98,7 @@ agentFaq:
         territory into multiple cities. Restrictions do apply.
     - question: How does my freemium subscription work?
       answer: >-
-        The city in which your office is located is free for 30 days.
+        The city in which your office is located is free for three months.
 
 
         If a bid is awarded and a sale or purchase is consummated, **RealtyOffer
