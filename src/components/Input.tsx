@@ -37,7 +37,7 @@ type InputProps = {
   square?: boolean;
   hiddenLabel?: boolean;
   type: string;
-  label: string;
+  label: string | JSX.Element;
   helpText?: string;
   checked?: boolean;
   options?: OptionType[];
@@ -162,6 +162,7 @@ const StyledToggleLabel = styled.label<{
 `;
 
 const StyledLabel = styled.label<{ hiddenLabel?: boolean; invalid?: boolean }>`
+  margin: 0;
   ${(props) => props.hiddenLabel && visuallyHiddenStyle}
   ${(props) =>
     props.invalid &&

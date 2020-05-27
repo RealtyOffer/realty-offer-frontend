@@ -13,27 +13,50 @@ import {
   PageContainer,
   Heading,
 } from '../components';
-import { requiredField } from '../utils/validations';
+import {
+  requiredSellerCommissionAmount,
+  requiredBrokerComplianceAmount,
+  requiredPreInspectionAmount,
+  requiredPreCertifyAmount,
+  requiredPhotographyAmount,
+  requiredBuyerCommissionAmount,
+  requiredInspectionAmount,
+  requiredHomeWarrantyAmount,
+  requiredMovingCompanyAmount,
+  requiredAppraisalAmount,
+  helpTextAppraisalAmount,
+  helpTextBrokerComplianceAmount,
+  helpTextInspectionAmount,
+  helpTextHomeWarrantyAmount,
+  helpTextBuyerCommissionAmount,
+  helpTextPhotographyAmount,
+  helpTextMovingCompanyAmount,
+  helpTextPreCertifyAmount,
+  helpTextPreInspectionAmount,
+  helpTextSellerCommissionAmount,
+} from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
+import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
+import numberWithCommas from '../utils/numberWithCommas';
 
 type BidTableProps = {};
 
 const BidTable: FunctionComponent<BidTableProps> = () => {
   const dispatch = useDispatch();
   const initialValues = {
-    sellCommission: '',
-    sellBrokerComplianceFee: '',
-    sellPreInspectionFee: '',
-    sellPreCertifyFee: '',
-    sellMovingCosts: '',
-    sellPhotographyCosts: '',
+    sellerCommission: '',
+    sellerBrokerComplianceAmount: '',
+    sellerPreInspectionAmount: '',
+    sellerPreCertifyAmount: '',
+    sellerMovingCompanyAmount: '',
+    sellerPhotographyAmount: '',
+    buyerCommission: '',
+    buyerBrokerComplianceAmount: '',
+    buyerInspectionAmount: '',
+    buyerHomeWarrantyAmount: '',
+    buyerAppraisalAmount: '',
+    buyerMovingCompanyAmount: '',
     sellTotal: '',
-    buyCommission: '',
-    buyBrokerComplianceFee: '',
-    buyInspectionFee: '',
-    buyHomeWarranty: '',
-    buyAppraisal: '',
-    buyMovingCosts: '',
     buyTotal: '',
   };
 
@@ -41,34 +64,6 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
     return Object.keys(data)
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
       .join('&');
-  };
-
-  const numberWithCommas = (x: number) => {
-    const parts = x.toString().split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
-  };
-
-  const sellTotal = (values: any) => {
-    return (
-      Number(values.sellCommission) * 0.01 * 300000 +
-      Number(values.sellBrokerComplianceFee) -
-      Number(values.sellPreInspectionFee) -
-      Number(values.sellPreCertifyFee) -
-      Number(values.sellMovingCosts) -
-      Number(values.sellPhotographyCosts)
-    );
-  };
-
-  const buyTotal = (values: any) => {
-    return (
-      Number(values.buyCommission) * 0.01 * 425000 -
-      Number(values.buyBrokerComplianceFee) +
-      Number(values.buyInspectionFee) -
-      Number(values.buyHomeWarranty) +
-      Number(values.buyMovingCosts) -
-      Number(values.buyAppraisal)
-    );
   };
 
   return (
@@ -85,19 +80,19 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: encode({
                 'form-name': 'bid-table',
-                sellCommission: `${values.sellCommission}%`,
-                sellBrokerComplianceFee: `$${values.sellBrokerComplianceFee}`,
-                sellPreInspectionFee: `$${values.sellPreInspectionFee}`,
-                sellPreCertifyFee: `$${values.sellPreCertifyFee}`,
-                sellMovingCosts: `$${values.sellMovingCosts}`,
-                sellPhotographyCosts: `$${values.sellPhotographyCosts}`,
+                sellerCommission: `${values.sellerCommission}%`,
+                sellerBrokerComplianceAmount: `$${values.sellerBrokerComplianceAmount}`,
+                sellerPreInspectionAmount: `$${values.sellerPreInspectionAmount}`,
+                sellerPreCertifyAmount: `$${values.sellerPreCertifyAmount}`,
+                sellerMovingCompanyAmount: `$${values.sellerMovingCompanyAmount}`,
+                sellerPhotographyAmount: `$${values.sellerPhotographyAmount}`,
                 sellTotal: `$${numberWithCommas(sellTotal(values))}`,
-                buyCommission: `${values.buyCommission}%`,
-                buyBrokerComplianceFee: `$${values.buyBrokerComplianceFee}`,
-                buyInspectionFee: `$${values.buyInspectionFee}`,
-                buyHomeWarranty: `$${values.buyHomeWarranty}`,
-                buyAppraisal: `$${values.buyAppraisal}`,
-                buyMovingCosts: `$${values.buyMovingCosts}`,
+                buyerCommission: `${values.buyerCommission}%`,
+                buyerBrokerComplianceAmount: `$${values.buyerBrokerComplianceAmount}`,
+                buyerInspectionAmount: `$${values.buyerInspectionAmount}`,
+                buyerHomeWarrantyAmount: `$${values.buyerHomeWarrantyAmount}`,
+                buyerAppraisalAmount: `$${values.buyerAppraisalAmount}`,
+                buyerMovingCompanyAmount: `$${values.buyerMovingCompanyAmount}`,
                 buyTotal: `$${numberWithCommas(buyTotal(values))}`,
               }),
             })
@@ -132,50 +127,50 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                   <Field
                     as={Input}
                     type="number"
-                    name="sellCommission"
+                    name="sellerCommission"
                     label="Seller Commission"
-                    helpText="Offer commission to sell 2% to 8%"
-                    validate={requiredField}
+                    helpText={helpTextSellerCommissionAmount}
+                    validate={requiredSellerCommissionAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="sellBrokerComplianceFee"
+                    name="sellerBrokerComplianceAmount"
                     label="Compliance Fee"
-                    helpText="Broker compliance fee $0 to $595"
-                    validate={requiredField}
+                    helpText={helpTextBrokerComplianceAmount}
+                    validate={requiredBrokerComplianceAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="sellPreInspectionFee"
+                    name="sellerPreInspectionAmount"
                     label="Pre Inspection Fee"
-                    helpText="Offer to pay for a PRE home inspection fee $0 to $350"
-                    validate={requiredField}
+                    helpText={helpTextPreInspectionAmount}
+                    validate={requiredPreInspectionAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="sellPreCertifyFee"
+                    name="sellerPreCertifyAmount"
                     label="Pre Certification"
-                    helpText="Offer to pay for home certification $0 to $250"
-                    validate={requiredField}
+                    helpText={helpTextPreCertifyAmount}
+                    validate={requiredPreCertifyAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="sellMovingCosts"
+                    name="sellerMovingCompanyAmount"
                     label="Moving Costs"
-                    helpText="Offer to pay for moving costs $0 to $1000"
-                    validate={requiredField}
+                    helpText={helpTextMovingCompanyAmount}
+                    validate={requiredMovingCompanyAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="sellPhotographyCosts"
+                    name="sellerPhotographyAmount"
                     label="Photography"
-                    helpText="Offer to pay photography $0 to $300"
-                    validate={requiredField}
+                    helpText={helpTextPhotographyAmount}
+                    validate={requiredPhotographyAmount}
                   />
                   <Heading as="h3">Total: ${numberWithCommas(sellTotal(values))}</Heading>
                 </Column>
@@ -188,58 +183,55 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                   <Field
                     as={Input}
                     type="number"
-                    name="buyCommission"
+                    name="buyerCommission"
                     label="Buyer Commission Concession"
-                    helpText="Offer Commission towards closing 0% to 2%"
-                    validate={requiredField}
+                    helpText={helpTextBuyerCommissionAmount}
+                    validate={requiredBuyerCommissionAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="buyBrokerComplianceFee"
+                    name="buyerBrokerComplianceAmount"
                     label="Compliance Fee"
-                    helpText="Broker compliance fee $0 to $595"
-                    validate={requiredField}
+                    helpText={helpTextBrokerComplianceAmount}
+                    validate={requiredBrokerComplianceAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="buyInspectionFee"
-                    label="Inspection Fee"
-                    helpText="Offer to pay for home inspection fee $0 to $350"
-                    validate={requiredField}
+                    name="buyerInspectionAmount"
+                    label="Inspection"
+                    helpText={helpTextInspectionAmount}
+                    validate={requiredInspectionAmount}
                   />
-
                   <Field
                     as={Input}
                     type="number"
-                    name="buyHomeWarranty"
+                    name="buyerHomeWarrantyAmount"
                     label="Home Warranty"
-                    helpText="Offer to pay for home warranty $0 to ???"
-                    validate={requiredField}
+                    helpText={helpTextHomeWarrantyAmount}
+                    validate={requiredHomeWarrantyAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="buyAppraisal"
+                    name="buyerAppraisalAmount"
                     label="Appraisal"
-                    helpText="Offer to pay for appraisal $0 to $800"
-                    validate={requiredField}
+                    helpText={helpTextAppraisalAmount}
+                    validate={requiredAppraisalAmount}
                   />
                   <Field
                     as={Input}
                     type="number"
-                    name="buyMovingCosts"
+                    name="buyerMovingCompanyAmount"
                     label="Moving Costs"
-                    helpText="Offer to pay for moving costs $0 to $1000"
-                    validate={requiredField}
+                    helpText={helpTextMovingCompanyAmount}
+                    validate={requiredMovingCompanyAmount}
                   />
                   <Heading as="h3">Total: ${numberWithCommas(buyTotal(values))}</Heading>
                 </Column>
               </Row>
-
               <HorizontalRule />
-
               <Button
                 type="submit"
                 block

@@ -53,7 +53,7 @@ const AgentApp: FunctionComponent<{}> = () => {
         });
       }
     }
-  }, [banners]);
+  }, [agent]);
 
   return (
     <PageContainer>

@@ -4,7 +4,7 @@ export const agentNavigationItems = [
   { name: 'Awarded', path: '/agent/listings/awarded', primary: true },
   { name: 'History', path: '/agent/listings/history', primary: true },
   { name: 'Profile', path: '/agent/account/profile', primary: false },
-  { name: 'Settings', path: '/agent/account/settings', primary: false },
+  { name: 'Notifications', path: '/agent/account/notifications', primary: false },
 ];
 
 export const agentAccountNavigationitems = [

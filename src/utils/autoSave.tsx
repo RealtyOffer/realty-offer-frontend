@@ -32,6 +32,7 @@ const AutoSave: FunctionComponent<{}> = () => {
     debounce(() => {
       setIsSaving(true);
       setIsMessageShowing(true);
+      setHasError(false);
       if (formik.isValid) {
         formik.submitForm().then(
           (response: ActionResponseType) => {
@@ -41,12 +42,12 @@ const AutoSave: FunctionComponent<{}> = () => {
             }
             if (!response || response.error) {
               setIsSaving(false);
-              setHasError(true);
+              // setHasError(true);
             }
           },
           () => {
             setIsSaving(false);
-            setHasError(true);
+            // setHasError(true);
           }
         );
       }

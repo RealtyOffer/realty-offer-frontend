@@ -29,15 +29,19 @@ export type AgentProfileType = {
 
 export type BidType = {
   id?: number;
-  listingId?: number | string;
   sellerCommission?: number;
+  sellerBrokerComplianceAmount?: number;
+  sellerPreInspectionAmount?: number;
+  sellerPreCertifyAmount?: number;
+  sellerMovingCompanyAmount?: number;
+  sellerPhotographyAmount?: number;
   buyerCommission?: number;
-  sellingComplianceFee?: number;
-  closingCostsCommission?: number;
-  homeWarrantyAmount?: number;
-  homeInspectionAmount?: number;
-  preInspectionFee?: number;
-  buyingComplianceFee?: number;
+  buyerBrokerComplianceAmount?: number;
+  buyerInspectionAmount?: number;
+  buyerHomeWarrantyAmount?: number;
+  buyerAppraisalAmount?: number;
+  buyerMovingCompanyAmount?: number;
+  listingId?: number | string;
 };
 
 export type AgentSignupDataType = {

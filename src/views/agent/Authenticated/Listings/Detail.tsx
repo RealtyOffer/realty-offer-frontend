@@ -13,10 +13,33 @@ import {
   EmptyListingsView,
   HorizontalRule,
 } from '../../../../components';
-import { requiredCommissionAmount, requiredDollarAmount } from '../../../../utils/validations';
+import {
+  requiredSellerCommissionAmount,
+  requiredBrokerComplianceAmount,
+  requiredPreInspectionAmount,
+  requiredPreCertifyAmount,
+  requiredPhotographyAmount,
+  requiredBuyerCommissionAmount,
+  requiredInspectionAmount,
+  requiredHomeWarrantyAmount,
+  requiredMovingCompanyAmount,
+  requiredAppraisalAmount,
+  helpTextAppraisalAmount,
+  helpTextBrokerComplianceAmount,
+  helpTextInspectionAmount,
+  helpTextHomeWarrantyAmount,
+  helpTextBuyerCommissionAmount,
+  helpTextPhotographyAmount,
+  helpTextMovingCompanyAmount,
+  helpTextPreCertifyAmount,
+  helpTextPreInspectionAmount,
+  helpTextSellerCommissionAmount,
+} from '../../../../utils/validations';
 import { createAgentBid } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
 import { ListingType } from '../../../../redux/ducks/listings.d';
+import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
+import numberWithCommas from '../../../../utils/numberWithCommas';
 
 type DetailProps = {
   listingId?: string;
@@ -30,13 +53,17 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
   const isSeller = listing && listing.type.toLowerCase().includes('seller');
   const initialValues = {
     sellerCommission: '',
+    sellerBrokerComplianceAmount: '',
+    sellerPreInspectionAmount: '',
+    sellerPreCertifyAmount: '',
+    sellerMovingCompanyAmount: '',
+    sellerPhotographyAmount: '',
     buyerCommission: '',
-    sellingComplianceFee: '',
-    closingCostsCommission: '',
-    homeWarrantyAmount: '',
-    homeInspectionAmount: '',
-    preInspectionFee: '',
-    buyingComplianceFee: '',
+    buyerBrokerComplianceAmount: '',
+    buyerInspectionAmount: '',
+    buyerHomeWarrantyAmount: '',
+    buyerAppraisalAmount: '',
+    buyerMovingCompanyAmount: '',
     listingId: props.listingId,
   };
   if (!listing || !props.listingId) {
@@ -76,19 +103,23 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
             createAgentBid({
               // API requires numbers, Formik outputs strings so convert them here
               sellerCommission: Number(values.sellerCommission),
+              sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
+              sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
+              sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
+              sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
+              sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
               buyerCommission: Number(values.buyerCommission),
-              sellingComplianceFee: Number(values.sellingComplianceFee),
-              closingCostsCommission: Number(values.closingCostsCommission),
-              homeWarrantyAmount: Number(values.homeWarrantyAmount),
-              homeInspectionAmount: Number(values.homeInspectionAmount),
-              preInspectionFee: Number(values.preInspectionFee),
-              buyingComplianceFee: Number(values.buyingComplianceFee),
+              buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
+              buyerInspectionAmount: Number(values.buyerInspectionAmount),
+              buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
+              buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
+              buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
               listingId: Number(props.listingId),
             })
           );
         }}
       >
-        {({ isValid, isSubmitting }) => (
+        {({ isValid, isSubmitting, values }) => (
           <Form>
             {isSeller && (
               <>
@@ -99,40 +130,66 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="sellerCommission"
-                      label="Seller Commission (%)"
-                      validate={requiredCommissionAmount}
+                      label="Seller Commission"
+                      helpText={helpTextSellerCommissionAmount}
+                      validate={requiredSellerCommissionAmount}
                     />
                   </Column>
                   <Column md={4}>
                     <Field
                       as={Input}
                       type="number"
-                      name="buyerCommission"
-                      label="Buyer Commission (%)"
-                      validate={requiredCommissionAmount}
+                      name="sellerBrokerComplianceAmount"
+                      label="Compliance Fee"
+                      helpText={helpTextBrokerComplianceAmount}
+                      validate={requiredBrokerComplianceAmount}
                     />
                   </Column>
                   <Column md={4}>
                     <Field
                       as={Input}
                       type="number"
-                      name="sellingComplianceFee"
-                      label="Compliance Fee ($)"
-                      validate={requiredDollarAmount}
+                      name="sellerPreInspectionAmount"
+                      label="Pre Inspection"
+                      helpText={helpTextPreInspectionAmount}
+                      validate={requiredPreInspectionAmount}
                     />
                   </Column>
                   <Column md={4}>
                     <Field
                       as={Input}
                       type="number"
-                      name="preInspectionFee"
-                      label="Pre-Inspection Fee ($)"
-                      validate={requiredDollarAmount}
+                      name="sellerPreCertifyAmount"
+                      label="Pre Certification"
+                      helpText={helpTextPreCertifyAmount}
+                      validate={requiredPreCertifyAmount}
+                    />
+                  </Column>
+                  <Column md={4}>
+                    <Field
+                      as={Input}
+                      type="number"
+                      name="sellerMovingCompanyAmount"
+                      label="Moving Costs"
+                      helpText={helpTextMovingCompanyAmount}
+                      validate={requiredMovingCompanyAmount}
+                    />
+                  </Column>
+                  <Column md={4}>
+                    <Field
+                      as={Input}
+                      type="number"
+                      name="sellerPhotographyAmount"
+                      label="Photography"
+                      helpText={helpTextPhotographyAmount}
+                      validate={requiredPhotographyAmount}
                     />
                   </Column>
                 </Row>
+                <Heading as="h3">Total: ${numberWithCommas(sellTotal(values))}</Heading>
               </>
             )}
+            {isSeller && isBuyer && <HorizontalRule />}
             {isBuyer && (
               <>
                 <Heading as="h4">New Home Purchase</Heading>
@@ -141,39 +198,64 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                     <Field
                       as={Input}
                       type="number"
-                      name="closingCostsCommission"
-                      label="Commission towards closing costs (%)"
-                      validate={requiredCommissionAmount}
+                      name="buyerCommission"
+                      label="Buyer Commission Concession"
+                      helpText={helpTextBuyerCommissionAmount}
+                      validate={requiredBuyerCommissionAmount}
                     />
                   </Column>
                   <Column md={4}>
                     <Field
                       as={Input}
                       type="number"
-                      name="homeWarrantyAmount"
-                      label="Home Warranty ($)"
-                      validate={requiredDollarAmount}
+                      name="buyerBrokerComplianceAmount"
+                      label="Compliance Fee"
+                      helpText={helpTextBrokerComplianceAmount}
+                      validate={requiredBrokerComplianceAmount}
                     />
                   </Column>
                   <Column md={4}>
                     <Field
                       as={Input}
                       type="number"
-                      name="homeInspectionAmount"
-                      label="Home Inspection ($)"
-                      validate={requiredDollarAmount}
+                      name="buyerInspectionAmount"
+                      label="Inspection"
+                      helpText={helpTextInspectionAmount}
+                      validate={requiredInspectionAmount}
                     />
                   </Column>
                   <Column md={4}>
                     <Field
                       as={Input}
                       type="number"
-                      name="buyingComplianceFee"
-                      label="Compliance Fee ($)"
-                      validate={requiredDollarAmount}
+                      name="buyerHomeWarrantyAmount"
+                      label="Home Warranty"
+                      helpText={helpTextHomeWarrantyAmount}
+                      validate={requiredHomeWarrantyAmount}
+                    />
+                  </Column>
+                  <Column md={4}>
+                    <Field
+                      as={Input}
+                      type="number"
+                      name="buyerAppraisalAmount"
+                      label="Appraisal"
+                      helpText={helpTextAppraisalAmount}
+                      validate={requiredAppraisalAmount}
+                    />
+                  </Column>
+                  <Column md={4}>
+                    <Field
+                      as={Input}
+                      type="number"
+                      name="buyerMovingCompanyAmount"
+                      label="Moving Costs"
+                      helpText={helpTextMovingCompanyAmount}
+                      validate={requiredMovingCompanyAmount}
                     />
                   </Column>
                 </Row>
+                <Heading as="h3">Total: ${numberWithCommas(buyTotal(values))}</Heading>
               </>
             )}
             <Button type="submit" disabled={!isValid || isSubmitting}>

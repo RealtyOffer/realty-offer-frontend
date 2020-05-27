@@ -32,8 +32,14 @@ export const ADMIN_CITIES_ENDPOINT = `${API_ROOT}/admin/cities`;
 export const ADMIN_CITY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_CITIES_ENDPOINT}/${id}`;
 
 // User (generic)
-export const USER_SITE_BANNERS_ENDPOINT = `${API_ROOT}/user/secured/site-banners`;
-export const USER_CITIES_ENDPOINT = `${API_ROOT}/user/cities`;
+const USER_ENDPOINT = `${API_ROOT}/user`;
+const USER_SECURED_ENDPOINT = `${API_ROOT}/user/secured`;
+export const USER_SITE_BANNERS_ENDPOINT = `${USER_SECURED_ENDPOINT}/site-banners`;
+export const USER_CITIES_ENDPOINT = `${USER_ENDPOINT}/cities`;
+export const USER_NOTIFICATION_TYPES_ENDPOINT = `${USER_SECURED_ENDPOINT}/notifications`;
+export const USER_NOTIFICATIONS_ENDPOINT = `${USER_SECURED_ENDPOINT}/user-notifications`;
+export const USER_NOTIFICATION_SETTINGS_ENDPOINT = `${USER_SECURED_ENDPOINT}/notification-settings`;
+export const USER_NOTIFICATION_SETTINGS_CONFIRM_ENDPOINT = `${USER_NOTIFICATION_SETTINGS_ENDPOINT}/confirm-device`;
 
 // Action Response Type
 export type ActionResponseType = {

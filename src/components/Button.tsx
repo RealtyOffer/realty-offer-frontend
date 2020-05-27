@@ -120,6 +120,8 @@ const dangerOutlineButtonStyles = `
 const textButtonStyles = `
   background-color: transparent;
   color: ${brandPrimary};
+  padding: 0;
+  vertical-align: initial;
 
   &:hover,
   &:focus {
