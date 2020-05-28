@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch } from 'react-redux';
 import { isEqual } from 'lodash';
+import Skeleton from 'react-loading-skeleton';
 
 import { Row, Column, IconCheckbox, Input, Heading, Box } from '../../../../../components';
 import AutoSave from '../../../../../utils/autoSave';
@@ -57,12 +58,11 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
 
   return (
     <Box>
+      <Heading as="h2">Listing Alerts</Heading>
       {user.isLoading ? (
-        'Loading'
+        <Skeleton count={5} />
       ) : (
         <>
-          <Heading as="h2">Listing Alerts</Heading>
-
           <Row>
             <Column md={6}>
               <strong>Notify me when...</strong>

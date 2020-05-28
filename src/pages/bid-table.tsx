@@ -38,6 +38,7 @@ import {
 import { addAlert } from '../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
 import numberWithCommas from '../utils/numberWithCommas';
+import priceRangesList from '../utils/priceRangesList';
 
 type BidTableProps = {};
 
@@ -86,14 +87,14 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                 sellerPreCertifyAmount: `$${values.sellerPreCertifyAmount}`,
                 sellerMovingCompanyAmount: `$${values.sellerMovingCompanyAmount}`,
                 sellerPhotographyAmount: `$${values.sellerPhotographyAmount}`,
-                sellTotal: `$${numberWithCommas(sellTotal(values))}`,
+                sellTotal: sellTotal({ values, priceRange: priceRangesList[4].value }) || '',
                 buyerCommission: `${values.buyerCommission}%`,
                 buyerBrokerComplianceAmount: `$${values.buyerBrokerComplianceAmount}`,
                 buyerInspectionAmount: `$${values.buyerInspectionAmount}`,
                 buyerHomeWarrantyAmount: `$${values.buyerHomeWarrantyAmount}`,
                 buyerAppraisalAmount: `$${values.buyerAppraisalAmount}`,
                 buyerMovingCompanyAmount: `$${values.buyerMovingCompanyAmount}`,
-                buyTotal: `$${numberWithCommas(buyTotal(values))}`,
+                buyTotal: buyTotal({ values, priceRange: priceRangesList[6].value }) || '',
               }),
             })
               .then(() => {
@@ -121,8 +122,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                 <Column md={6}>
                   <Heading>Selling</Heading>
                   <p>
-                    Assuming a selling price at <strong>$300,000</strong>, enter values in the
-                    following fields that would represent a competitive bid that you would make.
+                    Assuming a selling price at <strong>{priceRangesList[4].value}</strong>, enter
+                    values in the following fields that would represent a competitive bid that you
+                    would make.
                   </p>
                   <Field
                     as={Input}
@@ -172,13 +174,16 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     helpText={helpTextPhotographyAmount}
                     validate={requiredPhotographyAmount}
                   />
-                  <Heading as="h3">Total: ${numberWithCommas(sellTotal(values))}</Heading>
+                  <Heading as="h3">
+                    Total: {sellTotal({ values, priceRange: priceRangesList[4].value })}
+                  </Heading>
                 </Column>
                 <Column md={6}>
                   <Heading>Buying</Heading>
                   <p>
-                    Assuming a buying price of <strong>$425,000</strong>, enter values in the
-                    following fields that would represent a competitive bid that you would make.
+                    Assuming a buying price of <strong>{priceRangesList[6].value}</strong>, enter
+                    values in the following fields that would represent a competitive bid that you
+                    would make.
                   </p>
                   <Field
                     as={Input}
@@ -228,7 +233,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     helpText={helpTextMovingCompanyAmount}
                     validate={requiredMovingCompanyAmount}
                   />
-                  <Heading as="h3">Total: ${numberWithCommas(buyTotal(values))}</Heading>
+                  <Heading as="h3">
+                    Total: {buyTotal({ values, priceRange: priceRangesList[6].value })}
+                  </Heading>
                 </Column>
               </Row>
               <HorizontalRule />

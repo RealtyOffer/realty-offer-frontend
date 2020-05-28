@@ -20,14 +20,14 @@ export const initialState: ListingStoreType = {
     {
       id: 3,
       type: 'buyerSeller',
-      sellersListingPriceInMind: '$300-350k',
+      sellersListingPriceInMind: '$300,000-350,000',
       sellersCity: {
         id: 4,
         name: 'Livonia',
         state: 'MI',
         monthlyPrice: 10,
       },
-      buyingPriceRange: '$350-375k',
+      buyingPriceRange: '$350,000-400,000',
       buyingCities: [
         {
           id: 3,

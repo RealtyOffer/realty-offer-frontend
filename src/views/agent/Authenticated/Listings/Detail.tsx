@@ -186,7 +186,13 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                     />
                   </Column>
                 </Row>
-                <Heading as="h3">Total: ${numberWithCommas(sellTotal(values))}</Heading>
+                <Heading as="h3">
+                  {listing.sellersListingPriceInMind &&
+                    `Total: ${sellTotal({
+                      values,
+                      priceRange: listing.sellersListingPriceInMind,
+                    })}`}
+                </Heading>
               </>
             )}
             {isSeller && isBuyer && <HorizontalRule />}
@@ -255,7 +261,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                     />
                   </Column>
                 </Row>
-                <Heading as="h3">Total: ${numberWithCommas(buyTotal(values))}</Heading>
+                <Heading as="h3">
+                  {listing.buyingPriceRange &&
+                    `Total: ${buyTotal({ values, priceRange: listing.buyingPriceRange })}`}
+                </Heading>
               </>
             )}
             <Button type="submit" disabled={!isValid || isSubmitting}>
