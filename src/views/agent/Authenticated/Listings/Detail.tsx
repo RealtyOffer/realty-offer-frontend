@@ -39,7 +39,6 @@ import { createAgentBid } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
 import { ListingType } from '../../../../redux/ducks/listings.d';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
-import numberWithCommas from '../../../../utils/numberWithCommas';
 
 type DetailProps = {
   listingId?: string;

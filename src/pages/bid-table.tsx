@@ -12,6 +12,7 @@ import {
   Column,
   PageContainer,
   Heading,
+  Seo,
 } from '../components';
 import {
   requiredSellerCommissionAmount,
@@ -37,7 +38,6 @@ import {
 } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
-import numberWithCommas from '../utils/numberWithCommas';
 import priceRangesList from '../utils/priceRangesList';
 
 type BidTableProps = {};
@@ -69,6 +69,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
 
   return (
     <PageContainer>
+      <Seo title="Example Bid Scenario Calculator" />
       <Box backgroundAccent>
         <Heading styledAs="title">Example Bid Scenario Calculator</Heading>
         <HorizontalRule />
