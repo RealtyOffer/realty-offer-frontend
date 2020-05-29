@@ -66,6 +66,7 @@ export const buyTotal = (payload: CalculatorValuesType) => {
     -Number(payload.values.buyerBrokerComplianceAmount) +
     Number(payload.values.buyerInspectionAmount) +
     Number(payload.values.buyerHomeWarrantyAmount) +
+    Number(payload.values.buyerAppraisalAmount) +
     Number(payload.values.buyerMovingCompanyAmount);
 
   const lowAndHighMatch = low === high;
