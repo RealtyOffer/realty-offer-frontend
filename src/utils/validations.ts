@@ -216,7 +216,7 @@ export const requiredDollarAmount = (value: string) =>
 
 export const helpTextSellerCommissionAmount = 'Offer commission to sell 2% to 8%';
 export const helpTextBrokerComplianceAmount = 'Broker compliance fee $0 to $595';
-export const helpTextPreInspectionAmount = 'Offer to pay for a PRE home inspection fee $0 to $350';
+export const helpTextPreInspectionAmount = 'Offer to pay for a pre-home inspection fee $0 to $350';
 export const helpTextPreCertifyAmount = 'Offer to pay for home certification $0 to $250';
 export const helpTextMovingCompanyAmount = 'Offer to pay for moving costs $0 to $1000';
 export const helpTextPhotographyAmount = 'Offer to pay photography $0 to $300';

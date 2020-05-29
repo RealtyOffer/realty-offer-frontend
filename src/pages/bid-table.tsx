@@ -88,14 +88,14 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                 sellerPreCertifyAmount: `$${values.sellerPreCertifyAmount}`,
                 sellerMovingCompanyAmount: `$${values.sellerMovingCompanyAmount}`,
                 sellerPhotographyAmount: `$${values.sellerPhotographyAmount}`,
-                sellTotal: sellTotal({ values, priceRange: priceRangesList[4].value }) || '',
+                sellTotal: values.sellTotal,
                 buyerCommission: `${values.buyerCommission}%`,
                 buyerBrokerComplianceAmount: `$${values.buyerBrokerComplianceAmount}`,
                 buyerInspectionAmount: `$${values.buyerInspectionAmount}`,
                 buyerHomeWarrantyAmount: `$${values.buyerHomeWarrantyAmount}`,
                 buyerAppraisalAmount: `$${values.buyerAppraisalAmount}`,
                 buyerMovingCompanyAmount: `$${values.buyerMovingCompanyAmount}`,
-                buyTotal: buyTotal({ values, priceRange: priceRangesList[6].value }) || '',
+                buyTotal: values.buyTotal,
               }),
             })
               .then(() => {
@@ -116,8 +116,23 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
               });
           }}
         >
-          {({ values, isSubmitting, isValid }) => (
-            <Form name="bid-table" method="post" netlify-honeypot="bot-field" data-netlify="true">
+          {({ values, isSubmitting, isValid, setFieldValue }) => (
+            <Form
+              name="bid-table"
+              method="post"
+              netlify-honeypot="bot-field"
+              data-netlify="true"
+              onChange={() => {
+                setFieldValue(
+                  'sellTotal',
+                  sellTotal({ values, priceRange: priceRangesList[4].value })
+                );
+                setFieldValue(
+                  'buyTotal',
+                  buyTotal({ values, priceRange: priceRangesList[6].value })
+                );
+              }}
+            >
               <input type="hidden" name="form-name" value="bid-table" />
               <Row>
                 <Column md={6}>
@@ -139,7 +154,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="sellerBrokerComplianceAmount"
-                    label="Compliance Fee"
+                    label="Seller Compliance Fee"
                     helpText={helpTextBrokerComplianceAmount}
                     validate={requiredBrokerComplianceAmount}
                   />
@@ -147,7 +162,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="sellerPreInspectionAmount"
-                    label="Pre Inspection Fee"
+                    label="Seller Pre Inspection"
                     helpText={helpTextPreInspectionAmount}
                     validate={requiredPreInspectionAmount}
                   />
@@ -155,7 +170,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="sellerPreCertifyAmount"
-                    label="Pre Certification"
+                    label="Seller Pre Certification"
                     helpText={helpTextPreCertifyAmount}
                     validate={requiredPreCertifyAmount}
                   />
@@ -163,7 +178,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="sellerMovingCompanyAmount"
-                    label="Moving Costs"
+                    label="Seller Moving Costs"
                     helpText={helpTextMovingCompanyAmount}
                     validate={requiredMovingCompanyAmount}
                   />
@@ -171,13 +186,14 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="sellerPhotographyAmount"
-                    label="Photography"
+                    label="Seller Photography"
                     helpText={helpTextPhotographyAmount}
                     validate={requiredPhotographyAmount}
                   />
                   <Heading as="h3">
                     Total: {sellTotal({ values, priceRange: priceRangesList[4].value })}
                   </Heading>
+                  <Field as={Input} type="hidden" name="sellTotal" label="Sell Total" />
                 </Column>
                 <Column md={6}>
                   <Heading>Buying</Heading>
@@ -198,7 +214,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="buyerBrokerComplianceAmount"
-                    label="Compliance Fee"
+                    label="Buyer Compliance Fee"
                     helpText={helpTextBrokerComplianceAmount}
                     validate={requiredBrokerComplianceAmount}
                   />
@@ -206,7 +222,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="buyerInspectionAmount"
-                    label="Inspection"
+                    label="Buyer Inspection"
                     helpText={helpTextInspectionAmount}
                     validate={requiredInspectionAmount}
                   />
@@ -214,7 +230,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="buyerHomeWarrantyAmount"
-                    label="Home Warranty"
+                    label="Buyer Home Warranty"
                     helpText={helpTextHomeWarrantyAmount}
                     validate={requiredHomeWarrantyAmount}
                   />
@@ -222,7 +238,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="buyerAppraisalAmount"
-                    label="Appraisal"
+                    label="Buyer Appraisal"
                     helpText={helpTextAppraisalAmount}
                     validate={requiredAppraisalAmount}
                   />
@@ -230,13 +246,20 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     as={Input}
                     type="number"
                     name="buyerMovingCompanyAmount"
-                    label="Moving Costs"
+                    label="Buyer Moving Costs"
                     helpText={helpTextMovingCompanyAmount}
                     validate={requiredMovingCompanyAmount}
                   />
                   <Heading as="h3">
                     Total: {buyTotal({ values, priceRange: priceRangesList[6].value })}
                   </Heading>
+                  <Field
+                    as={Input}
+                    type="hidden"
+                    name="buyTotal"
+                    label="Buy Total"
+                    value={buyTotal({ values, priceRange: priceRangesList[6].value })}
+                  />
                 </Column>
               </Row>
               <HorizontalRule />

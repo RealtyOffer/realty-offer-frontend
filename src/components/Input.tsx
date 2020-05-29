@@ -110,6 +110,7 @@ const StyledSelect = styled(Select)`
 const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
   ${(props: { square?: boolean }) => props.square && `max-width: ${inputHeight};`}
+  ${(props: { hidden?: boolean }) => props.hidden && `display: none;`}
 `;
 
 const StyledToggle = styled.input`
@@ -313,6 +314,11 @@ const Input: FunctionComponent<InputProps> = (props) => {
         <StyledTextarea id={props.name} rows={3} {...field} {...props} {...meta} />
       );
       break;
+    case 'hidden':
+      inputTypeToRender = (
+        <StyledInput id={props.name} type="hidden" {...field} {...props} {...meta} />
+      );
+      break;
     default:
       inputTypeToRender = (
         <StyledInput
@@ -328,7 +334,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
   }
 
   return (
-    <InputWrapper square={props.square}>
+    <InputWrapper square={props.square} hidden={props.type === 'hidden'}>
       {props.label && props.type !== 'checkbox' && (
         <StyledLabel
           htmlFor={props.id || props.name}
