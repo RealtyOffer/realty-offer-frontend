@@ -149,6 +149,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="sellerCommission"
                     label="Seller Commission"
+                    step={0.001}
+                    min={2}
+                    max={8}
                     helpText={helpTextSellerCommissionAmount}
                     validate={requiredSellerCommissionAmount}
                   />
@@ -157,6 +160,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="sellerBrokerComplianceAmount"
                     label="Seller Compliance Fee"
+                    step={1}
+                    min={0}
+                    max={595}
                     helpText={helpTextBrokerComplianceAmount}
                     validate={requiredBrokerComplianceAmount}
                   />
@@ -165,6 +171,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="sellerPreInspectionAmount"
                     label="Seller Pre Inspection"
+                    step={1}
+                    min={0}
+                    max={350}
                     helpText={helpTextPreInspectionAmount}
                     validate={requiredPreInspectionAmount}
                   />
@@ -173,6 +182,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="sellerPreCertifyAmount"
                     label="Seller Pre Certification"
+                    step={1}
+                    min={0}
+                    max={250}
                     helpText={helpTextPreCertifyAmount}
                     validate={requiredPreCertifyAmount}
                   />
@@ -181,6 +193,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="sellerMovingCompanyAmount"
                     label="Seller Moving Costs"
+                    step={1}
+                    min={0}
+                    max={1000}
                     helpText={helpTextMovingCompanyAmount}
                     validate={requiredMovingCompanyAmount}
                   />
@@ -189,6 +204,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="sellerPhotographyAmount"
                     label="Seller Photography"
+                    step={1}
+                    min={0}
+                    max={300}
                     helpText={helpTextPhotographyAmount}
                     validate={requiredPhotographyAmount}
                   />
@@ -207,6 +225,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                   <Field
                     as={Input}
                     type="number"
+                    step={0.001}
+                    min={0}
+                    max={2}
                     name="buyerCommission"
                     label="Buyer Commission Concession"
                     helpText={helpTextBuyerCommissionAmount}
@@ -217,6 +238,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="buyerBrokerComplianceAmount"
                     label="Buyer Compliance Fee"
+                    step={1}
+                    min={0}
+                    max={595}
                     helpText={helpTextBrokerComplianceAmount}
                     validate={requiredBrokerComplianceAmount}
                   />
@@ -225,6 +249,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="buyerInspectionAmount"
                     label="Buyer Inspection"
+                    step={1}
+                    min={0}
+                    max={500}
                     helpText={helpTextInspectionAmount}
                     validate={requiredInspectionAmount}
                   />
@@ -233,6 +260,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="buyerHomeWarrantyAmount"
                     label="Buyer Home Warranty"
+                    step={1}
+                    min={0}
+                    max={500}
                     helpText={helpTextHomeWarrantyAmount}
                     validate={requiredHomeWarrantyAmount}
                   />
@@ -241,6 +271,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="buyerAppraisalAmount"
                     label="Buyer Appraisal"
+                    step={1}
+                    min={0}
+                    max={800}
                     helpText={helpTextAppraisalAmount}
                     validate={requiredAppraisalAmount}
                   />
@@ -249,6 +282,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     type="number"
                     name="buyerMovingCompanyAmount"
                     label="Buyer Moving Costs"
+                    step={1}
+                    min={0}
+                    max={1000}
                     helpText={helpTextMovingCompanyAmount}
                     validate={requiredMovingCompanyAmount}
                   />
