@@ -22,10 +22,9 @@ const calculatePercentage = (numerator: number, denominator: number) =>
 const renderPercentageAmount = (percentageMatch: boolean, low: number, high: number) =>
   percentageMatch ? `${low}%` : `${low}% - ${high}%`;
 
+const sorted = (low: number, high: number) => [low, high].sort((a, b) => a - b);
+
 export const sellTotal = (payload: CalculatorValuesType) => {
-  if (!payload.values.sellerCommission) {
-    return '';
-  }
   const matchingRange = findMatchingRange(payload.priceRange);
   const low =
     Number(payload.values.sellerCommission) * 0.01 * matchingRange?.low +
@@ -43,20 +42,17 @@ export const sellTotal = (payload: CalculatorValuesType) => {
     -Number(payload.values.sellerPhotographyAmount);
 
   const lowAndHighMatch = low === high;
-  const percentageLow = calculatePercentage(matchingRange.low, low);
-  const percentageHigh = calculatePercentage(matchingRange.high, high);
+  const percentageLow = calculatePercentage(matchingRange.low, sorted(low, high)[0]);
+  const percentageHigh = calculatePercentage(matchingRange.high, sorted(low, high)[1]);
   const percentageMatch = percentageLow === percentageHigh;
-  return `${renderDollarAmount(lowAndHighMatch, low, high)} (${renderPercentageAmount(
-    percentageMatch,
-    percentageLow,
-    percentageHigh
-  )})`;
+  return `${renderDollarAmount(
+    lowAndHighMatch,
+    sorted(low, high)[0],
+    sorted(low, high)[1]
+  )} (${renderPercentageAmount(percentageMatch, percentageLow, percentageHigh)})`;
 };
 
 export const buyTotal = (payload: CalculatorValuesType) => {
-  if (payload.values.buyerCommission === '') {
-    return '';
-  }
   const matchingRange = findMatchingRange(payload.priceRange);
   const low =
     Number(payload.values.buyerCommission) * 0.01 * matchingRange?.low +
@@ -73,12 +69,12 @@ export const buyTotal = (payload: CalculatorValuesType) => {
     Number(payload.values.buyerMovingCompanyAmount);
 
   const lowAndHighMatch = low === high;
-  const percentageLow = calculatePercentage(matchingRange.low, low);
-  const percentageHigh = calculatePercentage(matchingRange.high, high);
+  const percentageLow = calculatePercentage(matchingRange.low, sorted(low, high)[0]);
+  const percentageHigh = calculatePercentage(matchingRange.high, sorted(low, high)[1]);
   const percentageMatch = percentageLow === percentageHigh;
-  return `${renderDollarAmount(lowAndHighMatch, low, high)} (${renderPercentageAmount(
-    percentageMatch,
-    percentageLow,
-    percentageHigh
-  )})`;
+  return `${renderDollarAmount(
+    lowAndHighMatch,
+    sorted(low, high)[0],
+    sorted(low, high)[1]
+  )} (${renderPercentageAmount(percentageMatch, percentageLow, percentageHigh)})`;
 };

@@ -86,6 +86,9 @@ export const isSellerCommissionAmount = (value: string) => {
   if (Number(value) === 0) {
     return 'Commission must be above 2%';
   }
+  if (value === '') {
+    return 'This field is required';
+  }
   if (value && Number(value) < 2) {
     return 'Commission must be above 2%';
   }
@@ -96,6 +99,9 @@ export const isSellerCommissionAmount = (value: string) => {
 };
 
 export const isBuyerCommissionAmount = (value: string) => {
+  if (value === '') {
+    return 'This field is required';
+  }
   if (value && Number(value) < 0) {
     return 'Commission must be between 0% and 2%';
   }
