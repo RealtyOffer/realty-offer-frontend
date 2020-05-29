@@ -76,7 +76,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={(values) => {
+          onSubmit={(values, { resetForm, setSubmitting }) => {
             fetch('https://realtyoffer.com/', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -114,6 +114,8 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                   })
                 );
               });
+            setSubmitting(false);
+            resetForm();
           }}
         >
           {({ values, isSubmitting, isValid, setFieldValue }) => (
