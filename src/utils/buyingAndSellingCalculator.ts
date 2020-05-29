@@ -60,17 +60,17 @@ export const buyTotal = (payload: CalculatorValuesType) => {
   const matchingRange = findMatchingRange(payload.priceRange);
   const low =
     Number(payload.values.buyerCommission) * 0.01 * matchingRange?.low +
-    Number(payload.values.buyerBrokerComplianceAmount) +
-    -Number(payload.values.buyerInspectionAmount) +
-    -Number(payload.values.buyerHomeWarrantyAmount) +
-    -Number(payload.values.buyerAppraisalAmount) +
-    -Number(payload.values.buyerMovingCompanyAmount);
+    -Number(payload.values.buyerBrokerComplianceAmount) +
+    Number(payload.values.buyerInspectionAmount) +
+    Number(payload.values.buyerHomeWarrantyAmount) +
+    Number(payload.values.buyerAppraisalAmount) +
+    Number(payload.values.buyerMovingCompanyAmount);
   const high =
     Number(payload.values.buyerCommission) * 0.01 * matchingRange?.high +
-    Number(payload.values.buyerBrokerComplianceAmount) +
-    -Number(payload.values.buyerInspectionAmount) +
-    -Number(payload.values.buyerHomeWarrantyAmount) +
-    -Number(payload.values.buyerMovingCompanyAmount);
+    -Number(payload.values.buyerBrokerComplianceAmount) +
+    Number(payload.values.buyerInspectionAmount) +
+    Number(payload.values.buyerHomeWarrantyAmount) +
+    Number(payload.values.buyerMovingCompanyAmount);
 
   const lowAndHighMatch = low === high;
   const percentageLow = calculatePercentage(matchingRange.low, low);
