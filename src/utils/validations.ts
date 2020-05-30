@@ -50,6 +50,9 @@ export const isNumber = (value: string) =>
   // eslint-disable-next-line no-restricted-globals
   value && value !== '' && isNaN(Number(value)) ? 'Must be a number' : undefined;
 
+export const isDecimalNumer = (value: string) =>
+  value && !/^(\d+\.?\d*|\.\d+)$/.test(value) ? 'Only numbers and decimal places' : undefined;
+
 export const isAlphaNumeric = (value: string) =>
   value && /[^a-zA-Z0-9 ]/i.test(value) ? 'Only alphanumeric characters' : undefined;
 
@@ -92,7 +95,7 @@ export const isSellerCommissionAmount = (value: string) => {
   if (value && Number(value) < 2) {
     return 'Commission must be above 2%';
   }
-  if (value && Number(value) >= 8.00000001) {
+  if (value && Number(value) > 8) {
     return 'Commission must be below 8%';
   }
   return undefined;
@@ -105,7 +108,7 @@ export const isBuyerCommissionAmount = (value: string) => {
   if (value && Number(value) < 0) {
     return 'Commission must be between 0% and 2%';
   }
-  if (value && Number(value) >= 2.00000001) {
+  if (value && Number(value) > 2) {
     return 'Commission must be below 2%';
   }
   return undefined;
@@ -170,7 +173,7 @@ export const isAppraisalAmount = (value: string) => {
 export const isDollarAmount = (value: string) => {
   const amountRegex = /^\$?[0-9]+\.?[0-9]?[0-9]?$/;
   if (value && !amountRegex.test(value)) {
-    return 'Must be a dollar amount';
+    return 'Must be a valid dollar amount';
   }
   return undefined;
 };
@@ -188,37 +191,62 @@ export const requiredPassword = (value: string) =>
 export const passwordRulesString = `Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and a special character.`;
 
 export const requiredSellerCommissionAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isSellerCommissionAmount]);
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isSellerCommissionAmount]);
 
 export const requiredBuyerCommissionAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isBuyerCommissionAmount]);
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isBuyerCommissionAmount]);
 
 export const requiredBrokerComplianceAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isBrokerComplianceAmount]);
+  customFieldLevelValidation(value, [
+    isNumber,
+    isDecimalNumer,
+    isDollarAmount,
+    isBrokerComplianceAmount,
+  ]);
 
 export const requiredPreInspectionAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isPreInspectionAmount]);
+  customFieldLevelValidation(value, [
+    isNumber,
+    isDecimalNumer,
+    isDollarAmount,
+    isPreInspectionAmount,
+  ]);
 
 export const requiredPreCertifyAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isPreCertifyAmount]);
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isDollarAmount, isPreCertifyAmount]);
 
 export const requiredMovingCompanyAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isMovingCompanyAmount]);
+  customFieldLevelValidation(value, [
+    isNumber,
+    isDecimalNumer,
+    isDollarAmount,
+    isMovingCompanyAmount,
+  ]);
 
 export const requiredPhotographyAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isPhotographyAmount]);
+  customFieldLevelValidation(value, [
+    isNumber,
+    isDecimalNumer,
+    isDollarAmount,
+    isPhotographyAmount,
+  ]);
 
 export const requiredInspectionAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isInspectionAmount]);
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isDollarAmount, isInspectionAmount]);
 
 export const requiredHomeWarrantyAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isHomeWarrantyAmount]);
+  customFieldLevelValidation(value, [
+    isNumber,
+    isDecimalNumer,
+    isDollarAmount,
+    isHomeWarrantyAmount,
+  ]);
 
 export const requiredAppraisalAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isAppraisalAmount]);
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isDollarAmount, isAppraisalAmount]);
 
 export const requiredDollarAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isDollarAmount]);
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isDollarAmount]);
 
 export const helpTextSellerCommissionAmount = 'Offer commission to sell 2% to 8%';
 export const helpTextBrokerComplianceAmount = 'Broker compliance fee $0 to $595';

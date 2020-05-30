@@ -19,10 +19,10 @@ const renderDollarAmount = (lowAndHighMatch: boolean, low: number, high: number)
 const calculatePercentage = (numerator: number, denominator: number) =>
   Number(Number((1 - (numerator - denominator) / numerator) * 100).toFixed(3));
 
-const renderPercentageAmount = (percentageMatch: boolean, low: number, high: number) =>
-  percentageMatch ? `${low}%` : `${low}% - ${high}%`;
-
 const sorted = (low: number, high: number) => [low, high].sort((a, b) => a - b);
+
+const renderPercentageAmount = (percentageMatch: boolean, low: number, high: number) =>
+  percentageMatch ? `${low}%` : `${sorted(low, high)[0]}% - ${sorted(low, high)[1]}%`;
 
 export const sellTotal = (payload: CalculatorValuesType) => {
   const matchingRange = findMatchingRange(payload.priceRange);
