@@ -19,6 +19,7 @@ import { getUserCities } from '../../../redux/ducks/user';
 import { captureAgentSignupData } from '../../../redux/ducks/agent';
 import { RootState } from '../../../redux/ducks';
 import { CityType } from '../../../redux/ducks/admin.d';
+import { logout } from '../../../redux/ducks/auth';
 
 type BusinessInformationProps = {} & RouteComponentProps;
 
@@ -43,6 +44,8 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
         cities: [],
       })
     );
+    dispatch(logout());
+    navigate('/');
   };
 
   const cityOptions =

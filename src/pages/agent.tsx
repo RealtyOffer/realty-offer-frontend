@@ -3,6 +3,7 @@ import { Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import isPast from 'date-fns/isPast';
+import { navigate } from 'gatsby';
 
 import Agent from '../views/agent/Agent';
 import CreateAgent from '../views/agent/AgentCreation/CreateAgent';
@@ -23,6 +24,7 @@ import { Alert, PageContainer, PrivateRoute } from '../components';
 import { getAgentProfile, resetProfileCompleteAlert } from '../redux/ducks/agent';
 import { getUserSiteBanners } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
+import { ActionResponseType } from '../redux/constants';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 
@@ -33,10 +35,24 @@ const AgentApp: FunctionComponent<{}> = () => {
   const dispatch = useDispatch();
 
   const prevBanners = usePrevious(banners);
+
+  useEffect(() => {
+    if (isLoggedIn && !agent.agentId && !agent.isLoading) {
+      dispatch(getAgentProfile()).then((response: ActionResponseType) => {
+        if (!response.payload.agentId) {
+          navigate('/agent/agent-information');
+        } else if (response.payload.cities.length === 0) {
+          navigate('/agent/business-information');
+        } else {
+          navigate('/agent/listings/new');
+        }
+      });
+    }
+  }, [isLoggedIn, agent.isLoading]);
+
   useEffect(() => {
     if (isLoggedIn && !prevBanners) {
       dispatch(getUserSiteBanners('agent'));
-      dispatch(getAgentProfile());
     }
     if (!isEqual(prevBanners, banners)) {
       if (banners) {
@@ -53,7 +69,7 @@ const AgentApp: FunctionComponent<{}> = () => {
         });
       }
     }
-  }, [agent]);
+  }, [banners]);
 
   return (
     <PageContainer>

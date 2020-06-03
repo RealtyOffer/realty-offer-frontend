@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
@@ -9,23 +9,33 @@ import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import statesList from '../../../utils/statesList';
 import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks/agent';
 import { ActionResponseType } from '../../../redux/constants';
+import { RootState } from '../../../redux/ducks';
+import { logout } from '../../../redux/ducks/auth';
+import { CityType } from '../../../redux/ducks/admin.d';
 
 interface AgentInformationFormValues {
   state: string;
   agentId: string;
   brokerName: string;
   brokerPhoneNumber: string;
+  emailAddress: string;
+  cities: Array<CityType>;
+  id: number;
 }
 
 type AgentInformationProps = {};
 
 const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponentProps> = () => {
   const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
   const initialValues: AgentInformationFormValues = {
     state: 'MI',
     agentId: '',
     brokerName: '',
     brokerPhoneNumber: '',
+    emailAddress: auth.email,
+    cities: [],
+    id: 0,
   };
 
   const save = () => {
@@ -34,6 +44,8 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
         agentProfileComplete: false,
       })
     );
+    dispatch(logout());
+    navigate('/');
   };
 
   return (

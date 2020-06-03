@@ -67,7 +67,6 @@ export const initialState: AuthStoreType = {
 
 export default (state: AuthStoreType = initialState, action: AuthActionTypes): AuthStoreType => {
   switch (action.type) {
-    case CREATE_USER_REQUEST:
     case VERIFY_EMAIL_REQUEST:
     case RESEND_SIGNUP_EMAIL_REQUEST:
     case AUTHENTICATE_CREDENTIALS_REQUEST:
@@ -92,6 +91,17 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         ...state,
         isLoading: false,
         verifiedEmail: true,
+      };
+    case CREATE_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false,
+        // not just ...action.payload because we dont want to capture password in here
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        phoneNumber: action.payload.phoneNumber,
+        email: action.payload.email,
       };
     case CREATE_USER_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
@@ -139,7 +149,7 @@ export const createUser = (payload: CreateUserFormValues) => ({
     },
     body: JSON.stringify(payload),
     skipOauth: true,
-    types: [CREATE_USER_REQUEST, CREATE_USER_SUCCESS, CREATE_USER_FAILURE],
+    types: [{ type: CREATE_USER_REQUEST, payload }, CREATE_USER_SUCCESS, CREATE_USER_FAILURE],
   },
 });
 

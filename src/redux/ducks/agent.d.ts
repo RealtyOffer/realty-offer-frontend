@@ -16,6 +16,7 @@ import {
 } from './agent';
 
 import { CityType } from './admin.d';
+import { LogoutRequestAction } from './auth.d';
 
 export type AgentProfileType = {
   id?: number;
@@ -25,6 +26,8 @@ export type AgentProfileType = {
   brokerPhoneNumber?: string;
   brokerAddress?: string;
   profileCompleteResetDate?: Date;
+  emailAddress?: string;
+  cities?: Array<CityType>;
 };
 
 export type BidType = {
@@ -54,6 +57,7 @@ export type AgentStoreType = {
   hasError: boolean;
   bids: Array<BidType>;
   signupData: AgentSignupDataType;
+  hasCompletedSignup: boolean;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {
@@ -134,4 +138,5 @@ export type AgentActionTypes =
   | CreateAgentBidSuccessAction
   | CreateAgentBidFailureAction
   | ResetProfileCompleteAlertAction
-  | CaptureAgentSignupDataAction;
+  | CaptureAgentSignupDataAction
+  | LogoutRequestAction;

@@ -1,6 +1,7 @@
 import { RSAA } from 'redux-api-middleware';
 import addDays from 'date-fns/addDays';
 
+import { LOGOUT_REQUEST } from './auth';
 import { AGENT_PROFILE_ENDPOINT, AGENT_BIDS_ENDPOINT } from '../constants';
 import {
   AgentStoreType,
@@ -36,11 +37,13 @@ export const initialState: AgentStoreType = {
   agentId: '',
   brokerName: '',
   brokerPhoneNumber: '',
+  emailAddress: '',
   isLoading: false,
   hasError: false,
   bids: [],
   profileCompleteResetDate: undefined,
   signupData: {},
+  hasCompletedSignup: false,
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {
@@ -61,6 +64,8 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
+        // TODO make sure agent has cities on profile, and has completed payment
+        hasCompletedSignup: !!state.cities || (state.cities && state.cities.length === 0),
         ...action.payload,
       };
     case CREATE_AGENT_BID_SUCCESS:
@@ -104,6 +109,8 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         // don't show banner again for another 30 days
         profileCompleteResetDate: addDays(new Date(), 30),
       };
+    case LOGOUT_REQUEST:
+      return { ...initialState };
     default:
       return state;
   }

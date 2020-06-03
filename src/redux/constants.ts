@@ -46,6 +46,7 @@ export type ActionResponseType = {
   error: number;
   payload: {
     status: number;
+    [key: string]: any;
     response: {
       errors: {
         [key: string]: string;
@@ -54,4 +55,5 @@ export type ActionResponseType = {
       errorCode: string;
     };
   };
+  type: string;
 };

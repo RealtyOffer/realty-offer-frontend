@@ -62,8 +62,6 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (p
     }
   };
 
-  const isAgent = props.location?.pathname.includes('agent');
-
   return (
     <Card
       cardTitle={verified ? 'Verified!' : 'Verify Email Address'}
@@ -76,8 +74,8 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (p
       <Seo title="Verify Email" />
       {verified ? (
         <FlexContainer>
-          <Button type="link" to={isAgent ? '/agent/agent-information' : '/login'}>
-            {isAgent ? 'Continue' : 'Log In'}
+          <Button type="link" to="/login">
+            Log In
           </Button>
         </FlexContainer>
       ) : (

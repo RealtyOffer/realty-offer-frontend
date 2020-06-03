@@ -165,6 +165,7 @@ const StyledMenu = styled.div`
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
+  const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const size = useWindowSize();
@@ -178,7 +179,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     }
   };
 
-  const menuItemsToRender = auth.isLoggedIn ? [...primaryNavigation] : [];
+  const isLoggedInAgent = auth.isLoggedIn && agent.hasCompletedSignup;
+
+  const menuItemsToRender = isLoggedInAgent ? [...primaryNavigation] : [];
   // TODO for PROD : [...unauthenticatedNavigationItems];
 
   return (
@@ -204,7 +207,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           <ClientOnly>
             <StyledMenu
               id="navMenu"
-              isLoggedIn={auth.isLoggedIn}
+              isLoggedIn={isLoggedInAgent}
               isSmallScreen={isSmallScreen}
               menuIsOpen={menuIsOpen}
             >
@@ -218,7 +221,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   {navItem.name}
                 </Link>
               ))}
-              {isSmallScreen && auth.isLoggedIn && (
+              {isSmallScreen && isLoggedInAgent && (
                 <>
                   <HorizontalRule />
                   {secondaryNavigation.map((navItem) => (
@@ -242,7 +245,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   </Link>
                 </>
               )}
-              {!isSmallScreen && auth.isLoggedIn && (
+              {!isSmallScreen && isLoggedInAgent && (
                 <StyledDropdownWrapper>
                   <Avatar />
                   <FaCaretDown />
