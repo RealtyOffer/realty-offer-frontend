@@ -49,7 +49,7 @@ consumerFaq:
         offer you a guarantee that your home will sell in 24 hours. Although
         sometimes this happens, it is never guaranteed.
     - question: Do you sell every type of home?
-      answer: 'No, at this time we do not have a mobile or manufactured home division.'
+      answer: 'No. At this time, we do not have a mobile or manufactured home division.'
     - question: Are there any contracts that I need to sign with RealtyOffer?
       answer: >-
         No. The questionnaire we require you to e-sign is free, and is a
