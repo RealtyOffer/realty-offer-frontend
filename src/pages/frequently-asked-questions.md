@@ -88,14 +88,14 @@ agentFaq:
         consumer, and potential opportunities to the up and coming agent.
     - question: What is the cost to become a member of RealtyOffer?
       answer: >-
-        Our consultants are on stand-by to discuss any questions you might have.
-
-
         Here’s how it works: After a vetting process, agents automatically
         qualify for a three-month subscription to try our service for **FREE.
         (One Time Offer-Freemium Subscription)**This is limited to the city of
         where your license is parked. At any time, agents can expand their
         territory into multiple cities. Restrictions do apply.
+
+
+        Our consultants are on stand-by to discuss any questions you might have.
     - question: How does my freemium subscription work?
       answer: >-
         The city in which your office is located is free for three months.
