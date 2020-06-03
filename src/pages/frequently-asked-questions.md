@@ -111,7 +111,7 @@ agentFaq:
         There is no guarantee. RealtyOffer is designed to connect a serious
         client with a serious agent. Clients and agents have a  mutual choice
         after meeting, if they would like to move forward. The objective is for
-        the agent to sign his agreement with the client after the awkward
+        the agent to sign their agreement with the client after the awkward
         negotiation has been done through our proprietary bidding platform.
     - question: Is there a contract that an agent needs to sign with RealtyOffer?
       answer: >-
