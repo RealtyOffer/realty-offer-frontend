@@ -90,7 +90,7 @@ agentFaq:
       answer: >-
         Here’s how it works: After a vetting process, agents automatically
         qualify for a three-month subscription to try our service for **FREE.
-        (One Time Offer-Freemium Subscription)**This is limited to the city of
+        (One Time Offer-Freemium Subscription)**This is limited to the city
         where your license is parked. At any time, agents can expand their
         territory into multiple cities. Restrictions do apply.
 
