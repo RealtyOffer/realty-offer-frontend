@@ -70,10 +70,10 @@ consumerFaq:
     - question: 'As a consumer, am I obligated to use the awarded agent?'
       answer: >-
         After a bid is awarded, a client has the ability to meet or discuss with
-        his agent in private. It is up to you and the agent to make the choice
-        of moving forward with a contract. RealtyOffer simply empowers the
-        consumer and removes the upfront negotiation out of the way, in order to
-        save you thousands of dollars.
+        their chosen agent in private. It is up to you and the agent to make the
+        choice of moving forward with a contract. RealtyOffer simply empowers
+        the consumer and removes the upfront negotiation out of the way, in
+        order to save you thousands of dollars.
     - question: Will my personal informational shared?
       answer: >-
         No. Your privacy is very important to us. We will NEVER share your
