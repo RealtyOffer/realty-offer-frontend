@@ -95,6 +95,10 @@ agentFaq:
         territory into multiple cities. Restrictions do apply.
 
 
+        Agents can choose to subscribe to multiple cities. Each city is assigned
+        a cost based on its size and population density. 
+
+
         Our consultants are on stand-by to discuss any questions you might have.
     - question: How does my freemium subscription work?
       answer: >-
