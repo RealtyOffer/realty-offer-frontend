@@ -44,7 +44,7 @@ consumerFaq:
     - question: Is there a guarantee your agent will sell my home?
       answer: >-
         There is never a guarantee in the market. Our agents will guide you and
-        give you the best advice in order to sell your home at a discount
+        give you the best advice in order to sell your home at a discounted
         commission, which will maximize your profits. We refuse to mislead and
         offer you a guarantee that your home will sell in 24 hours. Although
         sometimes this happens, it is never guaranteed.
