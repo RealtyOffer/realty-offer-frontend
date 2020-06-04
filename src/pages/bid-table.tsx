@@ -59,6 +59,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
     buyerMovingCompanyAmount: '',
     sellTotal: '',
     buyTotal: '',
+    email: '',
   };
 
   const encode = (data: { [key: string]: string | boolean }) => {
@@ -96,6 +97,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                 buyerAppraisalAmount: `$${values.buyerAppraisalAmount}`,
                 buyerMovingCompanyAmount: `$${values.buyerMovingCompanyAmount}`,
                 buyTotal: values.buyTotal,
+                email: values.email,
               }),
             })
               .then(() => {
@@ -301,14 +303,19 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                 </Column>
               </Row>
               <HorizontalRule />
-              <Button
-                type="submit"
-                block
-                iconRight={<FaCaretRight />}
-                disabled={isSubmitting || !isValid}
-              >
-                Submit
-              </Button>
+              <Row>
+                <Column md={6}>
+                  <Field as={Input} type="email" name="email" label="Your Email" />
+                  <Button
+                    type="submit"
+                    block
+                    iconRight={<FaCaretRight />}
+                    disabled={isSubmitting || !isValid}
+                  >
+                    Submit
+                  </Button>
+                </Column>
+              </Row>
             </Form>
           )}
         </Formik>

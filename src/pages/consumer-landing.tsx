@@ -25,6 +25,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = () => {
     freeMortgageConsult: false,
     type: '',
     where: '',
+    message: '',
   };
 
   const encode = (data: { [key: string]: string | boolean }) => {
@@ -135,6 +136,7 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = () => {
                 name="freeMortgageConsult"
                 label="Would you like a free mortgage consultation?"
               />
+              <Field as={Input} type="textarea" name="message" label="Any questions or comments?" />
               <HorizontalRule />
 
               <Button

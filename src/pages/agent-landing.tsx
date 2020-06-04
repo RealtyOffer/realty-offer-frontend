@@ -19,6 +19,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
     email: '',
     agentId: '',
     brokerName: '',
+    message: '',
   };
 
   const encode = (data: { [key: string]: string }) => {
@@ -116,6 +117,8 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                 validate={requiredField}
               />
               <Field as={Input} type="text" name="brokerName" label="Broker" />
+
+              <Field as={Input} type="textarea" name="message" label="Any questions or comments?" />
               <HorizontalRule />
 
               <Button
