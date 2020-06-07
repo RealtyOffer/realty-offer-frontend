@@ -12,6 +12,7 @@ import {
   requiredPhoneNumber,
 } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
+import priceRangesList from '../utils/priceRangesList';
 
 type ConsumerLandingFormProps = {};
 
@@ -22,6 +23,10 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = () => {
     lastName: '',
     phone: '',
     email: '',
+    homeValue: '',
+    styleOfHome: '',
+    estimatedSquareFootage: '',
+    conditionOfHome: '',
     freeMortgageConsult: false,
     type: '',
     where: '',
@@ -129,6 +134,53 @@ const ConsumerLandingForm: FunctionComponent<ConsumerLandingFormProps> = () => {
                 {...rest}
               />
               <Field as={Input} type="text" name="where" label="Where?" validate={requiredField} />
+              <Field
+                as={Input}
+                type="select"
+                name="homeValue"
+                options={priceRangesList}
+                label="Estimated Home Value"
+                {...rest}
+              />
+              <Field
+                as={Input}
+                type="select"
+                name="styleOfHome"
+                options={[
+                  { value: 'Colonial', label: 'Colonial' },
+                  { value: 'Ranch', label: 'Ranch' },
+                  { value: 'Condo/Townhome', label: 'Condo/Townhome' },
+                ]}
+                label="Style of Home"
+                {...rest}
+              />
+              <Field
+                as={Input}
+                type="select"
+                name="estimatedSquareFootage"
+                options={[
+                  { value: 'Less than 1,000 ft²', label: 'Less than 1,000 ft²' },
+                  { value: '1,000-2,000 ft²', label: '1,000-2,000 ft²' },
+                  { value: '2,000-3,000 ft²', label: '2,000-3,000 ft²' },
+                  { value: '3,000-4,000 ft²', label: '3,000-4,000 ft²' },
+                  { value: '4,000-5,000 ft²', label: '4,000-5,000 ft²' },
+                  { value: 'More than 5,000 ft²', label: 'More than 5,000 ft²' },
+                ]}
+                label="Estimated Square Footage"
+                {...rest}
+              />
+              <Field
+                as={Input}
+                type="select"
+                name="conditionOfHome"
+                options={[
+                  { value: 'Fair', label: 'Fair' },
+                  { value: 'Good', label: 'Good' },
+                  { value: 'Excellent', label: 'Excellent' },
+                ]}
+                label="Condition of Home"
+                {...rest}
+              />
               <Field
                 as={Input}
                 type="checkbox"

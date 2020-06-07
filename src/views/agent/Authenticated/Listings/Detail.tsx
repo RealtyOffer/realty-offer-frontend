@@ -129,7 +129,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="sellerCommission"
-                      label="Seller Commission"
+                      label="Seller Commission (%)"
+                      step={0.001}
+                      min={2}
+                      max={8}
                       helpText={helpTextSellerCommissionAmount}
                       validate={requiredSellerCommissionAmount}
                     />
@@ -139,7 +142,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="sellerBrokerComplianceAmount"
-                      label="Compliance Fee"
+                      label="Seller Compliance Fee ($)"
+                      step={0.01}
+                      min={0}
+                      max={595}
                       helpText={helpTextBrokerComplianceAmount}
                       validate={requiredBrokerComplianceAmount}
                     />
@@ -149,7 +155,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="sellerPreInspectionAmount"
-                      label="Pre Inspection"
+                      label="Seller Pre Inspection ($)"
+                      step={0.01}
+                      min={0}
+                      max={350}
                       helpText={helpTextPreInspectionAmount}
                       validate={requiredPreInspectionAmount}
                     />
@@ -159,7 +168,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="sellerPreCertifyAmount"
-                      label="Pre Certification"
+                      label="Seller Pre Certification ($)"
+                      step={0.01}
+                      min={0}
+                      max={250}
                       helpText={helpTextPreCertifyAmount}
                       validate={requiredPreCertifyAmount}
                     />
@@ -169,7 +181,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="sellerMovingCompanyAmount"
-                      label="Moving Costs"
+                      label="Seller Moving Costs ($)"
+                      step={0.01}
+                      min={0}
+                      max={1000}
                       helpText={helpTextMovingCompanyAmount}
                       validate={requiredMovingCompanyAmount}
                     />
@@ -179,7 +194,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="sellerPhotographyAmount"
-                      label="Photography"
+                      label="Seller Photography ($)"
+                      step={0.01}
+                      min={0}
+                      max={300}
                       helpText={helpTextPhotographyAmount}
                       validate={requiredPhotographyAmount}
                     />
@@ -203,8 +221,11 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                     <Field
                       as={Input}
                       type="number"
+                      step={0.001}
+                      min={0}
+                      max={2}
                       name="buyerCommission"
-                      label="Buyer Commission Concession"
+                      label="Buyer Commission Concession (%)"
                       helpText={helpTextBuyerCommissionAmount}
                       validate={requiredBuyerCommissionAmount}
                     />
@@ -214,7 +235,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="buyerBrokerComplianceAmount"
-                      label="Compliance Fee"
+                      label="Buyer Compliance Fee ($)"
+                      step={0.01}
+                      min={0}
+                      max={595}
                       helpText={helpTextBrokerComplianceAmount}
                       validate={requiredBrokerComplianceAmount}
                     />
@@ -224,7 +248,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="buyerInspectionAmount"
-                      label="Inspection"
+                      label="Buyer Inspection ($)"
+                      step={0.01}
+                      min={0}
+                      max={500}
                       helpText={helpTextInspectionAmount}
                       validate={requiredInspectionAmount}
                     />
@@ -234,7 +261,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="buyerHomeWarrantyAmount"
-                      label="Home Warranty"
+                      label="Buyer Home Warranty ($)"
+                      step={0.01}
+                      min={0}
+                      max={500}
                       helpText={helpTextHomeWarrantyAmount}
                       validate={requiredHomeWarrantyAmount}
                     />
@@ -244,7 +274,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="buyerAppraisalAmount"
-                      label="Appraisal"
+                      label="Buyer Appraisal ($)"
+                      step={0.01}
+                      min={0}
+                      max={800}
                       helpText={helpTextAppraisalAmount}
                       validate={requiredAppraisalAmount}
                     />
@@ -254,7 +287,10 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                       as={Input}
                       type="number"
                       name="buyerMovingCompanyAmount"
-                      label="Moving Costs"
+                      label="Buyer Moving Costs ($)"
+                      step={0.01}
+                      min={0}
+                      max={1000}
                       helpText={helpTextMovingCompanyAmount}
                       validate={requiredMovingCompanyAmount}
                     />
