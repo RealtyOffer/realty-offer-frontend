@@ -14,10 +14,10 @@ const AdminApp: FunctionComponent<{}> = () => (
   <PageContainer>
     <Heading>Admin</Heading>
     <Row>
-      <Column sm={3}>
+      <Column md={3}>
         <SubNav items={adminNavigationitems} />
       </Column>
-      <Column sm={9}>
+      <Column md={9}>
         <Box>
           <Router basepath="admin">
             <PrivateRoute component={Banners} path="/banners" allowedRole="Admin" />

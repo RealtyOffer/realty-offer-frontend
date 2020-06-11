@@ -2,7 +2,7 @@ import React, { useState, FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaCaretDown } from 'react-icons/fa';
+import { FaCaretDown, FaBell, FaRegBell } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 
 import PageContainer from './PageContainer';
@@ -11,15 +11,24 @@ import Avatar from './Avatar';
 import HorizontalRule from './HorizontalRule';
 import ClientOnly from './ClientOnly';
 
-import { brandPrimary, white, offWhite, brandPrimaryHover, brandTertiary } from '../styles/color';
+import {
+  brandPrimary,
+  white,
+  offWhite,
+  brandPrimaryHover,
+  brandTertiary,
+  brandDanger,
+} from '../styles/color';
 import {
   baseSpacer,
   doubleSpacer,
+  baseAndAHalfSpacer,
   quadrupleSpacer,
   octupleSpacer,
   halfSpacer,
   screenSizes,
   tripleSpacer,
+  threeQuarterSpacer,
 } from '../styles/size';
 import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
 import { fontSizeH6 } from '../styles/typography';
@@ -56,7 +65,7 @@ const StyledDropdown = styled.div`
   right: 0;
   top: 100%;
   display: none;
-  width: ${octupleSpacer};
+  width: 250px;
 
   & > a {
     color: ${brandPrimary};
@@ -75,15 +84,19 @@ const StyledDropdown = styled.div`
 const StyledDropdownWrapper = styled.div`
   position: relative;
   cursor: pointer;
-  padding-left: ${halfSpacer};
-  border-left: 1px solid ${white};
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 ${baseSpacer};
 
   &:hover ${StyledDropdown}, &:focus ${StyledDropdown} {
     display: block;
     z-index: 1;
+  }
+
+  &:last-of-type {
+    border-left: 1px solid ${white};
+    padding-right: 0;
   }
 `;
 
@@ -108,6 +121,9 @@ const StyledMenu = styled.div`
 
   & > a {
     padding: 0 ${halfSpacer};
+    margin: 0 ${halfSpacer};
+    height: 100%;
+    line-height: ${quadrupleSpacer};
   }
 
   & > a,
@@ -115,8 +131,6 @@ const StyledMenu = styled.div`
   & > a:focus {
     color: ${white};
     display: inline-block;
-    height: 100%;
-    line-height: ${quadrupleSpacer};
   }
 
   ${(props: StyledMenuProps) =>
@@ -162,8 +176,23 @@ const StyledMenu = styled.div`
 
       & > a {
         padding: ${baseSpacer} 0;
+        line-height: ${baseSpacer};
+        margin: 0;
+        height: auto;
       }
     `}
+`;
+
+const NotificationDot = styled.div`
+  position: absolute;
+  width: ${threeQuarterSpacer};
+  height: ${threeQuarterSpacer};
+  border-radius: ${threeQuarterSpacer};
+  background-color: ${brandDanger};
+  top: 0;
+  /* not actually aligning left, but size of parent (which is pos: relative) above is different */
+  ${(props: { isSmallScreen: boolean }) =>
+    props.isSmallScreen ? `left: ${baseSpacer};` : `right: ${baseSpacer};`}
 `;
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
@@ -200,13 +229,21 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           {/* TODO for PROD */}
           {!isLoggedInConsumer && isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
             <ClientOnly>
-              <StyledMenuToggle>
-                <Hamburger
-                  color={white}
-                  toggled={menuIsOpen}
-                  toggle={() => setMenuIsOpen(!menuIsOpen)}
-                />
-              </StyledMenuToggle>
+              <FlexContainer>
+                <div style={{ position: 'relative', marginRight: halfSpacer }}>
+                  <Link to="/agent/notifications">
+                    <FaRegBell size={doubleSpacer} color={white} />
+                    <NotificationDot isSmallScreen />
+                  </Link>
+                </div>
+                <StyledMenuToggle>
+                  <Hamburger
+                    color={white}
+                    toggled={menuIsOpen}
+                    toggle={() => setMenuIsOpen(!menuIsOpen)}
+                  />
+                </StyledMenuToggle>
+              </FlexContainer>
             </ClientOnly>
           )}
           <ClientOnly>
@@ -250,7 +287,18 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   </Link>
                 </>
               )}
-              {!isSmallScreen && isLoggedInAgent && (
+            </StyledMenu>
+            {!isSmallScreen && isLoggedInAgent && (
+              <FlexContainer>
+                <StyledDropdownWrapper>
+                  <FaBell size={baseAndAHalfSpacer} />
+                  <NotificationDot isSmallScreen={false} />
+                  <StyledDropdown>
+                    <Link to="/">Notification text goes here</Link>
+                    <Link to="/">Notification text goes here</Link>
+                    <Link to="/">Notification text goes here</Link>
+                  </StyledDropdown>
+                </StyledDropdownWrapper>
                 <StyledDropdownWrapper>
                   <Avatar src={user.avatar} />
                   <FaCaretDown />
@@ -270,14 +318,15 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     </Link>
                   </StyledDropdown>
                 </StyledDropdownWrapper>
-              )}
-              {/* TODO for PROD */}
-              {!auth.isLoggedIn && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
-                <Link to="/login" activeClassName="active" onClick={() => toggleMenu()}>
-                  Log In
-                </Link>
-              )}
-            </StyledMenu>
+              </FlexContainer>
+            )}
+            {/* TODO for PROD */}
+            {!auth.isLoggedIn && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
+              <Link to="/login" activeClassName="active" onClick={() => toggleMenu()}>
+                Log In
+              </Link>
+            )}
+
             {isLoggedInConsumer && (
               <Link to="/" onClick={() => dispatch(logout())} style={{ color: white }}>
                 Log Out

@@ -12,10 +12,10 @@ type AgentSettingsProps = {} & RouteComponentProps;
 
 const AgentSettings: FunctionComponent<AgentSettingsProps> = () => (
   <Row>
-    <Column sm={3}>
+    <Column md={3}>
       <SubNav items={agentAccountNavigationitems} />
     </Column>
-    <Column sm={9}>
+    <Column md={9}>
       <Router>
         <Profile path="/profile" />
         <Settings path="/settings" />
