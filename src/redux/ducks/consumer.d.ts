@@ -3,6 +3,12 @@ import {
   CREATE_CONSUMER_PROFILE_REQUEST,
   CREATE_CONSUMER_PROFILE_SUCCESS,
   CREATE_CONSUMER_PROFILE_FAILURE,
+  GET_CONSUMER_PROFILE_REQUEST,
+  GET_CONSUMER_PROFILE_SUCCESS,
+  GET_CONSUMER_PROFILE_FAILURE,
+  UPDATE_CONSUMER_PROFILE_REQUEST,
+  UPDATE_CONSUMER_PROFILE_SUCCESS,
+  UPDATE_CONSUMER_PROFILE_FAILURE,
 } from './consumer';
 
 import { CityType } from './admin.d';
@@ -50,8 +56,38 @@ export type CreateConsumerProfileFailureAction = {
   type: typeof CREATE_CONSUMER_PROFILE_FAILURE;
 };
 
+export type GetConsumerProfileRequestAction = {
+  type: typeof GET_CONSUMER_PROFILE_REQUEST;
+};
+
+export type GetConsumerProfileSuccessAction = {
+  type: typeof GET_CONSUMER_PROFILE_SUCCESS;
+  payload: ConsumerSignupDataType;
+};
+
+export type GetConsumerProfileFailureAction = {
+  type: typeof GET_CONSUMER_PROFILE_FAILURE;
+};
+
+export type UpdateConsumerProfileRequestAction = {
+  type: typeof UPDATE_CONSUMER_PROFILE_REQUEST;
+};
+export type UpdateConsumerProfileSuccessAction = {
+  type: typeof UPDATE_CONSUMER_PROFILE_SUCCESS;
+  payload: ConsumerSignupDataType;
+};
+export type UpdateConsumerProfileFailureAction = {
+  type: typeof UPDATE_CONSUMER_PROFILE_FAILURE;
+};
+
 export type ConsumerStoreActions =
   | CaptureConsumerDataAction
   | CreateConsumerProfileRequestAction
   | CreateConsumerProfileSuccessAction
-  | CreateConsumerProfileFailureAction;
+  | CreateConsumerProfileFailureAction
+  | GetConsumerProfileRequestAction
+  | GetConsumerProfileSuccessAction
+  | GetConsumerProfileFailureAction
+  | UpdateConsumerProfileRequestAction
+  | UpdateConsumerProfileSuccessAction
+  | UpdateConsumerProfileFailureAction;

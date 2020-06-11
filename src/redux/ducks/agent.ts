@@ -65,7 +65,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         isLoading: false,
         hasError: false,
         // TODO make sure agent has cities on profile, and has completed payment
-        hasCompletedSignup: (state.cities && state.cities.length === 0) || false,
+        hasCompletedSignup: action.payload.cities && action.payload.cities.length !== 0,
         ...action.payload,
       };
     case CREATE_AGENT_BID_SUCCESS:

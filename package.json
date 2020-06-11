@@ -79,6 +79,7 @@
     "string-mask": "^0.3.0",
     "styled-components": "^5.0.1",
     "typeface-lato": "^0.0.75",
+    "uppload": "^3.2.0",
     "uuid": "^7.0.2"
   },
   "devDependencies": {

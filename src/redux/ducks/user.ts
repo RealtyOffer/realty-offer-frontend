@@ -7,6 +7,7 @@ import {
   USER_NOTIFICATION_SETTINGS_CONFIRM_ENDPOINT,
   USER_NOTIFICATION_TYPES_ENDPOINT,
   USER_NOTIFICATIONS_ENDPOINT,
+  S3_PROXY_BY_KEY_ENDPOINT,
 } from '../constants';
 import {
   UserStoreType,
@@ -57,6 +58,12 @@ export const UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_SUCCESS =
 export const UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_FAILURE =
   'UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_FAILURE';
 
+export const GET_USER_AVATAR_REQUEST = 'GET_USER_AVATAR_REQUEST';
+export const GET_USER_AVATAR_SUCCESS = 'GET_USER_AVATAR_SUCCESS';
+export const GET_USER_AVATAR_FAILURE = 'GET_USER_AVATAR_FAILURE';
+
+export const UPDATE_USER_AVATAR = 'UPDATE_USER_AVATAR';
+
 export const initialState: UserStoreType = {
   isLoading: false,
   hasError: false,
@@ -73,6 +80,7 @@ export const initialState: UserStoreType = {
   },
   notificationTypes: [],
   userNotificationSubscriptions: [],
+  avatar: '',
 };
 
 export default (state: UserStoreType = initialState, action: UserActionTypes): UserStoreType => {
@@ -82,6 +90,7 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
     case GET_USER_NOTIFICATION_SETTINGS_REQUEST:
     case GET_NOTIFICATION_TYPES_REQUEST:
     case GET_USER_NOTIFICATION_SUBSCRIPTIONS_REQUEST:
+    case GET_USER_AVATAR_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -130,6 +139,14 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
         isLoading: false,
         hasError: false,
         cities: [...action.payload],
+      };
+    case GET_USER_AVATAR_SUCCESS:
+    case UPDATE_USER_AVATAR:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        avatar: action.payload.url,
       };
     case GET_USER_SITE_BANNERS_FAILURE:
       return {
@@ -187,6 +204,13 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
         notificationTypes: {
           ...initialState.notificationTypes,
         },
+      };
+    case GET_USER_AVATAR_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        avatar: initialState.avatar,
       };
     default:
       return state;
@@ -310,4 +334,20 @@ export const getNotificationTypes = () => ({
       GET_NOTIFICATION_TYPES_FAILURE,
     ],
   },
+});
+
+export const getUserAvatar = () => ({
+  [RSAA]: {
+    endpoint: S3_PROXY_BY_KEY_ENDPOINT('avatar.jpg'),
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    types: [GET_USER_AVATAR_REQUEST, GET_USER_AVATAR_SUCCESS, GET_USER_AVATAR_FAILURE],
+  },
+});
+
+export const updateUserAvatar = (url: string) => ({
+  type: UPDATE_USER_AVATAR,
+  payload: { url },
 });

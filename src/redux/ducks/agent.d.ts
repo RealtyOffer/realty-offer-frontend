@@ -57,7 +57,7 @@ export type AgentStoreType = {
   hasError: boolean;
   bids: Array<BidType>;
   signupData: AgentSignupDataType;
-  hasCompletedSignup: boolean;
+  hasCompletedSignup?: boolean;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {

@@ -22,7 +22,7 @@ export const LISTING_BY_ID_ENDPOINT = (id: number) => `${LISTINGS_ENDPOINT}/${id
 
 // Consumer
 export const CREATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/profile`;
-export const UPDATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
+export const SECURED_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
 
 // Admin
 export const ADMIN_SITE_BANNERS_ENDPOINT = `${API_ROOT}/admin/site-banners`;
@@ -40,6 +40,8 @@ export const USER_NOTIFICATION_TYPES_ENDPOINT = `${USER_SECURED_ENDPOINT}/notifi
 export const USER_NOTIFICATIONS_ENDPOINT = `${USER_SECURED_ENDPOINT}/user-notifications`;
 export const USER_NOTIFICATION_SETTINGS_ENDPOINT = `${USER_SECURED_ENDPOINT}/notification-settings`;
 export const USER_NOTIFICATION_SETTINGS_CONFIRM_ENDPOINT = `${USER_NOTIFICATION_SETTINGS_ENDPOINT}/confirm-device`;
+export const S3_PROXY_ENDPOINT = `${USER_SECURED_ENDPOINT}/s3-proxy`;
+export const S3_PROXY_BY_KEY_ENDPOINT = (key: string) => `${S3_PROXY_ENDPOINT}/${key}`;
 
 // Action Response Type
 export type ActionResponseType = {

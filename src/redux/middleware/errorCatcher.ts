@@ -22,7 +22,11 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
     }
     // ignore GET_AGENT_PROFILE_FAILURE because we check agent store to see if they have finished
     // or not to determine routing upon login
-    if (action.error && action.type !== 'GET_AGENT_PROFILE_FAILURE') {
+    if (
+      action.error &&
+      action.payload.status !== 404 &&
+      action.type !== 'GET_AGENT_PROFILE_FAILURE'
+    ) {
       // Any other 4xx errors should return a response,
       // so first add an alert for each error message in the response
       if (action.payload.response) {

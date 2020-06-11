@@ -1,5 +1,5 @@
 import React, { useEffect, FunctionComponent } from 'react';
-import { Router } from '@reach/router';
+import { Router, WindowLocation } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import isPast from 'date-fns/isPast';
@@ -22,13 +22,13 @@ import NotFoundPage from './404';
 
 import { Alert, PageContainer, PrivateRoute } from '../components';
 import { getAgentProfile, resetProfileCompleteAlert } from '../redux/ducks/agent';
-import { getUserSiteBanners } from '../redux/ducks/user';
+import { getUserSiteBanners, getUserAvatar } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
 import { ActionResponseType } from '../redux/constants';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 
-const AgentApp: FunctionComponent<{}> = () => {
+const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const banners = useSelector((state: RootState) => state.user.banners);
   const agent = useSelector((state: RootState) => state.agent);
@@ -43,12 +43,18 @@ const AgentApp: FunctionComponent<{}> = () => {
           navigate('/agent/agent-information');
         } else if (response.payload.cities.length === 0) {
           navigate('/agent/business-information');
-        } else {
+        } else if (props.location.pathname === '/agent') {
+          // if we are landing on the /agent page from logging in, redirect to new listings
+          // otherwise, its a page refresh while logged in and we dont want to redirect
           navigate('/agent/listings/new');
         }
       });
     }
-  }, [isLoggedIn, agent.isLoading]);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    dispatch(getUserAvatar());
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn && !prevBanners) {

@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { FaUserCircle } from 'react-icons/fa';
 
-import { baseAndAHalfSpacer, doubleSpacer, tripleSpacer, quadrupleSpacer } from '../styles/size';
-import { baseBorderStyle } from '../styles/mixins';
+import { baseAndAHalfSpacer, doubleSpacer, tripleSpacer, sextupleSpacer } from '../styles/size';
+import profilePic from '../images/profile-pic.svg';
 
 type AvatarProps = {
   src?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg';
+  bottomMargin?: boolean;
 };
 
 const renderSize = (size: AvatarProps['size']) => {
@@ -21,7 +21,7 @@ const renderSize = (size: AvatarProps['size']) => {
     return tripleSpacer;
   }
   if (size === 'lg') {
-    return quadrupleSpacer;
+    return sextupleSpacer;
   }
   return doubleSpacer;
 };
@@ -31,29 +31,11 @@ const AvatarImage = styled.img`
   object-fit: cover;
   height: ${(props: { size: AvatarProps['size'] }) => props.size && renderSize(props.size)};
   width: ${(props: { size: AvatarProps['size'] }) => props.size && renderSize(props.size)};
-  border: ${baseBorderStyle};
 `;
 
-const StyledAvatar = styled.div`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
-`;
-
-const Avatar: FunctionComponent<AvatarProps> = (props) => {
-  if (props.src) {
-    return <AvatarImage src={props.src} size={props.size} alt="" />;
-  }
-  if (!props.src) {
-    return (
-      <StyledAvatar>
-        <FaUserCircle size={renderSize(props.size)} />
-      </StyledAvatar>
-    );
-  }
-  return null;
-};
+const Avatar: FunctionComponent<AvatarProps> = (props) => (
+  <AvatarImage src={props.src || profilePic} size={props.size} />
+);
 
 Avatar.defaultProps = {
   size: 'sm',

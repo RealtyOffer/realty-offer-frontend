@@ -23,6 +23,10 @@ import {
   UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_REQUEST,
   UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_SUCCESS,
   UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_FAILURE,
+  GET_USER_AVATAR_REQUEST,
+  GET_USER_AVATAR_SUCCESS,
+  GET_USER_AVATAR_FAILURE,
+  UPDATE_USER_AVATAR,
 } from './user';
 
 import { BannerType, CityType } from './admin.d';
@@ -65,6 +69,7 @@ export type UserStoreType = {
   notificationSettings: NotificationSettingsType;
   notificationTypes: Array<NotificationTypesType>;
   userNotificationSubscriptions: Array<UserNotificationSubscriptionType>;
+  avatar?: string;
 };
 
 export type GetUserSiteBannersRequestAction = {
@@ -174,6 +179,24 @@ export type UpdateUserNotificationSubscriptionsFailureAction = {
   type: typeof UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_FAILURE;
 };
 
+export type GetUserAvatarRequestAction = {
+  type: typeof GET_USER_AVATAR_REQUEST;
+};
+
+export type GetUserAvatarSuccessAction = {
+  type: typeof GET_USER_AVATAR_SUCCESS;
+  payload: { url: string };
+};
+
+export type GetUserAvatarFailureAction = {
+  type: typeof GET_USER_AVATAR_FAILURE;
+};
+
+export type UpdateUserAvatarAction = {
+  type: typeof UPDATE_USER_AVATAR;
+  payload: { url: string };
+};
+
 export type UserActionTypes =
   | GetUserSiteBannersRequestAction
   | GetUserSiteBannersSuccessAction
@@ -198,4 +221,8 @@ export type UserActionTypes =
   | GetUserNotificationSubscriptionsFailureAction
   | UpdateUserNotificationSubscriptionsRequestAction
   | UpdateUserNotificationSubscriptionsSuccessAction
-  | UpdateUserNotificationSubscriptionsFailureAction;
+  | UpdateUserNotificationSubscriptionsFailureAction
+  | GetUserAvatarRequestAction
+  | GetUserAvatarSuccessAction
+  | GetUserAvatarFailureAction
+  | UpdateUserAvatarAction;

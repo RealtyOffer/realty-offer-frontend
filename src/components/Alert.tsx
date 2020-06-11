@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa';
 
 import { halfSpacer, baseSpacer, borderRadius, doubleSpacer } from '../styles/size';
-import { brandDanger, brandSuccess, brandPrimary, white } from '../styles/color';
+import { brandDanger, brandSuccess, white, brandTertiary } from '../styles/color';
 import { AlertType } from '../redux/ducks/globalAlerts.d';
 
 export type AlertProps = {
@@ -27,7 +27,7 @@ const renderColor = (type: AlertType['type']) => {
     return brandDanger;
   }
   if (type === 'info') {
-    return brandPrimary;
+    return brandTertiary;
   }
   return brandDanger;
 };

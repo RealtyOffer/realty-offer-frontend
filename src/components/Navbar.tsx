@@ -104,6 +104,7 @@ const StyledMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  height: 100%;
 
   & > a {
     padding: 0 ${halfSpacer};
@@ -114,6 +115,8 @@ const StyledMenu = styled.div`
   & > a:focus {
     color: ${white};
     display: inline-block;
+    height: 100%;
+    line-height: ${quadrupleSpacer};
   }
 
   ${(props: StyledMenuProps) =>
@@ -127,7 +130,7 @@ const StyledMenu = styled.div`
           content: '';
           border-bottom: ${halfSpacer} solid ${white};
           position: absolute;
-          top: 37px;
+          bottom: 0;
           left: 0;
           right: 0;
         }
@@ -166,6 +169,7 @@ const StyledMenu = styled.div`
 const Navbar: FunctionComponent<NavbarProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const agent = useSelector((state: RootState) => state.agent);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const size = useWindowSize();
@@ -180,6 +184,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   };
 
   const isLoggedInAgent = auth.isLoggedIn && agent.hasCompletedSignup;
+  const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
 
   const menuItemsToRender = isLoggedInAgent ? [...primaryNavigation] : [];
   // TODO for PROD : [...unauthenticatedNavigationItems];
@@ -193,7 +198,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
           </StyledLogoLink>
           {/* TODO for PROD */}
-          {isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
+          {!isLoggedInConsumer && isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
             <ClientOnly>
               <StyledMenuToggle>
                 <Hamburger
@@ -207,7 +212,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           <ClientOnly>
             <StyledMenu
               id="navMenu"
-              isLoggedIn={isLoggedInAgent}
+              isLoggedIn={auth.isLoggedIn}
               isSmallScreen={isSmallScreen}
               menuIsOpen={menuIsOpen}
             >
@@ -247,7 +252,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               )}
               {!isSmallScreen && isLoggedInAgent && (
                 <StyledDropdownWrapper>
-                  <Avatar />
+                  <Avatar src={user.avatar} />
                   <FaCaretDown />
                   <StyledDropdown>
                     {secondaryNavigation.map((navItem) => (
@@ -273,6 +278,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </Link>
               )}
             </StyledMenu>
+            {isLoggedInConsumer && (
+              <Link to="/" onClick={() => dispatch(logout())} style={{ color: white }}>
+                Log Out
+              </Link>
+            )}
           </ClientOnly>
         </FlexContainer>
       </PageContainer>

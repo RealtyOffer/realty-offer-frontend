@@ -54,6 +54,8 @@ export type AuthStoreType = {
   isLoggedIn: boolean;
   message: string;
   verifiedEmail: boolean;
+  failedLoginAttempts: number;
+  lockoutTimestamp?: Date;
 } & AuthActionPayloadType;
 
 export type CreateUserFormValues = {

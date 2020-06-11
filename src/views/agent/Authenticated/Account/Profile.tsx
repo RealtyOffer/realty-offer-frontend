@@ -3,7 +3,16 @@ import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Box, Input, Heading, Row, Column, Seo } from '../../../../components';
+import {
+  FlexContainer,
+  Box,
+  Input,
+  Heading,
+  Row,
+  Column,
+  Seo,
+  FileUpload,
+} from '../../../../components';
 import {
   requiredField,
   requiredEmail,
@@ -50,7 +59,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         initialValues={personalInfoInitialValues}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            // TODO: endpoint(s) to update these values
+            // TODO: need auth update profile service
             // eslint-disable-next-line no-console
             console.log(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -62,54 +71,64 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
             <Box>
               <Heading as="h2">Personal Information</Heading>
               <Row>
-                <Column sm={6}>
-                  <Field
-                    as={Input}
-                    type="text"
-                    name="firstName"
-                    label="First Name"
-                    validate={requiredField}
-                  />
+                <Column md={3}>
+                  <FlexContainer flexDirection="column" height="100%">
+                    <FileUpload />
+                  </FlexContainer>
                 </Column>
-                <Column sm={6}>
-                  <Field
-                    as={Input}
-                    type="text"
-                    name="lastName"
-                    label="Last Name"
-                    validate={requiredField}
-                  />
-                </Column>
-                <Column sm={4}>
-                  <Field
-                    as={Input}
-                    type="tel"
-                    name="phoneNumber"
-                    label="Phone Number"
-                    validate={requiredPhoneNumber}
-                  />
-                </Column>
-                <Column sm={4}>
-                  <Field
-                    as={Input}
-                    type="email"
-                    name="email"
-                    label="Email Address"
-                    validate={requiredEmail}
-                  />
-                </Column>
-                <Column sm={4}>
-                  <Field
-                    as={Input}
-                    type="select"
-                    name="gender"
-                    label="Gender"
-                    options={gendersListOptions}
-                    validate={requiredSelect}
-                    {...rest}
-                  />
+                <Column md={9}>
+                  <Row>
+                    <Column sm={6}>
+                      <Field
+                        as={Input}
+                        type="text"
+                        name="firstName"
+                        label="First Name"
+                        validate={requiredField}
+                      />
+                    </Column>
+                    <Column sm={6}>
+                      <Field
+                        as={Input}
+                        type="text"
+                        name="lastName"
+                        label="Last Name"
+                        validate={requiredField}
+                      />
+                    </Column>
+                    <Column sm={4}>
+                      <Field
+                        as={Input}
+                        type="tel"
+                        name="phoneNumber"
+                        label="Phone Number"
+                        validate={requiredPhoneNumber}
+                      />
+                    </Column>
+                    <Column sm={4}>
+                      <Field
+                        as={Input}
+                        type="email"
+                        name="email"
+                        label="Email Address"
+                        validate={requiredEmail}
+                      />
+                    </Column>
+                    <Column sm={4}>
+                      <Field
+                        as={Input}
+                        type="select"
+                        name="gender"
+                        label="Gender"
+                        options={gendersListOptions}
+                        validate={requiredSelect}
+                        {...rest}
+                      />
+                    </Column>
+                  </Row>
                 </Column>
               </Row>
+
               <AutoSave />
             </Box>
           </Form>

@@ -1,4 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
+import addMinutes from 'date-fns/addMinutes';
 
 import {
   AUTH_SIGNUP_ENDPOINT,
@@ -63,6 +64,8 @@ export const initialState: AuthStoreType = {
   lastName: '',
   phoneNumber: '',
   email: '',
+  failedLoginAttempts: 0,
+  lockoutTimestamp: undefined,
 };
 
 export default (state: AuthStoreType = initialState, action: AuthActionTypes): AuthStoreType => {
@@ -84,6 +87,8 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         isLoading: false,
         hasError: false,
         isLoggedIn: true,
+        failedLoginAttempts: 0,
+        lockoutTimestamp: undefined,
         ...action.payload,
       };
     case VERIFY_EMAIL_SUCCESS:
@@ -120,6 +125,8 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         hasError: true,
         isLoggedIn: false,
         message: action.payload.message || 'An error occurred. Please try again.',
+        failedLoginAttempts: state.failedLoginAttempts + 1,
+        lockoutTimestamp: state.failedLoginAttempts >= 4 ? addMinutes(new Date(), 5) : undefined,
       };
     case CREATE_USER_FAILURE:
     case VERIFY_EMAIL_FAILURE:
