@@ -11,45 +11,35 @@ import {
   UPDATE_CONSUMER_PROFILE_FAILURE,
 } from './consumer';
 
-import { CityType } from './admin.d';
+import { LogoutRequestAction } from './auth.d';
+import { ListingType } from './listings.d';
 
-export type ConsumerSignupDataType = {
-  consumerType?: 'buyer' | 'seller' | 'buyerSeller';
-  buyingCities?: Array<CityType>;
-  buyingPriceRange?: string;
-  freeMortgageConsult?: boolean;
-  preApproved?: boolean;
-  sellersAddressLine1?: string;
-  sellersAddressLine2?: string;
-  sellersCity?: CityType;
-  sellersZip?: string;
-  sellersTimeline?: string;
-  sellersListingPriceInMind?: string;
-  sellersMortgageBalance?: string;
-  otherLanguage?: string;
+export type ConsumerProfileType = {
+  id?: number;
   genderPreference?: string;
-  email?: string;
+  otherLanguage?: string;
 };
 
 export type ConsumerStoreType = {
-  signupData: ConsumerSignupDataType;
   isLoading: boolean;
   hasError: boolean;
+  listing: ListingType;
+  profile: ConsumerProfileType;
 };
 
 export type CaptureConsumerDataAction = {
   type: typeof CAPTURE_CONSUMER_DATA;
-  payload: ConsumerSignupDataType;
+  payload: ListingType;
 };
 
 export type CreateConsumerProfileRequestAction = {
   type: typeof CREATE_CONSUMER_PROFILE_REQUEST;
-  payload: ConsumerSignupDataType;
+  payload: { listing: ListingType; profile: ConsumerProfileType };
 };
 
 export type CreateConsumerProfileSuccessAction = {
   type: typeof CREATE_CONSUMER_PROFILE_SUCCESS;
-  payload: ConsumerSignupDataType;
+  payload: { listing: ListingType; profile: ConsumerProfileType };
 };
 
 export type CreateConsumerProfileFailureAction = {
@@ -62,7 +52,7 @@ export type GetConsumerProfileRequestAction = {
 
 export type GetConsumerProfileSuccessAction = {
   type: typeof GET_CONSUMER_PROFILE_SUCCESS;
-  payload: ConsumerSignupDataType;
+  payload: { listing: ListingType; profile: ConsumerProfileType };
 };
 
 export type GetConsumerProfileFailureAction = {
@@ -74,7 +64,7 @@ export type UpdateConsumerProfileRequestAction = {
 };
 export type UpdateConsumerProfileSuccessAction = {
   type: typeof UPDATE_CONSUMER_PROFILE_SUCCESS;
-  payload: ConsumerSignupDataType;
+  payload: { listing: ListingType; profile: ConsumerProfileType };
 };
 export type UpdateConsumerProfileFailureAction = {
   type: typeof UPDATE_CONSUMER_PROFILE_FAILURE;
@@ -90,4 +80,5 @@ export type ConsumerStoreActions =
   | GetConsumerProfileFailureAction
   | UpdateConsumerProfileRequestAction
   | UpdateConsumerProfileSuccessAction
-  | UpdateConsumerProfileFailureAction;
+  | UpdateConsumerProfileFailureAction
+  | LogoutRequestAction;

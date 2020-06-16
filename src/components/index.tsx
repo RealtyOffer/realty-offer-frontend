@@ -1,6 +1,5 @@
 import Alert from './Alert';
 import Avatar from './Avatar';
-import BidCard from './BidCard';
 import Box from './Box';
 import Button from './Button';
 import Card from './Card';
@@ -19,6 +18,7 @@ import IconCheckbox from './IconCheckbox';
 import Image from './Image';
 import Input from './Input';
 import Layout from './Layout';
+import ListingCard from './ListingCard';
 import Modal from './Modal';
 import Navbar from './Navbar';
 import NegativeMarginContainer from './NegativeMarginContainer';
@@ -35,7 +35,6 @@ import Table from './Table';
 export {
   Alert,
   Avatar,
-  BidCard,
   Box,
   Button,
   Card,
@@ -54,6 +53,7 @@ export {
   Image,
   Input,
   Layout,
+  ListingCard,
   Modal,
   Navbar,
   NegativeMarginContainer,

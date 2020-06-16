@@ -24,7 +24,6 @@ import {
   doubleSpacer,
   baseAndAHalfSpacer,
   quadrupleSpacer,
-  octupleSpacer,
   halfSpacer,
   screenSizes,
   tripleSpacer,

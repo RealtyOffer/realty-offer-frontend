@@ -1,16 +1,20 @@
-import priceRangesList from './priceRangesList';
+import { ListPayloadType } from '../redux/ducks/dropdowns.d';
 import numberWithCommas from './numberWithCommas';
 
 type CalculatorValuesType = {
   values: any;
-  priceRange: string;
+  priceRangeId: number;
+  priceRangesList: ListPayloadType;
 };
 
-const findMatchingRange = (priceRange: string) =>
-  priceRangesList.find((i) => i.value === priceRange) || {
-    low: 0,
-    high: 0,
+const findMatchingRange = (priceRangeId: number, priceRangesList: ListPayloadType) => {
+  const match = priceRangesList.find((i) => i.value === String(priceRangeId))?.text;
+  return {
+    low: Number(match?.slice(1, 8).replace(',', '')),
+    high: Number(match?.slice(12, 20).replace(',', '')),
   };
+};
+
 const renderDollarAmount = (lowAndHighMatch: boolean, low: number, high: number) =>
   lowAndHighMatch
     ? `$${numberWithCommas(low)}`
@@ -25,7 +29,7 @@ const renderPercentageAmount = (percentageMatch: boolean, low: number, high: num
   percentageMatch ? `${low}%` : `${sorted(low, high)[0]}% - ${sorted(low, high)[1]}%`;
 
 export const sellTotal = (payload: CalculatorValuesType) => {
-  const matchingRange = findMatchingRange(payload.priceRange);
+  const matchingRange = findMatchingRange(payload.priceRangeId, payload.priceRangesList);
   const low =
     Number(payload.values.sellerCommission) * 0.01 * matchingRange?.low +
     Number(payload.values.sellerBrokerComplianceAmount) +
@@ -53,7 +57,7 @@ export const sellTotal = (payload: CalculatorValuesType) => {
 };
 
 export const buyTotal = (payload: CalculatorValuesType) => {
-  const matchingRange = findMatchingRange(payload.priceRange);
+  const matchingRange = findMatchingRange(payload.priceRangeId, payload.priceRangesList);
   const low =
     Number(payload.values.buyerCommission) * 0.01 * matchingRange?.low +
     -Number(payload.values.buyerBrokerComplianceAmount) +

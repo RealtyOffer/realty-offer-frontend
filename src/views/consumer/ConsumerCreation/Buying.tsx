@@ -19,9 +19,11 @@ import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { getUserCities } from '../../../redux/ducks/user';
 import { RootState } from '../../../redux/ducks';
 import { requiredSelect } from '../../../utils/validations';
-import priceRangesList from '../../../utils/priceRangesList';
 import UnsavedChangesModal from './UnsavedChangesModal';
-import createOptionsFromArray from '../../../utils/createOptionsFromArray';
+import {
+  createOptionsFromArray,
+  createOptionsFromManagedDropdownList,
+} from '../../../utils/createOptionsFromArray';
 import { CityType } from '../../../redux/ducks/admin.d';
 
 type BuyingFormValues = {
@@ -35,8 +37,9 @@ type BuyingProps = {} & RouteComponentProps;
 
 const Buying: FunctionComponent<BuyingProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const signupData = useSelector((state: RootState) => state.consumer.signupData);
+  const listing = useSelector((state: RootState) => state.consumer.listing);
   const cities = useSelector((state: RootState) => state.user.cities);
+  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +57,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = signupData.consumerType === 'buyerSeller';
+  const isBuyerAndSeller = listing.type === 'buyerSeller';
   const cityOptions = cities && createOptionsFromArray(cities, 'name');
 
   return (
@@ -66,8 +69,8 @@ const Buying: FunctionComponent<BuyingProps> = () => {
       >
         <>
           <ProgressBar
-            value={isBuyerAndSeller ? 25 : 33}
-            label={`Step 1/${isBuyerAndSeller ? 4 : 3}`}
+            value={isBuyerAndSeller ? 33 : 50}
+            label={`Step 1/${isBuyerAndSeller ? 3 : 2}`}
             name="progress"
           />
           <Formik
@@ -84,9 +87,10 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                 captureConsumerData({
                   ...values,
                   buyingCities: cityDTOs,
+                  buyingPriceRangeId: Number(values.buyingPriceRange),
                 })
               );
-              navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/special-requests');
+              navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/sign-up');
             }}
           >
             {({ values, isSubmitting, isValid, ...rest }) => (
@@ -105,7 +109,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   as={Input}
                   type="select"
                   name="buyingPriceRange"
-                  options={priceRangesList}
+                  options={createOptionsFromManagedDropdownList(priceRangesList)}
                   label="Do you have a purchase price in mind?"
                   validate={requiredSelect}
                   {...rest}

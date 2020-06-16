@@ -4,7 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, Input, ProgressBar, HorizontalRule, Card, Seo } from '../../../components';
+import {
+  Row,
+  Column,
+  Button,
+  Input,
+  Heading,
+  ProgressBar,
+  HorizontalRule,
+  Card,
+  Seo,
+} from '../../../components';
 import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import statesList from '../../../utils/statesList';
 import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks/agent';
@@ -17,6 +27,11 @@ interface AgentInformationFormValues {
   state: string;
   agentId: string;
   brokerName: string;
+  brokerAddressLine1: string;
+  brokerAddressLine2: string;
+  brokerCity: string;
+  brokerState: string;
+  brokerZip: string;
   brokerPhoneNumber: string;
   emailAddress: string;
   cities: Array<CityType>;
@@ -32,6 +47,11 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     state: 'MI',
     agentId: '',
     brokerName: '',
+    brokerAddressLine1: '',
+    brokerAddressLine2: '',
+    brokerCity: '',
+    brokerZip: '',
+    brokerState: '',
     brokerPhoneNumber: '',
     emailAddress: auth.email,
     cities: [],
@@ -75,37 +95,92 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
         >
           {({ isSubmitting, isValid, ...rest }) => (
             <Form>
-              <Field
-                as={Input}
-                type="select"
-                name="state"
-                label="State"
-                validate={requiredField}
-                disabled
-                options={statesList}
-                {...rest}
-              />
-              <Field
-                as={Input}
-                type="text"
-                name="agentId"
-                label="Agent ID"
-                validate={requiredField}
-              />
-              <Field
-                as={Input}
-                type="text"
-                name="brokerName"
-                label="Broker Name"
-                validate={requiredField}
-              />
-              <Field
-                as={Input}
-                type="tel"
-                name="brokerPhoneNumber"
-                label="Broker Phone Number"
-                validate={requiredPhoneNumber}
-              />
+              <Heading as="h5">Agent Information</Heading>
+              <Row>
+                <Column md={8}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="agentId"
+                    label="Agent ID"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column md={4}>
+                  <Field
+                    as={Input}
+                    type="select"
+                    name="state"
+                    label="State"
+                    validate={requiredField}
+                    disabled
+                    options={statesList}
+                    {...rest}
+                  />
+                </Column>
+              </Row>
+
+              <Heading as="h5">Broker Information</Heading>
+              <Row>
+                <Column md={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="brokerName"
+                    label="Broker Name"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column md={6}>
+                  <Field
+                    as={Input}
+                    type="tel"
+                    name="brokerPhoneNumber"
+                    label="Broker Phone Number"
+                    validate={requiredPhoneNumber}
+                  />
+                </Column>
+                <Column>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="brokerAddressLine1"
+                    label="Address"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column>
+                  <Field as={Input} type="text" name="brokerAddressLine2" label="Address Cont." />
+                </Column>
+                <Column md={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="brokerCity"
+                    label="City"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column md={2}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="brokerState"
+                    label="State"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column md={4}>
+                  <Field
+                    as={Input}
+                    type="number"
+                    name="brokerZip"
+                    label="Zip"
+                    validate={requiredField}
+                  />
+                </Column>
+              </Row>
+
               <HorizontalRule />
               <Button type="submit" disabled={isSubmitting || !isValid} block>
                 Continue

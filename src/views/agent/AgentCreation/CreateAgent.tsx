@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form, FormikProps } from 'formik';
-import { navigate } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 
@@ -108,9 +108,9 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
             </Form>
           )}
         </Formik>
-        <Button type="link" to="/" color="text" block>
-          Cancel
-        </Button>
+        <p style={{ textAlign: 'center' }}>
+          Already have an account? <Link to="/login">Log in now</Link>
+        </p>
       </>
     </Card>
   );

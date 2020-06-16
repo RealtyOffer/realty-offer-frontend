@@ -3,12 +3,15 @@ export const API_VERSION = 'v1';
 export const API_ROOT = BASE_ROOT ? `${BASE_ROOT}/api/${API_VERSION}` : '';
 
 // Auth
-export const AUTH_SIGNUP_ENDPOINT = `${API_ROOT}/auth/signup`;
-export const AUTH_CONFIRM_ENDPOINT = `${API_ROOT}/auth/confirm`;
-export const AUTH_LOGIN_ENDPOINT = `${API_ROOT}/auth/login`;
-export const AUTH_FORGOT_PASSWORD_ENDPOINT = `${API_ROOT}/auth/forgot-password`;
-export const AUTH_RESET_PASSWORD_ENDPOINT = `${API_ROOT}/auth/reset-password`;
-export const AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT = `${API_ROOT}/auth/resend-signup-email`;
+const AUTH_ROOT = `${API_ROOT}/auth`;
+export const AUTH_SIGNUP_ENDPOINT = `${AUTH_ROOT}/signup`;
+export const AUTH_CONFIRM_ENDPOINT = `${AUTH_ROOT}/confirm`;
+export const AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT = `${AUTH_ROOT}/resend-signup-email`;
+export const AUTH_LOGIN_ENDPOINT = `${AUTH_ROOT}/login`;
+export const AUTH_FORGOT_PASSWORD_ENDPOINT = `${AUTH_ROOT}/forgot-password`;
+export const AUTH_RESET_PASSWORD_ENDPOINT = `${AUTH_ROOT}/reset-password`;
+export const AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT = `${AUTH_ROOT}/secured/refresh-access-token`;
+export const AUTH_SECURED_PROFILE_ENDPOINT = `${AUTH_ROOT}/secured/profile`;
 
 // Agent
 export const AGENT_PROFILE_ENDPOINT = `${API_ROOT}/agent/profile`;
@@ -33,9 +36,15 @@ export const ADMIN_CITY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_CITIES_ENDPOIN
 
 // User (generic)
 const USER_ENDPOINT = `${API_ROOT}/user`;
+const USER_DROPDOWN_LISTS_ENDPOINT = `${USER_ENDPOINT}/dropdown`;
 const USER_SECURED_ENDPOINT = `${API_ROOT}/user/secured`;
 export const USER_SITE_BANNERS_ENDPOINT = `${USER_SECURED_ENDPOINT}/site-banners`;
 export const USER_CITIES_ENDPOINT = `${USER_ENDPOINT}/cities`;
+export const DROPDOWN_LIST_GENDERS_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/genders`;
+export const DROPDOWN_LIST_GENDER_PREFERENCESS_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/genderpreferences`;
+export const DROPDOWN_LIST_LANGUAGES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/languages`;
+export const DROPDOWN_LIST_STATES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/states`;
+export const DROPDOWN_LIST_PRICE_RANGES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/priceranges`;
 export const USER_NOTIFICATION_TYPES_ENDPOINT = `${USER_SECURED_ENDPOINT}/notifications`;
 export const USER_NOTIFICATIONS_ENDPOINT = `${USER_SECURED_ENDPOINT}/user-notifications`;
 export const USER_NOTIFICATION_SETTINGS_ENDPOINT = `${USER_SECURED_ENDPOINT}/notification-settings`;

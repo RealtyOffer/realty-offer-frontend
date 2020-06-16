@@ -5,7 +5,6 @@ import { isEqual } from 'lodash';
 import isPast from 'date-fns/isPast';
 import { navigate } from 'gatsby';
 
-import Agent from '../views/agent/Agent';
 import CreateAgent from '../views/agent/AgentCreation/CreateAgent';
 import VerifyEmail from '../views/shared/VerifyEmail';
 import AgentInformation from '../views/agent/AgentCreation/AgentInformation';
@@ -16,7 +15,7 @@ import NewListings from '../views/agent/Authenticated/Listings/New';
 import PendingListings from '../views/agent/Authenticated/Listings/Pending';
 import AwardedListings from '../views/agent/Authenticated/Listings/Awarded';
 import ListingHistory from '../views/agent/Authenticated/Listings/History';
-import ListingDetail from '../views/agent/Authenticated/Listings/Detail';
+import ListingDetails from '../views/agent/Authenticated/Listings/ListingDetails';
 import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
@@ -38,6 +37,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
   useEffect(() => {
     if (isLoggedIn && !agent.agentId && !agent.isLoading) {
+      dispatch(getUserAvatar());
       dispatch(getAgentProfile()).then((response: ActionResponseType) => {
         if (!response.payload.agentId) {
           navigate('/agent/agent-information');
@@ -50,10 +50,9 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         }
       });
     }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    dispatch(getUserAvatar());
+    if (!isLoggedIn) {
+      navigate('/agent/sign-up');
+    }
   }, []);
 
   useEffect(() => {
@@ -92,14 +91,13 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           />
         )}
       <Router basepath="agent">
-        <Agent path="/" />
         <CreateAgent path="/sign-up" />
         <VerifyEmail path="/verify-email" />
         <AgentInformation path="/agent-information" />
         <BusinessInformation path="/business-information" />
         <PaymentInformation path="/payment-information" />
         <ConfirmPayment path="/confirm-payment" />
-        <PrivateRoute component={ListingDetail} path="/listings/:listingId" allowedRole="Agent" />
+        <PrivateRoute component={ListingDetails} path="/listings/:listingId" allowedRole="Agent" />
         <PrivateRoute component={NewListings} path="/listings/new" allowedRole="Agent" />
         <PrivateRoute component={PendingListings} path="/listings/pending" allowedRole="Agent" />
         <PrivateRoute component={AwardedListings} path="/listings/awarded" allowedRole="Agent" />

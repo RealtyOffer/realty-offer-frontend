@@ -14,7 +14,7 @@ const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = (props)
   const dispatch = useDispatch();
   const clearDataAndNavigate = () => {
     dispatch(captureConsumerData({}));
-    navigate('/consumer');
+    navigate('/consumer/start');
   };
 
   return (

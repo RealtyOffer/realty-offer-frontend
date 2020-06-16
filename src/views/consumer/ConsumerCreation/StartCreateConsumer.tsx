@@ -1,21 +1,30 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { FaCaretRight } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 
 import { Box, Button, Card, Heading, Seo } from '../../../components';
+import { RootState } from '../../../redux/ducks';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
+import { getPriceRangesList } from '../../../redux/ducks/dropdowns';
 
 type StartCreateConsumerProps = {} & RouteComponentProps;
 
 const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
   const dispatch = useDispatch();
-  const setCustomerType = (consumerType: ConsumerStoreType['signupData']['consumerType']) => {
-    dispatch(captureConsumerData({ consumerType }));
-    navigate(consumerType === 'seller' ? '/consumer/selling' : '/consumer/buying');
+  const dropdowns = useSelector((state: RootState) => state.dropdowns);
+  const setCustomerType = (type: ConsumerStoreType['listing']['type']) => {
+    dispatch(captureConsumerData({ type }));
+    navigate(type === 'seller' ? '/consumer/selling' : '/consumer/buying');
   };
+
+  useEffect(() => {
+    if (!dropdowns.priceRanges.list.length) {
+      dispatch(getPriceRangesList());
+    }
+  }, []);
 
   return (
     <>

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 import Countdown from 'react-countdown';
 import { FaRegClock } from 'react-icons/fa';
-import differenceInMinutes from 'date-fns/differenceInMinutes';
+import { addHours, differenceInMinutes } from 'date-fns';
 import styled from 'styled-components';
 import TextTruncate from 'react-text-truncate';
 
@@ -14,14 +14,14 @@ import { halfSpacer, baseSpacer, borderRadius } from '../styles/size';
 import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import FlexContainer from './FlexContainer';
 import HorizontalRule from './HorizontalRule';
-
 import { ListingType } from '../redux/ducks/listings.d';
+import displayDropdownListText from '../utils/displayDropdownListText';
 
-type BidCardProps = {
+type ListingCardProps = {
   listing: ListingType;
 };
 
-const BidCardWrapper = styled.div`
+const ListingCardWrapper = styled.div`
   text-align: center;
   background: ${white};
   margin-bottom: ${baseSpacer};
@@ -34,7 +34,7 @@ const BidCardWrapper = styled.div`
   height: calc(100% - ${baseSpacer});
 `;
 
-const BidCardHeader = styled.div`
+const ListingCardHeader = styled.div`
   padding: ${halfSpacer};
   color: ${(props: { expiringSoon: boolean }) => (props.expiringSoon ? brandDanger : textColor)};
   border-bottom: ${baseBorderStyle};
@@ -48,7 +48,7 @@ const CardType = styled.span`
   text-transform: capitalize;
 `;
 
-const BidCardBody = styled.div`
+const ListingCardBody = styled.div`
   padding: ${halfSpacer} ${baseSpacer};
   flex: 1;
   justify-content: center;
@@ -57,33 +57,37 @@ const BidCardBody = styled.div`
   flex-direction: column;
 `;
 
-const BidCardFooter = styled.div`
+const ListingCardFooter = styled.div`
   border-top: ${baseBorderStyle};
   padding: ${halfSpacer};
 `;
 
-const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
+const ListingCard: FunctionComponent<ListingCardProps> = ({ listing }) => {
   // difference in minutes from expiration date to now, divided by 1440 which is number of minutes
   // in a day (24*60). Then multiply that by 100 to get percentage value
-  const timeDifference =
-    (differenceInMinutes(new Date(listing.createDateTime), Date.now()) / 1440) * 100;
+  const timeDifference = listing.createDateTime
+    ? (differenceInMinutes(addHours(new Date(listing.createDateTime), 24), Date.now()) / 1440) * 100
+    : 0;
   const expiringSoon = timeDifference < 8.3333333; // 2 hours out of 24
 
   return (
-    <BidCardWrapper expiringSoon={expiringSoon}>
-      <BidCardHeader expiringSoon={expiringSoon}>
+    <ListingCardWrapper expiringSoon={expiringSoon}>
+      <ListingCardHeader expiringSoon={expiringSoon}>
         <FlexContainer justifyContent="space-between">
           <div>
-            <FaRegClock /> <Countdown date={listing.createDateTime} daysInHours />
+            <FaRegClock />{' '}
+            {listing.createDateTime && (
+              <Countdown date={addHours(new Date(listing.createDateTime), 24)} daysInHours />
+            )}
           </div>
           <CardType>{listing.type}</CardType>
         </FlexContainer>
-      </BidCardHeader>
-      <BidCardBody>
-        {listing.type.includes('buyer') && (
+      </ListingCardHeader>
+      <ListingCardBody>
+        {listing.type?.includes('buyer') && (
           <>
             <Heading as="h1" noMargin styledAs="title">
-              {listing.buyingPriceRange}
+              {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
             </Heading>
             <span>
               Buying in{' '}
@@ -102,22 +106,25 @@ const BidCard: FunctionComponent<BidCardProps> = ({ listing }) => {
           </>
         )}
         {listing.type === 'buyerSeller' && <HorizontalRule />}
-        {listing.type.toLowerCase().includes('seller') && (
+        {listing.type?.toLowerCase().includes('seller') && (
           <>
             <Heading as="h1" noMargin styledAs="title">
-              {listing.sellersListingPriceInMind}
+              {displayDropdownListText(
+                listing.sellersListingPriceInMindPriceRangeInMindId,
+                'priceRanges'
+              )}
             </Heading>
             <span>Selling in {listing.sellersCity?.name}</span>
           </>
         )}
-      </BidCardBody>
-      <BidCardFooter>
+      </ListingCardBody>
+      <ListingCardFooter>
         <Button type="link" to={`/agent/listings/${listing.id}`} block>
           Listing Details
         </Button>
-      </BidCardFooter>
-    </BidCardWrapper>
+      </ListingCardFooter>
+    </ListingCardWrapper>
   );
 };
 
-export default BidCard;
+export default ListingCard;

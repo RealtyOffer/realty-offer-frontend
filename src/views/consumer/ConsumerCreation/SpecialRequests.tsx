@@ -1,3 +1,6 @@
+//
+// This file has been deprecated as of 06/12/2020 in favor of moving these fields to a post-sign-in form
+//
 import React, { FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';

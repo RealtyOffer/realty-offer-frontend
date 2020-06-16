@@ -16,6 +16,7 @@ import {
   UserNotificationSubscriptionType,
 } from './user.d';
 import { BannerType } from './admin.d';
+import { RootState } from './index';
 
 export const GET_USER_SITE_BANNERS_REQUEST = 'GET_USER_SITE_BANNERS_REQUEST';
 export const GET_USER_SITE_BANNERS_SUCCESS = 'GET_USER_SITE_BANNERS_SUCCESS';
@@ -340,9 +341,7 @@ export const getUserAvatar = () => ({
   [RSAA]: {
     endpoint: S3_PROXY_BY_KEY_ENDPOINT('avatar.jpg'),
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    bailout: (state: RootState) => state.user.avatar,
     types: [GET_USER_AVATAR_REQUEST, GET_USER_AVATAR_SUCCESS, GET_USER_AVATAR_FAILURE],
   },
 });

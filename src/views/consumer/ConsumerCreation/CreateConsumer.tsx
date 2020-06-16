@@ -25,7 +25,7 @@ import {
 import { createUser } from '../../../redux/ducks/auth';
 import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
-import { captureConsumerData, createConsumerProfile } from '../../../redux/ducks/consumer';
+import { createConsumerProfile } from '../../../redux/ducks/consumer';
 import UnsavedChangesModal from './UnsavedChangesModal';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { RootState } from '../../../redux/ducks';
@@ -52,7 +52,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = consumer.signupData.consumerType === 'buyerSeller';
+  const isBuyerAndSeller = consumer.listing.type === 'buyerSeller';
 
   return (
     <>
@@ -68,7 +68,6 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              dispatch(captureConsumerData({ email: values.email }));
               dispatch(
                 createUser({
                   ...values,
@@ -79,8 +78,16 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 if (response && !response.error) {
                   dispatch(
                     createConsumerProfile({
-                      ...consumer.signupData,
-                      sellersZip: String(consumer.signupData.sellersZip),
+                      email: values.email,
+                      listing: {
+                        ...consumer.listing,
+                        sellersZip: String(consumer.listing.sellersZip),
+                      },
+                      profile: {
+                        id: 0,
+                        otherLanguage: consumer.profile.otherLanguage,
+                        genderPreference: consumer.profile.genderPreference,
+                      },
                     })
                   ).then((secondRes: ActionResponseType) => {
                     if (secondRes && !secondRes.error) {

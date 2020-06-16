@@ -16,6 +16,7 @@ import { initialState as adminInitialState } from './ducks/admin';
 import { initialState as authInitialState } from './ducks/auth';
 import { initialState as agentInitialState } from './ducks/agent';
 import { initialState as consumerInitialState } from './ducks/consumer';
+import { initialState as dropdownsInitialState } from './ducks/dropdowns';
 import { initialState as globalAlertsInitialState } from './ducks/globalAlerts';
 import { initialState as listingsInitialState } from './ducks/listings';
 import { initialState as userInitialState } from './ducks/user';
@@ -45,7 +46,7 @@ const makeConfiguredStore = (reducer: any, initialState: any) => {
   const persistConfig = {
     key: 'realty-offer',
     storage,
-    whitelist: ['auth', 'consumer'],
+    whitelist: ['auth', 'consumer', 'dropdowns'],
   };
   const persistedReducer = persistReducer(persistConfig, reducer);
 
@@ -58,6 +59,7 @@ const configureStore = (
     auth: authInitialState,
     agent: agentInitialState,
     consumer: consumerInitialState,
+    dropdowns: dropdownsInitialState,
     globalAlerts: globalAlertsInitialState,
     listings: listingsInitialState,
     user: userInitialState,

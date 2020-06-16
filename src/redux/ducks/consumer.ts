@@ -1,8 +1,10 @@
 import { RSAA } from 'redux-api-middleware';
 
+import { LOGOUT_REQUEST } from './auth';
 import { CREATE_CONSUMER_PROFILE_ENDPOINT, SECURED_CONSUMER_PROFILE_ENDPOINT } from '../constants';
 
-import { ConsumerStoreType, ConsumerSignupDataType, ConsumerStoreActions } from './consumer.d';
+import { ConsumerStoreType, ConsumerProfileType, ConsumerStoreActions } from './consumer.d';
+import { ListingType } from './listings.d';
 
 export const CAPTURE_CONSUMER_DATA = 'CAPTURE_CONSUMER_DATA';
 
@@ -27,9 +29,10 @@ export const GET_CONSUMER_CITIES_SUCCESS = 'GET_CONSUMER_CITIES_SUCCESS';
 export const GET_CONSUMER_CITIES_FAILURE = 'GET_CONSUMER_CITIES_FAILURE';
 
 export const initialState: ConsumerStoreType = {
-  signupData: {},
   isLoading: false,
   hasError: false,
+  listing: {},
+  profile: {},
 };
 
 export default (
@@ -40,13 +43,13 @@ export default (
     case CAPTURE_CONSUMER_DATA:
       return {
         ...state,
-        // if payload is empty object, reset the signupData object to empty
+        // if payload is empty object, reset the listing object to empty
         // so the signup process can be started over from scratch
-        signupData:
+        listing:
           Object.keys(action.payload).length === 0
             ? {}
             : {
-                ...state.signupData,
+                ...state.listing,
                 ...action.payload,
               },
       };
@@ -62,8 +65,11 @@ export default (
         ...state,
         isLoading: false,
         hasError: false,
-        signupData: {
-          ...action.payload,
+        listing: {
+          ...action.payload.listing,
+        },
+        profile: {
+          ...action.payload.profile,
         },
       };
     case GET_CONSUMER_PROFILE_SUCCESS:
@@ -80,17 +86,23 @@ export default (
         isLoading: false,
         hasError: true,
       };
+    case LOGOUT_REQUEST:
+      return { ...initialState };
     default:
       return state;
   }
 };
 
-export const captureConsumerData = (payload: ConsumerSignupDataType) => ({
+export const captureConsumerData = (payload: ListingType) => ({
   type: CAPTURE_CONSUMER_DATA,
   payload,
 });
 
-export const createConsumerProfile = (payload: ConsumerSignupDataType) => ({
+export const createConsumerProfile = (payload: {
+  email: string;
+  listing: ListingType;
+  profile: ConsumerProfileType;
+}) => ({
   [RSAA]: {
     endpoint: CREATE_CONSUMER_PROFILE_ENDPOINT,
     method: 'POST',
@@ -107,7 +119,10 @@ export const createConsumerProfile = (payload: ConsumerSignupDataType) => ({
   },
 });
 
-export const updateConsumerProfile = (payload: ConsumerSignupDataType) => ({
+export const updateConsumerProfile = (payload: {
+  listing: ListingType;
+  profile: ConsumerProfileType;
+}) => ({
   [RSAA]: {
     endpoint: SECURED_CONSUMER_PROFILE_ENDPOINT,
     method: 'PUT',

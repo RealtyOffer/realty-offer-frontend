@@ -20,16 +20,17 @@ import { getUserCities } from '../../../redux/ducks/user';
 import { RootState } from '../../../redux/ducks';
 
 import { requiredField, requiredSelect } from '../../../utils/validations';
-import priceRangesList from '../../../utils/priceRangesList';
 import UnsavedChangesModal from './UnsavedChangesModal';
-import createOptionsFromArray from '../../../utils/createOptionsFromArray';
+import {
+  createOptionsFromArray,
+  createOptionsFromManagedDropdownList,
+} from '../../../utils/createOptionsFromArray';
 import { CityType } from '../../../redux/ducks/admin.d';
 
 type SellingFormValues = {
   sellersAddressLine1: string;
   sellersAddressLine2: string;
   sellersCity: string;
-
   sellersZip: string;
   sellersTimeline: string;
   sellersListingPriceInMind: string;
@@ -46,19 +47,22 @@ type SellingProps = {} & RouteComponentProps;
 
 const Selling: FunctionComponent<SellingProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const signupData = useSelector((state: RootState) => state.consumer.signupData);
+  const listing = useSelector((state: RootState) => state.consumer.listing);
   const cities = useSelector((state: RootState) => state.user.cities);
+  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserCities());
+    if (!cities || cities.length === 0) {
+      dispatch(getUserCities());
+    }
   }, []);
 
   const initialValues: SellingFormValues = {
     sellersAddressLine1: '',
     sellersAddressLine2: '',
     sellersCity: '',
-    sellersZip: '',
+    sellersZip: '', // not used currently, just initialize as empty string
     sellersTimeline: '',
     sellersListingPriceInMind: '',
     sellersMortgageBalance: '',
@@ -68,7 +72,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = signupData.consumerType === 'buyerSeller';
+  const isBuyerAndSeller = listing.type === 'buyerSeller';
   const cityOptions = cities && createOptionsFromArray(cities, 'name');
 
   return (
@@ -80,8 +84,8 @@ const Selling: FunctionComponent<SellingProps> = () => {
       >
         <>
           <ProgressBar
-            value={isBuyerAndSeller ? 50 : 33}
-            label={`Step ${isBuyerAndSeller ? 2 : 1}/${isBuyerAndSeller ? 4 : 3}`}
+            value={isBuyerAndSeller ? 33 : 50}
+            label={`Step ${isBuyerAndSeller ? 2 : 1}/${isBuyerAndSeller ? 3 : 2}`}
             name="progress"
           />
           <Formik
@@ -95,9 +99,13 @@ const Selling: FunctionComponent<SellingProps> = () => {
                 captureConsumerData({
                   ...values,
                   sellersCity: cityDTO,
+                  sellersListingPriceInMindPriceRangeInMindId: Number(
+                    values.sellersListingPriceInMind
+                  ),
+                  sellersMortgageBalanceId: Number(values.sellersMortgageBalance),
                 })
               );
-              navigate('/consumer/special-requests');
+              navigate('/consumer/sign-up');
             }}
           >
             {({ isSubmitting, isValid, ...rest }) => (
@@ -110,29 +118,15 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   validate={requiredField}
                 />
                 <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
-
-                <Row>
-                  <Column xs={6}>
-                    <Field
-                      as={Input}
-                      type="select"
-                      name="sellersCity"
-                      options={cityOptions}
-                      label="City"
-                      validate={requiredSelect}
-                      {...rest}
-                    />
-                  </Column>
-                  <Column xs={6}>
-                    <Field
-                      as={Input}
-                      type="number"
-                      name="sellersZip"
-                      label="Zip Code"
-                      validate={requiredField}
-                    />
-                  </Column>
-                </Row>
+                <Field
+                  as={Input}
+                  type="select"
+                  name="sellersCity"
+                  options={cityOptions}
+                  label="City"
+                  validate={requiredSelect}
+                  {...rest}
+                />
                 <Field
                   as={Input}
                   type="select"
@@ -148,7 +142,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   name="sellersListingPriceInMind"
                   label="Do you have a listing price in mind?"
                   validate={requiredField}
-                  options={priceRangesList}
+                  options={createOptionsFromManagedDropdownList(priceRangesList)}
                   {...rest}
                 />
                 <Field
@@ -157,14 +151,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   name="sellersMortgageBalance"
                   label="What is the estimated mortgage balance?"
                   validate={requiredField}
-                  options={[
-                    { value: 'Not sure', label: 'Not sure' },
-                    {
-                      value: 'Less than $100,000',
-                      label: 'Less than $100,000',
-                    },
-                    ...priceRangesList,
-                  ]}
+                  options={createOptionsFromManagedDropdownList(priceRangesList)}
                   {...rest}
                 />
                 <HorizontalRule />

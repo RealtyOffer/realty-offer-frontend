@@ -61,13 +61,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       <Heading as="h2">My Info</Heading>
       <ProfileDetails />
       <Heading as="h2">My Listings</Heading>
-      <ConsumerListingCard
-        listing={{
-          id: 1,
-          createDateTime: 'Mon Jun 08 2020 23:59:28 GMT-0400 (Eastern Daylight Time)',
-          ...consumer.signupData,
-        }}
-      />
+      <ConsumerListingCard listing={consumer.listing} />
       <Heading as="h2">Notifications</Heading>
       <Notifications user={user} />
     </>

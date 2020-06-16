@@ -13,13 +13,11 @@ import HorizontalRule from './HorizontalRule';
 import Row from './Row';
 import Column from './Column';
 
-import { ConsumerSignupDataType } from '../redux/ducks/consumer.d';
+import { ListingType } from '../redux/ducks/listings.d';
+import displayDropdownListText from '../utils/displayDropdownListText';
 
 type ConsumerListingCardProps = {
-  listing: {
-    createDateTime: string;
-    id: number;
-  } & ConsumerSignupDataType;
+  listing: ListingType;
 };
 
 const ConsumerListingCardWrapper = styled.div`
@@ -48,8 +46,9 @@ const ConsumerListingCardBody = styled.div`
 const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ listing }) => {
   // difference in minutes from expiration date to now, divided by 1440 which is number of minutes
   // in a day (24*60). Then multiply that by 100 to get percentage value
-  const timeDifference =
-    (differenceInMinutes(new Date(listing.createDateTime), Date.now()) / 1440) * 100;
+  const timeDifference = listing.createDateTime
+    ? (differenceInMinutes(new Date(listing.createDateTime), Date.now()) / 1440) * 100
+    : 0;
   const expiringSoon = timeDifference < 8.3333333; // 2 hours out of 24
 
   return (
@@ -63,11 +62,14 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
         </FlexContainer>
       </ConsumerListingCardHeader>
       <ConsumerListingCardBody>
-        {listing.consumerType?.toLowerCase().includes('seller') && (
+        {listing.type?.toLowerCase().includes('seller') && (
           <Row>
             <Column md={7}>
               <Heading as="h1" noMargin styledAs="title" align="center">
-                {listing.sellersListingPriceInMind}
+                {displayDropdownListText(
+                  listing.sellersListingPriceInMindPriceRangeInMindId,
+                  'priceRanges'
+                )}
               </Heading>
               <span>Selling in {listing.sellersCity?.name}</span>
             </Column>
@@ -76,17 +78,17 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
                 <dt>How soon are you looking to sell your home?</dt>
                 <dd>{listing.sellersTimeline}</dd>
                 <dt>What is your estimated mortgage balance?</dt>
-                <dd>{listing.sellersMortgageBalance}</dd>
+                <dd>{displayDropdownListText(listing.sellersMortgageBalanceId, 'priceRanges')}</dd>
               </dl>
             </Column>
           </Row>
         )}
-        {listing.consumerType === 'buyerSeller' && <HorizontalRule />}
-        {listing.consumerType?.includes('buyer') && (
+        {listing.type === 'buyerSeller' && <HorizontalRule />}
+        {listing.type?.includes('buyer') && (
           <Row>
             <Column md={7}>
               <Heading as="h1" noMargin styledAs="title" align="center">
-                {listing.buyingPriceRange}
+                {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
               </Heading>
               <span>
                 Buying in{' '}

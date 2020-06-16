@@ -2,6 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
+import Countdown from 'react-countdown';
+import { FaRegClock } from 'react-icons/fa';
+import { addHours } from 'date-fns';
 
 import {
   Box,
@@ -39,17 +42,19 @@ import { createAgentBid } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
 import { ListingType } from '../../../../redux/ducks/listings.d';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
+import displayDropdownListText from '../../../../utils/displayDropdownListText';
 
-type DetailProps = {
+type ListingDetailsProps = {
   listingId?: string;
 } & RouteComponentProps;
 
-const ListingDetail: FunctionComponent<DetailProps> = (props) => {
-  const listings = useSelector((state: RootState) => state.listings.listings);
+const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
+  const listings = useSelector((state: RootState) => state.listings);
+  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
-  const listing = listings.find((l: ListingType) => String(l.id) === props.listingId);
-  const isBuyer = listing && listing.type.toLowerCase().includes('buyer');
-  const isSeller = listing && listing.type.toLowerCase().includes('seller');
+  const listing = listings.new.find((l: ListingType) => String(l.id) === props.listingId);
+  const isBuyer = listing && listing.type?.toLowerCase().includes('buyer');
+  const isSeller = listing && listing.type?.toLowerCase().includes('seller');
   const initialValues = {
     sellerCommission: '',
     sellerBrokerComplianceAmount: '',
@@ -78,18 +83,30 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
     <Box>
       <Heading styledAs="title">
         {isBuyer &&
-          `Buying for ${listing.buyingPriceRange} in ${Array.isArray(listing.buyingCities) &&
+          `Buying for ${displayDropdownListText(
+            listing.buyingPriceRangeId,
+            'priceRanges'
+          )} in ${Array.isArray(listing.buyingCities) &&
             listing.buyingCities.length > 0 &&
             Array(listing.buyingCities.map((city) => city.name))
               .toString()
               .replace(/,/g, ', ')}`}
         {isSeller && isBuyer && <br />}
         {isSeller &&
-          `Selling for ${listing.sellersListingPriceInMind} in ${listing.sellersCity?.name}`}
+          `Selling for ${displayDropdownListText(
+            listing.sellersListingPriceInMindPriceRangeInMindId,
+            'priceRanges'
+          )} in ${listing.sellersCity?.name}`}
       </Heading>
       <Heading as="h2" styledAs="subtitle">
         Additional Listing Information
       </Heading>
+      <div>
+        <FaRegClock />{' '}
+        {listing.createDateTime && (
+          <Countdown date={addHours(new Date(listing.createDateTime), 24)} daysInHours />
+        )}
+      </div>
       <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
@@ -204,10 +221,11 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                   </Column>
                 </Row>
                 <Heading as="h3">
-                  {listing.sellersListingPriceInMind &&
+                  {listing.sellersListingPriceInMindPriceRangeInMindId &&
                     `Total: ${sellTotal({
                       values,
-                      priceRange: listing.sellersListingPriceInMind,
+                      priceRangeId: listing.sellersListingPriceInMindPriceRangeInMindId,
+                      priceRangesList,
                     })}`}
                 </Heading>
               </>
@@ -297,8 +315,12 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
                   </Column>
                 </Row>
                 <Heading as="h3">
-                  {listing.buyingPriceRange &&
-                    `Total: ${buyTotal({ values, priceRange: listing.buyingPriceRange })}`}
+                  {listing.buyingPriceRangeId &&
+                    `Total: ${buyTotal({
+                      values,
+                      priceRangeId: listing.buyingPriceRangeId,
+                      priceRangesList,
+                    })}`}
                 </Heading>
               </>
             )}
@@ -312,4 +334,4 @@ const ListingDetail: FunctionComponent<DetailProps> = (props) => {
   );
 };
 
-export default ListingDetail;
+export default ListingDetails;
