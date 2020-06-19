@@ -40,7 +40,6 @@ export const initialState: AgentStoreType = {
   emailAddress: '',
   isLoading: false,
   hasError: false,
-  bids: [],
   profileCompleteResetDate: undefined,
   signupData: {},
   hasCompletedSignup: false,
@@ -73,7 +72,6 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        bids: [...state.bids, action.payload],
       };
     case CAPTURE_AGENT_SIGNUP_DATA:
       return {
@@ -88,16 +86,10 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
                 ...action.payload,
               },
       };
-    case CREATE_AGENT_BID_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        hasError: true,
-        bids: [...state.bids],
-      };
     case CREATE_AGENT_PROFILE_FAILURE:
     case UPDATE_AGENT_PROFILE_FAILURE:
     case GET_AGENT_PROFILE_FAILURE:
+    case CREATE_AGENT_BID_FAILURE:
       return {
         ...state,
         isLoading: false,

@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'gatsby';
 
 import {
   FlexContainer,
@@ -21,21 +22,25 @@ import {
 } from '../../../../utils/validations';
 import languagesList from '../../../../utils/languagesList';
 import AutoSave from '../../../../utils/autoSave';
+import Security from './Security';
 import { RootState } from '../../../../redux/ducks';
+import { updateUser } from '../../../../redux/ducks/auth';
 import { updateAgentProfile } from '../../../../redux/ducks/agent';
 import { gendersListOptions } from '../../../../utils/gendersList';
+import { reformattedPhone, formatPhoneNumberValue } from '../../../../utils/phoneNumber';
 
 type AgentProfileProps = {} & RouteComponentProps;
 
 const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
   const agent = useSelector((state: RootState) => state.agent);
+  const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
   const personalInfoInitialValues = {
-    firstName: 'Test',
-    lastName: 'User',
-    phoneNumber: '123-456-7890',
-    email: 'testuser@realtyoffer.com',
+    firstName: auth.firstName,
+    lastName: auth.lastName,
+    phoneNumber: formatPhoneNumberValue(auth.phoneNumber.replace('+', '')),
+    email: auth.email,
   };
   const agentInfoInitialValues = {
     agentId: agent.agentId,
@@ -58,12 +63,14 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         validateOnMount
         initialValues={personalInfoInitialValues}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            // TODO: need auth update profile service
-            // eslint-disable-next-line no-console
-            console.log(JSON.stringify(values, null, 2));
+          dispatch(
+            updateUser({
+              ...values,
+              phoneNumber: reformattedPhone(values.phoneNumber),
+            })
+          ).then(() => {
             setSubmitting(false);
-          }, 400);
+          });
         }}
       >
         {({ ...rest }) => (
@@ -96,7 +103,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         validate={requiredField}
                       />
                     </Column>
-                    <Column sm={4}>
+                    <Column sm={6}>
                       <Field
                         as={Input}
                         type="tel"
@@ -105,16 +112,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         validate={requiredPhoneNumber}
                       />
                     </Column>
-                    <Column sm={4}>
-                      <Field
-                        as={Input}
-                        type="email"
-                        name="email"
-                        label="Email Address"
-                        validate={requiredEmail}
-                      />
-                    </Column>
-                    <Column sm={4}>
+                    <Column sm={6}>
                       <Field
                         as={Input}
                         type="select"
@@ -128,7 +126,21 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                   </Row>
                 </Column>
               </Row>
-
+              <Field
+                as={Input}
+                type="email"
+                name="email"
+                label="Email Address"
+                validate={requiredEmail}
+                disabled
+                readOnly
+                helpText={
+                  <span>
+                    <Link to="/contact">Contact us</Link> to update your account&apos;s email
+                    address
+                  </span>
+                }
+              />
               <AutoSave />
             </Box>
           </Form>
@@ -138,7 +150,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         <Formik
           initialValues={agentInfoInitialValues}
           onSubmit={(values, { setSubmitting }) => {
-            dispatch(updateAgentProfile(values)).then(() => {
+            dispatch(updateAgentProfile({})).then(() => {
               setSubmitting(false);
             });
           }}
@@ -217,6 +229,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
           </Form>
         )}
       </Formik>
+      <Security />
     </>
   );
 };

@@ -8,6 +8,7 @@ import {
   AUTH_FORGOT_PASSWORD_ENDPOINT,
   AUTH_RESET_PASSWORD_ENDPOINT,
   AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
+  AUTH_SECURED_PROFILE_ENDPOINT,
 } from '../constants';
 
 import {
@@ -17,11 +18,16 @@ import {
   VerifyEmailFormValues,
   LoginFormValues,
   ResetPasswordFormValues,
+  UpdateUserFormValues,
 } from './auth.d';
 
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 
 export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
 export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
@@ -75,6 +81,7 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
     case AUTHENTICATE_CREDENTIALS_REQUEST:
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
+    case UPDATE_USER_REQUEST:
       // case CHANGE_PASSWORD_REQUEST:
       return {
         ...state,
@@ -118,6 +125,13 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         isLoading: false,
         hasError: false,
       };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        ...action.payload,
+      };
     case AUTHENTICATE_CREDENTIALS_FAILURE:
       return {
         ...initialState,
@@ -128,6 +142,7 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         failedLoginAttempts: state.failedLoginAttempts + 1,
         lockoutTimestamp: state.failedLoginAttempts >= 4 ? addMinutes(new Date(), 5) : undefined,
       };
+    case UPDATE_USER_FAILURE:
     case CREATE_USER_FAILURE:
     case VERIFY_EMAIL_FAILURE:
     case RESEND_SIGNUP_EMAIL_FAILURE:
@@ -157,6 +172,18 @@ export const createUser = (payload: CreateUserFormValues) => ({
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [{ type: CREATE_USER_REQUEST, payload }, CREATE_USER_SUCCESS, CREATE_USER_FAILURE],
+  },
+});
+
+export const updateUser = (payload: UpdateUserFormValues) => ({
+  [RSAA]: {
+    endpoint: AUTH_SECURED_PROFILE_ENDPOINT,
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    types: [{ type: UPDATE_USER_REQUEST, payload }, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE],
   },
 });
 

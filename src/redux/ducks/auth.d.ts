@@ -2,6 +2,9 @@ import {
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
   VERIFY_EMAIL_REQUEST,
   VERIFY_EMAIL_SUCCESS,
   VERIFY_EMAIL_FAILURE,
@@ -67,6 +70,12 @@ export type CreateUserFormValues = {
   role: 'Consumer' | 'Agent';
 };
 
+export type UpdateUserFormValues = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+};
+
 export type CreateUserRequestAction = {
   type: typeof CREATE_USER_REQUEST;
   payload: CreateUserFormValues;
@@ -79,6 +88,18 @@ export type CreateUserSuccessAction = {
 
 export type CreateUserFailureAction = {
   type: typeof CREATE_USER_FAILURE;
+  payload: { message?: string };
+};
+
+export type UpdateUserRequestAction = {
+  type: typeof UPDATE_USER_REQUEST;
+};
+export type UpdateUserSuccessAction = {
+  type: typeof UPDATE_USER_SUCCESS;
+  payload: UpdateUserFormValues;
+};
+export type UpdateUserFailureAction = {
+  type: typeof UPDATE_USER_FAILURE;
   payload: { message?: string };
 };
 
@@ -163,6 +184,9 @@ export type AuthActionTypes =
   | CreateUserRequestAction
   | CreateUserSuccessAction
   | CreateUserFailureAction
+  | UpdateUserRequestAction
+  | UpdateUserSuccessAction
+  | UpdateUserFailureAction
   | VerifyEmailRequestAction
   | VerifyEmailSuccessAction
   | VerifyEmailFailureAction

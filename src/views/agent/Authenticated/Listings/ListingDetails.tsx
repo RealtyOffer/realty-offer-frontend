@@ -5,6 +5,7 @@ import { RouteComponentProps } from '@reach/router';
 import Countdown from 'react-countdown';
 import { FaRegClock } from 'react-icons/fa';
 import { addHours } from 'date-fns';
+import { navigate, Link } from 'gatsby';
 
 import {
   Box,
@@ -41,8 +42,10 @@ import {
 import { createAgentBid } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
 import { ListingType } from '../../../../redux/ducks/listings.d';
+import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
 import displayDropdownListText from '../../../../utils/displayDropdownListText';
+import { ActionResponseType } from '../../../../redux/constants';
 
 type ListingDetailsProps = {
   listingId?: string;
@@ -81,6 +84,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   }
   return (
     <Box>
+      <Link to="/agent/listings/new">Back to New Listings</Link>
       <Heading styledAs="title">
         {isBuyer &&
           `Buying for ${displayDropdownListText(
@@ -132,7 +136,17 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
               buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
               listingId: Number(props.listingId),
             })
-          );
+          ).then((response: ActionResponseType) => {
+            if (response && !response.error) {
+              dispatch(
+                addAlert({
+                  message: 'Successfully submitted bid',
+                  type: 'success',
+                })
+              );
+              navigate('/agent/listings/new');
+            }
+          });
         }}
       >
         {({ isValid, isSubmitting, values }) => (

@@ -16,6 +16,7 @@ import {
 import { createUser } from '../../../redux/ducks/auth';
 import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
+import { reformattedPhone } from '../../../utils/phoneNumber';
 
 type CreateAgentProps = {} & RouteComponentProps;
 
@@ -29,8 +30,6 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
     password: '',
     role: 'Agent',
   };
-
-  const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
 
   return (
     <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">

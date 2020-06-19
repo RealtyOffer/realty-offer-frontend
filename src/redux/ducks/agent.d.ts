@@ -55,7 +55,6 @@ export type AgentSignupDataType = {
 export type AgentStoreType = {
   isLoading: boolean;
   hasError: boolean;
-  bids: Array<BidType>;
   signupData: AgentSignupDataType;
   hasCompletedSignup?: boolean;
 } & AgentProfileType;

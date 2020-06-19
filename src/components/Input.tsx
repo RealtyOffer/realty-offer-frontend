@@ -1,7 +1,6 @@
 import React, { useState, FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 import { useField, FieldMetaProps, FormikHelpers } from 'formik';
-import StringMask from 'string-mask';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Select, { CommonProps } from 'react-select';
 
@@ -27,6 +26,7 @@ import {
   offWhite,
 } from '../styles/color';
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
+import { formatPhoneNumberValue } from '../utils/phoneNumber';
 
 type OptionType = { label: string; value: string };
 
@@ -38,7 +38,7 @@ type InputProps = {
   hiddenLabel?: boolean;
   type: string;
   label: string | JSX.Element;
-  helpText?: string;
+  helpText?: string | JSX.Element;
   checked?: boolean;
   options?: OptionType[];
 } & FieldMetaProps<string> &
@@ -269,32 +269,18 @@ const Input: FunctionComponent<InputProps> = (props) => {
       );
       break;
     case 'tel':
-      {
-        const phoneDelimiter = '-';
-        const phoneMask = '000-000-0000';
-        const removeTrailingCharIfFound = (str: string, char: string) =>
-          str
-            .split(char)
-            .filter((segment) => segment !== '')
-            .join(char);
-        const formatValue = (str: string) => {
-          const unmaskedValue = str.split(phoneDelimiter).join('');
-          const formatted = StringMask.process(unmaskedValue, phoneMask);
-          return removeTrailingCharIfFound(formatted.result, phoneDelimiter);
-        };
-        inputTypeToRender = (
-          <StyledInput
-            type="tel"
-            id={props.name}
-            {...field}
-            {...props}
-            {...meta}
-            onChange={(event) => {
-              field.onChange(event.target.name)(formatValue(event.target.value));
-            }}
-          />
-        );
-      }
+      inputTypeToRender = (
+        <StyledInput
+          type="tel"
+          id={props.name}
+          {...field}
+          {...props}
+          {...meta}
+          onChange={(event) => {
+            field.onChange(event.target.name)(formatPhoneNumberValue(event.target.value));
+          }}
+        />
+      );
       break;
     case 'password':
       inputTypeToRender = (

@@ -19,6 +19,7 @@ import Image from './Image';
 import Input from './Input';
 import Layout from './Layout';
 import ListingCard from './ListingCard';
+import LoadingPage from './LoadingPage';
 import Modal from './Modal';
 import Navbar from './Navbar';
 import NegativeMarginContainer from './NegativeMarginContainer';
@@ -54,6 +55,7 @@ export {
   Input,
   Layout,
   ListingCard,
+  LoadingPage,
   Modal,
   Navbar,
   NegativeMarginContainer,

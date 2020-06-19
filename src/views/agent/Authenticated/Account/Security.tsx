@@ -1,29 +1,32 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { RouteComponentProps } from '@reach/router';
+import { FaLock } from 'react-icons/fa';
 
 import { Heading, Box, Input, Button } from '../../../../components';
 
 import { requiredPassword, passwordRulesString } from '../../../../utils/validations';
+import AutoSave from '../../../../utils/autoSave';
 
 type AgentSecurityProps = {} & RouteComponentProps;
 
 const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
   const initialValues = {
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   };
   return (
-    <>
-      <Heading>Security</Heading>
-      <Box>
+    <Box>
+      <Heading as="h2">Password</Heading>
+      {showPasswordForm ? (
         <Formik
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values) => console.log(values)}
         >
-          {({ isValid, isSubmitting }) => (
+          {() => (
             <Form>
               <Field as={Input} type="password" name="currentPassword" label="Current Password" />
               <Field
@@ -35,14 +38,21 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
                 helpText={passwordRulesString}
               />
               <Field as={Input} type="password" name="confirmPassword" label="Confirm Password" />
-              <Button type="submit" disabled={!isValid || isSubmitting}>
-                Submit
-              </Button>
+              <AutoSave />
             </Form>
           )}
         </Formik>
-      </Box>
-    </>
+      ) : (
+        <Button
+          type="button"
+          onClick={() => setShowPasswordForm(true)}
+          color="primaryOutline"
+          iconLeft={<FaLock />}
+        >
+          Update Password
+        </Button>
+      )}
+    </Box>
   );
 };
 

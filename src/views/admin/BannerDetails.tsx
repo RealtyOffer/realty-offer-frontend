@@ -57,10 +57,10 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
   const activeBanner = isNewBanner
     ? newBannerInitialValues
     : {
+        ...matchingBanner,
         expirationDate: String(
           format(new Date(matchingBanner.expirationDate), `yyyy-MM-dd'T'HH:mm`)
         ),
-        ...matchingBanner,
       };
 
   if (!props.id || !banners || !activeBanner) {

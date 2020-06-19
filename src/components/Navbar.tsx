@@ -1,9 +1,10 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState, FunctionComponent, useRef, useEffect } from 'react';
 import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaCaretDown, FaBell, FaRegBell } from 'react-icons/fa';
+import { FaBell, FaRegBell } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
+import ReactTooltip from 'react-tooltip';
 
 import PageContainer from './PageContainer';
 import FlexContainer from './FlexContainer';
@@ -45,6 +46,10 @@ const StyledNavbar = styled.nav`
   color: ${white};
   position: relative;
   height: ${quadrupleSpacer};
+
+  & .tooltip {
+    padding: 0 ${halfSpacer};
+  }
 `;
 
 const StyledLogoLink = styled(Link)`
@@ -63,7 +68,6 @@ const StyledDropdown = styled.div`
   box-shadow: ${z1Shadow};
   right: 0;
   top: 100%;
-  display: none;
   width: 250px;
 
   & > a {
@@ -86,16 +90,24 @@ const StyledDropdownWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 ${baseSpacer};
+  padding: ${halfSpacer};
+  border-radius: ${tripleSpacer};
+  height: ${tripleSpacer};
+  width: ${tripleSpacer};
+  background-color: transparent;
+  transition: background 0.1s ease-out;
 
-  &:hover ${StyledDropdown}, &:focus ${StyledDropdown} {
-    display: block;
-    z-index: 1;
+  &:hover {
+    background: ${brandPrimaryHover};
   }
 
+  /* &:hover ${StyledDropdown}, &:focus ${StyledDropdown} {
+    display: block;
+    z-index: 1;
+  } */
+
   &:last-of-type {
-    border-left: 1px solid ${white};
-    padding-right: 0;
+    margin-right: -${halfSpacer};
   }
 `;
 
@@ -188,10 +200,10 @@ const NotificationDot = styled.div`
   height: ${threeQuarterSpacer};
   border-radius: ${threeQuarterSpacer};
   background-color: ${brandDanger};
-  top: 0;
+  top: ${(props: { isSmallScreen: boolean }) => (props.isSmallScreen ? 0 : threeQuarterSpacer)};
   /* not actually aligning left, but size of parent (which is pos: relative) above is different */
   ${(props: { isSmallScreen: boolean }) =>
-    props.isSmallScreen ? `left: ${baseSpacer};` : `right: ${baseSpacer};`}
+    props.isSmallScreen ? `left: ${baseSpacer};` : `right: ${threeQuarterSpacer};`}
 `;
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
@@ -200,6 +212,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
+  const notificationsNode = useRef<HTMLDivElement>(null);
+  const profileNode = useRef<HTMLDivElement>(null);
   const size = useWindowSize();
   const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
   const primaryNavigation = agentNavigationItems.filter((item) => item.primary);
@@ -210,6 +226,34 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
       setMenuIsOpen(false);
     }
   };
+
+  const handleNotificationsDropownClick = (e: MouseEvent) => {
+    if (
+      notificationsNode &&
+      notificationsNode.current &&
+      notificationsNode.current.contains(e.target as Node)
+    ) {
+      return; // inside click
+    }
+    setNotificationsDropdownOpen(false); // outside click, close the menu
+  };
+
+  const handleProfileDropownClick = (e: MouseEvent) => {
+    if (profileNode && profileNode.current && profileNode.current.contains(e.target as Node)) {
+      return; // inside click
+    }
+    setProfileDropdownOpen(false); // outside click, close the menu
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleNotificationsDropownClick);
+    document.addEventListener('mousedown', handleProfileDropownClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleNotificationsDropownClick);
+      document.removeEventListener('mousedown', handleProfileDropownClick);
+    };
+  }, []);
 
   const isLoggedInAgent = auth.isLoggedIn && agent.hasCompletedSignup;
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
@@ -222,7 +266,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
       <PageContainer>
         <FlexContainer justifyContent="space-between" height={quadrupleSpacer}>
           {/* TODO for PROD: update link to / */}
-          <StyledLogoLink to="/landing" title="Logo">
+          <StyledLogoLink to={isLoggedInAgent ? '/agent/listings/new' : '/landing'} title="Logo">
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
           </StyledLogoLink>
           {/* TODO for PROD */}
@@ -289,39 +333,77 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             </StyledMenu>
             {!isSmallScreen && isLoggedInAgent && (
               <FlexContainer>
-                <StyledDropdownWrapper>
+                <StyledDropdownWrapper
+                  onClick={() => setNotificationsDropdownOpen(!notificationsDropdownOpen)}
+                  data-tip="Notifications"
+                  data-for="notifications"
+                  ref={notificationsNode}
+                >
                   <FaBell size={baseAndAHalfSpacer} />
                   <NotificationDot isSmallScreen={false} />
-                  <StyledDropdown>
-                    <Link to="/">Notification text goes here</Link>
-                    <Link to="/">Notification text goes here</Link>
-                    <Link to="/">Notification text goes here</Link>
-                  </StyledDropdown>
+                  {notificationsDropdownOpen && (
+                    <StyledDropdown>
+                      <Link to="/">Notification text goes here</Link>
+                      <Link to="/">Notification text goes here</Link>
+                      <Link to="/">Notification text goes here</Link>
+                    </StyledDropdown>
+                  )}
                 </StyledDropdownWrapper>
-                <StyledDropdownWrapper>
+                <ReactTooltip
+                  id="notifications"
+                  place="bottom"
+                  type="dark"
+                  effect="solid"
+                  className="tooltip"
+                  disable={notificationsDropdownOpen}
+                  delayShow={500}
+                  offset={{ top: 16 }}
+                />
+                <StyledDropdownWrapper
+                  onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                  data-tip="Profile & Settings"
+                  data-for="profile"
+                  ref={profileNode}
+                >
                   <Avatar src={user.avatar} />
-                  <FaCaretDown />
-                  <StyledDropdown>
-                    {secondaryNavigation.map((navItem) => (
-                      <Link key={navItem.name} to={navItem.path}>
-                        {navItem.name}
+                  {profileDropdownOpen && (
+                    <StyledDropdown>
+                      {secondaryNavigation.map((navItem) => (
+                        <Link key={navItem.name} to={navItem.path}>
+                          {navItem.name}
+                        </Link>
+                      ))}
+                      {auth.roles.includes('Admin') && (
+                        <Link to="/admin/banners" onClick={() => toggleMenu()}>
+                          Admin
+                        </Link>
+                      )}
+                      <Link to="/" onClick={() => dispatch(logout())}>
+                        Log Out
                       </Link>
-                    ))}
-                    {auth.roles.includes('Admin') && (
-                      <Link to="/admin/banners" onClick={() => toggleMenu()}>
-                        Admin
-                      </Link>
-                    )}
-                    <Link to="/" onClick={() => dispatch(logout())}>
-                      Log Out
-                    </Link>
-                  </StyledDropdown>
+                    </StyledDropdown>
+                  )}
                 </StyledDropdownWrapper>
+                <ReactTooltip
+                  id="profile"
+                  place="bottom"
+                  type="dark"
+                  effect="solid"
+                  className="tooltip"
+                  disable={profileDropdownOpen}
+                  delayShow={500}
+                  offset={{ top: 16 }}
+                />
               </FlexContainer>
             )}
             {/* TODO for PROD */}
             {!auth.isLoggedIn && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
-              <Link to="/login" activeClassName="active" onClick={() => toggleMenu()}>
+              <Link
+                to="/login"
+                activeClassName="active"
+                onClick={() => toggleMenu()}
+                style={{ color: white }}
+              >
                 Log In
               </Link>
             )}
