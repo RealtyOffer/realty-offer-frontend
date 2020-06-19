@@ -19,7 +19,7 @@ import ListingDetails from '../views/agent/Authenticated/Listings/ListingDetails
 import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
-import { Alert, PageContainer, PrivateRoute, LoadingPage } from '../components';
+import { Alert, PageContainer, PrivateRoute } from '../components';
 import { getAgentProfile, resetProfileCompleteAlert } from '../redux/ducks/agent';
 import { getUserSiteBanners, getUserAvatar } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
@@ -37,21 +37,19 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
   useEffect(() => {
     if (isLoggedIn && !agent.agentId && !agent.isLoading) {
+      if (props.location.pathname === '/agent') {
+        // if we are landing on the /agent page from logging in, redirect to new listings
+        // otherwise, its a page refresh while logged in and we dont want to redirect
+        navigate('/agent/listings/new');
+      }
       dispatch(getUserAvatar());
       dispatch(getAgentProfile()).then((response: ActionResponseType) => {
         if (!response.payload.agentId) {
           navigate('/agent/agent-information');
         } else if (response.payload.cities.length === 0) {
           navigate('/agent/business-information');
-        } else if (props.location.pathname === '/agent') {
-          // if we are landing on the /agent page from logging in, redirect to new listings
-          // otherwise, its a page refresh while logged in and we dont want to redirect
-          navigate('/agent/listings/new');
         }
       });
-    }
-    if (!isLoggedIn) {
-      navigate('/agent/sign-up');
     }
   }, []);
 
@@ -90,29 +88,22 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
             close={() => dispatch(resetProfileCompleteAlert())}
           />
         )}
-      {!agent.agentId && agent.isLoading ? (
-        <LoadingPage />
-      ) : (
-        <Router basepath="agent">
-          <CreateAgent path="/sign-up" />
-          <VerifyEmail path="/verify-email" />
-          <AgentInformation path="/agent-information" />
-          <BusinessInformation path="/business-information" />
-          <PaymentInformation path="/payment-information" />
-          <ConfirmPayment path="/confirm-payment" />
-          <PrivateRoute
-            component={ListingDetails}
-            path="/listings/:listingId"
-            allowedRole="Agent"
-          />
-          <PrivateRoute component={NewListings} path="/listings/new" allowedRole="Agent" />
-          <PrivateRoute component={PendingListings} path="/listings/pending" allowedRole="Agent" />
-          <PrivateRoute component={AwardedListings} path="/listings/awarded" allowedRole="Agent" />
-          <PrivateRoute component={ListingHistory} path="/listings/history" allowedRole="Agent" />
-          <PrivateRoute component={AgentAccount} path="/account/*" allowedRole="Agent" />
-          <NotFoundPage default />
-        </Router>
-      )}
+
+      <Router basepath="agent">
+        <CreateAgent path="/sign-up" />
+        <VerifyEmail path="/verify-email" />
+        <AgentInformation path="/agent-information" />
+        <BusinessInformation path="/business-information" />
+        <PaymentInformation path="/payment-information" />
+        <ConfirmPayment path="/confirm-payment" />
+        <PrivateRoute component={ListingDetails} path="/listings/:listingId" allowedRole="Agent" />
+        <PrivateRoute component={NewListings} path="/listings/new" allowedRole="Agent" />
+        <PrivateRoute component={PendingListings} path="/listings/pending" allowedRole="Agent" />
+        <PrivateRoute component={AwardedListings} path="/listings/awarded" allowedRole="Agent" />
+        <PrivateRoute component={ListingHistory} path="/listings/history" allowedRole="Agent" />
+        <PrivateRoute component={AgentAccount} path="/account/*" allowedRole="Agent" />
+        <NotFoundPage default />
+      </Router>
     </PageContainer>
   );
 };

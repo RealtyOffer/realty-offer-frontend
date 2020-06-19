@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'gatsby';
-import Countdown from 'react-countdown';
-import { FaRegClock } from 'react-icons/fa';
 import { addHours, differenceInMinutes } from 'date-fns';
 import styled from 'styled-components';
 import TextTruncate from 'react-text-truncate';
 
 import Button from './Button';
 import Heading from './Heading';
+import Countdown from './Countdown';
 
 import { brandDanger, textColor, white, brandTertiary } from '../styles/color';
 import { halfSpacer, baseSpacer, borderRadius } from '../styles/size';
@@ -74,12 +73,7 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing }) => {
     <ListingCardWrapper expiringSoon={expiringSoon}>
       <ListingCardHeader expiringSoon={expiringSoon}>
         <FlexContainer justifyContent="space-between">
-          <div>
-            <FaRegClock />{' '}
-            {listing.createDateTime && (
-              <Countdown date={addHours(new Date(listing.createDateTime), 24)} daysInHours />
-            )}
-          </div>
+          <Countdown createDateTime={listing.createDateTime} />
           <CardType>{listing.type}</CardType>
         </FlexContainer>
       </ListingCardHeader>

@@ -12,7 +12,7 @@ import {
 } from './consumer';
 
 import { LogoutRequestAction } from './auth.d';
-import { ListingType } from './listings.d';
+import { ListingType, CreateListingType } from './listings.d';
 
 export type ConsumerProfileType = {
   id?: number;
@@ -29,12 +29,12 @@ export type ConsumerStoreType = {
 
 export type CaptureConsumerDataAction = {
   type: typeof CAPTURE_CONSUMER_DATA;
-  payload: ListingType;
+  payload: CreateListingType;
 };
 
 export type CreateConsumerProfileRequestAction = {
   type: typeof CREATE_CONSUMER_PROFILE_REQUEST;
-  payload: { listing: ListingType; profile: ConsumerProfileType };
+  payload: { listing: CreateListingType; profile: ConsumerProfileType };
 };
 
 export type CreateConsumerProfileSuccessAction = {

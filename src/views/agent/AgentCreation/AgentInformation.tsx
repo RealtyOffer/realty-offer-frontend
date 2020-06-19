@@ -80,7 +80,12 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            dispatch(createAgentProfile(values)).then((response: ActionResponseType) => {
+            dispatch(
+              createAgentProfile({
+                ...values,
+                brokerZip: String(values.brokerZip),
+              })
+            ).then((response: ActionResponseType) => {
               setSubmitting(false);
               dispatch(
                 captureAgentSignupData({
@@ -152,7 +157,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                 <Column>
                   <Field as={Input} type="text" name="brokerAddressLine2" label="Address Cont." />
                 </Column>
-                <Column md={6}>
+                <Column md={5}>
                   <Field
                     as={Input}
                     type="text"
@@ -161,13 +166,15 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                     validate={requiredField}
                   />
                 </Column>
-                <Column md={2}>
+                <Column md={3}>
                   <Field
                     as={Input}
-                    type="text"
+                    type="select"
                     name="brokerState"
                     label="State"
                     validate={requiredField}
+                    options={statesList}
+                    {...rest}
                   />
                 </Column>
                 <Column md={4}>

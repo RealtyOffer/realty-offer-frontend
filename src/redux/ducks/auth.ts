@@ -124,6 +124,8 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         ...state,
         isLoading: false,
         hasError: false,
+        failedLoginAttempts: 0,
+        lockoutTimestamp: undefined,
       };
     case UPDATE_USER_SUCCESS:
       return {

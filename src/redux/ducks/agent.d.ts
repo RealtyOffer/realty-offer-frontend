@@ -25,6 +25,11 @@ export type AgentProfileType = {
   brokerName?: string;
   brokerPhoneNumber?: string;
   brokerAddress?: string;
+  brokerAddressLine1?: string;
+  brokerAddressLine2?: string;
+  brokerCity?: string;
+  brokerZip?: string;
+  brokerState?: string;
   profileCompleteResetDate?: Date;
   emailAddress?: string;
   cities?: Array<CityType>;

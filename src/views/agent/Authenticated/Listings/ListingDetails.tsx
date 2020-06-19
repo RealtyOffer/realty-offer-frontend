@@ -2,9 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
-import Countdown from 'react-countdown';
-import { FaRegClock } from 'react-icons/fa';
-import { addHours } from 'date-fns';
 import { navigate, Link } from 'gatsby';
 
 import {
@@ -16,6 +13,7 @@ import {
   Column,
   EmptyListingsView,
   HorizontalRule,
+  Countdown,
 } from '../../../../components';
 import {
   requiredSellerCommissionAmount,
@@ -105,12 +103,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
       <Heading as="h2" styledAs="subtitle">
         Additional Listing Information
       </Heading>
-      <div>
-        <FaRegClock />{' '}
-        {listing.createDateTime && (
-          <Countdown date={addHours(new Date(listing.createDateTime), 24)} daysInHours />
-        )}
-      </div>
+      <Countdown createDateTime={listing.createDateTime} />
       <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>

@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, Fragment } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch } from 'react-redux';
 
@@ -55,15 +55,16 @@ const ForgotPassword: FunctionComponent<LoginProps> = () => {
             )}
           </Formik>
         ) : (
-          <Fragment data-cy="forgot-password">
-            <Alert type="success" data-cy="alert">
-              If your email is found, you will receive an email with next steps for resetting your
-              password.
-            </Alert>
+          <div data-cy="forgot-password">
+            <Alert
+              type="success"
+              data-cy="alert"
+              message="If your email is found, you will receive an email with next steps for resetting your password."
+            />
             <Button type="link" to="/login" color="text" block>
               Back to Login
             </Button>
-          </Fragment>
+          </div>
         )}
       </Card>
     </PageContainer>

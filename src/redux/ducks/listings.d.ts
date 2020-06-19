@@ -20,7 +20,7 @@ export type ListingType = {
   type?: 'buyer' | 'seller' | 'buyerSeller';
   buyingCities?: Array<CityType>;
   buyingPriceRangeId?: number;
-  createDateTime?: string;
+  createDateTime: Date;
   freeMortgageConsult?: boolean;
   preApproved?: boolean;
   sellersAddressLine1?: string;
@@ -31,6 +31,8 @@ export type ListingType = {
   sellersListingPriceInMindPriceRangeInMindId?: number;
   sellersMortgageBalanceId?: number;
 };
+
+export type CreateListingType = Omit<ListingType, 'createDateTime'>;
 
 export type ListingStoreType = {
   isLoading: boolean;

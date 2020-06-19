@@ -143,7 +143,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   name="sellersListingPriceInMind"
                   label="Do you have a listing price in mind?"
                   validate={requiredField}
-                  options={createOptionsFromManagedDropdownList(priceRangesList)}
+                  options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
                   {...rest}
                 />
                 <Field

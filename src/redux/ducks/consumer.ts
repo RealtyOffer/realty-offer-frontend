@@ -4,7 +4,7 @@ import { LOGOUT_REQUEST } from './auth';
 import { CREATE_CONSUMER_PROFILE_ENDPOINT, SECURED_CONSUMER_PROFILE_ENDPOINT } from '../constants';
 
 import { ConsumerStoreType, ConsumerProfileType, ConsumerStoreActions } from './consumer.d';
-import { ListingType } from './listings.d';
+import { ListingType, CreateListingType } from './listings.d';
 
 export const CAPTURE_CONSUMER_DATA = 'CAPTURE_CONSUMER_DATA';
 
@@ -31,7 +31,9 @@ export const GET_CONSUMER_CITIES_FAILURE = 'GET_CONSUMER_CITIES_FAILURE';
 export const initialState: ConsumerStoreType = {
   isLoading: false,
   hasError: false,
-  listing: {},
+  listing: {
+    createDateTime: new Date(),
+  },
   profile: {},
 };
 
@@ -47,7 +49,9 @@ export default (
         // so the signup process can be started over from scratch
         listing:
           Object.keys(action.payload).length === 0
-            ? {}
+            ? {
+                createDateTime: new Date(),
+              }
             : {
                 ...state.listing,
                 ...action.payload,
@@ -93,7 +97,7 @@ export default (
   }
 };
 
-export const captureConsumerData = (payload: ListingType) => ({
+export const captureConsumerData = (payload: CreateListingType) => ({
   type: CAPTURE_CONSUMER_DATA,
   payload,
 });

@@ -45,6 +45,26 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
     }
   };
 
+  const handlePasteEvent = (e: ClipboardEvent, setFieldValue: Function, validateForm: Function) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const pastedData = e.clipboardData && e.clipboardData.getData('Text');
+
+    if (pastedData && pastedData.toString().length === 6) {
+      setFieldValue('digit1', pastedData[0]);
+      setFieldValue('digit2', pastedData[1]);
+      setFieldValue('digit3', pastedData[2]);
+      setFieldValue('digit4', pastedData[3]);
+      setFieldValue('digit5', pastedData[4]);
+      setFieldValue('digit6', pastedData[5]);
+      const inputToBeFocused = document.getElementsByName('digit6')[0];
+      if (inputToBeFocused) {
+        validateForm().then(() => inputToBeFocused.focus());
+      }
+    }
+  };
+
   return (
     <PageContainer>
       <Seo title="Reset Password" />
@@ -69,7 +89,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
               });
             }}
           >
-            {({ isSubmitting, isValid }) => (
+            {({ isSubmitting, isValid, setFieldValue, validateForm }) => (
               <Form>
                 <Field
                   as={Input}
@@ -90,6 +110,9 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                         square
                         maxLength={1}
                         onInput={autoFocusNextInput}
+                        onPaste={(e: ClipboardEvent) =>
+                          handlePasteEvent(e, setFieldValue, validateForm)
+                        }
                         validate={requiredField}
                       />
                     ))}
@@ -115,9 +138,10 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
           </Formik>
         ) : (
           <>
-            <Alert type="success">
-              You have successfully reset your password. You may now log in.
-            </Alert>
+            <Alert
+              type="success"
+              message="You have successfully reset your password. You may now log in."
+            />
             <Button type="link" to="/login" color="primary" block>
               Log In
             </Button>

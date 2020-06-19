@@ -110,7 +110,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   as={Input}
                   type="select"
                   name="buyingPriceRange"
-                  options={createOptionsFromManagedDropdownList(priceRangesList)}
+                  options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
                   label="Do you have a purchase price in mind?"
                   validate={requiredSelect}
                   {...rest}

@@ -2,13 +2,22 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 
-import { Row, Column, ListingCard, EmptyListingsView, Heading, Seo } from '../../../../components';
+import {
+  ListingCardsLoader,
+  Row,
+  Column,
+  ListingCard,
+  EmptyListingsView,
+  Heading,
+  Seo,
+} from '../../../../components';
 
 import { getAwardedListings } from '../../../../redux/ducks/listings';
 import { RootState } from '../../../../redux/ducks';
 
 const AwardedListings: FunctionComponent<RouteComponentProps> = () => {
   const awardedListings = useSelector((state: RootState) => state.listings.awarded);
+  const isLoading = useSelector((state: RootState) => state.listings.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,6 +28,7 @@ const AwardedListings: FunctionComponent<RouteComponentProps> = () => {
     <>
       <Seo title="Awarded Listings" />
       <Heading>Awarded Listings</Heading>
+      {isLoading && <ListingCardsLoader />}
       {awardedListings && awardedListings.length > 0 ? (
         <Row>
           {awardedListings.map((listing) => (

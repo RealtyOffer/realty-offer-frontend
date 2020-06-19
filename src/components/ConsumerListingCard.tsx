@@ -1,20 +1,19 @@
 import React, { FunctionComponent } from 'react';
-import Countdown from 'react-countdown';
-import { FaRegClock } from 'react-icons/fa';
-import differenceInMinutes from 'date-fns/differenceInMinutes';
 import styled from 'styled-components';
 
 import Heading from './Heading';
-import { brandDanger, textColor, white, brandPrimary } from '../styles/color';
+import { brandDanger, white, brandPrimary } from '../styles/color';
 import { halfSpacer, baseSpacer, borderRadius } from '../styles/size';
 import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import FlexContainer from './FlexContainer';
 import HorizontalRule from './HorizontalRule';
 import Row from './Row';
 import Column from './Column';
+import Countdown from './Countdown';
 
 import { ListingType } from '../redux/ducks/listings.d';
 import displayDropdownListText from '../utils/displayDropdownListText';
+import { isExpiringSoon } from '../utils/countdownTimerUtils';
 
 type ConsumerListingCardProps = {
   listing: ListingType;
@@ -35,7 +34,6 @@ const ConsumerListingCardWrapper = styled.div`
 
 const ConsumerListingCardHeader = styled.div`
   padding: ${halfSpacer};
-  color: ${(props: { expiringSoon: boolean }) => (props.expiringSoon ? brandDanger : textColor)};
   border-bottom: ${baseBorderStyle};
 `;
 
@@ -44,21 +42,12 @@ const ConsumerListingCardBody = styled.div`
 `;
 
 const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ listing }) => {
-  // difference in minutes from expiration date to now, divided by 1440 which is number of minutes
-  // in a day (24*60). Then multiply that by 100 to get percentage value
-  const timeDifference = listing.createDateTime
-    ? (differenceInMinutes(new Date(listing.createDateTime), Date.now()) / 1440) * 100
-    : 0;
-  const expiringSoon = timeDifference < 8.3333333; // 2 hours out of 24
-
   return (
-    <ConsumerListingCardWrapper expiringSoon={expiringSoon}>
-      <ConsumerListingCardHeader expiringSoon={expiringSoon}>
+    <ConsumerListingCardWrapper expiringSoon={isExpiringSoon(listing.createDateTime)}>
+      <ConsumerListingCardHeader>
         <FlexContainer flexDirection="column">
           <small>Time remaining before your listing is done receiving bids</small>
-          <strong>
-            <FaRegClock /> <Countdown date={listing.createDateTime} daysInHours />
-          </strong>
+          <Countdown createDateTime={listing.createDateTime} />
         </FlexContainer>
       </ConsumerListingCardHeader>
       <ConsumerListingCardBody>

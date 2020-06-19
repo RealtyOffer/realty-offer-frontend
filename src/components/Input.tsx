@@ -271,7 +271,6 @@ const Input: FunctionComponent<InputProps> = (props) => {
     case 'tel':
       inputTypeToRender = (
         <StyledInput
-          type="tel"
           id={props.name}
           {...field}
           {...props}
@@ -285,7 +284,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
     case 'password':
       inputTypeToRender = (
         <PasswordWrapper>
-          <StyledInput type="password" id={props.name} {...field} {...props} {...meta} />
+          <StyledInput id={props.name} {...field} {...props} {...meta} />
           <PasswordToggle onClick={() => setPasswordVisibiility(!passwordVisibility)}>
             {passwordVisibility ? <FaEye /> : <FaEyeSlash />}
           </PasswordToggle>
@@ -301,20 +300,11 @@ const Input: FunctionComponent<InputProps> = (props) => {
       );
       break;
     case 'hidden':
-      inputTypeToRender = (
-        <StyledInput id={props.name} type="hidden" {...field} {...props} {...meta} />
-      );
+      inputTypeToRender = <StyledInput id={props.name} {...field} {...props} {...meta} />;
       break;
     default:
       inputTypeToRender = (
-        <StyledInput
-          id={props.name}
-          type={props.type}
-          square={props.square}
-          {...field}
-          {...props}
-          {...meta}
-        />
+        <StyledInput id={props.name} square={props.square} {...field} {...props} {...meta} />
       );
       break;
   }
