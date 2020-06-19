@@ -77,13 +77,13 @@ const Selling: FunctionComponent<SellingProps> = () => {
   const cityOptions = cities && createOptionsFromArray(cities, 'name');
 
   return (
-    <>
+    <ClientOnly>
       <Seo title="Sell Your Home" />
       <Card
         cardTitle="Tell us about your move"
         cardSubtitle="No contracts, no obligation, no awkward negotiations"
       >
-        <ClientOnly>
+        <>
           <ProgressBar
             value={isBuyerAndSeller ? 33 : 50}
             label={`Step ${isBuyerAndSeller ? 2 : 1}/${isBuyerAndSeller ? 3 : 2}`}
@@ -182,10 +182,10 @@ const Selling: FunctionComponent<SellingProps> = () => {
               </Form>
             )}
           </Formik>
-        </ClientOnly>
+        </>
       </Card>
       <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
-    </>
+    </ClientOnly>
   );
 };
 

@@ -13,6 +13,7 @@ import {
   Column,
   HorizontalRule,
   ProgressBar,
+  ClientOnly,
 } from '../../../components';
 
 import {
@@ -55,7 +56,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
   const isBuyerAndSeller = consumer.listing.type === 'buyerSeller';
 
   return (
-    <>
+    <ClientOnly>
       <Seo title="Ready to buy or sell a home?" />
       <Card cardTitle="Create Account" cardSubtitle="Tell Us About Yourself">
         <>
@@ -161,7 +162,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
         </>
       </Card>
       <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
-    </>
+    </ClientOnly>
   );
 };
 

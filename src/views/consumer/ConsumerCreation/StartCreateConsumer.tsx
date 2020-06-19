@@ -4,7 +4,7 @@ import { FaCaretRight } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 
-import { Box, Button, Card, Heading, Seo } from '../../../components';
+import { ClientOnly, Box, Button, Card, Heading, Seo } from '../../../components';
 import { RootState } from '../../../redux/ducks';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
@@ -27,7 +27,7 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
   }, []);
 
   return (
-    <>
+    <ClientOnly>
       <Seo title="Ready to buy or sell a home?" />
       <Card
         cardTitle="Ready to buy or sell a home?"
@@ -87,7 +87,7 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
           </Box>
         </>
       </Card>
-    </>
+    </ClientOnly>
   );
 };
 

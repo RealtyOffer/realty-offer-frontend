@@ -12,3 +12,13 @@
   from = '/consumer/*'
   to = '/consumer'
   status = 200
+
+[[redirects]]
+  from = '/agent/*'
+  to = '/agent'
+  status = 200
+
+[[redirects]]
+  from = '/admin/*'
+  to = '/admin'
+  status = 200
