@@ -69,6 +69,7 @@ const StyledDropdown = styled.div`
   right: 0;
   top: 100%;
   width: 250px;
+  z-index: 1;
 
   & > a {
     color: ${brandPrimary};
