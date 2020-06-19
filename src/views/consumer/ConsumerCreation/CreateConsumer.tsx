@@ -85,8 +85,8 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                       },
                       profile: {
                         id: 0,
-                        otherLanguage: consumer.profile.otherLanguage,
-                        genderPreference: consumer.profile.genderPreference,
+                        otherLanguage: '',
+                        genderPreference: '',
                       },
                     })
                   ).then((secondRes: ActionResponseType) => {

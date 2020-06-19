@@ -14,6 +14,7 @@ import {
   Row,
   HorizontalRule,
   ProgressBar,
+  ClientOnly,
 } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { getUserCities } from '../../../redux/ducks/user';
@@ -67,7 +68,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
         cardTitle="Tell us about your move"
         cardSubtitle="No contracts, no obligation, no awkward negotiations"
       >
-        <>
+        <ClientOnly>
           <ProgressBar
             value={isBuyerAndSeller ? 33 : 50}
             label={`Step 1/${isBuyerAndSeller ? 3 : 2}`}
@@ -155,7 +156,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
               </Form>
             )}
           </Formik>
-        </>
+        </ClientOnly>
       </Card>
       <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
     </>
