@@ -33,6 +33,7 @@ export type AgentProfileType = {
   profileCompleteResetDate?: Date;
   emailAddress?: string;
   cities?: Array<CityType>;
+  genderIdentifier: string;
 };
 
 export type BidType = {

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,27 +20,43 @@ import {
   requiredPhoneNumber,
   requiredSelect,
 } from '../../../../utils/validations';
-import languagesList from '../../../../utils/languagesList';
 import AutoSave from '../../../../utils/autoSave';
 import Security from './Security';
 import { RootState } from '../../../../redux/ducks';
 import { updateUser } from '../../../../redux/ducks/auth';
 import { updateAgentProfile } from '../../../../redux/ducks/agent';
-import { gendersListOptions } from '../../../../utils/gendersList';
+import { getLanguagesList, getGendersList } from '../../../../redux/ducks/dropdowns';
 import { reformattedPhone, formatPhoneNumberValue } from '../../../../utils/phoneNumber';
+import { createOptionsFromManagedDropdownList } from '../../../../utils/createOptionsFromArray';
 
 type AgentProfileProps = {} & RouteComponentProps;
 
 const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
   const agent = useSelector((state: RootState) => state.agent);
   const auth = useSelector((state: RootState) => state.auth);
+  const languagesList = useSelector((state: RootState) => state.dropdowns.languages.list);
+  const gendersList = useSelector((state: RootState) => state.dropdowns.genders.list);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (languagesList.length === 0) {
+      dispatch(getLanguagesList());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (gendersList.length === 0) {
+      dispatch(getGendersList());
+    }
+  }, []);
 
   const personalInfoInitialValues = {
     firstName: auth.firstName,
     lastName: auth.lastName,
     phoneNumber: formatPhoneNumberValue(auth.phoneNumber.replace('+', '')),
     email: auth.email,
+    // we want to visually have gender dropdown in this section, so initialize it here
+    genderIdentifier: agent.genderIdentifier,
   };
   const agentInfoInitialValues = {
     agentId: agent.agentId,
@@ -48,6 +64,8 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     brokerPhoneNumber: agent.brokerPhoneNumber,
     brokerAddress: '',
     state: 'MI', // TODO
+    // initialize gender so our PUT still works
+    genderIdentifier: agent.genderIdentifier,
   };
   const aboutMeInitialValues = {
     languagesSpoken: '',
@@ -63,6 +81,14 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         validateOnMount
         initialValues={personalInfoInitialValues}
         onSubmit={(values, { setSubmitting }) => {
+          if (values.genderIdentifier) {
+            dispatch(
+              updateAgentProfile({
+                ...agent,
+                genderIdentifier: values.genderIdentifier,
+              })
+            );
+          }
           dispatch(
             updateUser({
               ...values,
@@ -116,9 +142,9 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       <Field
                         as={Input}
                         type="select"
-                        name="gender"
+                        name="genderIdentifier"
                         label="Gender"
-                        options={gendersListOptions}
+                        options={createOptionsFromManagedDropdownList(gendersList)}
                         validate={requiredSelect}
                         {...rest}
                       />
@@ -150,7 +176,11 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         <Formik
           initialValues={agentInfoInitialValues}
           onSubmit={(values, { setSubmitting }) => {
-            dispatch(updateAgentProfile({})).then(() => {
+            dispatch(
+              updateAgentProfile({
+                ...values,
+              })
+            ).then(() => {
               setSubmitting(false);
             });
           }}
@@ -219,7 +249,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 isMulti
                 name="languagesSpoken"
                 label="Languages Spoken (other than English)"
-                options={languagesList}
+                options={createOptionsFromManagedDropdownList(languagesList)}
                 {...rest}
               />
               <Field as={Input} type="text" name="certificates" label="Certificates" />

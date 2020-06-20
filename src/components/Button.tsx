@@ -236,7 +236,7 @@ const Button: FunctionComponent<ButtonProps> = ({
         type={type}
       >
         <Link to={to}>
-          {iconLeft} {children} {iconRight}
+          {iconLeft}&nbsp;{children}&nbsp;{iconRight}
         </Link>
       </StyledLink>
     );
@@ -252,7 +252,7 @@ const Button: FunctionComponent<ButtonProps> = ({
         disabled={disabled}
         block={block}
       >
-        {iconLeft} {children} {iconRight}
+        {iconLeft}&nbsp;{children}&nbsp;{iconRight}
       </StyledButton>
     );
   }

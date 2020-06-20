@@ -1,17 +1,18 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Form, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaCaretLeft } from 'react-icons/fa';
 import { navigate } from 'gatsby';
 
-import { Button, FlexContainer, Heading, Input, Row, Column } from '../../components';
+import { Button, FlexContainer, Heading, Input, Row, Column, LoadingPage } from '../../components';
 import { RootState } from '../../redux/ducks';
 import { createCity, updateCity } from '../../redux/ducks/admin';
 import { ActionResponseType } from '../../redux/constants';
 import { addAlert } from '../../redux/ducks/globalAlerts';
+import { getStatesList } from '../../redux/ducks/dropdowns';
 import { requiredField, requiredSelect, requiredDollarAmount } from '../../utils/validations';
-import statesList from '../../utils/statesList';
+import { createOptionsFromManagedDropdownList } from '../../utils/createOptionsFromArray';
 
 type CityDetailsProps = {
   id?: string;
@@ -19,7 +20,14 @@ type CityDetailsProps = {
 
 const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
   const cities = useSelector((state: RootState) => state.admin.cities);
+  const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (statesList.length === 0) {
+      dispatch(getStatesList());
+    }
+  }, []);
 
   const newCityInitialValues = {
     name: '',
@@ -46,66 +54,70 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
           Back to All Cities
         </Button>
       </FlexContainer>
-      <Formik
-        validateOnMount
-        initialValues={{ ...activeCity }}
-        onSubmit={(values, { setSubmitting }) => {
-          dispatch(isNewCity ? createCity(values) : updateCity(values)).then(
-            (response: ActionResponseType) => {
-              if (response && !response.error) {
-                dispatch(
-                  addAlert({
-                    message: `Successfully ${isNewCity ? 'added' : 'edited'} city`,
-                    type: 'success',
-                  })
-                );
-                setSubmitting(false);
-                navigate('/admin/cities');
+      {statesList.length > 0 ? (
+        <Formik
+          validateOnMount
+          initialValues={{ ...activeCity }}
+          onSubmit={(values, { setSubmitting }) => {
+            dispatch(isNewCity ? createCity(values) : updateCity(values)).then(
+              (response: ActionResponseType) => {
+                if (response && !response.error) {
+                  dispatch(
+                    addAlert({
+                      message: `Successfully ${isNewCity ? 'added' : 'edited'} city`,
+                      type: 'success',
+                    })
+                  );
+                  setSubmitting(false);
+                  navigate('/admin/cities');
+                }
               }
-            }
-          );
-        }}
-      >
-        {({ isValid, isSubmitting, ...rest }) => (
-          <Form>
-            <Row>
-              <Column md={4}>
-                <Field
-                  as={Input}
-                  name="name"
-                  type="text"
-                  label="City Name"
-                  validate={requiredField}
-                />
-              </Column>
-              <Column md={4}>
-                <Field
-                  as={Input}
-                  name="state"
-                  type="select"
-                  options={statesList}
-                  label="State"
-                  disabled
-                  validate={requiredSelect}
-                  {...rest}
-                />
-              </Column>
-              <Column md={4}>
-                <Field
-                  as={Input}
-                  name="monthlyPrice"
-                  type="number"
-                  label="Monthly Price"
-                  validate={requiredDollarAmount}
-                />
-              </Column>
-            </Row>
-            <Button type="submit" disabled={!isValid || isSubmitting}>
-              Submit
-            </Button>
-          </Form>
-        )}
-      </Formik>
+            );
+          }}
+        >
+          {({ isValid, isSubmitting, ...rest }) => (
+            <Form>
+              <Row>
+                <Column md={4}>
+                  <Field
+                    as={Input}
+                    name="name"
+                    type="text"
+                    label="City Name"
+                    validate={requiredField}
+                  />
+                </Column>
+                <Column md={4}>
+                  <Field
+                    as={Input}
+                    name="state"
+                    type="select"
+                    options={createOptionsFromManagedDropdownList(statesList)}
+                    label="State"
+                    disabled
+                    validate={requiredSelect}
+                    {...rest}
+                  />
+                </Column>
+                <Column md={4}>
+                  <Field
+                    as={Input}
+                    name="monthlyPrice"
+                    type="number"
+                    label="Monthly Price"
+                    validate={requiredDollarAmount}
+                  />
+                </Column>
+              </Row>
+              <Button type="submit" disabled={!isValid || isSubmitting}>
+                Submit
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      ) : (
+        <LoadingPage />
+      )}
     </>
   );
 };

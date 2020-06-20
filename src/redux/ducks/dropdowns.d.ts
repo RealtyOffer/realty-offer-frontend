@@ -21,6 +21,13 @@ export type ListPayloadType = Array<{
   text: string;
 }>;
 
+export type PriceRangePayloadType = Array<{
+  min: number | null;
+  max: number | null;
+  value: string;
+  text: string;
+}>;
+
 export type ListType = {
   isLoading: boolean;
   hasError: boolean;
@@ -32,7 +39,7 @@ export type DropdownStoreType = {
   genderPreferences: ListType;
   languages: ListType;
   states: ListType;
-  priceRanges: ListType;
+  priceRanges: Omit<ListType, 'list'> & { list: PriceRangePayloadType };
 };
 
 export type GetGendersListRequestAction = {
