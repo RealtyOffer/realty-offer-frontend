@@ -59,8 +59,8 @@ export const initialState: AgentStoreType = {
   profileCompleteResetDate: undefined,
   signupData: {},
   hasCompletedSignup: false,
-  genderIdentifier: '',
-  activeBid: {},
+  genderId: 0,
+  activeBid: undefined,
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {
@@ -92,7 +92,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        activeBid: {},
+        activeBid: undefined,
       };
     case CREATE_AGENT_BID_SUCCESS:
     case UPDATE_AGENT_BID_SUCCESS:

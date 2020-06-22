@@ -40,7 +40,7 @@ import {
 } from '../../../../utils/validations';
 import { updateAgentBid, getBidDetailsById, deleteBidById } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
-import { getPendingListings } from '../../../../redux/ducks/listings';
+// import { getPendingListings } from '../../../../redux/ducks/listings';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
 import displayDropdownListText from '../../../../utils/displayDropdownListText';
@@ -60,23 +60,22 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
   const isBuyer = listing && listing.type?.toLowerCase().includes('buyer');
   const isSeller = listing && listing.type?.toLowerCase().includes('seller');
 
-  useEffect(() => {
-    if (!listings.pending.length) {
-      // dispatch(getPendingListings());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!listings.pending.length) {
+  //     // TODO: get pending listings if there arent any, otherwise listing can be undefined
+  //     // dispatch(getPendingListings());
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (props.listingId) {
-      dispatch(getBidDetailsById(6));
+      dispatch(getBidDetailsById(7));
     }
   }, []);
 
   const deleteBidAndNavigate = () => {
     setModalIsOpen(false);
-    return (
-      activeBid &&
-      activeBid.id &&
+    if (activeBid && activeBid.id) {
       dispatch(deleteBidById(activeBid.id)).then((response: ActionResponseType) => {
         if (response && !response.error) {
           addAlert({
@@ -85,13 +84,10 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
           });
           navigate('/agent/listings/pending');
         }
-      })
-    );
+      });
+    }
   };
 
-  const initialValues = {
-    ...activeBid,
-  };
   if (!listing || !props.listingId) {
     return (
       <EmptyListingsView
@@ -132,7 +128,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
       {activeBid && (
         <Formik
           validateOnMount
-          initialValues={initialValues}
+          initialValues={activeBid}
           onSubmit={(values) => {
             dispatch(
               updateAgentBid({
@@ -364,7 +360,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
           )}
         </Formik>
       )}
-      <Modal toggleModal={() => setModalIsOpen(!modalIsOpen)} isOpen={modalIsOpen}>
+      <Modal toggleModal={() => false} isOpen={modalIsOpen}>
         <Heading styledAs="title">Delete Bid?</Heading>
         <p>Are you sure you want to delete your bid on this listing?</p>
         <Row>

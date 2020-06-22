@@ -24,13 +24,11 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
   if (
-    auth &&
     !auth.isLoggedIn &&
-    location &&
-    location.pathname !== '/login' &&
-    isRoleAllowed(auth.roles, allowedRole)
+    location?.pathname !== '/login' &&
+    !isRoleAllowed(auth.roles, allowedRole)
   ) {
-    navigate('/login');
+    navigate('/');
     return null;
   }
   return <Component {...rest} />;

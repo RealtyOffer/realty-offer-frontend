@@ -1,7 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-import { baseAndAHalfSpacer, doubleSpacer, tripleSpacer, sextupleSpacer } from '../styles/size';
+import {
+  baseSpacer,
+  baseAndAHalfSpacer,
+  doubleSpacer,
+  tripleSpacer,
+  sextupleSpacer,
+} from '../styles/size';
 import profilePic from '../images/profile-pic.svg';
 
 type AvatarProps = {
@@ -29,16 +35,17 @@ const renderSize = (size: AvatarProps['size']) => {
 const AvatarImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
-  height: ${(props: { size: AvatarProps['size'] }) => props.size && renderSize(props.size)};
-  width: ${(props: { size: AvatarProps['size'] }) => props.size && renderSize(props.size)};
+  height: ${(props: AvatarProps) => props.size && renderSize(props.size)};
+  width: ${(props: AvatarProps) => props.size && renderSize(props.size)};
+  ${(props: AvatarProps) => props.bottomMargin && `margin-bottom: ${baseSpacer}`}
 `;
 
 const Avatar: FunctionComponent<AvatarProps> = (props) => (
-  <AvatarImage src={props.src || profilePic} size={props.size} />
+  <AvatarImage
+    src={props.src || profilePic}
+    size={props.size || 'sm'}
+    bottomMargin={props.bottomMargin || false}
+  />
 );
-
-Avatar.defaultProps = {
-  size: 'sm',
-};
 
 export default Avatar;

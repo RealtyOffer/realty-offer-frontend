@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 import Heading from './Heading';
 import { brandDanger, white, brandPrimary } from '../styles/color';
@@ -10,13 +11,19 @@ import HorizontalRule from './HorizontalRule';
 import Row from './Row';
 import Column from './Column';
 import Countdown from './Countdown';
+import Avatar from './Avatar';
+import Box from './Box';
+import Button from './Button';
 
 import { ListingType } from '../redux/ducks/listings.d';
+import { BidType } from '../redux/ducks/agent.d';
 import displayDropdownListText from '../utils/displayDropdownListText';
 import { isExpiringSoon } from '../utils/countdownTimerUtils';
+import { createConsumerBidWinner } from '../redux/ducks/consumer';
 
 type ConsumerListingCardProps = {
   listing: ListingType;
+  bids?: Array<BidType>;
 };
 
 const ConsumerListingCardWrapper = styled.div`
@@ -41,7 +48,13 @@ const ConsumerListingCardBody = styled.div`
   padding: ${halfSpacer} ${baseSpacer};
 `;
 
-const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ listing }) => {
+const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ listing, bids }) => {
+  const dispatch = useDispatch();
+
+  const selectWinningAgent = (bid: BidType) => {
+    dispatch(createConsumerBidWinner(bid));
+  };
+
   return (
     <ConsumerListingCardWrapper expiringSoon={isExpiringSoon(listing.createDateTime)}>
       <ConsumerListingCardHeader>
@@ -97,6 +110,32 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
           </Row>
         )}
       </ConsumerListingCardBody>
+      {bids && (
+        <ConsumerListingCardBody>
+          <HorizontalRule />
+          <Row>
+            {bids.map((bid) => (
+              <Column key={bid.id} sm={4}>
+                <Box textAlign="center">
+                  <Avatar size="md" bottomMargin />
+                  <Heading as="h2" styledAs="subtitle" align="center">
+                    Agent Name
+                  </Heading>
+                  <dl style={{ textAlign: 'left' }}>
+                    <dt>Total Commission Towards Sale of the home</dt>
+                    <dd>{bid.sellerCommission}%</dd>
+                    <dt>Compliance Fee</dt>
+                    <dd>${bid.sellerBrokerComplianceAmount}</dd>
+                  </dl>
+                  <Button type="button" onClick={() => selectWinningAgent(bid)} block>
+                    Select
+                  </Button>
+                </Box>
+              </Column>
+            ))}
+          </Row>
+        </ConsumerListingCardBody>
+      )}
     </ConsumerListingCardWrapper>
   );
 };

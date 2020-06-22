@@ -25,7 +25,7 @@ import Security from './Security';
 import { RootState } from '../../../../redux/ducks';
 import { updateUser } from '../../../../redux/ducks/auth';
 import { updateAgentProfile } from '../../../../redux/ducks/agent';
-import { getLanguagesList, getGendersList } from '../../../../redux/ducks/dropdowns';
+import { getLanguagesList, getGendersList, getStatesList } from '../../../../redux/ducks/dropdowns';
 import { reformattedPhone, formatPhoneNumberValue } from '../../../../utils/phoneNumber';
 import { createOptionsFromManagedDropdownList } from '../../../../utils/createOptionsFromArray';
 
@@ -36,6 +36,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const languagesList = useSelector((state: RootState) => state.dropdowns.languages.list);
   const gendersList = useSelector((state: RootState) => state.dropdowns.genders.list);
+  const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,22 +51,32 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (statesList.length === 0) {
+      dispatch(getStatesList());
+    }
+  }, []);
+
   const personalInfoInitialValues = {
     firstName: auth.firstName,
     lastName: auth.lastName,
     phoneNumber: formatPhoneNumberValue(auth.phoneNumber.replace('+', '')),
     email: auth.email,
     // we want to visually have gender dropdown in this section, so initialize it here
-    genderIdentifier: agent.genderIdentifier,
+    genderId: String(agent.genderId),
   };
   const agentInfoInitialValues = {
     agentId: agent.agentId,
     brokerName: agent.brokerName,
     brokerPhoneNumber: agent.brokerPhoneNumber,
-    brokerAddress: '',
+    brokerAddressLine1: agent.brokerAddressLine1,
+    brokerAddressLine2: agent.brokerAddressLine2,
+    brokerCity: agent.brokerCity,
+    brokerState: agent.brokerState,
+    brokerZip: agent.brokerZip,
     state: 'MI', // TODO
     // initialize gender so our PUT still works
-    genderIdentifier: agent.genderIdentifier,
+    genderId: String(agent.genderId),
   };
   const aboutMeInitialValues = {
     languagesSpoken: '',
@@ -81,11 +92,11 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         validateOnMount
         initialValues={personalInfoInitialValues}
         onSubmit={(values, { setSubmitting }) => {
-          if (values.genderIdentifier) {
+          if (values.genderId) {
             dispatch(
               updateAgentProfile({
                 ...agent,
-                genderIdentifier: values.genderIdentifier,
+                genderId: Number(values.genderId),
               })
             );
           }
@@ -142,7 +153,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       <Field
                         as={Input}
                         type="select"
-                        name="genderIdentifier"
+                        name="genderId"
                         label="Gender"
                         options={createOptionsFromManagedDropdownList(gendersList)}
                         validate={requiredSelect}
@@ -179,18 +190,19 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
             dispatch(
               updateAgentProfile({
                 ...values,
+                genderId: Number(values.genderId),
               })
             ).then(() => {
               setSubmitting(false);
             });
           }}
         >
-          {() => (
+          {({ ...rest }) => (
             <Form>
               <Box>
                 <Heading as="h2">Agent Information</Heading>
                 <Row>
-                  <Column sm={6}>
+                  <Column sm={4}>
                     <Field
                       as={Input}
                       type="text"
@@ -199,7 +211,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       validate={requiredField}
                     />
                   </Column>
-                  <Column sm={6}>
+                  <Column sm={4}>
                     <Field
                       as={Input}
                       type="text"
@@ -208,7 +220,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       validate={requiredField}
                     />
                   </Column>
-                  <Column sm={6}>
+                  <Column sm={4}>
                     <Field
                       as={Input}
                       type="tel"
@@ -218,7 +230,44 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                     />
                   </Column>
                   <Column sm={6}>
-                    <Field as={Input} type="text" name="brokerAddress" label="Broker Address" />
+                    <Field
+                      as={Input}
+                      type="text"
+                      name="brokerAddressLine1"
+                      label="Broker Address Line 1"
+                      validate={requiredField}
+                    />
+                  </Column>
+                  <Column sm={6}>
+                    <Field
+                      as={Input}
+                      type="text"
+                      name="brokerAddressLine2"
+                      label="Broker Address Line 2"
+                    />
+                  </Column>
+                  <Column sm={5}>
+                    <Field
+                      as={Input}
+                      type="text"
+                      name="brokerCity"
+                      label="Broker City"
+                      validate={requiredField}
+                    />
+                  </Column>
+                  <Column sm={3}>
+                    <Field
+                      as={Input}
+                      type="select"
+                      name="brokerState"
+                      label="Broker State"
+                      options={createOptionsFromManagedDropdownList(statesList)}
+                      {...rest}
+                      validate={requiredSelect}
+                    />
+                  </Column>
+                  <Column sm={4}>
+                    <Field as={Input} type="number" name="brokerZip" label="Broker Zip" />
                   </Column>
                 </Row>
                 <AutoSave />

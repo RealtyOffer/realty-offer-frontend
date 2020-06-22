@@ -26,6 +26,8 @@ export const LISTING_BY_ID_ENDPOINT = (id: number) => `${LISTINGS_ENDPOINT}/${id
 // Consumer
 export const CREATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/profile`;
 export const SECURED_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
+export const SECURED_CONSUMER_BIDS_ENDPOINT = `${API_ROOT}/consumer/secured/bids`;
+export const SECURED_CONSUMER_BIDS_WINNER_ENDPOINT = `${SECURED_CONSUMER_BIDS_ENDPOINT}/winner`;
 
 // Admin
 export const ADMIN_SITE_BANNERS_ENDPOINT = `${API_ROOT}/admin/site-banners`;

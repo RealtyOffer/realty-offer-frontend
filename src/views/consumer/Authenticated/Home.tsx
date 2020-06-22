@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 import styled from 'styled-components';
 import { FaQuestionCircle } from 'react-icons/fa';
+import isBefore from 'date-fns/isBefore';
 
 import {
   FlexContainer,
@@ -11,13 +12,14 @@ import {
   Seo,
   HorizontalRule,
 } from '../../../components';
-import { getConsumerProfile } from '../../../redux/ducks/consumer';
+import { getConsumerProfile, getConsumerBids } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
 import Notifications from './Notifications';
 import ProfileDetails from './ProfileDetails';
 
 import { baseSpacer, doubleSpacer, borderRadius } from '../../../styles/size';
 import { brandTertiary, white } from '../../../styles/color';
+import { expiresAt } from '../../../utils/countdownTimerUtils';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -35,6 +37,13 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   useEffect(() => {
     dispatch(getConsumerProfile());
   }, []);
+
+  useEffect(() => {
+    // if listing is after the 24 hour period
+    // if (consumer.listing && isBefore(expiresAt(consumer.listing.createDateTime), new Date())) {
+    dispatch(getConsumerBids());
+    // }
+  }, [consumer.listing]);
 
   return (
     <>
@@ -61,7 +70,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       <Heading as="h2">My Info</Heading>
       <ProfileDetails />
       <Heading as="h2">My Listings</Heading>
-      <ConsumerListingCard listing={consumer.listing} />
+      <ConsumerListingCard listing={consumer.listing} bids={consumer.bids} />
       <Heading as="h2">Notifications</Heading>
       <Notifications user={user} />
     </>

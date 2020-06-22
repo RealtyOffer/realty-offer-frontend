@@ -75,7 +75,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
               dispatch(
                 createAgentProfile({
                   ...values,
-                  genderIdentifier: '',
+                  genderId: 0,
                   brokerZip: String(values.brokerZip),
                 })
               ).then((response: ActionResponseType) => {
