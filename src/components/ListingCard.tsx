@@ -18,6 +18,7 @@ import displayDropdownListText from '../utils/displayDropdownListText';
 
 type ListingCardProps = {
   listing: ListingType;
+  listingType: 'new' | 'pending' | 'awarded' | 'history';
 };
 
 const ListingCardWrapper = styled.div`
@@ -61,7 +62,7 @@ const ListingCardFooter = styled.div`
   padding: ${halfSpacer};
 `;
 
-const ListingCard: FunctionComponent<ListingCardProps> = ({ listing }) => {
+const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType }) => {
   // difference in minutes from expiration date to now, divided by 1440 which is number of minutes
   // in a day (24*60). Then multiply that by 100 to get percentage value
   const timeDifference = listing.createDateTime
@@ -93,7 +94,9 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing }) => {
                   text={Array(listing.buyingCities.map((city) => city.name))
                     .toString()
                     .replace(/,/g, ', ')}
-                  textTruncateChild={<Link to={`/agent/listings/${listing.id}`}>More</Link>}
+                  textTruncateChild={
+                    <Link to={`/agent/listings/${listingType}/${listing.id}`}>More</Link>
+                  }
                 />
               )}
             </span>
@@ -113,7 +116,7 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing }) => {
         )}
       </ListingCardBody>
       <ListingCardFooter>
-        <Button type="link" to={`/agent/listings/${listing.id}`} block>
+        <Button type="link" to={`/agent/listings/${listingType}/${listing.id}`} block>
           Listing Details
         </Button>
       </ListingCardFooter>

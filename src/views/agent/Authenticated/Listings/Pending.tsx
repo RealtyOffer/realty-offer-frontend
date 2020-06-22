@@ -29,15 +29,16 @@ const PendingListings: FunctionComponent<RouteComponentProps> = () => {
       <Seo title="Pending Listings" />
       <Heading>Pending Listings</Heading>
       {isLoading && <ListingCardsLoader />}
-      {pendingListings && pendingListings.length > 0 ? (
+      {pendingListings && pendingListings.length > 0 && !isLoading && (
         <Row>
           {pendingListings.map((listing) => (
             <Column sm={6} lg={4} key={listing.id}>
-              <ListingCard listing={listing} />
+              <ListingCard listing={listing} listingType="pending" />
             </Column>
           ))}
         </Row>
-      ) : (
+      )}
+      {pendingListings && pendingListings.length === 0 && !isLoading && (
         <EmptyListingsView
           title="You have no pending bids at this time."
           buttonText="See New Listings"

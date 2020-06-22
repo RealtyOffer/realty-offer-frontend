@@ -102,6 +102,7 @@ const dangerButtonStyles = `
   
   &:hover,
   &:focus {
+    background-color: ${brandDanger};
     filter: brightness(115%);
   }
 `;

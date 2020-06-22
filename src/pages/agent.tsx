@@ -15,7 +15,8 @@ import NewListings from '../views/agent/Authenticated/Listings/New';
 import PendingListings from '../views/agent/Authenticated/Listings/Pending';
 import AwardedListings from '../views/agent/Authenticated/Listings/Awarded';
 import ListingHistory from '../views/agent/Authenticated/Listings/History';
-import ListingDetails from '../views/agent/Authenticated/Listings/ListingDetails';
+import NewListingDetails from '../views/agent/Authenticated/Listings/NewListingDetails';
+import PendingListingDetails from '../views/agent/Authenticated/Listings/PendingListingDetails';
 import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
@@ -96,7 +97,16 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         <BusinessInformation path="/business-information" />
         <PaymentInformation path="/payment-information" />
         <ConfirmPayment path="/confirm-payment" />
-        <PrivateRoute component={ListingDetails} path="/listings/:listingId" allowedRole="Agent" />
+        <PrivateRoute
+          component={NewListingDetails}
+          path="/listings/new/:listingId"
+          allowedRole="Agent"
+        />
+        <PrivateRoute
+          component={PendingListingDetails}
+          path="/listings/pending/:listingId"
+          allowedRole="Agent"
+        />
         <PrivateRoute component={NewListings} path="/listings/new" allowedRole="Agent" />
         <PrivateRoute component={PendingListings} path="/listings/pending" allowedRole="Agent" />
         <PrivateRoute component={AwardedListings} path="/listings/awarded" allowedRole="Agent" />

@@ -29,15 +29,16 @@ const AwardedListings: FunctionComponent<RouteComponentProps> = () => {
       <Seo title="Awarded Listings" />
       <Heading>Awarded Listings</Heading>
       {isLoading && <ListingCardsLoader />}
-      {awardedListings && awardedListings.length > 0 ? (
+      {awardedListings && awardedListings.length > 0 && !isLoading && (
         <Row>
           {awardedListings.map((listing) => (
             <Column sm={6} lg={4} key={listing.id}>
-              <ListingCard listing={listing} />
+              <ListingCard listing={listing} listingType="awarded" />
             </Column>
           ))}
         </Row>
-      ) : (
+      )}
+      {awardedListings && awardedListings.length === 0 && !isLoading && (
         <EmptyListingsView
           title="You have not won any bids at this time."
           buttonText="See New Listings"

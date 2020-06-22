@@ -39,7 +39,6 @@ import {
 } from '../../../../utils/validations';
 import { createAgentBid } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
-import { ListingType } from '../../../../redux/ducks/listings.d';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
 import displayDropdownListText from '../../../../utils/displayDropdownListText';
@@ -49,11 +48,11 @@ type ListingDetailsProps = {
   listingId?: string;
 } & RouteComponentProps;
 
-const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
+const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const listings = useSelector((state: RootState) => state.listings);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
-  const listing = listings.new.find((l: ListingType) => String(l.id) === props.listingId);
+  const listing = listings.new.find((l) => String(l.id) === props.listingId);
   const isBuyer = listing && listing.type?.toLowerCase().includes('buyer');
   const isSeller = listing && listing.type?.toLowerCase().includes('seller');
   const initialValues = {
@@ -341,4 +340,4 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   );
 };
 
-export default ListingDetails;
+export default NewListingDetails;

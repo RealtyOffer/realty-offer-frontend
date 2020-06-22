@@ -11,6 +11,15 @@ import {
   CREATE_AGENT_BID_REQUEST,
   CREATE_AGENT_BID_SUCCESS,
   CREATE_AGENT_BID_FAILURE,
+  UPDATE_AGENT_BID_REQUEST,
+  UPDATE_AGENT_BID_SUCCESS,
+  UPDATE_AGENT_BID_FAILURE,
+  GET_BID_DETAILS_BY_ID_REQUEST,
+  GET_BID_DETAILS_BY_ID_SUCCESS,
+  GET_BID_DETAILS_BY_ID_FAILURE,
+  DELETE_BID_BY_ID_REQUEST,
+  DELETE_BID_BY_ID_SUCCESS,
+  DELETE_BID_BY_ID_FAILURE,
   RESET_PROFILE_COMPLETE_ALERT,
   CAPTURE_AGENT_SIGNUP_DATA,
 } from './agent';
@@ -63,6 +72,7 @@ export type AgentStoreType = {
   hasError: boolean;
   signupData: AgentSignupDataType;
   hasCompletedSignup?: boolean;
+  activeBid?: BidType;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {
@@ -120,6 +130,38 @@ export type CreateAgentBidFailureAction = {
   type: typeof CREATE_AGENT_BID_FAILURE;
 };
 
+export type UpdateAgentBidRequestAction = {
+  type: typeof UPDATE_AGENT_BID_REQUEST;
+};
+export type UpdateAgentBidSuccessAction = {
+  type: typeof UPDATE_AGENT_BID_SUCCESS;
+  payload: BidType;
+};
+export type UpdateAgentBidFailureAction = {
+  type: typeof UPDATE_AGENT_BID_FAILURE;
+};
+
+export type GetBidDetailsByIdRequestAction = {
+  type: typeof GET_BID_DETAILS_BY_ID_REQUEST;
+};
+export type GetBidDetailsByIdSuccessAction = {
+  type: typeof GET_BID_DETAILS_BY_ID_SUCCESS;
+  payload: BidType;
+};
+export type GetBidDetailsByIdFailureAction = {
+  type: typeof GET_BID_DETAILS_BY_ID_FAILURE;
+};
+
+export type DeleteBidByIdRequestAction = {
+  type: typeof DELETE_BID_BY_ID_REQUEST;
+};
+export type DeleteBidByIdSuccessAction = {
+  type: typeof DELETE_BID_BY_ID_SUCCESS;
+};
+export type DeleteBidByIdFailureAction = {
+  type: typeof DELETE_BID_BY_ID_FAILURE;
+};
+
 export type ResetProfileCompleteAlertAction = {
   type: typeof RESET_PROFILE_COMPLETE_ALERT;
 };
@@ -142,6 +184,15 @@ export type AgentActionTypes =
   | CreateAgentBidRequestAction
   | CreateAgentBidSuccessAction
   | CreateAgentBidFailureAction
+  | UpdateAgentBidRequestAction
+  | UpdateAgentBidSuccessAction
+  | UpdateAgentBidFailureAction
+  | GetBidDetailsByIdRequestAction
+  | GetBidDetailsByIdSuccessAction
+  | GetBidDetailsByIdFailureAction
+  | DeleteBidByIdRequestAction
+  | DeleteBidByIdSuccessAction
+  | DeleteBidByIdFailureAction
   | ResetProfileCompleteAlertAction
   | CaptureAgentSignupDataAction
   | LogoutRequestAction;

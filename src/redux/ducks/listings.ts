@@ -1,9 +1,9 @@
 import { RSAA } from 'redux-api-middleware';
-import { differenceInSeconds } from 'date-fns';
+// import { differenceInSeconds } from 'date-fns';
 
 import { LISTINGS_ENDPOINT } from '../constants';
 import { LOGOUT_REQUEST } from './auth';
-import { RootState } from './index';
+// import { RootState } from './index';
 
 import { ListingStoreType, ListingsStoreActions } from './listings.d';
 
@@ -99,9 +99,10 @@ export default (
 export const getNewListings = () => ({
   [RSAA]: {
     endpoint: `${LISTINGS_ENDPOINT}?listingType=new`,
-    bailout: (state: RootState) =>
-      state.listings.lastFetched &&
-      differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
+    // bailout: (state: RootState) =>
+    //   state.listings.new.length !== 0 &&
+    //   state.listings.lastFetched &&
+    //   differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
     method: 'GET',
     types: [GET_NEW_LISTINGS_REQUEST, GET_NEW_LISTINGS_SUCCESS, GET_NEW_LISTINGS_FAILURE],
   },
@@ -110,10 +111,10 @@ export const getNewListings = () => ({
 export const getPendingListings = () => ({
   [RSAA]: {
     endpoint: `${LISTINGS_ENDPOINT}?listingType=pending`,
-    bailout: (state: RootState) =>
-      state.listings.pending.length !== 0 &&
-      state.listings.lastFetched &&
-      differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
+    // bailout: (state: RootState) =>
+    //   state.listings.pending.length !== 0 &&
+    //   state.listings.lastFetched &&
+    //   differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
     method: 'GET',
     types: [
       GET_PENDING_LISTINGS_REQUEST,
@@ -126,10 +127,10 @@ export const getPendingListings = () => ({
 export const getAwardedListings = () => ({
   [RSAA]: {
     endpoint: `${LISTINGS_ENDPOINT}?listingType=awarded`,
-    bailout: (state: RootState) =>
-      state.listings.awarded.length !== 0 &&
-      state.listings.lastFetched &&
-      differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
+    // bailout: (state: RootState) =>
+    //   state.listings.awarded.length !== 0 &&
+    //   state.listings.lastFetched &&
+    //   differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
     method: 'GET',
     types: [
       GET_AWARDED_LISTINGS_REQUEST,
@@ -142,10 +143,10 @@ export const getAwardedListings = () => ({
 export const getHistoryListings = () => ({
   [RSAA]: {
     endpoint: `${LISTINGS_ENDPOINT}?listingType=history`,
-    bailout: (state: RootState) =>
-      state.listings.history.length !== 0 &&
-      state.listings.lastFetched &&
-      differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
+    // bailout: (state: RootState) =>
+    //   state.listings.history.length !== 0 &&
+    //   state.listings.lastFetched &&
+    //   differenceInSeconds(new Date(), state.listings.lastFetched) < 60,
     method: 'GET',
     types: [
       GET_HISTORY_LISTINGS_REQUEST,

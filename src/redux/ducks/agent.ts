@@ -2,7 +2,11 @@ import { RSAA } from 'redux-api-middleware';
 import addDays from 'date-fns/addDays';
 
 import { LOGOUT_REQUEST } from './auth';
-import { AGENT_PROFILE_ENDPOINT, AGENT_BIDS_ENDPOINT } from '../constants';
+import {
+  AGENT_PROFILE_ENDPOINT,
+  AGENT_BIDS_ENDPOINT,
+  AGENT_BID_BY_ID_ENDPOINT,
+} from '../constants';
 import {
   AgentStoreType,
   AgentActionTypes,
@@ -27,6 +31,18 @@ export const CREATE_AGENT_BID_REQUEST = 'CREATE_AGENT_BID_REQUEST';
 export const CREATE_AGENT_BID_SUCCESS = 'CREATE_AGENT_BID_SUCCESS';
 export const CREATE_AGENT_BID_FAILURE = 'CREATE_AGENT_BID_FAILURE';
 
+export const UPDATE_AGENT_BID_REQUEST = 'UPDATE_AGENT_BID_REQUEST';
+export const UPDATE_AGENT_BID_SUCCESS = 'UPDATE_AGENT_BID_SUCCESS';
+export const UPDATE_AGENT_BID_FAILURE = 'UPDATE_AGENT_BID_FAILURE';
+
+export const GET_BID_DETAILS_BY_ID_REQUEST = 'GET_BID_DETAILS_BY_ID_REQUEST';
+export const GET_BID_DETAILS_BY_ID_SUCCESS = 'GET_BID_DETAILS_BY_ID_SUCCESS';
+export const GET_BID_DETAILS_BY_ID_FAILURE = 'GET_BID_DETAILS_BY_ID_FAILURE';
+
+export const DELETE_BID_BY_ID_REQUEST = 'DELETE_BID_BY_ID_REQUEST';
+export const DELETE_BID_BY_ID_SUCCESS = 'DELETE_BID_BY_ID_SUCCESS';
+export const DELETE_BID_BY_ID_FAILURE = 'DELETE_BID_BY_ID_FAILURE';
+
 export const RESET_PROFILE_COMPLETE_ALERT = 'RESET_PROFILE_COMPLETE_ALERT';
 
 export const CAPTURE_AGENT_SIGNUP_DATA = 'CAPTURE_AGENT_SIGNUP_DATA';
@@ -43,6 +59,8 @@ export const initialState: AgentStoreType = {
   profileCompleteResetDate: undefined,
   signupData: {},
   hasCompletedSignup: false,
+  genderIdentifier: '',
+  activeBid: {},
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {
@@ -51,6 +69,8 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
     case UPDATE_AGENT_PROFILE_REQUEST:
     case GET_AGENT_PROFILE_REQUEST:
     case CREATE_AGENT_BID_REQUEST:
+    case UPDATE_AGENT_BID_REQUEST:
+    case DELETE_BID_BY_ID_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -67,12 +87,29 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         hasCompletedSignup: action.payload.cities && action.payload.cities.length !== 0,
         ...action.payload,
       };
-    case CREATE_AGENT_BID_SUCCESS:
+    case GET_BID_DETAILS_BY_ID_REQUEST:
       return {
         ...state,
         isLoading: false,
         hasError: false,
+        activeBid: {},
       };
+    case CREATE_AGENT_BID_SUCCESS:
+    case UPDATE_AGENT_BID_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        activeBid: action.payload,
+      };
+    case GET_BID_DETAILS_BY_ID_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        activeBid: action.payload,
+      };
+    }
     case CAPTURE_AGENT_SIGNUP_DATA:
       return {
         ...state,
@@ -90,6 +127,9 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
     case UPDATE_AGENT_PROFILE_FAILURE:
     case GET_AGENT_PROFILE_FAILURE:
     case CREATE_AGENT_BID_FAILURE:
+    case UPDATE_AGENT_BID_FAILURE:
+    case GET_BID_DETAILS_BY_ID_FAILURE:
+    case DELETE_BID_BY_ID_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -160,6 +200,38 @@ export const createAgentBid = (payload: BidType) => ({
     },
     body: JSON.stringify(payload),
     types: [CREATE_AGENT_BID_REQUEST, CREATE_AGENT_BID_SUCCESS, CREATE_AGENT_BID_FAILURE],
+  },
+});
+
+export const updateAgentBid = (payload: BidType) => ({
+  [RSAA]: {
+    endpoint: AGENT_BIDS_ENDPOINT,
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    types: [UPDATE_AGENT_BID_REQUEST, UPDATE_AGENT_BID_SUCCESS, UPDATE_AGENT_BID_FAILURE],
+  },
+});
+
+export const getBidDetailsById = (payload: number) => ({
+  [RSAA]: {
+    endpoint: AGENT_BID_BY_ID_ENDPOINT(payload),
+    method: 'GET',
+    types: [
+      GET_BID_DETAILS_BY_ID_REQUEST,
+      GET_BID_DETAILS_BY_ID_SUCCESS,
+      GET_BID_DETAILS_BY_ID_FAILURE,
+    ],
+  },
+});
+
+export const deleteBidById = (payload: number) => ({
+  [RSAA]: {
+    endpoint: AGENT_BID_BY_ID_ENDPOINT(payload),
+    method: 'DELETE',
+    types: [DELETE_BID_BY_ID_REQUEST, DELETE_BID_BY_ID_SUCCESS, DELETE_BID_BY_ID_FAILURE],
   },
 });
 

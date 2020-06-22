@@ -29,15 +29,16 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
       <Seo title="New Listings" />
       <Heading>New Listings</Heading>
       {isLoading && <ListingCardsLoader />}
-      {newListings && newListings.length > 0 ? (
+      {newListings && newListings.length > 0 && !isLoading && (
         <Row>
           {newListings.map((listing) => (
             <Column sm={6} lg={4} key={listing.id}>
-              <ListingCard listing={listing} />
+              <ListingCard listing={listing} listingType="new" />
             </Column>
           ))}
         </Row>
-      ) : (
+      )}
+      {newListings && newListings.length === 0 && !isLoading && (
         <EmptyListingsView
           title="There are no new bids in your current sales area."
           buttonText="Add More Cities"

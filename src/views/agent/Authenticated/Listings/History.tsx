@@ -29,15 +29,16 @@ const ListingHistory: FunctionComponent<RouteComponentProps> = () => {
       <Seo title="Listing History" />
       <Heading>Listing History</Heading>
       {isLoading && <ListingCardsLoader />}
-      {historyListings && historyListings.length > 0 ? (
+      {historyListings && historyListings.length > 0 && !isLoading && (
         <Row>
           {historyListings.map((listing) => (
             <Column sm={6} lg={4} key={listing.id}>
-              <ListingCard listing={listing} />
+              <ListingCard listing={listing} listingType="history" />
             </Column>
           ))}
         </Row>
-      ) : (
+      )}
+      {historyListings && historyListings.length === 0 && !isLoading && (
         <EmptyListingsView
           title="You have not bid on any listings yet!"
           buttonText="See New Listings"
