@@ -115,6 +115,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                       name="firstName"
                       label="First Name"
                       validate={requiredSelect}
+                      required
                     />
                   </Column>
                   <Column xs={6}>
@@ -124,6 +125,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                       name="lastName"
                       label="Last Name"
                       validate={requiredSelect}
+                      required
                     />
                   </Column>
                 </Row>
@@ -133,6 +135,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                   name="phoneNumber"
                   label="Phone Number"
                   validate={requiredPhoneNumber}
+                  required
                 />
                 <Field
                   as={Input}
@@ -140,6 +143,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                   name="email"
                   label="Email Address"
                   validate={requiredEmail}
+                  required
                 />
                 <Field
                   as={Input}
@@ -148,6 +152,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                   label="Password"
                   helpText={passwordRulesString}
                   validate={requiredPassword}
+                  required
                 />
                 <HorizontalRule />
                 <Button type="submit" disabled={isSubmitting || !isValid} block>

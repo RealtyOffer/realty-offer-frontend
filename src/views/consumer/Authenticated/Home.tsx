@@ -40,9 +40,9 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
 
   useEffect(() => {
     // if listing is after the 24 hour period
-    // if (consumer.listing && isBefore(expiresAt(consumer.listing.createDateTime), new Date())) {
-    dispatch(getConsumerBids());
-    // }
+    if (consumer.listing && isBefore(expiresAt(consumer.listing.createDateTime), new Date())) {
+      dispatch(getConsumerBids());
+    }
   }, [consumer.listing]);
 
   return (

@@ -102,6 +102,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="agentId"
                       label="Agent ID"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column md={4}>
@@ -111,6 +112,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="state"
                       label="State"
                       validate={requiredField}
+                      required
                       disabled
                       options={createOptionsFromManagedDropdownList(statesList)}
                       {...rest}
@@ -127,6 +129,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="brokerName"
                       label="Broker Name"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column md={6}>
@@ -136,6 +139,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="brokerPhoneNumber"
                       label="Broker Phone Number"
                       validate={requiredPhoneNumber}
+                      required
                     />
                   </Column>
                   <Column>
@@ -145,6 +149,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="brokerAddressLine1"
                       label="Address"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column>
@@ -157,6 +162,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="brokerCity"
                       label="City"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column md={3}>
@@ -166,6 +172,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="brokerState"
                       label="State"
                       validate={requiredField}
+                      required
                       options={createOptionsFromManagedDropdownList(statesList)}
                       {...rest}
                     />
@@ -177,6 +184,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="brokerZip"
                       label="Zip"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                 </Row>

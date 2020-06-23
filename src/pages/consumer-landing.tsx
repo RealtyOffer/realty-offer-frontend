@@ -104,6 +104,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                       name="firstName"
                       label="First Name"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column sm={6}>
@@ -113,6 +114,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                       name="lastName"
                       label="Last Name"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column sm={6}>
@@ -122,6 +124,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                       name="phone"
                       label="Phone Number"
                       validate={requiredPhoneNumber}
+                      required
                     />
                   </Column>
                   <Column sm={6}>
@@ -131,6 +134,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                       name="email"
                       label="Email"
                       validate={requiredEmail}
+                      required
                     />
                   </Column>
                 </Row>
@@ -146,6 +150,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   ]}
                   label="What are you looking to do?"
                   validate={requiredSelect}
+                  required
                   {...rest}
                 />
                 <Field
@@ -154,6 +159,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   name="where"
                   label="Where?"
                   validate={requiredField}
+                  required
                 />
                 <Field
                   as={Input}

@@ -171,6 +171,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={8}
                       helpText={helpTextSellerCommissionAmount}
                       validate={requiredSellerCommissionAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -182,6 +183,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={595}
                       helpText={helpTextBrokerComplianceAmount}
                       validate={requiredBrokerComplianceAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -193,6 +195,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={350}
                       helpText={helpTextPreInspectionAmount}
                       validate={requiredPreInspectionAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -204,6 +207,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={250}
                       helpText={helpTextPreCertifyAmount}
                       validate={requiredPreCertifyAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -215,6 +219,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={1000}
                       helpText={helpTextMovingCompanyAmount}
                       validate={requiredMovingCompanyAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -226,6 +231,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={300}
                       helpText={helpTextPhotographyAmount}
                       validate={requiredPhotographyAmount}
+                      required
                     />
                     <Heading as="h3">
                       Total:{' '}
@@ -254,6 +260,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       label="Buyer Commission Concession (%)"
                       helpText={helpTextBuyerCommissionAmount}
                       validate={requiredBuyerCommissionAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -265,6 +272,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={595}
                       helpText={helpTextBrokerComplianceAmount}
                       validate={requiredBrokerComplianceAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -276,6 +284,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={500}
                       helpText={helpTextInspectionAmount}
                       validate={requiredInspectionAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -287,6 +296,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={500}
                       helpText={helpTextHomeWarrantyAmount}
                       validate={requiredHomeWarrantyAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -298,6 +308,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={800}
                       helpText={helpTextAppraisalAmount}
                       validate={requiredAppraisalAmount}
+                      required
                     />
                     <Field
                       as={Input}
@@ -309,6 +320,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       max={1000}
                       helpText={helpTextMovingCompanyAmount}
                       validate={requiredMovingCompanyAmount}
+                      required
                     />
                     <Heading as="h3">
                       Total:{' '}

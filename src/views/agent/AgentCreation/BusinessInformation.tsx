@@ -104,6 +104,7 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                 label="Cities"
                 options={cityOptions}
                 validate={requiredField}
+                required
                 {...rest}
               />
               <HorizontalRule />

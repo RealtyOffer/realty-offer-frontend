@@ -114,12 +114,12 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
         <ConsumerListingCardBody>
           <HorizontalRule />
           <Row>
-            {bids.map((bid) => (
+            {bids.map((bid, index) => (
               <Column key={bid.id} sm={4}>
                 <Box textAlign="center">
                   <Avatar size="md" bottomMargin />
                   <Heading as="h2" styledAs="subtitle" align="center">
-                    Agent Name
+                    Future Agent {index + 1}
                   </Heading>
                   <dl style={{ textAlign: 'left' }}>
                     <dt>Total Commission Towards Sale of the home</dt>

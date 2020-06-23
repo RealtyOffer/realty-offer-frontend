@@ -62,6 +62,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                     name="firstName"
                     label="First Name"
                     validate={requiredField}
+                    required
                   />
                 </Column>
                 <Column xs={6}>
@@ -71,6 +72,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                     name="lastName"
                     label="Last Name"
                     validate={requiredField}
+                    required
                   />
                 </Column>
               </Row>
@@ -80,6 +82,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                 name="phoneNumber"
                 label="Phone Number"
                 validate={requiredPhoneNumber}
+                required
               />
               <Field
                 as={Input}
@@ -87,6 +90,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                 name="email"
                 label="Email Address"
                 validate={requiredEmail}
+                required
               />
               <Field
                 as={Input}
@@ -95,6 +99,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                 label="Password"
                 helpText={passwordRulesString}
                 validate={requiredPassword}
+                required
               />
               <HorizontalRule />
               <Button

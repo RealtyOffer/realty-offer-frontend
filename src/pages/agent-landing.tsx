@@ -78,6 +78,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     name="firstName"
                     label="First Name"
                     validate={requiredField}
+                    required
                   />
                 </Column>
                 <Column xs={6}>
@@ -87,6 +88,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     name="lastName"
                     label="Last Name"
                     validate={requiredField}
+                    required
                   />
                 </Column>
                 <Column xs={6}>
@@ -96,6 +98,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     name="phone"
                     label="Phone Number"
                     validate={requiredPhoneNumber}
+                    required
                   />
                 </Column>
                 <Column xs={6}>
@@ -105,6 +108,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     name="email"
                     label="Email"
                     validate={requiredEmail}
+                    required
                   />
                 </Column>
               </Row>

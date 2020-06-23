@@ -43,6 +43,7 @@ const ForgotPassword: FunctionComponent<LoginProps> = () => {
                   name="email"
                   label="Email"
                   validate={requiredEmail}
+                  required
                 />
                 <HorizontalRule />
                 <Button type="submit" disabled={isSubmitting || !isValid} block>

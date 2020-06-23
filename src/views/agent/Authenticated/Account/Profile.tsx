@@ -129,6 +129,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         name="firstName"
                         label="First Name"
                         validate={requiredField}
+                        required
                       />
                     </Column>
                     <Column sm={6}>
@@ -138,6 +139,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         name="lastName"
                         label="Last Name"
                         validate={requiredField}
+                        required
                       />
                     </Column>
                     <Column sm={6}>
@@ -147,6 +149,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         name="phoneNumber"
                         label="Phone Number"
                         validate={requiredPhoneNumber}
+                        required
                       />
                     </Column>
                     <Column sm={6}>
@@ -157,6 +160,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         label="Gender"
                         options={createOptionsFromManagedDropdownList(gendersList)}
                         validate={requiredSelect}
+                        required
                         {...rest}
                       />
                     </Column>
@@ -169,6 +173,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 name="email"
                 label="Email Address"
                 validate={requiredEmail}
+                required
                 disabled
                 readOnly
                 helpText={
@@ -209,6 +214,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       name="agentId"
                       label="Agent ID"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column sm={4}>
@@ -218,6 +224,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       name="brokerName"
                       label="Broker Name"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column sm={4}>
@@ -227,6 +234,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       name="brokerPhoneNumber"
                       label="Broker Phone Number"
                       validate={requiredPhoneNumber}
+                      required
                     />
                   </Column>
                   <Column sm={6}>
@@ -236,6 +244,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       name="brokerAddressLine1"
                       label="Broker Address Line 1"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column sm={6}>
@@ -253,6 +262,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       name="brokerCity"
                       label="Broker City"
                       validate={requiredField}
+                      required
                     />
                   </Column>
                   <Column sm={3}>
@@ -264,6 +274,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       options={createOptionsFromManagedDropdownList(statesList)}
                       {...rest}
                       validate={requiredSelect}
+                      required
                     />
                   </Column>
                   <Column sm={4}>

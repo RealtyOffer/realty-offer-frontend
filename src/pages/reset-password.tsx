@@ -97,6 +97,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                   name="email"
                   label="Email"
                   validate={requiredField}
+                  required
                 />
                 <label htmlFor="digit1">
                   Verification Code
@@ -114,6 +115,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                           handlePasteEvent(e, setFieldValue, validateForm)
                         }
                         validate={requiredField}
+                        required
                       />
                     ))}
                   </FlexContainer>
@@ -125,6 +127,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                   name="newPassword"
                   helpText={passwordRulesString}
                   validate={requiredPassword}
+                  required
                 />
                 <HorizontalRule />
                 <Button type="submit" disabled={isSubmitting || !isValid} block>

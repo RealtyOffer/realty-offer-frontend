@@ -81,6 +81,7 @@ const Login: FunctionComponent<LoginProps> = () => {
                 name="email"
                 label="Email"
                 validate={requiredField}
+                required
               />
               <Field
                 as={Input}
@@ -88,6 +89,7 @@ const Login: FunctionComponent<LoginProps> = () => {
                 name="password"
                 label="Password"
                 validate={requiredField}
+                required
                 disabled={inLockoutPeriod}
               />
               <HorizontalRule />

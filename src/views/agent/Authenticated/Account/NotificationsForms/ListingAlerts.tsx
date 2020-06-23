@@ -129,6 +129,7 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
                             label=""
                             options={notificationFrequencyOptions}
                             validate={requiredSelect}
+                            required
                             {...rest}
                           />
                         </Column>

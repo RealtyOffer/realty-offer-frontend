@@ -24,7 +24,9 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            // TODO
+          }}
         >
           {() => (
             <Form>
@@ -35,9 +37,17 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
                 name="newPassword"
                 label="New Password"
                 validate={requiredPassword}
+                required
                 helpText={passwordRulesString}
               />
-              <Field as={Input} type="password" name="confirmPassword" label="Confirm Password" />
+              <Field
+                as={Input}
+                type="password"
+                name="confirmPassword"
+                label="Confirm Password"
+                validate={requiredPassword}
+                required
+              />
               <AutoSave />
             </Form>
           )}

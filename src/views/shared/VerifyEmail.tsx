@@ -13,7 +13,7 @@ declare const document: Document;
 
 type VerifyEmailType = {};
 
-const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (props) => {
+const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = () => {
   const [verified, setVerified] = useState(false);
   const dispatch = useDispatch();
 
@@ -107,6 +107,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (p
                   name="email"
                   label="Email Address"
                   validate={requiredEmail}
+                  required
                 />
                 <label>Verification Code</label>
                 <FlexContainer justifyContent="space-between" flexWrap="nowrap">
@@ -123,6 +124,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = (p
                         handlePasteEvent(e, setFieldValue, validateForm)
                       }
                       validate={requiredField}
+                      required
                     />
                   ))}
                 </FlexContainer>

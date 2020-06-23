@@ -105,6 +105,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   type="text"
                   label="Message"
                   validate={requiredField}
+                  required
                 />
               </Column>
               <Column md={4}>
@@ -114,6 +115,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   type="text"
                   label="CTA Link"
                   validate={requiredField}
+                  required
                 />
               </Column>
               <Column md={4}>
@@ -123,6 +125,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   type="text"
                   label="CTA Text"
                   validate={requiredField}
+                  required
                 />
               </Column>
               <Column md={3}>
@@ -133,6 +136,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   options={stylingOptions}
                   label="Type"
                   validate={requiredSelect}
+                  required
                   {...rest}
                 />
               </Column>
@@ -143,6 +147,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   type="select"
                   options={dismissableOptions}
                   validate={requiredSelect}
+                  required
                   label="Dismissable"
                   {...rest}
                 />
@@ -154,6 +159,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   type="datetime-local"
                   label="Expiration Date"
                   validate={requiredField}
+                  required
                 />
               </Column>
               <Column md={3}>
@@ -165,6 +171,7 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                   label="Audience"
                   {...rest}
                   validate={requiredSelect}
+                  required
                 />
               </Column>
             </Row>

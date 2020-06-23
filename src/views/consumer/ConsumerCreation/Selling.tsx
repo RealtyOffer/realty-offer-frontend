@@ -117,6 +117,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   name="sellersAddressLine1"
                   label="Address Line 1"
                   validate={requiredField}
+                  required
                 />
                 <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
                 <Field
@@ -126,6 +127,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   options={cityOptions}
                   label="City"
                   validate={requiredSelect}
+                  required
                   {...rest}
                 />
                 <Field
@@ -134,6 +136,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   name="sellersTimeline"
                   label="How soon are you looking to sell your home?"
                   validate={requiredField}
+                  required
                   options={howSoonOptions}
                   {...rest}
                 />
@@ -143,6 +146,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   name="sellersListingPriceInMind"
                   label="Do you have a listing price in mind?"
                   validate={requiredField}
+                  required
                   options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
                   {...rest}
                 />
@@ -152,6 +156,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   name="sellersMortgageBalance"
                   label="What is the estimated mortgage balance?"
                   validate={requiredField}
+                  required
                   options={createOptionsFromManagedDropdownList(priceRangesList)}
                   {...rest}
                 />

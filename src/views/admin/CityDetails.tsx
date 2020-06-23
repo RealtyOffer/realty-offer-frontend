@@ -85,6 +85,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                     type="text"
                     label="City Name"
                     validate={requiredField}
+                    required
                   />
                 </Column>
                 <Column md={4}>
@@ -96,6 +97,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                     label="State"
                     disabled
                     validate={requiredSelect}
+                    required
                     {...rest}
                   />
                 </Column>
@@ -106,6 +108,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                     type="number"
                     label="Monthly Price"
                     validate={requiredDollarAmount}
+                    required
                   />
                 </Column>
               </Row>

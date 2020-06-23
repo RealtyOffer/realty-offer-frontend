@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'gatsby';
 
 import { Box, Input, Row, Column, ProgressBar } from '../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../utils/validations';
@@ -17,7 +18,6 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
   const dispatch = useDispatch();
 
   const personalInfoInitialValues = {
-    // TODO: use values from consumer profile, not auth
     firstName: auth.firstName,
     lastName: auth.lastName,
     phoneNumber: auth.phoneNumber,
@@ -56,6 +56,7 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
                   name="firstName"
                   label="First Name"
                   validate={requiredField}
+                  required
                 />
               </Column>
               <Column sm={6}>
@@ -65,6 +66,7 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
                   name="lastName"
                   label="Last Name"
                   validate={requiredField}
+                  required
                 />
               </Column>
               <Column sm={6}>
@@ -74,6 +76,7 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
                   name="phoneNumber"
                   label="Phone Number"
                   validate={requiredPhoneNumber}
+                  required
                 />
               </Column>
               <Column sm={6}>
@@ -85,6 +88,13 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
                   readOnly
                   disabled
                   validate={requiredEmail}
+                  required
+                  helpText={
+                    <span>
+                      <Link to="/contact">Contact us</Link> to update your account&apos;s email
+                      address
+                    </span>
+                  }
                 />
               </Column>
             </Row>

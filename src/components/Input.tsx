@@ -3,11 +3,13 @@ import styled, { css } from 'styled-components';
 import { useField, FieldMetaProps, FormikHelpers } from 'formik';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Select, { CommonProps } from 'react-select';
+import ReactTooltip from 'react-tooltip';
 
 import {
   inputHeight,
   inputPaddingY,
   inputPaddingX,
+  halfSpacer,
   baseSpacer,
   borderRadius,
   sextupleSpacer,
@@ -41,6 +43,7 @@ type InputProps = {
   helpText?: string | JSX.Element;
   checked?: boolean;
   options?: OptionType[];
+  required?: boolean;
 } & FieldMetaProps<string> &
   FormikHelpers<string> &
   CommonProps<OptionType | OptionType[]>;
@@ -111,6 +114,9 @@ const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
   ${(props: { square?: boolean }) => props.square && `max-width: ${inputHeight};`}
   ${(props: { hidden?: boolean }) => props.hidden && `display: none;`}
+  & .tooltip {
+    padding: 0 ${halfSpacer};
+  }
 `;
 
 const StyledToggle = styled.input`
@@ -162,13 +168,25 @@ const StyledToggleLabel = styled.label<{
   ${(props) => props.disabled && disabledStyle}
 `;
 
-const StyledLabel = styled.label<{ hiddenLabel?: boolean; invalid?: boolean }>`
+const StyledLabel = styled.label<{
+  hiddenLabel?: boolean;
+  invalid?: boolean;
+  required?: boolean;
+}>`
   margin: 0;
   ${(props) => props.hiddenLabel && visuallyHiddenStyle}
   ${(props) =>
     props.invalid &&
     `
     color: ${brandDanger};
+  `}
+  ${(props) =>
+    props.required &&
+    `
+    &:after {
+      content: ' *';
+      color: ${brandDanger};
+    }
   `}
 `;
 
@@ -312,13 +330,26 @@ const Input: FunctionComponent<InputProps> = (props) => {
   return (
     <InputWrapper square={props.square} hidden={props.type === 'hidden'}>
       {props.label && props.type !== 'checkbox' && (
-        <StyledLabel
-          htmlFor={props.id || props.name}
-          hiddenLabel={props.hiddenLabel}
-          invalid={meta && meta.touched && meta.error != null}
-        >
-          {props.label}
-        </StyledLabel>
+        <>
+          <StyledLabel
+            htmlFor={props.id || props.name}
+            hiddenLabel={props.hiddenLabel}
+            invalid={meta && meta.touched && meta.error != null}
+            required={props.required || false}
+            data-tip={props.required ? `${props.label}: Required` : props.label}
+            data-for="input"
+          >
+            {props.label}
+          </StyledLabel>
+          <ReactTooltip
+            id="input"
+            place="bottom"
+            type="dark"
+            effect="float"
+            className="tooltip"
+            offset={{ top: 8 }}
+          />
+        </>
       )}
       {inputTypeToRender}
       {props.helpText && <small>{props.helpText}</small>}

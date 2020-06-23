@@ -128,6 +128,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       name="emailAddress"
                       label="Email Address"
                       validate={requiredEmail}
+                      required
                     />
                   </Column>
                   <Column xs={6} md={4}>
@@ -174,6 +175,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       name="phoneNumber"
                       label="Phone Number"
                       validate={requiredPhoneNumber}
+                      required
                     />
                   </Column>
                   <Column xs={6} md={4}>

@@ -104,6 +104,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   options={cityOptions}
                   label="What city/cities are you looking to move to?"
                   validate={requiredSelect}
+                  required
                   {...rest}
                 />
                 <Field
@@ -113,6 +114,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
                   label="Do you have a purchase price in mind?"
                   validate={requiredSelect}
+                  required
                   {...rest}
                 />
                 <Field
