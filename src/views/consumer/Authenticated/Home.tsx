@@ -1,6 +1,6 @@
 import React, { useEffect, FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps } from '@reach/router';
+import { Router, RouteComponentProps } from '@reach/router';
 import styled from 'styled-components';
 import { FaQuestionCircle } from 'react-icons/fa';
 import isBefore from 'date-fns/isBefore';
@@ -8,18 +8,22 @@ import isBefore from 'date-fns/isBefore';
 import {
   FlexContainer,
   Heading,
-  ConsumerListingCard,
   Seo,
   HorizontalRule,
+  Row,
+  Column,
+  SubNav,
 } from '../../../components';
 import { getConsumerProfile, getConsumerBids } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
-import Notifications from './Notifications';
-import ProfileDetails from './ProfileDetails';
+import ConsumerNotifications from './ConsumerNotifications';
+import ConsumerProfileDetails from './ConsumerProfileDetails';
+import ConsumerListing from './ConsumerListing';
 
 import { baseSpacer, doubleSpacer, borderRadius } from '../../../styles/size';
 import { brandTertiary, white } from '../../../styles/color';
 import { expiresAt } from '../../../utils/countdownTimerUtils';
+import consumerNavigationItems from '../../../utils/consumerNavigationItems';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -31,7 +35,6 @@ const StyledAlert = styled.div`
 const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const consumer = useSelector((state: RootState) => state.consumer);
-  const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +42,6 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   }, []);
 
   useEffect(() => {
-    // if listing is after the 24 hour period
     if (consumer.listing && isBefore(expiresAt(consumer.listing.createDateTime), new Date())) {
       dispatch(getConsumerBids());
     }
@@ -67,12 +69,18 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
         </FlexContainer>
       </StyledAlert>
       <HorizontalRule />
-      <Heading as="h2">My Info</Heading>
-      <ProfileDetails />
-      <Heading as="h2">My Listings</Heading>
-      <ConsumerListingCard listing={consumer.listing} bids={consumer.bids} />
-      <Heading as="h2">Notifications</Heading>
-      <Notifications user={user} />
+      <Row>
+        <Column md={3}>
+          <SubNav items={consumerNavigationItems} />
+        </Column>
+        <Column md={9}>
+          <Router>
+            <ConsumerListing path="/listing" />
+            <ConsumerProfileDetails path="/profile" />
+            <ConsumerNotifications path="/manage-notifications" />
+          </Router>
+        </Column>
+      </Row>
     </>
   );
 };

@@ -62,6 +62,7 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
         <CreateConsumer path="/sign-up" />
         <VerifyEmail path="/verify-email" />
         <PrivateRoute component={Home} path="/home" allowedRole="Consumer" />
+        <PrivateRoute component={Home} path="/*" allowedRole="Consumer" />
         <NotFoundPage default />
       </Router>
     </PageContainer>

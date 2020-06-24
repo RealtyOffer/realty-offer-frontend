@@ -1,16 +1,15 @@
 /* eslint-disable dot-notation */
 import React, { FunctionComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
-// import { useDispatch } from 'react-redux';
+import { RouteComponentProps } from '@reach/router';
+import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 
 import { Row, Column, IconCheckbox, Box } from '../../../components';
 import AutoSave from '../../../utils/autoSave';
-import { UserStoreType } from '../../../redux/ducks/user.d';
+import { RootState } from '../../../redux/ducks';
 
-type ConsumerAlertsFormProps = {
-  user: UserStoreType;
-};
+type ConsumerNotificationsProps = {} & RouteComponentProps;
 
 type InitialValuesType = {
   [key: string]: {
@@ -23,8 +22,9 @@ type InitialValuesType = {
   };
 };
 
-const ConsumerAlertsForm: FunctionComponent<ConsumerAlertsFormProps> = ({ user }) => {
-  // const dispatch = useDispatch();
+const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
   const accountAlerts = user.notificationTypes
     .filter((type) => type.type === 'myAccount')
     .sort((a, b) => a.id - b.id);
@@ -118,4 +118,4 @@ const ConsumerAlertsForm: FunctionComponent<ConsumerAlertsFormProps> = ({ user }
   );
 };
 
-export default ConsumerAlertsForm;
+export default ConsumerNotifications;

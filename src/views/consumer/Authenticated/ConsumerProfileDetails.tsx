@@ -8,7 +8,8 @@ import { Box, Input, Row, Column, ProgressBar } from '../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../utils/validations';
 import AutoSave from '../../../utils/autoSave';
 import { RootState } from '../../../redux/ducks';
-// import { updateConsumerProfile } from '../../../redux/ducks/agent';
+import { updateUser } from '../../../redux/ducks/auth';
+import { reformattedPhone, formatPhoneNumberValue } from '../../../utils/phoneNumber';
 
 type ConsumerProfileDetailsProps = {} & RouteComponentProps;
 
@@ -20,7 +21,7 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
   const personalInfoInitialValues = {
     firstName: auth.firstName,
     lastName: auth.lastName,
-    phoneNumber: auth.phoneNumber,
+    phoneNumber: formatPhoneNumberValue(auth.phoneNumber.replace('+', '')),
     email: auth.email,
   };
 
@@ -29,8 +30,14 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
       validateOnMount
       initialValues={personalInfoInitialValues}
       onSubmit={(values, { setSubmitting }) => {
-        // dispatch()
-        // TODO: need auth update profile service
+        dispatch(
+          updateUser({
+            ...values,
+            phoneNumber: reformattedPhone(values.phoneNumber),
+          })
+        ).then(() => {
+          setSubmitting(false);
+        });
       }}
     >
       {() => (
