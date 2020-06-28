@@ -152,9 +152,6 @@ export const createAgentProfile = (payload: AgentProfileType) => ({
   [RSAA]: {
     endpoint: AGENT_PROFILE_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [
       CREATE_AGENT_PROFILE_REQUEST,
@@ -168,9 +165,6 @@ export const updateAgentProfile = (payload: AgentProfileType) => ({
   [RSAA]: {
     endpoint: AGENT_PROFILE_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [
       UPDATE_AGENT_PROFILE_REQUEST,
@@ -184,9 +178,6 @@ export const getAgentProfile = () => ({
   [RSAA]: {
     endpoint: AGENT_PROFILE_ENDPOINT,
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [GET_AGENT_PROFILE_REQUEST, GET_AGENT_PROFILE_SUCCESS, GET_AGENT_PROFILE_FAILURE],
   },
 });
@@ -195,9 +186,6 @@ export const createAgentBid = (payload: BidType) => ({
   [RSAA]: {
     endpoint: AGENT_BIDS_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [CREATE_AGENT_BID_REQUEST, CREATE_AGENT_BID_SUCCESS, CREATE_AGENT_BID_FAILURE],
   },
@@ -207,9 +195,6 @@ export const updateAgentBid = (payload: BidType) => ({
   [RSAA]: {
     endpoint: AGENT_BIDS_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [UPDATE_AGENT_BID_REQUEST, UPDATE_AGENT_BID_SUCCESS, UPDATE_AGENT_BID_FAILURE],
   },

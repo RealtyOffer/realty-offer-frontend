@@ -26,7 +26,8 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   if (
     !auth.isLoggedIn &&
     location?.pathname !== '/login' &&
-    !isRoleAllowed(auth.roles, allowedRole)
+    !isRoleAllowed(auth.roles, allowedRole) &&
+    window
   ) {
     navigate('/');
     return null;

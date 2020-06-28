@@ -168,9 +168,6 @@ export const createUser = (payload: CreateUserFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_SIGNUP_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [{ type: CREATE_USER_REQUEST, payload }, CREATE_USER_SUCCESS, CREATE_USER_FAILURE],
@@ -181,9 +178,6 @@ export const updateUser = (payload: UpdateUserFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_SECURED_PROFILE_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [{ type: UPDATE_USER_REQUEST, payload }, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE],
   },
@@ -193,9 +187,6 @@ export const verifyEmail = (payload: VerifyEmailFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_CONFIRM_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [VERIFY_EMAIL_REQUEST, VERIFY_EMAIL_SUCCESS, VERIFY_EMAIL_FAILURE],
@@ -206,9 +197,6 @@ export const resendSignupEmail = (email: string) => ({
   [RSAA]: {
     endpoint: AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ email }),
     skipOauth: true,
     types: [RESEND_SIGNUP_EMAIL_REQUEST, RESEND_SIGNUP_EMAIL_SUCCESS, RESEND_SIGNUP_EMAIL_FAILURE],
@@ -219,9 +207,6 @@ export const authenticateCredentials = (payload: LoginFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_LOGIN_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [
@@ -236,9 +221,6 @@ export const forgotPassword = (payload: { email: string }) => ({
   [RSAA]: {
     endpoint: AUTH_FORGOT_PASSWORD_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE],
@@ -249,9 +231,6 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
   [RSAA]: {
     endpoint: AUTH_RESET_PASSWORD_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE],
@@ -265,9 +244,6 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
 //   [RSAA]: {
 //     // endpoint: CHANGE_PASSWORD_ENDPOINT,
 //     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
 //     body: JSON.stringify(payload),
 //     types: [
 //       CHANGE_PASSWORD_REQUEST,

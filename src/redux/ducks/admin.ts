@@ -131,9 +131,6 @@ export const createSiteBanner = (payload: BannerType) => ({
   [RSAA]: {
     endpoint: ADMIN_SITE_BANNERS_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [CREATE_SITE_BANNER_REQUEST, CREATE_SITE_BANNER_SUCCESS, CREATE_SITE_BANNER_FAILURE],
   },
@@ -143,9 +140,6 @@ export const updateSiteBanner = (payload: BannerType) => ({
   [RSAA]: {
     endpoint: ADMIN_SITE_BANNERS_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [UPDATE_SITE_BANNER_REQUEST, UPDATE_SITE_BANNER_SUCCESS, UPDATE_SITE_BANNER_FAILURE],
   },
@@ -155,9 +149,6 @@ export const getAllSiteBanners = () => ({
   [RSAA]: {
     endpoint: ADMIN_SITE_BANNERS_ENDPOINT,
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [
       GET_ALL_SITE_BANNERS_REQUEST,
       GET_ALL_SITE_BANNERS_SUCCESS,
@@ -170,9 +161,6 @@ export const getSiteBannerById = (id: number) => ({
   [RSAA]: {
     endpoint: ADMIN_SITE_BANNER_BY_ID_ENDPOINT(id),
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [
       GET_SITE_BANNER_BY_ID_REQUEST,
       GET_SITE_BANNER_BY_ID_SUCCESS,
@@ -185,9 +173,6 @@ export const createCity = (payload: CityType) => ({
   [RSAA]: {
     endpoint: ADMIN_CITIES_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [CREATE_CITY_REQUEST, CREATE_CITY_SUCCESS, CREATE_CITY_FAILURE],
   },
@@ -197,9 +182,6 @@ export const updateCity = (payload: CityType) => ({
   [RSAA]: {
     endpoint: ADMIN_CITIES_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [UPDATE_CITY_REQUEST, UPDATE_CITY_SUCCESS, UPDATE_CITY_FAILURE],
   },
@@ -209,9 +191,6 @@ export const getAllCities = () => ({
   [RSAA]: {
     endpoint: ADMIN_CITIES_ENDPOINT,
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [GET_ALL_CITIES_REQUEST, GET_ALL_CITIES_SUCCESS, GET_ALL_CITIES_FAILURE],
   },
 });
@@ -220,9 +199,6 @@ export const getCityById = (id: number) => ({
   [RSAA]: {
     endpoint: ADMIN_CITY_BY_ID_ENDPOINT(id),
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [GET_CITY_BY_ID_REQUEST, GET_CITY_BY_ID_SUCCESS, GET_CITY_BY_ID_FAILURE],
   },
 });

@@ -10,6 +10,7 @@ import 'isomorphic-fetch';
 import rootReducer, { RootState } from './ducks/index';
 import logger from './middleware/logger';
 import oauth from './middleware/oauth';
+import requestHeaders from './middleware/requestHeaders';
 import errorCatcher from './middleware/errorCatcher';
 
 import { initialState as adminInitialState } from './ducks/admin';
@@ -21,7 +22,7 @@ import { initialState as globalAlertsInitialState } from './ducks/globalAlerts';
 import { initialState as listingsInitialState } from './ducks/listings';
 import { initialState as userInitialState } from './ducks/user';
 
-export const getMiddlewares = () => [oauth, apiMiddleware, errorCatcher, thunk];
+export const getMiddlewares = () => [oauth, requestHeaders, apiMiddleware, errorCatcher, thunk];
 
 const middlewares = getMiddlewares();
 const isBrowser = typeof window !== 'undefined';

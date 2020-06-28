@@ -140,9 +140,6 @@ export const createConsumerProfile = (payload: {
   [RSAA]: {
     endpoint: CREATE_CONSUMER_PROFILE_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [
@@ -160,9 +157,6 @@ export const updateConsumerProfile = (payload: {
   [RSAA]: {
     endpoint: SECURED_CONSUMER_PROFILE_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     skipOauth: true,
     types: [

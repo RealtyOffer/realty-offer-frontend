@@ -222,9 +222,6 @@ export const getUserSiteBanners = (payload: BannerType['audience']) => ({
   [RSAA]: {
     endpoint: `${USER_SITE_BANNERS_ENDPOINT}?bannerAudience=${payload}`,
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [
       GET_USER_SITE_BANNERS_REQUEST,
       GET_USER_SITE_BANNERS_SUCCESS,
@@ -238,9 +235,6 @@ export const getUserCities = () => ({
     endpoint: USER_CITIES_ENDPOINT,
     method: 'GET',
     skipOauth: true,
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [GET_USER_CITIES_REQUEST, GET_USER_CITIES_SUCCESS, GET_USER_CITIES_FAILURE],
   },
 });
@@ -249,9 +243,6 @@ export const getUserNotificationSettings = () => ({
   [RSAA]: {
     endpoint: USER_NOTIFICATION_SETTINGS_ENDPOINT,
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [
       GET_USER_NOTIFICATION_SETTINGS_REQUEST,
       GET_USER_NOTIFICATION_SETTINGS_SUCCESS,
@@ -264,9 +255,6 @@ export const updateUserNotificationSettings = (payload: NotificationSettingsType
   [RSAA]: {
     endpoint: USER_NOTIFICATION_SETTINGS_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [
       UPDATE_USER_NOTIFICATION_SETTINGS_REQUEST,
@@ -280,9 +268,6 @@ export const getUserNotificationSubscriptions = () => ({
   [RSAA]: {
     endpoint: USER_NOTIFICATIONS_ENDPOINT,
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [
       GET_USER_NOTIFICATION_SUBSCRIPTIONS_REQUEST,
       GET_USER_NOTIFICATION_SUBSCRIPTIONS_SUCCESS,
@@ -295,9 +280,6 @@ export const updateUserNotificationSubscriptions = (payload: UserNotificationSub
   [RSAA]: {
     endpoint: USER_NOTIFICATIONS_ENDPOINT,
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [
       UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_REQUEST,
@@ -314,9 +296,6 @@ export const confirmDevice = (payload: {
   [RSAA]: {
     endpoint: USER_NOTIFICATION_SETTINGS_CONFIRM_ENDPOINT,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(payload),
     types: [CONFIRM_DEVICE_REQUEST, CONFIRM_DEVICE_SUCCESS, CONFIRM_DEVICE_FAILURE],
   },
@@ -326,9 +305,6 @@ export const getNotificationTypes = () => ({
   [RSAA]: {
     endpoint: USER_NOTIFICATION_TYPES_ENDPOINT,
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     types: [
       GET_NOTIFICATION_TYPES_REQUEST,
       GET_NOTIFICATION_TYPES_SUCCESS,
