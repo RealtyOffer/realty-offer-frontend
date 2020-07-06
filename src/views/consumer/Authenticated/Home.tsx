@@ -13,6 +13,7 @@ import {
   Row,
   Column,
   SubNav,
+  PrivateRoute,
 } from '../../../components';
 import { getConsumerProfile, getConsumerBids } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
@@ -74,10 +75,18 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
           <SubNav items={consumerNavigationItems} />
         </Column>
         <Column md={9}>
-          <Router>
-            <ConsumerListing path="/listing" />
-            <ConsumerProfileDetails path="/profile" />
-            <ConsumerNotifications path="/manage-notifications" />
+          <Router basepath="consumer">
+            <PrivateRoute component={ConsumerListing} path="/listing" allowedRole="Consumer" />
+            <PrivateRoute
+              component={ConsumerProfileDetails}
+              path="/profile"
+              allowedRole="Consumer"
+            />
+            <PrivateRoute
+              component={ConsumerNotifications}
+              path="/manage-notifications"
+              allowedRole="Consumer"
+            />
           </Router>
         </Column>
       </Row>

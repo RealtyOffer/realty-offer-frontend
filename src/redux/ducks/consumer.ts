@@ -42,6 +42,7 @@ export const initialState: ConsumerStoreType = {
   },
   profile: {},
   bids: [],
+  winner: {},
 };
 
 export default (
@@ -67,11 +68,17 @@ export default (
     case CREATE_CONSUMER_PROFILE_REQUEST:
     case GET_CONSUMER_PROFILE_REQUEST:
     case GET_CONSUMER_BIDS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false,
+      };
     case CREATE_CONSUMER_BID_WINNER_REQUEST:
       return {
         ...state,
         isLoading: true,
         hasError: false,
+        winner: action.payload,
       };
     case CREATE_CONSUMER_PROFILE_SUCCESS:
       return {

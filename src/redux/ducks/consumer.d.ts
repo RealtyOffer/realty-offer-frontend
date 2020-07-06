@@ -33,6 +33,7 @@ export type ConsumerStoreType = {
   listing: ListingType;
   profile: ConsumerProfileType;
   bids: Array<BidType>;
+  winner?: BidType;
 };
 
 export type CaptureConsumerDataAction = {
@@ -91,6 +92,7 @@ export type GetConsumerBidsFailureAction = {
 
 export type CreateConsumerBidWinnerRequestAction = {
   type: typeof CREATE_CONSUMER_BID_WINNER_REQUEST;
+  payload: BidType;
 };
 export type CreateConsumerBidWinnerSuccessAction = {
   type: typeof CREATE_CONSUMER_BID_WINNER_SUCCESS;

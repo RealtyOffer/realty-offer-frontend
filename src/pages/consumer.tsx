@@ -49,7 +49,7 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
       navigate('/consumer/start');
     }
     if (isLoggedIn && props.location.pathname === '/consumer') {
-      navigate('/consumer/home');
+      navigate('/consumer/listing');
     }
   }, []);
 
@@ -61,7 +61,6 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
         <Selling path="/selling" />
         <CreateConsumer path="/sign-up" />
         <VerifyEmail path="/verify-email" />
-        <PrivateRoute component={Home} path="/home" allowedRole="Consumer" />
         <PrivateRoute component={Home} path="/listing" allowedRole="Consumer" />
         <PrivateRoute component={Home} path="/profile" allowedRole="Consumer" />
         <PrivateRoute component={Home} path="/manage-notifications" allowedRole="Consumer" />

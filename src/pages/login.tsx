@@ -65,7 +65,7 @@ const Login: FunctionComponent<LoginProps> = () => {
                     navigate('/agent');
                   }
                   if ((response as LoginResponseType).payload.roles.includes('Consumer')) {
-                    navigate('/consumer/home');
+                    navigate('/consumer/listing');
                   }
                 }
               }
