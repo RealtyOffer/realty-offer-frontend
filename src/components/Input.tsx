@@ -29,6 +29,7 @@ import {
 } from '../styles/color';
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
+import ClientOnly from './ClientOnly';
 
 type OptionType = { label: string; value: string };
 
@@ -330,7 +331,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
   return (
     <InputWrapper square={props.square} hidden={props.type === 'hidden'}>
       {props.label && props.type !== 'checkbox' && (
-        <>
+        <ClientOnly>
           <StyledLabel
             htmlFor={props.id || props.name}
             hiddenLabel={props.hiddenLabel}
@@ -349,7 +350,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
             className="tooltip"
             offset={{ top: 8 }}
           />
-        </>
+        </ClientOnly>
       )}
       {inputTypeToRender}
       {props.helpText && <small>{props.helpText}</small>}
