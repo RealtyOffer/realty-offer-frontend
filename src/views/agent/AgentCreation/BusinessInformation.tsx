@@ -13,6 +13,7 @@ import {
   Card,
   Seo,
   HorizontalRule,
+  ClientOnly,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
 import { getUserCities } from '../../../redux/ducks/user';
@@ -69,11 +70,11 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
   };
 
   return (
-    <Card
-      cardTitle="Business Information"
-      cardSubtitle="Select the cities you would like to receive leads in"
-    >
-      <>
+    <ClientOnly>
+      <Card
+        cardTitle="Business Information"
+        cardSubtitle="Select the cities you would like to receive leads in"
+      >
         <Seo title="Business Information" />
         <ProgressBar value={66} label="Step 2/3" name="progress" />
         <Formik
@@ -132,8 +133,8 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
         <Button type="button" onClick={() => save()} color="text" block>
           Save &amp; Complete Later
         </Button>
-      </>
-    </Card>
+      </Card>
+    </ClientOnly>
   );
 };
 

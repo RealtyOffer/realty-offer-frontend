@@ -2,7 +2,7 @@ import React, { useState, FunctionComponent, useRef, useEffect } from 'react';
 import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaBell, FaRegBell } from 'react-icons/fa';
+import { FaBell, FaRegBell, FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import ReactTooltip from 'react-tooltip';
 
@@ -31,7 +31,7 @@ import {
   threeQuarterSpacer,
 } from '../styles/size';
 import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
-import { fontSizeH6 } from '../styles/typography';
+import { fontSizeH4, fontSizeH6 } from '../styles/typography';
 import { logout } from '../redux/ducks/auth';
 import { RootState } from '../redux/ducks';
 import logo from '../images/logo.svg';
@@ -180,7 +180,7 @@ const StyledMenu = styled.div`
       height: 100vh;
       position: absolute;
       top: ${quadrupleSpacer};
-      right: ${props.menuIsOpen ? 0 : '-75%'};
+      left: ${props.menuIsOpen ? 0 : '-75%'};
       width: 75%;
       z-index: 10;
       transition: left 200ms linear;
@@ -191,6 +191,7 @@ const StyledMenu = styled.div`
         line-height: ${baseSpacer};
         margin: 0;
         height: auto;
+        font-size: ${fontSizeH4};
       }
     `}
 `;
@@ -213,6 +214,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [subMenuIsOpen, setSubMenuIsOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
   const notificationsNode = useRef<HTMLDivElement>(null);
@@ -224,9 +226,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   const toggleMenu = () => {
     if (isSmallScreen) {
+      setSubMenuIsOpen(false);
       setMenuIsOpen(false);
     }
   };
+
+  const toggleSubMenu = () => setSubMenuIsOpen(!subMenuIsOpen);
 
   const handleNotificationsDropownClick = (e: MouseEvent) => {
     if (
@@ -258,6 +263,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   const isLoggedInAgent = auth.isLoggedIn && agent.hasCompletedSignup;
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
+  const shouldShowMenuToggle =
+    isLoggedInAgent && isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP';
 
   const menuItemsToRender = isLoggedInAgent ? [...primaryNavigation] : [];
   // TODO for PROD : [...unauthenticatedNavigationItems];
@@ -266,12 +273,21 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
         <FlexContainer justifyContent="space-between" height={quadrupleSpacer}>
+          {shouldShowMenuToggle && (
+            <StyledMenuToggle>
+              <Hamburger
+                color={white}
+                toggled={menuIsOpen}
+                toggle={() => setMenuIsOpen(!menuIsOpen)}
+              />
+            </StyledMenuToggle>
+          )}
           {/* TODO for PROD: update link to / */}
           <StyledLogoLink to={isLoggedInAgent ? '/agent/listings/new' : '/landing'} title="Logo">
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
           </StyledLogoLink>
           {/* TODO for PROD */}
-          {!isLoggedInConsumer && isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
+          {shouldShowMenuToggle && (
             <ClientOnly>
               <FlexContainer>
                 <div style={{ position: 'relative', marginRight: halfSpacer }}>
@@ -280,13 +296,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     <NotificationDot isSmallScreen />
                   </Link>
                 </div>
-                <StyledMenuToggle>
-                  <Hamburger
-                    color={white}
-                    toggled={menuIsOpen}
-                    toggle={() => setMenuIsOpen(!menuIsOpen)}
-                  />
-                </StyledMenuToggle>
               </FlexContainer>
             </ClientOnly>
           )}
@@ -310,15 +319,23 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               {isSmallScreen && isLoggedInAgent && (
                 <>
                   <HorizontalRule />
-                  {secondaryNavigation.map((navItem) => (
-                    <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
-                      {navItem.name}
-                    </Link>
-                  ))}
+                  <Link to="/" onClick={() => toggleSubMenu()}>
+                    Account {subMenuIsOpen ? <FaCaretUp /> : <FaCaretDown />}
+                  </Link>
+                  {subMenuIsOpen &&
+                    secondaryNavigation.map((navItem) => (
+                      <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
+                        {navItem.name}
+                      </Link>
+                    ))}
+                  <HorizontalRule />
                   {auth.roles.includes('Admin') && (
-                    <Link to="/admin/banners" onClick={() => toggleMenu()}>
-                      Admin
-                    </Link>
+                    <>
+                      <Link to="/admin/banners" onClick={() => toggleMenu()}>
+                        Admin
+                      </Link>
+                      <HorizontalRule />
+                    </>
                   )}
                   <Link
                     to="/"

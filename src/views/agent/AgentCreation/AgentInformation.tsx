@@ -15,6 +15,7 @@ import {
   Card,
   Seo,
   LoadingPage,
+  ClientOnly,
 } from '../../../components';
 import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks/agent';
@@ -60,11 +61,11 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
   };
 
   return (
-    <Card
-      cardTitle="Agent Information"
-      cardSubtitle="Get started by simply providing your Agent Information"
-    >
-      <>
+    <ClientOnly>
+      <Card
+        cardTitle="Agent Information"
+        cardSubtitle="Get started by simply providing your Agent Information"
+      >
         <Seo title="Agent Information" />
         <ProgressBar value={33} label="Step 1/3" name="progress" />
         {statesList.length > 0 ? (
@@ -202,8 +203,8 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
         <Button type="button" onClick={() => save()} color="text" block>
           Save &amp; Complete Later
         </Button>
-      </>
-    </Card>
+      </Card>
+    </ClientOnly>
   );
 };
 

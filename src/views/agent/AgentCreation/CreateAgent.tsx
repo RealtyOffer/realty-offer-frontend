@@ -4,7 +4,16 @@ import { Link, navigate } from 'gatsby';
 import { useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 
-import { Button, Input, Row, Card, Column, HorizontalRule, Seo } from '../../../components';
+import {
+  Button,
+  Input,
+  Row,
+  Card,
+  Column,
+  HorizontalRule,
+  Seo,
+  ClientOnly,
+} from '../../../components';
 
 import {
   requiredEmail,
@@ -32,8 +41,8 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
   };
 
   return (
-    <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
-      <>
+    <ClientOnly>
+      <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
         <Seo title="Sign Up" />
         <Formik
           validateOnMount
@@ -115,8 +124,8 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
         <p style={{ textAlign: 'center' }}>
           Already have an account? <Link to="/login">Log in now</Link>
         </p>
-      </>
-    </Card>
+      </Card>
+    </ClientOnly>
   );
 };
 
