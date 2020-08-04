@@ -2,7 +2,8 @@ import { RSAA } from 'redux-api-middleware';
 
 import {
   DROPDOWN_LIST_GENDERS_ENDPOINT,
-  DROPDOWN_LIST_GENDER_PREFERENCESS_ENDPOINT,
+  DROPDOWN_LIST_GENDER_PREFERENCES_ENDPOINT,
+  DROPDOWN_LIST_AGE_PREFERENCES_ENDPOINT,
   DROPDOWN_LIST_LANGUAGES_ENDPOINT,
   DROPDOWN_LIST_PRICE_RANGES_ENDPOINT,
   DROPDOWN_LIST_STATES_ENDPOINT,
@@ -16,6 +17,10 @@ export const GET_GENDERS_LIST_FAILURE = 'GET_GENDERS_LIST_FAILURE';
 export const GET_GENDER_PREFERENCES_LIST_REQUEST = 'GET_GENDER_PREFERENCES_LIST_REQUEST';
 export const GET_GENDER_PREFERENCES_LIST_SUCCESS = 'GET_GENDER_PREFERENCES_LIST_SUCCESS';
 export const GET_GENDER_PREFERENCES_LIST_FAILURE = 'GET_GENDER_PREFERENCES_LIST_FAILURE';
+
+export const GET_AGE_PREFERENCES_LIST_REQUEST = 'GET_AGE_PREFERENCES_LIST_REQUEST';
+export const GET_AGE_PREFERENCES_LIST_SUCCESS = 'GET_AGE_PREFERENCES_LIST_SUCCESS';
+export const GET_AGE_PREFERENCES_LIST_FAILURE = 'GET_AGE_PREFERENCES_LIST_FAILURE';
 
 export const GET_LANGUAGES_LIST_REQUEST = 'GET_LANGUAGES_LIST_REQUEST';
 export const GET_LANGUAGES_LIST_SUCCESS = 'GET_LANGUAGES_LIST_SUCCESS';
@@ -36,6 +41,11 @@ export const initialState: DropdownStoreType = {
     list: [],
   },
   genderPreferences: {
+    isLoading: false,
+    hasError: false,
+    list: [],
+  },
+  agePreferences: {
     isLoading: false,
     hasError: false,
     list: [],
@@ -111,6 +121,33 @@ export default (
       return {
         ...state,
         genderPreferences: {
+          isLoading: false,
+          hasError: true,
+          list: [],
+        },
+      };
+    case GET_AGE_PREFERENCES_LIST_REQUEST:
+      return {
+        ...state,
+        agePreferences: {
+          isLoading: true,
+          hasError: false,
+          list: [],
+        },
+      };
+    case GET_AGE_PREFERENCES_LIST_SUCCESS:
+      return {
+        ...state,
+        agePreferences: {
+          isLoading: false,
+          hasError: false,
+          list: [...action.payload],
+        },
+      };
+    case GET_AGE_PREFERENCES_LIST_FAILURE:
+      return {
+        ...state,
+        agePreferences: {
           isLoading: false,
           hasError: true,
           list: [],
@@ -212,12 +249,24 @@ export const getGendersList = () => ({
 
 export const getGenderPreferencesList = () => ({
   [RSAA]: {
-    endpoint: DROPDOWN_LIST_GENDER_PREFERENCESS_ENDPOINT,
+    endpoint: DROPDOWN_LIST_GENDER_PREFERENCES_ENDPOINT,
     method: 'GET',
     types: [
       GET_GENDER_PREFERENCES_LIST_REQUEST,
       GET_GENDER_PREFERENCES_LIST_SUCCESS,
       GET_GENDER_PREFERENCES_LIST_FAILURE,
+    ],
+  },
+});
+
+export const getAgePreferencesList = () => ({
+  [RSAA]: {
+    endpoint: DROPDOWN_LIST_AGE_PREFERENCES_ENDPOINT,
+    method: 'GET',
+    types: [
+      GET_AGE_PREFERENCES_LIST_REQUEST,
+      GET_AGE_PREFERENCES_LIST_SUCCESS,
+      GET_AGE_PREFERENCES_LIST_FAILURE,
     ],
   },
 });

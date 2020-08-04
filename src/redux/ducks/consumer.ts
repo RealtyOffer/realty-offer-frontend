@@ -6,10 +6,11 @@ import {
   SECURED_CONSUMER_PROFILE_ENDPOINT,
   SECURED_CONSUMER_BIDS_ENDPOINT,
   SECURED_CONSUMER_BIDS_WINNER_ENDPOINT,
+  SECURED_CONSUMER_BIDS_WINNING_AGENT_ENDPOINT,
 } from '../constants';
 
 import { ConsumerStoreType, ConsumerProfileType, ConsumerStoreActions } from './consumer.d';
-import { ListingType, CreateListingType } from './listings.d';
+import { ListingType } from './listings.d';
 import { BidType } from './agent.d';
 
 export const CAPTURE_CONSUMER_DATA = 'CAPTURE_CONSUMER_DATA';
@@ -34,15 +35,17 @@ export const CREATE_CONSUMER_BID_WINNER_REQUEST = 'CREATE_CONSUMER_BID_WINNER_RE
 export const CREATE_CONSUMER_BID_WINNER_SUCCESS = 'CREATE_CONSUMER_BID_WINNER_SUCCESS';
 export const CREATE_CONSUMER_BID_WINNER_FAILURE = 'CREATE_CONSUMER_BID_WINNER_FAILURE';
 
+export const GET_WINNING_AGENT_PROFILE_REQUEST = 'GET_WINNING_AGENT_PROFILE_REQUEST';
+export const GET_WINNING_AGENT_PROFILE_SUCCESS = 'GET_WINNING_AGENT_PROFILE_SUCCESS';
+export const GET_WINNING_AGENT_PROFILE_FAILURE = 'GET_WINNING_AGENT_PROFILE_FAILURE';
+
 export const initialState: ConsumerStoreType = {
   isLoading: false,
   hasError: false,
-  listing: {
-    createDateTime: new Date(),
-  },
-  profile: {},
+  listing: null,
+  profile: null,
   bids: [],
-  winner: {},
+  winner: null,
 };
 
 export default (
@@ -57,9 +60,7 @@ export default (
         // so the signup process can be started over from scratch
         listing:
           Object.keys(action.payload).length === 0
-            ? {
-                createDateTime: new Date(),
-              }
+            ? null
             : {
                 ...state.listing,
                 ...action.payload,
@@ -68,17 +69,13 @@ export default (
     case CREATE_CONSUMER_PROFILE_REQUEST:
     case GET_CONSUMER_PROFILE_REQUEST:
     case GET_CONSUMER_BIDS_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-        hasError: false,
-      };
     case CREATE_CONSUMER_BID_WINNER_REQUEST:
+    case GET_WINNING_AGENT_PROFILE_REQUEST:
+    case UPDATE_CONSUMER_PROFILE_REQUEST:
       return {
         ...state,
         isLoading: true,
         hasError: false,
-        winner: action.payload,
       };
     case CREATE_CONSUMER_PROFILE_SUCCESS:
       return {
@@ -99,6 +96,13 @@ export default (
         hasError: false,
         ...action.payload,
       };
+    case UPDATE_CONSUMER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        profile: { ...action.payload },
+      };
     case GET_CONSUMER_BIDS_SUCCESS:
       return {
         ...state,
@@ -112,6 +116,13 @@ export default (
         isLoading: false,
         hasError: false,
       };
+    case GET_WINNING_AGENT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        winner: { ...action.payload },
+      };
     case GET_CONSUMER_BIDS_FAILURE:
       return {
         ...state,
@@ -122,6 +133,8 @@ export default (
     case GET_CONSUMER_PROFILE_FAILURE:
     case CREATE_CONSUMER_PROFILE_FAILURE:
     case CREATE_CONSUMER_BID_WINNER_FAILURE:
+    case GET_WINNING_AGENT_PROFILE_FAILURE:
+    case UPDATE_CONSUMER_PROFILE_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -134,7 +147,7 @@ export default (
   }
 };
 
-export const captureConsumerData = (payload: CreateListingType) => ({
+export const captureConsumerData = (payload: ListingType) => ({
   type: CAPTURE_CONSUMER_DATA,
   payload,
 });
@@ -157,15 +170,11 @@ export const createConsumerProfile = (payload: {
   },
 });
 
-export const updateConsumerProfile = (payload: {
-  listing: ListingType;
-  profile: ConsumerProfileType;
-}) => ({
+export const updateConsumerProfile = (payload: ConsumerProfileType) => ({
   [RSAA]: {
     endpoint: SECURED_CONSUMER_PROFILE_ENDPOINT,
     method: 'PUT',
     body: JSON.stringify(payload),
-    skipOauth: true,
     types: [
       UPDATE_CONSUMER_PROFILE_REQUEST,
       UPDATE_CONSUMER_PROFILE_SUCCESS,
@@ -203,6 +212,18 @@ export const createConsumerBidWinner = (payload: BidType) => ({
       CREATE_CONSUMER_BID_WINNER_REQUEST,
       CREATE_CONSUMER_BID_WINNER_SUCCESS,
       CREATE_CONSUMER_BID_WINNER_FAILURE,
+    ],
+  },
+});
+
+export const getWinningAgentProfile = () => ({
+  [RSAA]: {
+    endpoint: SECURED_CONSUMER_BIDS_WINNING_AGENT_ENDPOINT,
+    method: 'GET',
+    types: [
+      GET_WINNING_AGENT_PROFILE_REQUEST,
+      GET_WINNING_AGENT_PROFILE_SUCCESS,
+      GET_WINNING_AGENT_PROFILE_FAILURE,
     ],
   },
 });

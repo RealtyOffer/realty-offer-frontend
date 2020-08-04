@@ -12,6 +12,7 @@ type PrivateRouteProps = {
   component: ComponentType & RouteComponentProps;
   path: string;
   allowedRole: AllowedRoleType;
+  listingType?: 'awarded' | 'history';
 };
 
 const isRoleAllowed = (roles: string, allowedRole: AllowedRoleType) => roles.includes(allowedRole);

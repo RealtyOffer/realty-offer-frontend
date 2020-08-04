@@ -283,7 +283,17 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             </StyledMenuToggle>
           )}
           {/* TODO for PROD: update link to / */}
-          <StyledLogoLink to={isLoggedInAgent ? '/agent/listings/new' : '/landing'} title="Logo">
+          <StyledLogoLink
+            to={
+              // eslint-disable-next-line no-nested-ternary
+              isLoggedInAgent
+                ? '/agent/listings/new'
+                : isLoggedInConsumer
+                ? '/consumer/listing'
+                : '/landing'
+            }
+            title="Logo"
+          >
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
           </StyledLogoLink>
           {/* TODO for PROD */}

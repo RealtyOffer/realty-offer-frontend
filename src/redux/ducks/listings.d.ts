@@ -30,9 +30,8 @@ export type ListingType = {
   sellersTimeline?: string;
   sellersListingPriceInMindPriceRangeInMindId?: number;
   sellersMortgageBalanceId?: number;
+  agentSubmittedBidId?: number;
 };
-
-export type CreateListingType = Omit<ListingType, 'createDateTime'>;
 
 export type ListingStoreType = {
   isLoading: boolean;

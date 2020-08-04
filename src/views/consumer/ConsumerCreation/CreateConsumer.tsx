@@ -53,7 +53,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = consumer.listing.type === 'buyerSeller';
+  const isBuyerAndSeller = consumer.listing && consumer.listing.type === 'buyerSeller';
 
   return (
     <ClientOnly>
@@ -82,12 +82,14 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                       email: values.email,
                       listing: {
                         ...consumer.listing,
-                        sellersZip: String(consumer.listing.sellersZip),
+                        sellersZip: (consumer.listing && String(consumer.listing.sellersZip)) || '',
+                        createDateTime: new Date(),
                       },
                       profile: {
                         id: 0,
-                        otherLanguage: '',
-                        genderPreference: '',
+                        otherLanguageId: '',
+                        genderPreferenceId: '',
+                        agePreferenceId: '',
                       },
                     })
                   ).then((secondRes: ActionResponseType) => {

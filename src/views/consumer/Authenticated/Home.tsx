@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Router, RouteComponentProps } from '@reach/router';
 import styled from 'styled-components';
 import { FaQuestionCircle } from 'react-icons/fa';
-import isBefore from 'date-fns/isBefore';
 
 import {
   FlexContainer,
@@ -15,15 +14,20 @@ import {
   SubNav,
   PrivateRoute,
 } from '../../../components';
-import { getConsumerProfile, getConsumerBids } from '../../../redux/ducks/consumer';
+import {
+  getConsumerProfile,
+  getConsumerBids,
+  getWinningAgentProfile,
+} from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
 import ConsumerNotifications from './ConsumerNotifications';
 import ConsumerProfileDetails from './ConsumerProfileDetails';
 import ConsumerListing from './ConsumerListing';
+import ConsumerPreferences from './ConsumerPreferences';
 
 import { baseSpacer, doubleSpacer, borderRadius } from '../../../styles/size';
 import { brandTertiary, white } from '../../../styles/color';
-import { expiresAt } from '../../../utils/countdownTimerUtils';
+import { isExpired } from '../../../utils/countdownTimerUtils';
 import consumerNavigationItems from '../../../utils/consumerNavigationItems';
 
 const StyledAlert = styled.div`
@@ -39,12 +43,25 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getConsumerProfile());
+    if (!consumer.profile) {
+      dispatch(getConsumerProfile());
+    }
   }, []);
 
   useEffect(() => {
-    if (consumer.listing && isBefore(expiresAt(consumer.listing.createDateTime), new Date())) {
+    if (consumer.listing && isExpired(consumer.listing.createDateTime) && !consumer.winner) {
       dispatch(getConsumerBids());
+    }
+  }, [consumer.listing]);
+
+  useEffect(() => {
+    if (
+      consumer.listing &&
+      // consumer.bids.length > 0 &&
+      isExpired(consumer.listing.createDateTime) &&
+      !consumer.winner
+    ) {
+      dispatch(getWinningAgentProfile());
     }
   }, [consumer.listing]);
 
@@ -80,6 +97,11 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
             <PrivateRoute
               component={ConsumerProfileDetails}
               path="/profile"
+              allowedRole="Consumer"
+            />
+            <PrivateRoute
+              component={ConsumerPreferences}
+              path="/preferences"
               allowedRole="Consumer"
             />
             <PrivateRoute

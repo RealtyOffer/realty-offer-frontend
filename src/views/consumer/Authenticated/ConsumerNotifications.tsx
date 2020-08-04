@@ -5,7 +5,7 @@ import { RouteComponentProps } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 
-import { Row, Column, IconCheckbox, Box } from '../../../components';
+import { Row, Column, IconCheckbox, Box, Seo, Heading } from '../../../components';
 import AutoSave from '../../../utils/autoSave';
 import { RootState } from '../../../redux/ducks';
 
@@ -48,73 +48,77 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
   });
 
   return (
-    <Box>
-      {user.isLoading ? (
-        <Skeleton count={5} />
-      ) : (
-        <>
-          <Row>
-            <Column md={6}>
-              <strong>Notify me when...</strong>
-            </Column>
-            <Column md={1}>
-              <strong>Push</strong>
-            </Column>
-            <Column md={1}>
-              <strong>Email</strong>
-            </Column>
-            <Column md={1}>
-              <strong>SMS</strong>
-            </Column>
-          </Row>
-          <Formik
-            validateOnMount
-            initialValues={initialValues}
-            onSubmit={(values, { setSubmitting }) => {
-              setSubmitting(false);
-              // dispatch(updateUserNotificationSettings({ ...values }));
-            }}
-          >
-            {({ values }) => (
-              <Form>
-                {initialValues &&
-                  accountAlerts &&
-                  accountAlerts.map((accountAlert) => (
-                    <Row key={accountAlert.id}>
-                      <Column md={6}>{accountAlert.description}</Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="desktop"
-                          checked={values[accountAlert.notificationName]?.desktop ?? false}
-                          name={`${accountAlert.notificationName}.desktop`}
-                        />
-                      </Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="email"
-                          checked={values[accountAlert.notificationName]?.email ?? false}
-                          name={`${accountAlert.notificationName}.email`}
-                        />
-                      </Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="sms"
-                          checked={values[accountAlert.notificationName]?.sms ?? false}
-                          name={`${accountAlert.notificationName}.sms`}
-                        />
-                      </Column>
-                    </Row>
-                  ))}
-                <AutoSave />
-              </Form>
-            )}
-          </Formik>
-        </>
-      )}
-    </Box>
+    <>
+      <Seo title="My Notification Preferences" />
+      <Heading as="h2">My Notification Preferences</Heading>
+      <Box>
+        {user.isLoading ? (
+          <Skeleton count={5} />
+        ) : (
+          <>
+            <Row>
+              <Column md={6}>
+                <strong>Notify me when...</strong>
+              </Column>
+              <Column md={1}>
+                <strong>Push</strong>
+              </Column>
+              <Column md={1}>
+                <strong>Email</strong>
+              </Column>
+              <Column md={1}>
+                <strong>SMS</strong>
+              </Column>
+            </Row>
+            <Formik
+              validateOnMount
+              initialValues={initialValues}
+              onSubmit={(values, { setSubmitting }) => {
+                setSubmitting(false);
+                // dispatch(updateUserNotificationSettings({ ...values }));
+              }}
+            >
+              {({ values }) => (
+                <Form>
+                  {initialValues &&
+                    accountAlerts &&
+                    accountAlerts.map((accountAlert) => (
+                      <Row key={accountAlert.id}>
+                        <Column md={6}>{accountAlert.description}</Column>
+                        <Column md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="desktop"
+                            checked={values[accountAlert.notificationName]?.desktop ?? false}
+                            name={`${accountAlert.notificationName}.desktop`}
+                          />
+                        </Column>
+                        <Column md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="email"
+                            checked={values[accountAlert.notificationName]?.email ?? false}
+                            name={`${accountAlert.notificationName}.email`}
+                          />
+                        </Column>
+                        <Column md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="sms"
+                            checked={values[accountAlert.notificationName]?.sms ?? false}
+                            name={`${accountAlert.notificationName}.sms`}
+                          />
+                        </Column>
+                      </Row>
+                    ))}
+                  <AutoSave />
+                </Form>
+              )}
+            </Formik>
+          </>
+        )}
+      </Box>
+    </>
   );
 };
 

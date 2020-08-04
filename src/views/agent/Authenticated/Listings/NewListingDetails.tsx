@@ -41,7 +41,7 @@ import { createAgentBid } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
-import displayDropdownListText from '../../../../utils/displayDropdownListText';
+import { displayDropdownListText } from '../../../../utils/dropdownUtils';
 import { ActionResponseType } from '../../../../redux/constants';
 
 type ListingDetailsProps = {

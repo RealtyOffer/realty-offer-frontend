@@ -73,7 +73,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = listing.type === 'buyerSeller';
+  const isBuyerAndSeller = listing && listing.type === 'buyerSeller';
   const cityOptions = cities && createOptionsFromArray(cities, 'name');
 
   return (
@@ -104,6 +104,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                     values.sellersListingPriceInMind
                   ),
                   sellersMortgageBalanceId: Number(values.sellersMortgageBalance),
+                  createDateTime: new Date(),
                 })
               );
               navigate('/consumer/sign-up');

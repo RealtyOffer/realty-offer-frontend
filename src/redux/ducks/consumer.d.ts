@@ -15,35 +15,56 @@ import {
   CREATE_CONSUMER_BID_WINNER_REQUEST,
   CREATE_CONSUMER_BID_WINNER_SUCCESS,
   CREATE_CONSUMER_BID_WINNER_FAILURE,
+  GET_WINNING_AGENT_PROFILE_REQUEST,
+  GET_WINNING_AGENT_PROFILE_SUCCESS,
+  GET_WINNING_AGENT_PROFILE_FAILURE,
 } from './consumer';
 
 import { LogoutRequestAction } from './auth.d';
-import { ListingType, CreateListingType } from './listings.d';
+import { ListingType } from './listings.d';
 import { BidType } from './agent.d';
 
 export type ConsumerProfileType = {
   id?: number;
-  genderPreference?: string;
-  otherLanguage?: string;
+  genderPreferenceId?: number;
+  agePreferenceId?: number;
+  otherLanguageId?: number;
+};
+
+export type WinningAgentProfileType = {
+  id: 0;
+  agentId: string;
+  userName: string;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  phoneNumber: string;
+  brokerName: string;
+  brokerPhoneNumber: string;
+  brokerAddressLine1: string;
+  brokerAddressLine2: string;
+  brokerCity: string;
+  brokerZip: string;
+  brokerState: string;
 };
 
 export type ConsumerStoreType = {
   isLoading: boolean;
   hasError: boolean;
-  listing: ListingType;
-  profile: ConsumerProfileType;
+  listing: ListingType | null;
+  profile: ConsumerProfileType | null;
   bids: Array<BidType>;
-  winner?: BidType;
+  winner: WinningAgentProfileType | null;
 };
 
 export type CaptureConsumerDataAction = {
   type: typeof CAPTURE_CONSUMER_DATA;
-  payload: CreateListingType;
+  payload: ListingType;
 };
 
 export type CreateConsumerProfileRequestAction = {
   type: typeof CREATE_CONSUMER_PROFILE_REQUEST;
-  payload: { listing: CreateListingType; profile: ConsumerProfileType };
+  payload: { listing: ListingType; profile: ConsumerProfileType };
 };
 
 export type CreateConsumerProfileSuccessAction = {
@@ -73,7 +94,7 @@ export type UpdateConsumerProfileRequestAction = {
 };
 export type UpdateConsumerProfileSuccessAction = {
   type: typeof UPDATE_CONSUMER_PROFILE_SUCCESS;
-  payload: { listing: ListingType; profile: ConsumerProfileType };
+  payload: ConsumerProfileType;
 };
 export type UpdateConsumerProfileFailureAction = {
   type: typeof UPDATE_CONSUMER_PROFILE_FAILURE;
@@ -101,6 +122,17 @@ export type CreateConsumerBidWinnerFailureAction = {
   type: typeof CREATE_CONSUMER_BID_WINNER_FAILURE;
 };
 
+export type GetWinningAgentProfileRequestAction = {
+  type: typeof GET_WINNING_AGENT_PROFILE_REQUEST;
+};
+export type GetWinningAgentProfileSuccessAction = {
+  type: typeof GET_WINNING_AGENT_PROFILE_SUCCESS;
+  payload: WinningAgentProfileType;
+};
+export type GetWinningAgentProfileFailureAction = {
+  type: typeof GET_WINNING_AGENT_PROFILE_FAILURE;
+};
+
 export type ConsumerStoreActions =
   | CaptureConsumerDataAction
   | CreateConsumerProfileRequestAction
@@ -118,4 +150,7 @@ export type ConsumerStoreActions =
   | CreateConsumerBidWinnerRequestAction
   | CreateConsumerBidWinnerSuccessAction
   | CreateConsumerBidWinnerFailureAction
+  | GetWinningAgentProfileRequestAction
+  | GetWinningAgentProfileSuccessAction
+  | GetWinningAgentProfileFailureAction
   | LogoutRequestAction;

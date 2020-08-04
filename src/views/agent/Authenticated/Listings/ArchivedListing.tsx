@@ -1,20 +1,18 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
-import { navigate, Link } from 'gatsby';
+import { Link } from 'gatsby';
 
 import {
   Box,
-  Button,
   Heading,
   Input,
   Row,
   Column,
   EmptyListingsView,
   HorizontalRule,
-  Countdown,
-  Modal,
+  LoadingPage,
 } from '../../../../components';
 import {
   requiredSellerCommissionAmount,
@@ -38,70 +36,47 @@ import {
   helpTextPreInspectionAmount,
   helpTextSellerCommissionAmount,
 } from '../../../../utils/validations';
-import { updateAgentBid, getBidDetailsById, deleteBidById } from '../../../../redux/ducks/agent';
+import { getBidDetailsById } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
-// import { getPendingListings } from '../../../../redux/ducks/listings';
-import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
 import { displayDropdownListText } from '../../../../utils/dropdownUtils';
-import { ActionResponseType } from '../../../../redux/constants';
 
-type ListingDetailsProps = {
+type ArchivedListingDetailsProps = {
   listingId?: string;
+  listingType?: 'awarded' | 'history';
 } & RouteComponentProps;
 
-const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
+const ArchivedListingDetails: FunctionComponent<ArchivedListingDetailsProps> = (props) => {
   const listings = useSelector((state: RootState) => state.listings);
-  const activeBid = useSelector((state: RootState) => state.agent.activeBid);
+  const agent = useSelector((state: RootState) => state.agent);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const listing = listings.pending.find((l) => String(l.id) === props.listingId);
+  const listing =
+    props.listingType && listings[props.listingType].find((l) => String(l.id) === props.listingId);
   const isBuyer = listing && listing.type?.toLowerCase().includes('buyer');
   const isSeller = listing && listing.type?.toLowerCase().includes('seller');
 
-  // useEffect(() => {
-  //   if (!listings.pending.length) {
-  //     // TODO: get pending listings if there arent any, otherwise listing can be undefined
-  //     // dispatch(getPendingListings());
-  //   }
-  // }, []);
-
   useEffect(() => {
-    if (props.listingId) {
-      dispatch(getBidDetailsById(Number(props.listingId)));
+    if (listing && listing.agentSubmittedBidId) {
+      dispatch(getBidDetailsById(listing.agentSubmittedBidId));
     }
   }, []);
 
-  const deleteBidAndNavigate = () => {
-    setModalIsOpen(false);
-    if (activeBid && activeBid.id) {
-      dispatch(deleteBidById(activeBid.id)).then((response: ActionResponseType) => {
-        if (response && !response.error) {
-          addAlert({
-            type: 'success',
-            message: 'Successfully removed your bid',
-          });
-          navigate('/agent/listings/pending');
-        }
-      });
-    }
-  };
-
-  if (!listing || !props.listingId) {
+  if ((!listing || !props.listingId) && props.listingType) {
     return (
       <EmptyListingsView
         title="Sorry, we couldn't find that listing. Please try again."
-        buttonText="View Pending Listings"
-        to="/agent/listings/pending"
+        buttonText={`View ${props.listingType} Listings`}
+        to={`/agent/listings/${props.listingType}`}
       />
     );
   }
   return (
     <Box>
-      <Link to="/agent/listings/pending">Back to Pending Listings</Link>
+      <Link to={`/agent/listings/${props.listingType}`}>Back to {props.listingType} Listings</Link>
       <Heading styledAs="title">
         {isBuyer &&
+          listing &&
           `Buying for ${displayDropdownListText(
             listing.buyingPriceRangeId,
             'priceRanges'
@@ -112,6 +87,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
               .replace(/,/g, ', ')}`}
         {isSeller && isBuyer && <br />}
         {isSeller &&
+          listing &&
           `Selling for ${displayDropdownListText(
             listing.sellersListingPriceInMindPriceRangeInMindId,
             'priceRanges'
@@ -120,48 +96,12 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
       <Heading as="h2" styledAs="subtitle">
         Additional Listing Information
       </Heading>
-      <Countdown createDateTime={listing.createDateTime} />
       <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
-      <p>To increase your odds of winning this bid, you can provide additional funds.</p>
-      {activeBid && (
-        <Formik
-          validateOnMount
-          initialValues={activeBid}
-          onSubmit={(values) => {
-            dispatch(
-              updateAgentBid({
-                id: activeBid.id,
-                // API requires numbers, Formik outputs strings so convert them here
-                sellerCommission: Number(values.sellerCommission),
-                sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
-                sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
-                sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
-                sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
-                sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
-                buyerCommission: Number(values.buyerCommission),
-                buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
-                buyerInspectionAmount: Number(values.buyerInspectionAmount),
-                buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
-                buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
-                buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
-                listingId: Number(props.listingId),
-              })
-            ).then((response: ActionResponseType) => {
-              if (response && !response.error) {
-                dispatch(
-                  addAlert({
-                    message: 'Successfully updated your bid',
-                    type: 'success',
-                  })
-                );
-                navigate('/agent/listings/pending');
-              }
-            });
-          }}
-        >
-          {({ isValid, isSubmitting, values }) => (
+      {!agent.isLoading && agent.activeBid ? (
+        <Formik validateOnMount initialValues={agent.activeBid} onSubmit={() => undefined}>
+          {({ values }) => (
             <Form>
               {isSeller && (
                 <>
@@ -178,7 +118,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={8}
                         helpText={helpTextSellerCommissionAmount}
                         validate={requiredSellerCommissionAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -192,7 +132,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={595}
                         helpText={helpTextBrokerComplianceAmount}
                         validate={requiredBrokerComplianceAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -206,7 +146,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={350}
                         helpText={helpTextPreInspectionAmount}
                         validate={requiredPreInspectionAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -220,7 +160,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={250}
                         helpText={helpTextPreCertifyAmount}
                         validate={requiredPreCertifyAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -234,7 +174,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={1000}
                         helpText={helpTextMovingCompanyAmount}
                         validate={requiredMovingCompanyAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -248,12 +188,13 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={300}
                         helpText={helpTextPhotographyAmount}
                         validate={requiredPhotographyAmount}
-                        required
+                        disabled
                       />
                     </Column>
                   </Row>
                   <Heading as="h3">
-                    {listing.sellersListingPriceInMindPriceRangeInMindId &&
+                    {listing &&
+                      listing.sellersListingPriceInMindPriceRangeInMindId &&
                       `Total: ${sellTotal({
                         values,
                         priceRangeId: listing.sellersListingPriceInMindPriceRangeInMindId,
@@ -278,7 +219,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         label="Buyer Commission Concession (%)"
                         helpText={helpTextBuyerCommissionAmount}
                         validate={requiredBuyerCommissionAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -292,7 +233,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={595}
                         helpText={helpTextBrokerComplianceAmount}
                         validate={requiredBrokerComplianceAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -306,7 +247,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={500}
                         helpText={helpTextInspectionAmount}
                         validate={requiredInspectionAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -320,7 +261,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={500}
                         helpText={helpTextHomeWarrantyAmount}
                         validate={requiredHomeWarrantyAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -334,7 +275,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={800}
                         helpText={helpTextAppraisalAmount}
                         validate={requiredAppraisalAmount}
-                        required
+                        disabled
                       />
                     </Column>
                     <Column md={4}>
@@ -348,12 +289,13 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                         max={1000}
                         helpText={helpTextMovingCompanyAmount}
                         validate={requiredMovingCompanyAmount}
-                        required
+                        disabled
                       />
                     </Column>
                   </Row>
                   <Heading as="h3">
-                    {listing.buyingPriceRangeId &&
+                    {listing &&
+                      listing.buyingPriceRangeId &&
                       `Total: ${buyTotal({
                         values,
                         priceRangeId: listing.buyingPriceRangeId,
@@ -362,39 +304,14 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                   </Heading>
                 </>
               )}
-              <Button type="submit" disabled={!isValid || isSubmitting} rightspacer>
-                Update Bid
-              </Button>
-              <Button type="button" onClick={() => setModalIsOpen(!modalIsOpen)} color="danger">
-                Remove My Bid
-              </Button>
             </Form>
           )}
         </Formik>
+      ) : (
+        <LoadingPage />
       )}
-      <Modal toggleModal={() => false} isOpen={modalIsOpen}>
-        <Heading styledAs="title">Delete Bid?</Heading>
-        <p>Are you sure you want to delete your bid on this listing?</p>
-        <Row>
-          <Column xs={6}>
-            <Button
-              type="button"
-              onClick={() => setModalIsOpen(!modalIsOpen)}
-              color="primaryOutline"
-              block
-            >
-              No
-            </Button>
-          </Column>
-          <Column xs={6}>
-            <Button type="button" onClick={() => deleteBidAndNavigate()} block color="danger">
-              Yes
-            </Button>
-          </Column>
-        </Row>
-      </Modal>
     </Box>
   );
 };
 
-export default PendingListingDetails;
+export default ArchivedListingDetails;

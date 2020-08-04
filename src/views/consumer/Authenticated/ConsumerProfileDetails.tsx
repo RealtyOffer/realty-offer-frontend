@@ -4,7 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'gatsby';
 
-import { Box, Input, Row, Column, ProgressBar } from '../../../components';
+import { Box, Input, Row, Column, ProgressBar, Heading, Seo } from '../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../utils/validations';
 import AutoSave from '../../../utils/autoSave';
 import { RootState } from '../../../redux/ducks';
@@ -26,90 +26,94 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
   };
 
   return (
-    <Formik
-      validateOnMount
-      initialValues={personalInfoInitialValues}
-      onSubmit={(values, { setSubmitting }) => {
-        dispatch(
-          updateUser({
-            ...values,
-            phoneNumber: reformattedPhone(values.phoneNumber),
-          })
-        ).then(() => {
-          setSubmitting(false);
-        });
-      }}
-    >
-      {() => (
-        <Form>
-          <Box>
-            {true && ( // TODO: wrap logic around this
+    <>
+      <Seo title="My Profile" />
+      <Heading as="h2">My Profile</Heading>
+      <Formik
+        validateOnMount
+        initialValues={personalInfoInitialValues}
+        onSubmit={(values, { setSubmitting }) => {
+          dispatch(
+            updateUser({
+              ...values,
+              phoneNumber: reformattedPhone(values.phoneNumber),
+            })
+          ).then(() => {
+            setSubmitting(false);
+          });
+        }}
+      >
+        {() => (
+          <Form>
+            <Box>
+              {true && ( // TODO: wrap logic around this
+                <Row>
+                  <Column sm={6}>
+                    <strong>Profile</strong> <span>50%</span>
+                    <ProgressBar
+                      value={50}
+                      name="profile"
+                      label="Next: Take personal information survey"
+                    />
+                  </Column>
+                </Row>
+              )}
               <Row>
                 <Column sm={6}>
-                  <strong>Profile</strong> <span>50%</span>
-                  <ProgressBar
-                    value={50}
-                    name="profile"
-                    label="Next: Take personal information survey"
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="firstName"
+                    label="First Name"
+                    validate={requiredField}
+                    required
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="lastName"
+                    label="Last Name"
+                    validate={requiredField}
+                    required
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="tel"
+                    name="phoneNumber"
+                    label="Phone Number"
+                    validate={requiredPhoneNumber}
+                    required
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="email"
+                    name="email"
+                    label="Email Address"
+                    readOnly
+                    disabled
+                    validate={requiredEmail}
+                    required
+                    helpText={
+                      <span>
+                        <Link to="/contact">Contact us</Link> to update your account&apos;s email
+                        address
+                      </span>
+                    }
                   />
                 </Column>
               </Row>
-            )}
-            <Row>
-              <Column sm={6}>
-                <Field
-                  as={Input}
-                  type="text"
-                  name="firstName"
-                  label="First Name"
-                  validate={requiredField}
-                  required
-                />
-              </Column>
-              <Column sm={6}>
-                <Field
-                  as={Input}
-                  type="text"
-                  name="lastName"
-                  label="Last Name"
-                  validate={requiredField}
-                  required
-                />
-              </Column>
-              <Column sm={6}>
-                <Field
-                  as={Input}
-                  type="tel"
-                  name="phoneNumber"
-                  label="Phone Number"
-                  validate={requiredPhoneNumber}
-                  required
-                />
-              </Column>
-              <Column sm={6}>
-                <Field
-                  as={Input}
-                  type="email"
-                  name="email"
-                  label="Email Address"
-                  readOnly
-                  disabled
-                  validate={requiredEmail}
-                  required
-                  helpText={
-                    <span>
-                      <Link to="/contact">Contact us</Link> to update your account&apos;s email
-                      address
-                    </span>
-                  }
-                />
-              </Column>
-            </Row>
-            <AutoSave />
-          </Box>
-        </Form>
-      )}
-    </Formik>
+              <AutoSave />
+            </Box>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 

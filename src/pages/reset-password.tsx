@@ -13,7 +13,12 @@ import {
   Seo,
 } from '../components';
 
-import { requiredField, requiredPassword, passwordRulesString } from '../utils/validations';
+import {
+  requiredField,
+  requiredPassword,
+  passwordRulesString,
+  requiredEmail,
+} from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
 import { resetPassword } from '../redux/ducks/auth';
 
@@ -96,7 +101,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                   type="email"
                   name="email"
                   label="Email"
-                  validate={requiredField}
+                  validate={requiredEmail}
                   required
                 />
                 <label htmlFor="digit1">

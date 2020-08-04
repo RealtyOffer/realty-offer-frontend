@@ -42,7 +42,7 @@ export type AgentProfileType = {
   profileCompleteResetDate?: Date;
   emailAddress?: string;
   cities?: Array<CityType>;
-  genderId: number;
+  genderId?: number;
 };
 
 export type BidType = {

@@ -15,19 +15,17 @@ import Avatar from './Avatar';
 import Box from './Box';
 import Button from './Button';
 
-import { ListingType } from '../redux/ducks/listings.d';
 import { BidType } from '../redux/ducks/agent.d';
-import displayDropdownListText from '../utils/displayDropdownListText';
+import { displayDropdownListText } from '../utils/dropdownUtils';
 import { isExpiringSoon } from '../utils/countdownTimerUtils';
 import { createConsumerBidWinner } from '../redux/ducks/consumer';
+import { ConsumerStoreType } from '../redux/ducks/consumer.d';
 
 type ConsumerListingCardProps = {
-  listing: ListingType;
-  bids?: Array<BidType>;
+  consumer: ConsumerStoreType;
 };
 
 const ConsumerListingCardWrapper = styled.div`
-  text-align: center;
   background: ${white};
   margin-bottom: ${baseSpacer};
   box-shadow: ${z1Shadow};
@@ -48,12 +46,18 @@ const ConsumerListingCardBody = styled.div`
   padding: ${halfSpacer} ${baseSpacer};
 `;
 
-const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ listing, bids }) => {
+const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
+  consumer: { listing, bids, winner },
+}) => {
   const dispatch = useDispatch();
 
   const selectWinningAgent = (bid: BidType) => {
     dispatch(createConsumerBidWinner(bid));
   };
+
+  if (!listing) {
+    return null;
+  }
 
   return (
     <ConsumerListingCardWrapper expiringSoon={isExpiringSoon(listing.createDateTime)}>
@@ -73,10 +77,10 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
                   'priceRanges'
                 )}
               </Heading>
-              <span>Selling in {listing.sellersCity?.name}</span>
+              <div style={{ textAlign: 'center' }}>Selling in {listing.sellersCity?.name}</div>
             </Column>
             <Column md={5}>
-              <dl style={{ textAlign: 'left' }}>
+              <dl>
                 <dt>How soon are you looking to sell your home?</dt>
                 <dd>{listing.sellersTimeline}</dd>
                 <dt>What is your estimated mortgage balance?</dt>
@@ -92,15 +96,15 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
               <Heading as="h1" noMargin styledAs="title" align="center">
                 {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
               </Heading>
-              <span>
+              <div style={{ textAlign: 'center' }}>
                 Buying in{' '}
                 {Array(listing.buyingCities?.map((city) => city.name))
                   .toString()
                   .replace(/,/g, ', ')}
-              </span>
+              </div>
             </Column>
             <Column md={5}>
-              <dl style={{ textAlign: 'left' }}>
+              <dl>
                 <dt>Would you like a free mortgage consultation?</dt>
                 <dd>{listing.freeMortgageConsult ? 'Yes' : 'No'}</dd>
                 <dt>Have you received a mortgage pre-approval?</dt>
@@ -110,7 +114,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
           </Row>
         )}
       </ConsumerListingCardBody>
-      {bids && (
+      {bids && bids.length > 0 && !winner && (
         <ConsumerListingCardBody>
           <HorizontalRule />
           <Row>
@@ -121,7 +125,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
                   <Heading as="h2" styledAs="subtitle" align="center">
                     Future Agent {index + 1}
                   </Heading>
-                  <dl style={{ textAlign: 'left' }}>
+                  <dl>
                     <dt>Total Commission Towards Sale of the home</dt>
                     <dd>{bid.sellerCommission}%</dd>
                     <dt>Compliance Fee</dt>
@@ -134,6 +138,51 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({ list
               </Column>
             ))}
           </Row>
+        </ConsumerListingCardBody>
+      )}
+      {winner && (
+        <ConsumerListingCardBody>
+          <HorizontalRule />
+          <Heading as="h3">Winning Realtor</Heading>
+          <p>Agent contact information and terms of the contract can be found below.</p>
+          <Row>
+            <Column lg={2}>
+              <Avatar size="lg" bottomMargin />
+            </Column>
+            <Column lg={10}>
+              <Row>
+                <Column md={4}>
+                  <Heading as="h4" styledAs="subtitle">
+                    {winner.firstName} {winner.lastName}
+                  </Heading>
+                  <p>{winner.brokerName}</p>
+                </Column>
+                <Column md={8}>
+                  <Heading as="h4" styledAs="subtitle">
+                    Contact Information
+                  </Heading>
+                  <Row>
+                    <Column xs={6}>
+                      <p>
+                        <strong>Email:</strong> {winner.emailAddress}
+                      </p>
+                    </Column>
+                    <Column xs={6}>
+                      <p>
+                        <strong>Phone:</strong> {winner.phoneNumber}
+                      </p>
+                    </Column>
+                  </Row>
+                </Column>
+              </Row>
+              <Heading as="h4" styledAs="subtitle">
+                About {winner.firstName}
+              </Heading>
+              <p>Agent bio goes here</p>
+            </Column>
+          </Row>
+          <HorizontalRule />
+          <Heading as="h3">Listing Contract</Heading>
         </ConsumerListingCardBody>
       )}
     </ConsumerListingCardWrapper>

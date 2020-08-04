@@ -5,6 +5,9 @@ import {
   GET_GENDER_PREFERENCES_LIST_REQUEST,
   GET_GENDER_PREFERENCES_LIST_SUCCESS,
   GET_GENDER_PREFERENCES_LIST_FAILURE,
+  GET_AGE_PREFERENCES_LIST_REQUEST,
+  GET_AGE_PREFERENCES_LIST_SUCCESS,
+  GET_AGE_PREFERENCES_LIST_FAILURE,
   GET_LANGUAGES_LIST_REQUEST,
   GET_LANGUAGES_LIST_SUCCESS,
   GET_LANGUAGES_LIST_FAILURE,
@@ -37,9 +40,14 @@ export type ListType = {
 export type DropdownStoreType = {
   genders: ListType;
   genderPreferences: ListType;
+  agePreferences: ListType;
   languages: ListType;
   states: ListType;
-  priceRanges: Omit<ListType, 'list'> & { list: PriceRangePayloadType };
+  priceRanges: {
+    isLoading: boolean;
+    hasError: boolean;
+    list: PriceRangePayloadType;
+  };
 };
 
 export type GetGendersListRequestAction = {
@@ -62,6 +70,17 @@ export type GetGenderPreferencesListSuccessAction = {
 };
 export type GetGenderPreferencesListFailureAction = {
   type: typeof GET_GENDER_PREFERENCES_LIST_FAILURE;
+};
+
+export type GetAgePreferencesListRequestAction = {
+  type: typeof GET_AGE_PREFERENCES_LIST_REQUEST;
+};
+export type GetAgePreferencesListSuccessAction = {
+  type: typeof GET_AGE_PREFERENCES_LIST_SUCCESS;
+  payload: ListPayloadType;
+};
+export type GetAgePreferencesListFailureAction = {
+  type: typeof GET_AGE_PREFERENCES_LIST_FAILURE;
 };
 
 export type GetLanguagesListRequestAction = {
@@ -91,7 +110,7 @@ export type GetPriceRangesListRequestAction = {
 };
 export type GetPriceRangesListSuccessAction = {
   type: typeof GET_PRICE_RANGES_LIST_SUCCESS;
-  payload: ListPayloadType;
+  payload: DropdownStoreType['priceRanges']['list'];
 };
 export type GetPriceRangesListFailureAction = {
   type: typeof GET_PRICE_RANGES_LIST_FAILURE;
@@ -104,6 +123,9 @@ export type DropdownActionTypes =
   | GetGenderPreferencesListRequestAction
   | GetGenderPreferencesListSuccessAction
   | GetGenderPreferencesListFailureAction
+  | GetAgePreferencesListRequestAction
+  | GetAgePreferencesListSuccessAction
+  | GetAgePreferencesListFailureAction
   | GetLanguagesListRequestAction
   | GetLanguagesListSuccessAction
   | GetLanguagesListFailureAction

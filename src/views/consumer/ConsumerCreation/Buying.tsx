@@ -58,7 +58,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
     setIsOpen(!modalIsOpen);
   };
 
-  const isBuyerAndSeller = listing.type === 'buyerSeller';
+  const isBuyerAndSeller = listing && listing.type === 'buyerSeller';
   const cityOptions = cities && createOptionsFromArray(cities, 'name');
 
   return (
@@ -89,6 +89,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   ...values,
                   buyingCities: cityDTOs,
                   buyingPriceRangeId: Number(values.buyingPriceRange),
+                  createDateTime: new Date(),
                 })
               );
               navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/sign-up');
