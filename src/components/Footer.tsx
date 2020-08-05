@@ -14,14 +14,14 @@ const StyledFooter = styled.footer`
   background-color: ${brandTertiary};
   color: ${white};
   padding: ${baseSpacer};
-`;
 
-const StyledLogoLink = styled(Link)`
-  color: ${white};
-
-  &:hover,
-  &:focus {
+  & a {
     color: ${white};
+
+    &:hover,
+    &:focus {
+      color: ${white};
+    }
   }
 `;
 
@@ -30,10 +30,15 @@ const Footer = () => (
     <PageContainer>
       <FlexContainer flexDirection="column">
         {/* TODO for PROD: update to / */}
-        <StyledLogoLink to="/landing" title="Logo">
+        <Link to="/landing" title="Logo">
           <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
-        </StyledLogoLink>
-        <small>Copyright &copy; {new Date().getFullYear()}</small>
+        </Link>
+        <small>
+          {`Copyright © ${new Date().getFullYear()} | `}
+          <Link to="/terms-and-conditions">Terms &amp; Conditions</Link>
+          {' | '}
+          <Link to="/privacy-policy">Privacy Policy</Link>
+        </small>
       </FlexContainer>
     </PageContainer>
   </StyledFooter>
