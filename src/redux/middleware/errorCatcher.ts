@@ -15,7 +15,8 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
 
       return store.dispatch(
         addAlert({
-          message: 'You have been logged out because of an error. Please log in again to continue.',
+          message:
+            'You have been logged out because your session has expired. Please log in again to continue.',
           type: 'danger',
         })
       );

@@ -9,6 +9,7 @@ import {
   AUTH_RESET_PASSWORD_ENDPOINT,
   AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
   AUTH_SECURED_PROFILE_ENDPOINT,
+  AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT,
 } from '../constants';
 
 import {
@@ -49,6 +50,10 @@ export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
 
+export const TOKEN_REFRESH_REQUEST = 'TOKEN_REFRESH_REQUEST';
+export const TOKEN_REFRESH_SUCCESS = 'TOKEN_REFRESH_SUCCESS';
+export const TOKEN_REFRESH_FAILURE = 'TOKEN_REFRESH_FAILURE';
+
 // export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST';
 // export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
 // export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
@@ -72,6 +77,7 @@ export const initialState: AuthStoreType = {
   email: '',
   failedLoginAttempts: 0,
   lockoutTimestamp: undefined,
+  tokenIsRefreshing: false,
 };
 
 export default (state: AuthStoreType = initialState, action: AuthActionTypes): AuthStoreType => {
@@ -86,6 +92,13 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
       return {
         ...state,
         isLoading: true,
+        hasError: false,
+      };
+    case TOKEN_REFRESH_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        tokenIsRefreshing: true,
         hasError: false,
       };
     case AUTHENTICATE_CREDENTIALS_SUCCESS:
@@ -103,6 +116,15 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         ...state,
         isLoading: false,
         verifiedEmail: true,
+      };
+    case TOKEN_REFRESH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        tokenIsRefreshing: false,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
       };
     case CREATE_USER_REQUEST:
       return {
@@ -150,6 +172,7 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
     case RESEND_SIGNUP_EMAIL_FAILURE:
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
+    case TOKEN_REFRESH_FAILURE:
       // case CHANGE_PASSWORD_FAILURE:
       return {
         ...state,
@@ -255,4 +278,17 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
 
 export const logout = () => ({
   type: LOGOUT_REQUEST,
+});
+
+export const refreshAccessToken = (auth: AuthStoreType) => ({
+  [RSAA]: {
+    endpoint: AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT,
+    method: 'POST',
+    bailout: auth.tokenIsRefreshing,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ refreshToken: auth.refreshToken }),
+    types: [TOKEN_REFRESH_REQUEST, TOKEN_REFRESH_SUCCESS, TOKEN_REFRESH_FAILURE],
+  },
 });

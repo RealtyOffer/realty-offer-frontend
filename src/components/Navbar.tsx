@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, useRef, useEffect } from 'react';
+import React, { useState, FunctionComponent, useRef, useEffect, SyntheticEvent } from 'react';
 import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -231,7 +231,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     }
   };
 
-  const toggleSubMenu = () => setSubMenuIsOpen(!subMenuIsOpen);
+  const toggleSubMenu = (e: SyntheticEvent) => {
+    e.preventDefault();
+    setSubMenuIsOpen(!subMenuIsOpen);
+  };
 
   const handleNotificationsDropownClick = (e: MouseEvent) => {
     if (
@@ -267,6 +270,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   const menuItemsToRender = isLoggedInAgent ? [...primaryNavigation] : [];
   // TODO for PROD : [...unauthenticatedNavigationItems];
+
+  const isPartiallyActive = ({ isPartiallyCurrent }: { isPartiallyCurrent: boolean }) => {
+    return isPartiallyCurrent ? { className: 'active' } : {};
+  };
 
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
@@ -321,6 +328,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   to={navItem.path}
                   activeClassName="active"
                   onClick={() => toggleMenu()}
+                  getProps={isPartiallyActive}
                 >
                   {navItem.name}
                 </Link>
@@ -328,7 +336,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               {isSmallScreen && isLoggedInAgent && (
                 <>
                   <HorizontalRule />
-                  <Link to="/" onClick={() => toggleSubMenu()}>
+                  <Link to="/" onClick={toggleSubMenu}>
                     Account {subMenuIsOpen ? <FaCaretUp /> : <FaCaretDown />}
                   </Link>
                   {subMenuIsOpen &&

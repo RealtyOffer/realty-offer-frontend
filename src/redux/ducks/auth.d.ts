@@ -20,6 +20,9 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
+  TOKEN_REFRESH_REQUEST,
+  TOKEN_REFRESH_SUCCESS,
+  TOKEN_REFRESH_FAILURE,
   LOGOUT_REQUEST,
 } from './auth';
 
@@ -59,6 +62,7 @@ export type AuthStoreType = {
   verifiedEmail: boolean;
   failedLoginAttempts: number;
   lockoutTimestamp?: Date;
+  tokenIsRefreshing: boolean;
 } & AuthActionPayloadType;
 
 export type CreateUserFormValues = {
@@ -176,6 +180,21 @@ export type ResetPasswordFailureAction = {
   payload: { message?: string };
 };
 
+export type TokenRefreshRequestAction = {
+  type: typeof TOKEN_REFRESH_REQUEST;
+};
+export type TokenRefreshSuccessAction = {
+  type: typeof TOKEN_REFRESH_SUCCESS;
+  payload: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};
+export type TokenRefreshFailureAction = {
+  type: typeof TOKEN_REFRESH_FAILURE;
+  payload: { message?: string };
+};
+
 export type LogoutRequestAction = {
   type: typeof LOGOUT_REQUEST;
 };
@@ -202,4 +221,7 @@ export type AuthActionTypes =
   | ResetPasswordRequestAction
   | ResetPasswordSuccessAction
   | ResetPasswordFailureAction
+  | TokenRefreshRequestAction
+  | TokenRefreshSuccessAction
+  | TokenRefreshFailureAction
   | LogoutRequestAction;

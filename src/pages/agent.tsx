@@ -28,10 +28,12 @@ import { RootState } from '../redux/ducks';
 import { ActionResponseType } from '../redux/constants';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
+import useInterval from '../utils/useInterval';
 import { getPriceRangesList } from '../redux/ducks/dropdowns';
+// import { refreshAccessToken } from '../redux/ducks/auth';
 
 const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const auth = useSelector((state: RootState) => state.auth);
   const banners = useSelector((state: RootState) => state.user.banners);
   const dropdowns = useSelector((state: RootState) => state.dropdowns);
   const agent = useSelector((state: RootState) => state.agent);
@@ -40,7 +42,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const prevBanners = usePrevious(banners);
 
   useEffect(() => {
-    if (isLoggedIn && !agent.agentId && !agent.isLoading) {
+    if (auth.isLoggedIn && !agent.agentId && !agent.isLoading) {
       if (props.location.pathname === '/agent') {
         // if we are landing on the /agent page from logging in, redirect to new listings
         // otherwise, its a page refresh while logged in and we dont want to redirect
@@ -58,7 +60,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn && !prevBanners) {
+    if (auth.isLoggedIn && !prevBanners) {
       dispatch(getUserSiteBanners('agent'));
     }
     if (!isEqual(prevBanners, banners)) {
@@ -83,6 +85,16 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
       dispatch(getPriceRangesList);
     }
   }, []);
+
+  const getNewRefreshToken = () => {
+    if (auth.isLoggedIn) {
+      // dispatch(attemptTokenRefresh(auth));
+    }
+  };
+
+  useInterval(() => {
+    getNewRefreshToken();
+  }, 300000);
 
   return (
     <PageContainer>
