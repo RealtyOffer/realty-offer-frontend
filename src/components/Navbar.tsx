@@ -263,8 +263,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   const isLoggedInAgent = auth.isLoggedIn && agent.hasCompletedSignup;
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
-  const shouldShowMenuToggle =
-    isLoggedInAgent && isSmallScreen && process.env.GATSBY_ENVIRONMENT === 'DEVELOP';
+  const shouldShowMenuToggle = isLoggedInAgent && isSmallScreen;
 
   const menuItemsToRender = isLoggedInAgent ? [...primaryNavigation] : [];
   // TODO for PROD : [...unauthenticatedNavigationItems];
@@ -424,8 +423,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 />
               </FlexContainer>
             )}
-            {/* TODO for PROD */}
-            {!auth.isLoggedIn && process.env.GATSBY_ENVIRONMENT === 'DEVELOP' && (
+            {!auth.isLoggedIn && (
               <Link
                 to="/login"
                 activeClassName="active"

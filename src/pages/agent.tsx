@@ -28,10 +28,12 @@ import { RootState } from '../redux/ducks';
 import { ActionResponseType } from '../redux/constants';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
+import { getPriceRangesList } from '../redux/ducks/dropdowns';
 
 const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const banners = useSelector((state: RootState) => state.user.banners);
+  const dropdowns = useSelector((state: RootState) => state.dropdowns);
   const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
 
@@ -75,6 +77,12 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
       }
     }
   }, [banners]);
+
+  useEffect(() => {
+    if (!dropdowns.priceRanges.list.length) {
+      dispatch(getPriceRangesList);
+    }
+  }, []);
 
   return (
     <PageContainer>

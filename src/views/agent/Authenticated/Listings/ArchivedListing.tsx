@@ -73,7 +73,11 @@ const ArchivedListingDetails: FunctionComponent<ArchivedListingDetailsProps> = (
   }
   return (
     <Box>
-      <Link to={`/agent/listings/${props.listingType}`}>Back to {props.listingType} Listings</Link>
+      {props.listingType && (
+        <Link to={`/agent/listings/${props.listingType}`}>
+          Back to {props.listingType.charAt(0).toUpperCase() + props.listingType.slice(1)} Listings
+        </Link>
+      )}
       <Heading styledAs="title">
         {isBuyer &&
           listing &&
