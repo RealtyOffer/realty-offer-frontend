@@ -123,8 +123,7 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         isLoading: false,
         hasError: false,
         tokenIsRefreshing: false,
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
+        ...action.payload,
       };
     case CREATE_USER_REQUEST:
       return {

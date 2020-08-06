@@ -30,7 +30,7 @@ import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 import useInterval from '../utils/useInterval';
 import { getPriceRangesList } from '../redux/ducks/dropdowns';
-// import { refreshAccessToken } from '../redux/ducks/auth';
+import { refreshAccessToken } from '../redux/ducks/auth';
 
 const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -88,13 +88,13 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
   const getNewRefreshToken = () => {
     if (auth.isLoggedIn) {
-      // dispatch(attemptTokenRefresh(auth));
+      dispatch(refreshAccessToken(auth));
     }
   };
 
   useInterval(() => {
     getNewRefreshToken();
-  }, 300000);
+  }, 1800000);
 
   return (
     <PageContainer>
