@@ -19,6 +19,7 @@ type HeadingProps = {
   noMargin?: boolean;
   align?: 'left' | 'center' | 'right';
   styledAs?: 'title' | 'subtitle' | 'sectionHeading' | null;
+  id?: string;
 };
 
 const renderFontSize = (as: HeadingProps['as']) => {
@@ -45,19 +46,19 @@ const renderFontSize = (as: HeadingProps['as']) => {
 
 const renderStyledAs = (styledAs: HeadingProps['styledAs']) => {
   if (styledAs === 'title') {
-    return css`
+    return `
       color: ${brandPrimary};
       font-size: ${fontSizeH1};
     `;
   }
   if (styledAs === 'subtitle') {
-    return css`
+    return `
       color: ${brandTertiaryHover};
       font-size: ${fontSizeH4};
     `;
   }
   if (styledAs === 'sectionHeading') {
-    return css`
+    return `
       color: ${brandTertiaryHover};
       text-align: center;
       display: table;
@@ -103,6 +104,7 @@ const Heading: FunctionComponent<HeadingProps> = (props) => (
     inverse={props.inverse}
     align={props.align}
     styledAs={props.styledAs}
+    id={props.id}
   >
     {props.children}
   </StyledHeading>

@@ -4,13 +4,13 @@ import { graphql } from 'gatsby';
 import Content, { HTMLContent } from '../components/Content';
 import { PageContainer, Seo, Box, Heading } from '../components';
 
-type TermsAndConditionsProps = {
+type PrivacyProps = {
   title: string;
   content: any;
   contentComponent: typeof HTMLContent;
 };
 
-export const TermsAndConditionsTemplate: FunctionComponent<TermsAndConditionsProps> = ({
+export const PrivacyTemplate: FunctionComponent<PrivacyProps> = ({
   title,
   content,
   contentComponent,
@@ -21,22 +21,22 @@ export const TermsAndConditionsTemplate: FunctionComponent<TermsAndConditionsPro
     <PageContainer>
       <Seo title={title} />
       <Heading>{title}</Heading>
-      <Box>
+      <Box largePadding>
         <PageContent content={content} />
       </Box>
     </PageContainer>
   );
 };
 
-const TermsAndConditions = ({
+const Privacy = ({
   data,
 }: {
-  data: { markdownRemark: { frontmatter: TermsAndConditionsProps; html: any } };
+  data: { markdownRemark: { frontmatter: PrivacyProps; html: any } };
 }) => {
   const { markdownRemark: post } = data;
 
   return (
-    <TermsAndConditionsTemplate
+    <PrivacyTemplate
       contentComponent={HTMLContent}
       title={post.frontmatter.title}
       content={post.html}
@@ -44,11 +44,11 @@ const TermsAndConditions = ({
   );
 };
 
-export default TermsAndConditions;
+export default Privacy;
 
-export const termsAndConditionsQuery = graphql`
-  query TermsAndConditions {
-    markdownRemark(frontmatter: { templateKey: { eq: "terms-and-conditions" } }) {
+export const privacyQuery = graphql`
+  query Privacy {
+    markdownRemark(frontmatter: { templateKey: { eq: "privacy" } }) {
       html
       frontmatter {
         title

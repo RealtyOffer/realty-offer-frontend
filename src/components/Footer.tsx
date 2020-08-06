@@ -35,9 +35,9 @@ const Footer = () => (
         </Link>
         <small>
           {`Copyright © ${new Date().getFullYear()} | `}
-          <Link to="/terms-and-conditions">Terms &amp; Conditions</Link>
+          <Link to="/terms">Terms</Link>
           {' | '}
-          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/privacy">Privacy</Link>
         </small>
       </FlexContainer>
     </PageContainer>
