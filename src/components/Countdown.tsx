@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import ReactCountdown from 'react-countdown';
 import { FaRegClock } from 'react-icons/fa';
 import styled from 'styled-components';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 
 import { brandDanger, textColor } from '../styles/color';
 import { quarterSpacer } from '../styles/size';
@@ -11,6 +11,7 @@ import {
   expiresAt,
   isExpired,
   timeNowWithOffset,
+  localizedCreateDateTime,
 } from '../utils/countdownTimerUtils';
 
 type CountdownProps = {
@@ -29,7 +30,7 @@ const CountdownWrapper = styled.div`
 const Countdown: FunctionComponent<CountdownProps> = ({ createDateTime }) => (
   <CountdownWrapper expiringSoon={isExpiringSoon(createDateTime)}>
     {isExpired(createDateTime) ? (
-      <span>{format(parseISO(String(createDateTime)), 'MM/dd/yyyy hh:mmaa')}</span>
+      <span>{format(localizedCreateDateTime(createDateTime), 'MM/dd/yyyy hh:mmaa')}</span>
     ) : (
       <>
         <FaRegClock />

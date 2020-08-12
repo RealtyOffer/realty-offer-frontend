@@ -40,7 +40,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
       )}
       {newListings && newListings.length === 0 && !isLoading && (
         <EmptyListingsView
-          title="There are no new bids in your current sales area."
+          title="There are no new listings in your current sales area."
           buttonText="Add More Cities"
           to="/agent/account/settings"
         />

@@ -78,7 +78,7 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType
     <ListingCardHeader expiringSoon={isExpiringSoon(listing.createDateTime)}>
       <FlexContainer justifyContent="space-between">
         <Countdown createDateTime={listing.createDateTime} />
-        <CardType>{listing.type}</CardType>
+        <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>
       </FlexContainer>
     </ListingCardHeader>
     <ListingCardBody>

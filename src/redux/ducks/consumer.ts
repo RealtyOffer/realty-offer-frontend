@@ -7,6 +7,7 @@ import {
   SECURED_CONSUMER_BIDS_ENDPOINT,
   SECURED_CONSUMER_BIDS_WINNER_ENDPOINT,
   SECURED_CONSUMER_BIDS_WINNING_AGENT_ENDPOINT,
+  PROFILE_PICTURE_BY_USERNAME_ENDPOINT,
 } from '../constants';
 
 import { ConsumerStoreType, ConsumerProfileType, ConsumerStoreActions } from './consumer.d';
@@ -38,6 +39,10 @@ export const CREATE_CONSUMER_BID_WINNER_FAILURE = 'CREATE_CONSUMER_BID_WINNER_FA
 export const GET_WINNING_AGENT_PROFILE_REQUEST = 'GET_WINNING_AGENT_PROFILE_REQUEST';
 export const GET_WINNING_AGENT_PROFILE_SUCCESS = 'GET_WINNING_AGENT_PROFILE_SUCCESS';
 export const GET_WINNING_AGENT_PROFILE_FAILURE = 'GET_WINNING_AGENT_PROFILE_FAILURE';
+
+export const GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST = 'GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST';
+export const GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS = 'GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS';
+export const GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE = 'GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE';
 
 export const initialState: ConsumerStoreType = {
   isLoading: false,
@@ -72,6 +77,7 @@ export default (
     case CREATE_CONSUMER_BID_WINNER_REQUEST:
     case GET_WINNING_AGENT_PROFILE_REQUEST:
     case UPDATE_CONSUMER_PROFILE_REQUEST:
+    case GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -123,6 +129,16 @@ export default (
         hasError: false,
         winner: { ...action.payload },
       };
+    case GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        winner: {
+          ...state.winner,
+          avatar: action.payload.url,
+        },
+      };
     case GET_CONSUMER_BIDS_FAILURE:
       return {
         ...state,
@@ -135,6 +151,7 @@ export default (
     case CREATE_CONSUMER_BID_WINNER_FAILURE:
     case GET_WINNING_AGENT_PROFILE_FAILURE:
     case UPDATE_CONSUMER_PROFILE_FAILURE:
+    case GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -224,6 +241,18 @@ export const getWinningAgentProfile = () => ({
       GET_WINNING_AGENT_PROFILE_REQUEST,
       GET_WINNING_AGENT_PROFILE_SUCCESS,
       GET_WINNING_AGENT_PROFILE_FAILURE,
+    ],
+  },
+});
+
+export const getWinningAgentProfilePhoto = (userName: string) => ({
+  [RSAA]: {
+    endpoint: PROFILE_PICTURE_BY_USERNAME_ENDPOINT(userName),
+    method: 'GET',
+    types: [
+      GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST,
+      GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS,
+      GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE,
     ],
   },
 });

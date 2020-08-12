@@ -20,6 +20,7 @@ import { displayDropdownListText } from '../utils/dropdownUtils';
 import { isExpiringSoon } from '../utils/countdownTimerUtils';
 import { createConsumerBidWinner } from '../redux/ducks/consumer';
 import { ConsumerStoreType } from '../redux/ducks/consumer.d';
+import { formatPhoneNumberValue } from '../utils/phoneNumber';
 
 type ConsumerListingCardProps = {
   consumer: ConsumerStoreType;
@@ -147,7 +148,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           <p>Agent contact information and terms of the contract can be found below.</p>
           <Row>
             <Column lg={2}>
-              <Avatar size="lg" bottomMargin />
+              <Avatar size="lg" bottomMargin src={winner.avatar} />
             </Column>
             <Column lg={10}>
               <Row>
@@ -169,7 +170,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                     </Column>
                     <Column xs={6}>
                       <p>
-                        <strong>Phone:</strong> {winner.phoneNumber}
+                        <strong>Phone:</strong> {formatPhoneNumberValue(winner.phoneNumber)}
                       </p>
                     </Column>
                   </Row>

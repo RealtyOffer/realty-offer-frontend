@@ -86,10 +86,9 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         createDateTime: new Date(),
                       },
                       profile: {
-                        id: 0,
-                        otherLanguageId: '',
-                        genderPreferenceId: '',
-                        agePreferenceId: '',
+                        otherLanguageId: null,
+                        genderPreferenceId: null,
+                        agePreferenceId: null,
                       },
                     })
                   ).then((secondRes: ActionResponseType) => {

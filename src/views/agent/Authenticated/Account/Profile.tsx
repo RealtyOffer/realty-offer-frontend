@@ -66,6 +66,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     genderId: String(agent.genderId),
   };
   const agentInfoInitialValues = {
+    id: agent.id,
     agentId: agent.agentId,
     brokerName: agent.brokerName,
     brokerPhoneNumber: agent.brokerPhoneNumber,
@@ -196,6 +197,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
               updateAgentProfile({
                 ...values,
                 genderId: Number(values.genderId),
+                brokerZip: String(values.brokerZip),
               })
             ).then(() => {
               setSubmitting(false);

@@ -98,13 +98,16 @@ const Selling: FunctionComponent<SellingProps> = () => {
                 cities && (cities.find((city) => city.name === values.sellersCity) as CityType);
               dispatch(
                 captureConsumerData({
-                  ...values,
+                  createDateTime: new Date(),
+                  sellersAddressLine1: values.sellersAddressLine1,
+                  sellersAddressLine2: values.sellersAddressLine2,
                   sellersCity: cityDTO,
+                  sellersZip: '',
+                  sellersTimeline: '',
                   sellersListingPriceInMindPriceRangeInMindId: Number(
                     values.sellersListingPriceInMind
                   ),
                   sellersMortgageBalanceId: Number(values.sellersMortgageBalance),
-                  createDateTime: new Date(),
                 })
               );
               navigate('/consumer/sign-up');

@@ -55,6 +55,8 @@ export const USER_NOTIFICATION_SETTINGS_ENDPOINT = `${USER_SECURED_ENDPOINT}/not
 export const USER_NOTIFICATION_SETTINGS_CONFIRM_ENDPOINT = `${USER_NOTIFICATION_SETTINGS_ENDPOINT}/confirm-device`;
 export const S3_PROXY_ENDPOINT = `${USER_SECURED_ENDPOINT}/s3-proxy`;
 export const S3_PROXY_BY_KEY_ENDPOINT = (key: string) => `${S3_PROXY_ENDPOINT}/${key}`;
+export const PROFILE_PICTURE_BY_USERNAME_ENDPOINT = (userName: string) =>
+  `${S3_PROXY_ENDPOINT}/get-profile-picture/${userName}`;
 
 // Action Response Type
 export type ActionResponseType = {

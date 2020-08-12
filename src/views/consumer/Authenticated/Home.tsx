@@ -18,6 +18,7 @@ import {
   getConsumerProfile,
   getConsumerBids,
   getWinningAgentProfile,
+  getWinningAgentProfilePhoto,
 } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
 import ConsumerNotifications from './ConsumerNotifications';
@@ -29,6 +30,7 @@ import { baseSpacer, doubleSpacer, borderRadius } from '../../../styles/size';
 import { brandTertiary, white } from '../../../styles/color';
 import { isExpired } from '../../../utils/countdownTimerUtils';
 import consumerNavigationItems from '../../../utils/consumerNavigationItems';
+import { WinningAgentProfileType } from '../../../redux/ducks/consumer.d';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -61,7 +63,11 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       isExpired(consumer.listing.createDateTime) &&
       !consumer.winner
     ) {
-      dispatch(getWinningAgentProfile());
+      dispatch(getWinningAgentProfile()).then((response: { payload: WinningAgentProfileType }) => {
+        if (response.payload?.userName) {
+          dispatch(getWinningAgentProfilePhoto(response.payload.userName));
+        }
+      });
     }
   }, [consumer.listing]);
 

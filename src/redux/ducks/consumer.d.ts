@@ -18,6 +18,9 @@ import {
   GET_WINNING_AGENT_PROFILE_REQUEST,
   GET_WINNING_AGENT_PROFILE_SUCCESS,
   GET_WINNING_AGENT_PROFILE_FAILURE,
+  GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST,
+  GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS,
+  GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE,
 } from './consumer';
 
 import { LogoutRequestAction } from './auth.d';
@@ -26,26 +29,27 @@ import { BidType } from './agent.d';
 
 export type ConsumerProfileType = {
   id?: number;
-  genderPreferenceId?: number;
-  agePreferenceId?: number;
-  otherLanguageId?: number;
+  genderPreferenceId: number | null;
+  agePreferenceId: number | null;
+  otherLanguageId: number | null;
 };
 
 export type WinningAgentProfileType = {
-  id: 0;
-  agentId: string;
-  userName: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
-  phoneNumber: string;
-  brokerName: string;
-  brokerPhoneNumber: string;
-  brokerAddressLine1: string;
-  brokerAddressLine2: string;
-  brokerCity: string;
-  brokerZip: string;
-  brokerState: string;
+  id?: 0;
+  agentId?: string;
+  userName?: string;
+  firstName?: string;
+  lastName?: string;
+  emailAddress?: string;
+  phoneNumber?: string;
+  brokerName?: string;
+  brokerPhoneNumber?: string;
+  brokerAddressLine1?: string;
+  brokerAddressLine2?: string;
+  brokerCity?: string;
+  brokerZip?: string;
+  brokerState?: string;
+  avatar?: string;
 };
 
 export type ConsumerStoreType = {
@@ -133,6 +137,19 @@ export type GetWinningAgentProfileFailureAction = {
   type: typeof GET_WINNING_AGENT_PROFILE_FAILURE;
 };
 
+export type GetWinningAgentProfilePhotoRequestAction = {
+  type: typeof GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST;
+};
+export type GetWinningAgentProfilePhotoSuccessAction = {
+  type: typeof GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS;
+  payload: {
+    url: WinningAgentProfileType['avatar'];
+  };
+};
+export type GetWinningAgentProfilePhotoFailureAction = {
+  type: typeof GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE;
+};
+
 export type ConsumerStoreActions =
   | CaptureConsumerDataAction
   | CreateConsumerProfileRequestAction
@@ -153,4 +170,7 @@ export type ConsumerStoreActions =
   | GetWinningAgentProfileRequestAction
   | GetWinningAgentProfileSuccessAction
   | GetWinningAgentProfileFailureAction
+  | GetWinningAgentProfilePhotoRequestAction
+  | GetWinningAgentProfilePhotoSuccessAction
+  | GetWinningAgentProfilePhotoFailureAction
   | LogoutRequestAction;

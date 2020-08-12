@@ -86,9 +86,10 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                 );
               dispatch(
                 captureConsumerData({
-                  ...values,
                   buyingCities: cityDTOs,
                   buyingPriceRangeId: Number(values.buyingPriceRange),
+                  freeMortgageConsult: values.freeMortgageConsult,
+                  preApproved: values.preApproved,
                   createDateTime: new Date(),
                 })
               );
