@@ -28,6 +28,7 @@ import {
   GET_USER_AVATAR_FAILURE,
   UPDATE_USER_AVATAR,
 } from './user';
+import { LogoutRequestAction } from './auth.d';
 
 import { BannerType, CityType } from './admin.d';
 
@@ -225,4 +226,5 @@ export type UserActionTypes =
   | GetUserAvatarRequestAction
   | GetUserAvatarSuccessAction
   | GetUserAvatarFailureAction
-  | UpdateUserAvatarAction;
+  | UpdateUserAvatarAction
+  | LogoutRequestAction;

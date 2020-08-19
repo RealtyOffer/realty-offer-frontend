@@ -9,6 +9,7 @@ import {
   USER_NOTIFICATIONS_ENDPOINT,
   S3_PROXY_BY_KEY_ENDPOINT,
 } from '../constants';
+import { LOGOUT_REQUEST } from './auth';
 import {
   UserStoreType,
   UserActionTypes,
@@ -212,6 +213,10 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
         isLoading: false,
         hasError: true,
         avatar: initialState.avatar,
+      };
+    case LOGOUT_REQUEST:
+      return {
+        ...initialState,
       };
     default:
       return state;

@@ -59,16 +59,13 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
   return (
     <Box>
       <Heading as="h2">Listing Alerts</Heading>
-      {user.isLoading ? (
+      {user.isLoading || !user.userNotificationSubscriptions.length ? (
         <Skeleton count={5} />
       ) : (
         <>
           <Row>
             <Column md={6}>
               <strong>Notify me when...</strong>
-            </Column>
-            <Column md={1}>
-              <strong>Push</strong>
             </Column>
             <Column md={1}>
               <strong>Email</strong>
@@ -96,14 +93,6 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
                   listingAlerts.map((listingAlert) => (
                     <Row key={listingAlert.id}>
                       <Column md={6}>{listingAlert.description}</Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="desktop"
-                          checked={values[listingAlert.notificationName]?.desktop ?? false}
-                          name={`${listingAlert.notificationName}.desktop`}
-                        />
-                      </Column>
                       <Column md={1}>
                         <Field
                           as={IconCheckbox}

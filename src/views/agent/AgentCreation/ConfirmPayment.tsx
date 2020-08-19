@@ -22,6 +22,9 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
         brokerPhoneNumber: agent.brokerPhoneNumber,
         cities: agent.signupData.cities,
         genderId: 0,
+        agentLanguages: [],
+        aboutMe: '',
+        certificates: '',
       })
     ).then((response: ActionResponseType) => {
       if (response && !response.error) {

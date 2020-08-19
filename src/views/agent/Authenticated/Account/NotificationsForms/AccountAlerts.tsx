@@ -1,12 +1,14 @@
 /* eslint-disable dot-notation */
 import React, { FunctionComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
+import { isEqual } from 'lodash';
 
 import { Row, Column, IconCheckbox, Heading, Box } from '../../../../../components';
 import AutoSave from '../../../../../utils/autoSave';
 import { UserStoreType } from '../../../../../redux/ducks/user.d';
+import { updateUserNotificationSubscriptions } from '../../../../../redux/ducks/user';
 
 type AccountAlertsProps = {
   user: UserStoreType;
@@ -18,13 +20,13 @@ type InitialValuesType = {
     email: boolean;
     desktop: boolean;
     inAppPush: boolean;
-    id: number;
-    notificationFrequency: string;
+    notificationId: number;
+    notificationFrequency: 'realTime' | 'hourly' | 'oncePerDay';
   };
 };
 
 const AccountAlertsForm: FunctionComponent<AccountAlertsProps> = ({ user }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const accountAlerts = user.notificationTypes
     .filter((type) => type.type === 'myAccount')
     .sort((a, b) => a.id - b.id);
@@ -42,24 +44,21 @@ const AccountAlertsForm: FunctionComponent<AccountAlertsProps> = ({ user }) => {
       inAppPush:
         user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
         false,
-      id: item.id,
-      notificationFrequency: '',
+      notificationId: item.id,
+      notificationFrequency: 'realTime',
     };
   });
 
   return (
     <Box>
       <Heading as="h2">Account Alerts</Heading>
-      {user.isLoading ? (
+      {user.isLoading || !user.userNotificationSubscriptions.length ? (
         <Skeleton count={5} />
       ) : (
         <>
           <Row>
             <Column md={6}>
               <strong>Notify me when...</strong>
-            </Column>
-            <Column md={1}>
-              <strong>Push</strong>
             </Column>
             <Column md={1}>
               <strong>Email</strong>
@@ -72,8 +71,12 @@ const AccountAlertsForm: FunctionComponent<AccountAlertsProps> = ({ user }) => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
+              Object.keys(values).forEach((key) => {
+                if (!isEqual(initialValues[key], values[key])) {
+                  dispatch(updateUserNotificationSubscriptions({ ...values[key] }));
+                }
+              });
               setSubmitting(false);
-              // dispatch(updateUserNotificationSettings({ ...values }));
             }}
           >
             {({ values }) => (
@@ -83,14 +86,6 @@ const AccountAlertsForm: FunctionComponent<AccountAlertsProps> = ({ user }) => {
                   accountAlerts.map((accountAlert) => (
                     <Row key={accountAlert.id}>
                       <Column md={6}>{accountAlert.description}</Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="desktop"
-                          checked={values[accountAlert.notificationName]?.desktop ?? false}
-                          name={`${accountAlert.notificationName}.desktop`}
-                        />
-                      </Column>
                       <Column md={1}>
                         <Field
                           as={IconCheckbox}

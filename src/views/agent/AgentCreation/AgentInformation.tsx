@@ -77,6 +77,9 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                 createAgentProfile({
                   ...values,
                   genderId: 0,
+                  aboutMe: '',
+                  certificates: '',
+                  agentLanguages: [],
                   brokerZip: String(values.brokerZip),
                 })
               ).then((response: ActionResponseType) => {

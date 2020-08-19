@@ -1,12 +1,14 @@
 /* eslint-disable dot-notation */
 import React, { FunctionComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
+import { isEqual } from 'lodash';
 
 import { Row, Column, IconCheckbox, Heading, Box } from '../../../../../components';
 import AutoSave from '../../../../../utils/autoSave';
 import { UserStoreType } from '../../../../../redux/ducks/user.d';
+import { updateUserNotificationSubscriptions } from '../../../../../redux/ducks/user';
 
 type ProductAlertsProps = {
   user: UserStoreType;
@@ -18,13 +20,13 @@ type InitialValuesType = {
     email: boolean;
     desktop: boolean;
     inAppPush: boolean;
-    id: number;
-    notificationFrequency: string;
+    notificationId: number;
+    notificationFrequency: 'realTime' | 'hourly' | 'oncePerDay';
   };
 };
 
 const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const productAlerts = user.notificationTypes
     .filter((type) => type.type === 'productUpdates')
     .sort((a, b) => a.id - b.id);
@@ -42,24 +44,21 @@ const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
       inAppPush:
         user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
         false,
-      id: item.id,
-      notificationFrequency: '',
+      notificationId: item.id,
+      notificationFrequency: 'realTime',
     };
   });
 
   return (
     <Box>
       <Heading as="h2">Product Alerts</Heading>
-      {user.isLoading ? (
+      {user.isLoading || !user.userNotificationSubscriptions.length ? (
         <Skeleton count={5} />
       ) : (
         <>
           <Row>
             <Column md={6}>
               <strong>Notify me when...</strong>
-            </Column>
-            <Column md={1}>
-              <strong>Push</strong>
             </Column>
             <Column md={1}>
               <strong>Email</strong>
@@ -72,8 +71,12 @@ const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
+              Object.keys(values).forEach((key) => {
+                if (!isEqual(initialValues[key], values[key])) {
+                  dispatch(updateUserNotificationSubscriptions({ ...values[key] }));
+                }
+              });
               setSubmitting(false);
-              // dispatch(updateUserNotificationSettings({ ...values }));
             }}
           >
             {({ values }) => (
@@ -83,14 +86,6 @@ const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
                   productAlerts.map((productAlert) => (
                     <Row key={productAlert.id}>
                       <Column md={6}>{productAlert.description}</Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="desktop"
-                          checked={values[productAlert.notificationName]?.desktop ?? false}
-                          name={`${productAlert.notificationName}.desktop`}
-                        />
-                      </Column>
                       <Column md={1}>
                         <Field
                           as={IconCheckbox}

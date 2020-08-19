@@ -61,6 +61,9 @@ export const initialState: AgentStoreType = {
   hasCompletedSignup: false,
   genderId: 0,
   activeBid: undefined,
+  aboutMe: undefined,
+  certificates: undefined,
+  agentLanguages: [],
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {

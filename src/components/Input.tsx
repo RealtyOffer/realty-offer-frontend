@@ -256,14 +256,21 @@ const Input: FunctionComponent<InputProps> = (props) => {
               : (option as OptionType).value
           );
         };
+
+        const setValue = (value: string | Array<string>) => {
+          return props.isMulti
+            ? (value as Array<string>).map((item) =>
+                props.options.find((option) => option.value === item)
+              )
+            : props.options.find((option) => option.value === value);
+        };
+
         inputTypeToRender = (
           <StyledSelect
             styles={multiSelectStyles}
             isMulti={props.isMulti}
             menuPlacement="auto"
-            value={
-              props.options ? props.options.find((option) => option.value === field.value) : ''
-            }
+            value={setValue(field.value)}
             options={props.options}
             name={props.name}
             onChange={(option: OptionType) => onChange(option)}

@@ -10,7 +10,6 @@ import {
   isExpiringSoon,
   expiresAt,
   isExpired,
-  timeNowWithOffset,
   localizedCreateDateTime,
 } from '../utils/countdownTimerUtils';
 
@@ -34,11 +33,7 @@ const Countdown: FunctionComponent<CountdownProps> = ({ createDateTime }) => (
     ) : (
       <>
         <FaRegClock />
-        <ReactCountdown
-          date={expiresAt(createDateTime)}
-          now={() => timeNowWithOffset(createDateTime)}
-          daysInHours
-        />
+        <ReactCountdown date={expiresAt(createDateTime)} daysInHours />
       </>
     )}
   </CountdownWrapper>

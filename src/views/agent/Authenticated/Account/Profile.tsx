@@ -80,9 +80,9 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     genderId: String(agent.genderId),
   };
   const aboutMeInitialValues = {
-    languagesSpoken: '',
-    certificates: '',
-    aboutMe: '',
+    certificates: agent.certificates,
+    agentLanguages: agent.agentLanguages?.map((val) => String(val)),
+    aboutMe: agent.aboutMe,
   };
 
   return (
@@ -289,38 +289,45 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
           )}
         </Formik>
       )}
+      {agent && agent.agentId && (
+        <Formik
+          validateOnMount
+          initialValues={aboutMeInitialValues}
+          onSubmit={(values, { setSubmitting }) => {
+            dispatch(
+              updateAgentProfile({
+                ...agent,
+                certificates: values.certificates,
+                aboutMe: values.aboutMe,
+                agentLanguages: values.agentLanguages?.map((val) => Number(val)),
+              })
+            ).then(() => {
+              setSubmitting(false);
+            });
+          }}
+        >
+          {({ ...rest }) => (
+            <Form>
+              <Box>
+                <Heading as="h2">About You</Heading>
+                <Field
+                  as={Input}
+                  type="select"
+                  isMulti
+                  name="agentLanguages"
+                  label="Languages Spoken (other than English)"
+                  options={createOptionsFromManagedDropdownList(languagesList)}
+                  {...rest}
+                />
+                <Field as={Input} type="text" name="certificates" label="Certificates" />
+                <Field as={Input} type="textarea" name="aboutMe" label="Bio" />
+                <AutoSave />
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      )}
 
-      <Formik
-        validateOnMount
-        initialValues={aboutMeInitialValues}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            // eslint-disable-next-line no-console
-            console.log(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({ ...rest }) => (
-          <Form>
-            <Box>
-              <Heading as="h2">About You</Heading>
-              <Field
-                as={Input}
-                type="select"
-                isMulti
-                name="languagesSpoken"
-                label="Languages Spoken (other than English)"
-                options={createOptionsFromManagedDropdownList(languagesList)}
-                {...rest}
-              />
-              <Field as={Input} type="text" name="certificates" label="Certificates" />
-              <Field as={Input} type="textarea" name="aboutMe" label="Bio" />
-              <AutoSave />
-            </Box>
-          </Form>
-        )}
-      </Formik>
       <Security />
     </>
   );

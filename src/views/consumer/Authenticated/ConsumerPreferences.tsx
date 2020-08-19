@@ -21,11 +21,10 @@ const ConsumerPreferences: FunctionComponent<ConsumerPreferencesProps> = () => {
   const dropdowns = useSelector((state: RootState) => state.dropdowns);
 
   const initialValues = {
-    genderPreferenceId: getDropdownListValue(
-      consumer.profile?.genderPreferenceId,
-      'genderPreferences'
-    ),
-    agePreferenceId: getDropdownListValue(consumer.profile?.agePreferenceId, 'agePreferences'),
+    genderPreferenceId:
+      getDropdownListValue(consumer.profile?.genderPreferenceId, 'genderPreferences') || '',
+    agePreferenceId:
+      getDropdownListValue(consumer.profile?.agePreferenceId, 'agePreferences') || '',
   };
 
   useEffect(() => {
@@ -53,7 +52,7 @@ const ConsumerPreferences: FunctionComponent<ConsumerPreferencesProps> = () => {
           In the event that multiple agents have the same bid, we will use this information to
           select the right agent for you.
         </p>
-        {!dropdowns.agePreferences.list.length ? (
+        {!dropdowns.agePreferences.list.length || !dropdowns.genderPreferences.list.length ? (
           <LoadingPage />
         ) : (
           <Formik

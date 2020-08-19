@@ -29,9 +29,9 @@ import { BidType } from './agent.d';
 
 export type ConsumerProfileType = {
   id?: number;
-  genderPreferenceId: number | null;
-  agePreferenceId: number | null;
-  otherLanguageId: number | null;
+  genderPreferenceId?: number;
+  agePreferenceId?: number;
+  otherLanguageId?: number;
 };
 
 export type WinningAgentProfileType = {

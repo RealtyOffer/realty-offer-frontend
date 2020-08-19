@@ -4,7 +4,15 @@ import { Formik, Field, Form } from 'formik';
 import { useDispatch } from 'react-redux';
 
 import { RouteComponentProps } from '@reach/router';
-import { Button, Input, FlexContainer, Card, Seo, HorizontalRule } from '../../components';
+import {
+  ClientOnly,
+  Button,
+  Input,
+  FlexContainer,
+  Card,
+  Seo,
+  HorizontalRule,
+} from '../../components';
 import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../utils/validations';
 import { ActionResponseType } from '../../redux/constants';
@@ -79,86 +87,88 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
           </Button>
         </FlexContainer>
       ) : (
-        <FlexContainer>
-          <Formik
-            validateOnMount
-            initialValues={initialValues}
-            onSubmit={(values, { setSubmitting }) => {
-              const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
-              const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
-              dispatch(
-                verifyEmail({
-                  email: values.email,
-                  confirmationCode: combined,
-                })
-              ).then((response: ActionResponseType) => {
-                setSubmitting(false);
-                if (response && !response.error) {
-                  setVerified(true);
-                }
-              });
-            }}
-          >
-            {({ isSubmitting, isValid, values, setFieldValue, validateForm }) => (
-              <Form style={{ width: '100%' }}>
-                <Field
-                  as={Input}
-                  type="email"
-                  name="email"
-                  label="Email Address"
-                  validate={requiredEmail}
-                  required
-                />
-                <label>Verification Code</label>
-                <FlexContainer justifyContent="space-between" flexWrap="nowrap">
-                  {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
-                    <Field
-                      key={digit}
-                      as={Input}
-                      type="text"
-                      name={digit}
-                      square
-                      maxLength={1}
-                      onInput={autoFocusNextInput}
-                      onPaste={(e: ClipboardEvent) =>
-                        handlePasteEvent(e, setFieldValue, validateForm)
-                      }
-                      validate={requiredField}
-                      required
-                    />
-                  ))}
-                </FlexContainer>
-                <FlexContainer>
-                  <Button
-                    block
-                    type="submit"
-                    disabled={isSubmitting || !isValid || values === initialValues}
-                  >
-                    Confirm Email
-                  </Button>
-                  <Button type="link" to="/" color="text" block>
-                    Cancel
-                  </Button>
-                </FlexContainer>
-                <HorizontalRule />
-                <FlexContainer flexDirection="column">
-                  <p style={{ textAlign: 'center' }}>
-                    Didn&apos;t receive an email? Enter your email address and click the button
-                    below to receive a new verification code.
-                  </p>
-                  <Button
-                    type="button"
-                    disabled={!values.email}
-                    onClick={() => resend(values.email)}
-                    color="primaryOutline"
-                  >
-                    Send Another code
-                  </Button>
-                </FlexContainer>
-              </Form>
-            )}
-          </Formik>
-        </FlexContainer>
+        <ClientOnly>
+          <FlexContainer>
+            <Formik
+              validateOnMount
+              initialValues={initialValues}
+              onSubmit={(values, { setSubmitting }) => {
+                const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
+                const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
+                dispatch(
+                  verifyEmail({
+                    email: values.email,
+                    confirmationCode: combined,
+                  })
+                ).then((response: ActionResponseType) => {
+                  setSubmitting(false);
+                  if (response && !response.error) {
+                    setVerified(true);
+                  }
+                });
+              }}
+            >
+              {({ isSubmitting, isValid, values, setFieldValue, validateForm }) => (
+                <Form style={{ width: '100%' }}>
+                  <Field
+                    as={Input}
+                    type="email"
+                    name="email"
+                    label="Email Address"
+                    validate={requiredEmail}
+                    required
+                  />
+                  <label>Verification Code</label>
+                  <FlexContainer justifyContent="space-between" flexWrap="nowrap">
+                    {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
+                      <Field
+                        key={digit}
+                        as={Input}
+                        type="text"
+                        name={digit}
+                        square
+                        maxLength={1}
+                        onInput={autoFocusNextInput}
+                        onPaste={(e: ClipboardEvent) =>
+                          handlePasteEvent(e, setFieldValue, validateForm)
+                        }
+                        validate={requiredField}
+                        required
+                      />
+                    ))}
+                  </FlexContainer>
+                  <FlexContainer>
+                    <Button
+                      block
+                      type="submit"
+                      disabled={isSubmitting || !isValid || values === initialValues}
+                    >
+                      Confirm Email
+                    </Button>
+                    <Button type="link" to="/" color="text" block>
+                      Cancel
+                    </Button>
+                  </FlexContainer>
+                  <HorizontalRule />
+                  <FlexContainer flexDirection="column">
+                    <p style={{ textAlign: 'center' }}>
+                      Didn&apos;t receive an email? Enter your email address and click the button
+                      below to receive a new verification code.
+                    </p>
+                    <Button
+                      type="button"
+                      disabled={!values.email}
+                      onClick={() => resend(values.email)}
+                      color="primaryOutline"
+                    >
+                      Send Another code
+                    </Button>
+                  </FlexContainer>
+                </Form>
+              )}
+            </Formik>
+          </FlexContainer>
+        </ClientOnly>
       )}
     </Card>
   );

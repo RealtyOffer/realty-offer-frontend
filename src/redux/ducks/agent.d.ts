@@ -43,6 +43,9 @@ export type AgentProfileType = {
   emailAddress?: string;
   cities?: Array<CityType>;
   genderId?: number;
+  aboutMe?: string;
+  certificates?: string;
+  agentLanguages?: Array<number>;
 };
 
 export type BidType = {
