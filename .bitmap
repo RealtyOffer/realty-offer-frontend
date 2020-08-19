@@ -37,7 +37,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/buying-and-selling-calculator@1.0.0": {
+    "realtyoffer.collection/buying-and-selling-calculator@1.0.2": {
         "files": [
             {
                 "relativePath": "src/utils/buyingAndSellingCalculator.ts",
@@ -61,7 +61,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/constants@1.0.0": {
+    "realtyoffer.collection/constants@1.0.1": {
         "files": [
             {
                 "relativePath": "src/redux/constants.ts",
@@ -97,7 +97,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/create-options-from-array@1.0.0": {
+    "realtyoffer.collection/create-options-from-array@1.0.2": {
         "files": [
             {
                 "relativePath": "src/utils/createOptionsFromArray.ts",
@@ -121,7 +121,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/dropdown-utils@1.0.0": {
+    "realtyoffer.collection/dropdown-utils@1.0.2": {
         "files": [
             {
                 "relativePath": "src/utils/dropdownUtils.tsx",
@@ -133,7 +133,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/ducks@1.0.0": {
+    "realtyoffer.collection/ducks@1.0.2": {
         "files": [
             {
                 "relativePath": "src/redux/ducks/admin.d.ts",

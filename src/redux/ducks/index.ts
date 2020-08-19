@@ -20,6 +20,15 @@ const rootReducer = combineReducers({
   user,
 });
 
+export const adminDuck = admin;
+export const agentDuck = agent;
+export const authDuck = auth;
+export const consumerDuck = consumer;
+export const dropdownsDuck = dropdowns;
+export const globalAlertsDuck = globalAlerts;
+export const listingsDuck = listings;
+export const userDuck = user;
+
 export type RootState = ReturnType<typeof rootReducer>;
 
 export default rootReducer;
