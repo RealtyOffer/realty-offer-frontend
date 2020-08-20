@@ -23,7 +23,12 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
     }
     // ignore GET_AGENT_PROFILE_FAILURE because we check agent store to see if they have finished
     // or not to determine routing upon login
-    if (action.error && action.type !== 'GET_AGENT_PROFILE_FAILURE') {
+    // also ignore GET_USER_AVATAR_REQUEST because they may not have a photo yet
+    if (
+      action.error &&
+      action.type !== 'GET_AGENT_PROFILE_FAILURE' &&
+      action.type !== 'GET_USER_AVATAR_FAILURE'
+    ) {
       // Any other 4xx errors should return a response,
       // so first add an alert for each error message in the response
       if (action.payload.response) {
