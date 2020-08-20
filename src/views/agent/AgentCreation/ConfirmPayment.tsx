@@ -1,5 +1,4 @@
 import React, { useState, FunctionComponent } from 'react';
-import { Link } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RouteComponentProps } from '@reach/router';
@@ -58,7 +57,10 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
             <FlexContainer height="100px">
               <small>
                 By clicking &quot;Confirm Payment&quot;, I agree to the{' '}
-                <Link to="/terms-and-conditions">Terms &amp; Conditions</Link>.
+                <a href="/terms" target="_blank">
+                  Terms &amp; Conditions
+                </a>
+                .
               </small>
             </FlexContainer>
           </FlexContainer>

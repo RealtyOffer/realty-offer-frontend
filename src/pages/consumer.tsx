@@ -11,7 +11,7 @@ import VerifyEmail from '../views/shared/VerifyEmail';
 import Home from '../views/consumer/Authenticated/Home';
 import NotFoundPage from './404';
 
-import { PageContainer, PrivateRoute } from '../components';
+import { LoadingPage, PageContainer, PrivateRoute } from '../components';
 import { getUserSiteBanners } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
 import { addBanner } from '../redux/ducks/globalAlerts';
@@ -55,7 +55,8 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
 
   return (
     <PageContainer>
-      <Router basepath="consumer">
+      <Router basepath="/consumer">
+        <LoadingPage path="/" />
         <StartCreateConsumer path="/start" />
         <Buying path="/buying" />
         <Selling path="/selling" />
