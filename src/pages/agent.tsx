@@ -111,7 +111,8 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           />
         )}
 
-      <Router basepath="agent">
+      <Router basepath="/agent">
+        <CreateAgent path="/" />
         <CreateAgent path="/sign-up" />
         <VerifyEmail path="/verify-email" />
         <AgentInformation path="/agent-information" />
