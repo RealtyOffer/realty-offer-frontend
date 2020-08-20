@@ -21,7 +21,7 @@ import ArchivedListingDetails from '../views/agent/Authenticated/Listings/Archiv
 import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
-import { Alert, PageContainer, PrivateRoute } from '../components';
+import { Alert, PageContainer, PrivateRoute, LoadingPage } from '../components';
 import { getAgentProfile, resetProfileCompleteAlert } from '../redux/ducks/agent';
 import { getUserSiteBanners, getUserAvatar } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
@@ -112,7 +112,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         )}
 
       <Router basepath="/agent">
-        <CreateAgent path="/" />
+        <LoadingPage path="/" />
         <CreateAgent path="/sign-up" />
         <VerifyEmail path="/verify-email" />
         <AgentInformation path="/agent-information" />
