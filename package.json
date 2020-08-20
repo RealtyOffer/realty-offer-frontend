@@ -37,6 +37,7 @@
     "gatsby-plugin-eslint": "^2.0.8",
     "gatsby-plugin-graphql-codegen": "^2.7.1",
     "gatsby-plugin-manifest": "^2.2.47",
+    "gatsby-plugin-netlify": "^2.3.13",
     "gatsby-plugin-netlify-cms": "^4.1.41",
     "gatsby-plugin-nprogress": "^2.1.20",
     "gatsby-plugin-offline": "^3.0.40",

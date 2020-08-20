@@ -61,6 +61,12 @@ module.exports = {
       options: { prefixes: ['/agent/*', '/consumer/*', '/admin/*', '/storybook/*'] },
     },
     {
+      resolve: 'gatsby-plugin-netlify',
+      options: {
+        generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
+      },
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'realty-offer',
