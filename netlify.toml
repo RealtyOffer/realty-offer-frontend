@@ -10,15 +10,15 @@
 
 [[redirects]]
   from = '/consumer/*'
-  to = '/index.html'
+  to = '/consumer//index.html'
   status = 200
 
 [[redirects]]
   from = '/agent/*'
-  to = '/index.html'
+  to = '/agent/index.html'
   status = 200
 
 [[redirects]]
   from = '/admin/*'
-  to = '/index.html'
+  to = '/admin/index.html'
   status = 200
