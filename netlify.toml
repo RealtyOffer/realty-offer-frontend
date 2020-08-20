@@ -9,6 +9,16 @@
   ENVIRONMENT = "DEVELOP"
 
 [[redirects]]
-  from = '/*'
-  to = '/index.html'
+  from = '/consumer/*'
+  to = '/consumer/index.html'
+  status = 200
+
+[[redirects]]
+  from = '/agent/*'
+  to = '/agent/index.html'
+  status = 200
+
+[[redirects]]
+  from = '/admin/*'
+  to = '/admin/index.html'
   status = 200
