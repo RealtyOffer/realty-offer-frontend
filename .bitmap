@@ -226,6 +226,30 @@
         "origin": "AUTHORED",
         "exported": true
     },
+    "realtyoffer.collection/error-catcher@1.0.0": {
+        "files": [
+            {
+                "relativePath": "src/redux/middleware/errorCatcher.ts",
+                "test": false,
+                "name": "errorCatcher.ts"
+            }
+        ],
+        "mainFile": "src/redux/middleware/errorCatcher.ts",
+        "origin": "AUTHORED",
+        "exported": true
+    },
+    "realtyoffer.collection/logger@1.0.0": {
+        "files": [
+            {
+                "relativePath": "src/redux/middleware/logger.ts",
+                "test": false,
+                "name": "logger.ts"
+            }
+        ],
+        "mainFile": "src/redux/middleware/logger.ts",
+        "origin": "AUTHORED",
+        "exported": true
+    },
     "realtyoffer.collection/mixins@1.0.0": {
         "files": [
             {
@@ -250,6 +274,18 @@
         "origin": "AUTHORED",
         "exported": true
     },
+    "realtyoffer.collection/oauth@1.0.0": {
+        "files": [
+            {
+                "relativePath": "src/redux/middleware/oauth.ts",
+                "test": false,
+                "name": "oauth.ts"
+            }
+        ],
+        "mainFile": "src/redux/middleware/oauth.ts",
+        "origin": "AUTHORED",
+        "exported": true
+    },
     "realtyoffer.collection/phone-number@1.0.0": {
         "files": [
             {
@@ -259,6 +295,18 @@
             }
         ],
         "mainFile": "src/utils/phoneNumber.ts",
+        "origin": "AUTHORED",
+        "exported": true
+    },
+    "realtyoffer.collection/request-headers@1.0.0": {
+        "files": [
+            {
+                "relativePath": "src/redux/middleware/requestHeaders.ts",
+                "test": false,
+                "name": "requestHeaders.ts"
+            }
+        ],
+        "mainFile": "src/redux/middleware/requestHeaders.ts",
         "origin": "AUTHORED",
         "exported": true
     },

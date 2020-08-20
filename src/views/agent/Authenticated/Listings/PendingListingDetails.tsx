@@ -40,7 +40,7 @@ import {
 } from '../../../../utils/validations';
 import { updateAgentBid, getBidDetailsById, deleteBidById } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
-// import { getPendingListings } from '../../../../redux/ducks/listings';
+import { getPendingListings } from '../../../../redux/ducks/listings';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
 import { displayDropdownListText } from '../../../../utils/dropdownUtils';
@@ -60,16 +60,16 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
   const isBuyer = listing && listing.type?.toLowerCase().includes('buyer');
   const isSeller = listing && listing.type?.toLowerCase().includes('seller');
 
-  // useEffect(() => {
-  //   if (!listings.pending.length) {
-  //     // TODO: get pending listings if there arent any, otherwise listing can be undefined
-  //     // dispatch(getPendingListings());
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!listings.pending.length) {
+      // get pending listings if there arent any, otherwise listing can be undefined
+      dispatch(getPendingListings());
+    }
+  }, []);
 
   useEffect(() => {
-    if (props.listingId) {
-      dispatch(getBidDetailsById(Number(props.listingId)));
+    if (props.listingId && listing && listing.agentSubmittedBidId) {
+      dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId)));
     }
   }, []);
 
