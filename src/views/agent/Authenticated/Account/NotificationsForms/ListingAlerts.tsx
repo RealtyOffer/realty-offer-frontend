@@ -5,7 +5,15 @@ import { useDispatch } from 'react-redux';
 import { isEqual } from 'lodash';
 import Skeleton from 'react-loading-skeleton';
 
-import { Row, Column, IconCheckbox, Input, Heading, Box } from '../../../../../components';
+import {
+  Row,
+  Column,
+  IconCheckbox,
+  Input,
+  Heading,
+  Box,
+  HorizontalRule,
+} from '../../../../../components';
 import AutoSave from '../../../../../utils/autoSave';
 import { UserStoreType } from '../../../../../redux/ducks/user.d';
 import { requiredSelect } from '../../../../../utils/validations';
@@ -74,6 +82,7 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
               <strong>SMS</strong>
             </Column>
           </Row>
+          <HorizontalRule />
           <Formik
             validateOnMount
             initialValues={initialValues}

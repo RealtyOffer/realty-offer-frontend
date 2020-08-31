@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import { isEqual } from 'lodash';
 
-import { Row, Column, IconCheckbox, Heading, Box } from '../../../../../components';
+import { Row, Column, IconCheckbox, Heading, Box, HorizontalRule } from '../../../../../components';
 import AutoSave from '../../../../../utils/autoSave';
 import { UserStoreType } from '../../../../../redux/ducks/user.d';
 import { updateUserNotificationSubscriptions } from '../../../../../redux/ducks/user';
@@ -67,6 +67,7 @@ const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
               <strong>SMS</strong>
             </Column>
           </Row>
+          <HorizontalRule />
           <Formik
             validateOnMount
             initialValues={initialValues}

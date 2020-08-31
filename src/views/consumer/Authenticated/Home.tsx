@@ -31,6 +31,11 @@ import { brandTertiary, white } from '../../../styles/color';
 import { isExpired } from '../../../utils/countdownTimerUtils';
 import consumerNavigationItems from '../../../utils/consumerNavigationItems';
 import { WinningAgentProfileType } from '../../../redux/ducks/consumer.d';
+import {
+  getUserNotificationSettings,
+  getNotificationTypes,
+  getUserNotificationSubscriptions,
+} from '../../../redux/ducks/user';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -59,7 +64,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   useEffect(() => {
     if (
       consumer.listing &&
-      // consumer.bids.length > 0 &&
+      consumer.bids.length > 0 &&
       isExpired(consumer.listing.createDateTime) &&
       !consumer.winner
     ) {
@@ -70,6 +75,12 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       });
     }
   }, [consumer.listing]);
+
+  useEffect(() => {
+    dispatch(getUserNotificationSettings());
+    dispatch(getNotificationTypes());
+    dispatch(getUserNotificationSubscriptions());
+  }, []);
 
   return (
     <>

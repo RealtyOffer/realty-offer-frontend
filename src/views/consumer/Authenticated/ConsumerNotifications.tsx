@@ -4,10 +4,32 @@ import { Formik, Form, Field } from 'formik';
 import { RouteComponentProps } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
+import { isEqual } from 'lodash';
+import { FaCheck } from 'react-icons/fa';
 
-import { Row, Column, IconCheckbox, Box, Seo, Heading } from '../../../components';
+import {
+  Row,
+  Column,
+  Input,
+  IconCheckbox,
+  Box,
+  Seo,
+  Heading,
+  HorizontalRule,
+  FlexContainer,
+  Button,
+} from '../../../components';
 import AutoSave from '../../../utils/autoSave';
+import { requiredEmail, requiredPhoneNumber } from '../../../utils/validations';
 import { RootState } from '../../../redux/ducks';
+import {
+  updateUserNotificationSubscriptions,
+  updateUserNotificationSettings,
+  confirmDevice,
+} from '../../../redux/ducks/user';
+import { NotificationSettingsType } from '../../../redux/ducks/user.d';
+import { brandSuccess } from '../../../styles/color';
+import { doubleSpacer } from '../../../styles/size';
 
 type ConsumerNotificationsProps = {} & RouteComponentProps;
 
@@ -17,21 +39,24 @@ type InitialValuesType = {
     email: boolean;
     desktop: boolean;
     inAppPush: boolean;
-    id: number;
-    notificationFrequency: string;
+    notificationId: number;
+    notificationFrequency: 'realTime' | 'hourly' | 'oncePerDay';
   };
 };
 
 const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-  const accountAlerts = user.notificationTypes
-    .filter((type) => type.type === 'myAccount')
+  const consumerAlerts = user.notificationTypes
+    .filter((type) => type.type === 'consumerAlerts')
+    .sort((a, b) => a.id - b.id);
+  const productAlerts = user.notificationTypes
+    .filter((type) => type.type === 'productUpdates')
     .sort((a, b) => a.id - b.id);
 
   const initialValues = {} as InitialValuesType;
 
-  accountAlerts.forEach((item) => {
+  consumerAlerts.forEach((item) => {
     initialValues[item.notificationName] = {
       email:
         user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.email ??
@@ -43,16 +68,202 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
         user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
         false,
       id: item.id,
-      notificationFrequency: '',
+      notificationFrequency: 'realTime',
     };
   });
+
+  productAlerts.forEach((item) => {
+    initialValues[item.notificationName] = {
+      email:
+        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.email ??
+        false,
+      sms:
+        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.sms ?? false,
+      desktop: true,
+      inAppPush:
+        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
+        false,
+      id: item.id,
+      notificationFrequency: 'realTime',
+    };
+  });
+
+  const settingsInitialValues = {
+    ...user.notificationSettings,
+    emailConfirmationCode: '',
+    phoneNumberConfirmationCode: '',
+    deviceType: '',
+  };
+
+  const resendEmailConfirmationCode = (values: NotificationSettingsType) => {
+    dispatch(
+      updateUserNotificationSettings({
+        ...values,
+        emailConfirmed: false,
+        forceResendEmailCode: true,
+      })
+    );
+  };
+
+  const resendPhoneNumberConfirmationCode = (values: NotificationSettingsType) => {
+    dispatch(
+      updateUserNotificationSettings({
+        ...values,
+        phoneNumberConfirmed: false,
+        forceResendPhoneCode: true,
+      })
+    );
+  };
 
   return (
     <>
       <Seo title="My Notification Preferences" />
       <Heading as="h2">My Notification Preferences</Heading>
       <Box>
+        <Heading as="h2">Contact Information</Heading>
         {user.isLoading ? (
+          <>
+            <Skeleton height={doubleSpacer} />
+            <br />
+            <br />
+            <Skeleton count={5} />
+          </>
+        ) : (
+          <Formik
+            validateOnMount
+            initialValues={settingsInitialValues}
+            onSubmit={(values, { setSubmitting }) => {
+              setSubmitting(false);
+              if (values.emailConfirmationCode) {
+                dispatch(
+                  confirmDevice({
+                    confirmationCode: String(values.emailConfirmationCode),
+                    deviceType: 'email',
+                  })
+                );
+              }
+              if (values.phoneNumberConfirmationCode) {
+                dispatch(
+                  confirmDevice({
+                    confirmationCode: String(values.phoneNumberConfirmationCode),
+                    deviceType: 'phone',
+                  })
+                );
+              }
+              if (!values.emailConfirmationCode && !values.phoneNumberConfirmationCode)
+                dispatch(updateUserNotificationSettings({ ...values }));
+            }}
+          >
+            {({ values }) => (
+              <Form>
+                <Field
+                  as={Input}
+                  type="checkbox"
+                  checked={values.enableNotifications}
+                  name="enableNotifications"
+                  label="Receive Notifications"
+                />
+                <Row>
+                  <Column xs={6} md={4}>
+                    <Field
+                      as={Input}
+                      type="text"
+                      name="emailAddress"
+                      label="Email Address"
+                      validate={requiredEmail}
+                      required
+                    />
+                  </Column>
+                  <Column xs={6} md={4}>
+                    {!values.emailConfirmed ? (
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="emailConfirmationCode"
+                        label="Confirmation Code"
+                      />
+                    ) : (
+                      <FlexContainer justifyContent="start" height="100%">
+                        <div style={{ color: brandSuccess }}>
+                          <FaCheck />
+                          &nbsp;Confirmed
+                        </div>
+                      </FlexContainer>
+                    )}
+                  </Column>
+                  {!values.emailConfirmed && (
+                    <Column md={4}>
+                      <FlexContainer justifyContent="start" height="100%">
+                        <p>
+                          <small>
+                            Didn&apos;t receive a code?{' '}
+                            <Button
+                              type="button"
+                              color="text"
+                              onClick={() => resendEmailConfirmationCode(values)}
+                            >
+                              Resend one now
+                            </Button>
+                          </small>
+                        </p>
+                      </FlexContainer>
+                    </Column>
+                  )}
+                </Row>
+                <Row>
+                  <Column xs={6} md={4}>
+                    <Field
+                      as={Input}
+                      type="tel"
+                      name="phoneNumber"
+                      label="Phone Number"
+                      validate={requiredPhoneNumber}
+                      required
+                    />
+                  </Column>
+                  <Column xs={6} md={4}>
+                    {!values.phoneNumberConfirmed ? (
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="phoneNumberConfirmationCode"
+                        label="Confirmation Code"
+                      />
+                    ) : (
+                      <FlexContainer justifyContent="start" height="100%">
+                        <div style={{ color: brandSuccess }}>
+                          <FaCheck />
+                          &nbsp;Confirmed
+                        </div>
+                      </FlexContainer>
+                    )}
+                  </Column>
+                  {!values.phoneNumberConfirmed && (
+                    <Column md={4}>
+                      <FlexContainer justifyContent="start" height="100%">
+                        <small>
+                          Didn&apos;t receive a code?{' '}
+                          <Button
+                            type="button"
+                            color="text"
+                            onClick={() => resendPhoneNumberConfirmationCode(values)}
+                          >
+                            Resend one now
+                          </Button>
+                        </small>
+                      </FlexContainer>
+                    </Column>
+                  )}
+                </Row>
+
+                <AutoSave />
+              </Form>
+            )}
+          </Formik>
+        )}
+      </Box>
+      <Box>
+        {user.isLoading || !user.userNotificationSubscriptions.length ? (
           <Skeleton count={5} />
         ) : (
           <>
@@ -61,52 +272,69 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                 <strong>Notify me when...</strong>
               </Column>
               <Column md={1}>
-                <strong>Push</strong>
-              </Column>
-              <Column md={1}>
                 <strong>Email</strong>
               </Column>
               <Column md={1}>
                 <strong>SMS</strong>
               </Column>
             </Row>
+            <HorizontalRule />
             <Formik
               validateOnMount
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
+                Object.keys(values).forEach((key) => {
+                  if (!isEqual(initialValues[key], values[key])) {
+                    dispatch(updateUserNotificationSubscriptions({ ...values[key] }));
+                  }
+                });
                 setSubmitting(false);
-                // dispatch(updateUserNotificationSettings({ ...values }));
               }}
             >
               {({ values }) => (
                 <Form>
                   {initialValues &&
-                    accountAlerts &&
-                    accountAlerts.map((accountAlert) => (
-                      <Row key={accountAlert.id}>
-                        <Column md={6}>{accountAlert.description}</Column>
-                        <Column md={1}>
-                          <Field
-                            as={IconCheckbox}
-                            icon="desktop"
-                            checked={values[accountAlert.notificationName]?.desktop ?? false}
-                            name={`${accountAlert.notificationName}.desktop`}
-                          />
-                        </Column>
+                    consumerAlerts &&
+                    consumerAlerts.map((consumerAlert) => (
+                      <Row key={consumerAlert.id}>
+                        <Column md={6}>{consumerAlert.description}</Column>
                         <Column md={1}>
                           <Field
                             as={IconCheckbox}
                             icon="email"
-                            checked={values[accountAlert.notificationName]?.email ?? false}
-                            name={`${accountAlert.notificationName}.email`}
+                            checked={values[consumerAlert.notificationName]?.email ?? false}
+                            name={`${consumerAlert.notificationName}.email`}
                           />
                         </Column>
                         <Column md={1}>
                           <Field
                             as={IconCheckbox}
                             icon="sms"
-                            checked={values[accountAlert.notificationName]?.sms ?? false}
-                            name={`${accountAlert.notificationName}.sms`}
+                            checked={values[consumerAlert.notificationName]?.sms ?? false}
+                            name={`${consumerAlert.notificationName}.sms`}
+                          />
+                        </Column>
+                      </Row>
+                    ))}
+                  {initialValues &&
+                    productAlerts &&
+                    productAlerts.map((productAlert) => (
+                      <Row key={productAlert.id}>
+                        <Column md={6}>{productAlert.description}</Column>
+                        <Column md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="email"
+                            checked={values[productAlert.notificationName]?.email ?? false}
+                            name={`${productAlert.notificationName}.email`}
+                          />
+                        </Column>
+                        <Column md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="sms"
+                            checked={values[productAlert.notificationName]?.sms ?? false}
+                            name={`${productAlert.notificationName}.sms`}
                           />
                         </Column>
                       </Row>

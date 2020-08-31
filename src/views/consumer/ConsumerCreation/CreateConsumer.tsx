@@ -159,6 +159,15 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 <Button type="submit" disabled={isSubmitting || !isValid} block>
                   Create Account
                 </Button>
+                <p style={{ textAlign: 'center' }}>
+                  <small>
+                    By clicking &quot;Create Account&quot;, I agree to the{' '}
+                    <a href="/terms" target="_blank">
+                      Terms &amp; Conditions
+                    </a>
+                    .
+                  </small>
+                </p>
               </Form>
             )}
           </Formik>

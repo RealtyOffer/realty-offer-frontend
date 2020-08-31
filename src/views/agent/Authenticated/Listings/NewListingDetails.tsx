@@ -345,6 +345,15 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             <Button type="submit" disabled={!isValid || isSubmitting}>
               Place Bid
             </Button>
+            <div>
+              <small>
+                By clicking &quot;Place Bid&quot;, I agree to the{' '}
+                <a href="/terms" target="_blank">
+                  Terms &amp; Conditions
+                </a>
+                .
+              </small>
+            </div>
           </Form>
         )}
       </Formik>

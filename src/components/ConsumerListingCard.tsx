@@ -17,7 +17,7 @@ import Button from './Button';
 
 import { BidType } from '../redux/ducks/agent.d';
 import { displayDropdownListText } from '../utils/dropdownUtils';
-import { isExpiringSoon } from '../utils/countdownTimerUtils';
+import { isExpired, isExpiringSoon } from '../utils/countdownTimerUtils';
 import { createConsumerBidWinner } from '../redux/ducks/consumer';
 import { ConsumerStoreType } from '../redux/ducks/consumer.d';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
@@ -64,7 +64,12 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
     <ConsumerListingCardWrapper expiringSoon={isExpiringSoon(listing.createDateTime)}>
       <ConsumerListingCardHeader>
         <FlexContainer flexDirection="column">
-          <small>Time remaining before your listing is done receiving bids</small>
+          {!isExpired(listing.createDateTime) ? (
+            <small>Time remaining before your listing is done receiving bids</small>
+          ) : (
+            <small>Listing ended at</small>
+          )}
+
           <Countdown createDateTime={listing.createDateTime} />
         </FlexContainer>
       </ConsumerListingCardHeader>

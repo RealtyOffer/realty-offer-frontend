@@ -104,6 +104,15 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
             <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
               Create Account
             </Button>
+            <p style={{ textAlign: 'center' }}>
+              <small>
+                By clicking &quot;Create Account&quot;, I agree to the{' '}
+                <a href="/terms" target="_blank">
+                  Terms &amp; Conditions
+                </a>
+                .
+              </small>
+            </p>
           </Form>
         )}
       </Formik>

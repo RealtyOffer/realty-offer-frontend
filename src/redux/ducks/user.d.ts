@@ -51,7 +51,7 @@ export type NotificationTypesType = {
   id: number;
   notificationName: string;
   description: string;
-  type: 'listingAlerts' | 'myAccount' | 'productUpdates';
+  type: 'listingAlerts' | 'myAccount' | 'productUpdates' | 'consumerAlerts';
 };
 
 export type UserNotificationSubscriptionType = {
