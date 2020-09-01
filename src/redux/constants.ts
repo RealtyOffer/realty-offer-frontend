@@ -58,6 +58,9 @@ export const S3_PROXY_BY_KEY_ENDPOINT = (key: string) => `${S3_PROXY_ENDPOINT}/$
 export const PROFILE_PICTURE_BY_USERNAME_ENDPOINT = (userName: string) =>
   `${S3_PROXY_ENDPOINT}/get-profile-picture/${userName}`;
 
+// FortisPay
+export const FORTISPAY_ENDPOINT = `${API_ROOT}/fortis`
+
 // Action Response Type
 export type ActionResponseType = {
   error: number;
