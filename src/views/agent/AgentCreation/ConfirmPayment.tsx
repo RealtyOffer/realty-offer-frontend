@@ -8,6 +8,7 @@ import { createFortispayRecurring } from '../../../redux/ducks/fortis';
 import { Button, FlexContainer, Heading, Card, Seo, ClientOnly } from '../../../components';
 import { ActionResponseType } from '../../../redux/constants';
 import { RootState } from '../../../redux/ducks';
+import { updateAgentProfile } from '../../../redux/ducks/agent';
 
 const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   const [confirmed, setConfirmed] = useState(false);
@@ -17,15 +18,15 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   const fakeConfirmPayment = () => {
     dispatch(
       createFortispayRecurring({
-        account_vault_id: '11eaed64b202f80a8dd88b49',
+        account_vault_id: agent.fortispayAccountvaultId || '11eaed64b202f80a8dd88b49',
         transaction_amount: '2388',
         interval_type: 'm',
         interval: 1,
         start_date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
       })
     ).then((response: ActionResponseType) => {
-      alert(response.payload.id);
       if (response && !response.error) {
+        dispatch(updateAgentProfile({ fortispayRecurringId: response.payload.id }));
         setConfirmed(true);
       }
     });

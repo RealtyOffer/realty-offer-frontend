@@ -19,12 +19,14 @@ import {
   Heading,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
+import { updateAgentProfile } from '../../../redux/ducks/agent';
 import { createFortispayAccountvault } from '../../../redux/ducks/fortis';
 import { RootState } from '../../../redux/ducks';
+import { CreateAccountvaultSuccessAction } from '../../../redux/ducks/fortis.d';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state: RootState) => state.auth);
+  const agent = useSelector((state: RootState) => state.agent);
   const initialValues = {
     cardholderName: '',
     cardNumber: '5454545454545454',
@@ -50,8 +52,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
               dispatch(
                 createFortispayAccountvault({
                   email: `${new Date().getMilliseconds().toString()}@notawebsite.uuu`,
-                  contact_id: '11eaed642ab8ee4a8c8a4524', // This comes from fortis
-                  // eslint-disable-next-line @typescript-eslint/camelcase
+                  contact_id: agent.fortispayContactId || '11eaed642ab8ee4a8c8a4524', // This comes from fortis
                   account_holder_name: values.cardholderName,
                   account_number: values.cardNumber.toString(),
                   payment_method: 'cc',
@@ -60,8 +61,8 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                   billing_city: values.billingCity,
                   billing_zip: values.billingZip.toString(),
                 })
-              ).then((response: ActionResponseType) => {
-                alert(response.payload.id);
+              ).then((response: CreateAccountvaultSuccessAction) => {
+                dispatch(updateAgentProfile({ fortispayAccountvaultId: response.payload.id }));
               });
             }}
           >

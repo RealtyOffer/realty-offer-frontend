@@ -46,6 +46,9 @@ export type AgentProfileType = {
   aboutMe?: string;
   certificates?: string;
   agentLanguages?: Array<number>;
+  fortispayContactId?: string;
+  fortispayAccountvaultId?: string;
+  fortispayRecurringId?: string;
 };
 
 export type BidType = {

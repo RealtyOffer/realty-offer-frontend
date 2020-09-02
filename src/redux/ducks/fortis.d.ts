@@ -11,6 +11,7 @@ import {
 } from './fortis';
 
 import { LogoutRequestAction } from './auth.d';
+import { ActionResponseType } from '../constants';
 
 export type FortispayStoreType = {
   isLoading: boolean;
@@ -23,7 +24,7 @@ export type CreateContactRequestAction = {
 
 export type CreateContactSuccessAction = {
   type: typeof CREATE_CONTACT_SUCCESS;
-  response: {
+  payload: {
     id: string;
     location_id: string;
     account_number: string;
@@ -43,7 +44,7 @@ export type CreateContactSuccessAction = {
     created_ts: number;
     errors: string[];
   };
-};
+} & ActionResponseType;
 
 export type CreateContactFailureAction = {
   type: typeof CREATE_CONTACT_FAILURE;
@@ -56,41 +57,39 @@ export type CreateAccountvaultRequestAction = {
 export type CreateAccountvaultSuccessAction = {
   type: typeof CREATE_ACCOUNTVAULT_SUCCESS;
   payload: {
-    accountvault: {
-      id: string;
-      payment_method: string;
-      title: string;
-      account_holder_name: string;
-      first_six: string;
-      last_four: string;
-      billing_address: string;
-      billing_zip: string;
-      exp_date: string;
-      routing: string;
-      account_type: string;
-      location_id: string;
-      contact_id: string;
-      created_ts: number;
-      modified_ts: number;
-      account_vault_api_id: string;
-      dl_number: string;
-      dl_state: string;
-      customer_id: string;
-      ssn4: string;
-      dob_year: string;
-      billing_state: string;
-      billing_city: string;
-      billing_phone: string;
-      accountvault_c1: string;
-      accountvault_c2: string;
-      accountvault_c3: string;
-      expiring_in_months: number;
-      has_recurring: boolean;
-      active: number;
-      errors: string[];
-    };
+    id: string;
+    payment_method: string;
+    title: string;
+    account_holder_name: string;
+    first_six: string;
+    last_four: string;
+    billing_address: string;
+    billing_zip: string;
+    exp_date: string;
+    routing: string;
+    account_type: string;
+    location_id: string;
+    contact_id: string;
+    created_ts: number;
+    modified_ts: number;
+    account_vault_api_id: string;
+    dl_number: string;
+    dl_state: string;
+    customer_id: string;
+    ssn4: string;
+    dob_year: string;
+    billing_state: string;
+    billing_city: string;
+    billing_phone: string;
+    accountvault_c1: string;
+    accountvault_c2: string;
+    accountvault_c3: string;
+    expiring_in_months: number;
+    has_recurring: boolean;
+    active: number;
+    errors: string[];
   };
-};
+} & ActionResponseType;
 
 export type CreateAccountvaultFailureAction = {
   type: typeof CREATE_ACCOUNTVAULT_FAILURE;
@@ -124,7 +123,7 @@ export type CreateRecurringSuccessAction = {
       errors: string[];
     };
   };
-};
+} & ActionResponseType;
 export type CreateRecurringFailureAction = {
   type: typeof CREATE_RECURRING_FAILURE;
 };

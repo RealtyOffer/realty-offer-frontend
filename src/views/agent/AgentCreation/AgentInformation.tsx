@@ -83,13 +83,12 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                 })
               ).then((fortispayResponse: CreateContactSuccessAction) => {
                 if (fortispayResponse.error) {
-                  const fortispayError = Object.values(fortispayResponse.payload.response)[0];
-                  alert(fortispayError);
+                  const fortispayError = Object.values(fortispayResponse.payload)[0];
                 } else {
-                  alert(fortispayResponse.payload.id);
                   dispatch(
                     createAgentProfile({
                       ...values,
+                      fortispayContactId: fortispayResponse.payload.id,
                       genderId: 0,
                       aboutMe: '',
                       certificates: '',
