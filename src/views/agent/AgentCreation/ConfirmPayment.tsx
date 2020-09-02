@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, FunctionComponent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addDays, format } from 'date-fns';
 
 import { RouteComponentProps } from '@reach/router';
+import { createFortispayRecurring } from '../../../redux/ducks/fortis';
 import { Button, FlexContainer, Heading, Card, Seo, ClientOnly } from '../../../components';
-import { updateAgentProfile } from '../../../redux/ducks/agent';
-import { RootState } from '../../../redux/ducks';
 import { ActionResponseType } from '../../../redux/constants';
+import { RootState } from '../../../redux/ducks';
 
 const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   const [confirmed, setConfirmed] = useState(false);
@@ -14,18 +16,15 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
 
   const fakeConfirmPayment = () => {
     dispatch(
-      updateAgentProfile({
-        id: agent.id,
-        agentId: agent.agentId,
-        brokerName: agent.brokerName,
-        brokerPhoneNumber: agent.brokerPhoneNumber,
-        cities: agent.signupData.cities,
-        genderId: 0,
-        agentLanguages: [],
-        aboutMe: '',
-        certificates: '',
+      createFortispayRecurring({
+        account_vault_id: '11eaed64b202f80a8dd88b49',
+        transaction_amount: '2388',
+        interval_type: 'm',
+        interval: 1,
+        start_date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
       })
     ).then((response: ActionResponseType) => {
+      alert(response.payload.id);
       if (response && !response.error) {
         setConfirmed(true);
       }

@@ -22,6 +22,8 @@ import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks
 import { ActionResponseType } from '../../../redux/constants';
 import { RootState } from '../../../redux/ducks';
 import { logout } from '../../../redux/ducks/auth';
+import { createFortispayContact } from '../../../redux/ducks/fortis';
+import { CreateContactSuccessAction } from '../../../redux/ducks/fortis.d';
 import { getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
 
@@ -74,23 +76,37 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               dispatch(
-                createAgentProfile({
-                  ...values,
-                  genderId: 0,
-                  aboutMe: '',
-                  certificates: '',
-                  agentLanguages: [],
-                  brokerZip: String(values.brokerZip),
+                createFortispayContact({
+                  email: `${new Date().getMilliseconds().toString()}@notawebsite.uuu`,
+                  // eslint-disable-next-line @typescript-eslint/camelcase
+                  last_name: values.brokerName,
                 })
-              ).then((response: ActionResponseType) => {
-                setSubmitting(false);
-                dispatch(
-                  captureAgentSignupData({
-                    agentProfileComplete: true,
-                  })
-                );
-                if (response && !response.error) {
-                  navigate('/agent/business-information');
+              ).then((fortispayResponse: CreateContactSuccessAction) => {
+                if (fortispayResponse.error) {
+                  const fortispayError = Object.values(fortispayResponse.payload.response)[0];
+                  alert(fortispayError);
+                } else {
+                  alert(fortispayResponse.payload.id);
+                  dispatch(
+                    createAgentProfile({
+                      ...values,
+                      genderId: 0,
+                      aboutMe: '',
+                      certificates: '',
+                      agentLanguages: [],
+                      brokerZip: String(values.brokerZip),
+                    })
+                  ).then((response: ActionResponseType) => {
+                    setSubmitting(false);
+                    dispatch(
+                      captureAgentSignupData({
+                        agentProfileComplete: true,
+                      })
+                    );
+                    if (response && !response.error) {
+                      navigate('/agent/business-information');
+                    }
+                  });
                 }
               });
             }}
