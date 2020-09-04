@@ -1,7 +1,11 @@
 import { RSAA } from 'redux-api-middleware';
 
 import { LOGOUT_REQUEST } from './auth';
-import { FORTISPAY_ENDPOINT } from '../constants';
+import {
+  FORTISPAY_ACCOUNTVAULT_ENDPOINT,
+  FORTISPAY_CONTACT_ENDPOINT,
+  FORTISPAY_RECURRING_ENDPOINT,
+} from '../constants';
 
 import { FortispayStoreType, FortispayStoreActions } from './fortis.d';
 
@@ -13,9 +17,25 @@ export const CREATE_ACCOUNTVAULT_REQUEST = 'CREATE_ACCOUNTVAULT_REQUEST';
 export const CREATE_ACCOUNTVAULT_SUCCESS = 'CREATE_ACCOUNTVAULT_SUCCESS';
 export const CREATE_ACCOUNTVAULT_FAILURE = 'CREATE_ACCOUNTVAULT_FAILURE';
 
+export const GET_RECURRING_REQUEST = 'GET_RECURRING_REQUEST';
+export const GET_RECURRING_SUCCESS = 'GET_RECURRING_SUCCESS';
+export const GET_RECURRING_FAILURE = 'GET_RECURRING_FAILURE';
+
 export const CREATE_RECURRING_REQUEST = 'CREATE_RECURRING_REQUEST';
 export const CREATE_RECURRING_SUCCESS = 'CREATE_RECURRING_SUCCESS';
 export const CREATE_RECURRING_FAILURE = 'CREATE_RECURRING_FAILURE';
+
+export const EDIT_RECURRING_REQUEST = 'EDIT_RECURRING_REQUEST';
+export const EDIT_RECURRING_SUCCESS = 'EDIT_RECURRING_SUCCESS';
+export const EDIT_RECURRING_FAILURE = 'EDIT_RECURRING_FAILURE';
+
+export const GET_ACCOUNTVAULT_REQUEST = 'GET_ACCOUNTVAULTS_REQUEST';
+export const GET_ACCOUNTVAULT_SUCCESS = 'GET_ACCOUNTVAULTS_SUCCESS';
+export const GET_ACCOUNTVAULT_FAILURE = 'GET_ACCOUNTVAULTS_FAILURE';
+
+export const DELETE_ACCOUNTVAULT_REQUEST = 'DELETE_ACCOUNTVAULTS_REQUEST';
+export const DELETE_ACCOUNTVAULT_SUCCESS = 'DELETE_ACCOUNTVAULTS_SUCCESS';
+export const DELETE_ACCOUNTVAULT_FAILURE = 'DELETE_ACCOUNTVAULTS_FAILURE';
 
 export const initialState: FortispayStoreType = {
   isLoading: false,
@@ -30,6 +50,7 @@ export default (
     case CREATE_CONTACT_REQUEST:
     case CREATE_RECURRING_REQUEST:
     case CREATE_ACCOUNTVAULT_REQUEST:
+    case GET_ACCOUNTVAULT_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -56,9 +77,17 @@ export default (
         hasError: false,
         ...action.payload,
       };
+    case GET_ACCOUNTVAULT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        ...action.payload,
+      };
     case CREATE_RECURRING_FAILURE:
     case CREATE_CONTACT_FAILURE:
     case CREATE_ACCOUNTVAULT_FAILURE:
+    case GET_ACCOUNTVAULT_FAILURE:
     case LOGOUT_REQUEST:
       return { ...initialState };
     default:
@@ -81,7 +110,7 @@ export const createFortispayContact = (payload: {
   created?: string;
 }) => ({
   [RSAA]: {
-    endpoint: FORTISPAY_ENDPOINT,
+    endpoint: FORTISPAY_CONTACT_ENDPOINT,
     method: 'POST',
     body: JSON.stringify({ type: 'contact', ...payload }),
     types: [CREATE_CONTACT_REQUEST, CREATE_CONTACT_SUCCESS, CREATE_CONTACT_FAILURE],
@@ -108,10 +137,34 @@ export const createFortispayAccountvault = (payload: {
   title?: string;
 }) => ({
   [RSAA]: {
-    endpoint: FORTISPAY_ENDPOINT,
+    endpoint: FORTISPAY_ACCOUNTVAULT_ENDPOINT,
     method: 'POST',
     body: JSON.stringify({ type: 'accountvault', ...payload }),
     types: [CREATE_ACCOUNTVAULT_REQUEST, CREATE_ACCOUNTVAULT_SUCCESS, CREATE_ACCOUNTVAULT_FAILURE],
+  },
+});
+
+export const getFortispayAccountvaults = (payload: {
+  email: string;
+  account_vault_id: string;
+}) => ({
+  [RSAA]: {
+    endpoint: FORTISPAY_ACCOUNTVAULT_ENDPOINT,
+    method: 'POST',
+    body: JSON.stringify({ type: 'getaccountvault', ...payload }),
+    types: [GET_ACCOUNTVAULT_REQUEST, GET_ACCOUNTVAULT_SUCCESS, GET_ACCOUNTVAULT_FAILURE],
+  },
+});
+
+export const deleteFortispayAccountvault = (payload: {
+  email: string;
+  account_vault_id: string;
+}) => ({
+  [RSAA]: {
+    endpoint: FORTISPAY_ACCOUNTVAULT_ENDPOINT,
+    method: 'POST',
+    body: JSON.stringify({ type: 'deleteaccountvault', ...payload }),
+    types: [DELETE_ACCOUNTVAULT_REQUEST, DELETE_ACCOUNTVAULT_SUCCESS, DELETE_ACCOUNTVAULT_FAILURE],
   },
 });
 
@@ -133,7 +186,32 @@ export const createFortispayRecurring = (payload: {
   status?: string; // Current status of recurring. Possible values include: "active", "on hold", and "ended"
 }) => ({
   [RSAA]: {
-    endpoint: FORTISPAY_ENDPOINT,
+    endpoint: FORTISPAY_RECURRING_ENDPOINT,
+    method: 'POST',
+    body: JSON.stringify({ type: 'recurring', ...payload }),
+    types: [CREATE_RECURRING_REQUEST, CREATE_RECURRING_SUCCESS, CREATE_RECURRING_FAILURE],
+  },
+});
+
+export const editFortispayRecurring = (payload: {
+  account_vault_id: string; // The account_vault_id of the account vault to use when runnint the recurring transaction.
+  transaction_amount: string; // Amount of recurring
+  interval_type: 'd' | 'w' | 'm'; // Type of interval (enum of d, w, or m)
+  interval: number; // Interval of recurring (1-3)
+  start_date: string; // yyyy-mm-dd Start Date of recurring
+  product_transaction_id?: string; // The ID for the Product Transaction to use when running the Recurring.
+  active?: string; // Current status (1 or 0)
+  description?: string; // Description of Recurring Payment
+  end_date?: string; // -mm-dd End date of recurring
+  installment_total_count?: number; // Number of times to process the payment (optional)
+  next_run_date?: string; // yyyy-m-dd  Next run date of recurring
+  notification_days?: string; // Days to notify contact before next recurring processes
+  payment_method?: string; // Payment Method of recurring (enum of cc or ach)
+  recurring_type_id?: string; // System Generated Flag based on configuration.  Returned in GET/PUT/POST responses for each record.
+  status?: string; // Current status of recurring. Possible values include: "active", "on hold", and "ended"
+}) => ({
+  [RSAA]: {
+    endpoint: FORTISPAY_RECURRING_ENDPOINT,
     method: 'POST',
     body: JSON.stringify({ type: 'recurring', ...payload }),
     types: [CREATE_RECURRING_REQUEST, CREATE_RECURRING_SUCCESS, CREATE_RECURRING_FAILURE],

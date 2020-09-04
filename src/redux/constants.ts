@@ -59,7 +59,10 @@ export const PROFILE_PICTURE_BY_USERNAME_ENDPOINT = (userName: string) =>
   `${S3_PROXY_ENDPOINT}/get-profile-picture/${userName}`;
 
 // FortisPay
-export const FORTISPAY_ENDPOINT = `${API_ROOT}/fortis`
+export const FORTISPAY_ENDPOINT = `${API_ROOT}/fortis`;
+export const FORTISPAY_CONTACT_ENDPOINT = `${API_ROOT}/fortis`;
+export const FORTISPAY_ACCOUNTVAULT_ENDPOINT = `${API_ROOT}/fortis`;
+export const FORTISPAY_RECURRING_ENDPOINT = `${API_ROOT}/fortis`;
 
 // Action Response Type
 export type ActionResponseType = {

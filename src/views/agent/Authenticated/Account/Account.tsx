@@ -4,6 +4,7 @@ import { Router, RouteComponentProps } from '@reach/router';
 import Profile from './Profile';
 import Settings from './Settings';
 import Security from './Security';
+import Billing from './Billing';
 import Notifications from './Notifications';
 import { Row, Column, SubNav } from '../../../../components';
 import { agentAccountNavigationitems } from '../../../../utils/agentNavigationItems';
@@ -20,6 +21,7 @@ const AgentSettings: FunctionComponent<AgentSettingsProps> = () => (
         <Profile path="/profile" />
         <Settings path="/settings" />
         <Security path="/security" />
+        <Billing path="/billing" />
         <Notifications path="/notifications" />
       </Router>
     </Column>
