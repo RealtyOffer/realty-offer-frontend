@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
@@ -43,7 +44,6 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     brokerZip: '',
     brokerState: '',
     brokerPhoneNumber: '',
-    emailAddress: auth.email,
     cities: [],
     id: 0,
   };
@@ -77,13 +77,22 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
             onSubmit={(values, { setSubmitting }) => {
               dispatch(
                 createFortispayContact({
-                  email: `${new Date().getMilliseconds().toString()}@notawebsite.uuu`,
-                  // eslint-disable-next-line @typescript-eslint/camelcase
-                  last_name: values.brokerName,
+                  email: auth.email,
+                  first_name: auth.firstName,
+                  last_name: auth.lastName,
+                  home_phone: auth.phoneNumber,
+                  office_phone: values.brokerPhoneNumber,
+                  address: `${values.brokerAddressLine1} ${values.brokerAddressLine2}`,
+                  city: values.brokerCity,
+                  state: values.brokerState,
+                  zip: String(values.brokerZip),
+                  company_name: values.brokerName,
                 })
               ).then((fortispayResponse: CreateContactSuccessAction) => {
                 if (fortispayResponse.error) {
                   const fortispayError = Object.values(fortispayResponse.payload)[0];
+                  console.log(fortispayError);
+                  // TODO add alerts for fortis pay error
                 } else {
                   dispatch(
                     createAgentProfile({

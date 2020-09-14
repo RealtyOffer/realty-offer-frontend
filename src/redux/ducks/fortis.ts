@@ -3,7 +3,7 @@ import { RSAA } from 'redux-api-middleware';
 import { LOGOUT_REQUEST } from './auth';
 import { FORTISPAY_ENDPOINT } from '../constants';
 
-import { FortispayStoreType, FortispayStoreActions } from './fortis.d';
+import { FortispayStoreType, FortispayStoreActions, FortispayContactType } from './fortis.d';
 
 export const CREATE_CONTACT_REQUEST = 'CREATE_CONTACT_REQUEST';
 export const CREATE_CONTACT_SUCCESS = 'CREATE_CONTACT_SUCCESS';
@@ -20,6 +20,7 @@ export const CREATE_RECURRING_FAILURE = 'CREATE_RECURRING_FAILURE';
 export const initialState: FortispayStoreType = {
   isLoading: false,
   hasError: false,
+  contact: undefined,
 };
 
 export default (
@@ -40,7 +41,7 @@ export default (
         ...state,
         isLoading: false,
         hasError: false,
-        ...action.payload,
+        contact: { ...action.payload },
       };
     case CREATE_RECURRING_SUCCESS:
       return {
@@ -66,20 +67,7 @@ export default (
   }
 };
 
-export const createFortispayContact = (payload: {
-  first_name?: string;
-  last_name: string;
-  account_number?: string;
-  email: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-  home_phone?: string;
-  office_phone?: string;
-  cell_phone?: string;
-  created?: string;
-}) => ({
+export const createFortispayContact = (payload: FortispayContactType) => ({
   [RSAA]: {
     endpoint: FORTISPAY_ENDPOINT,
     method: 'POST',

@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent, useEffect } from 'react';
-import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
 
 import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { parse, format } from 'date-fns';
 import {
   Button,
   ProgressBar,
@@ -18,23 +16,47 @@ import {
   Input,
   Heading,
 } from '../../../components';
-import { requiredField } from '../../../utils/validations';
+import { requiredField, requiredSelect } from '../../../utils/validations';
 import { updateAgentProfile } from '../../../redux/ducks/agent';
 import { createFortispayAccountvault } from '../../../redux/ducks/fortis';
 import { RootState } from '../../../redux/ducks';
 import { CreateAccountvaultSuccessAction } from '../../../redux/ducks/fortis.d';
+import { getStatesList } from '../../../redux/ducks/dropdowns';
+import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
   const agent = useSelector((state: RootState) => state.agent);
+  const auth = useSelector((state: RootState) => state.auth);
+  const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
+
+  useEffect(() => {
+    if (statesList.length === 0) {
+      dispatch(getStatesList());
+    }
+  }, []);
+
   const initialValues = {
-    cardholderName: '',
+    cardholderName: `${auth.firstName} ${auth.lastName}`,
     cardNumber: '5454545454545454',
-    cardExpiration: '',
+    cardExpirationMonth: '',
+    cardExpirationYear: '',
     billingAddressLine1: '',
     billingAddressLine2: '',
     billingCity: '',
+    billingState: 'MI',
     billingZip: '',
+  };
+
+  const createExpYear = () => {
+    const years = [];
+    const currentYear = new Date().getFullYear();
+    let y;
+    for (y = currentYear; y < currentYear + 5; y += 1) {
+      years.push({ value: String(y).substring(2, 4), label: String(y) });
+    }
+
+    return years;
   };
   return (
     <ClientOnly>
@@ -48,81 +70,101 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
           <Formik
             validateOnMount
             initialValues={initialValues}
-            onSubmit={(values) => {
+            onSubmit={(values, { setSubmitting }) => {
               dispatch(
                 createFortispayAccountvault({
-                  email: `${new Date().getMilliseconds().toString()}@notawebsite.uuu`,
-                  contact_id: agent.fortispayContactId || '11eaed642ab8ee4a8c8a4524', // This comes from fortis
+                  email: auth.email,
+                  contact_id: agent.fortispayContactId || '',
                   account_holder_name: values.cardholderName,
                   account_number: values.cardNumber.toString(),
                   payment_method: 'cc',
-                  exp_date: format(parse(values.cardExpiration, 'yyyy-MM', new Date()), 'MMyy'),
+                  exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
                   billing_address: `${values.billingAddressLine1} ${values.billingAddressLine2}`,
                   billing_city: values.billingCity,
+                  billing_state: values.billingState,
                   billing_zip: values.billingZip.toString(),
                 })
               ).then((response: CreateAccountvaultSuccessAction) => {
-                dispatch(updateAgentProfile({ fortispayAccountvaultId: response.payload.id }));
+                dispatch(
+                  updateAgentProfile({ ...agent, fortispayAccountvaultId: response.payload.id })
+                );
+                setSubmitting(false);
               });
             }}
           >
             {({ isSubmitting, isValid, ...rest }) => (
               <Form>
                 <Heading as="h5">Payment Information</Heading>
+                <Field
+                  as={Input}
+                  type="text"
+                  name="cardholderName"
+                  label="Cardholder Name"
+                  validate={requiredField}
+                  required
+                />
+
+                <Field
+                  as={Input}
+                  type="number"
+                  name="cardNumber"
+                  label="Card Number"
+                  validate={requiredField}
+                  required
+                />
                 <Row>
-                  <Column md={12}>
+                  <Column xs={6}>
                     <Field
                       as={Input}
-                      type="text"
-                      name="cardholderName"
-                      label="Cardholder Name"
-                      validate={requiredField}
+                      type="select"
+                      name="cardExpirationMonth"
+                      label="Expiration Month"
+                      validate={requiredSelect}
+                      options={[
+                        { value: '01', label: '01 - January' },
+                        { value: '02', label: '02 - February' },
+                        { value: '03', label: '03 - March' },
+                        { value: '04', label: '04 - April' },
+                        { value: '05', label: '05 - May' },
+                        { value: '06', label: '06 - June' },
+                        { value: '07', label: '07 - July' },
+                        { value: '08', label: '08 - August' },
+                        { value: '09', label: '09 - September' },
+                        { value: '10', label: '10 - October' },
+                        { value: '11', label: '11 - November' },
+                        { value: '12', label: '12 - September' },
+                      ]}
                       required
+                      {...rest}
+                    />
+                  </Column>
+                  <Column xs={6}>
+                    <Field
+                      as={Input}
+                      type="select"
+                      name="cardExpirationYear"
+                      label="Expiration Year"
+                      validate={requiredSelect}
+                      required
+                      options={createExpYear()}
+                      {...rest}
                     />
                   </Column>
                 </Row>
+
+                <Heading as="h5">Billing Address</Heading>
+                <Field
+                  as={Input}
+                  type="text"
+                  name="billingAddressLine1"
+                  label="Address"
+                  validate={requiredField}
+                  required
+                />
+
+                <Field as={Input} type="text" name="billingAddressLine2" label="Address Line 2" />
                 <Row>
-                  <Column md={12}>
-                    <Field
-                      as={Input}
-                      type="number"
-                      name="cardNumber"
-                      label="Card Number"
-                      validate={requiredField}
-                      required
-                    />
-                  </Column>
-                  <Column md={12}>
-                    <Field
-                      as={Input}
-                      type="month"
-                      name="cardExpiration"
-                      label="Card Expiration"
-                      validate={requiredField}
-                      required
-                    />
-                  </Column>
-                  <Row />
-                  <Column>
-                    <Heading as="h5">Billing Address</Heading>
-                    <Field
-                      as={Input}
-                      type="text"
-                      name="billingAddressLine1"
-                      label="Address"
-                      validate={requiredField}
-                      required
-                    />
-                  </Column>
-                  <Column>
-                    <Field
-                      as={Input}
-                      type="text"
-                      name="billingAddressLine2"
-                      label="Address Cont."
-                    />
-                  </Column>
-                  <Column md={6}>
+                  <Column md={5}>
                     <Field
                       as={Input}
                       type="text"
@@ -132,7 +174,19 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                       required
                     />
                   </Column>
-                  <Column md={6}>
+                  <Column md={3}>
+                    <Field
+                      as={Input}
+                      type="select"
+                      name="billingState"
+                      label="State"
+                      validate={requiredSelect}
+                      required
+                      options={createOptionsFromManagedDropdownList(statesList)}
+                      {...rest}
+                    />
+                  </Column>
+                  <Column md={4}>
                     <Field
                       as={Input}
                       type="number"
@@ -140,6 +194,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                       label="Zip"
                       validate={requiredField}
                       required
+                      maxLength={5}
                     />
                   </Column>
                 </Row>

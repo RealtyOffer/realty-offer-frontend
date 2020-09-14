@@ -16,6 +16,44 @@ import { ActionResponseType } from '../constants';
 export type FortispayStoreType = {
   isLoading: boolean;
   hasError: boolean;
+  contact?: FortispayContactType;
+};
+
+export type FortispayContactType = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  home_phone: string;
+  office_phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  company_name: string;
+};
+
+export type FortispayContactResponseType = {
+  id: string;
+  location_id: string;
+  account_number: string;
+  contact_api_id: string;
+  contact_balance: string;
+  created_ts: number;
+  errors: string[];
+} & FortispayContactType;
+
+export type FortispayAccountvaultType = {
+  payment_method: 'cc';
+  contact_id: string;
+  email: string;
+  account_holder_name: string;
+  account_number: string;
+  exp_date: string;
+  billing_address: string;
+  billing_city?: string;
+  billing_phone?: string;
+  billing_state?: string;
+  billing_zip?: string;
 };
 
 export type CreateContactRequestAction = {
@@ -24,26 +62,7 @@ export type CreateContactRequestAction = {
 
 export type CreateContactSuccessAction = {
   type: typeof CREATE_CONTACT_SUCCESS;
-  payload: {
-    id: string;
-    location_id: string;
-    account_number: string;
-    contact_api_id: string;
-    company_name: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    address: string;
-    city: string;
-    zip: string;
-    home_phone: string;
-    cell_phone: string;
-    office_phone: string;
-    office_ext_phone: string;
-    contact_balance: string;
-    created_ts: number;
-    errors: string[];
-  };
+  payload: FortispayContactResponseType;
 } & ActionResponseType;
 
 export type CreateContactFailureAction = {

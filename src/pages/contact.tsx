@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch } from 'react-redux';
 import { FaCaretRight } from 'react-icons/fa';
@@ -7,7 +7,6 @@ import {
   Row,
   Column,
   PageContainer,
-  Alert,
   Button,
   Card,
   Input,

@@ -116,7 +116,7 @@ const ArchivedListingDetails: FunctionComponent<ArchivedListingDetailsProps> = (
                         as={Input}
                         type="number"
                         name="sellerCommission"
-                        label="Seller Commission (%)"
+                        label="Total Seller Commission (%)"
                         step={0.001}
                         min={2}
                         max={8}
@@ -220,7 +220,7 @@ const ArchivedListingDetails: FunctionComponent<ArchivedListingDetailsProps> = (
                         min={0}
                         max={2}
                         name="buyerCommission"
-                        label="Buyer Commission Concession (%)"
+                        label="Total Buyer Commission Concession (%)"
                         helpText={helpTextBuyerCommissionAmount}
                         validate={requiredBuyerCommissionAmount}
                         disabled

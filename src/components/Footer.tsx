@@ -38,6 +38,8 @@ const Footer = () => (
           <Link to="/terms">Terms</Link>
           {' | '}
           <Link to="/privacy">Privacy</Link>
+          {' | '}
+          <Link to="/contact">Contact</Link>
         </small>
       </FlexContainer>
     </PageContainer>
