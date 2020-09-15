@@ -36,6 +36,7 @@ import {
   getNotificationTypes,
   getUserNotificationSubscriptions,
 } from '../../../redux/ducks/user';
+import { getHomeTypesList, getPriceRangesList } from '../../../redux/ducks/dropdowns';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -51,6 +52,8 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
 
   useEffect(() => {
     dispatch(getConsumerProfile());
+    dispatch(getPriceRangesList());
+    dispatch(getHomeTypesList());
   }, []);
 
   useEffect(() => {
