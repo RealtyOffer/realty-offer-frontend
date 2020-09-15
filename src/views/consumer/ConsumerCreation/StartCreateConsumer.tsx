@@ -8,21 +8,35 @@ import { ClientOnly, Box, Button, Card, Heading, Seo } from '../../../components
 import { RootState } from '../../../redux/ducks';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
-import { getPriceRangesList } from '../../../redux/ducks/dropdowns';
+import { getPriceRangesList, getHomeTypesList } from '../../../redux/ducks/dropdowns';
+import { getUserCities } from '../../../redux/ducks/user';
 
 type StartCreateConsumerProps = {} & RouteComponentProps;
 
 const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
   const dispatch = useDispatch();
   const dropdowns = useSelector((state: RootState) => state.dropdowns);
+  const cities = useSelector((state: RootState) => state.user.cities);
   const setCustomerType = (type: ConsumerStoreType['listing']['type']) => {
     dispatch(captureConsumerData({ type }));
     navigate(type === 'seller' ? '/consumer/selling' : '/consumer/buying');
   };
 
   useEffect(() => {
-    if (!dropdowns.priceRanges.list.length) {
+    if (!dropdowns.priceRanges || !dropdowns.priceRanges.list.length) {
       dispatch(getPriceRangesList());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!cities || !cities.length) {
+      dispatch(getUserCities());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!dropdowns.homeTypes || !dropdowns.homeTypes.list.length) {
+      dispatch(getHomeTypesList());
     }
   }, []);
 

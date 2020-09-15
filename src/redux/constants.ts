@@ -49,6 +49,7 @@ export const DROPDOWN_LIST_AGE_PREFERENCES_ENDPOINT = `${USER_DROPDOWN_LISTS_END
 export const DROPDOWN_LIST_LANGUAGES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/languages`;
 export const DROPDOWN_LIST_STATES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/states`;
 export const DROPDOWN_LIST_PRICE_RANGES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/priceranges`;
+export const DROPDOWN_LIST_HOME_TYPES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/home-types`;
 export const USER_NOTIFICATION_TYPES_ENDPOINT = `${USER_SECURED_ENDPOINT}/notifications`;
 export const USER_NOTIFICATIONS_ENDPOINT = `${USER_SECURED_ENDPOINT}/user-notifications`;
 export const USER_NOTIFICATION_SETTINGS_ENDPOINT = `${USER_SECURED_ENDPOINT}/notification-settings`;
@@ -59,7 +60,7 @@ export const PROFILE_PICTURE_BY_USERNAME_ENDPOINT = (userName: string) =>
   `${S3_PROXY_ENDPOINT}/get-profile-picture/${userName}`;
 
 // FortisPay
-export const FORTISPAY_ENDPOINT = `${API_ROOT}/fortis`
+export const FORTISPAY_ENDPOINT = `${API_ROOT}/fortis`;
 
 // Action Response Type
 export type ActionResponseType = {

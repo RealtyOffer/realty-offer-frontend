@@ -7,6 +7,7 @@ import {
   DROPDOWN_LIST_LANGUAGES_ENDPOINT,
   DROPDOWN_LIST_PRICE_RANGES_ENDPOINT,
   DROPDOWN_LIST_STATES_ENDPOINT,
+  DROPDOWN_LIST_HOME_TYPES_ENDPOINT,
 } from '../constants';
 import { DropdownStoreType, DropdownActionTypes } from './dropdowns.d';
 
@@ -33,6 +34,10 @@ export const GET_STATES_LIST_FAILURE = 'GET_STATES_LIST_FAILURE';
 export const GET_PRICE_RANGES_LIST_REQUEST = 'GET_PRICE_RANGES_LIST_REQUEST';
 export const GET_PRICE_RANGES_LIST_SUCCESS = 'GET_PRICE_RANGES_LIST_SUCCESS';
 export const GET_PRICE_RANGES_LIST_FAILURE = 'GET_PRICE_RANGES_LIST_FAILURE';
+
+export const GET_HOME_TYPES_LIST_REQUEST = 'GET_HOME_TYPES_LIST_REQUEST';
+export const GET_HOME_TYPES_LIST_SUCCESS = 'GET_HOME_TYPES_LIST_SUCCESS';
+export const GET_HOME_TYPES_LIST_FAILURE = 'GET_HOME_TYPES_LIST_FAILURE';
 
 export const initialState: DropdownStoreType = {
   genders: {
@@ -61,6 +66,11 @@ export const initialState: DropdownStoreType = {
     list: [],
   },
   priceRanges: {
+    isLoading: false,
+    hasError: false,
+    list: [],
+  },
+  homeTypes: {
     isLoading: false,
     hasError: false,
     list: [],
@@ -234,6 +244,33 @@ export default (
           list: [],
         },
       };
+    case GET_HOME_TYPES_LIST_REQUEST:
+      return {
+        ...state,
+        homeTypes: {
+          isLoading: true,
+          hasError: false,
+          list: [],
+        },
+      };
+    case GET_HOME_TYPES_LIST_SUCCESS:
+      return {
+        ...state,
+        homeTypes: {
+          isLoading: false,
+          hasError: false,
+          list: [...action.payload],
+        },
+      };
+    case GET_HOME_TYPES_LIST_FAILURE:
+      return {
+        ...state,
+        homeTypes: {
+          isLoading: false,
+          hasError: true,
+          list: [],
+        },
+      };
     default:
       return state;
   }
@@ -296,5 +333,13 @@ export const getPriceRangesList = () => ({
       GET_PRICE_RANGES_LIST_SUCCESS,
       GET_PRICE_RANGES_LIST_FAILURE,
     ],
+  },
+});
+
+export const getHomeTypesList = () => ({
+  [RSAA]: {
+    endpoint: DROPDOWN_LIST_HOME_TYPES_ENDPOINT,
+    method: 'GET',
+    types: [GET_HOME_TYPES_LIST_REQUEST, GET_HOME_TYPES_LIST_SUCCESS, GET_HOME_TYPES_LIST_FAILURE],
   },
 });

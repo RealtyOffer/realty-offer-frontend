@@ -27,6 +27,7 @@ import {
   createOptionsFromManagedDropdownList,
 } from '../../../utils/createOptionsFromArray';
 import { CityType } from '../../../redux/ducks/admin.d';
+import { getHomeTypesList } from '../../../redux/ducks/dropdowns';
 
 type SellingFormValues = {
   sellersAddressLine1: string;
@@ -36,6 +37,7 @@ type SellingFormValues = {
   sellersTimeline: string;
   sellersListingPriceInMind: string;
   sellersMortgageBalance: string;
+  typeOfHomeId: number;
 };
 
 const howSoonOptions = [
@@ -51,11 +53,18 @@ const Selling: FunctionComponent<SellingProps> = () => {
   const listing = useSelector((state: RootState) => state.consumer.listing);
   const cities = useSelector((state: RootState) => state.user.cities);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
+  const homeTypesList = useSelector((state: RootState) => state.dropdowns.homeTypes.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!cities || cities.length === 0) {
       dispatch(getUserCities());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!homeTypesList || homeTypesList.length === 0) {
+      dispatch(getHomeTypesList());
     }
   }, []);
 
@@ -67,6 +76,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
     sellersTimeline: '',
     sellersListingPriceInMind: '',
     sellersMortgageBalance: '',
+    typeOfHomeId: 0,
   };
 
   const toggleUnsavedChangesModal = () => {
@@ -103,11 +113,12 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   sellersAddressLine2: values.sellersAddressLine2,
                   sellersCity: cityDTO,
                   sellersZip: '',
-                  sellersTimeline: '',
+                  sellersTimeline: values.sellersTimeline,
                   sellersListingPriceInMindPriceRangeInMindId: Number(
                     values.sellersListingPriceInMind
                   ),
                   sellersMortgageBalanceId: Number(values.sellersMortgageBalance),
+                  typeOfHomeId: Number(values.typeOfHomeId),
                 })
               );
               navigate('/consumer/sign-up');
@@ -162,6 +173,16 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   validate={requiredField}
                   required
                   options={createOptionsFromManagedDropdownList(priceRangesList)}
+                  {...rest}
+                />
+                <Field
+                  as={Input}
+                  type="select"
+                  name="typeOfHomeId"
+                  label="What is the type of home?"
+                  validate={requiredField}
+                  required
+                  options={createOptionsFromManagedDropdownList(homeTypesList)}
                   {...rest}
                 />
                 <HorizontalRule />

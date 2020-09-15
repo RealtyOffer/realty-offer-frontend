@@ -17,6 +17,9 @@ import {
   GET_PRICE_RANGES_LIST_REQUEST,
   GET_PRICE_RANGES_LIST_SUCCESS,
   GET_PRICE_RANGES_LIST_FAILURE,
+  GET_HOME_TYPES_LIST_REQUEST,
+  GET_HOME_TYPES_LIST_SUCCESS,
+  GET_HOME_TYPES_LIST_FAILURE,
 } from './dropdowns';
 
 export type ListPayloadType = Array<{
@@ -43,6 +46,7 @@ export type DropdownStoreType = {
   agePreferences: ListType;
   languages: ListType;
   states: ListType;
+  homeTypes: ListType;
   priceRanges: {
     isLoading: boolean;
     hasError: boolean;
@@ -116,6 +120,17 @@ export type GetPriceRangesListFailureAction = {
   type: typeof GET_PRICE_RANGES_LIST_FAILURE;
 };
 
+export type GetHomeTypesListRequestAction = {
+  type: typeof GET_HOME_TYPES_LIST_REQUEST;
+};
+export type GetHomeTypesListSuccessAction = {
+  type: typeof GET_HOME_TYPES_LIST_SUCCESS;
+  payload: ListPayloadType;
+};
+export type GetHomeTypesListFailureAction = {
+  type: typeof GET_HOME_TYPES_LIST_FAILURE;
+};
+
 export type DropdownActionTypes =
   | GetGendersListRequestAction
   | GetGendersListSuccessAction
@@ -134,4 +149,7 @@ export type DropdownActionTypes =
   | GetStatesListFailureAction
   | GetPriceRangesListRequestAction
   | GetPriceRangesListSuccessAction
-  | GetPriceRangesListFailureAction;
+  | GetPriceRangesListFailureAction
+  | GetHomeTypesListRequestAction
+  | GetHomeTypesListSuccessAction
+  | GetHomeTypesListFailureAction;

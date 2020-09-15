@@ -50,9 +50,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!consumer.profile) {
-      dispatch(getConsumerProfile());
-    }
+    dispatch(getConsumerProfile());
   }, []);
 
   useEffect(() => {

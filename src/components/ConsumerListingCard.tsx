@@ -91,6 +91,8 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                 <dd>{listing.sellersTimeline}</dd>
                 <dt>What is your estimated mortgage balance?</dt>
                 <dd>{displayDropdownListText(listing.sellersMortgageBalanceId, 'priceRanges')}</dd>
+                <dt>What is the type of your home?</dt>
+                <dd>{displayDropdownListText(listing.typeOfHomeId, 'homeTypes')}</dd>
               </dl>
             </Column>
           </Row>
@@ -175,7 +177,8 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                     </Column>
                     <Column xs={6}>
                       <p>
-                        <strong>Phone:</strong> {formatPhoneNumberValue(winner.phoneNumber)}
+                        <strong>Phone:</strong>{' '}
+                        {winner.phoneNumber && formatPhoneNumberValue(winner.phoneNumber)}
                       </p>
                     </Column>
                   </Row>

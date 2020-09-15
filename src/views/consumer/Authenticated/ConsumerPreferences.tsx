@@ -28,13 +28,13 @@ const ConsumerPreferences: FunctionComponent<ConsumerPreferencesProps> = () => {
   };
 
   useEffect(() => {
-    if (!dropdowns.genderPreferences.list.length) {
+    if (!dropdowns.genderPreferences || !dropdowns.genderPreferences.list.length) {
       dispatch(getGenderPreferencesList());
     }
   }, []);
 
   useEffect(() => {
-    if (!dropdowns.agePreferences.list.length) {
+    if (!dropdowns.agePreferences || !dropdowns.agePreferences.list.length) {
       dispatch(getAgePreferencesList());
     }
   }, []);
