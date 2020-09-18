@@ -14,4 +14,4 @@ export const formatPhoneNumberValue = (str: string) => {
   return removeTrailingCharIfFound(formatted.result, phoneDelimiter);
 };
 
-export const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
+export const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`.replace('+', '');

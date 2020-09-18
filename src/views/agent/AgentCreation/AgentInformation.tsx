@@ -27,6 +27,7 @@ import { createFortispayContact } from '../../../redux/ducks/fortis';
 import { CreateContactSuccessAction } from '../../../redux/ducks/fortis.d';
 import { getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
+import { reformattedPhone } from '../../../utils/phoneNumber';
 
 type AgentInformationProps = {};
 
@@ -80,8 +81,8 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   email: auth.email,
                   first_name: auth.firstName,
                   last_name: auth.lastName,
-                  home_phone: auth.phoneNumber,
-                  office_phone: values.brokerPhoneNumber,
+                  home_phone: auth.phoneNumber.replace('+', ''),
+                  office_phone: reformattedPhone(values.brokerPhoneNumber),
                   address: `${values.brokerAddressLine1} ${values.brokerAddressLine2}`,
                   city: values.brokerCity,
                   state: values.brokerState,
@@ -93,6 +94,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   const fortispayError = Object.values(fortispayResponse.payload)[0];
                   console.log(fortispayError);
                   // TODO add alerts for fortis pay error
+                  setSubmitting(false);
                 } else {
                   dispatch(
                     createAgentProfile({
@@ -103,6 +105,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       certificates: '',
                       agentLanguages: [],
                       brokerZip: String(values.brokerZip),
+                      brokerPhoneNumber: reformattedPhone(values.brokerPhoneNumber),
                     })
                   ).then((response: ActionResponseType) => {
                     setSubmitting(false);
