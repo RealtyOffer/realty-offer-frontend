@@ -82,7 +82,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   first_name: auth.firstName,
                   last_name: auth.lastName,
                   home_phone: auth.phoneNumber.replace('+', ''),
-                  office_phone: values.brokerPhoneNumber,
+                  office_phone: values.brokerPhoneNumber.replace('+', ''),
                   address: `${values.brokerAddressLine1} ${values.brokerAddressLine2}`,
                   city: values.brokerCity,
                   state: values.brokerState,
