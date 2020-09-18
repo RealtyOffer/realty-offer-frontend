@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
+import { navigate } from 'gatsby';
 
 import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +24,7 @@ import { RootState } from '../../../redux/ducks';
 import { CreateAccountvaultSuccessAction } from '../../../redux/ducks/fortis.d';
 import { getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
+import { ActionResponseType } from '../../../redux/constants';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
@@ -87,7 +89,11 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
               ).then((response: CreateAccountvaultSuccessAction) => {
                 dispatch(
                   updateAgentProfile({ ...agent, fortispayAccountvaultId: response.payload.id })
-                );
+                ).then((res: ActionResponseType) => {
+                  if (res && !res.error) {
+                    navigate('/agent/confirm-payment');
+                  }
+                });
                 setSubmitting(false);
               });
             }}
@@ -199,8 +205,12 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                   </Column>
                 </Row>
                 <Button type="submit" color="primary" block disabled={isSubmitting || !isValid}>
-                  Make a Payment
+                  Review Order
                 </Button>
+                <small>
+                  You won&apos;t be charged yet, you will have a chance to review your information
+                  on the next page.
+                </small>
               </Form>
             )}
           </Formik>

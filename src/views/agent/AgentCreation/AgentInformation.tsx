@@ -27,7 +27,6 @@ import { createFortispayContact } from '../../../redux/ducks/fortis';
 import { CreateContactSuccessAction } from '../../../redux/ducks/fortis.d';
 import { getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
-import { reformattedPhone } from '../../../utils/phoneNumber';
 
 type AgentInformationProps = {};
 
@@ -83,7 +82,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   first_name: auth.firstName,
                   last_name: auth.lastName,
                   home_phone: auth.phoneNumber.replace('+', ''),
-                  office_phone: reformattedPhone(values.brokerPhoneNumber),
+                  office_phone: values.brokerPhoneNumber,
                   address: `${values.brokerAddressLine1} ${values.brokerAddressLine2}`,
                   city: values.brokerCity,
                   state: values.brokerState,
@@ -106,7 +105,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       certificates: '',
                       agentLanguages: [],
                       brokerZip: String(values.brokerZip),
-                      brokerPhoneNumber: reformattedPhone(values.brokerPhoneNumber),
+                      brokerPhoneNumber: values.brokerPhoneNumber,
                     })
                   ).then((response: ActionResponseType) => {
                     setSubmitting(false);

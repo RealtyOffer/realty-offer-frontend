@@ -9,9 +9,10 @@ const removeTrailingCharIfFound = (str: string, char: string) =>
     .join(char);
 
 export const formatPhoneNumberValue = (str: string) => {
-  const unmaskedValue = str.split(phoneDelimiter).join('');
+  const sanitizedValue = str.replace(/\W/g, ''); // remove any non-number character
+  const unmaskedValue = sanitizedValue.split(phoneDelimiter).join('');
   const formatted = StringMask.process(unmaskedValue, phoneMask);
   return removeTrailingCharIfFound(formatted.result, phoneDelimiter);
 };
 
-export const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`.replace('+', '');
+export const reformattedPhoneForCognito = (num: string) => `+${num.replace(/-/g, '')}`;

@@ -30,6 +30,7 @@ import { createConsumerProfile } from '../../../redux/ducks/consumer';
 import UnsavedChangesModal from './UnsavedChangesModal';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { RootState } from '../../../redux/ducks';
+import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 
 type CreateConsumerProps = {} & RouteComponentProps;
 
@@ -46,8 +47,6 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
     password: '',
     role: 'Consumer',
   };
-
-  const reformattedPhone = (num: string) => `+${num.replace(/-/g, '')}`;
 
   const toggleUnsavedChangesModal = () => {
     setIsOpen(!modalIsOpen);
@@ -72,7 +71,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
               dispatch(
                 createUser({
                   ...values,
-                  phoneNumber: reformattedPhone(values.phoneNumber),
+                  phoneNumber: reformattedPhoneForCognito(values.phoneNumber),
                 })
               ).then((response: ActionResponseType) => {
                 setSubmitting(false);
