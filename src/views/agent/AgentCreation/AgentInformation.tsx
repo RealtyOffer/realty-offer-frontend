@@ -45,6 +45,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     brokerState: '',
     brokerPhoneNumber: '',
     cities: [],
+    emailAddress: auth.email,
     id: 0,
   };
 
@@ -80,8 +81,8 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   email: auth.email,
                   first_name: auth.firstName,
                   last_name: auth.lastName,
-                  home_phone: auth.phoneNumber,
-                  office_phone: values.brokerPhoneNumber,
+                  home_phone: auth.phoneNumber.replace('+', ''),
+                  office_phone: values.brokerPhoneNumber.replace('+', ''),
                   address: `${values.brokerAddressLine1} ${values.brokerAddressLine2}`,
                   city: values.brokerCity,
                   state: values.brokerState,
@@ -93,6 +94,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   const fortispayError = Object.values(fortispayResponse.payload)[0];
                   console.log(fortispayError);
                   // TODO add alerts for fortis pay error
+                  setSubmitting(false);
                 } else {
                   dispatch(
                     createAgentProfile({
@@ -103,6 +105,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       certificates: '',
                       agentLanguages: [],
                       brokerZip: String(values.brokerZip),
+                      brokerPhoneNumber: values.brokerPhoneNumber,
                     })
                   ).then((response: ActionResponseType) => {
                     setSubmitting(false);

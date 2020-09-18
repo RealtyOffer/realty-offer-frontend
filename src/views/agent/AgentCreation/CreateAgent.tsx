@@ -16,7 +16,7 @@ import {
 import { createUser } from '../../../redux/ducks/auth';
 import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
-import { reformattedPhone } from '../../../utils/phoneNumber';
+import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 
 type CreateAgentProps = {} & RouteComponentProps;
 
@@ -41,7 +41,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           dispatch(
             createUser({
               ...values,
-              phoneNumber: reformattedPhone(values.phoneNumber),
+              phoneNumber: `+${reformattedPhoneForCognito(values.phoneNumber)}`,
             })
           ).then((response: ActionResponseType) => {
             setSubmitting(false);

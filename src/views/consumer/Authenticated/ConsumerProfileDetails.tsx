@@ -9,12 +9,12 @@ import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../util
 import AutoSave from '../../../utils/autoSave';
 import { RootState } from '../../../redux/ducks';
 import { updateUser } from '../../../redux/ducks/auth';
-import { reformattedPhone, formatPhoneNumberValue } from '../../../utils/phoneNumber';
+import { reformattedPhoneForCognito, formatPhoneNumberValue } from '../../../utils/phoneNumber';
 
 type ConsumerProfileDetailsProps = {} & RouteComponentProps;
 
 const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = () => {
-  // const consumer = useSelector((state: RootState) => state.consumer);
+  const consumer = useSelector((state: RootState) => state.consumer);
   const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
@@ -24,6 +24,8 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
     phoneNumber: formatPhoneNumberValue(auth.phoneNumber.replace('+', '')),
     email: auth.email,
   };
+
+  const profileComplete = consumer.profile?.agePreferenceId && consumer.profile?.genderPreferenceId;
 
   return (
     <>
@@ -36,7 +38,7 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
           dispatch(
             updateUser({
               ...values,
-              phoneNumber: reformattedPhone(values.phoneNumber),
+              phoneNumber: reformattedPhoneForCognito(values.phoneNumber),
             })
           ).then(() => {
             setSubmitting(false);
@@ -46,18 +48,21 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
         {() => (
           <Form>
             <Box>
-              {true && ( // TODO: wrap logic around this
-                <Row>
-                  <Column sm={6}>
-                    <strong>Profile</strong> <span>50%</span>
-                    <ProgressBar
-                      value={50}
-                      name="profile"
-                      label="Next: Take personal information survey"
-                    />
-                  </Column>
-                </Row>
-              )}
+              <Row>
+                <Column sm={6}>
+                  <strong>Profile</strong> <span>{!profileComplete ? '50%' : '100%'}</span>
+                  <ProgressBar
+                    value={!profileComplete ? 50 : 100}
+                    name="profile"
+                    label={
+                      profileComplete
+                        ? 'Your profile is complete!'
+                        : 'Next: Take personal preferences survey'
+                    }
+                  />
+                </Column>
+              </Row>
+
               <Row>
                 <Column sm={6}>
                   <Field

@@ -26,7 +26,7 @@ import { RootState } from '../../../../redux/ducks';
 import { updateUser } from '../../../../redux/ducks/auth';
 import { updateAgentProfile } from '../../../../redux/ducks/agent';
 import { getLanguagesList, getGendersList, getStatesList } from '../../../../redux/ducks/dropdowns';
-import { reformattedPhone, formatPhoneNumberValue } from '../../../../utils/phoneNumber';
+import { reformattedPhoneForCognito, formatPhoneNumberValue } from '../../../../utils/phoneNumber';
 import { createOptionsFromManagedDropdownList } from '../../../../utils/createOptionsFromArray';
 
 type AgentProfileProps = {} & RouteComponentProps;
@@ -104,7 +104,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
           dispatch(
             updateUser({
               ...values,
-              phoneNumber: reformattedPhone(values.phoneNumber),
+              phoneNumber: reformattedPhoneForCognito(values.phoneNumber),
             })
           ).then(() => {
             setSubmitting(false);
