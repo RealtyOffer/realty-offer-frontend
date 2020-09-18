@@ -33,6 +33,7 @@ export type AgentProfileType = {
   agentId?: string;
   brokerName?: string;
   brokerPhoneNumber?: string;
+  brokerEmail?: string;
   brokerAddress?: string;
   brokerAddressLine1?: string;
   brokerAddressLine2?: string;
