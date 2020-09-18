@@ -1,9 +1,9 @@
 /* eslint-disable import/no-cycle, jsx-a11y/label-has-associated-control */
 import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
+
 import {
   ClientOnly,
   Button,
@@ -16,6 +16,7 @@ import {
 import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../../utils/validations';
 import { ActionResponseType } from '../../redux/constants';
+import { RootState } from '../../redux/ducks';
 
 declare const document: Document;
 
@@ -23,10 +24,11 @@ type VerifyEmailType = {};
 
 const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = () => {
   const [verified, setVerified] = useState(false);
+  const authEmail = useSelector((state: RootState) => state.auth.email);
   const dispatch = useDispatch();
 
   const initialValues = {
-    email: '',
+    email: authEmail,
     digit1: '',
     digit2: '',
     digit3: '',
