@@ -44,6 +44,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     brokerZip: '',
     brokerState: '',
     brokerPhoneNumber: '',
+    brokerEmail: '',
     cities: [],
     emailAddress: auth.email,
     id: 0,
