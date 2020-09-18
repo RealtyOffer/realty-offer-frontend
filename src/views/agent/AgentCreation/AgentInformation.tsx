@@ -18,7 +18,7 @@ import {
   LoadingPage,
   ClientOnly,
 } from '../../../components';
-import { requiredField, requiredPhoneNumber } from '../../../utils/validations';
+import { requiredEmail, requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks/agent';
 import { ActionResponseType } from '../../../redux/constants';
 import { RootState } from '../../../redux/ducks';
@@ -170,6 +170,16 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       name="brokerPhoneNumber"
                       label="Broker Phone Number"
                       validate={requiredPhoneNumber}
+                      required
+                    />
+                  </Column>
+                  <Column>
+                    <Field
+                      as={Input}
+                      type="email"
+                      name="brokerEmail"
+                      label="Broker Email"
+                      validate={requiredEmail}
                       required
                     />
                   </Column>
