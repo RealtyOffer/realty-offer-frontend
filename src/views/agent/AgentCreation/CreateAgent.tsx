@@ -41,7 +41,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           dispatch(
             createUser({
               ...values,
-              phoneNumber: reformattedPhone(values.phoneNumber),
+              phoneNumber: `+${reformattedPhone(values.phoneNumber)}`,
             })
           ).then((response: ActionResponseType) => {
             setSubmitting(false);
