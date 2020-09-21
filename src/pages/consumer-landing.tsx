@@ -24,6 +24,7 @@ import { addAlert } from '../redux/ducks/globalAlerts';
 import { getPriceRangesList } from '../redux/ducks/dropdowns';
 import { RootState } from '../redux/ducks';
 import { createOptionsFromManagedDropdownList } from '../utils/createOptionsFromArray';
+import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 
 const ConsumerLandingForm: FunctionComponent<{}> = () => {
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
@@ -47,12 +48,6 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
     dispatch(getPriceRangesList());
   }, []);
 
-  const encode = (data: { [key: string]: string | boolean }) => {
-    return Object.keys(data)
-      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-      .join('&');
-  };
-
   return (
     <PageContainer>
       <Card cardTitle="Connect with a RealtyOffer Specialist">
@@ -61,14 +56,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values) => {
-              fetch('https://realtyoffer.com/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: encode({
-                  'form-name': 'consumer-landing',
-                  ...values,
-                }),
-              })
+              postFormUrlEncoded('https://realtyoffer.com/', 'consumer-landing', values)
                 .then(() => {
                   navigate('/landing');
                   dispatch(

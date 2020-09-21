@@ -16,6 +16,7 @@ import {
 
 import { requiredEmail, requiredField } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
+import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 
 type LoginProps = {};
 
@@ -30,12 +31,6 @@ const Contact: FunctionComponent<LoginProps> = () => {
     message: '',
   };
 
-  const encode = (data: { [key: string]: string | boolean }) => {
-    return Object.keys(data)
-      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-      .join('&');
-  };
-
   return (
     <PageContainer>
       <Seo title="Contact Us" />
@@ -44,14 +39,7 @@ const Contact: FunctionComponent<LoginProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { resetForm, setSubmitting }) => {
-            fetch('https://realtyoffer.com/', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: encode({
-                'form-name': 'contact',
-                ...values,
-              }),
-            })
+            postFormUrlEncoded('https://realtyoffer.com/', 'contact', values)
               .then(() => {
                 setSubmitting(false);
                 resetForm();
