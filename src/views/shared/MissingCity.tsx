@@ -4,9 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretRight } from 'react-icons/fa';
 import { RouteComponentProps } from '@reach/router';
 
-import { PageContainer, Button, Card, Input, HorizontalRule, Seo, Heading } from '../../components';
+import {
+  PageContainer,
+  Button,
+  Card,
+  Input,
+  HorizontalRule,
+  Seo,
+  Heading,
+  Column,
+  Row,
+} from '../../components';
 
-import { requiredField, requiredSelect } from '../../utils/validations';
+import { requiredEmail, requiredField, requiredSelect } from '../../utils/validations';
 import { addAlert } from '../../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../../utils/postFormUrlEncoded';
 import { RootState } from '../../redux/ducks';
@@ -32,16 +42,15 @@ type Props = {};
 const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
   const dispatch = useDispatch();
   const formName = 'missing-city';
-  const { firstName, lastName, phoneNumber, email } = useSelector((state: RootState) => state.auth);
   const consumer = useSelector((state: RootState) => state.consumer);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const isBuyer = consumer?.listing?.type?.toLowerCase().includes('buyer');
   const isSeller = consumer?.listing?.type?.toLowerCase().includes('seller');
   const initialValues = {
-    firstName,
-    lastName,
-    phoneNumber,
-    email,
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
     // Buyer only
     buyingCities: '',
     buyingPriceRange: '',
@@ -118,6 +127,41 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               <input type="hidden" name="form-name" value={formName} />
               {isBuyer && (
                 <>
+                  <Row>
+                    <Column sm={6}>
+                      <Field
+                        as={Input}
+                        type="text"
+                        name="firstName"
+                        label="First Name"
+                        validate={requiredField}
+                        required
+                      />
+                    </Column>
+                    <Column sm={6}>
+                      <Field
+                        as={Input}
+                        type="text"
+                        name="lastName"
+                        label="Last Name"
+                        validate={requiredField}
+                        required
+                      />
+                    </Column>
+                    <Column sm={6}>
+                      <Field as={Input} type="tel" name="phone" label="Phone Number" required />
+                    </Column>
+                    <Column sm={6}>
+                      <Field
+                        as={Input}
+                        type="email"
+                        name="email"
+                        label="Email"
+                        validate={requiredEmail}
+                        required
+                      />
+                    </Column>
+                  </Row>
                   <Heading styledAs="subtitle">Buying</Heading>
                   <Field
                     as={Input}
