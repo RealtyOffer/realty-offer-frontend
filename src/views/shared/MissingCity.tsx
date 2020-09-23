@@ -21,6 +21,7 @@ import { addAlert } from '../../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../../utils/postFormUrlEncoded';
 import { RootState } from '../../redux/ducks';
 import { createOptionsFromManagedDropdownList } from '../../utils/createOptionsFromArray';
+import { getDropdownListText } from '../../utils/dropdownUtils';
 
 type MissingCityFormValues = {
   firstName: string;
@@ -82,7 +83,11 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
             let postingValues: MissingCityFormValues = { ...rest };
 
             if (isBuyer) {
-              postingValues = { ...postingValues, buyingCities, buyingPriceRange };
+              postingValues = {
+                ...postingValues,
+                buyingCities,
+                buyingPriceRange: getDropdownListText(priceRangesList, buyingPriceRange),
+              };
             }
 
             if (isSeller) {
@@ -91,7 +96,10 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                 sellersAddressLine1,
                 sellersAddressLine2,
                 sellersCity,
-                sellersListingPriceInMind,
+                sellersListingPriceInMind: getDropdownListText(
+                  priceRangesList,
+                  sellersListingPriceInMind
+                ),
               };
             }
 
