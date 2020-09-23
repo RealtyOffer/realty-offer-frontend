@@ -26,12 +26,14 @@ import {
   createOptionsFromManagedDropdownList,
 } from '../../../utils/createOptionsFromArray';
 import { CityType } from '../../../redux/ducks/admin.d';
+import { getHomeTypesList } from '../../../redux/ducks/dropdowns';
 
 type BuyingFormValues = {
   buyingCities: Array<string>;
   buyingPriceRange: string;
   freeMortgageConsult: boolean;
   preApproved: boolean;
+  buyerTypeOfHomeId: number;
 };
 
 type BuyingProps = {} & RouteComponentProps;
@@ -41,10 +43,17 @@ const Buying: FunctionComponent<BuyingProps> = () => {
   const listing = useSelector((state: RootState) => state.consumer.listing);
   const cities = useSelector((state: RootState) => state.user.cities);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
+  const homeTypesList = useSelector((state: RootState) => state.dropdowns.homeTypes.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserCities());
+  }, []);
+
+  useEffect(() => {
+    if (!homeTypesList || homeTypesList.length === 0) {
+      dispatch(getHomeTypesList());
+    }
   }, []);
 
   const initialValues: BuyingFormValues = {
@@ -52,6 +61,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
     buyingPriceRange: '',
     freeMortgageConsult: false,
     preApproved: false,
+    buyerTypeOfHomeId: 0,
   };
 
   const toggleUnsavedChangesModal = () => {
@@ -91,6 +101,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   freeMortgageConsult: values.freeMortgageConsult,
                   preApproved: values.preApproved,
                   createDateTime: new Date(),
+                  buyerTypeOfHomeId: Number(values.buyerTypeOfHomeId),
                 })
               );
               navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/sign-up');
@@ -124,6 +135,16 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   label="Do you have a purchase price in mind?"
                   validate={requiredSelect}
                   required
+                  {...rest}
+                />
+                <Field
+                  as={Input}
+                  type="select"
+                  name="buyerTypeOfHomeId"
+                  label="What is the type of home you are looking for?"
+                  validate={requiredSelect}
+                  required
+                  options={createOptionsFromManagedDropdownList(homeTypesList)}
                   {...rest}
                 />
                 <Field

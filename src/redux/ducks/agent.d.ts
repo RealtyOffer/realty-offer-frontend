@@ -79,7 +79,7 @@ export type AgentStoreType = {
   hasError: boolean;
   signupData: AgentSignupDataType;
   hasCompletedSignup?: boolean;
-  activeBid?: BidType;
+  activeBid?: { isLoading: boolean } & BidType;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {
