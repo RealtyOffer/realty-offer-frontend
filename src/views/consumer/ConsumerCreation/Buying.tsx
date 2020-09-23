@@ -4,7 +4,6 @@ import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
 import { Link, navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 
 import {
   Button,
@@ -27,13 +26,6 @@ import {
   createOptionsFromManagedDropdownList,
 } from '../../../utils/createOptionsFromArray';
 import { CityType } from '../../../redux/ducks/admin.d';
-import { fontSizeSmall } from '../../../styles/typography';
-import { brandTertiaryHover } from '../../../styles/color';
-
-const StyledP = styled.p`
-  font-size: ${fontSizeSmall};
-  color: ${brandTertiaryHover};
-`;
 
 type BuyingFormValues = {
   buyingCities: Array<string>;
@@ -117,16 +109,13 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   required
                   {...rest}
                 />
-                {/*
-                TODO: // Figure out how to style this properly. I could use Heading styledAs
-                 Subtitle,but the way the props are setup, I can't make it small enough because subtitle
-                  overwrites the size to be a h4. And I don't see a component for colored text.
-                */}
-                <StyledP>
-                  City not in our list? No problem at all.{' '}
-                  <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
-                  specialist who can assist with your move.
-                </StyledP>
+                <p>
+                  <small>
+                    City not in our list? No problem at all.{' '}
+                    <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
+                    specialist who can assist with your move.
+                  </small>
+                </p>
                 <Field
                   as={Input}
                   type="select"
