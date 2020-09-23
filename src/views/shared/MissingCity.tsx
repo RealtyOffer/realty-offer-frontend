@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretRight } from 'react-icons/fa';
 import { RouteComponentProps } from '@reach/router';
 
-import { PageContainer, Button, Card, Input, HorizontalRule, Seo, Heading } from '../components';
+import { PageContainer, Button, Card, Input, HorizontalRule, Seo, Heading } from '../../components';
 
-import { requiredField, requiredSelect } from '../utils/validations';
-import { addAlert } from '../redux/ducks/globalAlerts';
-import postFormUrlEncoded from '../utils/postFormUrlEncoded';
-import { RootState } from '../redux/ducks';
-import { createOptionsFromManagedDropdownList } from '../utils/createOptionsFromArray';
+import { requiredField, requiredSelect } from '../../utils/validations';
+import { addAlert } from '../../redux/ducks/globalAlerts';
+import postFormUrlEncoded from '../../utils/postFormUrlEncoded';
+import { RootState } from '../../redux/ducks';
+import { createOptionsFromManagedDropdownList } from '../../utils/createOptionsFromArray';
 
 type MissingCityFormValues = {
   firstName: string;

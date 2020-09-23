@@ -9,14 +9,14 @@ import Selling from '../views/consumer/ConsumerCreation/Selling';
 import CreateConsumer from '../views/consumer/ConsumerCreation/CreateConsumer';
 import VerifyEmail from '../views/shared/VerifyEmail';
 import Home from '../views/consumer/Authenticated/Home';
-import NotFoundPage from './404';
+import MissingCity from '../views/shared/MissingCity';
 
+import NotFoundPage from './404';
 import { LoadingPage, PageContainer, PrivateRoute } from '../components';
 import { getUserSiteBanners } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
-import MissingCity from '../templates/missing-city';
 
 const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
@@ -63,7 +63,7 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
         <Selling path="/selling" />
         <CreateConsumer path="/sign-up" />
         <VerifyEmail path="/verify-email" />
-        <PrivateRoute component={MissingCity} path="/missing-city" allowedRole="Consumer" />
+        <MissingCity path={'/missing-city'} />
         <PrivateRoute component={Home} path="/listing" allowedRole="Consumer" />
         <PrivateRoute component={Home} path="/profile" allowedRole="Consumer" />
         <PrivateRoute component={Home} path="/preferences" allowedRole="Consumer" />
