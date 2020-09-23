@@ -92,7 +92,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                 <dt>What is your estimated mortgage balance?</dt>
                 <dd>{displayDropdownListText(listing.sellersMortgageBalanceId, 'priceRanges')}</dd>
                 <dt>What is the type of your home?</dt>
-                <dd>{displayDropdownListText(listing.typeOfHomeId, 'homeTypes')}</dd>
+                <dd>{displayDropdownListText(listing.sellerTypeOfHomeId, 'homeTypes')}</dd>
               </dl>
             </Column>
           </Row>
@@ -117,6 +117,8 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                 <dd>{listing.freeMortgageConsult ? 'Yes' : 'No'}</dd>
                 <dt>Have you received a mortgage pre-approval?</dt>
                 <dd>{listing.preApproved ? 'Yes' : 'No'}</dd>
+                <dt>What type of home are you looking for?</dt>
+                <dd>{displayDropdownListText(listing.buyerTypeOfHomeId, 'homeTypes')}</dd>
               </dl>
             </Column>
           </Row>

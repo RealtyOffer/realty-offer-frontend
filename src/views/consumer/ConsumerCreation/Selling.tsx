@@ -37,7 +37,7 @@ type SellingFormValues = {
   sellersTimeline: string;
   sellersListingPriceInMind: string;
   sellersMortgageBalance: string;
-  typeOfHomeId: number;
+  sellerTypeOfHomeId: number;
 };
 
 const howSoonOptions = [
@@ -76,7 +76,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
     sellersTimeline: '',
     sellersListingPriceInMind: '',
     sellersMortgageBalance: '',
-    typeOfHomeId: 0,
+    sellerTypeOfHomeId: 0,
   };
 
   const toggleUnsavedChangesModal = () => {
@@ -118,7 +118,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                     values.sellersListingPriceInMind
                   ),
                   sellersMortgageBalanceId: Number(values.sellersMortgageBalance),
-                  typeOfHomeId: Number(values.typeOfHomeId),
+                  sellerTypeOfHomeId: Number(values.sellerTypeOfHomeId),
                 })
               );
               navigate('/consumer/sign-up');
@@ -150,7 +150,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   type="select"
                   name="sellersTimeline"
                   label="How soon are you looking to sell your home?"
-                  validate={requiredField}
+                  validate={requiredSelect}
                   required
                   options={howSoonOptions}
                   {...rest}
@@ -160,7 +160,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   type="select"
                   name="sellersListingPriceInMind"
                   label="Do you have a listing price in mind?"
-                  validate={requiredField}
+                  validate={requiredSelect}
                   required
                   options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
                   {...rest}
@@ -170,7 +170,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   type="select"
                   name="sellersMortgageBalance"
                   label="What is the estimated mortgage balance?"
-                  validate={requiredField}
+                  validate={requiredSelect}
                   required
                   options={createOptionsFromManagedDropdownList(priceRangesList)}
                   {...rest}
@@ -178,9 +178,9 @@ const Selling: FunctionComponent<SellingProps> = () => {
                 <Field
                   as={Input}
                   type="select"
-                  name="typeOfHomeId"
+                  name="sellerTypeOfHomeId"
                   label="What is the type of home?"
-                  validate={requiredField}
+                  validate={requiredSelect}
                   required
                   options={createOptionsFromManagedDropdownList(homeTypesList)}
                   {...rest}

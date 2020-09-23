@@ -17,9 +17,9 @@ import {
 import { requiredEmail, requiredField } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 
-type LoginProps = {};
+type ContactProps = {};
 
-const Contact: FunctionComponent<LoginProps> = () => {
+const Contact: FunctionComponent<ContactProps> = () => {
   const dispatch = useDispatch();
 
   const initialValues = {

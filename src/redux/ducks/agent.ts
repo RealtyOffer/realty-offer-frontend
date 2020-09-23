@@ -95,7 +95,9 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        activeBid: undefined,
+        activeBid: {
+          isLoading: true,
+        },
       };
     case CREATE_AGENT_BID_SUCCESS:
     case UPDATE_AGENT_BID_SUCCESS:
@@ -103,14 +105,14 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        activeBid: action.payload,
+        activeBid: { isLoading: false, ...action.payload },
       };
     case GET_BID_DETAILS_BY_ID_SUCCESS: {
       return {
         ...state,
         isLoading: false,
         hasError: false,
-        activeBid: action.payload,
+        activeBid: { isLoading: false, ...action.payload },
       };
     }
     case CAPTURE_AGENT_SIGNUP_DATA:
@@ -126,12 +128,20 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
                 ...action.payload,
               },
       };
+    case GET_BID_DETAILS_BY_ID_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        activeBid: {
+          isLoading: false,
+        },
+      };
     case CREATE_AGENT_PROFILE_FAILURE:
     case UPDATE_AGENT_PROFILE_FAILURE:
     case GET_AGENT_PROFILE_FAILURE:
     case CREATE_AGENT_BID_FAILURE:
     case UPDATE_AGENT_BID_FAILURE:
-    case GET_BID_DETAILS_BY_ID_FAILURE:
     case DELETE_BID_BY_ID_FAILURE:
       return {
         ...state,

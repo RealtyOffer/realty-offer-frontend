@@ -31,7 +31,8 @@ export type ListingType = {
   sellersListingPriceInMindPriceRangeInMindId?: number;
   sellersMortgageBalanceId?: number;
   agentSubmittedBidId?: number;
-  typeOfHomeId?: number;
+  buyerTypeOfHomeId?: number;
+  sellerTypeOfHomeId?: number;
 };
 
 export type ListingStoreType = {
