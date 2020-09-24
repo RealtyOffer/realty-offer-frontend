@@ -40,6 +40,7 @@ import { addAlert } from '../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
 import { RootState } from '../redux/ducks';
 import { getPriceRangesList } from '../redux/ducks/dropdowns';
+import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 
 type BidTableProps = {};
 
@@ -68,12 +69,6 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
     dispatch(getPriceRangesList());
   }, []);
 
-  const encode = (data: { [key: string]: string | boolean }) => {
-    return Object.keys(data)
-      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-      .join('&');
-  };
-
   return (
     <PageContainer>
       <Seo title="Example Bid Scenario Calculator" />
@@ -85,27 +80,22 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { resetForm, setSubmitting }) => {
-              fetch('https://realtyoffer.com/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: encode({
-                  'form-name': 'bid-table',
-                  sellerCommission: `${values.sellerCommission}%`,
-                  sellerBrokerComplianceAmount: `$${values.sellerBrokerComplianceAmount}`,
-                  sellerPreInspectionAmount: `$${values.sellerPreInspectionAmount}`,
-                  sellerPreCertifyAmount: `$${values.sellerPreCertifyAmount}`,
-                  sellerMovingCompanyAmount: `$${values.sellerMovingCompanyAmount}`,
-                  sellerPhotographyAmount: `$${values.sellerPhotographyAmount}`,
-                  sellTotal: values.sellTotal,
-                  buyerCommission: `${values.buyerCommission}%`,
-                  buyerBrokerComplianceAmount: `$${values.buyerBrokerComplianceAmount}`,
-                  buyerInspectionAmount: `$${values.buyerInspectionAmount}`,
-                  buyerHomeWarrantyAmount: `$${values.buyerHomeWarrantyAmount}`,
-                  buyerAppraisalAmount: `$${values.buyerAppraisalAmount}`,
-                  buyerMovingCompanyAmount: `$${values.buyerMovingCompanyAmount}`,
-                  buyTotal: values.buyTotal,
-                  email: values.email,
-                }),
+              postFormUrlEncoded('https://realtyoffer.com/', 'bid-table', {
+                sellerCommission: `${values.sellerCommission}%`,
+                sellerBrokerComplianceAmount: `$${values.sellerBrokerComplianceAmount}`,
+                sellerPreInspectionAmount: `$${values.sellerPreInspectionAmount}`,
+                sellerPreCertifyAmount: `$${values.sellerPreCertifyAmount}`,
+                sellerMovingCompanyAmount: `$${values.sellerMovingCompanyAmount}`,
+                sellerPhotographyAmount: `$${values.sellerPhotographyAmount}`,
+                sellTotal: values.sellTotal,
+                buyerCommission: `${values.buyerCommission}%`,
+                buyerBrokerComplianceAmount: `$${values.buyerBrokerComplianceAmount}`,
+                buyerInspectionAmount: `$${values.buyerInspectionAmount}`,
+                buyerHomeWarrantyAmount: `$${values.buyerHomeWarrantyAmount}`,
+                buyerAppraisalAmount: `$${values.buyerAppraisalAmount}`,
+                buyerMovingCompanyAmount: `$${values.buyerMovingCompanyAmount}`,
+                buyTotal: values.buyTotal,
+                email: values.email,
               })
                 .then(() => {
                   dispatch(

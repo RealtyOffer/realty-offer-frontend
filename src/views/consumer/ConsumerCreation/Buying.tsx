@@ -2,7 +2,7 @@ import React, { useEffect, FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
-import { navigate } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -120,6 +120,13 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                   required
                   {...rest}
                 />
+                <p>
+                  <small>
+                    City not in our list? No problem at all.{' '}
+                    <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
+                    specialist who can assist with your move.
+                  </small>
+                </p>
                 <Field
                   as={Input}
                   type="select"

@@ -7,6 +7,7 @@ import { navigate } from 'gatsby';
 import { Card, Button, HorizontalRule, Input, Row, Column, PageContainer } from '../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
+import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 
 type AgentLandingFormProps = {};
 
@@ -22,12 +23,6 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
     message: '',
   };
 
-  const encode = (data: { [key: string]: string }) => {
-    return Object.keys(data)
-      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-      .join('&');
-  };
-
   return (
     <PageContainer>
       <Card cardTitle="Become a RealtyOffer Agent">
@@ -35,14 +30,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values) => {
-            fetch('https://realtyoffer.com/', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: encode({
-                'form-name': 'agent-landing',
-                ...values,
-              }),
-            })
+            postFormUrlEncoded('https://realtyoffer.com/', 'agent-landing', values)
               .then(() => {
                 navigate('/landing');
                 dispatch(
