@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretRight } from 'react-icons/fa';
@@ -22,6 +22,7 @@ import postFormUrlEncoded from '../../utils/postFormUrlEncoded';
 import { RootState } from '../../redux/ducks';
 import { createOptionsFromManagedDropdownList } from '../../utils/createOptionsFromArray';
 import { getDropdownListText } from '../../utils/dropdownUtils';
+import { getStatesList } from '../../redux/ducks/dropdowns';
 
 type MissingCityFormValues = {
   firstName: string;
@@ -42,6 +43,12 @@ type Props = {};
 
 const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
   const dispatch = useDispatch();
+  const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
+  useEffect(() => {
+    if (statesList.length === 0) {
+      dispatch(getStatesList());
+    }
+  }, []);
   const formName = 'missing-city';
   const consumer = useSelector((state: RootState) => state.consumer);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
@@ -52,6 +59,8 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
     lastName: '',
     phoneNumber: '',
     email: '',
+    state: '',
+    zip: '',
     // Buyer only
     buyingCities: '',
     buyingPriceRange: '',
@@ -157,7 +166,13 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                       />
                     </Column>
                     <Column sm={6}>
-                      <Field as={Input} type="tel" name="phone" label="Phone Number" required />
+                      <Field
+                        as={Input}
+                        type="tel"
+                        name="phoneNumber"
+                        label="Phone Number"
+                        required
+                      />
                     </Column>
                     <Column sm={6}>
                       <Field
@@ -167,6 +182,29 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                         label="Email"
                         validate={requiredEmail}
                         required
+                      />
+                    </Column>
+                    <Column md={6}>
+                      <Field
+                        as={Input}
+                        type="select"
+                        name="state"
+                        label="State"
+                        validate={requiredSelect}
+                        required
+                        options={createOptionsFromManagedDropdownList(statesList)}
+                        {...rest}
+                      />
+                    </Column>
+                    <Column md={6}>
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="zip"
+                        label="Zip"
+                        validate={requiredField}
+                        required
+                        maxLength={5}
                       />
                     </Column>
                   </Row>

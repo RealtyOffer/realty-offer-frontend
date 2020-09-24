@@ -63,7 +63,7 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
         <Selling path="/selling" />
         <CreateConsumer path="/sign-up" />
         <VerifyEmail path="/verify-email" />
-        <MissingCity path={'/missing-city'} />
+        <MissingCity path="/missing-city" />
         <PrivateRoute component={Home} path="/listing" allowedRole="Consumer" />
         <PrivateRoute component={Home} path="/profile" allowedRole="Consumer" />
         <PrivateRoute component={Home} path="/preferences" allowedRole="Consumer" />
