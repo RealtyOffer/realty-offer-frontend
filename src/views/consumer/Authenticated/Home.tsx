@@ -13,6 +13,7 @@ import {
   Column,
   SubNav,
   PrivateRoute,
+  GetFinancedForm,
 } from '../../../components';
 import {
   getConsumerProfile,
@@ -108,6 +109,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       <Row>
         <Column md={3}>
           <SubNav items={consumerNavigationItems} />
+          <GetFinancedForm />
         </Column>
         <Column md={9}>
           <Router basepath="consumer">
