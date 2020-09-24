@@ -13,7 +13,6 @@ import {
   Column,
   SubNav,
   PrivateRoute,
-  Box,
   GetFinancedForm,
 } from '../../../components';
 import {
@@ -110,20 +109,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       <Row>
         <Column md={3}>
           <SubNav items={consumerNavigationItems} />
-          <div>
-            <Box textAlign="center">
-              <FlexContainer>
-                <Heading as="h4" styledAs="subtitle">
-                  Get Financed!
-                </Heading>
-                <p>
-                  Interested in connecting with one of our mortgage consultants who will help you
-                  get approved for your new home loan?
-                </p>
-                <GetFinancedForm />
-              </FlexContainer>
-            </Box>
-          </div>
+          <GetFinancedForm />
         </Column>
         <Column md={9}>
           <Router basepath="consumer">
