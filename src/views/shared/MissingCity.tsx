@@ -16,19 +16,25 @@ import {
   Row,
 } from '../../components';
 
-import { requiredEmail, requiredField, requiredSelect } from '../../utils/validations';
+import {
+  requiredEmail,
+  requiredField,
+  requiredPhoneNumber,
+  requiredSelect,
+} from '../../utils/validations';
 import { addAlert } from '../../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../../utils/postFormUrlEncoded';
 import { RootState } from '../../redux/ducks';
 import { createOptionsFromManagedDropdownList } from '../../utils/createOptionsFromArray';
 import { getDropdownListText } from '../../utils/dropdownUtils';
-import { getStatesList } from '../../redux/ducks/dropdowns';
+import { getPriceRangesList, getStatesList } from '../../redux/ducks/dropdowns';
 
 type MissingCityFormValues = {
   firstName: string;
   lastName: string;
   phoneNumber: string;
   email: string;
+  subject: string;
   // Buyer only
   buyingCities?: string;
   buyingPriceRange?: string;
@@ -44,14 +50,21 @@ type Props = {};
 const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
   const dispatch = useDispatch();
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
+  const consumer = useSelector((state: RootState) => state.consumer);
+  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
+
   useEffect(() => {
     if (statesList.length === 0) {
       dispatch(getStatesList());
     }
   }, []);
+  useEffect(() => {
+    if (priceRangesList.length === 0) {
+      dispatch(getPriceRangesList());
+    }
+  }, []);
+
   const formName = 'missing-city';
-  const consumer = useSelector((state: RootState) => state.consumer);
-  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const isBuyer = consumer?.listing?.type?.toLowerCase().includes('buyer');
   const isSeller = consumer?.listing?.type?.toLowerCase().includes('seller');
   const initialValues = {
@@ -89,7 +102,10 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               ...rest
             } = values;
 
-            let postingValues: MissingCityFormValues = { ...rest };
+            let postingValues: MissingCityFormValues = {
+              subject: `Missing City Request: ${values.firstName} ${values.lastName}`,
+              ...rest,
+            };
 
             if (isBuyer) {
               postingValues = {
@@ -172,6 +188,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                         name="phoneNumber"
                         label="Phone Number"
                         required
+                        validate={requiredPhoneNumber}
                       />
                     </Column>
                     <Column sm={6}>
@@ -182,29 +199,6 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                         label="Email"
                         validate={requiredEmail}
                         required
-                      />
-                    </Column>
-                    <Column md={6}>
-                      <Field
-                        as={Input}
-                        type="select"
-                        name="state"
-                        label="State"
-                        validate={requiredSelect}
-                        required
-                        options={createOptionsFromManagedDropdownList(statesList)}
-                        {...rest}
-                      />
-                    </Column>
-                    <Column md={6}>
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="zip"
-                        label="Zip"
-                        validate={requiredField}
-                        required
-                        maxLength={5}
                       />
                     </Column>
                   </Row>
@@ -237,7 +231,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     type="select"
                     name="sellersListingPriceInMind"
                     label="Do you have a listing price in mind?"
-                    validate={requiredField}
+                    validate={requiredSelect}
                     required
                     options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
                     {...rest}
@@ -251,14 +245,41 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     required
                   />
                   <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
-                  <Field
-                    type="text"
-                    as={Input}
-                    name="sellersCity"
-                    label="City"
-                    validate={requiredField}
-                    required
-                  />
+                  <Row>
+                    <Column sm={5}>
+                      <Field
+                        type="text"
+                        as={Input}
+                        name="sellersCity"
+                        label="City"
+                        validate={requiredField}
+                        required
+                      />
+                    </Column>
+                    <Column sm={3}>
+                      <Field
+                        as={Input}
+                        type="select"
+                        name="state"
+                        label="State"
+                        validate={requiredSelect}
+                        required
+                        options={createOptionsFromManagedDropdownList(statesList)}
+                        {...rest}
+                      />
+                    </Column>
+                    <Column sm={4}>
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="zip"
+                        label="Zip"
+                        validate={requiredField}
+                        required
+                        maxLength={5}
+                      />
+                    </Column>
+                  </Row>
                 </>
               )}
               <HorizontalRule />

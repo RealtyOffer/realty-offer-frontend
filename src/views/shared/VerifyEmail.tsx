@@ -78,7 +78,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
       cardSubtitle={
         verified
           ? 'You have successfully verified your email. You are one step closer to connecting!'
-          : 'Please enter your email address and the 6 digit code sent to verify your account.'
+          : "We've sent a 6 digit code to your email. Enter it below to confirm your email address"
       }
     >
       <Seo title="Verify Email" />

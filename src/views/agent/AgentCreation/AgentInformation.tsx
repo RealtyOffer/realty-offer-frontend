@@ -232,9 +232,11 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                 </Row>
 
                 <HorizontalRule />
-                <Button type="submit" disabled={isSubmitting || !isValid} block>
-                  Continue
-                </Button>
+                <p>
+                  <Button type="submit" disabled={isSubmitting || !isValid} block>
+                    Continue
+                  </Button>
+                </p>
               </Form>
             )}
           </Formik>
@@ -242,7 +244,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
           <LoadingPage />
         )}
         <Button type="button" onClick={() => save()} color="text" block>
-          Save &amp; Complete Later
+          Complete Later
         </Button>
       </Card>
     </ClientOnly>

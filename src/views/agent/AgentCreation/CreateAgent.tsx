@@ -17,6 +17,7 @@ import { createUser } from '../../../redux/ducks/auth';
 import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
+import { addAlert } from '../../../redux/ducks/globalAlerts';
 
 type CreateAgentProps = {} & RouteComponentProps;
 
@@ -46,6 +47,12 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           ).then((response: ActionResponseType) => {
             setSubmitting(false);
             if (response && !response.error) {
+              dispatch(
+                addAlert({
+                  message: 'Successfully created account. Check your email for a verification code',
+                  type: 'success',
+                })
+              );
               navigate('/agent/verify-email');
             }
           });
