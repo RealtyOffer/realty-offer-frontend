@@ -12,6 +12,7 @@ import EmptyListingsView from './EmptyListingsView';
 import FileUpload from './FileUpload';
 import FlexContainer from './FlexContainer';
 import Footer from './Footer';
+import GetFinancedForm from './GetFinancedForm';
 import HeroImage from './HeroImage';
 import Heading from './Heading';
 import HorizontalRule from './HorizontalRule';
@@ -50,6 +51,7 @@ export {
   FileUpload,
   FlexContainer,
   Footer,
+  GetFinancedForm,
   HeroImage,
   Heading,
   HorizontalRule,
