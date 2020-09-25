@@ -30,7 +30,11 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values) => {
-            postFormUrlEncoded('https://realtyoffer.com/', 'agent-landing', values)
+            const valuesWithSubject = {
+              ...values,
+              subject: `New Interested Agent: ${values.firstName} ${values.lastName}`,
+            };
+            postFormUrlEncoded('https://realtyoffer.com/', 'agent-landing', valuesWithSubject)
               .then(() => {
                 navigate('/landing');
                 dispatch(

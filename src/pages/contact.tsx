@@ -39,7 +39,11 @@ const Contact: FunctionComponent<ContactProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { resetForm, setSubmitting }) => {
-            postFormUrlEncoded('https://realtyoffer.com/', 'contact', values)
+            const valuesWithSubject = {
+              ...values,
+              subject: `New contact form submission from ${values.firstName} ${values.lastName}`,
+            };
+            postFormUrlEncoded('https://realtyoffer.com/', 'contact', valuesWithSubject)
               .then(() => {
                 setSubmitting(false);
                 resetForm();

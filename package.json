@@ -140,7 +140,7 @@
   "scripts": {
     "build": "gatsby build",
     "build:storybook": "build-storybook -c .storybook -o public/storybook",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -o",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "start": "npm run develop",
     "storybook": "start-storybook -p 8001 -c .storybook",

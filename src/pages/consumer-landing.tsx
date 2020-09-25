@@ -56,7 +56,11 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values) => {
-              postFormUrlEncoded('https://realtyoffer.com/', 'consumer-landing', values)
+              const valuesWithSubject = {
+                ...values,
+                subject: `New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`,
+              };
+              postFormUrlEncoded('https://realtyoffer.com/', 'consumer-landing', valuesWithSubject)
                 .then(() => {
                   navigate('/landing');
                   dispatch(
