@@ -26,6 +26,7 @@ type BusinessInformationProps = {} & RouteComponentProps;
 
 const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
   const cities = useSelector((state: RootState) => state.user.cities);
+  const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
 
   const numberWithCommas = (x: number) => {
@@ -89,6 +90,7 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
             dispatch(
               captureAgentSignupData({
                 cities: cityDTOs,
+                total: Number(getTotal(values.cities)),
               })
             );
             setSubmitting(false);

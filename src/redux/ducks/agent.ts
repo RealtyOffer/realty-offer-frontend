@@ -86,8 +86,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        // TODO make sure agent has cities on profile, and has completed payment
-        hasCompletedSignup: action.payload.cities && action.payload.cities.length !== 0,
+        hasCompletedSignup: Boolean(action.payload.fortispayRecurringId),
         ...action.payload,
       };
     case GET_BID_DETAILS_BY_ID_REQUEST:

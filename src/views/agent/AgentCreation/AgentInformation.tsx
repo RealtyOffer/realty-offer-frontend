@@ -24,7 +24,6 @@ import { ActionResponseType } from '../../../redux/constants';
 import { RootState } from '../../../redux/ducks';
 import { logout } from '../../../redux/ducks/auth';
 import { createFortispayContact } from '../../../redux/ducks/fortis';
-import { CreateContactSuccessAction } from '../../../redux/ducks/fortis.d';
 import { getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
 
@@ -45,7 +44,6 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     brokerState: '',
     brokerPhoneNumber: '',
     brokerEmail: '',
-    cities: [],
     emailAddress: auth.email,
     id: 0,
   };
@@ -82,25 +80,25 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   email: auth.email,
                   first_name: auth.firstName,
                   last_name: auth.lastName,
-                  home_phone: auth.phoneNumber.replace('+', ''),
-                  office_phone: values.brokerPhoneNumber.replace('+', ''),
+                  home_phone: auth.phoneNumber.replace(/\W/g, ''),
+                  office_phone: values.brokerPhoneNumber.replace(/\W/g, ''),
                   address: `${values.brokerAddressLine1} ${values.brokerAddressLine2}`,
                   city: values.brokerCity,
                   state: values.brokerState,
                   zip: String(values.brokerZip),
                   company_name: values.brokerName,
                 })
-              ).then((fortispayResponse: CreateContactSuccessAction) => {
-                if (fortispayResponse.error) {
-                  const fortispayError = Object.values(fortispayResponse.payload)[0];
+              ).then((res: ActionResponseType) => {
+                if (res && res.error) {
+                  const fortispayError = Object.values(res.payload)[0];
                   console.log(fortispayError);
                   // TODO add alerts for fortis pay error
                   setSubmitting(false);
-                } else {
+                } else if (res && !res.error) {
                   dispatch(
                     createAgentProfile({
                       ...values,
-                      fortispayContactId: fortispayResponse.payload.id,
+                      fortispayContactId: res.payload.id,
                       genderId: 0,
                       aboutMe: '',
                       certificates: '',

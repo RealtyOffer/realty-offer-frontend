@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { FaQuestionCircle } from 'react-icons/fa';
 
 import {
+  Button,
   FlexContainer,
   Heading,
   Seo,
@@ -102,6 +103,9 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
               Answer a few questions about yourself, and what you prefer in an Agent. RealtyOffer
               will use this information to ensure you are matched with the best Agent for you.
             </p>
+            <Button type="link" to="/consumer/preferences">
+              Take survey
+            </Button>
           </div>
         </FlexContainer>
       </StyledAlert>

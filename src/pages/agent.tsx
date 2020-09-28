@@ -46,7 +46,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
       if (props.location.pathname === '/agent') {
         // if we are landing on the /agent page from logging in, redirect to new listings
         // otherwise, its a page refresh while logged in and we dont want to redirect
-        navigate('/agent/listings/new');
+        navigate('/agent/loading');
       }
       dispatch(getUserAvatar());
       dispatch(getAgentProfile()).then((response: ActionResponseType) => {
@@ -54,6 +54,12 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           navigate('/agent/agent-information');
         } else if (response.payload.cities.length === 0) {
           navigate('/agent/business-information');
+        } else if (!response.payload.fortispayAccountVaultId) {
+          navigate('/agent/payment-information');
+        } else if (!response.payload.fortispayRecurringId) {
+          navigate('/agent/confirm-payment');
+        } else if (props.location.pathname === '/agent') {
+          navigate('/agent/listings/new');
         }
       });
     }
@@ -113,6 +119,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
       <Router basepath="/agent">
         <LoadingPage path="/" />
+        <LoadingPage path="/loading" />
         <CreateAgent path="/sign-up" />
         <VerifyEmail path="/verify-email" />
         <AgentInformation path="/agent-information" />

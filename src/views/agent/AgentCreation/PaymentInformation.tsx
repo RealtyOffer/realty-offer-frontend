@@ -73,29 +73,35 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              dispatch(
-                createFortispayAccountvault({
-                  email: auth.email,
-                  contact_id: agent.fortispayContactId || '',
-                  account_holder_name: values.cardholderName,
-                  account_number: values.cardNumber.toString(),
-                  payment_method: 'cc',
-                  exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
-                  billing_address: `${values.billingAddressLine1} ${values.billingAddressLine2}`,
-                  billing_city: values.billingCity,
-                  billing_state: values.billingState,
-                  billing_zip: values.billingZip.toString(),
-                })
-              ).then((response: CreateAccountvaultSuccessAction) => {
+              if (agent.fortispayContactId) {
                 dispatch(
-                  updateAgentProfile({ ...agent, fortispayAccountvaultId: response.payload.id })
-                ).then((res: ActionResponseType) => {
-                  if (res && !res.error) {
-                    navigate('/agent/confirm-payment');
-                  }
+                  createFortispayAccountvault({
+                    email: auth.email,
+                    contact_id: agent.fortispayContactId,
+                    account_holder_name: values.cardholderName,
+                    account_number: values.cardNumber.toString(),
+                    payment_method: 'cc',
+                    exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
+                    billing_address: `${values.billingAddressLine1} ${values.billingAddressLine2}`,
+                    billing_city: values.billingCity,
+                    billing_state: values.billingState,
+                    billing_zip: values.billingZip.toString(),
+                  })
+                ).then((response: CreateAccountvaultSuccessAction) => {
+                  dispatch(
+                    updateAgentProfile({
+                      ...agent,
+                      cities: agent.signupData.cities,
+                      fortispayAccountVaultId: response.payload.id,
+                    })
+                  ).then((res: ActionResponseType) => {
+                    if (res && !res.error) {
+                      navigate('/agent/confirm-payment');
+                    }
+                  });
+                  setSubmitting(false);
                 });
-                setSubmitting(false);
-              });
+              }
             }}
           >
             {({ isSubmitting, isValid, ...rest }) => (
@@ -205,7 +211,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                   </Column>
                 </Row>
                 <Button type="submit" color="primary" block disabled={isSubmitting || !isValid}>
-                  Review Order
+                  Review
                 </Button>
                 <small>
                   You won&apos;t be charged yet, you will have a chance to review your information

@@ -48,8 +48,9 @@ export type AgentProfileType = {
   certificates?: string;
   agentLanguages?: Array<number>;
   fortispayContactId?: string;
-  fortispayAccountvaultId?: string;
+  fortispayAccountVaultId?: string;
   fortispayRecurringId?: string;
+  hasCompletedSignup?: boolean;
 };
 
 export type BidType = {
@@ -72,13 +73,13 @@ export type BidType = {
 export type AgentSignupDataType = {
   agentProfileComplete?: boolean;
   cities?: Array<CityType>;
+  total?: number;
 };
 
 export type AgentStoreType = {
   isLoading: boolean;
   hasError: boolean;
   signupData: AgentSignupDataType;
-  hasCompletedSignup?: boolean;
   activeBid?: { isLoading: boolean } & BidType;
 } & AgentProfileType;
 
