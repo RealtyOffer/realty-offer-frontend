@@ -220,7 +220,7 @@ const ArchivedListingDetails: FunctionComponent<ArchivedListingDetailsProps> = (
                         min={0}
                         max={2}
                         name="buyerCommission"
-                        label="Total Buyer Commission Concession (%)"
+                        label="Total Buyer Commission Contribution Towards Closing Costs (%)"
                         helpText={helpTextBuyerCommissionAmount}
                         validate={requiredBuyerCommissionAmount}
                         disabled

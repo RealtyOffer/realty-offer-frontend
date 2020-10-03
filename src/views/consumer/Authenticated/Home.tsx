@@ -38,7 +38,12 @@ import {
   getNotificationTypes,
   getUserNotificationSubscriptions,
 } from '../../../redux/ducks/user';
-import { getHomeTypesList, getPriceRangesList } from '../../../redux/ducks/dropdowns';
+import {
+  getHomeTypesList,
+  getPriceRangesList,
+  getGenderPreferencesList,
+  getAgePreferencesList,
+} from '../../../redux/ducks/dropdowns';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -56,6 +61,8 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
     dispatch(getConsumerProfile());
     dispatch(getPriceRangesList());
     dispatch(getHomeTypesList());
+    dispatch(getGenderPreferencesList());
+    dispatch(getAgePreferencesList());
   }, []);
 
   useEffect(() => {
@@ -85,30 +92,36 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
     dispatch(getUserNotificationSubscriptions());
   }, []);
 
+  const profileComplete = consumer.profile?.agePreferenceId && consumer.profile?.genderPreferenceId;
+
   return (
     <>
       <Seo title="Home" />
       <Heading>Congrats {auth.firstName}!</Heading>
       <p>Your listing has been sent to hundreds of our agents.</p>
-      <StyledAlert>
-        <FlexContainer justifyContent="space-between" flexWrap="nowrap" alignItems="start">
-          <div>
-            <FaQuestionCircle size={doubleSpacer} />
-          </div>
-          <div style={{ marginLeft: baseSpacer }}>
-            <Heading inverse as="h3">
-              While you sit back and wait, take our personal information survey.
-            </Heading>
-            <p>
-              Answer a few questions about yourself, and what you prefer in an Agent. RealtyOffer
-              will use this information to ensure you are matched with the best Agent for you.
-            </p>
-            <Button type="link" to="/consumer/preferences">
-              Take survey
-            </Button>
-          </div>
-        </FlexContainer>
-      </StyledAlert>
+
+      {!profileComplete && (
+        <StyledAlert>
+          <FlexContainer justifyContent="space-between" flexWrap="nowrap" alignItems="start">
+            <div>
+              <FaQuestionCircle size={doubleSpacer} />
+            </div>
+            <div style={{ marginLeft: baseSpacer }}>
+              <Heading inverse as="h3">
+                While you sit back and wait, take our personal information survey.
+              </Heading>
+              <p>
+                Answer a few questions about yourself, and what you prefer in an Agent. RealtyOffer
+                will use this information to ensure you are matched with the best Agent for you.
+              </p>
+              <Button type="link" to="/consumer/preferences">
+                Take survey
+              </Button>
+            </div>
+          </FlexContainer>
+        </StyledAlert>
+      )}
+
       <HorizontalRule />
       <Row>
         <Column md={3}>

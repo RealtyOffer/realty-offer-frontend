@@ -1,6 +1,6 @@
 export const agentAccountNavigationitems = [
   { name: 'Profile', path: '/agent/account/profile', primary: false },
-  { name: 'Sales Area', path: '/agent/account/sales-area', primary: false },
+  // { name: 'Sales Area', path: '/agent/account/sales-area', primary: false },
   { name: 'Billing', path: '/agent/account/billing', primary: false },
   { name: 'Notifications', path: '/agent/account/notifications', primary: false },
 ];
