@@ -1,10 +1,8 @@
 const unauthenticatedNavigationItems = [
-  { name: 'Buy', path: '/buy' },
-  { name: 'Sell', path: '/sell' },
+  { name: 'Home', path: '/' },
   { name: 'Agents', path: '/agents' },
-  { name: 'Mortgage', path: '/mortgage' },
-  { name: 'R Estimator', path: '/r-estimator' },
-  { name: 'Resources', path: '/resources' },
+  { name: 'Help', path: '/help' },
+  { name: 'Login', path: '/login' },
 ];
 
 export default unauthenticatedNavigationItems;

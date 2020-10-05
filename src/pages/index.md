@@ -1,58 +1,79 @@
 ---
 templateKey: index-page
 title: Same Agent Less Commission
-heroImage: /img/index-jumbotron.png
-heroHeading: 'Start here, free...'
-heroSubheading: Top agents that will earn less for your business!
-heroCTALink: /agent/sign-up
-heroCTAText: Signup now
+heroImage: /img/shutterstock_image1_purchased.jpg
+heroHeading: Welcome to RealtyOffer
+heroSubheading: 'The one-stop shop for Buyer, Seller, and Agent'
+consumer:
+  title: Buyers & Sellers
+  body: >-
+    Need to sell your home, but don't want to pay that crazy commission? Agents
+    will simply offer to charge less commission, to win your business!
+
+
+    Need to buy a home? To earn your business, agents will offer part of their
+    commission to be used toward your closing costs.
+
+
+    No contracts, no obligation, no awkward negotiations.
+  cta: Sign up now
+  icon: /img/np_real-estate_3187456_000000.svg
+agent:
+  title: Agents
+  body: >-
+    Do you spend thousands of dollars  per month on marketing, hoping it will
+    bring you leads, that just don't go anywhere?
+
+
+    Do you need consistency?
+
+
+    RealtyOffer will connect you with serious clients, while removing the
+    upfront awkward negotiation out of the way.
+  cta: Become a RealtyOffer Agent
+  icon: /img/np_real-estate_3048021_000000.svg
 mainpitch:
-  title: Need More Info?
-  cards:
-    - text: >-
-        Reach new audiences with our technology and marketing solutions to drive
-        …
-      title: Sell A House
-      image: /img/index-jumbotron.png
-      link: /login
-      linkText: Card 1 CTA
-      linkType: button
-    - text: >-
-        Reach new audiences with our technology and marketing solutions to drive
-        …
-      title: Buy A House
-      icon: /img/realtyoffer-logo.png
-      link: /login
-      linkText: Card 2 CTA
-      linkType: link
-    - text: >-
-        Reach new audiences with our technology and marketing solutions to drive
-        …
-      title: Buy And Sell A House
-      image: /img/home-jumbotron.jpg
-      link: /login
-      linkText: Card 3 CTA
-      linkType: button
+  title: 'Wondering how it works? Simple as 1, 2, 3...'
+  steps:
+    - title: Step 1
+      body: >-
+        Fill in some simple information, sit back and RealtyOffer will connect
+        you with compatible agents, while removing the upfront negotiation out
+        of the way.
+
+
+        No contracts, no obligation, no awkward negotiation,... and the best
+        part about it, it's completely FREE!
+      image: /img/shutterstock_image2_purchased_landing-page.jpg
+    - title: Step 2
+      body: >-
+        Agents will receive your information and within 24 hours, agents have
+        the opportunity to bid and win your business.
+
+
+        The bidding works both ways: Agents simply discount their commission in
+        order to sell your home, or offer part of their commission towards your
+        closing costs for you to purchase a home.
+      image: /img/shutterstock_image3_landingpage.jpg
+    - body: >-
+        Within 24 hours, you will be able to review three bids from compatible
+        agents in your area.
+
+
+        Choose your best offer and simply get connected, while removing the
+        upfront awkward negotiation out of the way.
+      title: Step 3
+      image: /img/shutterstock_image4_landingpage.jpg
 secondpitch:
-  title: R Estimate
-  text: >-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  caption: ImageBox with caption
-  image: /img/img-2x.png
-  link: /login
-  linkText: Learn More
-  linkType: button
-thirdpitch:
-  title: Mortgage Consultation
-  text: Reach new audiences with our technology and marketing solutions to drive
-  caption: caption
-  image: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x.png
-  link: /login
-  linkText: cta
-  linkType: button
+  title: Why RealtyOffer
+  body: >-
+    Do you need to buy or sell a home? Or just need an agent who will do the
+    right thing for you?
+
+
+    Welcome to RealtyOffer. Same agent, less commission... Agents that will earn
+    less for your business...
+  image: /img/shutterstock_image5.jpg
+  link: /frequently-asked-questions
+  linkText: Learn More About RealtyOffer
 ---

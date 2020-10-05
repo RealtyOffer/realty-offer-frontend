@@ -51,6 +51,8 @@ export type AgentProfileType = {
   fortispayAccountVaultId?: string;
   fortispayRecurringId?: string;
   hasCompletedSignup?: boolean;
+  licenseExpirationDate?: string;
+  isPilotUser?: boolean;
 };
 
 export type BidType = {
@@ -71,6 +73,7 @@ export type BidType = {
 };
 
 export type AgentSignupDataType = {
+  isPilotUser?: boolean;
   agentProfileComplete?: boolean;
   cities?: Array<CityType>;
   total?: number;

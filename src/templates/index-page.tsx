@@ -1,8 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { graphql, navigate } from 'gatsby';
+import { graphql } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
+import ReactMarkdown from 'react-markdown/with-html';
+import styled from 'styled-components';
+import scrollTo from 'gatsby-plugin-smoothscroll';
+import { FaArrowCircleRight } from 'react-icons/fa';
 
-import BlogRoll from './BlogRoll';
 import {
   Row,
   Column,
@@ -17,37 +20,45 @@ import {
   Seo,
 } from '../components';
 
+import { baseSpacer, doubleSpacer } from '../styles/size';
+import { lightestGray } from '../styles/color';
+
 type IndexPageProps = {
   title: string;
   heroHeading: string;
   heroSubheading: string;
-  heroCTALink: string;
-  heroCTAText: string;
   heroImage: { childImageSharp: { fluid: FluidObject } };
+  consumer: {
+    title: string;
+    cta: string;
+    body: any;
+    icon: {
+      publicURL: string;
+    };
+  };
+  agent: {
+    title: string;
+    cta: string;
+    body: any;
+    icon: {
+      publicURL: string;
+    };
+  };
   mainpitch: {
     title: string;
-    cards: Array<{
+    steps: Array<{
       title: string;
-      text: string;
+      body: any;
       image: {
         childImageSharp: {
           fluid: FluidObject;
         };
       };
-      icon?: {
-        childImageSharp: {
-          fluid: FluidObject;
-        };
-      };
-      link: string;
-      linkText: string;
-      linkType: 'button' | 'link';
     }>;
   };
   secondpitch: {
     title: string;
-    text: string;
-    caption: string;
+    body: any;
     image: {
       childImageSharp: {
         fluid: FluidObject;
@@ -55,145 +66,108 @@ type IndexPageProps = {
     };
     link: string;
     linkText: string;
-    linkType: 'button' | 'link';
-  };
-  thirdpitch: {
-    title: string;
-    text: string;
-    caption: string;
-    image: {
-      childImageSharp: {
-        fluid: FluidObject;
-      };
-    };
-    link: string;
-    linkText: string;
-    linkType: 'button' | 'link';
   };
 };
+
+const HeroBox = styled.div`
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: ${doubleSpacer};
+`;
 
 export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   heroImage,
   title,
   heroHeading,
   heroSubheading,
-  heroCTALink,
-  heroCTAText,
+  consumer,
   mainpitch,
   secondpitch,
-  thirdpitch,
 }) => (
   <div>
     <Seo title={title} />
-    <HeroImage src={heroImage.childImageSharp.fluid.src}>
+    <HeroImage src={heroImage.childImageSharp.fluid.src} height="500px">
       <PageContainer>
-        <Box backgroundAccent>
-          <Heading styledAs="title">{heroHeading}</Heading>
-          <Heading styledAs="subtitle">{heroSubheading}</Heading>
-          <Button type="link" to={heroCTALink}>
-            {heroCTAText}
-          </Button>
-        </Box>
+        <FlexContainer justifyContent="start">
+          <HeroBox>
+            <Heading inverse>{heroHeading}</Heading>
+            <Heading inverse as="h2">
+              {heroSubheading}
+            </Heading>
+            <Button type="button" onClick={() => scrollTo('#start')}>
+              Get Started
+            </Button>
+          </HeroBox>
+        </FlexContainer>
       </PageContainer>
     </HeroImage>
-    <PageContainer>
-      <Heading as="h2" styledAs="sectionHeading">
-        {mainpitch.title}
-      </Heading>
-      <Row>
-        {mainpitch.cards.map((card) => (
-          <Column md={4} key={card.title}>
-            <Box>
-              <FlexContainer flexDirection="column">
-                {card.image && (
-                  <NegativeMarginContainer top right left>
-                    <PreviewCompatibleImage imageInfo={{ image: card.image }} />
-                  </NegativeMarginContainer>
-                )}
-                {card.icon && (
-                  <div style={{ width: '100%', maxWidth: 200, marginBottom: 16 }}>
-                    <PreviewCompatibleImage imageInfo={{ image: card.icon }} />
-                  </div>
-                )}
-                <Heading as="h4" styledAs="subtitle">
-                  {card.title}
-                </Heading>
-                <p>{card.text}</p>
-                <Button
-                  type="link"
-                  block
-                  to={card.link}
-                  color={card.linkType === 'button' ? 'primary' : 'text'}
-                >
-                  {card.linkText}
-                </Button>
-              </FlexContainer>
+    <section style={{ marginTop: '-100px', marginBottom: 50 }} id="start">
+      <PageContainer>
+        <Row>
+          <Column md={8} mdOffset={2}>
+            <Box textAlign="center">
+              <img src={consumer.icon.publicURL} alt="" style={{ margin: baseSpacer }} />
+              <Heading as="h3" styledAs="title" align="center">
+                {consumer.title}
+              </Heading>
+              <ReactMarkdown source={consumer.body} />
+              <Button
+                type="link"
+                to="/consumer/start"
+                color="tertiary"
+                iconRight={<FaArrowCircleRight />}
+              >
+                {consumer.cta}
+              </Button>
             </Box>
           </Column>
+        </Row>
+      </PageContainer>
+    </section>
+    <section style={{ backgroundColor: lightestGray, padding: `${doubleSpacer} 0` }}>
+      <PageContainer>
+        <Heading as="h2" styledAs="title" align="center">
+          {mainpitch.title}
+        </Heading>
+        {mainpitch.steps.map((step, index) => (
+          <Box key={step.title}>
+            <Row>
+              <Column sm={6} smOrder={index === 1 ? 2 : 1} xsSpacer>
+                <PreviewCompatibleImage imageInfo={{ image: step.image }} />
+              </Column>
+              <Column sm={6} smOrder={index === 1 ? 1 : 2}>
+                <Heading as="h4" styledAs="title">
+                  {step.title}
+                </Heading>
+                <ReactMarkdown source={step.body} />
+              </Column>
+            </Row>
+          </Box>
         ))}
-      </Row>
-      <Row>
-        <Column md={8}>
-          <Box>
-            <Heading as="h4" styledAs="subtitle">
+      </PageContainer>
+    </section>
+    <section style={{ padding: `${doubleSpacer} 0` }}>
+      <PageContainer>
+        <Box>
+          <FlexContainer flexDirection="column">
+            <NegativeMarginContainer top right left>
+              <PreviewCompatibleImage imageInfo={{ image: secondpitch.image }} />
+            </NegativeMarginContainer>
+            <Heading as="h4" styledAs="title">
               {secondpitch.title}
             </Heading>
-            <p>{secondpitch.text}</p>
-            <Button
-              type="link"
-              to={secondpitch.link}
-              color={secondpitch.linkType === 'button' ? 'primary' : 'text'}
-            >
+            <ReactMarkdown source={secondpitch.body} />
+            <Button type="link" to={secondpitch.link}>
               {secondpitch.linkText}
             </Button>
-          </Box>
-        </Column>
-        <Column md={4}>
-          <Box bgSrc={secondpitch.image}>
-            <Heading as="h4" styledAs="title" align="center">
-              {secondpitch.caption}
-            </Heading>
-          </Box>
-        </Column>
-      </Row>
-      <Box>
-        <Row>
-          <Column xs={6} md={8}>
-            <NegativeMarginContainer top bottom left>
-              <PreviewCompatibleImage imageInfo={{ image: thirdpitch.image }} />
-            </NegativeMarginContainer>
-          </Column>
-          <Column xs={6} md={4}>
-            <Heading as="h4" styledAs="subtitle">
-              {thirdpitch.title}
-            </Heading>
-            <p>{thirdpitch.text}</p>
-            <Button
-              type="link"
-              to={thirdpitch.link}
-              color={thirdpitch.linkType === 'button' ? 'primary' : 'text'}
-            >
-              {thirdpitch.linkText}
-            </Button>
-          </Column>
-        </Row>
-      </Box>
-      <Heading as="h3" styledAs="sectionHeading">
-        Latest Stories
-      </Heading>
-      <BlogRoll />
-    </PageContainer>
+          </FlexContainer>
+        </Box>
+      </PageContainer>
+    </section>
   </div>
 );
 
 const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageProps } } }) => {
   const { frontmatter } = data.markdownRemark;
-  const isClient = typeof window === 'object';
-
-  if (isClient && process.env.GATSBY_ENVIRONMENT === 'PRODUCTION') {
-    navigate('/landing');
-    return null;
-  }
 
   return (
     <IndexPageTemplate
@@ -201,11 +175,10 @@ const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageP
       title={frontmatter.title}
       heroHeading={frontmatter.heroHeading}
       heroSubheading={frontmatter.heroSubheading}
-      heroCTALink={frontmatter.heroCTALink}
-      heroCTAText={frontmatter.heroCTAText}
+      consumer={frontmatter.consumer}
+      agent={frontmatter.agent}
       mainpitch={frontmatter.mainpitch}
       secondpitch={frontmatter.secondpitch}
-      thirdpitch={frontmatter.thirdpitch}
     />
   );
 };
@@ -226,13 +199,27 @@ export const pageQuery = graphql`
         }
         heroHeading
         heroSubheading
-        heroCTALink
-        heroCTAText
+        consumer {
+          title
+          body
+          cta
+          icon {
+            publicURL
+          }
+        }
+        agent {
+          title
+          body
+          cta
+          icon {
+            publicURL
+          }
+        }
         mainpitch {
           title
-          cards {
+          steps {
             title
-            text
+            body
             image {
               childImageSharp {
                 fluid(maxWidth: 512, quality: 100) {
@@ -240,37 +227,11 @@ export const pageQuery = graphql`
                 }
               }
             }
-            icon {
-              childImageSharp {
-                fluid(maxWidth: 512, quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            link
-            linkText
-            linkType
           }
         }
         secondpitch {
           title
-          text
-          caption
-          image {
-            childImageSharp {
-              fluid(maxWidth: 400, quality: 100) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-          link
-          linkText
-          linkType
-        }
-        thirdpitch {
-          title
-          text
-          caption
+          body
           image {
             childImageSharp {
               fluid(maxWidth: 1200, quality: 100) {
@@ -280,7 +241,6 @@ export const pageQuery = graphql`
           }
           link
           linkText
-          linkType
         }
       }
     }

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form, FormikProps } from 'formik';
 import { Link, navigate } from 'gatsby';
 import { useDispatch } from 'react-redux';
-import { RouteComponentProps } from '@reach/router';
+import { RouteComponentProps, useLocation } from '@reach/router';
 
 import { Button, Input, Row, Card, Column, HorizontalRule, Seo } from '../../../components';
 
@@ -18,11 +18,13 @@ import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
 import { ActionResponseType } from '../../../redux/constants';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
+import { captureAgentSignupData } from '../../../redux/ducks/agent';
 
 type CreateAgentProps = {} & RouteComponentProps;
 
 const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',
@@ -39,6 +41,11 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
+          dispatch(
+            captureAgentSignupData({
+              isPilotUser: location.pathname.includes('pilot'),
+            })
+          );
           dispatch(
             createUser({
               ...values,

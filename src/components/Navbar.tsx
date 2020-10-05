@@ -37,7 +37,7 @@ import { RootState } from '../redux/ducks';
 import logo from '../images/logo.svg';
 import useWindowSize from '../utils/useWindowSize';
 import { agentNavigationItems } from '../utils/agentNavigationItems';
-// TODO for PROD import unauthenticatedNavigationItems from '../utils/unauthenticatedNavigationItems';
+import unauthenticatedNavigationItems from '../utils/unauthenticatedNavigationItems';
 
 type NavbarProps = {};
 
@@ -268,18 +268,31 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
   const shouldShowMenuToggle = isLoggedInAgent && isSmallScreen;
 
-  const menuItemsToRender = isLoggedInAgent ? [...primaryNavigation] : [];
-  // TODO for PROD : [...unauthenticatedNavigationItems];
+  const menuItemsToRender = () => {
+    if (isLoggedInAgent) {
+      return primaryNavigation;
+    }
+    if (isLoggedInConsumer) {
+      return [];
+    }
+    if (!isLoggedInAgent && auth.roles.includes('Agent')) {
+      return [];
+    }
+    if (!isLoggedInAgent && !isLoggedInConsumer) {
+      return unauthenticatedNavigationItems;
+    }
+    return [];
+  };
 
-  const isPartiallyActive = ({ isPartiallyCurrent }: { isPartiallyCurrent: boolean }) => {
-    return isPartiallyCurrent ? { className: 'active' } : {};
+  const isCurrentlyActive = ({ isCurrent }: { isCurrent: boolean }) => {
+    return isCurrent ? { className: 'active' } : {};
   };
 
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
         <FlexContainer justifyContent="space-between" height={quadrupleSpacer}>
-          {shouldShowMenuToggle && (
+          {isSmallScreen && (
             <StyledMenuToggle>
               <Hamburger
                 color={white}
@@ -288,7 +301,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               />
             </StyledMenuToggle>
           )}
-          {/* TODO for PROD: update link to / */}
           <StyledLogoLink
             to={
               // eslint-disable-next-line no-nested-ternary
@@ -296,23 +308,24 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 ? '/agent/listings/new'
                 : isLoggedInConsumer
                 ? '/consumer/listing'
-                : '/landing'
+                : '/'
             }
             title="Logo"
           >
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
           </StyledLogoLink>
-          {/* TODO for PROD */}
-          {shouldShowMenuToggle && (
+          {isSmallScreen && (
             <ClientOnly>
-              <FlexContainer>
-                <div style={{ position: 'relative', marginRight: halfSpacer }}>
-                  <Link to="/agent/notifications">
-                    <FaRegBell size={doubleSpacer} color={white} />
-                    <NotificationDot isSmallScreen />
-                  </Link>
-                </div>
-              </FlexContainer>
+              {shouldShowMenuToggle && (
+                <FlexContainer>
+                  <div style={{ position: 'relative', marginRight: halfSpacer }}>
+                    <Link to="/agent/notifications">
+                      <FaRegBell size={doubleSpacer} color={white} />
+                      <NotificationDot isSmallScreen />
+                    </Link>
+                  </div>
+                </FlexContainer>
+              )}
             </ClientOnly>
           )}
           <ClientOnly>
@@ -322,17 +335,18 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               isSmallScreen={isSmallScreen}
               menuIsOpen={menuIsOpen}
             >
-              {menuItemsToRender.map((navItem) => (
-                <Link
-                  key={navItem.name}
-                  to={navItem.path}
-                  activeClassName="active"
-                  onClick={() => toggleMenu()}
-                  getProps={isPartiallyActive}
-                >
-                  {navItem.name}
-                </Link>
-              ))}
+              {menuItemsToRender().length > 0 &&
+                menuItemsToRender().map((navItem) => (
+                  <Link
+                    key={navItem.name}
+                    to={navItem.path}
+                    activeClassName="active"
+                    onClick={() => toggleMenu()}
+                    getProps={isCurrentlyActive}
+                  >
+                    {navItem.name}
+                  </Link>
+                ))}
               {isSmallScreen && isLoggedInAgent && (
                 <>
                   <HorizontalRule />
@@ -431,17 +445,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 />
               </FlexContainer>
             )}
-            {!auth.isLoggedIn && (
-              <Link
-                to="/login"
-                activeClassName="active"
-                onClick={() => toggleMenu()}
-                style={{ color: white }}
-              >
-                Log In
-              </Link>
-            )}
-
             {isLoggedInConsumer && (
               <Link to="/" onClick={() => dispatch(logout())} style={{ color: white }}>
                 Log Out

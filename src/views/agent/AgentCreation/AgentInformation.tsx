@@ -4,6 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 import { RouteComponentProps } from '@reach/router';
+import { format, addMonths } from 'date-fns';
 
 import {
   Row,
@@ -26,13 +27,18 @@ import { logout } from '../../../redux/ducks/auth';
 import { createFortispayContact } from '../../../redux/ducks/fortis';
 import { getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
+import { getUserCities } from '../../../redux/ducks/user';
+import { addAlert } from '../../../redux/ducks/globalAlerts';
 
 type AgentInformationProps = {};
 
 const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponentProps> = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
+  const agent = useSelector((state: RootState) => state.agent);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
+  const cities = useSelector((state: RootState) => state.user.cities);
+
   const initialValues = {
     state: 'MI',
     agentId: '',
@@ -50,6 +56,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
 
   useEffect(() => {
     dispatch(getStatesList());
+    dispatch(getUserCities());
   }, []);
 
   const save = () => {
@@ -70,7 +77,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
       >
         <Seo title="Agent Information" />
         <ProgressBar value={33} label="Step 1/3" name="progress" />
-        {statesList.length > 0 ? (
+        {statesList.length > 0 && cities && cities.length > 0 ? (
           <Formik
             validateOnMount
             initialValues={initialValues}
@@ -91,8 +98,12 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
               ).then((res: ActionResponseType) => {
                 if (res && res.error) {
                   const fortispayError = Object.values(res.payload)[0];
-                  console.log(fortispayError);
-                  // TODO add alerts for fortis pay error
+                  dispatch(
+                    addAlert({
+                      message: fortispayError,
+                      type: 'danger',
+                    })
+                  );
                   setSubmitting(false);
                 } else if (res && !res.error) {
                   dispatch(
@@ -105,6 +116,12 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       agentLanguages: [],
                       brokerZip: String(values.brokerZip),
                       brokerPhoneNumber: values.brokerPhoneNumber,
+                      cities,
+                      licenseExpirationDate: format(
+                        addMonths(new Date(), agent.signupData.isPilotUser ? 12 : 3),
+                        `yyyy-MM-dd'T'HH:mm`
+                      ),
+                      isPilotUser: agent.signupData.isPilotUser,
                     })
                   ).then((response: ActionResponseType) => {
                     setSubmitting(false);
@@ -114,7 +131,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       })
                     );
                     if (response && !response.error) {
-                      navigate('/agent/business-information');
+                      navigate('/agent/listings/new');
                     }
                   });
                 }

@@ -17,6 +17,12 @@ module.exports = {
     'gatsby-plugin-graphql-codegen',
     'gatsby-plugin-smoothscroll',
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID,
+      },
+    },
+    {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',
       options: {

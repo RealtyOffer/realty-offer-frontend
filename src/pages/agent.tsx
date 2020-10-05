@@ -52,13 +52,18 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
       dispatch(getAgentProfile()).then((response: ActionResponseType) => {
         if (!response.payload.agentId) {
           navigate('/agent/agent-information');
-        } else if (response.payload.cities.length === 0) {
-          navigate('/agent/business-information');
-        } else if (!response.payload.fortispayAccountVaultId) {
-          navigate('/agent/payment-information');
-        } else if (!response.payload.fortispayRecurringId) {
-          navigate('/agent/confirm-payment');
-        } else if (props.location.pathname === '/agent') {
+        }
+        // TODO: uncomment after Pilot/Beta
+        // else if (response.payload.cities.length === 0) {
+        //   navigate('/agent/business-information');
+        // }
+        // else if (!response.payload.fortispayAccountVaultId) {
+        //   navigate('/agent/payment-information');
+        // }
+        // else if (!response.payload.fortispayRecurringId) {
+        //   navigate('/agent/confirm-payment');
+        // }
+        else if (props.location.pathname === '/agent') {
           navigate('/agent/listings/new');
         }
       });
@@ -121,6 +126,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         <LoadingPage path="/" />
         <LoadingPage path="/loading" />
         <CreateAgent path="/sign-up" />
+        <CreateAgent path="/pilot" />
         <VerifyEmail path="/verify-email" />
         <AgentInformation path="/agent-information" />
         <BusinessInformation path="/business-information" />
