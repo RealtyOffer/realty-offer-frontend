@@ -52,6 +52,12 @@ const StyledAlert = styled.div`
   border-radius: ${borderRadius};
 `;
 
+const HeadingWrapper = styled.div`
+  @media print {
+    display: none;
+  }
+`;
+
 const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const consumer = useSelector((state: RootState) => state.consumer);
@@ -84,7 +90,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
         }
       });
     }
-  }, [consumer.listing]);
+  }, [consumer.listing, consumer.bids]);
 
   useEffect(() => {
     dispatch(getUserNotificationSettings());
@@ -97,9 +103,10 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   return (
     <>
       <Seo title="Home" />
-      <Heading>Congrats {auth.firstName}!</Heading>
-      <p>Your listing has been sent to hundreds of our agents.</p>
-
+      <HeadingWrapper>
+        <Heading>Congrats {auth.firstName}!</Heading>
+        <p>Your listing has been sent to hundreds of our agents.</p>
+      </HeadingWrapper>
       {!profileComplete && (
         <StyledAlert>
           <FlexContainer justifyContent="space-between" flexWrap="nowrap" alignItems="start">
@@ -108,14 +115,14 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
             </div>
             <div style={{ marginLeft: baseSpacer }}>
               <Heading inverse as="h3">
-                While you sit back and wait, take our personal information survey.
+                While you sit back and wait, take our personal information questionnaire.
               </Heading>
               <p>
                 Answer a few questions about yourself, and what you prefer in an Agent. RealtyOffer
                 will use this information to ensure you are matched with the best Agent for you.
               </p>
               <Button type="link" to="/consumer/preferences">
-                Take survey
+                Take Questionnaire
               </Button>
             </div>
           </FlexContainer>

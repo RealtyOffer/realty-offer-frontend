@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Heading from './Heading';
 import { brandDanger, white, brandPrimary } from '../styles/color';
@@ -21,6 +21,8 @@ import { isExpired, isExpiringSoon } from '../utils/countdownTimerUtils';
 import { createConsumerBidWinner } from '../redux/ducks/consumer';
 import { ConsumerStoreType } from '../redux/ducks/consumer.d';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
+import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
+import { RootState } from '../redux/ducks';
 
 type ConsumerListingCardProps = {
   consumer: ConsumerStoreType;
@@ -50,6 +52,7 @@ const ConsumerListingCardBody = styled.div`
 const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
   consumer: { listing, bids, winner },
 }) => {
+  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
 
   const selectWinningAgent = (bid: BidType) => {
@@ -59,6 +62,8 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
   if (!listing) {
     return null;
   }
+
+  const winningBid = (winner && bids.find((bid) => bid.agentId === winner.agentId)) || bids[0];
 
   return (
     <ConsumerListingCardWrapper expiringSoon={isExpiringSoon(listing.createDateTime)}>
@@ -194,6 +199,100 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           </Row>
           <HorizontalRule />
           <Heading as="h3">Listing Contract</Heading>
+          <Row>
+            {listing.type?.toLowerCase().includes('seller') && (
+              <Column xs={6}>
+                <dl>
+                  <dt>Total Seller Commission</dt>
+                  <dd>{winningBid.sellerCommission}%</dd>
+                  {winningBid.sellerBrokerComplianceAmount && (
+                    <>
+                      <dt>Seller Compliance Fee</dt>
+                      <dd>${winningBid.sellerBrokerComplianceAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.sellerPreInspectionAmount && (
+                    <>
+                      <dt>Seller Pre-Inspection</dt>
+                      <dd>${winningBid.sellerPreInspectionAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.sellerPreCertifyAmount && (
+                    <>
+                      <dt>Seller Pre-Certification</dt>
+                      <dd>${winningBid.sellerPreCertifyAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.sellerMovingCompanyAmount && (
+                    <>
+                      <dt>Seller Moving Costs</dt>
+                      <dd>${winningBid.sellerMovingCompanyAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.sellerPhotographyAmount && (
+                    <>
+                      <dt>Seller Photography</dt>
+                      <dd>${winningBid.sellerPhotographyAmount}</dd>
+                    </>
+                  )}
+                </dl>
+                <Heading as="h5">Total Savings</Heading>
+                <p>
+                  {sellTotal({
+                    values: winningBid,
+                    priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                    priceRangesList,
+                  })}
+                </p>
+              </Column>
+            )}
+            {listing.type?.includes('buyer') && (
+              <Column xs={6}>
+                <dl>
+                  <dt>Total Buyer Commission</dt>
+                  <dd>{winningBid.buyerCommission}%</dd>
+                  {winningBid.buyerBrokerComplianceAmount && (
+                    <>
+                      <dt>Buyer Compliance Fee</dt>
+                      <dd>${winningBid.buyerBrokerComplianceAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.buyerInspectionAmount && (
+                    <>
+                      <dt>Buyer Inspection</dt>
+                      <dd>${winningBid.buyerInspectionAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.buyerHomeWarrantyAmount && (
+                    <>
+                      <dt>Buyer Home Warranty</dt>
+                      <dd>${winningBid.buyerHomeWarrantyAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.buyerAppraisalAmount && (
+                    <>
+                      <dt>Buyer Appraisal</dt>
+                      <dd>${winningBid.buyerAppraisalAmount}</dd>
+                    </>
+                  )}
+                  {winningBid.buyerMovingCompanyAmount && (
+                    <>
+                      <dt>Buyer Moving Costs</dt>
+                      <dd>${winningBid.buyerMovingCompanyAmount}</dd>
+                    </>
+                  )}
+                </dl>
+                <Heading as="h5">Total Savings</Heading>
+                <p>
+                  {buyTotal({
+                    values: winningBid,
+                    priceRangeId: Number(listing.buyingPriceRangeId),
+                    priceRangesList,
+                  })}
+                </p>
+              </Column>
+            )}
+          </Row>
         </ConsumerListingCardBody>
       )}
     </ConsumerListingCardWrapper>

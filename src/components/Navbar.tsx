@@ -50,6 +50,13 @@ const StyledNavbar = styled.nav`
   & .tooltip {
     padding: 0 ${halfSpacer};
   }
+
+  @media print {
+    /* hide all links except logo when printing */
+    a:not(:first-child) {
+      display: none;
+    }
+  }
 `;
 
 const StyledLogoLink = styled(Link)`
@@ -292,7 +299,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
         <FlexContainer justifyContent="space-between" height={quadrupleSpacer}>
-          {isSmallScreen && (
+          {isSmallScreen && !isLoggedInConsumer && (
             <StyledMenuToggle>
               <Hamburger
                 color={white}
@@ -314,7 +321,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           >
             <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
           </StyledLogoLink>
-          {isSmallScreen && (
+          {false && ( // isSmallScreen && ( // TODO when notifications are ready
             <ClientOnly>
               {shouldShowMenuToggle && (
                 <FlexContainer>
@@ -382,32 +389,37 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             </StyledMenu>
             {!isSmallScreen && isLoggedInAgent && (
               <FlexContainer>
-                <StyledDropdownWrapper
-                  onClick={() => setNotificationsDropdownOpen(!notificationsDropdownOpen)}
-                  data-tip="Notifications"
-                  data-for="notifications"
-                  ref={notificationsNode}
-                >
-                  <FaBell size={baseAndAHalfSpacer} />
-                  <NotificationDot isSmallScreen={false} />
-                  {notificationsDropdownOpen && (
-                    <StyledDropdown>
-                      <Link to="/">Notification text goes here</Link>
-                      <Link to="/">Notification text goes here</Link>
-                      <Link to="/">Notification text goes here</Link>
-                    </StyledDropdown>
-                  )}
-                </StyledDropdownWrapper>
-                <ReactTooltip
-                  id="notifications"
-                  place="bottom"
-                  type="dark"
-                  effect="solid"
-                  className="tooltip"
-                  disable={notificationsDropdownOpen}
-                  delayShow={500}
-                  offset={{ top: 16 }}
-                />
+                {false && ( //
+                  <>
+                    <StyledDropdownWrapper
+                      onClick={() => setNotificationsDropdownOpen(!notificationsDropdownOpen)}
+                      data-tip="Notifications"
+                      data-for="notifications"
+                      ref={notificationsNode}
+                    >
+                      <FaBell size={baseAndAHalfSpacer} />
+                      <NotificationDot isSmallScreen={false} />
+                      {notificationsDropdownOpen && (
+                        <StyledDropdown>
+                          <Link to="/">Notification text goes here</Link>
+                          <Link to="/">Notification text goes here</Link>
+                          <Link to="/">Notification text goes here</Link>
+                        </StyledDropdown>
+                      )}
+                    </StyledDropdownWrapper>
+                    <ReactTooltip
+                      id="notifications"
+                      place="bottom"
+                      type="dark"
+                      effect="solid"
+                      className="tooltip"
+                      disable={notificationsDropdownOpen}
+                      delayShow={500}
+                      offset={{ top: 16 }}
+                    />
+                  </>
+                )}
+
                 <StyledDropdownWrapper
                   onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
                   data-tip="Profile & Settings"

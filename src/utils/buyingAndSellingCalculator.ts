@@ -53,7 +53,7 @@ export const sellTotal = (payload: CalculatorValuesType) => {
     return `$${numberWithCommas(high)} (${calculatePercentage(matchingRange.max, high)}%) or less`;
   }
   if (!matchingRange.max) {
-    return `${numberWithCommas(low)} (${calculatePercentage(matchingRange.min, low)}%) or more`;
+    return `$${numberWithCommas(low)} (${calculatePercentage(matchingRange.min, low)}%) or more`;
   }
   return `${renderDollarAmountRange(
     lowAndHighMatch,
@@ -87,7 +87,7 @@ export const buyTotal = (payload: CalculatorValuesType) => {
     return `$${numberWithCommas(high)} (${calculatePercentage(matchingRange.max, high)}%) or less`;
   }
   if (!matchingRange.max) {
-    return `${numberWithCommas(low)} (${calculatePercentage(matchingRange.min, low)}%) or more`;
+    return `$${numberWithCommas(low)} (${calculatePercentage(matchingRange.min, low)}%) or more`;
   }
   return `${renderDollarAmountRange(
     lowAndHighMatch,

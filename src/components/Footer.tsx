@@ -23,6 +23,10 @@ const StyledFooter = styled.footer`
       color: ${white};
     }
   }
+
+  @media print {
+    display: none;
+  }
 `;
 
 const Footer = () => (

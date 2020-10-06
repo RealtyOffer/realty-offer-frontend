@@ -17,6 +17,8 @@ import {
 } from '../styles/color';
 import { disabledStyle } from '../styles/mixins';
 
+import LoadingSpinner from './LoadingSpinner';
+
 type ButtonProps = {
   type: 'submit' | 'button' | 'reset' | 'link';
   color?:
@@ -35,6 +37,7 @@ type ButtonProps = {
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
   block?: boolean;
+  isLoading?: boolean;
 };
 
 const primaryButtonStyles = `
@@ -226,6 +229,7 @@ const Button: FunctionComponent<ButtonProps> = ({
   iconLeft,
   iconRight,
   block,
+  isLoading,
 }) => {
   if (type === 'link' && to) {
     return (
@@ -253,7 +257,7 @@ const Button: FunctionComponent<ButtonProps> = ({
         disabled={disabled}
         block={block}
       >
-        {iconLeft}&nbsp;{children}&nbsp;{iconRight}
+        {isLoading && <LoadingSpinner />} {iconLeft}&nbsp;{children}&nbsp;{iconRight}
       </StyledButton>
     );
   }

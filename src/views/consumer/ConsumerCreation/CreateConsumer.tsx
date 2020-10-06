@@ -31,12 +31,16 @@ import UnsavedChangesModal from './UnsavedChangesModal';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { RootState } from '../../../redux/ducks';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
+import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
+import { getDropdownListText } from '../../../utils/dropdownUtils';
 
 type CreateConsumerProps = {} & RouteComponentProps;
 
 const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const auth = useSelector((state: RootState) => state.auth);
   const consumer = useSelector((state: RootState) => state.consumer);
+  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
 
   const initialValues: CreateUserFormValues = {
@@ -98,6 +102,28 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                           type: 'success',
                         })
                       );
+                      if (consumer.listing?.freeMortgageConsult) {
+                        postFormUrlEncoded(
+                          'https://realtyoffer.com/',
+                          'Free Mortgage Consultation',
+                          {
+                            ...consumer.listing,
+                            city: consumer?.listing?.sellersCity?.name,
+                            state: consumer?.listing?.sellersCity?.state,
+                            buyingPriceRange: consumer?.listing?.buyingPriceRangeId
+                              ? getDropdownListText(
+                                  priceRangesList,
+                                  String(consumer.listing.buyingPriceRangeId)
+                                )
+                              : '',
+                            firstName: auth.firstName,
+                            lastName: auth.lastName,
+                            email: auth.email,
+                            phoneNumber: auth.phoneNumber,
+                            subject: `Free Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`,
+                          }
+                        );
+                      }
                     }
                   });
                   navigate('/consumer/verify-email');

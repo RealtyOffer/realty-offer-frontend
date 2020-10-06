@@ -93,8 +93,13 @@ const Login: FunctionComponent<LoginProps> = () => {
                 disabled={inLockoutPeriod}
               />
               <HorizontalRule />
-              <Button type="submit" disabled={isSubmitting || !isValid || inLockoutPeriod} block>
-                Log In
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isValid || inLockoutPeriod}
+                block
+                isLoading={auth.isLoading}
+              >
+                {auth.isLoading ? 'Logging In' : 'Log In'}
               </Button>
             </Form>
           )}

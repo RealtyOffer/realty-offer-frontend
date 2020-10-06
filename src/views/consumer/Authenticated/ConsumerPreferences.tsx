@@ -39,15 +39,20 @@ const ConsumerPreferences: FunctionComponent<ConsumerPreferencesProps> = () => {
     }
   }, []);
 
+  const profileComplete = consumer.profile?.agePreferenceId && consumer.profile?.genderPreferenceId;
+
   return (
     <>
       <Seo title="My Preferences" />
       <Heading as="h2">My Preferences</Heading>
       <Box>
-        <Heading as="h3">
-          Completing the survey below will increase your chances of matching with the best agent for
-          you!
-        </Heading>
+        {!profileComplete && (
+          <Heading as="h3">
+            Completing the questionnaire below will increase your chances of matching with the best
+            agent for you!
+          </Heading>
+        )}
+
         <p>
           In the event that multiple agents have the same bid, we will use this information to
           select the right agent for you.

@@ -116,5 +116,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         fetch: path.resolve(path.join(__dirname, 'node_modules/isomorphic-fetch/fetch-npm-node')),
       }),
     ],
+    externals: {
+      canvg: 'canvg',
+    },
   });
 };

@@ -85,6 +85,13 @@ export const isValidPassword = (value: string) => {
   return undefined;
 };
 
+export const isSixDigits = (value: string) => {
+  if (String(value).length !== 6) {
+    return 'Confirmation code must be 6 digits';
+  }
+  return undefined;
+};
+
 export const isSellerCommissionAmount = (value: string) => {
   if (Number(value) === 0) {
     return 'Commission must be above 2%';
@@ -179,6 +186,9 @@ export const isDollarAmount = (value: string) => {
 };
 
 // composed validations for use in Formik Field components
+export const requiredConfirmationCode = (value: string) =>
+  customFieldLevelValidation(value, [requiredField, isNumber, isSixDigits]);
+
 export const requiredEmail = (value: string) =>
   customFieldLevelValidation(value, [requiredField, isEmail]);
 

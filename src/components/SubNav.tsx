@@ -11,6 +11,10 @@ const StyledSubNav = styled.nav`
   border: ${baseBorderStyle};
   box-shadow: ${z1Shadow};
   margin-bottom: ${baseSpacer};
+
+  @media print {
+    display: none;
+  }
 `;
 
 const StyledSubNavLink = styled(Link)`

@@ -112,7 +112,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
               <ReactMarkdown source={consumer.body} />
               <Button
                 type="link"
-                to="/consumer/start"
+                to="/consumer-landing"
                 color="tertiary"
                 iconRight={<FaArrowCircleRight />}
               >

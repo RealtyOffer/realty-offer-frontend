@@ -70,6 +70,7 @@ export type BidType = {
   buyerAppraisalAmount?: number;
   buyerMovingCompanyAmount?: number;
   listingId?: number | string;
+  agentId?: number;
 };
 
 export type AgentSignupDataType = {

@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretRight } from 'react-icons/fa';
+import styled from 'styled-components';
 
 import { Button, Box, Heading } from '.';
 import { addAlert } from '../redux/ducks/globalAlerts';
@@ -23,6 +24,12 @@ type GetFinancedFormValues = {
 };
 
 type Props = {};
+
+const GetFinancedWrapper = styled.div`
+  @media print {
+    display: none;
+  }
+`;
 
 const GetFinancedForm: FunctionComponent<Props> = () => {
   const formName = 'get-financed-form';
@@ -46,45 +53,47 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
   };
 
   return (
-    <Formik
-      validateOnMount
-      initialValues={initialValues}
-      onSubmit={(values, { resetForm, setSubmitting }) => {
-        return postFormUrlEncoded('https://realtyoffer.com/', formName, values).then(() => {
-          setSubmitting(false);
-          resetForm();
-          dispatch(
-            addAlert({
-              message: `Your information has been submitted! A RealtyOffer Mortgage Consultant will contact you shortly.`,
-              type: 'success',
-            })
-          );
-        });
-      }}
-    >
-      {({ isSubmitting, isValid }) => (
-        <Form name={formName} method="post" netlify-honeypot="bot-field" data-netlify="true">
-          <Box>
-            <Heading as="h4" styledAs="subtitle">
-              Get Financed!
-            </Heading>
-            <p>
-              Interested in connecting with one of our mortgage consultants who will help you get
-              approved for your new home loan?
-            </p>
-            <input type="hidden" name="form-name" value={formName} />
-            <Button
-              type="submit"
-              block
-              iconRight={<FaCaretRight />}
-              disabled={isSubmitting || !isValid}
-            >
-              Send My Info
-            </Button>
-          </Box>
-        </Form>
-      )}
-    </Formik>
+    <GetFinancedWrapper>
+      <Formik
+        validateOnMount
+        initialValues={initialValues}
+        onSubmit={(values, { resetForm, setSubmitting }) => {
+          return postFormUrlEncoded('https://realtyoffer.com/', formName, values).then(() => {
+            setSubmitting(false);
+            resetForm();
+            dispatch(
+              addAlert({
+                message: `Your information has been submitted! A RealtyOffer Mortgage Consultant will contact you shortly.`,
+                type: 'success',
+              })
+            );
+          });
+        }}
+      >
+        {({ isSubmitting, isValid }) => (
+          <Form name={formName} method="post" netlify-honeypot="bot-field" data-netlify="true">
+            <Box>
+              <Heading as="h4" styledAs="subtitle">
+                Need a mortgage?
+              </Heading>
+              <p>
+                Interested in connecting with one of our mortgage consultants who will help you get
+                approved for your new home loan?
+              </p>
+              <input type="hidden" name="form-name" value={formName} />
+              <Button
+                type="submit"
+                block
+                iconRight={<FaCaretRight />}
+                disabled={isSubmitting || !isValid}
+              >
+                Send My Info
+              </Button>
+            </Box>
+          </Form>
+        )}
+      </Formik>
+    </GetFinancedWrapper>
   );
 };
 

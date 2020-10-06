@@ -20,7 +20,11 @@ import {
   Button,
 } from '../../../components';
 import AutoSave from '../../../utils/autoSave';
-import { requiredEmail, requiredPhoneNumber } from '../../../utils/validations';
+import {
+  requiredEmail,
+  requiredPhoneNumber,
+  requiredConfirmationCode,
+} from '../../../utils/validations';
 import { RootState } from '../../../redux/ducks';
 import {
   updateUserNotificationSubscriptions,
@@ -47,6 +51,7 @@ type InitialValuesType = {
 const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+  const auth = useSelector((state: RootState) => state.auth);
   const consumerAlerts = user.notificationTypes
     .filter((type) => type.type === 'consumerAlerts')
     .sort((a, b) => a.id - b.id);
@@ -90,6 +95,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
 
   const settingsInitialValues = {
     ...user.notificationSettings,
+    phoneNumer: user.notificationSettings.phoneNumber || auth.phoneNumber || '',
     emailConfirmationCode: '',
     phoneNumberConfirmationCode: '',
     deviceType: '',
@@ -121,7 +127,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
       <Heading as="h2">My Notification Preferences</Heading>
       <Box>
         <Heading as="h2">Contact Information</Heading>
-        {user.isLoading ? (
+        {user.isLoading || !user.notificationSettings.emailConfirmed ? (
           <>
             <Skeleton height={doubleSpacer} />
             <br />
@@ -134,7 +140,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
             initialValues={settingsInitialValues}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
-              if (values.emailConfirmationCode) {
+              if (values.emailConfirmationCode && values.emailConfirmationCode.length === 6) {
                 dispatch(
                   confirmDevice({
                     confirmationCode: String(values.emailConfirmationCode),
@@ -142,7 +148,10 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                   })
                 );
               }
-              if (values.phoneNumberConfirmationCode) {
+              if (
+                values.phoneNumberConfirmationCode &&
+                values.phoneNumberConfirmationCode.length === 6
+              ) {
                 dispatch(
                   confirmDevice({
                     confirmationCode: String(values.phoneNumberConfirmationCode),
@@ -181,6 +190,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                         type="number"
                         name="emailConfirmationCode"
                         label="Confirmation Code"
+                        validate={requiredConfirmationCode}
                       />
                     ) : (
                       <FlexContainer justifyContent="start" height="100%">
@@ -228,6 +238,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                         type="number"
                         name="phoneNumberConfirmationCode"
                         label="Confirmation Code"
+                        validate={requiredConfirmationCode}
                       />
                     ) : (
                       <FlexContainer justifyContent="start" height="100%">

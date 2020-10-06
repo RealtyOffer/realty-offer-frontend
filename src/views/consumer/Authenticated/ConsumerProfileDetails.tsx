@@ -2,13 +2,14 @@ import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'gatsby';
+import { navigate, Link } from 'gatsby';
 
 import { Box, Input, Row, Column, ProgressBar, Heading, Seo } from '../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../utils/validations';
 import AutoSave from '../../../utils/autoSave';
 import { RootState } from '../../../redux/ducks';
 import { updateUser } from '../../../redux/ducks/auth';
+import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { reformattedPhoneForCognito, formatPhoneNumberValue } from '../../../utils/phoneNumber';
 
 type ConsumerProfileDetailsProps = {} & RouteComponentProps;
@@ -40,7 +41,16 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
               ...values,
               phoneNumber: reformattedPhoneForCognito(values.phoneNumber),
             })
-          ).then(() => {
+          ).then((response: ActionResponseType) => {
+            if (response && !response.error) {
+              dispatch(
+                addAlert({
+                  type: 'success',
+                  message: 'Successfully saved your preferences!',
+                })
+              );
+              navigate('/consumer/home');
+            }
             setSubmitting(false);
           });
         }}
@@ -57,7 +67,7 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
                     label={
                       profileComplete
                         ? 'Your profile is complete!'
-                        : 'Next: Take personal preferences survey'
+                        : 'Next: Take personal preferences questionnaire'
                     }
                   />
                 </Column>

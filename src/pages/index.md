@@ -16,7 +16,7 @@ consumer:
 
 
     No contracts, no obligation, no awkward negotiations.
-  cta: Sign up now
+  cta: Connect with a RealtyOffer Specialist
   icon: /img/np_real-estate_3187456_000000.svg
 agent:
   title: Agents
