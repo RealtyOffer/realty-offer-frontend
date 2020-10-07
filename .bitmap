@@ -13,7 +13,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/agent-navigation-items@1.0.0": {
+    "realtyoffer.collection/agent-navigation-items@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/agentNavigationItems.ts",
@@ -37,7 +37,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/buying-and-selling-calculator@1.0.2": {
+    "realtyoffer.collection/buying-and-selling-calculator@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/buyingAndSellingCalculator.ts",
@@ -61,7 +61,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/constants@1.0.1": {
+    "realtyoffer.collection/constants@1.0.3": {
         "files": [
             {
                 "relativePath": "src/redux/constants.ts",
@@ -85,7 +85,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/countdown-timer-utils@1.0.0": {
+    "realtyoffer.collection/countdown-timer-utils@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/countdownTimerUtils.ts",
@@ -97,7 +97,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/create-options-from-array@1.0.2": {
+    "realtyoffer.collection/create-options-from-array@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/createOptionsFromArray.ts",
@@ -121,7 +121,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/dropdown-utils@1.0.2": {
+    "realtyoffer.collection/dropdown-utils@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/dropdownUtils.tsx",
@@ -133,7 +133,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/ducks@1.0.2": {
+    "realtyoffer.collection/ducks@1.0.3": {
         "files": [
             {
                 "relativePath": "src/redux/ducks/admin.d.ts",
@@ -186,6 +186,16 @@
                 "name": "dropdowns.ts"
             },
             {
+                "relativePath": "src/redux/ducks/fortis.d.ts",
+                "test": false,
+                "name": "fortis.d.ts"
+            },
+            {
+                "relativePath": "src/redux/ducks/fortis.ts",
+                "test": false,
+                "name": "fortis.ts"
+            },
+            {
                 "relativePath": "src/redux/ducks/globalAlerts.d.ts",
                 "test": false,
                 "name": "globalAlerts.d.ts"
@@ -226,7 +236,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/error-catcher@1.0.0": {
+    "realtyoffer.collection/error-catcher@1.0.3": {
         "files": [
             {
                 "relativePath": "src/redux/middleware/errorCatcher.ts",
@@ -286,7 +296,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/phone-number@1.0.0": {
+    "realtyoffer.collection/phone-number@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/phoneNumber.ts",
@@ -334,7 +344,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/unauthenticated-navigation-items@1.0.0": {
+    "realtyoffer.collection/unauthenticated-navigation-items@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/unauthenticatedNavigationItems.ts",
@@ -406,7 +416,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/validations@1.0.0": {
+    "realtyoffer.collection/validations@1.0.3": {
         "files": [
             {
                 "relativePath": "src/utils/validations.ts",
@@ -418,7 +428,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/validationstest@1.0.0": {
+    "realtyoffer.collection/validationstest@1.0.1": {
         "files": [
             {
                 "relativePath": "src/utils/validations.test.ts",

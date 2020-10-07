@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,10 +19,8 @@ import { requiredEmail, requiredPhoneNumber } from '../../../../utils/validation
 import AutoSave from '../../../../utils/autoSave';
 import { RootState } from '../../../../redux/ducks';
 import {
-  getUserNotificationSettings,
   updateUserNotificationSettings,
   confirmDevice,
-  getNotificationTypes,
   getUserNotificationSubscriptions,
 } from '../../../../redux/ducks/user';
 import { NotificationSettingsType } from '../../../../redux/ducks/user.d';
@@ -38,6 +36,8 @@ type AgentNotificationsProps = {} & RouteComponentProps;
 const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
+  const [emailCodeSent, setEmailCodeSent] = useState(false);
+  const [phoneCodeSent, setPhoneCodeSent] = useState(false);
 
   const settingsInitialValues = {
     ...user.notificationSettings,
@@ -47,8 +47,6 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserNotificationSettings());
-    dispatch(getNotificationTypes());
     dispatch(getUserNotificationSubscriptions());
   }, []);
 
@@ -60,6 +58,10 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
         forceResendEmailCode: true,
       })
     );
+    setEmailCodeSent(true);
+    setTimeout(() => {
+      setEmailCodeSent(false);
+    }, 5000);
   };
 
   const resendPhoneNumberConfirmationCode = (values: NotificationSettingsType) => {
@@ -70,6 +72,10 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
         forceResendPhoneCode: true,
       })
     );
+    setPhoneCodeSent(true);
+    setTimeout(() => {
+      setPhoneCodeSent(false);
+    }, 5000);
   };
 
   return (
@@ -89,8 +95,9 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
           <Formik
             validateOnMount
             initialValues={settingsInitialValues}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(false);
+              resetForm();
               if (values.emailConfirmationCode) {
                 dispatch(
                   confirmDevice({
@@ -111,7 +118,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                 dispatch(updateUserNotificationSettings({ ...values }));
             }}
           >
-            {({ values }) => (
+            {({ values, isSubmitting, isValid }) => (
               <Form>
                 <Field
                   as={Input}
@@ -153,14 +160,20 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       <FlexContainer justifyContent="start" height="100%">
                         <p>
                           <small>
-                            Didn&apos;t receive a code?{' '}
-                            <Button
-                              type="button"
-                              color="text"
-                              onClick={() => resendEmailConfirmationCode(values)}
-                            >
-                              Resend one now
-                            </Button>
+                            {emailCodeSent ? (
+                              'Code sent'
+                            ) : (
+                              <>
+                                Didn&apos;t receive a code?{' '}
+                                <Button
+                                  type="button"
+                                  color="text"
+                                  onClick={() => resendEmailConfirmationCode(values)}
+                                >
+                                  Resend one now
+                                </Button>
+                              </>
+                            )}
                           </small>
                         </p>
                       </FlexContainer>
@@ -199,20 +212,25 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                     <Column md={4}>
                       <FlexContainer justifyContent="start" height="100%">
                         <small>
-                          Didn&apos;t receive a code?{' '}
-                          <Button
-                            type="button"
-                            color="text"
-                            onClick={() => resendPhoneNumberConfirmationCode(values)}
-                          >
-                            Resend one now
-                          </Button>
+                          {phoneCodeSent ? (
+                            'Code sent'
+                          ) : (
+                            <>
+                              Didn&apos;t receive a code?{' '}
+                              <Button
+                                type="button"
+                                color="text"
+                                onClick={() => resendPhoneNumberConfirmationCode(values)}
+                              >
+                                Resend one now
+                              </Button>
+                            </>
+                          )}
                         </small>
                       </FlexContainer>
                     </Column>
                   )}
                 </Row>
-
                 <AutoSave />
               </Form>
             )}

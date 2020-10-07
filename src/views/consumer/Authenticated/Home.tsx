@@ -38,12 +38,14 @@ import {
   getNotificationTypes,
   getUserNotificationSubscriptions,
 } from '../../../redux/ducks/user';
+import { refreshAccessToken } from '../../../redux/ducks/auth';
 import {
   getHomeTypesList,
   getPriceRangesList,
   getGenderPreferencesList,
   getAgePreferencesList,
 } from '../../../redux/ducks/dropdowns';
+import useInterval from '../../../utils/useInterval';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -63,12 +65,25 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   const consumer = useSelector((state: RootState) => state.consumer);
   const dispatch = useDispatch();
 
+  const getNewRefreshToken = () => {
+    if (auth.isLoggedIn) {
+      dispatch(refreshAccessToken(auth));
+    }
+  };
+
+  useInterval(() => {
+    getNewRefreshToken();
+  }, 1800000); // 30 minutes
+
   useEffect(() => {
     dispatch(getConsumerProfile());
     dispatch(getPriceRangesList());
     dispatch(getHomeTypesList());
     dispatch(getGenderPreferencesList());
     dispatch(getAgePreferencesList());
+    dispatch(getUserNotificationSettings());
+    dispatch(getNotificationTypes());
+    dispatch(getUserNotificationSubscriptions());
   }, []);
 
   useEffect(() => {
@@ -91,12 +106,6 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       });
     }
   }, [consumer.listing, consumer.bids]);
-
-  useEffect(() => {
-    dispatch(getUserNotificationSettings());
-    dispatch(getNotificationTypes());
-    dispatch(getUserNotificationSubscriptions());
-  }, []);
 
   const profileComplete = consumer.profile?.agePreferenceId && consumer.profile?.genderPreferenceId;
 

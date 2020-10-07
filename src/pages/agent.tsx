@@ -23,7 +23,13 @@ import NotFoundPage from './404';
 
 import { Alert, PageContainer, PrivateRoute, LoadingPage } from '../components';
 import { getAgentProfile, resetProfileCompleteAlert } from '../redux/ducks/agent';
-import { getUserSiteBanners, getUserAvatar } from '../redux/ducks/user';
+import {
+  getUserSiteBanners,
+  getUserAvatar,
+  getUserNotificationSettings,
+  getNotificationTypes,
+  getUserNotificationSubscriptions,
+} from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
 import { ActionResponseType } from '../redux/constants';
 import { addBanner } from '../redux/ducks/globalAlerts';
@@ -105,7 +111,13 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
   useInterval(() => {
     getNewRefreshToken();
-  }, 1800000);
+  }, 1800000); // 30 minutes
+
+  useEffect(() => {
+    dispatch(getUserNotificationSettings());
+    dispatch(getNotificationTypes());
+    dispatch(getUserNotificationSubscriptions());
+  }, []);
 
   return (
     <PageContainer>
