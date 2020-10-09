@@ -18,6 +18,7 @@ import AutoSave from '../../../../../utils/autoSave';
 import { UserStoreType } from '../../../../../redux/ducks/user.d';
 import { requiredSelect } from '../../../../../utils/validations';
 import { updateUserNotificationSubscriptions } from '../../../../../redux/ducks/user';
+import { ActionResponseType } from '../../../../../redux/constants';
 
 type ListingAlertsProps = {
   user: UserStoreType;
@@ -67,7 +68,9 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
   return (
     <Box>
       <Heading as="h2">Listing Alerts</Heading>
-      {user.isLoading || !user.userNotificationSubscriptions.length ? (
+      {user.isLoading ||
+      !user.userNotificationSubscriptions.length ||
+      !user.notificationSettings.emailAddress ? (
         <Skeleton count={5} />
       ) : (
         <>
@@ -86,13 +89,19 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
           <Formik
             validateOnMount
             initialValues={initialValues}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
               Object.keys(values).forEach((key) => {
                 if (!isEqual(initialValues[key], values[key])) {
-                  dispatch(updateUserNotificationSubscriptions({ ...values[key] }));
+                  dispatch(updateUserNotificationSubscriptions({ ...values[key] })).then(
+                    (response: ActionResponseType) => {
+                      if (response && !response.error) {
+                        setSubmitting(false);
+                        resetForm({ values });
+                      }
+                    }
+                  );
                 }
               });
-              setSubmitting(false);
             }}
           >
             {({ values, ...rest }) => (

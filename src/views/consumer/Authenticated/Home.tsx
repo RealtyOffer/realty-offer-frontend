@@ -116,7 +116,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
         <Heading>Congrats {auth.firstName}!</Heading>
         <p>Your listing has been sent to hundreds of our agents.</p>
       </HeadingWrapper>
-      {!profileComplete && (
+      {!profileComplete && !consumer.isLoading && (
         <StyledAlert>
           <FlexContainer justifyContent="space-between" flexWrap="nowrap" alignItems="start">
             <div>

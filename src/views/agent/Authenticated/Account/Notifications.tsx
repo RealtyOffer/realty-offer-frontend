@@ -19,6 +19,8 @@ import { requiredEmail, requiredPhoneNumber } from '../../../../utils/validation
 import AutoSave from '../../../../utils/autoSave';
 import { RootState } from '../../../../redux/ducks';
 import {
+  getUserNotificationSettings,
+  getNotificationTypes,
   updateUserNotificationSettings,
   confirmDevice,
   getUserNotificationSubscriptions,
@@ -26,6 +28,7 @@ import {
 import { NotificationSettingsType } from '../../../../redux/ducks/user.d';
 import { brandSuccess } from '../../../../styles/color';
 import { doubleSpacer } from '../../../../styles/size';
+import { ActionResponseType } from '../../../../redux/constants';
 
 import ListingAlerts from './NotificationsForms/ListingAlerts';
 import AccountAlerts from './NotificationsForms/AccountAlerts';
@@ -47,6 +50,8 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
   };
 
   useEffect(() => {
+    dispatch(getUserNotificationSettings());
+    dispatch(getNotificationTypes());
     dispatch(getUserNotificationSubscriptions());
   }, []);
 
@@ -84,7 +89,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
       <Heading>Notifications</Heading>
       <Box>
         <Heading as="h2">Contact Information</Heading>
-        {user.isLoading ? (
+        {user.isLoading || !user.notificationSettings.emailAddress ? (
           <>
             <Skeleton height={doubleSpacer} />
             <br />
@@ -96,15 +101,18 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
             validateOnMount
             initialValues={settingsInitialValues}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-              setSubmitting(false);
-              resetForm();
               if (values.emailConfirmationCode) {
                 dispatch(
                   confirmDevice({
                     confirmationCode: String(values.emailConfirmationCode),
                     deviceType: 'email',
                   })
-                );
+                ).then((response: ActionResponseType) => {
+                  if (response && !response.error) {
+                    setSubmitting(false);
+                    resetForm({ values });
+                  }
+                });
               }
               if (values.phoneNumberConfirmationCode) {
                 dispatch(
@@ -112,13 +120,25 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                     confirmationCode: String(values.phoneNumberConfirmationCode),
                     deviceType: 'phone',
                   })
-                );
+                ).then((response: ActionResponseType) => {
+                  if (response && !response.error) {
+                    setSubmitting(false);
+                    resetForm({ values });
+                  }
+                });
               }
               if (!values.emailConfirmationCode && !values.phoneNumberConfirmationCode)
-                dispatch(updateUserNotificationSettings({ ...values }));
+                dispatch(updateUserNotificationSettings({ ...values })).then(
+                  (response: ActionResponseType) => {
+                    if (response && !response.error) {
+                      setSubmitting(false);
+                      resetForm({ values });
+                    }
+                  }
+                );
             }}
           >
-            {({ values, isSubmitting, isValid }) => (
+            {({ values }) => (
               <Form>
                 <Field
                   as={Input}

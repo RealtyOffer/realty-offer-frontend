@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { RouteComponentProps } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,6 +34,7 @@ import {
 import { NotificationSettingsType } from '../../../redux/ducks/user.d';
 import { brandSuccess } from '../../../styles/color';
 import { doubleSpacer } from '../../../styles/size';
+import { ActionResponseType } from '../../../redux/constants';
 
 type ConsumerNotificationsProps = {} & RouteComponentProps;
 
@@ -52,6 +53,9 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
   const auth = useSelector((state: RootState) => state.auth);
+  const [emailCodeSent, setEmailCodeSent] = useState(false);
+  const [phoneCodeSent, setPhoneCodeSent] = useState(false);
+
   const consumerAlerts = user.notificationTypes
     .filter((type) => type.type === 'consumerAlerts')
     .sort((a, b) => a.id - b.id);
@@ -72,7 +76,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
       inAppPush:
         user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
         false,
-      id: item.id,
+      notificationId: item.id,
       notificationFrequency: 'realTime',
     };
   });
@@ -88,7 +92,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
       inAppPush:
         user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
         false,
-      id: item.id,
+      notificationId: item.id,
       notificationFrequency: 'realTime',
     };
   });
@@ -109,6 +113,10 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
         forceResendEmailCode: true,
       })
     );
+    setEmailCodeSent(true);
+    setTimeout(() => {
+      setEmailCodeSent(false);
+    }, 5000);
   };
 
   const resendPhoneNumberConfirmationCode = (values: NotificationSettingsType) => {
@@ -119,6 +127,10 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
         forceResendPhoneCode: true,
       })
     );
+    setPhoneCodeSent(true);
+    setTimeout(() => {
+      setPhoneCodeSent(false);
+    }, 5000);
   };
 
   return (
@@ -138,7 +150,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
           <Formik
             validateOnMount
             initialValues={settingsInitialValues}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(false);
               if (values.emailConfirmationCode && values.emailConfirmationCode.length === 6) {
                 dispatch(
@@ -146,7 +158,12 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                     confirmationCode: String(values.emailConfirmationCode),
                     deviceType: 'email',
                   })
-                );
+                ).then((response: ActionResponseType) => {
+                  if (response && !response.error) {
+                    setSubmitting(false);
+                    resetForm({ values });
+                  }
+                });
               }
               if (
                 values.phoneNumberConfirmationCode &&
@@ -157,10 +174,22 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                     confirmationCode: String(values.phoneNumberConfirmationCode),
                     deviceType: 'phone',
                   })
-                );
+                ).then((response: ActionResponseType) => {
+                  if (response && !response.error) {
+                    setSubmitting(false);
+                    resetForm({ values });
+                  }
+                });
               }
               if (!values.emailConfirmationCode && !values.phoneNumberConfirmationCode)
-                dispatch(updateUserNotificationSettings({ ...values }));
+                dispatch(updateUserNotificationSettings({ ...values })).then(
+                  (response: ActionResponseType) => {
+                    if (response && !response.error) {
+                      setSubmitting(false);
+                      resetForm({ values });
+                    }
+                  }
+                );
             }}
           >
             {({ values }) => (
@@ -206,14 +235,20 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                       <FlexContainer justifyContent="start" height="100%">
                         <p>
                           <small>
-                            Didn&apos;t receive a code?{' '}
-                            <Button
-                              type="button"
-                              color="text"
-                              onClick={() => resendEmailConfirmationCode(values)}
-                            >
-                              Resend one now
-                            </Button>
+                            {emailCodeSent ? (
+                              'Code sent'
+                            ) : (
+                              <>
+                                Didn&apos;t receive a code?{' '}
+                                <Button
+                                  type="button"
+                                  color="text"
+                                  onClick={() => resendEmailConfirmationCode(values)}
+                                >
+                                  Resend one now
+                                </Button>
+                              </>
+                            )}
                           </small>
                         </p>
                       </FlexContainer>
@@ -253,14 +288,20 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                     <Column md={4}>
                       <FlexContainer justifyContent="start" height="100%">
                         <small>
-                          Didn&apos;t receive a code?{' '}
-                          <Button
-                            type="button"
-                            color="text"
-                            onClick={() => resendPhoneNumberConfirmationCode(values)}
-                          >
-                            Resend one now
-                          </Button>
+                          {phoneCodeSent ? (
+                            'Code sent'
+                          ) : (
+                            <>
+                              Didn&apos;t receive a code?{' '}
+                              <Button
+                                type="button"
+                                color="text"
+                                onClick={() => resendPhoneNumberConfirmationCode(values)}
+                              >
+                                Resend one now
+                              </Button>
+                            </>
+                          )}
                         </small>
                       </FlexContainer>
                     </Column>
@@ -274,7 +315,9 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
         )}
       </Box>
       <Box>
-        {user.isLoading || !user.userNotificationSubscriptions.length ? (
+        {user.isLoading ||
+        !user.userNotificationSubscriptions.length ||
+        !user.notificationSettings.emailAddress ? (
           <Skeleton count={5} />
         ) : (
           <>
@@ -293,13 +336,19 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
             <Formik
               validateOnMount
               initialValues={initialValues}
-              onSubmit={(values, { setSubmitting }) => {
+              onSubmit={(values, { setSubmitting, resetForm }) => {
                 Object.keys(values).forEach((key) => {
                   if (!isEqual(initialValues[key], values[key])) {
-                    dispatch(updateUserNotificationSubscriptions({ ...values[key] }));
+                    dispatch(updateUserNotificationSubscriptions({ ...values[key] })).then(
+                      (response: ActionResponseType) => {
+                        if (response && !response.error) {
+                          setSubmitting(false);
+                          resetForm({ values });
+                        }
+                      }
+                    );
                   }
                 });
-                setSubmitting(false);
               }}
             >
               {({ values }) => (

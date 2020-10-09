@@ -42,7 +42,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
         <EmptyListingsView
           title="There are no new listings in your current sales area."
           buttonText="Add More Cities"
-          to="/agent/account/settings"
+          to="/agent/account/billing"
         />
       )}
     </>
