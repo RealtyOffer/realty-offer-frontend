@@ -21,13 +21,15 @@ import {
   requiredPhoneNumber,
 } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
-import { getPriceRangesList } from '../redux/ducks/dropdowns';
+import { getPriceRangesList, getHomeTypesList } from '../redux/ducks/dropdowns';
 import { RootState } from '../redux/ducks';
 import { createOptionsFromManagedDropdownList } from '../utils/createOptionsFromArray';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
+import { getDropdownListText } from '../utils/dropdownUtils';
 
 const ConsumerLandingForm: FunctionComponent<{}> = () => {
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
+  const homesTypeList = useSelector((state: RootState) => state.dropdowns.homeTypes.list);
   const dispatch = useDispatch();
   const initialValues = {
     firstName: '',
@@ -42,10 +44,12 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
     type: '',
     where: '',
     message: '',
+    subject: '',
   };
 
   useEffect(() => {
     dispatch(getPriceRangesList());
+    dispatch(getHomeTypesList());
   }, []);
 
   return (
@@ -58,6 +62,8 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
             onSubmit={(values) => {
               const valuesWithSubject = {
                 ...values,
+                homeValue: getDropdownListText(priceRangesList, values.homeValue),
+                styleOfHome: getDropdownListText(homesTypeList, values.styleOfHome),
                 subject: `New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`,
               };
               postFormUrlEncoded('https://realtyoffer.com/', 'consumer-landing', valuesWithSubject)
@@ -88,6 +94,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                 data-netlify="true"
               >
                 <input type="hidden" name="form-name" value="consumer-landing" />
+                <input type="hidden" name="subject" value="" />
                 <Row>
                   <Column sm={6}>
                     <Field
@@ -165,11 +172,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   as={Input}
                   type="select"
                   name="styleOfHome"
-                  options={[
-                    { value: 'Colonial', label: 'Colonial' },
-                    { value: 'Ranch', label: 'Ranch' },
-                    { value: 'Condo/Townhome', label: 'Condo/Townhome' },
-                  ]}
+                  options={createOptionsFromManagedDropdownList(homesTypeList)}
                   label="Style of Home"
                   {...rest}
                 />

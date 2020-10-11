@@ -18,11 +18,17 @@ import Button from './Button';
 import { BidType } from '../redux/ducks/agent.d';
 import { displayDropdownListText } from '../utils/dropdownUtils';
 import { isExpired, isExpiringSoon } from '../utils/countdownTimerUtils';
-import { createConsumerBidWinner } from '../redux/ducks/consumer';
-import { ConsumerStoreType } from '../redux/ducks/consumer.d';
+import {
+  createConsumerBidWinner,
+  getConsumerBids,
+  getWinningAgentProfile,
+  getWinningAgentProfilePhoto,
+} from '../redux/ducks/consumer';
+import { ConsumerStoreType, WinningAgentProfileType } from '../redux/ducks/consumer.d';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
 import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
 import { RootState } from '../redux/ducks';
+import { addAlert } from '../redux/ducks/globalAlerts';
 
 type ConsumerListingCardProps = {
   consumer: ConsumerStoreType;
@@ -56,14 +62,22 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
   const dispatch = useDispatch();
 
   const selectWinningAgent = (bid: BidType) => {
-    dispatch(createConsumerBidWinner(bid));
+    dispatch(createConsumerBidWinner(bid)).then((response: ActionResponseType) => {
+      if (response && !response.error) {
+        dispatch(getWinningAgentProfile()).then((res: { payload: WinningAgentProfileType }) => {
+          if (res.payload?.userName) {
+            dispatch(getWinningAgentProfilePhoto(res.payload.userName));
+          }
+        });
+      }
+    });
   };
 
   if (!listing) {
     return null;
   }
 
-  const winningBid = (winner && bids.find((bid) => bid.agentId === winner.agentId)) || bids[0];
+  const winningBid = winner && bids.find((bid) => bid.agentId === Number(winner.id));
 
   return (
     <ConsumerListingCardWrapper expiringSoon={isExpiringSoon(listing.createDateTime)}>
@@ -75,7 +89,18 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             <small>Listing ended at</small>
           )}
 
-          <Countdown createDateTime={listing.createDateTime} />
+          <Countdown
+            createDateTime={listing.createDateTime}
+            onComplete={() => {
+              dispatch(
+                addAlert({
+                  type: 'info',
+                  message: 'The bidding window for this listing has just ended.',
+                })
+              );
+              dispatch(getConsumerBids());
+            }}
+          />
         </FlexContainer>
       </ConsumerListingCardHeader>
       <ConsumerListingCardBody>
@@ -155,7 +180,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           </Row>
         </ConsumerListingCardBody>
       )}
-      {winner && (
+      {winner && winner.agentId && (
         <ConsumerListingCardBody>
           <HorizontalRule />
           <Heading as="h3">Winning Realtor</Heading>
@@ -200,7 +225,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           <HorizontalRule />
           <Heading as="h3">Listing Contract</Heading>
           <Row>
-            {listing.type?.toLowerCase().includes('seller') && (
+            {listing.type?.toLowerCase().includes('seller') && winningBid && (
               <Column xs={6}>
                 <dl>
                   <dt>Total Seller Commission</dt>
@@ -246,7 +271,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                 </p>
               </Column>
             )}
-            {listing.type?.includes('buyer') && (
+            {listing.type?.includes('buyer') && winningBid && (
               <Column xs={6}>
                 <dl>
                   <dt>Total Buyer Commission</dt>

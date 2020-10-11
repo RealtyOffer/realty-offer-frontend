@@ -85,7 +85,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/countdown-timer-utils@1.0.3": {
+    "realtyoffer.collection/countdown-timer-utils@1.0.4": {
         "files": [
             {
                 "relativePath": "src/utils/countdownTimerUtils.ts",

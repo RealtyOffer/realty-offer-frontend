@@ -71,6 +71,7 @@ export type BidType = {
   buyerMovingCompanyAmount?: number;
   listingId?: number | string;
   agentId?: number;
+  winner?: boolean;
 };
 
 export type AgentSignupDataType = {

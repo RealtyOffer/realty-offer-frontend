@@ -35,7 +35,7 @@ export type ConsumerProfileType = {
 };
 
 export type WinningAgentProfileType = {
-  id?: 0;
+  id?: number;
   agentId?: string;
   userName?: string;
   firstName?: string;

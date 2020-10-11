@@ -12,6 +12,12 @@ import { halfSpacer, baseSpacer, borderRadius } from '../styles/size';
 import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import FlexContainer from './FlexContainer';
 import HorizontalRule from './HorizontalRule';
+import {
+  getNewListings,
+  getPendingListings,
+  getAwardedListings,
+  getHistoryListings,
+} from '../redux/ducks/listings';
 import { ListingType } from '../redux/ducks/listings.d';
 import { displayDropdownListText } from '../utils/dropdownUtils';
 import { isExpired, isExpiringSoon } from '../utils/countdownTimerUtils';
@@ -77,7 +83,15 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType
   >
     <ListingCardHeader expiringSoon={isExpiringSoon(listing.createDateTime)}>
       <FlexContainer justifyContent="space-between">
-        <Countdown createDateTime={listing.createDateTime} />
+        <Countdown
+          createDateTime={listing.createDateTime}
+          onComplete={() => {
+            dispatch(getNewListings());
+            dispatch(getPendingListings());
+            dispatch(getAwardedListings());
+            dispatch(getHistoryListings());
+          }}
+        />
         <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>
       </FlexContainer>
     </ListingCardHeader>

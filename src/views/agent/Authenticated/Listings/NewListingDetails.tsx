@@ -43,6 +43,7 @@ import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
 import { displayDropdownListText } from '../../../../utils/dropdownUtils';
 import { ActionResponseType } from '../../../../redux/constants';
+import { isExpired } from '../../../../utils/countdownTimerUtils';
 
 type ListingDetailsProps = {
   listingId?: string;
@@ -102,7 +103,17 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
       <Heading as="h2" styledAs="subtitle">
         Additional Listing Information
       </Heading>
-      <Countdown createDateTime={listing.createDateTime} />
+      <Countdown
+        createDateTime={listing.createDateTime}
+        onComplete={() =>
+          dispatch(
+            addAlert({
+              type: 'info',
+              message: 'The bidding window for this listing has just ended.',
+            })
+          )
+        }
+      />
       <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
@@ -342,7 +353,10 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                 </Heading>
               </>
             )}
-            <Button type="submit" disabled={!isValid || isSubmitting}>
+            <Button
+              type="submit"
+              disabled={!isValid || isSubmitting || isExpired(listing.createDateTime)}
+            >
               Place Bid
             </Button>
             <div>

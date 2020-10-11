@@ -284,7 +284,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
     case 'checkbox':
       inputTypeToRender = (
         <>
-          <StyledLabel>{props.label}</StyledLabel>
+          <StyledLabel htmlFor={props.id || props.name}>{props.label}</StyledLabel>
           <StyledToggle {...field} {...props} {...meta} id={props.name} checked={props.checked} />
           <StyledToggleLabel
             htmlFor={props.name}

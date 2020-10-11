@@ -87,7 +87,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   }, []);
 
   useEffect(() => {
-    if (consumer.listing && isExpired(consumer.listing.createDateTime) && !consumer.winner) {
+    if (consumer.listing && isExpired(consumer.listing.createDateTime)) {
       dispatch(getConsumerBids());
     }
   }, [consumer.listing]);
@@ -97,7 +97,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       consumer.listing &&
       consumer.bids.length > 0 &&
       isExpired(consumer.listing.createDateTime) &&
-      !consumer.winner
+      consumer.bids.findIndex((bid) => bid.winner) > -1
     ) {
       dispatch(getWinningAgentProfile()).then((response: { payload: WinningAgentProfileType }) => {
         if (response.payload?.userName) {
@@ -105,7 +105,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
         }
       });
     }
-  }, [consumer.listing, consumer.bids]);
+  }, []);
 
   const profileComplete = consumer.profile?.agePreferenceId && consumer.profile?.genderPreferenceId;
 

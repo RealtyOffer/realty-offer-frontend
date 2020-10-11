@@ -127,7 +127,7 @@ export default (
         ...state,
         isLoading: false,
         hasError: false,
-        winner: { ...action.payload },
+        winner: action.payload,
       };
     case GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS:
       return {

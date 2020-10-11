@@ -25,7 +25,7 @@ const Login: FunctionComponent<LoginProps> = () => {
     auth.lockoutTimestamp && isAfter(new Date(auth.lockoutTimestamp), new Date());
   const dispatch = useDispatch();
   const initialValues = {
-    email: '',
+    email: auth.email || '',
     password: '',
   };
 
