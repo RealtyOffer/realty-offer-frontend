@@ -37,6 +37,7 @@ import {
   helpTextSellerCommissionAmount,
 } from '../../../../utils/validations';
 import { getBidDetailsById } from '../../../../redux/ducks/agent';
+import { BidType } from '../../../../redux/ducks/agent.d';
 import { RootState } from '../../../../redux/ducks';
 import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculator';
 import { displayDropdownListText } from '../../../../utils/dropdownUtils';
@@ -103,8 +104,12 @@ const ArchivedListingDetails: FunctionComponent<ArchivedListingDetailsProps> = (
       <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
-      {!agent.isLoading && agent.activeBid ? (
-        <Formik validateOnMount initialValues={agent.activeBid} onSubmit={() => undefined}>
+      {!agent.isLoading && !agent.activeBid?.isLoading ? (
+        <Formik
+          validateOnMount
+          initialValues={agent.activeBid as Omit<BidType, 'isLoading'>}
+          onSubmit={() => undefined}
+        >
           {({ values }) => (
             <Form>
               {isSeller && (

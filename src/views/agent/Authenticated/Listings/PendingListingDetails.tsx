@@ -39,6 +39,7 @@ import {
   helpTextSellerCommissionAmount,
 } from '../../../../utils/validations';
 import { updateAgentBid, getBidDetailsById, deleteBidById } from '../../../../redux/ducks/agent';
+import { BidType } from '../../../../redux/ducks/agent.d';
 import { RootState } from '../../../../redux/ducks';
 import { getPendingListings } from '../../../../redux/ducks/listings';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
@@ -136,10 +137,10 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
       <p>To increase your odds of winning this bid, you can provide additional funds.</p>
-      {activeBid && (
+      {activeBid && !activeBid.isLoading && (
         <Formik
           validateOnMount
-          initialValues={activeBid}
+          initialValues={activeBid as Omit<BidType, 'isLoading'>}
           onSubmit={(values) => {
             dispatch(
               updateAgentBid({
