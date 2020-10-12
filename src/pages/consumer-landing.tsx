@@ -88,19 +88,20 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                 });
             }}
           >
-            {({ values, isSubmitting, isValid, ...rest }) => (
+            {({ values, isSubmitting, isValid, setFieldValue, ...rest }) => (
               <Form
                 name="consumer-landing"
                 method="post"
                 netlify-honeypot="bot-field"
                 data-netlify="true"
+                onBlur={() =>
+                  setFieldValue(
+                    'subject',
+                    `New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`
+                  )
+                }
               >
                 <input type="hidden" name="form-name" value="consumer-landing" />
-                <input
-                  type="hidden"
-                  name="subject"
-                  value={`New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`}
-                />
                 <Row>
                   <Column sm={6}>
                     <Field
@@ -156,6 +157,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   label="What are you looking to do?"
                   validate={requiredSelect}
                   required
+                  setFieldValue={setFieldValue}
                   {...rest}
                 />
                 <Field
@@ -172,6 +174,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   name="homeValue"
                   options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
                   label="Estimated Home Value"
+                  setFieldValue={setFieldValue}
                   {...rest}
                 />
                 <Field
@@ -180,6 +183,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   name="styleOfHome"
                   options={createOptionsFromManagedDropdownList(homesTypeList)}
                   label="Style of Home"
+                  setFieldValue={setFieldValue}
                   {...rest}
                 />
                 <Field
@@ -195,6 +199,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                     { value: 'More than 5,000 ft²', label: 'More than 5,000 ft²' },
                   ]}
                   label="Estimated Square Footage"
+                  setFieldValue={setFieldValue}
                   {...rest}
                 />
                 <Field
@@ -207,6 +212,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                     { value: 'Excellent', label: 'Excellent' },
                   ]}
                   label="Condition of Home"
+                  setFieldValue={setFieldValue}
                   {...rest}
                 />
                 <Field

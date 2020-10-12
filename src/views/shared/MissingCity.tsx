@@ -150,19 +150,20 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               });
           }}
         >
-          {({ values, isSubmitting, isValid, ...rest }) => (
+          {({ values, isSubmitting, isValid, setFieldValue, ...rest }) => (
             <Form
               name="missing-city"
               method="post"
               netlify-honeypot="bot-field"
               data-netlify="true"
+              onBlur={() =>
+                setFieldValue(
+                  'subject',
+                  `Missing City Request: ${values.firstName} ${values.lastName}`
+                )
+              }
             >
               <input type="hidden" name="form-name" value={formName} />
-              <input
-                type="hidden"
-                name="subject"
-                value={`Missing City Request: ${values.firstName} ${values.lastName}`}
-              />
               {isBuyer && (
                 <>
                   <Row>
@@ -216,6 +217,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     label="Do you have a purchase price in mind?"
                     validate={requiredSelect}
                     required
+                    setFieldValue={setFieldValue}
                     {...rest}
                   />
                   <Field
@@ -239,6 +241,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     validate={requiredSelect}
                     required
                     options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
+                    setFieldValue={setFieldValue}
                     {...rest}
                   />
                   <Field
@@ -270,6 +273,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                         validate={requiredSelect}
                         required
                         options={createOptionsFromManagedDropdownList(statesList)}
+                        setFieldValue={setFieldValue}
                         {...rest}
                       />
                     </Column>

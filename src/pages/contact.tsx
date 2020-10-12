@@ -65,14 +65,20 @@ const Contact: FunctionComponent<ContactProps> = () => {
               });
           }}
         >
-          {({ values, isSubmitting, isValid }) => (
-            <Form name="contact" method="post" netlify-honeypot="bot-field" data-netlify="true">
+          {({ values, isSubmitting, isValid, setFieldValue }) => (
+            <Form
+              name="contact"
+              method="post"
+              netlify-honeypot="bot-field"
+              data-netlify="true"
+              onBlur={() =>
+                setFieldValue(
+                  'subject',
+                  `New contact form submission from ${values.firstName} ${values.lastName}`
+                )
+              }
+            >
               <input type="hidden" name="form-name" value="contact" />
-              <input
-                type="hidden"
-                name="subject"
-                value={`New contact form submission from ${values.firstName} ${values.lastName}`}
-              />
               <Row>
                 <Column sm={6}>
                   <Field

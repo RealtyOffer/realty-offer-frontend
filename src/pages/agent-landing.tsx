@@ -55,19 +55,20 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
               });
           }}
         >
-          {({ values, isSubmitting, isValid }) => (
+          {({ values, isSubmitting, isValid, setFieldValue }) => (
             <Form
               name="agent-landing"
               method="post"
               netlify-honeypot="bot-field"
               data-netlify="true"
+              onBlur={() =>
+                setFieldValue(
+                  'subject',
+                  `New Interested Agent: ${values.firstName} ${values.lastName}`
+                )
+              }
             >
               <input type="hidden" name="form-name" value="agent-landing" />
-              <input
-                type="hidden"
-                name="subject"
-                value={`New Interested Agent: ${values.firstName} ${values.lastName}`}
-              />
               <Row>
                 <Column xs={6}>
                   <Field
