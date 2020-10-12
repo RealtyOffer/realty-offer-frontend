@@ -65,7 +65,7 @@ const Contact: FunctionComponent<ContactProps> = () => {
               });
           }}
         >
-          {({ isSubmitting, isValid }) => (
+          {({ values, isSubmitting, isValid }) => (
             <Form name="contact" method="post" netlify-honeypot="bot-field" data-netlify="true">
               <input type="hidden" name="form-name" value="contact" />
               <input

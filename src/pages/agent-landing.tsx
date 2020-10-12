@@ -55,7 +55,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
               });
           }}
         >
-          {({ isSubmitting, isValid }) => (
+          {({ values, isSubmitting, isValid }) => (
             <Form
               name="agent-landing"
               method="post"
