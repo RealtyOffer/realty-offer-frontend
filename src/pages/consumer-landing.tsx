@@ -55,7 +55,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
   return (
     <PageContainer>
       <Card cardTitle="Connect with a RealtyOffer Specialist">
-        {priceRangesList.length > 0 ? (
+        {priceRangesList.length > 0 && homesTypeList.length > 0 ? (
           <Formik
             validateOnMount
             initialValues={initialValues}
