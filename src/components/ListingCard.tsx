@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import TextTruncate from 'react-text-truncate';
+import { useDispatch } from 'react-redux';
 
 import Button from './Button';
 import Heading from './Heading';
@@ -75,69 +76,72 @@ const ListingCardFooter = styled.div`
   padding: ${halfSpacer};
 `;
 
-const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType }) => (
-  <ListingCardWrapper
-    expiringSoon={isExpiringSoon(listing.createDateTime)}
-    isExpired={isExpired(listing.createDateTime)}
-    awarded={listingType === 'awarded'}
-  >
-    <ListingCardHeader expiringSoon={isExpiringSoon(listing.createDateTime)}>
-      <FlexContainer justifyContent="space-between">
-        <Countdown
-          createDateTime={listing.createDateTime}
-          onComplete={() => {
-            dispatch(getNewListings());
-            dispatch(getPendingListings());
-            dispatch(getAwardedListings());
-            dispatch(getHistoryListings());
-          }}
-        />
-        <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>
-      </FlexContainer>
-    </ListingCardHeader>
-    <ListingCardBody>
-      {listing.type?.includes('buyer') && (
-        <>
-          <Heading as="h1" noMargin styledAs="title">
-            {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
-          </Heading>
-          <span>
-            Buying in{' '}
-            {Array.isArray(listing.buyingCities) && listing.buyingCities.length > 0 && (
-              <TextTruncate
-                line={1}
-                element="span"
-                truncateText="…"
-                text={Array(listing.buyingCities.map((city) => city.name))
-                  .toString()
-                  .replace(/,/g, ', ')}
-                textTruncateChild={
-                  <Link to={`/agent/listings/${listingType}/${listing.id}`}>More</Link>
-                }
-              />
-            )}
-          </span>
-        </>
-      )}
-      {listing.type === 'buyerSeller' && <HorizontalRule />}
-      {listing.type?.toLowerCase().includes('seller') && (
-        <>
-          <Heading as="h1" noMargin styledAs="title">
-            {displayDropdownListText(
-              listing.sellersListingPriceInMindPriceRangeInMindId,
-              'priceRanges'
-            )}
-          </Heading>
-          <span>Selling in {listing.sellersCity?.name}</span>
-        </>
-      )}
-    </ListingCardBody>
-    <ListingCardFooter>
-      <Button type="link" to={`/agent/listings/${listingType}/${listing.id}`} block>
-        Listing Details
-      </Button>
-    </ListingCardFooter>
-  </ListingCardWrapper>
-);
+const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType }) => {
+  const dispatch = useDispatch();
+  return (
+    <ListingCardWrapper
+      expiringSoon={isExpiringSoon(listing.createDateTime)}
+      isExpired={isExpired(listing.createDateTime)}
+      awarded={listingType === 'awarded'}
+    >
+      <ListingCardHeader expiringSoon={isExpiringSoon(listing.createDateTime)}>
+        <FlexContainer justifyContent="space-between">
+          <Countdown
+            createDateTime={listing.createDateTime}
+            onComplete={() => {
+              dispatch(getNewListings());
+              dispatch(getPendingListings());
+              dispatch(getAwardedListings());
+              dispatch(getHistoryListings());
+            }}
+          />
+          <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>
+        </FlexContainer>
+      </ListingCardHeader>
+      <ListingCardBody>
+        {listing.type?.includes('buyer') && (
+          <>
+            <Heading as="h1" noMargin styledAs="title">
+              {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
+            </Heading>
+            <span>
+              Buying in{' '}
+              {Array.isArray(listing.buyingCities) && listing.buyingCities.length > 0 && (
+                <TextTruncate
+                  line={1}
+                  element="span"
+                  truncateText="…"
+                  text={Array(listing.buyingCities.map((city) => city.name))
+                    .toString()
+                    .replace(/,/g, ', ')}
+                  textTruncateChild={
+                    <Link to={`/agent/listings/${listingType}/${listing.id}`}>More</Link>
+                  }
+                />
+              )}
+            </span>
+          </>
+        )}
+        {listing.type === 'buyerSeller' && <HorizontalRule />}
+        {listing.type?.toLowerCase().includes('seller') && (
+          <>
+            <Heading as="h1" noMargin styledAs="title">
+              {displayDropdownListText(
+                listing.sellersListingPriceInMindPriceRangeInMindId,
+                'priceRanges'
+              )}
+            </Heading>
+            <span>Selling in {listing.sellersCity?.name}</span>
+          </>
+        )}
+      </ListingCardBody>
+      <ListingCardFooter>
+        <Button type="link" to={`/agent/listings/${listingType}/${listing.id}`} block>
+          Listing Details
+        </Button>
+      </ListingCardFooter>
+    </ListingCardWrapper>
+  );
+};
 
 export default ListingCard;

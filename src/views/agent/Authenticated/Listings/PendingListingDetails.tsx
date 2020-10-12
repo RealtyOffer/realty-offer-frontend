@@ -15,6 +15,7 @@ import {
   HorizontalRule,
   Countdown,
   Modal,
+  LoadingPage,
 } from '../../../../components';
 import {
   requiredSellerCommissionAmount,
@@ -54,7 +55,7 @@ type ListingDetailsProps = {
 
 const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const listings = useSelector((state: RootState) => state.listings);
-  const activeBid = useSelector((state: RootState) => state.agent.activeBid);
+  const agent = useSelector((state: RootState) => state.agent);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -77,8 +78,8 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
 
   const deleteBidAndNavigate = () => {
     setModalIsOpen(false);
-    if (activeBid && activeBid.id) {
-      dispatch(deleteBidById(activeBid.id)).then((response: ActionResponseType) => {
+    if (agent.activeBid && agent.activeBid.id) {
+      dispatch(deleteBidById(agent.activeBid.id)).then((response: ActionResponseType) => {
         if (response && !response.error) {
           addAlert({
             type: 'success',
@@ -133,18 +134,17 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
           )
         }
       />
-      <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
       <p>To increase your odds of winning this bid, you can provide additional funds.</p>
-      {activeBid && !activeBid.isLoading && (
+      {!agent.isLoading && !agent.activeBid?.isLoading && agent.activeBid?.id ? (
         <Formik
           validateOnMount
-          initialValues={activeBid as Omit<BidType, 'isLoading'>}
+          initialValues={agent.activeBid as Omit<BidType, 'isLoading'>}
           onSubmit={(values) => {
             dispatch(
               updateAgentBid({
-                id: activeBid.id,
+                id: agent.activeBid?.id,
                 // API requires numbers, Formik outputs strings so convert them here
                 sellerCommission: Number(values.sellerCommission),
                 sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
@@ -387,6 +387,8 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
             </Form>
           )}
         </Formik>
+      ) : (
+        <LoadingPage />
       )}
       <Modal toggleModal={() => false} isOpen={modalIsOpen}>
         <Heading styledAs="title">Delete Bid?</Heading>

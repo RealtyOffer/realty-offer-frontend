@@ -101,10 +101,9 @@ const ArchivedListingDetails: FunctionComponent<ArchivedListingDetailsProps> = (
       <Heading as="h2" styledAs="subtitle">
         Additional Listing Information
       </Heading>
-      <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
-      {!agent.isLoading && !agent.activeBid?.isLoading ? (
+      {!agent.isLoading && !agent.activeBid?.isLoading && agent.activeBid?.id ? (
         <Formik
           validateOnMount
           initialValues={agent.activeBid as Omit<BidType, 'isLoading'>}

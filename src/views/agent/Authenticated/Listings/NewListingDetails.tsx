@@ -114,7 +114,6 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
           )
         }
       />
-      <p>TODO: additional info goes here</p>
       <HorizontalRule />
       <Heading as="h3">Bid Details</Heading>
       <p>To increase your odds of winning this bid, you can provide additional funds.</p>

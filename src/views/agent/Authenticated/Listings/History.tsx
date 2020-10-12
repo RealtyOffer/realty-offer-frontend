@@ -17,6 +17,7 @@ import { RootState } from '../../../../redux/ducks';
 
 const ListingHistory: FunctionComponent<RouteComponentProps> = () => {
   const historyListings = useSelector((state: RootState) => state.listings.history);
+  const awardedListings = useSelector((state: RootState) => state.listings.awarded);
   const isLoading = useSelector((state: RootState) => state.listings.isLoading);
   const dispatch = useDispatch();
 
@@ -31,11 +32,13 @@ const ListingHistory: FunctionComponent<RouteComponentProps> = () => {
       {isLoading && <ListingCardsLoader />}
       {historyListings && historyListings.length > 0 && !isLoading && (
         <Row>
-          {historyListings.map((listing) => (
-            <Column sm={6} lg={4} key={listing.id}>
-              <ListingCard listing={listing} listingType="history" />
-            </Column>
-          ))}
+          {historyListings // remove awarded listings from history
+            .filter((listing) => !awardedListings.some((l) => l.id === listing.id))
+            .map((listing) => (
+              <Column sm={6} lg={4} key={listing.id}>
+                <ListingCard listing={listing} listingType="history" />
+              </Column>
+            ))}
         </Row>
       )}
       {historyListings && historyListings.length === 0 && !isLoading && (
