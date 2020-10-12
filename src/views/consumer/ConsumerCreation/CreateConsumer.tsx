@@ -133,6 +133,12 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
           >
             {({ isSubmitting, isValid }) => (
               <Form>
+                <input type="hidden" name="form-name" value="Free Mortgage Consultation" />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value={`Free Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`}
+                />
                 <Row>
                   <Column xs={6}>
                     <Field

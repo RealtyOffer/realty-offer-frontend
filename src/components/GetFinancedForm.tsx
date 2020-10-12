@@ -81,6 +81,11 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
                 approved for your new home loan?
               </p>
               <input type="hidden" name="form-name" value={formName} />
+              <input
+                type="hidden"
+                name="subject"
+                value={`Finance Interest: ${auth.firstName} ${auth.lastName}`}
+              />
               <Button
                 type="submit"
                 block

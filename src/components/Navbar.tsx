@@ -124,6 +124,8 @@ const StyledMenuToggle = styled.div`
   font-size: ${fontSizeH6};
   width: ${tripleSpacer};
   height: ${tripleSpacer};
+  position: absolute;
+  left: 0;
 `;
 
 type StyledMenuProps = {
@@ -298,7 +300,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
-        <FlexContainer justifyContent="space-between" height={quadrupleSpacer}>
+        <FlexContainer
+          justifyContent={isSmallScreen && !isLoggedInConsumer ? 'center' : 'space-between'}
+          height={quadrupleSpacer}
+        >
           {isSmallScreen && !isLoggedInConsumer && (
             <StyledMenuToggle>
               <Hamburger

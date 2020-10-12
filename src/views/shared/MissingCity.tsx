@@ -150,7 +150,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               });
           }}
         >
-          {({ isSubmitting, isValid, ...rest }) => (
+          {({ values, isSubmitting, isValid, ...rest }) => (
             <Form
               name="missing-city"
               method="post"
@@ -158,6 +158,11 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               data-netlify="true"
             >
               <input type="hidden" name="form-name" value={formName} />
+              <input
+                type="hidden"
+                name="subject"
+                value={`Missing City Request: ${values.firstName} ${values.lastName}`}
+              />
               {isBuyer && (
                 <>
                   <Row>

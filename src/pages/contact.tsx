@@ -29,6 +29,7 @@ const Contact: FunctionComponent<ContactProps> = () => {
     lastName: '',
     phone: '',
     message: '',
+    subject: '',
   };
 
   return (
@@ -67,6 +68,11 @@ const Contact: FunctionComponent<ContactProps> = () => {
           {({ isSubmitting, isValid }) => (
             <Form name="contact" method="post" netlify-honeypot="bot-field" data-netlify="true">
               <input type="hidden" name="form-name" value="contact" />
+              <input
+                type="hidden"
+                name="subject"
+                value={`New contact form submission from ${values.firstName} ${values.lastName}`}
+              />
               <Row>
                 <Column sm={6}>
                   <Field

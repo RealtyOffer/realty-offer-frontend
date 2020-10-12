@@ -59,7 +59,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
           <Formik
             validateOnMount
             initialValues={initialValues}
-            onSubmit={(values) => {
+            onSubmit={(values, { resetForm, setSubmitting }) => {
               const valuesWithSubject = {
                 ...values,
                 homeValue: getDropdownListText(priceRangesList, values.homeValue),
@@ -68,6 +68,8 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
               };
               postFormUrlEncoded('https://realtyoffer.com/', 'consumer-landing', valuesWithSubject)
                 .then(() => {
+                  resetForm();
+                  setSubmitting(false);
                   navigate('/landing');
                   dispatch(
                     addAlert({
@@ -94,7 +96,11 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                 data-netlify="true"
               >
                 <input type="hidden" name="form-name" value="consumer-landing" />
-                <input type="hidden" name="subject" value="" />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value={`New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`}
+                />
                 <Row>
                   <Column sm={6}>
                     <Field

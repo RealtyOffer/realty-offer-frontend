@@ -21,6 +21,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
     agentId: '',
     brokerName: '',
     message: '',
+    subject: '',
   };
 
   return (
@@ -62,6 +63,11 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
               data-netlify="true"
             >
               <input type="hidden" name="form-name" value="agent-landing" />
+              <input
+                type="hidden"
+                name="subject"
+                value={`New Interested Agent: ${values.firstName} ${values.lastName}`}
+              />
               <Row>
                 <Column xs={6}>
                   <Field
