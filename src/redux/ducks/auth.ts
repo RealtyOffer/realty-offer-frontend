@@ -1,5 +1,6 @@
 import { RSAA } from 'redux-api-middleware';
 import addMinutes from 'date-fns/addMinutes';
+import { Dispatch } from 'redux';
 
 import {
   AUTH_SIGNUP_ENDPOINT,
@@ -279,15 +280,15 @@ export const logout = () => ({
   type: LOGOUT_REQUEST,
 });
 
-export const refreshAccessToken = (auth: AuthStoreType) => ({
-  [RSAA]: {
-    endpoint: AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT,
-    method: 'POST',
-    bailout: auth.tokenIsRefreshing,
-    headers: {
-      'Content-Type': 'application/json',
+export const refreshAccessToken = () => (dispatch: Dispatch, getState: any) => {
+  const state = getState();
+  return dispatch({
+    [RSAA]: {
+      endpoint: AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT,
+      method: 'POST',
+      bailout: state.auth.tokenIsRefreshing,
+      body: JSON.stringify({ refreshToken: state.auth.refreshToken }),
+      types: [TOKEN_REFRESH_REQUEST, TOKEN_REFRESH_SUCCESS, TOKEN_REFRESH_FAILURE],
     },
-    body: JSON.stringify({ refreshToken: auth.refreshToken }),
-    types: [TOKEN_REFRESH_REQUEST, TOKEN_REFRESH_SUCCESS, TOKEN_REFRESH_FAILURE],
-  },
-});
+  });
+};

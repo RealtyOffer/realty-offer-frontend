@@ -67,7 +67,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
 
   const getNewRefreshToken = () => {
     if (auth.isLoggedIn) {
-      dispatch(refreshAccessToken(auth));
+      dispatch(refreshAccessToken());
     }
   };
 

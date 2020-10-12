@@ -80,9 +80,9 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     genderId: String(agent.genderId),
   };
   const aboutMeInitialValues = {
-    certificates: agent.certificates,
-    agentLanguages: agent.agentLanguages?.map((val) => String(val)),
-    aboutMe: agent.aboutMe,
+    certificates: agent.certificates || '',
+    agentLanguages: agent.agentLanguages?.map((val) => String(val)) || '',
+    aboutMe: agent.aboutMe || '',
   };
 
   return (

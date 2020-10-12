@@ -54,8 +54,16 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         // otherwise, its a page refresh while logged in and we dont want to redirect
         navigate('/agent/loading');
       }
-      dispatch(getUserAvatar());
       dispatch(getAgentProfile()).then((response: ActionResponseType) => {
+        if (response && !response.error && response.payload.agentId) {
+          dispatch(getUserAvatar());
+          dispatch(getUserNotificationSettings());
+          dispatch(getNotificationTypes());
+          dispatch(getUserNotificationSubscriptions());
+          if (props.location.pathname === '/agent') {
+            navigate('/agent/listings/new');
+          }
+        }
         if (!response.payload.agentId) {
           navigate('/agent/agent-information');
         }
@@ -105,19 +113,13 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
   const getNewRefreshToken = () => {
     if (auth.isLoggedIn) {
-      dispatch(refreshAccessToken(auth));
+      dispatch(refreshAccessToken());
     }
   };
 
   useInterval(() => {
     getNewRefreshToken();
   }, 1800000); // 30 minutes
-
-  useEffect(() => {
-    dispatch(getUserNotificationSettings());
-    dispatch(getNotificationTypes());
-    dispatch(getUserNotificationSubscriptions());
-  }, []);
 
   return (
     <PageContainer>

@@ -28,6 +28,7 @@ import { ConsumerStoreType, WinningAgentProfileType } from '../redux/ducks/consu
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
 import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
 import { RootState } from '../redux/ducks';
+import { ActionResponseType } from '../redux/constants';
 import { addAlert } from '../redux/ducks/globalAlerts';
 
 type ConsumerListingCardProps = {
@@ -67,6 +68,13 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
         dispatch(getWinningAgentProfile()).then((res: { payload: WinningAgentProfileType }) => {
           if (res.payload?.userName) {
             dispatch(getWinningAgentProfilePhoto(res.payload.userName));
+            dispatch(
+              addAlert({
+                type: 'success',
+                message:
+                  'Congrats! You have selected an agent to work with. We will now notify them.',
+              })
+            );
           }
         });
       }

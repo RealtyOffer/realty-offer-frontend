@@ -15,7 +15,11 @@ import {
   Box,
   Input,
 } from '../../../../components';
-import { requiredEmail, requiredPhoneNumber } from '../../../../utils/validations';
+import {
+  requiredEmail,
+  requiredPhoneNumber,
+  requiredConfirmationCode,
+} from '../../../../utils/validations';
 import AutoSave from '../../../../utils/autoSave';
 import { RootState } from '../../../../redux/ducks';
 import {
@@ -43,10 +47,27 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
   const [phoneCodeSent, setPhoneCodeSent] = useState(false);
 
   const settingsInitialValues = {
-    ...user.notificationSettings,
+    enableNotifications: user.notificationSettings.enableNotifications,
+    emailAddress: user.notificationSettings.emailAddress,
+    emailConfirmed: user.notificationSettings.emailConfirmed,
+    phoneNumber: user.notificationSettings.phoneNumber,
+    phoneNumberConfirmed: user.notificationSettings.phoneNumberConfirmed,
+    forceResendEmailCode: user.notificationSettings.forceResendEmailCode,
+    forceResendPhoneCode: user.notificationSettings.forceResendPhoneCode,
     emailConfirmationCode: '',
     phoneNumberConfirmationCode: '',
     deviceType: '',
+  } as {
+    enableNotifications: boolean;
+    emailAddress: string;
+    emailConfirmed: boolean;
+    phoneNumber: string;
+    phoneNumberConfirmed: boolean;
+    forceResendPhoneCode: boolean;
+    forceResendEmailCode: boolean;
+    emailConfirmationCode: string;
+    phoneNumberConfirmationCode: string;
+    deviceType: string;
   };
 
   useEffect(() => {
@@ -101,18 +122,32 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
             validateOnMount
             initialValues={settingsInitialValues}
             onSubmit={(values, { setSubmitting, resetForm }) => {
+              if (settingsInitialValues.emailAddress !== values.emailAddress) {
+                resendEmailConfirmationCode(values);
+              }
+              if (settingsInitialValues.phoneNumber !== values.phoneNumber) {
+                resendPhoneNumberConfirmationCode(values);
+              }
               if (values.emailConfirmationCode) {
                 dispatch(
                   confirmDevice({
                     confirmationCode: String(values.emailConfirmationCode),
                     deviceType: 'email',
                   })
-                ).then((response: ActionResponseType) => {
-                  if (response && !response.error) {
-                    setSubmitting(false);
-                    resetForm({ values });
+                ).then(
+                  (
+                    response:
+                      | ActionResponseType
+                      | { error: boolean; payload: NotificationSettingsType }
+                  ) => {
+                    if (response && !response.error) {
+                      setSubmitting(false);
+                      resetForm({
+                        values: { ...(response.payload as NotificationSettingsType) },
+                      });
+                    }
                   }
-                });
+                );
               }
               if (values.phoneNumberConfirmationCode) {
                 dispatch(
@@ -120,16 +155,28 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                     confirmationCode: String(values.phoneNumberConfirmationCode),
                     deviceType: 'phone',
                   })
-                ).then((response: ActionResponseType) => {
-                  if (response && !response.error) {
-                    setSubmitting(false);
-                    resetForm({ values });
+                ).then(
+                  (
+                    response:
+                      | ActionResponseType
+                      | { error: boolean; payload: { response: NotificationSettingsType } }
+                  ) => {
+                    if (response && !response.error) {
+                      setSubmitting(false);
+                      resetForm({
+                        values: { ...(response.payload.response as NotificationSettingsType) },
+                      });
+                    }
                   }
-                });
+                );
               }
               if (!values.emailConfirmationCode && !values.phoneNumberConfirmationCode)
                 dispatch(updateUserNotificationSettings({ ...values })).then(
-                  (response: ActionResponseType) => {
+                  (
+                    response:
+                      | ActionResponseType
+                      | { error: boolean; payload: NotificationSettingsType }
+                  ) => {
                     if (response && !response.error) {
                       setSubmitting(false);
                       resetForm({ values });
@@ -159,14 +206,18 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                     />
                   </Column>
                   <Column xs={6} md={4}>
-                    {!values.emailConfirmed ? (
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="emailConfirmationCode"
-                        label="Confirmation Code"
-                      />
-                    ) : (
+                    {settingsInitialValues.emailAddress &&
+                      !settingsInitialValues.emailConfirmed && (
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="emailConfirmationCode"
+                          label="Confirmation Code"
+                          validate={requiredConfirmationCode}
+                          required
+                        />
+                      )}
+                    {settingsInitialValues.emailAddress && settingsInitialValues.emailConfirmed && (
                       <FlexContainer justifyContent="start" height="100%">
                         <div style={{ color: brandSuccess }}>
                           <FaCheck />
@@ -175,7 +226,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       </FlexContainer>
                     )}
                   </Column>
-                  {!values.emailConfirmed && (
+                  {!settingsInitialValues.emailConfirmed && settingsInitialValues.emailAddress && (
                     <Column md={4}>
                       <FlexContainer justifyContent="start" height="100%">
                         <p>
@@ -212,44 +263,50 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                     />
                   </Column>
                   <Column xs={6} md={4}>
-                    {!values.phoneNumberConfirmed ? (
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="phoneNumberConfirmationCode"
-                        label="Confirmation Code"
-                      />
-                    ) : (
-                      <FlexContainer justifyContent="start" height="100%">
-                        <div style={{ color: brandSuccess }}>
-                          <FaCheck />
-                          &nbsp;Confirmed
-                        </div>
-                      </FlexContainer>
-                    )}
+                    {settingsInitialValues.phoneNumber &&
+                      !settingsInitialValues.phoneNumberConfirmed && (
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="phoneNumberConfirmationCode"
+                          label="Confirmation Code"
+                          validate={requiredConfirmationCode}
+                          required
+                        />
+                      )}
+                    {settingsInitialValues.phoneNumber &&
+                      settingsInitialValues.phoneNumberConfirmed && (
+                        <FlexContainer justifyContent="start" height="100%">
+                          <div style={{ color: brandSuccess }}>
+                            <FaCheck />
+                            &nbsp;Confirmed
+                          </div>
+                        </FlexContainer>
+                      )}
                   </Column>
-                  {!values.phoneNumberConfirmed && (
-                    <Column md={4}>
-                      <FlexContainer justifyContent="start" height="100%">
-                        <small>
-                          {phoneCodeSent ? (
-                            'Code sent'
-                          ) : (
-                            <>
-                              Didn&apos;t receive a code?{' '}
-                              <Button
-                                type="button"
-                                color="text"
-                                onClick={() => resendPhoneNumberConfirmationCode(values)}
-                              >
-                                Resend one now
-                              </Button>
-                            </>
-                          )}
-                        </small>
-                      </FlexContainer>
-                    </Column>
-                  )}
+                  {!settingsInitialValues.phoneNumberConfirmed &&
+                    settingsInitialValues.phoneNumber && (
+                      <Column md={4}>
+                        <FlexContainer justifyContent="start" height="100%">
+                          <small>
+                            {phoneCodeSent ? (
+                              'Code sent'
+                            ) : (
+                              <>
+                                Didn&apos;t receive a code?{' '}
+                                <Button
+                                  type="button"
+                                  color="text"
+                                  onClick={() => resendPhoneNumberConfirmationCode(values)}
+                                >
+                                  Resend one now
+                                </Button>
+                              </>
+                            )}
+                          </small>
+                        </FlexContainer>
+                      </Column>
+                    )}
                 </Row>
                 <AutoSave />
               </Form>
