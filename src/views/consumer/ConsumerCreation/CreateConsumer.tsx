@@ -33,6 +33,7 @@ import { RootState } from '../../../redux/ducks';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
 import { getDropdownListText } from '../../../utils/dropdownUtils';
+import { color } from '@storybook/addon-knobs';
 
 type CreateConsumerProps = {} & RouteComponentProps;
 
@@ -41,6 +42,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const consumer = useSelector((state: RootState) => state.consumer);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
+  const homeTypesList = useSelector((state: RootState) => state.dropdowns.homeTypes.list);
   const dispatch = useDispatch();
 
   const initialValues: CreateUserFormValues = {
@@ -105,19 +107,47 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                       if (consumer.listing?.freeMortgageConsult) {
                         postFormUrlEncoded('free-mortgage-consultation', {
                           ...consumer.listing,
-                          city: consumer?.listing?.sellersCity?.name,
-                          state: consumer?.listing?.sellersCity?.state,
+                          buyingCities: consumer?.listing?.buyingCities
+                            ?.map((city) => city.name)
+                            .toString(),
+                          sellersCity: consumer?.listing?.sellersCity?.name,
+                          sellersState: consumer?.listing?.sellersCity?.state,
+                          sellingPriceRange: consumer?.listing
+                            ?.sellersListingPriceInMindPriceRangeInMindId
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
+                              )
+                            : '',
                           buyingPriceRange: consumer?.listing?.buyingPriceRangeId
                             ? getDropdownListText(
                                 priceRangesList,
                                 String(consumer.listing.buyingPriceRangeId)
                               )
                             : '',
+                          buyerTypeOfHomeId: consumer?.listing?.buyerTypeOfHomeId
+                            ? getDropdownListText(
+                                homeTypesList,
+                                String(consumer.listing.buyerTypeOfHomeId)
+                              )
+                            : '',
+                          sellerTypeOfHomeId: consumer?.listing?.sellerTypeOfHomeId
+                            ? getDropdownListText(
+                                homeTypesList,
+                                String(consumer.listing.sellerTypeOfHomeId)
+                              )
+                            : '',
+                          sellersMortgageBalanceId: consumer?.listing?.sellersMortgageBalanceId
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.sellersMortgageBalanceId)
+                              )
+                            : '',
                           firstName: auth.firstName,
                           lastName: auth.lastName,
                           email: auth.email,
                           phoneNumber: auth.phoneNumber,
-                          subject: `Free Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`,
+                          subject: `Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`,
                         });
                       }
                     }
@@ -138,7 +168,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 <input
                   type="hidden"
                   name="subject"
-                  value={`Free Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`}
+                  value={`Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`}
                 />
                 <Row>
                   <Column xs={6}>
