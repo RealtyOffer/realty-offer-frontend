@@ -66,11 +66,11 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                 styleOfHome: getDropdownListText(homesTypeList, values.styleOfHome),
                 subject: `New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`,
               };
-              postFormUrlEncoded('https://realtyoffer.com/', 'consumer-landing', valuesWithSubject)
+              postFormUrlEncoded('consumer-landing', valuesWithSubject)
                 .then(() => {
                   resetForm();
                   setSubmitting(false);
-                  navigate('/landing');
+                  navigate('/');
                   dispatch(
                     addAlert({
                       message: 'Thanks for your interest! We will be reaching out shortly.',

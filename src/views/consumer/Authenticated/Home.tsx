@@ -105,7 +105,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
         }
       });
     }
-  }, []);
+  }, [consumer.listing, consumer.bids]);
 
   const profileComplete = consumer.profile?.agePreferenceId && consumer.profile?.genderPreferenceId;
 
@@ -142,7 +142,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
       <Row>
         <Column md={3}>
           <SubNav items={consumerNavigationItems} />
-          <GetFinancedForm />
+          {consumer.listing?.id && <GetFinancedForm />}
         </Column>
         <Column md={9}>
           <Router basepath="consumer">

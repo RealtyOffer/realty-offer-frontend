@@ -35,9 +35,9 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
               ...values,
               subject: `New Interested Agent: ${values.firstName} ${values.lastName}`,
             };
-            postFormUrlEncoded('https://realtyoffer.com/', 'agent-landing', valuesWithSubject)
+            postFormUrlEncoded('agent-landing', valuesWithSubject)
               .then(() => {
-                navigate('/landing');
+                navigate('/');
                 dispatch(
                   addAlert({
                     message: 'Thanks for your interest! We will be reaching out shortly.',

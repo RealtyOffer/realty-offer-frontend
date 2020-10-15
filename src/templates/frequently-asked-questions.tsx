@@ -78,7 +78,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
       <PageContainer>
         <Box>
           <p>
-            <Link to="/landing">Home</Link> &gt; FAQs
+            <Link to="/">Home</Link> &gt; FAQs
           </p>
           <Heading styledAs="title">Frequently Asked Questions (FAQs)</Heading>
           <br />
@@ -152,7 +152,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
             ))}
           </Accordion>
           <FlexContainer justifyContent="center">
-            <Button type="link" to="/landing">
+            <Button type="link" to="/">
               Back to Home
             </Button>
           </FlexContainer>

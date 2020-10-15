@@ -36,7 +36,7 @@ const ConsumerListing: FunctionComponent<ConsumerListingProps> = () => {
         pdf.text('RealtyOffer - My Listing Details', 0.75, 0.75);
         pdf.addImage(imgData, 'PNG', 0.75, 1.5, undefined, undefined, '', undefined, 0);
 
-        pdf.save('my-listing.pdf');
+        pdf.save('RealtyOffer-Agent-Contract.pdf');
       });
 
       // const doc = new jsPDF({

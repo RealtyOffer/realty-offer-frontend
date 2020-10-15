@@ -33,8 +33,7 @@ const Footer = () => (
   <StyledFooter>
     <PageContainer>
       <FlexContainer flexDirection="column">
-        {/* TODO for PROD: update to / */}
-        <Link to="/landing" title="Logo">
+        <Link to="/" title="Logo">
           <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
         </Link>
         <small>

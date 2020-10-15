@@ -44,7 +44,7 @@ const Contact: FunctionComponent<ContactProps> = () => {
               ...values,
               subject: `New contact form submission from ${values.firstName} ${values.lastName}`,
             };
-            postFormUrlEncoded('https://realtyoffer.com/', 'contact', valuesWithSubject)
+            postFormUrlEncoded('contact', valuesWithSubject)
               .then(() => {
                 setSubmitting(false);
                 resetForm();

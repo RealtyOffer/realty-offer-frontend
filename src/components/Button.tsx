@@ -254,7 +254,7 @@ const Button: FunctionComponent<ButtonProps> = ({
         color={color}
         rightspacer={rightspacer}
         onClick={onClick}
-        disabled={disabled}
+        disabled={disabled || isLoading}
         block={block}
       >
         {isLoading && <LoadingSpinner />} {iconLeft}&nbsp;{children}&nbsp;{iconRight}

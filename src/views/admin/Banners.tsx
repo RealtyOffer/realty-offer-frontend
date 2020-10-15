@@ -3,13 +3,13 @@ import { RouteComponentProps, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import format from 'date-fns/format';
 
-import { Button, FlexContainer, Heading, Table } from '../../components';
+import { LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
 import { getAllSiteBanners } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 import BannerDetails from './BannerDetails';
 
 const Banners: FunctionComponent<RouteComponentProps> = () => {
-  const banners = useSelector((state: RootState) => state.admin.banners);
+  const admin = useSelector((state: RootState) => state.admin);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
     []
   );
 
-  const data = banners?.map((banner) => {
+  const data = admin.banners?.map((banner) => {
     return {
       ...banner,
       dismissable: banner.dismissable.toString(),
@@ -71,7 +71,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
           Add New Banner
         </Button>
       </FlexContainer>
-      {data && <Table columns={columns} data={data} />}
+      {admin.isLoading ? <LoadingPage /> : <Table columns={columns} data={data} />}
       <Router>
         <BannerDetails path="/:id" />
         <BannerDetails path="/new" />

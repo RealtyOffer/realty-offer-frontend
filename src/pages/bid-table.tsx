@@ -80,7 +80,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { resetForm, setSubmitting }) => {
-              postFormUrlEncoded('https://realtyoffer.com/', 'bid-table', {
+              postFormUrlEncoded('bid-table', {
                 sellerCommission: `${values.sellerCommission}%`,
                 sellerBrokerComplianceAmount: `$${values.sellerBrokerComplianceAmount}`,
                 sellerPreInspectionAmount: `$${values.sellerPreInspectionAmount}`,

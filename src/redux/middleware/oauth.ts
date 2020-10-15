@@ -1,4 +1,8 @@
 import { RSAA } from 'redux-api-middleware';
+import { isBefore } from 'date-fns';
+
+import { ActionResponseType, AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT } from '../constants';
+import { refreshAccessToken } from '../ducks/auth';
 
 export default (store: any) => (next: any) => (action: any) => {
   const returnAction = action;
@@ -25,6 +29,16 @@ export default (store: any) => (next: any) => (action: any) => {
     ...returnAction[RSAA].headers,
     Authorization: `Bearer ${state.auth.accessToken}`,
   };
+
+  if (returnAction[RSAA].endpoint !== AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT) {
+    if (isBefore(new Date(state.auth.expirationTime), new Date())) {
+      return store.dispatch(refreshAccessToken()).then((response: ActionResponseType) => {
+        if (response && !response.error) {
+          next(returnAction);
+        }
+      });
+    }
+  }
 
   return next(returnAction);
 };

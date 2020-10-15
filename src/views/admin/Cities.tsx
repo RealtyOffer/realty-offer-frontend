@@ -2,13 +2,13 @@ import React, { useMemo, useEffect, FunctionComponent } from 'react';
 import { RouteComponentProps, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, FlexContainer, Heading, Table } from '../../components';
+import { LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
 import { getAllCities } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 import CityDetails from './CityDetails';
 
 const Cities: FunctionComponent<RouteComponentProps> = () => {
-  const cities = useSelector((state: RootState) => state.admin.cities);
+  const admin = useSelector((state: RootState) => state.admin);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Cities: FunctionComponent<RouteComponentProps> = () => {
     []
   );
 
-  const data = cities?.map((city) => {
+  const data = admin.cities?.map((city) => {
     return {
       ...city,
       actions: [{ label: 'edit', to: `/admin/cities/${city.id}` }],
@@ -52,7 +52,7 @@ const Cities: FunctionComponent<RouteComponentProps> = () => {
           Add New City
         </Button>
       </FlexContainer>
-      {data && <Table columns={columns} data={data} />}
+      {admin.isLoading ? <LoadingPage /> : <Table columns={columns} data={data} />}
       <Router>
         <CityDetails path="/:id" />
         <CityDetails path="/new" />

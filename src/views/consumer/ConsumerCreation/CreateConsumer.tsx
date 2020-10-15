@@ -103,26 +103,22 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         })
                       );
                       if (consumer.listing?.freeMortgageConsult) {
-                        postFormUrlEncoded(
-                          'https://realtyoffer.com/',
-                          'Free Mortgage Consultation',
-                          {
-                            ...consumer.listing,
-                            city: consumer?.listing?.sellersCity?.name,
-                            state: consumer?.listing?.sellersCity?.state,
-                            buyingPriceRange: consumer?.listing?.buyingPriceRangeId
-                              ? getDropdownListText(
-                                  priceRangesList,
-                                  String(consumer.listing.buyingPriceRangeId)
-                                )
-                              : '',
-                            firstName: auth.firstName,
-                            lastName: auth.lastName,
-                            email: auth.email,
-                            phoneNumber: auth.phoneNumber,
-                            subject: `Free Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`,
-                          }
-                        );
+                        postFormUrlEncoded('Free Mortgage Consultation', {
+                          ...consumer.listing,
+                          city: consumer?.listing?.sellersCity?.name,
+                          state: consumer?.listing?.sellersCity?.state,
+                          buyingPriceRange: consumer?.listing?.buyingPriceRangeId
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.buyingPriceRangeId)
+                              )
+                            : '',
+                          firstName: auth.firstName,
+                          lastName: auth.lastName,
+                          email: auth.email,
+                          phoneNumber: auth.phoneNumber,
+                          subject: `Free Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`,
+                        });
                       }
                     }
                   });

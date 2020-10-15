@@ -128,7 +128,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               };
             }
 
-            return postFormUrlEncoded('https://realtyoffer.com/', formName, postingValues)
+            return postFormUrlEncoded(formName, postingValues)
               .then(() => {
                 setSubmitting(false);
                 resetForm();

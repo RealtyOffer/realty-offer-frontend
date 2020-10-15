@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretRight } from 'react-icons/fa';
@@ -33,6 +33,7 @@ const GetFinancedWrapper = styled.div`
 
 const GetFinancedForm: FunctionComponent<Props> = () => {
   const formName = 'get-financed-form';
+  const [showForm, setShowForm] = useState(true);
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
   const consumer = useSelector((state: RootState) => state.consumer);
@@ -52,13 +53,17 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
     subject: `Finance Interest: ${auth.firstName} ${auth.lastName}`,
   };
 
+  if (!showForm) {
+    return null;
+  }
+
   return (
     <GetFinancedWrapper>
       <Formik
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values, { resetForm, setSubmitting }) => {
-          return postFormUrlEncoded('https://realtyoffer.com/', formName, values).then(() => {
+          postFormUrlEncoded(formName, values).then(() => {
             setSubmitting(false);
             resetForm();
             dispatch(
@@ -67,6 +72,7 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
                 type: 'success',
               })
             );
+            setShowForm(false);
           });
         }}
       >
@@ -78,7 +84,7 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
               </Heading>
               <p>
                 Interested in connecting with one of our mortgage consultants who will help you get
-                approved for your new home loan?
+                pre-approved for your new home loan?
               </p>
               <input type="hidden" name="form-name" value={formName} />
               <input

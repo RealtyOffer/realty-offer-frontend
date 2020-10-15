@@ -269,7 +269,9 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                     </>
                   )}
                 </dl>
-                <Heading as="h5">Total Savings</Heading>
+                <Heading as="h5">
+                  Total savings towards your closing costs and prepaid items
+                </Heading>
                 <p>
                   {sellTotal({
                     values: winningBid,
@@ -315,7 +317,9 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                     </>
                   )}
                 </dl>
-                <Heading as="h5">Total Savings</Heading>
+                <Heading as="h5">
+                  Total savings towards your closing costs and prepaid items
+                </Heading>
                 <p>
                   {buyTotal({
                     values: winningBid,

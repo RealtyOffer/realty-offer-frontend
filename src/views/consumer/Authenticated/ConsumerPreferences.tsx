@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import { RouteComponentProps } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Box, Seo, Heading, Input, LoadingPage } from '../../../components';
+import { Alert, Box, Seo, Heading, Input, LoadingPage } from '../../../components';
 import AutoSave from '../../../utils/autoSave';
 import { updateConsumerProfile } from '../../../redux/ducks/consumer';
 import { RootState } from '../../../redux/ducks';
@@ -46,17 +46,13 @@ const ConsumerPreferences: FunctionComponent<ConsumerPreferencesProps> = () => {
       <Seo title="My Preferences" />
       <Heading as="h2">My Preferences</Heading>
       <Box>
-        {!profileComplete && (
+        {profileComplete && (
           <Heading as="h3">
             Completing the questionnaire below will increase your chances of matching with the best
             agent for you!
           </Heading>
         )}
 
-        <p>
-          In the event that multiple agents have the same bid, we will use this information to
-          select the right agent for you.
-        </p>
         {!dropdowns.agePreferences.list.length || !dropdowns.genderPreferences.list.length ? (
           <LoadingPage />
         ) : (
@@ -101,6 +97,13 @@ const ConsumerPreferences: FunctionComponent<ConsumerPreferencesProps> = () => {
               </Form>
             )}
           </Formik>
+        )}
+        {profileComplete && (
+          <Alert
+            type="success"
+            message="Thank you for choosing your preferences, with this information RealtyOffer will do its
+            best to match you with like minded agents."
+          />
         )}
       </Box>
     </>

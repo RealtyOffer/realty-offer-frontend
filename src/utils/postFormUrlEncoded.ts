@@ -4,8 +4,8 @@ const encode = (data: { [key: string]: any }) => {
     .join('&');
 };
 
-export default async (url: string, formName: string, values: any) =>
-  fetch(url, {
+export default async (formName: string, values: any) =>
+  fetch('https://realtyoffer.com/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: encode({
