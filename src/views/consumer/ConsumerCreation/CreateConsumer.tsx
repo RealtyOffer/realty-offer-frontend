@@ -103,7 +103,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         })
                       );
                       if (consumer.listing?.freeMortgageConsult) {
-                        postFormUrlEncoded('Free Mortgage Consultation', {
+                        postFormUrlEncoded('free-mortgage-consultation', {
                           ...consumer.listing,
                           city: consumer?.listing?.sellersCity?.name,
                           state: consumer?.listing?.sellersCity?.state,
@@ -129,7 +129,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
           >
             {({ isSubmitting, isValid }) => (
               <Form>
-                <input type="hidden" name="form-name" value="Free Mortgage Consultation" />
+                <input type="hidden" name="form-name" value="free-mortgage-consultation" />
                 <input
                   type="hidden"
                   name="subject"

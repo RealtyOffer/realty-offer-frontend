@@ -164,50 +164,51 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               }
             >
               <input type="hidden" name="form-name" value={formName} />
+
+              <Row>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="firstName"
+                    label="First Name"
+                    validate={requiredField}
+                    required
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="lastName"
+                    label="Last Name"
+                    validate={requiredField}
+                    required
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="tel"
+                    name="phoneNumber"
+                    label="Phone Number"
+                    required
+                    validate={requiredPhoneNumber}
+                  />
+                </Column>
+                <Column sm={6}>
+                  <Field
+                    as={Input}
+                    type="email"
+                    name="email"
+                    label="Email"
+                    validate={requiredEmail}
+                    required
+                  />
+                </Column>
+              </Row>
               {isBuyer && (
                 <>
-                  <Row>
-                    <Column sm={6}>
-                      <Field
-                        as={Input}
-                        type="text"
-                        name="firstName"
-                        label="First Name"
-                        validate={requiredField}
-                        required
-                      />
-                    </Column>
-                    <Column sm={6}>
-                      <Field
-                        as={Input}
-                        type="text"
-                        name="lastName"
-                        label="Last Name"
-                        validate={requiredField}
-                        required
-                      />
-                    </Column>
-                    <Column sm={6}>
-                      <Field
-                        as={Input}
-                        type="tel"
-                        name="phoneNumber"
-                        label="Phone Number"
-                        required
-                        validate={requiredPhoneNumber}
-                      />
-                    </Column>
-                    <Column sm={6}>
-                      <Field
-                        as={Input}
-                        type="email"
-                        name="email"
-                        label="Email"
-                        validate={requiredEmail}
-                        required
-                      />
-                    </Column>
-                  </Row>
                   <Heading styledAs="subtitle">Buying</Heading>
                   <Field
                     as={Input}
