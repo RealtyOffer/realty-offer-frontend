@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { FunctionComponent } from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form } from 'formik';
 
 import { Card, FlexContainer, Button } from '../components';
 
