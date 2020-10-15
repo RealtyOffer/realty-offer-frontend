@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { useEffect, FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
@@ -16,7 +16,8 @@ import {
   Countdown,
 } from '../../../../components';
 import {
-  requiredSellerCommissionAmount,
+  requiredListingAgentCommissionAmount,
+  requiredBuyersAgentCommissionAmount,
   requiredBrokerComplianceAmount,
   requiredPreInspectionAmount,
   requiredPreCertifyAmount,
@@ -35,7 +36,8 @@ import {
   helpTextMovingCompanyAmount,
   helpTextPreCertifyAmount,
   helpTextPreInspectionAmount,
-  helpTextSellerCommissionAmount,
+  helpTextListingAgentCommissionAmount,
+  helpTextBuyersAgentCommissionAmount,
 } from '../../../../utils/validations';
 import { createAgentBid } from '../../../../redux/ducks/agent';
 import { RootState } from '../../../../redux/ducks';
@@ -57,7 +59,8 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const isBuyer = listing && listing.type?.toLowerCase().includes('buyer');
   const isSeller = listing && listing.type?.toLowerCase().includes('seller');
   const initialValues = {
-    sellerCommission: '',
+    listingAgentCommission: '',
+    buyersAgentCommission: '',
     sellerBrokerComplianceAmount: '',
     sellerPreInspectionAmount: '',
     sellerPreCertifyAmount: '',
@@ -71,6 +74,7 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     buyerMovingCompanyAmount: '',
     listingId: props.listingId,
   };
+
   if (!listing || !props.listingId) {
     return (
       <EmptyListingsView
@@ -124,7 +128,8 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
           dispatch(
             createAgentBid({
               // API requires numbers, Formik outputs strings so convert them here
-              sellerCommission: Number(values.sellerCommission),
+              listingAgentCommission: Number(values.listingAgentCommission),
+              buyersAgentCommission: Number(values.buyersAgentCommission),
               sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
               sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
               sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
@@ -161,13 +166,27 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                     <Field
                       as={Input}
                       type="number"
-                      name="sellerCommission"
-                      label="Total Seller Commission (%)"
+                      name="listingAgentCommission"
+                      label="Total Listing Agent Commission (%)"
+                      step={0.001}
+                      min={1}
+                      max={4}
+                      helpText={helpTextListingAgentCommissionAmount}
+                      validate={requiredListingAgentCommissionAmount}
+                      required
+                    />
+                  </Column>
+                  <Column md={4}>
+                    <Field
+                      as={Input}
+                      type="number"
+                      name="buyersAgentCommission"
+                      label="Total Buyer's Agent Commission (%)"
                       step={0.001}
                       min={2}
-                      max={8}
-                      helpText={helpTextSellerCommissionAmount}
-                      validate={requiredSellerCommissionAmount}
+                      max={4}
+                      helpText={helpTextBuyersAgentCommissionAmount}
+                      validate={requiredBuyersAgentCommissionAmount}
                       required
                     />
                   </Column>

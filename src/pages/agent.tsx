@@ -107,7 +107,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
   useEffect(() => {
     if (!dropdowns.priceRanges.list.length) {
-      dispatch(getPriceRangesList);
+      dispatch(getPriceRangesList());
     }
   }, []);
 

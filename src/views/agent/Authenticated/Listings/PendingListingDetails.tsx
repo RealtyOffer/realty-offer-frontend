@@ -18,7 +18,8 @@ import {
   LoadingPage,
 } from '../../../../components';
 import {
-  requiredSellerCommissionAmount,
+  requiredListingAgentCommissionAmount,
+  requiredBuyersAgentCommissionAmount,
   requiredBrokerComplianceAmount,
   requiredPreInspectionAmount,
   requiredPreCertifyAmount,
@@ -37,7 +38,8 @@ import {
   helpTextMovingCompanyAmount,
   helpTextPreCertifyAmount,
   helpTextPreInspectionAmount,
-  helpTextSellerCommissionAmount,
+  helpTextListingAgentCommissionAmount,
+  helpTextBuyersAgentCommissionAmount,
 } from '../../../../utils/validations';
 import { updateAgentBid, getBidDetailsById, deleteBidById } from '../../../../redux/ducks/agent';
 import { BidType } from '../../../../redux/ducks/agent.d';
@@ -146,7 +148,8 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
               updateAgentBid({
                 id: agent.activeBid?.id,
                 // API requires numbers, Formik outputs strings so convert them here
-                sellerCommission: Number(values.sellerCommission),
+                listingAgentCommission: Number(values.listingAgentCommission),
+                buyersAgentCommission: Number(values.buyersAgentCommission),
                 sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
                 sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
                 sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
@@ -183,14 +186,28 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                       <Field
                         as={Input}
                         type="number"
-                        name="sellerCommission"
-                        label="Total Seller Commission (%)"
+                        name="listingAgentCommission"
+                        label="Total Listing Agent Commission (%)"
+                        step={0.001}
+                        min={1}
+                        max={4}
+                        helpText={helpTextListingAgentCommissionAmount}
+                        validate={requiredListingAgentCommissionAmount}
+                        disabled
+                      />
+                    </Column>
+                    <Column md={4}>
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="buyersAgentCommission"
+                        label="Total Buyer's Agent Commission (%)"
                         step={0.001}
                         min={2}
-                        max={8}
-                        helpText={helpTextSellerCommissionAmount}
-                        validate={requiredSellerCommissionAmount}
-                        required
+                        max={4}
+                        helpText={helpTextBuyersAgentCommissionAmount}
+                        validate={requiredBuyersAgentCommissionAmount}
+                        disabled
                       />
                     </Column>
                     <Column md={4}>

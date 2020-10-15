@@ -31,14 +31,18 @@ const renderPercentageAmountRange = (percentageMatch: boolean, low: number, high
 export const sellTotal = (payload: CalculatorValuesType) => {
   const matchingRange = findMatchingRange(payload.priceRangeId, payload.priceRangesList);
   const low =
-    Number(payload.values.sellerCommission) * 0.01 * matchingRange?.min +
+    (Number(payload.values.listingAgentCommission) * 0.01 +
+      Number(payload.values.buyersAgentCommission) * 0.01) *
+      matchingRange?.min +
     Number(payload.values.sellerBrokerComplianceAmount) +
     -Number(payload.values.sellerPreInspectionAmount) +
     -Number(payload.values.sellerPreCertifyAmount) +
     -Number(payload.values.sellerMovingCompanyAmount) +
     -Number(payload.values.sellerPhotographyAmount);
   const high =
-    Number(payload.values.sellerCommission) * 0.01 * matchingRange?.max +
+    (Number(payload.values.listingAgentCommission) * 0.01 +
+      Number(payload.values.buyersAgentCommission) * 0.01) *
+      matchingRange?.max +
     Number(payload.values.sellerBrokerComplianceAmount) +
     -Number(payload.values.sellerPreInspectionAmount) +
     -Number(payload.values.sellerPreCertifyAmount) +

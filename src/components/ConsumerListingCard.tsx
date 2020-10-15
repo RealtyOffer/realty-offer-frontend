@@ -173,12 +173,97 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                   <Heading as="h2" styledAs="subtitle" align="center">
                     Future Agent {index + 1}
                   </Heading>
-                  <dl>
-                    <dt>Total Commission Towards Sale of the home</dt>
-                    <dd>{bid.sellerCommission}%</dd>
-                    <dt>Compliance Fee</dt>
-                    <dd>${bid.sellerBrokerComplianceAmount}</dd>
-                  </dl>
+                  {listing.type?.toLowerCase().includes('seller') && (
+                    <dl>
+                      <dt>Listing Agent Commission</dt>
+                      <dd>{bid.listingAgentCommission}%</dd>
+                      <dt>Buying Agent Commission</dt>
+                      <dd>{bid.buyersAgentCommission}%</dd>
+                      {bid.sellerBrokerComplianceAmount && (
+                        <>
+                          <dt>Seller Compliance Fee</dt>
+                          <dd>${bid.sellerBrokerComplianceAmount}</dd>
+                        </>
+                      )}
+                      {bid.sellerPreInspectionAmount && (
+                        <>
+                          <dt>Seller Pre-Inspection</dt>
+                          <dd>${bid.sellerPreInspectionAmount}</dd>
+                        </>
+                      )}
+                      {bid.sellerPreCertifyAmount && (
+                        <>
+                          <dt>Seller Pre-Certification</dt>
+                          <dd>${bid.sellerPreCertifyAmount}</dd>
+                        </>
+                      )}
+                      {bid.sellerMovingCompanyAmount && (
+                        <>
+                          <dt>Seller Moving Costs</dt>
+                          <dd>${bid.sellerMovingCompanyAmount}</dd>
+                        </>
+                      )}
+                      {bid.sellerPhotographyAmount && (
+                        <>
+                          <dt>Seller Photography</dt>
+                          <dd>${bid.sellerPhotographyAmount}</dd>
+                        </>
+                      )}
+                      <dt>Total savings towards your closing costs and prepaid items:</dt>
+                      <dd>
+                        {sellTotal({
+                          values: bid,
+                          priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                          priceRangesList,
+                        })}
+                      </dd>
+                    </dl>
+                  )}
+                  {listing.type === 'buyerSeller' && <HorizontalRule />}
+                  {listing.type?.includes('buyer') && (
+                    <dl>
+                      <dt>Total Buyer Commission</dt>
+                      <dd>{bid.buyerCommission}%</dd>
+                      {bid.buyerBrokerComplianceAmount && (
+                        <>
+                          <dt>Buyer Compliance Fee</dt>
+                          <dd>${bid.buyerBrokerComplianceAmount}</dd>
+                        </>
+                      )}
+                      {bid.buyerInspectionAmount && (
+                        <>
+                          <dt>Buyer Inspection</dt>
+                          <dd>${bid.buyerInspectionAmount}</dd>
+                        </>
+                      )}
+                      {bid.buyerHomeWarrantyAmount && (
+                        <>
+                          <dt>Buyer Home Warranty</dt>
+                          <dd>${bid.buyerHomeWarrantyAmount}</dd>
+                        </>
+                      )}
+                      {bid.buyerAppraisalAmount && (
+                        <>
+                          <dt>Buyer Appraisal</dt>
+                          <dd>${bid.buyerAppraisalAmount}</dd>
+                        </>
+                      )}
+                      {bid.buyerMovingCompanyAmount && (
+                        <>
+                          <dt>Buyer Moving Costs</dt>
+                          <dd>${bid.buyerMovingCompanyAmount}</dd>
+                        </>
+                      )}
+                      <dt>Total savings towards your closing costs and prepaid items</dt>
+                      <dd>
+                        {buyTotal({
+                          values: bid,
+                          priceRangeId: Number(listing.buyingPriceRangeId),
+                          priceRangesList,
+                        })}
+                      </dd>
+                    </dl>
+                  )}
                   <Button type="button" onClick={() => selectWinningAgent(bid)} block>
                     Select
                   </Button>
@@ -236,8 +321,10 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             {listing.type?.toLowerCase().includes('seller') && winningBid && (
               <Column xs={6}>
                 <dl>
-                  <dt>Total Seller Commission</dt>
-                  <dd>{winningBid.sellerCommission}%</dd>
+                  <dt>Listing Agent Commission</dt>
+                  <dd>{winningBid.listingAgentCommission}%</dd>
+                  <dt>Buying Agent Commission</dt>
+                  <dd>{winningBid.buyersAgentCommission}%</dd>
                   {winningBid.sellerBrokerComplianceAmount && (
                     <>
                       <dt>Seller Compliance Fee</dt>

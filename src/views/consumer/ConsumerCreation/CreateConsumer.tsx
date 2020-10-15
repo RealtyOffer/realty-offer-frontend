@@ -33,7 +33,6 @@ import { RootState } from '../../../redux/ducks';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
 import { getDropdownListText } from '../../../utils/dropdownUtils';
-import { color } from '@storybook/addon-knobs';
 
 type CreateConsumerProps = {} & RouteComponentProps;
 
@@ -143,11 +142,11 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                                 String(consumer.listing.sellersMortgageBalanceId)
                               )
                             : '',
-                          firstName: auth.firstName,
-                          lastName: auth.lastName,
-                          email: auth.email,
-                          phoneNumber: auth.phoneNumber,
-                          subject: `Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`,
+                          firstName: values.firstName,
+                          lastName: values.lastName,
+                          email: values.email,
+                          phoneNumber: values.phoneNumber,
+                          subject: `Mortgage Consultation Request: ${values.firstName} ${values.lastName}`,
                         });
                       }
                     }
@@ -157,18 +156,24 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
               });
             }}
           >
-            {({ isSubmitting, isValid }) => (
+            {({ isSubmitting, isValid, values, setFieldValue }) => (
               <Form
                 name="free-mortgage-consultation"
                 method="post"
                 netlify-honeypot="bot-field"
                 data-netlify="true"
+                onBlur={() =>
+                  setFieldValue(
+                    'subject',
+                    `Mortgage Consultation Request: ${values.firstName} ${values.lastName}`
+                  )
+                }
               >
                 <input type="hidden" name="form-name" value="free-mortgage-consultation" />
                 <input
                   type="hidden"
                   name="subject"
-                  value={`Mortgage Consultation Request: ${auth.firstName} ${auth.lastName}`}
+                  value={`Mortgage Consultation Request: ${values.firstName} ${values.lastName}`}
                 />
                 <Row>
                   <Column xs={6}>

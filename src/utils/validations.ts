@@ -92,7 +92,23 @@ export const isSixDigits = (value: string) => {
   return undefined;
 };
 
-export const isSellerCommissionAmount = (value: string) => {
+export const isListingAgentCommissionAmount = (value: string) => {
+  if (Number(value) === 0) {
+    return 'Commission must be above 1%';
+  }
+  if (value === '') {
+    return 'This field is required';
+  }
+  if (value && Number(value) < 1) {
+    return 'Commission must be above 1%';
+  }
+  if (value && Number(value) > 4) {
+    return 'Commission must be below 4%';
+  }
+  return undefined;
+};
+
+export const isBuyersAgentCommissionAmount = (value: string) => {
   if (Number(value) === 0) {
     return 'Commission must be above 2%';
   }
@@ -102,8 +118,8 @@ export const isSellerCommissionAmount = (value: string) => {
   if (value && Number(value) < 2) {
     return 'Commission must be above 2%';
   }
-  if (value && Number(value) > 8) {
-    return 'Commission must be below 8%';
+  if (value && Number(value) > 4) {
+    return 'Commission must be below 4%';
   }
   return undefined;
 };
@@ -200,8 +216,11 @@ export const requiredPassword = (value: string) =>
 
 export const passwordRulesString = `Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and a special character.`;
 
-export const requiredSellerCommissionAmount = (value: string) =>
-  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isSellerCommissionAmount]);
+export const requiredListingAgentCommissionAmount = (value: string) =>
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isListingAgentCommissionAmount]);
+
+export const requiredBuyersAgentCommissionAmount = (value: string) =>
+  customFieldLevelValidation(value, [isNumber, isDecimalNumer, isBuyersAgentCommissionAmount]);
 
 export const requiredBuyerCommissionAmount = (value: string) =>
   customFieldLevelValidation(value, [isNumber, isDecimalNumer, isBuyerCommissionAmount]);
@@ -258,7 +277,8 @@ export const requiredAppraisalAmount = (value: string) =>
 export const requiredDollarAmount = (value: string) =>
   customFieldLevelValidation(value, [isNumber, isDecimalNumer, isDollarAmount]);
 
-export const helpTextSellerCommissionAmount = 'Offer commission to sell 2% to 8%';
+export const helpTextListingAgentCommissionAmount = 'Offer commission to sell 1% to 4%';
+export const helpTextBuyersAgentCommissionAmount = 'Offer commission to sell 2% to 4%';
 export const helpTextBrokerComplianceAmount = 'Broker compliance fee $0 to $595';
 export const helpTextPreInspectionAmount = 'Offer to pay for a pre-home inspection fee $0 to $350';
 export const helpTextPreCertifyAmount = 'Offer to pay for home certification $0 to $250';

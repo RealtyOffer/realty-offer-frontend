@@ -57,7 +57,8 @@ export type AgentProfileType = {
 
 export type BidType = {
   id?: number;
-  sellerCommission?: number;
+  listingAgentCommission?: number;
+  buyersAgentCommission?: number;
   sellerBrokerComplianceAmount?: number;
   sellerPreInspectionAmount?: number;
   sellerPreCertifyAmount?: number;

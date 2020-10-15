@@ -2,14 +2,16 @@ import {
   customFieldLevelValidation,
   requiredField,
   requiredSelect,
-  requiredSellerCommissionAmount,
+  requiredListingAgentCommissionAmount,
+  requiredBuyersAgentCommissionAmount,
   requiredBuyerCommissionAmount,
   requiredBrokerComplianceAmount,
   requiredDollarAmount,
   isPhoneNumber,
   isEmail,
   isValidPassword,
-  isSellerCommissionAmount,
+  isListingAgentCommissionAmount,
+  isBuyersAgentCommissionAmount,
   isBuyerCommissionAmount,
   isBrokerComplianceAmount,
   isDollarAmount,
@@ -26,10 +28,14 @@ describe('validations', () => {
     expect(customFieldLevelValidation(['Livonia', 'Plymouth'], [requiredSelect])).toBeNull();
     expect(customFieldLevelValidation('Livonia', [requiredSelect])).toBeNull();
     expect(customFieldLevelValidation('', [requiredSelect])).toBeDefined();
-    expect(customFieldLevelValidation('2', [requiredSellerCommissionAmount])).toBeNull();
-    expect(customFieldLevelValidation('8', [requiredSellerCommissionAmount])).toBeNull();
-    expect(customFieldLevelValidation('1.9', [requiredSellerCommissionAmount])).toBeDefined();
-    expect(customFieldLevelValidation('8.1', [requiredSellerCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('1', [requiredListingAgentCommissionAmount])).toBeNull();
+    expect(customFieldLevelValidation('4', [requiredListingAgentCommissionAmount])).toBeNull();
+    expect(customFieldLevelValidation('0.9', [requiredListingAgentCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('4.1', [requiredListingAgentCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('2', [requiredBuyersAgentCommissionAmount])).toBeNull();
+    expect(customFieldLevelValidation('4', [requiredBuyersAgentCommissionAmount])).toBeNull();
+    expect(customFieldLevelValidation('1.9', [requiredBuyersAgentCommissionAmount])).toBeDefined();
+    expect(customFieldLevelValidation('4.1', [requiredBuyersAgentCommissionAmount])).toBeDefined();
     expect(customFieldLevelValidation('0', [requiredBuyerCommissionAmount])).toBeNull();
     expect(customFieldLevelValidation('2', [requiredBuyerCommissionAmount])).toBeNull();
     expect(customFieldLevelValidation('-.1', [requiredBuyerCommissionAmount])).toBeDefined();
@@ -48,12 +54,23 @@ describe('validations', () => {
     ).toBeDefined();
     expect(customFieldLevelValidation('', [requiredField, isPhoneNumber, isEmail])).toBeDefined();
     expect(customFieldLevelValidation('2203303330', [requiredField, isPhoneNumber])).toBeNull();
-    expect(customFieldLevelValidation('2', [requiredField, isSellerCommissionAmount])).toBeNull();
     expect(
-      customFieldLevelValidation('0.9', [requiredField, isSellerCommissionAmount])
+      customFieldLevelValidation('2', [requiredField, isListingAgentCommissionAmount])
+    ).toBeNull();
+    expect(
+      customFieldLevelValidation('0.9', [requiredField, isListingAgentCommissionAmount])
     ).toBeDefined();
     expect(
-      customFieldLevelValidation('4.1', [requiredField, isSellerCommissionAmount])
+      customFieldLevelValidation('4.1', [requiredField, isListingAgentCommissionAmount])
+    ).toBeDefined();
+    expect(
+      customFieldLevelValidation('2', [requiredField, isBuyersAgentCommissionAmount])
+    ).toBeNull();
+    expect(
+      customFieldLevelValidation('1.9', [requiredField, isBuyersAgentCommissionAmount])
+    ).toBeDefined();
+    expect(
+      customFieldLevelValidation('4.1', [requiredField, isBuyersAgentCommissionAmount])
     ).toBeDefined();
     expect(customFieldLevelValidation('1', [requiredField, isBuyerCommissionAmount])).toBeNull();
     expect(

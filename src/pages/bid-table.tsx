@@ -15,7 +15,8 @@ import {
   Seo,
 } from '../components';
 import {
-  requiredSellerCommissionAmount,
+  requiredListingAgentCommissionAmount,
+  requiredBuyersAgentCommissionAmount,
   requiredBrokerComplianceAmount,
   requiredPreInspectionAmount,
   requiredPreCertifyAmount,
@@ -34,7 +35,8 @@ import {
   helpTextMovingCompanyAmount,
   helpTextPreCertifyAmount,
   helpTextPreInspectionAmount,
-  helpTextSellerCommissionAmount,
+  helpTextListingAgentCommissionAmount,
+  helpTextBuyersAgentCommissionAmount,
 } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
@@ -48,7 +50,8 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
   const initialValues = {
-    sellerCommission: '',
+    listingAgentCommission: '',
+    buyersAgentCommission: '',
     sellerBrokerComplianceAmount: '',
     sellerPreInspectionAmount: '',
     sellerPreCertifyAmount: '',
@@ -81,7 +84,8 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
             initialValues={initialValues}
             onSubmit={(values, { resetForm, setSubmitting }) => {
               postFormUrlEncoded('bid-table', {
-                sellerCommission: `${values.sellerCommission}%`,
+                listingAgentCommission: `${values.listingAgentCommission}%`,
+                buyersAgentCommission: `${values.buyersAgentCommission}%`,
                 sellerBrokerComplianceAmount: `$${values.sellerBrokerComplianceAmount}`,
                 sellerPreInspectionAmount: `$${values.sellerPreInspectionAmount}`,
                 sellerPreCertifyAmount: `$${values.sellerPreCertifyAmount}`,
@@ -154,13 +158,25 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                     <Field
                       as={Input}
                       type="number"
-                      name="sellerCommission"
-                      label="Total Seller Commission (%)"
+                      name="listingAgentCommission"
+                      label="Total Listing Agent Commission (%)"
+                      step={0.001}
+                      min={1}
+                      max={4}
+                      helpText={helpTextListingAgentCommissionAmount}
+                      validate={requiredListingAgentCommissionAmount}
+                      required
+                    />
+                    <Field
+                      as={Input}
+                      type="number"
+                      name="buyersAgentCommission"
+                      label="Total Buyer's Agent Commission (%)"
                       step={0.001}
                       min={2}
-                      max={8}
-                      helpText={helpTextSellerCommissionAmount}
-                      validate={requiredSellerCommissionAmount}
+                      max={4}
+                      helpText={helpTextBuyersAgentCommissionAmount}
+                      validate={requiredBuyersAgentCommissionAmount}
                       required
                     />
                     <Field
@@ -224,7 +240,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       required
                     />
                     <Heading as="h3">
-                      Total:{' '}
+                      Total savings towards your closing costs and prepaid items:{' '}
                       {sellTotal({
                         values,
                         priceRangeId: Number(priceRangesList[6].value),
@@ -313,7 +329,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       required
                     />
                     <Heading as="h3">
-                      Total:{' '}
+                      Total savings towards your closing costs and prepaid items:{' '}
                       {buyTotal({
                         values,
                         priceRangeId: Number(priceRangesList[8].value),

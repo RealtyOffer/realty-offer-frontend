@@ -145,15 +145,15 @@ const Selling: FunctionComponent<SellingProps> = () => {
                   required
                   {...rest}
                 />
-                {!isBuyerAndSeller && (
-                  <p>
-                    <small>
-                      City not in our list? No problem at all.{' '}
-                      <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
-                      specialist who can assist with your move.
-                    </small>
-                  </p>
-                )}
+
+                <p>
+                  <small>
+                    City not in our list? No problem at all.{' '}
+                    <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
+                    specialist who can assist with your move.
+                  </small>
+                </p>
+
                 <Field
                   as={Input}
                   type="select"
