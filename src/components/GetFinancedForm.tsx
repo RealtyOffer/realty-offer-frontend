@@ -63,17 +63,27 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values, { resetForm, setSubmitting }) => {
-          postFormUrlEncoded(formName, values).then(() => {
-            setSubmitting(false);
-            resetForm();
-            dispatch(
-              addAlert({
-                message: `Your information has been submitted! A RealtyOffer Mortgage Consultant will contact you shortly.`,
-                type: 'success',
-              })
-            );
-            setShowForm(false);
-          });
+          postFormUrlEncoded(formName, values)
+            .then(() => {
+              setSubmitting(false);
+              resetForm();
+              dispatch(
+                addAlert({
+                  message: `Your information has been submitted! A RealtyOffer Mortgage Consultant will contact you shortly.`,
+                  type: 'success',
+                })
+              );
+              setShowForm(false);
+            })
+            .catch(() => {
+              setSubmitting(false);
+              dispatch(
+                addAlert({
+                  message: 'Something went wrong, please try again.',
+                  type: 'danger',
+                })
+              );
+            });
         }}
       >
         {({ isSubmitting, isValid }) => (
@@ -97,6 +107,7 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
                 block
                 iconRight={<FaCaretRight />}
                 disabled={isSubmitting || !isValid}
+                isLoading={isSubmitting}
               >
                 Send My Info
               </Button>
