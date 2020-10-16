@@ -97,9 +97,9 @@ const Login: FunctionComponent<LoginProps> = () => {
                 type="submit"
                 disabled={isSubmitting || !isValid || inLockoutPeriod}
                 block
-                isLoading={auth.isLoading}
+                isLoading={isSubmitting || auth.isLoading}
               >
-                {auth.isLoading ? 'Logging In' : 'Log In'}
+                {isSubmitting || auth.isLoading ? 'Logging In' : 'Log In'}
               </Button>
             </Form>
           )}
