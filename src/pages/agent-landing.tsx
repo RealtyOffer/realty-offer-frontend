@@ -129,6 +129,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                 block
                 iconRight={<FaCaretRight />}
                 disabled={isSubmitting || !isValid}
+                isLoading={isSubmitting}
               >
                 Submit
               </Button>
