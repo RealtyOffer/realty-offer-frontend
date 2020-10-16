@@ -223,7 +223,12 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                   required
                 />
                 <HorizontalRule />
-                <Button type="submit" disabled={isSubmitting || !isValid} block>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !isValid}
+                  block
+                  isLoading={isSubmitting || auth.isLoading || consumer.isLoading}
+                >
                   Create Account
                 </Button>
                 <p style={{ textAlign: 'center' }}>
