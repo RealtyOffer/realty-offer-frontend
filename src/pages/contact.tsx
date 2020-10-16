@@ -46,7 +46,6 @@ const Contact: FunctionComponent<ContactProps> = () => {
             };
             postFormUrlEncoded('contact', valuesWithSubject)
               .then(() => {
-                setSubmitting(false);
                 resetForm();
                 dispatch(
                   addAlert({
@@ -62,6 +61,9 @@ const Contact: FunctionComponent<ContactProps> = () => {
                     type: 'danger',
                   })
                 );
+              })
+              .finally(() => {
+                setSubmitting(false);
               });
           }}
         >
@@ -128,8 +130,9 @@ const Contact: FunctionComponent<ContactProps> = () => {
                 block
                 iconRight={<FaCaretRight />}
                 disabled={isSubmitting || !isValid}
+                isLoading={isSubmitting}
               >
-                Submit
+                {isSubmitting ? 'Submitting' : 'Submit'}
               </Button>
             </Form>
           )}
