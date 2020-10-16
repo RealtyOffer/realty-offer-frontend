@@ -53,6 +53,7 @@ type ListingDetailsProps = {
 
 const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const listings = useSelector((state: RootState) => state.listings);
+  const agent = useSelector((state: RootState) => state.agent);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
   const listing = listings.new.find((l) => String(l.id) === props.listingId);
@@ -374,6 +375,7 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             <Button
               type="submit"
               disabled={!isValid || isSubmitting || isExpired(listing.createDateTime)}
+              isLoading={isSubmitting || agent.isLoading}
             >
               Place Bid
             </Button>
