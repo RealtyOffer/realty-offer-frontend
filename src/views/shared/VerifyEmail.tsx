@@ -163,6 +163,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                       disabled={!values.email}
                       onClick={() => resend(values.email)}
                       color="primaryOutline"
+                      isLoading={auth.isLoading}
                     >
                       Send Another code
                     </Button>
