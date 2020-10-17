@@ -395,6 +395,7 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
                 type="submit"
                 disabled={!isValid || isSubmitting || isExpired(listing.createDateTime)}
                 rightspacer
+                isLoading={isSubmitting || agent.isLoading}
               >
                 Update Bid
               </Button>
@@ -422,7 +423,13 @@ const PendingListingDetails: FunctionComponent<ListingDetailsProps> = (props) =>
             </Button>
           </Column>
           <Column xs={6}>
-            <Button type="button" onClick={() => deleteBidAndNavigate()} block color="danger">
+            <Button
+              type="button"
+              onClick={() => deleteBidAndNavigate()}
+              block
+              color="danger"
+              isLoading={agent.isLoading}
+            >
               Yes
             </Button>
           </Column>
