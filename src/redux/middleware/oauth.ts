@@ -4,7 +4,7 @@ import { isBefore } from 'date-fns';
 import { ActionResponseType, AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT } from '../constants';
 import { refreshAccessToken } from '../ducks/auth';
 
-export default (store: any) => (next: any) => async (action: any) => {
+export default (store: any) => (next: any) => (action: any) => {
   const returnAction = action;
 
   // Check if the action is a RSAA middleware action
@@ -32,11 +32,11 @@ export default (store: any) => (next: any) => async (action: any) => {
 
   if (returnAction[RSAA].endpoint !== AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT) {
     if (isBefore(new Date(state.auth.expirationTime), new Date())) {
-      const response: ActionResponseType = await store.dispatch(refreshAccessToken());
-
-      if (response && !response.error) {
-        return next(returnAction);
-      }
+      return store.dispatch(refreshAccessToken()).then((response: ActionResponseType) => {
+        if (response && !response.error) {
+          next(returnAction);
+        }
+      });
     }
   }
 
