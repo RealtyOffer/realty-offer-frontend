@@ -20,6 +20,7 @@ type CityDetailsProps = {
 
 const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
   const cities = useSelector((state: RootState) => state.admin.cities);
+  const isLoading = useSelector((state: RootState) => state.admin.isLoading);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
   const dispatch = useDispatch();
 
@@ -112,8 +113,12 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                   />
                 </Column>
               </Row>
-              <Button type="submit" disabled={!isValid || isSubmitting}>
-                Submit
+              <Button
+                type="submit"
+                disabled={!isValid || isSubmitting}
+                isLoading={isSubmitting || isLoading}
+              >
+                {isSubmitting || isLoading ? 'Submitting' : 'Submit'}
               </Button>
             </Form>
           )}
