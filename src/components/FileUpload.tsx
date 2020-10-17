@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo } from 'react';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Uppload, en, Local, Crop, fetchUploader } from 'uppload';
 import 'uppload/dist/uppload.css';
@@ -14,9 +14,8 @@ import { updateUserAvatar } from '../redux/ducks/user';
 const FileUpload: FunctionComponent<{}> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const user = useSelector((state: RootState) => state.user);
-
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-
   const uploader = useMemo(
     () =>
       new Uppload({
@@ -51,16 +50,26 @@ const FileUpload: FunctionComponent<{}> = () => {
     uploader.use([new Crop({ aspectRatio: 1 })]);
   }, [uploader]);
 
+  uploader.on('before-upload', () => {
+    setIsLoading(true);
+  });
+
   uploader.on('upload', (newUrl: string) => {
     // add query param with date in milliseconds so it updates, since url is always the same
     dispatch(updateUserAvatar(`${newUrl}?${Date.now()}`));
+    setIsLoading(false);
     uploader.close();
   });
 
   return (
     <FlexContainer flexDirection="column">
       <Avatar src={user.avatar} size="lg" />
-      <Button type="button" onClick={() => uploader.open()} color="text">
+      <Button
+        type="button"
+        onClick={() => uploader.open()}
+        color="text"
+        isLoading={user.isLoading || isLoading}
+      >
         Choose photo
       </Button>
     </FlexContainer>
