@@ -213,6 +213,7 @@ const Selling: FunctionComponent<SellingProps> = () => {
                       block
                       iconRight={<FaCaretRight />}
                       disabled={isSubmitting || !isValid}
+                      isLoading={isSubmitting}
                     >
                       Next
                     </Button>
