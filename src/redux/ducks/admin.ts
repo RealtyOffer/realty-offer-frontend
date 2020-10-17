@@ -32,6 +32,10 @@ export const UPDATE_CITY_REQUEST = 'UPDATE_CITY_REQUEST';
 export const UPDATE_CITY_SUCCESS = 'UPDATE_CITY_SUCCESS';
 export const UPDATE_CITY_FAILURE = 'UPDATE_CITY_FAILURE';
 
+export const DELETE_CITY_REQUEST = 'DELETE_CITY_REQUEST';
+export const DELETE_CITY_SUCCESS = 'DELETE_CITY_SUCCESS';
+export const DELETE_CITY_FAILURE = 'DELETE_CITY_FAILURE';
+
 export const GET_ALL_CITIES_REQUEST = 'GET_ALL_CITIES_REQUEST';
 export const GET_ALL_CITIES_SUCCESS = 'GET_ALL_CITIES_SUCCESS';
 export const GET_ALL_CITIES_FAILURE = 'GET_ALL_CITIES_FAILURE';
@@ -49,6 +53,7 @@ export const initialState: AdminStoreType = {
 
 export default (state: AdminStoreType = initialState, action: AdminActionTypes): AdminStoreType => {
   switch (action.type) {
+    case DELETE_CITY_REQUEST:
     case CREATE_SITE_BANNER_REQUEST:
     case UPDATE_SITE_BANNER_REQUEST:
     case GET_ALL_SITE_BANNERS_REQUEST:
@@ -85,6 +90,16 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         hasError: false,
         cities: [...state.cities, action.payload],
       };
+    case DELETE_CITY_SUCCESS: {
+      const {
+        payload: { id },
+      } = action;
+
+      return {
+        ...state,
+        cities: state.cities.filter((city) => city.id !== id),
+      };
+    }
     case GET_ALL_CITIES_SUCCESS:
       return {
         ...state,
@@ -107,6 +122,7 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         hasError: true,
         banners: [],
       };
+    case DELETE_CITY_FAILURE:
     case CREATE_CITY_FAILURE:
     case UPDATE_CITY_FAILURE:
     case GET_CITY_BY_ID_FAILURE:
@@ -184,6 +200,18 @@ export const updateCity = (payload: CityType) => ({
     method: 'PUT',
     body: JSON.stringify(payload),
     types: [UPDATE_CITY_REQUEST, UPDATE_CITY_SUCCESS, UPDATE_CITY_FAILURE],
+  },
+});
+
+export const deleteCityById = (id: number) => ({
+  [RSAA]: {
+    endpoint: ADMIN_CITY_BY_ID_ENDPOINT(id),
+    method: 'DELETE',
+    types: [
+      DELETE_CITY_REQUEST,
+      { type: DELETE_CITY_SUCCESS, payload: { id } },
+      DELETE_CITY_FAILURE,
+    ],
   },
 });
 

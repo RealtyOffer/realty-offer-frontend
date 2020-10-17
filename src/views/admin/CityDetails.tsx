@@ -1,13 +1,22 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Form, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaCaretLeft } from 'react-icons/fa';
 import { navigate } from 'gatsby';
 
-import { Button, FlexContainer, Heading, Input, Row, Column, LoadingPage } from '../../components';
+import {
+  Button,
+  FlexContainer,
+  Heading,
+  Input,
+  Row,
+  Column,
+  LoadingPage,
+  Modal,
+} from '../../components';
 import { RootState } from '../../redux/ducks';
-import { createCity, updateCity } from '../../redux/ducks/admin';
+import { createCity, deleteCityById, updateCity } from '../../redux/ducks/admin';
 import { ActionResponseType } from '../../redux/constants';
 import { addAlert } from '../../redux/ducks/globalAlerts';
 import { getStatesList } from '../../redux/ducks/dropdowns';
@@ -19,9 +28,11 @@ type CityDetailsProps = {
 } & RouteComponentProps;
 
 const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
+  const isLoading = useSelector((state: RootState) => state.admin.isLoading);
   const cities = useSelector((state: RootState) => state.admin.cities);
   const isLoading = useSelector((state: RootState) => state.admin.isLoading);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -114,18 +125,65 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                 </Column>
               </Row>
               <Button
+                type="button"
+                color="danger"
+                disabled={isNewCity}
+                rightspacer
+                onClick={() => setModalIsOpen(true)}
+              >
+                Delete
+              </Button>
+              <Button
                 type="submit"
                 disabled={!isValid || isSubmitting}
                 isLoading={isSubmitting || isLoading}
               >
                 {isSubmitting || isLoading ? 'Submitting' : 'Submit'}
-              </Button>
             </Form>
           )}
         </Formik>
       ) : (
         <LoadingPage />
       )}
+      <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
+        <Heading styledAs="title">Delete {activeCity.name}?</Heading>
+        <p>Are you sure you want to delete {activeCity.name}?</p>
+        <Row>
+          <Column xs={6}>
+            <Button
+              type="button"
+              onClick={() => setModalIsOpen(false)}
+              color="primaryOutline"
+              block
+            >
+              No
+            </Button>
+          </Column>
+          <Column xs={6}>
+            <Button
+              type="button"
+              onClick={async () => {
+                if (!isNewCity) {
+                  await dispatch(deleteCityById(activeCity.id));
+                  dispatch(
+                    addAlert({
+                      type: 'success',
+                      message: `Successfully removed ${activeCity.name}`,
+                    })
+                  );
+                  navigate('/admin/cities');
+                }
+              }}
+              block
+              color="danger"
+              disabled={isLoading}
+              isLoading={isLoading}
+            >
+              Yes
+            </Button>
+          </Column>
+        </Row>
+      </Modal>
     </>
   );
 };
