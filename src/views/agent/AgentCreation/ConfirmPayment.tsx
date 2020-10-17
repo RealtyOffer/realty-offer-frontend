@@ -109,6 +109,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
                   block
                   onClick={() => confirmPayment()}
                   disabled={fortis.isLoading || agent.isLoading}
+                  isLoading={fortis.isLoading || agent.isLoading}
                 >
                   Confirm Payment
                 </Button>
