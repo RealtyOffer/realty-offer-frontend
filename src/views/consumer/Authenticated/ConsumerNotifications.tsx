@@ -52,7 +52,6 @@ type InitialValuesType = {
 const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-  const auth = useSelector((state: RootState) => state.auth);
   const [emailCodeSent, setEmailCodeSent] = useState(false);
   const [phoneCodeSent, setPhoneCodeSent] = useState(false);
 
@@ -285,6 +284,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                                   type="button"
                                   color="text"
                                   onClick={() => resendEmailConfirmationCode(values)}
+                                  isLoading={user.isLoading}
                                 >
                                   Resend one now
                                 </Button>
@@ -343,6 +343,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                                   type="button"
                                   color="text"
                                   onClick={() => resendPhoneNumberConfirmationCode(values)}
+                                  isLoading={user.isLoading}
                                 >
                                   Resend one now
                                 </Button>
