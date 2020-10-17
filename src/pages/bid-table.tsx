@@ -362,7 +362,7 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       disabled={isSubmitting || !isValid}
                       isLoading={isSubmitting}
                     >
-                      Submit
+                      {isSubmitting ? 'Submitting' : 'Submit'}
                     </Button>
                   </Column>
                 </Row>
