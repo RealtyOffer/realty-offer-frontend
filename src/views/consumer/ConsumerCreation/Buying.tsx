@@ -180,6 +180,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
                       block
                       iconRight={<FaCaretRight />}
                       disabled={isSubmitting || !isValid}
+                      isLoading={isSubmitting}
                     >
                       Next
                     </Button>
