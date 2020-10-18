@@ -126,7 +126,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
               </Row>
               <Button
                 type="button"
-                color="danger"
+                color="dangerOutline"
                 disabled={isNewCity}
                 rightspacer
                 onClick={() => setModalIsOpen(true)}
