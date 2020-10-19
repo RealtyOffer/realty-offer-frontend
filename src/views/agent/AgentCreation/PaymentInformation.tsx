@@ -30,6 +30,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
   const agent = useSelector((state: RootState) => state.agent);
   const auth = useSelector((state: RootState) => state.auth);
+  const fortis = useSelector((state: RootState) => state.fortis);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
 
   useEffect(() => {
@@ -210,7 +211,13 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                     />
                   </Column>
                 </Row>
-                <Button type="submit" color="primary" block disabled={isSubmitting || !isValid}>
+                <Button
+                  type="submit"
+                  color="primary"
+                  block
+                  disabled={isSubmitting || !isValid}
+                  isLoading={isSubmitting || fortis.isLoading}
+                >
                   Review
                 </Button>
                 <small>

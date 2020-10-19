@@ -57,7 +57,7 @@ const ConsumerListingCardBody = styled.div`
 `;
 
 const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
-  consumer: { listing, bids, winner },
+  consumer: { listing, bids, winner, isLoading },
 }) => {
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
@@ -264,7 +264,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                       </dd>
                     </dl>
                   )}
-                  <Button type="button" onClick={() => selectWinningAgent(bid)} block>
+                  <Button type="button" onClick={() => selectWinningAgent(bid)} block isLoading={isLoading}>
                     Select
                   </Button>
                 </Box>

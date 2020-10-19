@@ -126,7 +126,13 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                 </p>
                 <p>per month</p>
               </FlexContainer>
-              <Button type="submit" color="primary" block disabled={isSubmitting || !isValid}>
+              <Button
+                type="submit"
+                color="primary"
+                block
+                disabled={isSubmitting || !isValid}
+                isLoading={isSubmitting || agent.isLoading}
+              >
                 Checkout
               </Button>
             </Form>

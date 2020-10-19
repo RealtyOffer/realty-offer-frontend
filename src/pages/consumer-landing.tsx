@@ -69,7 +69,6 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
               postFormUrlEncoded('consumer-landing', valuesWithSubject)
                 .then(() => {
                   resetForm();
-                  setSubmitting(false);
                   navigate('/');
                   dispatch(
                     addAlert({
@@ -85,6 +84,9 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                       type: 'danger',
                     })
                   );
+                })
+                .finally(() => {
+                  setSubmitting(false);
                 });
             }}
           >
@@ -235,8 +237,9 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   block
                   iconRight={<FaCaretRight />}
                   disabled={isSubmitting || !isValid}
+                  isLoading={isSubmitting}
                 >
-                  Submit
+                  {isSubmitting ? 'Submitting' : 'Submit'}
                 </Button>
               </Form>
             )}

@@ -36,6 +36,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
   const agent = useSelector((state: RootState) => state.agent);
+  const fortis = useSelector((state: RootState) => state.fortis);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
   const cities = useSelector((state: RootState) => state.user.cities);
 
@@ -248,7 +249,12 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
 
                 <HorizontalRule />
                 <p>
-                  <Button type="submit" disabled={isSubmitting || !isValid} block>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || !isValid}
+                    block
+                    isLoading={isSubmitting || fortis.isLoading || agent.isLoading}
+                  >
                     Continue
                   </Button>
                 </p>

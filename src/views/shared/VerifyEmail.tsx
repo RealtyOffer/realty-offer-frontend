@@ -24,11 +24,11 @@ type VerifyEmailType = {};
 
 const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = () => {
   const [verified, setVerified] = useState(false);
-  const authEmail = useSelector((state: RootState) => state.auth.email);
+  const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
   const initialValues = {
-    email: authEmail,
+    email: auth.email,
     digit1: '',
     digit2: '',
     digit3: '',
@@ -144,6 +144,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                       block
                       type="submit"
                       disabled={isSubmitting || !isValid || values === initialValues}
+                      isLoading={isSubmitting || auth.isLoading}
                     >
                       Confirm Email
                     </Button>
@@ -162,6 +163,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                       disabled={!values.email}
                       onClick={() => resend(values.email)}
                       color="primaryOutline"
+                      isLoading={auth.isLoading}
                     >
                       Send Another code
                     </Button>

@@ -130,7 +130,6 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
 
             return postFormUrlEncoded(formName, postingValues)
               .then(() => {
-                setSubmitting(false);
                 resetForm();
                 dispatch(
                   addAlert({
@@ -140,13 +139,15 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                 );
               })
               .catch(() => {
-                setSubmitting(false);
                 dispatch(
                   addAlert({
                     message: 'Something went wrong, please try again.',
                     type: 'danger',
                   })
                 );
+              })
+              .finally(() => {
+                setSubmitting(false);
               });
           }}
         >
@@ -298,6 +299,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                 block
                 iconRight={<FaCaretRight />}
                 disabled={isSubmitting || !isValid}
+                isLoading={isSubmitting}
               >
                 Submit
               </Button>

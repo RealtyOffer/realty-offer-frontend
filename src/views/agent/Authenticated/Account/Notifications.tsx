@@ -240,6 +240,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                                   type="button"
                                   color="text"
                                   onClick={() => resendEmailConfirmationCode(values)}
+                                  isLoading={user.isLoading}
                                 >
                                   Resend one now
                                 </Button>
@@ -298,6 +299,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                                   type="button"
                                   color="text"
                                   onClick={() => resendPhoneNumberConfirmationCode(values)}
+                                  isLoading={user.isLoading}
                                 >
                                   Resend one now
                                 </Button>

@@ -20,6 +20,7 @@ type BannerDetailsProps = {
 
 const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
   const banners = useSelector((state: RootState) => state.admin.banners);
+  const isLoading = useSelector((state: RootState) => state.admin.isLoading);
   const dispatch = useDispatch();
 
   const stylingOptions = [
@@ -79,8 +80,8 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
         validateOnMount
         initialValues={{ ...activeBanner }}
         onSubmit={(values, { setSubmitting }) => {
-          dispatch(isNewBanner ? createSiteBanner(values) : updateSiteBanner(values)).then(
-            (response: ActionResponseType) => {
+          dispatch(isNewBanner ? createSiteBanner(values) : updateSiteBanner(values))
+            .then((response: ActionResponseType) => {
               if (response && !response.error) {
                 dispatch(
                   addAlert({
@@ -88,11 +89,12 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                     type: 'success',
                   })
                 );
-                setSubmitting(false);
                 navigate('/admin/banners');
               }
-            }
-          );
+            })
+            .finally(() => {
+              setSubmitting(false);
+            });
         }}
       >
         {({ isValid, isSubmitting, ...rest }) => (
@@ -175,8 +177,12 @@ const BannerDetails: FunctionComponent<BannerDetailsProps> = (props) => {
                 />
               </Column>
             </Row>
-            <Button type="submit" disabled={!isValid || isSubmitting}>
-              Submit
+            <Button
+              type="submit"
+              disabled={!isValid || isSubmitting}
+              isLoading={isSubmitting || isLoading}
+            >
+              {isSubmitting || isLoading ? 'Submitting' : 'Submit'}
             </Button>
           </Form>
         )}

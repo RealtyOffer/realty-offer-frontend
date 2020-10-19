@@ -116,9 +116,11 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       type: 'danger',
                     })
                   );
+                })
+                .finally(() => {
+                  setSubmitting(false);
+                  resetForm();
                 });
-              setSubmitting(false);
-              resetForm();
             }}
           >
             {({ values, isSubmitting, isValid, setFieldValue }) => (
@@ -358,8 +360,9 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       block
                       iconRight={<FaCaretRight />}
                       disabled={isSubmitting || !isValid}
+                      isLoading={isSubmitting}
                     >
-                      Submit
+                      {isSubmitting ? 'Submitting' : 'Submit'}
                     </Button>
                   </Column>
                 </Row>

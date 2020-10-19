@@ -86,6 +86,7 @@ export const initialState: UserStoreType = {
 
 export default (state: UserStoreType = initialState, action: UserActionTypes): UserStoreType => {
   switch (action.type) {
+    case UPDATE_USER_NOTIFICATION_SETTINGS_REQUEST:
     case GET_USER_SITE_BANNERS_REQUEST:
     case GET_USER_CITIES_REQUEST:
     case GET_USER_NOTIFICATION_SETTINGS_REQUEST:

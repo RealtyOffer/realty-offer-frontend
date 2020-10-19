@@ -1,6 +1,6 @@
 import React, { FunctionComponent, SyntheticEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from 'gatsby';
 
 import {
@@ -22,12 +22,13 @@ import {
 import { ActionResponseType } from '../redux/constants';
 import { resetPassword } from '../redux/ducks/auth';
 import { addAlert } from '../redux/ducks/globalAlerts';
+import { RootState } from '../redux/ducks';
 
 type ResetPasswordProps = {};
 
 const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
   const dispatch = useDispatch();
-
+  const auth = useSelector((state: RootState) => state.auth);
   const initialValues = {
     email: '',
     newPassword: '',
@@ -143,8 +144,13 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                 required
               />
               <HorizontalRule />
-              <Button type="submit" disabled={isSubmitting || !isValid} block>
-                Submit
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isValid}
+                block
+                isLoading={isSubmitting || auth.isLoading}
+              >
+                {isSubmitting || auth.isLoading ? 'Submitting' : 'Submit'}
               </Button>
               <Button type="link" to="/login" color="text" block>
                 Cancel

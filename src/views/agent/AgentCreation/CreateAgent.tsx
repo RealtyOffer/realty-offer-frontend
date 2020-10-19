@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form, FormikProps } from 'formik';
 import { Link, navigate } from 'gatsby';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useLocation } from '@reach/router';
 
 import { Button, Input, Row, Card, Column, HorizontalRule, Seo } from '../../../components';
@@ -19,12 +19,14 @@ import { ActionResponseType } from '../../../redux/constants';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { captureAgentSignupData } from '../../../redux/ducks/agent';
+import { RootState } from '../../../redux/ducks';
 
 type CreateAgentProps = {} & RouteComponentProps;
 
 const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const auth = useSelector((state: RootState) => state.auth);
   const initialValues: CreateUserFormValues = {
     firstName: '',
     lastName: '',
@@ -65,7 +67,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           });
         }}
       >
-        {(formikProps: FormikProps<any>) => (
+        {({ isSubmitting, isValid }: FormikProps<any>) => (
           <Form>
             <Row>
               <Column xs={6}>
@@ -115,7 +117,12 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
               required
             />
             <HorizontalRule />
-            <Button type="submit" disabled={formikProps.isSubmitting || !formikProps.isValid} block>
+            <Button
+              type="submit"
+              disabled={isSubmitting || !isValid}
+              block
+              isLoading={isSubmitting || auth.isLoading}
+            >
               Create Account
             </Button>
             <p style={{ textAlign: 'center' }}>
