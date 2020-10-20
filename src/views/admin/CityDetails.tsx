@@ -160,7 +160,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
               color="primaryOutline"
               block
             >
-              No
+              Cancel
             </Button>
           </Column>
           <Column xs={6}>
@@ -183,7 +183,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
               disabled={isLoading}
               isLoading={isLoading}
             >
-              Yes
+              Delete
             </Button>
           </Column>
         </Row>
