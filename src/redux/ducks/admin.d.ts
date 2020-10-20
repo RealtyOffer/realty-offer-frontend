@@ -23,6 +23,9 @@ import {
   GET_CITY_BY_ID_REQUEST,
   GET_CITY_BY_ID_SUCCESS,
   GET_CITY_BY_ID_FAILURE,
+  DELETE_CITY_REQUEST,
+  DELETE_CITY_SUCCESS,
+  DELETE_CITY_FAILURE,
 } from './admin';
 
 export type BannerType = {
@@ -134,6 +137,21 @@ export type UpdateCityFailureAction = {
   type: typeof UPDATE_CITY_FAILURE;
 };
 
+export type DeleteCityRequestActionType = {
+  type: typeof DELETE_CITY_REQUEST;
+};
+
+export type DeleteCitySuccessActionType = {
+  type: typeof DELETE_CITY_SUCCESS;
+  payload: {
+    id: number;
+  };
+};
+
+export type DeleteCityFailureActionType = {
+  type: typeof DELETE_CITY_FAILURE;
+};
+
 export type GetAllCitiesRequestAction = {
   type: typeof GET_ALL_CITIES_REQUEST;
   payload: Array<CityType>;
@@ -181,6 +199,9 @@ export type AdminActionTypes =
   | UpdateCityRequestAction
   | UpdateCitySuccessAction
   | UpdateCityFailureAction
+  | DeleteCityRequestActionType
+  | DeleteCitySuccessActionType
+  | DeleteCityFailureActionType
   | GetAllCitiesRequestAction
   | GetAllCitiesSuccessAction
   | GetAllCitiesFailureAction
