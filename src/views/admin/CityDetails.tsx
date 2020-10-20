@@ -124,21 +124,24 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                   />
                 </Column>
               </Row>
-              <Button
-                type="button"
-                color="dangerOutline"
-                disabled={isNewCity}
-                rightspacer
-                onClick={() => setModalIsOpen(true)}
-              >
-                Delete
-              </Button>
+              {!isNewCity && (
+                <Button
+                  type="button"
+                  color="dangerOutline"
+                  disabled={isNewCity}
+                  rightspacer
+                  onClick={() => setModalIsOpen(true)}
+                >
+                  Delete
+                </Button>
+              )}
               <Button
                 type="submit"
                 disabled={!isValid || isSubmitting}
                 isLoading={isSubmitting || isLoading}
               >
                 {isSubmitting || isLoading ? 'Submitting' : 'Submit'}
+              </Button>
             </Form>
           )}
         </Formik>
