@@ -89,7 +89,7 @@ const GlobalAlerts: FunctionComponent<{}> = () => {
           key={currentAlert.id}
           type={currentAlert.type}
           close={() => dismissAlert()}
-          dismissable={currentAlert.dismissable}
+          dismissable
           alertNumber={1}
           alertNumberTotal={alerts.length}
           message={currentAlert.message || 'An error occurred. Please try again.'}

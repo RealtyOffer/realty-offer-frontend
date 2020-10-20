@@ -34,9 +34,7 @@ import { RootState } from '../redux/ducks';
 import { ActionResponseType } from '../redux/constants';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
-import useInterval from '../utils/useInterval';
 import { getPriceRangesList } from '../redux/ducks/dropdowns';
-import { refreshAccessToken } from '../redux/ducks/auth';
 
 const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -110,16 +108,6 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
       dispatch(getPriceRangesList());
     }
   }, []);
-
-  const getNewRefreshToken = () => {
-    if (auth.isLoggedIn) {
-      dispatch(refreshAccessToken());
-    }
-  };
-
-  useInterval(() => {
-    getNewRefreshToken();
-  }, 1800000); // 30 minutes
 
   return (
     <PageContainer>

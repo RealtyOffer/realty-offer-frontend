@@ -38,14 +38,12 @@ import {
   getNotificationTypes,
   getUserNotificationSubscriptions,
 } from '../../../redux/ducks/user';
-import { refreshAccessToken } from '../../../redux/ducks/auth';
 import {
   getHomeTypesList,
   getPriceRangesList,
   getGenderPreferencesList,
   getAgePreferencesList,
 } from '../../../redux/ducks/dropdowns';
-import useInterval from '../../../utils/useInterval';
 
 const StyledAlert = styled.div`
   padding: ${baseSpacer};
@@ -64,16 +62,6 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const consumer = useSelector((state: RootState) => state.consumer);
   const dispatch = useDispatch();
-
-  const getNewRefreshToken = () => {
-    if (auth.isLoggedIn) {
-      dispatch(refreshAccessToken());
-    }
-  };
-
-  useInterval(() => {
-    getNewRefreshToken();
-  }, 1800000); // 30 minutes
 
   useEffect(() => {
     dispatch(getConsumerProfile());
