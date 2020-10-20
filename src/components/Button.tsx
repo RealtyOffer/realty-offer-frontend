@@ -111,6 +111,7 @@ const dangerButtonStyles = `
 `;
 
 const dangerOutlineButtonStyles = `
+  background-color: ${white};
   border-color: ${brandDanger};
   color: ${brandDanger};
   
