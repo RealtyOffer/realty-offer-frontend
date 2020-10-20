@@ -30,7 +30,6 @@ type CityDetailsProps = {
 const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
   const isLoading = useSelector((state: RootState) => state.admin.isLoading);
   const cities = useSelector((state: RootState) => state.admin.cities);
-  const isLoading = useSelector((state: RootState) => state.admin.isLoading);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -124,24 +123,26 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                   />
                 </Column>
               </Row>
-              {!isNewCity && (
+              <FlexContainer justifyContent="space-between">
                 <Button
-                  type="button"
-                  color="dangerOutline"
-                  disabled={isNewCity}
-                  rightspacer
-                  onClick={() => setModalIsOpen(true)}
+                  type="submit"
+                  disabled={!isValid || isSubmitting}
+                  isLoading={isSubmitting || isLoading}
                 >
-                  Delete
+                  {isSubmitting || isLoading ? 'Submitting' : 'Submit'}
                 </Button>
-              )}
-              <Button
-                type="submit"
-                disabled={!isValid || isSubmitting}
-                isLoading={isSubmitting || isLoading}
-              >
-                {isSubmitting || isLoading ? 'Submitting' : 'Submit'}
-              </Button>
+                {!isNewCity && (
+                  <Button
+                    type="button"
+                    color="dangerOutline"
+                    disabled={isNewCity}
+                    rightspacer
+                    onClick={() => setModalIsOpen(true)}
+                  >
+                    Delete
+                  </Button>
+                )}
+              </FlexContainer>
             </Form>
           )}
         </Formik>
