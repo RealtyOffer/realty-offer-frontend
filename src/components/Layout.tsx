@@ -43,11 +43,11 @@ const Layout: FunctionComponent<LayoutProps> = ({ element }) => (
         <Navbar />
         <PageBody>
           <PageContainer>
+            <GlobalAlerts />
             <GlobalBanners />
           </PageContainer>
           {element}
         </PageBody>
-        <GlobalAlerts />
         <Footer />
       </LayoutWrapper>
     </IconContext.Provider>

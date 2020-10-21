@@ -26,6 +26,21 @@ import {
   DELETE_CITY_REQUEST,
   DELETE_CITY_SUCCESS,
   DELETE_CITY_FAILURE,
+  CREATE_COUNTY_REQUEST,
+  CREATE_COUNTY_SUCCESS,
+  CREATE_COUNTY_FAILURE,
+  UPDATE_COUNTY_REQUEST,
+  UPDATE_COUNTY_SUCCESS,
+  UPDATE_COUNTY_FAILURE,
+  GET_ALL_COUNTIES_REQUEST,
+  GET_ALL_COUNTIES_SUCCESS,
+  GET_ALL_COUNTIES_FAILURE,
+  GET_COUNTY_BY_ID_REQUEST,
+  GET_COUNTY_BY_ID_SUCCESS,
+  GET_COUNTY_BY_ID_FAILURE,
+  DELETE_COUNTY_REQUEST,
+  DELETE_COUNTY_SUCCESS,
+  DELETE_COUNTY_FAILURE,
 } from './admin';
 
 export type BannerType = {
@@ -42,6 +57,14 @@ export type BannerType = {
 export type CityType = {
   id: number;
   name: string;
+  countyId: number;
+  state: string;
+  monthlyPrice: number;
+};
+
+export type CountyType = {
+  id: number;
+  name: string;
   state: string;
   monthlyPrice: number;
 };
@@ -51,6 +74,7 @@ export type AdminStoreType = {
   hasError: boolean;
   banners: Array<BannerType>;
   cities: Array<CityType>;
+  counties: Array<CountyType>;
 };
 
 export type CreateSiteBannerRequestAction = {
@@ -180,6 +204,77 @@ export type GetCityByIdFailureAction = {
   type: typeof GET_CITY_BY_ID_FAILURE;
 };
 
+export type CreateCountyRequestAction = {
+  type: typeof CREATE_COUNTY_REQUEST;
+  payload: CountyType;
+};
+
+export type CreateCountySuccessAction = {
+  type: typeof CREATE_COUNTY_SUCCESS;
+  payload: CountyType;
+};
+
+export type CreateCountyFailureAction = {
+  type: typeof CREATE_COUNTY_FAILURE;
+};
+
+export type UpdateCountyRequestAction = {
+  type: typeof UPDATE_COUNTY_REQUEST;
+  payload: CountyType;
+};
+
+export type UpdateCountySuccessAction = {
+  type: typeof UPDATE_COUNTY_SUCCESS;
+  payload: CountyType;
+};
+
+export type UpdateCountyFailureAction = {
+  type: typeof UPDATE_COUNTY_FAILURE;
+};
+
+export type DeleteCountyRequestActionType = {
+  type: typeof DELETE_COUNTY_REQUEST;
+};
+
+export type DeleteCountySuccessActionType = {
+  type: typeof DELETE_COUNTY_SUCCESS;
+  payload: {
+    id: number;
+  };
+};
+
+export type DeleteCountyFailureActionType = {
+  type: typeof DELETE_COUNTY_FAILURE;
+};
+
+export type GetAllCountiesRequestAction = {
+  type: typeof GET_ALL_COUNTIES_REQUEST;
+  payload: Array<CountyType>;
+};
+
+export type GetAllCountiesSuccessAction = {
+  type: typeof GET_ALL_COUNTIES_SUCCESS;
+  payload: Array<CountyType>;
+};
+
+export type GetAllCountiesFailureAction = {
+  type: typeof GET_ALL_COUNTIES_FAILURE;
+};
+
+export type GetCountyByIdRequestAction = {
+  type: typeof GET_COUNTY_BY_ID_REQUEST;
+  payload: { id: number };
+};
+
+export type GetCountyByIdSuccessAction = {
+  type: typeof GET_COUNTY_BY_ID_SUCCESS;
+  payload: CountyType;
+};
+
+export type GetCountyByIdFailureAction = {
+  type: typeof GET_COUNTY_BY_ID_FAILURE;
+};
+
 export type AdminActionTypes =
   | CreateSiteBannerRequestAction
   | CreateSiteBannerSuccessAction
@@ -207,4 +302,19 @@ export type AdminActionTypes =
   | GetAllCitiesFailureAction
   | GetCityByIdRequestAction
   | GetCityByIdSuccessAction
-  | GetCityByIdFailureAction;
+  | GetCityByIdFailureAction
+  | CreateCountyRequestAction
+  | CreateCountySuccessAction
+  | CreateCountyFailureAction
+  | UpdateCountyRequestAction
+  | UpdateCountySuccessAction
+  | UpdateCountyFailureAction
+  | DeleteCountyRequestActionType
+  | DeleteCountySuccessActionType
+  | DeleteCountyFailureActionType
+  | GetAllCountiesRequestAction
+  | GetAllCountiesSuccessAction
+  | GetAllCountiesFailureAction
+  | GetCountyByIdRequestAction
+  | GetCountyByIdSuccessAction
+  | GetCountyByIdFailureAction;

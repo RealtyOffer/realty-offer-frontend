@@ -69,7 +69,7 @@ const Table: FunctionComponent<TableProps> = ({ columns, data }) => {
               {row.cells.map((cell) => {
                 // if cell.
                 return (
-                  <StyledTd key={cell.getCellProps().key} {...cell.getCellProps()}>
+                  <StyledTd {...cell.getCellProps()} key={cell.getCellProps().key}>
                     {String(cell.getCellProps().key).includes('action') ? (
                       <>
                         {cell.row.original.actions.map((action: TableActionType) => {

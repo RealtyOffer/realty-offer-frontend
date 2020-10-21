@@ -16,20 +16,19 @@ import {
   Modal,
 } from '../../components';
 import { RootState } from '../../redux/ducks';
-import { createCity, deleteCityById, updateCity, getAllCounties } from '../../redux/ducks/admin';
+import { createCounty, deleteCountyById, updateCounty } from '../../redux/ducks/admin';
 import { ActionResponseType } from '../../redux/constants';
 import { addAlert } from '../../redux/ducks/globalAlerts';
 import { getStatesList } from '../../redux/ducks/dropdowns';
 import { requiredField, requiredSelect, requiredDollarAmount } from '../../utils/validations';
 import { createOptionsFromManagedDropdownList } from '../../utils/createOptionsFromArray';
 
-type CityDetailsProps = {
+type CountyDetailsProps = {
   id?: string;
 } & RouteComponentProps;
 
-const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
+const CountyDetails: FunctionComponent<CountyDetailsProps> = (props) => {
   const isLoading = useSelector((state: RootState) => state.admin.isLoading);
-  const cities = useSelector((state: RootState) => state.admin.cities);
   const counties = useSelector((state: RootState) => state.admin.counties);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -41,96 +40,66 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (counties.length === 0) {
-      dispatch(getAllCounties());
-    }
-  }, []);
-
-  const newCityInitialValues = {
+  const newCountyInitialValues = {
     name: '',
     state: 'MI',
     monthlyPrice: 0,
-    countyId: '',
     id: 0,
   };
 
-  const isNewCity = props.id === 'new';
-  const matchingCity =
-    (cities && cities.find((c) => c.id === Number(props.id))) || newCityInitialValues;
+  const isNewCounty = props.id === 'new';
+  const matchingCounty =
+    (counties && counties.find((c) => c.id === Number(props.id))) || newCountyInitialValues;
 
-  const activeCity = isNewCity ? newCityInitialValues : { ...matchingCity };
+  const activeCounty = isNewCounty ? newCountyInitialValues : { ...matchingCounty };
 
-  const countiesOptions =
-    counties &&
-    counties.map((county) => {
-      const obj = { value: '', label: '' };
-      obj.value = String(county.id);
-      obj.label = county.name;
-      return obj;
-    });
-
-  if (!props.id || !cities || !activeCity) {
+  if (!props.id || !counties || !activeCounty) {
     return null;
   }
 
   return (
     <>
       <FlexContainer justifyContent="space-between">
-        <Heading>{isNewCity ? 'Add New' : 'Edit'} City</Heading>
-        <Button type="link" to="/admin/cities" iconLeft={<FaCaretLeft />} color="text">
-          Back to All Cities
+        <Heading>{isNewCounty ? 'Add New' : 'Edit'} County</Heading>
+        <Button type="link" to="/admin/counties" iconLeft={<FaCaretLeft />} color="text">
+          Back to All Counties
         </Button>
       </FlexContainer>
-      {statesList.length > 0 && counties.length > 0 ? (
+      {statesList.length > 0 ? (
         <Formik
           validateOnMount
-          initialValues={{ ...activeCity }}
+          initialValues={{ ...activeCounty }}
           onSubmit={(values, { setSubmitting }) => {
-            dispatch(
-              isNewCity
-                ? createCity({ ...values, countyId: Number(values.countyId) })
-                : updateCity({ ...values, countyId: Number(values.countyId) })
-            ).then((response: ActionResponseType) => {
-              if (response && !response.error) {
-                dispatch(
-                  addAlert({
-                    message: `Successfully ${isNewCity ? 'added' : 'edited'} ${values.name}`,
-                    type: 'success',
-                  })
-                );
-                setSubmitting(false);
-                navigate('/admin/cities');
+            dispatch(isNewCounty ? createCounty(values) : updateCounty(values)).then(
+              (response: ActionResponseType) => {
+                if (response && !response.error) {
+                  dispatch(
+                    addAlert({
+                      message: `Successfully ${isNewCounty ? 'added' : 'edited'} county`,
+                      type: 'success',
+                    })
+                  );
+                  setSubmitting(false);
+                  navigate('/admin/counties');
+                }
               }
-            });
+            );
           }}
         >
           {({ isValid, isSubmitting, ...rest }) => (
             <Form>
               <Row>
-                <Column md={3}>
+                <Column md={4}>
                   <Field
                     as={Input}
                     name="name"
                     type="text"
-                    label="City Name"
+                    label="County Name"
                     validate={requiredField}
                     required
                   />
                 </Column>
-                <Column md={3}>
-                  <Field
-                    as={Input}
-                    name="countyId"
-                    type="select"
-                    options={countiesOptions}
-                    label="County"
-                    validate={requiredSelect}
-                    required
-                    {...rest}
-                  />
-                </Column>
-                <Column md={3}>
+                <Column md={4}>
                   <Field
                     as={Input}
                     name="state"
@@ -143,7 +112,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                     {...rest}
                   />
                 </Column>
-                <Column md={3}>
+                <Column md={4}>
                   <Field
                     as={Input}
                     name="monthlyPrice"
@@ -162,11 +131,11 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                 >
                   {isSubmitting || isLoading ? 'Submitting' : 'Submit'}
                 </Button>
-                {!isNewCity && (
+                {!isNewCounty && (
                   <Button
                     type="button"
                     color="dangerOutline"
-                    disabled={isNewCity}
+                    disabled={isNewCounty}
                     rightspacer
                     onClick={() => setModalIsOpen(true)}
                   >
@@ -181,8 +150,8 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
         <LoadingPage />
       )}
       <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
-        <Heading styledAs="title">Delete {activeCity.name}?</Heading>
-        <p>Are you sure you want to delete {activeCity.name}?</p>
+        <Heading styledAs="title">Delete {activeCounty.name}?</Heading>
+        <p>Are you sure you want to delete {activeCounty.name}?</p>
         <Row>
           <Column xs={6}>
             <Button
@@ -198,15 +167,15 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
             <Button
               type="button"
               onClick={async () => {
-                if (!isNewCity) {
-                  await dispatch(deleteCityById(activeCity.id));
+                if (!isNewCounty) {
+                  await dispatch(deleteCountyById(activeCounty.id));
                   dispatch(
                     addAlert({
                       type: 'success',
-                      message: `Successfully removed ${activeCity.name}`,
+                      message: `Successfully removed ${activeCounty.name}`,
                     })
                   );
-                  navigate('/admin/cities');
+                  navigate('/admin/counties');
                 }
               }}
               block
@@ -223,4 +192,4 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
   );
 };
 
-export default CityDetails;
+export default CountyDetails;

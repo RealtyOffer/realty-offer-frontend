@@ -3,32 +3,24 @@ import { RouteComponentProps, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
-import { getAllCities, getAllCounties } from '../../redux/ducks/admin';
+import { getAllCounties } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
-import CityDetails from './CityDetails';
+import CountyDetails from './CountyDetails';
 import numberWithCommas from '../../utils/numberWithCommas';
 
-const Cities: FunctionComponent<RouteComponentProps> = () => {
+const Counties: FunctionComponent<RouteComponentProps> = () => {
   const admin = useSelector((state: RootState) => state.admin);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllCities());
-  }, []);
 
   useEffect(() => {
     dispatch(getAllCounties());
   }, []);
 
-  const cityColumns = useMemo(
+  const countyColumns = useMemo(
     () => [
       {
-        header: 'City Name',
+        header: 'County Name',
         accessor: 'name', // accessor is the "key" in the data
-      },
-      {
-        header: 'County',
-        accessor: 'countyId',
       },
       {
         header: 'State',
@@ -46,31 +38,30 @@ const Cities: FunctionComponent<RouteComponentProps> = () => {
     []
   );
 
-  const cityData = admin.cities?.map((city) => {
+  const countyData = admin.counties?.map((county) => {
     return {
-      ...city,
-      countyId: admin.counties?.find((county) => city.countyId === county.id)?.name,
-      state: admin.counties?.find((county) => city.countyId === county.id)?.state,
-      monthlyPrice: `$${numberWithCommas(city.monthlyPrice)}`,
-      actions: [{ label: 'edit', to: `/admin/cities/${city.id}` }],
+      ...county,
+      monthlyPrice: `$${numberWithCommas(county.monthlyPrice)}`,
+      actions: [{ label: 'edit', to: `/admin/counties/${county.id}` }],
     };
   });
 
   return (
     <>
       <FlexContainer justifyContent="space-between">
-        <Heading>Cities</Heading>
-        <Button type="link" to="/admin/cities/new">
-          Add New City
+        <Heading>Counties</Heading>
+        <Button type="link" to="/admin/counties/new">
+          Add New County
         </Button>
       </FlexContainer>
-      {admin.isLoading ? <LoadingPage /> : <Table columns={cityColumns} data={cityData} />}
+      {admin.isLoading ? <LoadingPage /> : <Table columns={countyColumns} data={countyData} />}
+
       <Router>
-        <CityDetails path="/:id" />
-        <CityDetails path="/new" />
+        <CountyDetails path="/:id" />
+        <CountyDetails path="/new" />
       </Router>
     </>
   );
 };
 
-export default Cities;
+export default Counties;

@@ -36,6 +36,8 @@ export const ADMIN_SITE_BANNER_BY_ID_ENDPOINT = (id: number) =>
   `${ADMIN_SITE_BANNERS_ENDPOINT}/${id}`;
 export const ADMIN_CITIES_ENDPOINT = `${API_ROOT}/admin/cities`;
 export const ADMIN_CITY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_CITIES_ENDPOINT}/${id}`;
+export const ADMIN_COUNTIES_ENDPOINT = `${API_ROOT}/admin/counties`;
+export const ADMIN_COUNTY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_COUNTIES_ENDPOINT}/${id}`;
 
 // User (generic)
 const USER_ENDPOINT = `${API_ROOT}/user`;

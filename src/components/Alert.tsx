@@ -52,11 +52,7 @@ const AlertWrapper = styled.div`
   color: ${white};
   margin-bottom: ${baseSpacer};
   border-radius: ${borderRadius};
-  text-align: center;
   position: relative;
-  & > p {
-    margin-bottom: 0;
-  }
 `;
 
 const CloseButton = styled.span`

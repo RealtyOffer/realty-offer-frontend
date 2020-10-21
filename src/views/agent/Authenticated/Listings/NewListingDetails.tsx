@@ -46,6 +46,7 @@ import { buyTotal, sellTotal } from '../../../../utils/buyingAndSellingCalculato
 import { displayDropdownListText } from '../../../../utils/dropdownUtils';
 import { ActionResponseType } from '../../../../redux/constants';
 import { isExpired } from '../../../../utils/countdownTimerUtils';
+import { getNewListings, getPendingListings } from '../../../../redux/ducks/listings';
 
 type ListingDetailsProps = {
   listingId?: string;
@@ -152,6 +153,8 @@ const NewListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                   type: 'success',
                 })
               );
+              dispatch(getNewListings());
+              dispatch(getPendingListings());
               navigate('/agent/listings/new');
             }
           });

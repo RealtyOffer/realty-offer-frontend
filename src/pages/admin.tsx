@@ -8,6 +8,8 @@ import Banners from '../views/admin/Banners';
 import BannerDetails from '../views/admin/BannerDetails';
 import Cities from '../views/admin/Cities';
 import CityDetails from '../views/admin/CityDetails';
+import Counties from '../views/admin/Counties';
+import CountyDetails from '../views/admin/CountyDetails';
 import NotFoundPage from './404';
 
 const AdminApp: FunctionComponent<{}> = () => (
@@ -24,6 +26,8 @@ const AdminApp: FunctionComponent<{}> = () => (
             <PrivateRoute component={BannerDetails} path="/banners/:id" allowedRole="Admin" />
             <PrivateRoute component={Cities} path="/cities" allowedRole="Admin" />
             <PrivateRoute component={CityDetails} path="/cities/:id" allowedRole="Admin" />
+            <PrivateRoute component={Counties} path="/counties" allowedRole="Admin" />
+            <PrivateRoute component={CountyDetails} path="/counties/:id" allowedRole="Admin" />
             <NotFoundPage default />
           </Router>
         </Box>
