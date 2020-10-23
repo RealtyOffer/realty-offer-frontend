@@ -297,17 +297,19 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
         <FlexContainer
-          justifyContent={isSmallScreen && !isLoggedInConsumer ? 'center' : 'space-between'}
+          justifyContent={!isSmallScreen && isLoggedInConsumer ? 'space-between' : 'center'}
           height={quadrupleSpacer}
         >
           {isSmallScreen && !isLoggedInConsumer && (
-            <StyledMenuToggle>
-              <Hamburger
-                color={white}
-                toggled={menuIsOpen}
-                toggle={() => setMenuIsOpen(!menuIsOpen)}
-              />
-            </StyledMenuToggle>
+            <ClientOnly>
+              <StyledMenuToggle>
+                <Hamburger
+                  color={white}
+                  toggled={menuIsOpen}
+                  toggle={() => setMenuIsOpen(!menuIsOpen)}
+                />
+              </StyledMenuToggle>
+            </ClientOnly>
           )}
           <StyledLogoLink
             to={

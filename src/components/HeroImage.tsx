@@ -26,6 +26,7 @@ type FullBleedImageProps = {
 const HeroImageWrapper = styled.div`
   position: relative;
   margin-top: -${baseSpacer};
+  min-height: 250px;
   @media only screen and (min-width: ${breakpoints.sm}) {
     margin-top: -${doubleSpacer};
   }
