@@ -357,7 +357,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 ))}
               {isSmallScreen && !isLoggedInConsumer && !isLoggedInAgent && (
                 <>
-                  <Link to="/consumer/start">Find An Agent</Link>
+                  {/* todo: consumer/start */}
+                  <Link to="/consumer-landing">Find An Agent</Link>
                   <Link to="/login">Sign In</Link>
                 </>
               )}
@@ -471,7 +472,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             )}
             {!isLoggedInConsumer && !isLoggedInAgent && !isSmallScreen && (
               <div>
-                <Button type="link" to="/consumer/start" rightspacer color="inverseOutline">
+                {/* todo: consumer/start */}
+                <Button type="link" to="/consumer-landing" rightspacer color="inverseOutline">
                   Find An Agent
                 </Button>
                 <Button type="link" to="/login" color="tertiary">

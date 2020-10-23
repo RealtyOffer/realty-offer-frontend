@@ -109,9 +109,6 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   const [buyRange, setBuyRange] = useState(350000);
   return (
     <div>
-      {/*
-        TODO: logos and testimonials
-      */}
       <Seo title={title} />
       <HeroImage imgSrc={heroImage}>
         <HeroBox>
@@ -142,7 +139,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
         </PageContainer>
       </section>
       <section style={{ backgroundColor: brandPrimaryAccentLight, padding: `${doubleSpacer} 0` }}>
-        <PageContainer>logos</PageContainer>
+        <PageContainer>{/* todo: logos */}</PageContainer>
       </section>
       <section style={{ padding: `${doubleSpacer} 0` }}>
         <PageContainer>
@@ -169,7 +166,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
               ))}
             </Column>
             <Column md={6}>
-              <FlexContainer>youtube embed</FlexContainer>
+              <FlexContainer>{/* todo: youtube embed */}</FlexContainer>
             </Column>
           </Row>
         </PageContainer>
@@ -254,26 +251,28 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           </Row>
         </PageContainer>
       </section>
-      <section style={{ padding: `${doubleSpacer} 0` }}>
-        <PageContainer>
-          <Heading as="h4" styledAs="title" align="center">
-            Testimonials
-          </Heading>
-          <CarouselWrapper>
-            <Carousel
-              fade
-              nextIcon={<FaChevronRight color={textColor} />}
-              prevIcon={<FaChevronLeft color={textColor} />}
-            >
-              {testimonials.map((testimonial) => (
-                <Carousel.Item key={testimonial.author}>
-                  <Testimonial testimonial={testimonial} />
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          </CarouselWrapper>
-        </PageContainer>
-      </section>
+      {false && ( // TODO: testimonials
+        <section style={{ padding: `${doubleSpacer} 0` }}>
+          <PageContainer>
+            <Heading as="h4" styledAs="title" align="center">
+              Testimonials
+            </Heading>
+            <CarouselWrapper>
+              <Carousel
+                fade
+                nextIcon={<FaChevronRight color={textColor} />}
+                prevIcon={<FaChevronLeft color={textColor} />}
+              >
+                {testimonials.map((testimonial) => (
+                  <Carousel.Item key={testimonial.author}>
+                    <Testimonial testimonial={testimonial} />
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </CarouselWrapper>
+          </PageContainer>
+        </section>
+      )}
       <section
         style={{
           padding: `${quadrupleSpacer} 0`,
@@ -290,7 +289,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
             Same agent, less commission. <br />
             Agents that will earn less for your business.
           </Heading>
-          <Button type="link" to="/consumer/start" color="tertiary">
+          {/* todo: consumer/start */}
+          <Button type="link" to="/consumer-landing" color="tertiary">
             Get Started Now
           </Button>
         </PageContainer>

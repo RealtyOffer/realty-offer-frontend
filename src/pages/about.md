@@ -1,13 +1,7 @@
 ---
 templateKey: 'about-page'
 path: /about
-title: About our values
+title: About Us
 ---
 
-### Some subheading here
-
-This is some text.
-
-### Another markdown heading
-
-more text.
+### Content Coming Soon
