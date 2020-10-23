@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 
-import { baseSpacer, doubleSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer, tripleSpacer } from '../styles/size';
 import { white, brandPrimary, headingsColor, brandTertiaryHover } from '../styles/color';
 import {
   fontSizeH1,
@@ -11,6 +11,7 @@ import {
   fontSizeH5,
   fontSizeH6,
   lineHeightSmall,
+  fontSizeBase,
 } from '../styles/typography';
 
 type HeadingProps = {
@@ -20,6 +21,7 @@ type HeadingProps = {
   align?: 'left' | 'center' | 'right';
   styledAs?: 'title' | 'subtitle' | 'sectionHeading' | null;
   id?: string;
+  beforeContent?: string | number;
 };
 
 const renderFontSize = (as: HeadingProps['as']) => {
@@ -95,6 +97,27 @@ const StyledHeading = styled.h1`
   white-space: pre-line;
   font-size: ${(props: HeadingProps) => props.as && renderFontSize(props.as)};
   ${(props: HeadingProps) => props.styledAs && renderStyledAs(props.styledAs)};
+  position: relative;
+
+  ${(props: HeadingProps) =>
+    props.beforeContent &&
+    css`
+      &:before {
+        content: '${props.beforeContent}';
+        background-color: ${white};
+        color: ${brandTertiaryHover};
+        font-size: ${fontSizeBase};
+        border-radius: 50%;
+        border: 2px solid ${brandTertiaryHover};
+        width: ${doubleSpacer};
+        height: ${doubleSpacer};
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: -${tripleSpacer};
+      }
+    `}
 `;
 
 const Heading: FunctionComponent<HeadingProps> = (props) => (
@@ -105,6 +128,7 @@ const Heading: FunctionComponent<HeadingProps> = (props) => (
     align={props.align}
     styledAs={props.styledAs}
     id={props.id}
+    beforeContent={props.beforeContent}
   >
     {props.children}
   </StyledHeading>

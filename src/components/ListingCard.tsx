@@ -89,10 +89,13 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType
           <Countdown
             createDateTime={listing.createDateTime}
             onComplete={() => {
-              dispatch(getNewListings());
-              dispatch(getPendingListings());
-              dispatch(getAwardedListings());
-              dispatch(getHistoryListings());
+              // give it 5 seconds so the backend has time to work
+              setTimeout(() => {
+                dispatch(getNewListings());
+                dispatch(getPendingListings());
+                dispatch(getAwardedListings());
+                dispatch(getHistoryListings());
+              }, 5000);
             }}
           />
           <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>

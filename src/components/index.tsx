@@ -35,6 +35,7 @@ import Seo from './Seo';
 import SubNav from './SubNav';
 import SiteMetadata from './SiteMetadata';
 import Table from './Table';
+import Testimonial from './Testimonial';
 
 export {
   Alert,
@@ -74,4 +75,5 @@ export {
   SubNav,
   SiteMetadata,
   Table,
+  Testimonial,
 };

@@ -7,7 +7,7 @@ import { ActionResponseType } from '../constants';
 
 export default (store: { dispatch: Function }) => (next: any) => (action: ActionResponseType) => {
   if (action && action.payload) {
-    if (action.payload.status === 401) {
+    if (action.payload.status === 401 && action.type !== 'TOKEN_REFRESH_FAILURE') {
       // If we've gotten to this point, a request snuck through with a bad token
       // Call logout to nuke the data
       store.dispatch(logout());

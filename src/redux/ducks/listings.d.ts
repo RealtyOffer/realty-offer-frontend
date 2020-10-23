@@ -11,6 +11,8 @@ import {
   GET_HISTORY_LISTINGS_REQUEST,
   GET_HISTORY_LISTINGS_SUCCESS,
   GET_HISTORY_LISTINGS_FAILURE,
+  CHANGE_COUNTY_FILTER,
+  TOGGLE_SALES_AREA_FILTER,
 } from './listings';
 import { LogoutRequestAction } from './auth.d';
 import { CityType } from './admin.d';
@@ -39,6 +41,8 @@ export type ListingStoreType = {
   isLoading: boolean;
   hasError: boolean;
   lastFetched?: Date;
+  countyFilter: string;
+  salesAreaOnly: boolean;
   new: Array<ListingType>;
   pending: Array<ListingType>;
   awarded: Array<ListingType>;
@@ -97,6 +101,16 @@ export type GetHistoryListingsFailureAction = {
   type: typeof GET_HISTORY_LISTINGS_FAILURE;
 };
 
+export type ChangeCountyNameAction = {
+  type: typeof CHANGE_COUNTY_FILTER;
+  payload: string;
+};
+
+export type ToggleSalesAreaAction = {
+  type: typeof TOGGLE_SALES_AREA_FILTER;
+  payload: boolean;
+};
+
 export type ListingsStoreActions =
   | GetNewListingsRequestAction
   | GetNewListingsSuccessAction
@@ -110,4 +124,6 @@ export type ListingsStoreActions =
   | GetHistoryListingsRequestAction
   | GetHistoryListingsSuccessAction
   | GetHistoryListingsFailureAction
+  | ChangeCountyNameAction
+  | ToggleSalesAreaAction
   | LogoutRequestAction;

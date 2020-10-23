@@ -1,31 +1,75 @@
+import { FluidObject } from 'gatsby-image';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-import { doubleSpacer } from '../styles/size';
+import { white } from '../styles/color';
+import { baseSpacer, breakpoints, doubleSpacer, screenSizes } from '../styles/size';
+import useWindowSize from '../utils/useWindowSize';
+import ClientOnly from './ClientOnly';
+import PreviewCompatibleImage from './PreviewCompatibleImage';
 
 type FullBleedImageProps = {
-  src: string;
-  height?: string;
+  imgSrc:
+    | {
+        childImageSharp: {
+          fluid: FluidObject;
+        };
+      }
+    | string;
+  mobileImgSrc?: {
+    childImageSharp: {
+      fluid: FluidObject;
+    };
+  };
 };
 
-const StyledFullBleedImage = styled.div`
-  background-image: ${(props: FullBleedImageProps) => `url(${props.src})`};
-  background-position: center center;
-  background-attachment: fixed;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: ${(props: FullBleedImageProps) => props.height || '350px'};
-  margin-top: -${doubleSpacer};
-  margin-bottom: ${doubleSpacer};
+const HeroImageWrapper = styled.div`
+  position: relative;
+  margin-top: -${baseSpacer};
+  @media only screen and (min-width: ${breakpoints.sm}) {
+    margin-top: -${doubleSpacer};
+  }
+`;
+
+const ChildrenWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  text-align: center;
+  color: ${white};
+
+  & h1,
+  & h2 {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
+  }
 `;
 
-const FullBleedImage: FunctionComponent<FullBleedImageProps> = ({ src, children, height }) => (
-  <StyledFullBleedImage src={src} height={height}>
-    {children}
-  </StyledFullBleedImage>
-);
+const FullBleedImage: FunctionComponent<FullBleedImageProps> = ({
+  imgSrc,
+  children,
+  mobileImgSrc,
+}) => {
+  const size = useWindowSize();
+  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.small);
+
+  return (
+    <HeroImageWrapper>
+      <ClientOnly>
+        <PreviewCompatibleImage
+          imageInfo={{
+            image: isSmallScreen && mobileImgSrc ? mobileImgSrc : imgSrc,
+            alt: '',
+          }}
+        />
+      </ClientOnly>
+      <ChildrenWrapper>{children}</ChildrenWrapper>
+    </HeroImageWrapper>
+  );
+};
 
 export default FullBleedImage;

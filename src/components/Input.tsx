@@ -45,6 +45,7 @@ type InputProps = {
   checked?: boolean;
   options?: OptionType[];
   required?: boolean;
+  alignRight?: boolean;
 } & FieldMetaProps<string> &
   FormikHelpers<string> &
   CommonProps<OptionType | OptionType[]>;
@@ -112,9 +113,11 @@ const StyledSelect = styled(Select)`
 `;
 
 const InputWrapper = styled.div`
+  ${(props: { alignRight?: boolean; square?: boolean; hidden?: boolean }) =>
+    props.alignRight && `text-align: right;`}
   margin-bottom: ${baseSpacer};
-  ${(props: { square?: boolean }) => props.square && `max-width: ${inputHeight};`}
-  ${(props: { hidden?: boolean }) => props.hidden && `display: none;`}
+  ${(props) => props.square && `max-width: ${inputHeight};`}
+  ${(props) => props.hidden && `display: none;`}
   & .tooltip {
     padding: 0 ${halfSpacer};
   }
@@ -275,6 +278,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
             name={props.name}
             onChange={(option: OptionType) => onChange(option)}
             onBlur={() => props.setFieldTouched(props.name)}
+            blurInputOnSelect
             isDisabled={props.disabled}
             invalid={meta && meta.touched && meta.error}
           />
@@ -336,7 +340,11 @@ const Input: FunctionComponent<InputProps> = (props) => {
   }
 
   return (
-    <InputWrapper square={props.square} hidden={props.type === 'hidden'}>
+    <InputWrapper
+      square={props.square}
+      hidden={props.type === 'hidden'}
+      alignRight={props.alignRight}
+    >
       {props.label && props.type !== 'checkbox' && (
         <ClientOnly>
           <StyledLabel

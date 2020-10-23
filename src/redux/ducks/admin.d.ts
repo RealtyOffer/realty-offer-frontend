@@ -41,6 +41,21 @@ import {
   DELETE_COUNTY_REQUEST,
   DELETE_COUNTY_SUCCESS,
   DELETE_COUNTY_FAILURE,
+  CREATE_EMAIL_TEMPLATE_REQUEST,
+  CREATE_EMAIL_TEMPLATE_SUCCESS,
+  CREATE_EMAIL_TEMPLATE_FAILURE,
+  UPDATE_EMAIL_TEMPLATE_REQUEST,
+  UPDATE_EMAIL_TEMPLATE_SUCCESS,
+  UPDATE_EMAIL_TEMPLATE_FAILURE,
+  GET_ALL_EMAIL_TEMPLATES_REQUEST,
+  GET_ALL_EMAIL_TEMPLATES_SUCCESS,
+  GET_ALL_EMAIL_TEMPLATES_FAILURE,
+  GET_EMAIL_TEMPLATE_BY_NAME_REQUEST,
+  GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS,
+  GET_EMAIL_TEMPLATE_BY_NAME_FAILURE,
+  DELETE_EMAIL_TEMPLATE_REQUEST,
+  DELETE_EMAIL_TEMPLATE_SUCCESS,
+  DELETE_EMAIL_TEMPLATE_FAILURE,
 } from './admin';
 
 export type BannerType = {
@@ -69,12 +84,21 @@ export type CountyType = {
   monthlyPrice: number;
 };
 
+export type EmailTemplateType = {
+  name: string;
+  subject: string;
+  bodyHtml: string;
+  bodyText: string;
+};
+
 export type AdminStoreType = {
   isLoading: boolean;
   hasError: boolean;
   banners: Array<BannerType>;
   cities: Array<CityType>;
   counties: Array<CountyType>;
+  emailTemplates: Array<EmailTemplateType>;
+  activeEmailTemplate?: EmailTemplateType;
 };
 
 export type CreateSiteBannerRequestAction = {
@@ -275,6 +299,61 @@ export type GetCountyByIdFailureAction = {
   type: typeof GET_COUNTY_BY_ID_FAILURE;
 };
 
+export type CreateEmailTemplateRequestAction = {
+  type: typeof CREATE_EMAIL_TEMPLATE_REQUEST;
+};
+export type CreateEmailTemplateSuccessAction = {
+  type: typeof CREATE_EMAIL_TEMPLATE_SUCCESS;
+  payload: EmailTemplateType;
+};
+export type CreateEmailTemplateFailureAction = {
+  type: typeof CREATE_EMAIL_TEMPLATE_FAILURE;
+};
+
+export type UpdateEmailTemplateRequestAction = {
+  type: typeof UPDATE_EMAIL_TEMPLATE_REQUEST;
+};
+export type UpdateEmailTemplateSuccessAction = {
+  type: typeof UPDATE_EMAIL_TEMPLATE_SUCCESS;
+  payload: EmailTemplateType;
+};
+export type UpdateEmailTemplateFailureAction = {
+  type: typeof UPDATE_EMAIL_TEMPLATE_FAILURE;
+};
+
+export type GetAllEmailTemplatesRequestAction = {
+  type: typeof GET_ALL_EMAIL_TEMPLATES_REQUEST;
+};
+export type GetAllEmailTemplatesSuccessAction = {
+  type: typeof GET_ALL_EMAIL_TEMPLATES_SUCCESS;
+  payload: Array<EmailTemplateType>;
+};
+export type GetAllEmailTemplatesFailureAction = {
+  type: typeof GET_ALL_EMAIL_TEMPLATES_FAILURE;
+};
+
+export type DeleteEmailTemplateRequestAction = {
+  type: typeof DELETE_EMAIL_TEMPLATE_REQUEST;
+};
+export type DeleteEmailTemplateSuccessAction = {
+  type: typeof DELETE_EMAIL_TEMPLATE_SUCCESS;
+  payload: EmailTemplateType;
+};
+export type DeleteEmailTemplateFailureAction = {
+  type: typeof DELETE_EMAIL_TEMPLATE_FAILURE;
+};
+
+export type GetEmailTemplateByNameRequestAction = {
+  type: typeof GET_EMAIL_TEMPLATE_BY_NAME_REQUEST;
+};
+export type GetEmailTemplateByNameSuccessAction = {
+  type: typeof GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS;
+  payload: EmailTemplateType;
+};
+export type GetEmailTemplateByNameFailureAction = {
+  type: typeof GET_EMAIL_TEMPLATE_BY_NAME_FAILURE;
+};
+
 export type AdminActionTypes =
   | CreateSiteBannerRequestAction
   | CreateSiteBannerSuccessAction
@@ -317,4 +396,19 @@ export type AdminActionTypes =
   | GetAllCountiesFailureAction
   | GetCountyByIdRequestAction
   | GetCountyByIdSuccessAction
-  | GetCountyByIdFailureAction;
+  | GetCountyByIdFailureAction
+  | CreateEmailTemplateRequestAction
+  | CreateEmailTemplateSuccessAction
+  | CreateEmailTemplateFailureAction
+  | UpdateEmailTemplateRequestAction
+  | UpdateEmailTemplateSuccessAction
+  | UpdateEmailTemplateFailureAction
+  | GetAllEmailTemplatesRequestAction
+  | GetAllEmailTemplatesSuccessAction
+  | GetAllEmailTemplatesFailureAction
+  | DeleteEmailTemplateRequestAction
+  | DeleteEmailTemplateSuccessAction
+  | DeleteEmailTemplateFailureAction
+  | GetEmailTemplateByNameRequestAction
+  | GetEmailTemplateByNameSuccessAction
+  | GetEmailTemplateByNameFailureAction;

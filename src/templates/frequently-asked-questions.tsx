@@ -62,19 +62,15 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
 }) => (
   <div>
     <Seo title={title} />
-    <HeroImage src={heroImage.childImageSharp.fluid.src} height="500px">
-      <PageContainer>
-        <FlexContainer justifyContent="start">
-          <HeroBox>
-            <Heading inverse>{heroHeading}</Heading>
-            <Heading inverse as="h2">
-              {heroSubheading}
-            </Heading>
-          </HeroBox>
-        </FlexContainer>
-      </PageContainer>
+    <HeroImage imgSrc={heroImage}>
+      <HeroBox>
+        <Heading inverse>{heroHeading}</Heading>
+        <Heading inverse as="h2">
+          {heroSubheading}
+        </Heading>
+      </HeroBox>
     </HeroImage>
-    <section style={{ marginTop: '-100px', marginBottom: 50 }} id="start">
+    <section style={{ padding: `${doubleSpacer} 0` }}>
       <PageContainer>
         <Box>
           <p>

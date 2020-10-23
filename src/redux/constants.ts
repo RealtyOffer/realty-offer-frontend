@@ -38,6 +38,9 @@ export const ADMIN_CITIES_ENDPOINT = `${API_ROOT}/admin/cities`;
 export const ADMIN_CITY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_CITIES_ENDPOINT}/${id}`;
 export const ADMIN_COUNTIES_ENDPOINT = `${API_ROOT}/admin/counties`;
 export const ADMIN_COUNTY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_COUNTIES_ENDPOINT}/${id}`;
+export const ADMIN_EMAIL_TEMPLATE_ENDPOINT = `${API_ROOT}/admin/email-templates`;
+export const ADMIN_EMAIL_TEMPLATE_BY_NAME_ENDPOINT = (templateName: string) =>
+  `${ADMIN_EMAIL_TEMPLATE_ENDPOINT}/${templateName}`;
 
 // User (generic)
 const USER_ENDPOINT = `${API_ROOT}/user`;

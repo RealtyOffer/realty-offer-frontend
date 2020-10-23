@@ -63,7 +63,7 @@ const FileUpload: FunctionComponent<{}> = () => {
 
   return (
     <FlexContainer flexDirection="column">
-      <Avatar src={user.avatar} size="lg" />
+      <Avatar src={user.avatar} size="lg" gravatarEmail={auth.email} />
       <Button
         type="button"
         onClick={() => uploader.open()}

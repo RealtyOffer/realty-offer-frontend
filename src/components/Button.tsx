@@ -29,7 +29,8 @@ type ButtonProps = {
     | 'successOutline'
     | 'danger'
     | 'dangerOutline'
-    | 'tertiary';
+    | 'tertiary'
+    | 'inverseOutline';
   rightspacer?: boolean;
   onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
   to?: string;
@@ -122,6 +123,12 @@ const dangerOutlineButtonStyles = `
   }
 `;
 
+const inverseOutlineButtonStyles = `
+  background-color: transparent;
+  border-color: ${white};
+  color: ${white};
+`;
+
 const textButtonStyles = `
   background-color: transparent;
   color: ${brandPrimary};
@@ -176,6 +183,7 @@ const allStyles = css`
   ${(props: ButtonProps) => props.color === 'successOutline' && successOutlineButtonStyles}
   ${(props: ButtonProps) => props.color === 'text' && textButtonStyles}
   ${(props: ButtonProps) => props.color === 'tertiary' && tertiaryButtonStyles}
+  ${(props: ButtonProps) => props.color === 'inverseOutline' && inverseOutlineButtonStyles}
 
   /* Disabled - specific color variations */
   ${(props: ButtonProps) => props.color === 'primary' && props.disabled && primaryDisabledStyles}

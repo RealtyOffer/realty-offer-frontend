@@ -1,10 +1,14 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { graphql } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
-import { FaArrowCircleRight } from 'react-icons/fa';
+import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css';
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 import {
   Row,
@@ -14,14 +18,20 @@ import {
   FlexContainer,
   HeroImage,
   Heading,
-  NegativeMarginContainer,
   PageContainer,
-  PreviewCompatibleImage,
   Seo,
+  Testimonial,
 } from '../components';
 
-import { baseSpacer, doubleSpacer } from '../styles/size';
-import { lightestGray } from '../styles/color';
+import { baseSpacer, doubleSpacer, quadrupleSpacer } from '../styles/size';
+import {
+  brandPrimary,
+  brandPrimaryAccentLight,
+  brandTertiaryHover,
+  lightestGray,
+  textColor,
+} from '../styles/color';
+import numberWithCommas from '../utils/numberWithCommas';
 
 type IndexPageProps = {
   title: string;
@@ -30,48 +40,60 @@ type IndexPageProps = {
   heroImage: { childImageSharp: { fluid: FluidObject } };
   consumer: {
     title: string;
-    cta: string;
+    subtitle: string;
     body: any;
-    icon: {
-      publicURL: string;
-    };
-  };
-  agent: {
-    title: string;
-    cta: string;
-    body: any;
-    icon: {
-      publicURL: string;
-    };
   };
   mainpitch: {
     title: string;
+    videoUrl: string;
     steps: Array<{
       title: string;
       body: any;
-      image: {
-        childImageSharp: {
-          fluid: FluidObject;
-        };
-      };
     }>;
   };
-  secondpitch: {
-    title: string;
-    body: any;
-    image: {
+  testimonials: Array<{
+    quote: string;
+    author: string;
+    avatar: {
       childImageSharp: {
         fluid: FluidObject;
       };
     };
-    link: string;
-    linkText: string;
-  };
+  }>;
 };
 
 const HeroBox = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   padding: ${doubleSpacer};
+`;
+
+const SlidderWrapper = styled.div`
+  & .rangeslider {
+    box-shadow: none;
+    background-color: ${brandPrimaryAccentLight};
+  }
+
+  & .rangeslider-horizontal .rangeslider__fill {
+    background-color: ${brandTertiaryHover};
+    box-shadow: none;
+  }
+
+  & .rangeslider .rangeslider__handle {
+    background: ${brandTertiaryHover};
+    border-color: ${brandTertiaryHover};
+    box-shadow: none;
+    outline: none;
+  }
+
+  & .rangeslider-horizontal .rangeslider__handle:after {
+    content: none;
+  }
+`;
+
+const CarouselWrapper = styled.div`
+  & .carousel-indicators li {
+    background-color: ${textColor};
+  }
 `;
 
 export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
@@ -81,90 +103,201 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   heroSubheading,
   consumer,
   mainpitch,
-  secondpitch,
-}) => (
-  <div>
-    <Seo title={title} />
-    <HeroImage src={heroImage.childImageSharp.fluid.src} height="500px">
-      <PageContainer>
-        <FlexContainer justifyContent="start">
-          <HeroBox>
-            <Heading inverse>{heroHeading}</Heading>
-            <Heading inverse as="h2">
-              {heroSubheading}
-            </Heading>
-            <Button type="button" onClick={() => scrollTo('#start')}>
-              Get Started
-            </Button>
-          </HeroBox>
-        </FlexContainer>
-      </PageContainer>
-    </HeroImage>
-    <section style={{ marginTop: '-100px', marginBottom: 50 }} id="start">
-      <PageContainer>
-        <Row>
-          <Column md={8} mdOffset={2}>
-            <Box textAlign="center">
-              <img src={consumer.icon.publicURL} alt="" style={{ margin: baseSpacer }} />
+  testimonials,
+}) => {
+  const [sellRange, setSellRange] = useState(250000);
+  const [buyRange, setBuyRange] = useState(350000);
+  return (
+    <div>
+      {/*
+        TODO: logos and testimonials
+      */}
+      <Seo title={title} />
+      <HeroImage imgSrc={heroImage}>
+        <HeroBox>
+          <Heading inverse align="center">
+            {heroHeading}
+          </Heading>
+          <Heading inverse as="h2" align="center">
+            {heroSubheading}
+          </Heading>
+          <Button type="button" onClick={() => scrollTo('#start')}>
+            Get Started Now
+          </Button>
+        </HeroBox>
+      </HeroImage>
+      <section id="start" style={{ padding: `${doubleSpacer} 0`, textAlign: 'center' }}>
+        <PageContainer>
+          <Row>
+            <Column md={8} mdOffset={2}>
               <Heading as="h3" styledAs="title" align="center">
                 {consumer.title}
               </Heading>
+              <Heading as="h4" styledAs="subtitle" align="center">
+                {consumer.subtitle}
+              </Heading>
               <ReactMarkdown source={consumer.body} />
-              <Button
-                type="link"
-                to="/consumer-landing"
-                color="tertiary"
-                iconRight={<FaArrowCircleRight />}
-              >
-                {consumer.cta}
-              </Button>
-            </Box>
-          </Column>
-        </Row>
-      </PageContainer>
-    </section>
-    <section style={{ backgroundColor: lightestGray, padding: `${doubleSpacer} 0` }}>
-      <PageContainer>
-        <Heading as="h2" styledAs="title" align="center">
-          {mainpitch.title}
-        </Heading>
-        {mainpitch.steps.map((step, index) => (
-          <Box key={step.title}>
-            <Row>
-              <Column sm={6} smOrder={index === 1 ? 2 : 1} xsSpacer>
-                <PreviewCompatibleImage imageInfo={{ image: step.image }} />
-              </Column>
-              <Column sm={6} smOrder={index === 1 ? 1 : 2}>
+            </Column>
+          </Row>
+        </PageContainer>
+      </section>
+      <section style={{ backgroundColor: brandPrimaryAccentLight, padding: `${doubleSpacer} 0` }}>
+        <PageContainer>logos</PageContainer>
+      </section>
+      <section style={{ padding: `${doubleSpacer} 0` }}>
+        <PageContainer>
+          <Heading as="h2" styledAs="title" align="center">
+            {mainpitch.title}
+          </Heading>
+          <Row>
+            <Column md={6}>
+              {mainpitch.steps.map((step, index) => (
+                <div
+                  key={step.title}
+                  style={{
+                    marginLeft: doubleSpacer,
+                    paddingLeft: doubleSpacer,
+                    paddingBottom: baseSpacer,
+                    borderLeft: `2px solid ${brandTertiaryHover}`,
+                  }}
+                >
+                  <Heading as="h3" styledAs="subtitle" beforeContent={index + 1}>
+                    {step.title}
+                  </Heading>
+                  <ReactMarkdown source={step.body} />
+                </div>
+              ))}
+            </Column>
+            <Column md={6}>
+              <FlexContainer>youtube embed</FlexContainer>
+            </Column>
+          </Row>
+        </PageContainer>
+      </section>
+      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: lightestGray }}>
+        <PageContainer>
+          <Heading as="h4" styledAs="title" align="center">
+            Estimate your savings!
+          </Heading>
+          <Heading as="h5" styledAs="subtitle" align="center">
+            Scroll &amp; see your savings, whether buying, selling, or both...
+          </Heading>
+          <Row>
+            <Column md={6}>
+              <Box>
                 <Heading as="h4" styledAs="title">
-                  {step.title}
+                  Selling Your Home
                 </Heading>
-                <ReactMarkdown source={step.body} />
-              </Column>
-            </Row>
-          </Box>
-        ))}
-      </PageContainer>
-    </section>
-    <section style={{ padding: `${doubleSpacer} 0` }}>
-      <PageContainer>
-        <Box>
-          <FlexContainer flexDirection="column">
-            <NegativeMarginContainer top right left>
-              <PreviewCompatibleImage imageInfo={{ image: secondpitch.image }} />
-            </NegativeMarginContainer>
-            <Heading as="h4" styledAs="title">
-              {secondpitch.title}
-            </Heading>
-            <ReactMarkdown source={secondpitch.body} />
-            <Button type="link" to={secondpitch.link}>
-              {secondpitch.linkText}
-            </Button>
-          </FlexContainer>
-        </Box>
-      </PageContainer>
-    </section>
-  </div>
-);
+                <SlidderWrapper>
+                  <p>Select Your Estimated Sale Price: {`$${numberWithCommas(sellRange)}`}</p>
+                  <Slider
+                    min={100000}
+                    max={2000000}
+                    step={50000}
+                    value={sellRange}
+                    tooltip={false}
+                    labels={{
+                      100000: '$100k',
+                      500000: '$500k',
+                      1000000: '$1M',
+                      1500000: '$1.5M',
+                      2000000: '$2M',
+                    }}
+                    onChange={(value) => setSellRange(value)}
+                  />
+                </SlidderWrapper>
+                <br />
+                <Heading as="h4" styledAs="subtitle" noMargin>
+                  Your Estimated Savings:{' '}
+                  {`$${numberWithCommas(sellRange * 0.02)} - $${numberWithCommas(
+                    sellRange * 0.03
+                  )}`}
+                </Heading>
+                <p>
+                  <small>Average savings of 2% to 3%</small>
+                </p>
+              </Box>
+            </Column>
+            <Column md={6}>
+              <Box>
+                <Heading as="h4" styledAs="title">
+                  Buying Your Home
+                </Heading>
+                <SlidderWrapper>
+                  <p>Select Your Estimated Purchase Price: {`$${numberWithCommas(buyRange)}`}</p>
+                  <Slider
+                    min={100000}
+                    max={2000000}
+                    step={50000}
+                    value={buyRange}
+                    tooltip={false}
+                    labels={{
+                      100000: '$100k',
+                      500000: '$500k',
+                      1000000: '$1M',
+                      1500000: '$1.5M',
+                      2000000: '$2M',
+                    }}
+                    onChange={(value) => setBuyRange(value)}
+                  />
+                </SlidderWrapper>
+                <br />
+                <Heading as="h4" styledAs="subtitle" noMargin>
+                  Your Estimated Cash Back:{' '}
+                  {`$${numberWithCommas(buyRange * 0.01)} - $${numberWithCommas(buyRange * 0.02)}`}
+                </Heading>
+                <p>
+                  <small>Average cash back towards closings costs of 1% to 2%</small>
+                </p>
+              </Box>
+            </Column>
+          </Row>
+        </PageContainer>
+      </section>
+      <section style={{ padding: `${doubleSpacer} 0` }}>
+        <PageContainer>
+          <Heading as="h4" styledAs="title" align="center">
+            Testimonials
+          </Heading>
+          <CarouselWrapper>
+            <Carousel
+              fade
+              nextIcon={<FaChevronRight color={textColor} />}
+              prevIcon={<FaChevronLeft color={textColor} />}
+            >
+              {testimonials.map((testimonial) => (
+                <Carousel.Item key={testimonial.author}>
+                  <Testimonial testimonial={testimonial} />
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </CarouselWrapper>
+        </PageContainer>
+      </section>
+      <section
+        style={{
+          padding: `${quadrupleSpacer} 0`,
+          textAlign: 'center',
+          backgroundColor: brandPrimary,
+          marginBottom: `-${doubleSpacer}`,
+        }}
+      >
+        <PageContainer>
+          <Heading as="h2" align="center" inverse>
+            Welcome to RealtyOffer
+          </Heading>
+          <Heading as="h3" align="center" inverse>
+            Same agent, less commission. <br />
+            Agents that will earn less for your business.
+          </Heading>
+          <Button type="link" to="/consumer/start" color="tertiary">
+            Get Started Now
+          </Button>
+        </PageContainer>
+      </section>
+    </div>
+  );
+};
 
 const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageProps } } }) => {
   const { frontmatter } = data.markdownRemark;
@@ -176,9 +309,8 @@ const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageP
       heroHeading={frontmatter.heroHeading}
       heroSubheading={frontmatter.heroSubheading}
       consumer={frontmatter.consumer}
-      agent={frontmatter.agent}
       mainpitch={frontmatter.mainpitch}
-      secondpitch={frontmatter.secondpitch}
+      testimonials={frontmatter.testimonials}
     />
   );
 };
@@ -201,46 +333,27 @@ export const pageQuery = graphql`
         heroSubheading
         consumer {
           title
+          subtitle
           body
-          cta
-          icon {
-            publicURL
-          }
-        }
-        agent {
-          title
-          body
-          cta
-          icon {
-            publicURL
-          }
         }
         mainpitch {
           title
+          videoUrl
           steps {
             title
             body
-            image {
-              childImageSharp {
-                fluid(maxWidth: 512, quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
           }
         }
-        secondpitch {
-          title
-          body
-          image {
+        testimonials {
+          quote
+          author
+          avatar {
             childImageSharp {
-              fluid(maxWidth: 1200, quality: 100) {
-                ...GatsbyImageSharpFluid
+              fluid(maxWidth: 300, quality: 60) {
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
-          link
-          linkText
         }
       }
     }

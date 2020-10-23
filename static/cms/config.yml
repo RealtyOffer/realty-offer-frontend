@@ -62,23 +62,11 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
+                  { label: SubTitle, name: subtitle, widget: string },
                   { label: Body, name: body, widget: markdown },
-                  { label: CTA, name: cta, widget: string },
-                  { label: Icon, name: icon, widget: image },
                 ],
             }
-          - {
-              label: Agent,
-              name: agent,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                  { label: Body, name: body, widget: markdown },
-                  { label: CTA, name: cta, widget: string },
-                  { label: Icon, name: icon, widget: image },
-                ],
-            }
+          
           - {
               label: Mainpitch,
               name: mainpitch,
@@ -86,6 +74,7 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
+                   { label: Video URL, name: videoUrl, widget: string },
                   {
                     label: Steps,
                     name: steps,
@@ -94,24 +83,21 @@ collections:
                       [
                         { label: Title, name: title, widget: string },
                         { label: Text, name: body, widget: markdown },
-                        { label: Image, name: image, widget: image },
                       ],
                   },
                 ],
             }
           - {
-              label: SecondPitch,
-              name: secondpitch,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                  { label: Text, name: body, widget: markdown },
-                  { label: Image, name: image, widget: image },
-                  { label: Link, name: link, widget: string },
-                  { label: LinkText, name: linkText, widget: string },
-                ],
-            }
+            label: "Testimonial",
+            name: testimonials,
+            widget: list,
+            fields:
+              [
+                { label: Quote, name: quote, widget: string },
+                { label: Author, name: author, widget: string },
+                { label: Avatar, name: avatar, widget: image },
+              ],
+          }
       - file: "src/pages/landing.md"
         label: "Landing Page"
         name: "landing"

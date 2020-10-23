@@ -6,11 +6,7 @@ import { FaBell, FaRegBell, FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import ReactTooltip from 'react-tooltip';
 
-import PageContainer from './PageContainer';
-import FlexContainer from './FlexContainer';
-import Avatar from './Avatar';
-import HorizontalRule from './HorizontalRule';
-import ClientOnly from './ClientOnly';
+import { PageContainer, FlexContainer, Avatar, HorizontalRule, ClientOnly, Button } from '.';
 
 import {
   brandPrimary,
@@ -359,6 +355,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     {navItem.name}
                   </Link>
                 ))}
+              {isSmallScreen && !isLoggedInConsumer && !isLoggedInAgent && (
+                <>
+                  <Link to="/consumer/start">Find An Agent</Link>
+                  <Link to="/login">Sign In</Link>
+                </>
+              )}
               {isSmallScreen && isLoggedInAgent && (
                 <>
                   <HorizontalRule />
@@ -431,7 +433,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   data-for="profile"
                   ref={profileNode}
                 >
-                  <Avatar src={user.avatar} />
+                  <Avatar src={user.avatar} gravatarEmail={auth.email} />
                   {profileDropdownOpen && (
                     <StyledDropdown>
                       {secondaryNavigation.map((navItem) => (
@@ -466,6 +468,16 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               <Link to="/" onClick={() => dispatch(logout())} style={{ color: white }}>
                 Log Out
               </Link>
+            )}
+            {!isLoggedInConsumer && !isLoggedInAgent && !isSmallScreen && (
+              <div>
+                <Button type="link" to="/consumer/start" rightspacer color="inverseOutline">
+                  Find An Agent
+                </Button>
+                <Button type="link" to="/login" color="tertiary">
+                  Sign In
+                </Button>
+              </div>
             )}
           </ClientOnly>
         </FlexContainer>

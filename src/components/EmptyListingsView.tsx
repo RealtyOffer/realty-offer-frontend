@@ -10,7 +10,8 @@ import { doubleSpacer } from '../styles/size';
 type EmptyListingsViewProps = {
   title: string;
   buttonText: string;
-  to: string;
+  to?: string;
+  onClick?: () => void;
 };
 
 const EmptyListingsView: FunctionComponent<EmptyListingsViewProps> = (props) => (
@@ -19,9 +20,16 @@ const EmptyListingsView: FunctionComponent<EmptyListingsViewProps> = (props) => 
     <Heading styledAs="title" align="center">
       {props.title}
     </Heading>
-    <Button type="link" to={props.to}>
-      {props.buttonText}
-    </Button>
+    {props.to && (
+      <Button type="link" to={props.to}>
+        {props.buttonText}
+      </Button>
+    )}
+    {props.onClick && (
+      <Button type="button" onClick={props.onClick}>
+        {props.buttonText}
+      </Button>
+    )}
   </Box>
 );
 

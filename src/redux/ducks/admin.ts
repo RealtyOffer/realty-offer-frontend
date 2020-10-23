@@ -7,8 +7,17 @@ import {
   ADMIN_CITY_BY_ID_ENDPOINT,
   ADMIN_COUNTIES_ENDPOINT,
   ADMIN_COUNTY_BY_ID_ENDPOINT,
+  ADMIN_EMAIL_TEMPLATE_ENDPOINT,
+  ADMIN_EMAIL_TEMPLATE_BY_NAME_ENDPOINT,
 } from '../constants';
-import { AdminStoreType, AdminActionTypes, BannerType, CityType, CountyType } from './admin.d';
+import {
+  AdminStoreType,
+  AdminActionTypes,
+  BannerType,
+  CityType,
+  CountyType,
+  EmailTemplateType,
+} from './admin.d';
 
 export const CREATE_SITE_BANNER_REQUEST = 'CREATE_SITE_BANNER_REQUEST';
 export const CREATE_SITE_BANNER_SUCCESS = 'CREATE_SITE_BANNER_SUCCESS';
@@ -66,12 +75,34 @@ export const GET_COUNTY_BY_ID_REQUEST = 'GET_COUNTY_BY_ID_REQUEST';
 export const GET_COUNTY_BY_ID_SUCCESS = 'GET_COUNTY_BY_ID_SUCCESS';
 export const GET_COUNTY_BY_ID_FAILURE = 'GET_COUNTY_BY_ID_FAILURE';
 
+export const CREATE_EMAIL_TEMPLATE_REQUEST = 'CREATE_EMAIL_TEMPLATE_REQUEST';
+export const CREATE_EMAIL_TEMPLATE_SUCCESS = 'CREATE_EMAIL_TEMPLATE_SUCCESS';
+export const CREATE_EMAIL_TEMPLATE_FAILURE = 'CREATE_EMAIL_TEMPLATE_FAILURE';
+
+export const GET_ALL_EMAIL_TEMPLATES_REQUEST = 'GET_ALL_EMAIL_TEMPLATES_REQUEST';
+export const GET_ALL_EMAIL_TEMPLATES_SUCCESS = 'GET_ALL_EMAIL_TEMPLATES_SUCCESS';
+export const GET_ALL_EMAIL_TEMPLATES_FAILURE = 'GET_ALL_EMAIL_TEMPLATES_FAILURE';
+
+export const UPDATE_EMAIL_TEMPLATE_REQUEST = 'UPDATE_EMAIL_TEMPLATE_REQUEST';
+export const UPDATE_EMAIL_TEMPLATE_SUCCESS = 'UPDATE_EMAIL_TEMPLATE_SUCCESS';
+export const UPDATE_EMAIL_TEMPLATE_FAILURE = 'UPDATE_EMAIL_TEMPLATE_FAILURE';
+
+export const DELETE_EMAIL_TEMPLATE_REQUEST = 'DELETE_EMAIL_TEMPLATE_REQUEST';
+export const DELETE_EMAIL_TEMPLATE_SUCCESS = 'DELETE_EMAIL_TEMPLATE_SUCCESS';
+export const DELETE_EMAIL_TEMPLATE_FAILURE = 'DELETE_EMAIL_TEMPLATE_FAILURE';
+
+export const GET_EMAIL_TEMPLATE_BY_NAME_REQUEST = 'GET_EMAIL_TEMPLATE_BY_NAME_REQUEST';
+export const GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS = 'GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS';
+export const GET_EMAIL_TEMPLATE_BY_NAME_FAILURE = 'GET_EMAIL_TEMPLATE_BY_NAME_FAILURE';
+
 export const initialState: AdminStoreType = {
   isLoading: false,
   hasError: false,
   banners: [],
   cities: [],
   counties: [],
+  emailTemplates: [],
+  activeEmailTemplate: undefined,
 };
 
 export default (state: AdminStoreType = initialState, action: AdminActionTypes): AdminStoreType => {
@@ -86,6 +117,8 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
     case GET_ALL_COUNTIES_REQUEST:
     case GET_CITY_BY_ID_REQUEST:
     case GET_COUNTY_BY_ID_REQUEST:
+    case GET_ALL_EMAIL_TEMPLATES_REQUEST:
+    case GET_EMAIL_TEMPLATE_BY_NAME_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -125,6 +158,21 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         hasError: false,
         counties: [...state.counties, action.payload],
       };
+    case CREATE_EMAIL_TEMPLATE_SUCCESS:
+    case UPDATE_EMAIL_TEMPLATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        emailTemplates: [...state.emailTemplates, action.payload],
+      };
+    case GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        activeEmailTemplate: action.payload,
+      };
     case DELETE_CITY_SUCCESS: {
       const {
         payload: { id },
@@ -145,6 +193,16 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         counties: state.counties.filter((county) => county.id !== id),
       };
     }
+    case DELETE_EMAIL_TEMPLATE_SUCCESS: {
+      const {
+        payload: { name },
+      } = action;
+
+      return {
+        ...state,
+        emailTemplates: state.emailTemplates.filter((template) => template.name !== name),
+      };
+    }
     case GET_ALL_CITIES_SUCCESS:
       return {
         ...state,
@@ -158,6 +216,13 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         isLoading: false,
         hasError: false,
         counties: [...action.payload],
+      };
+    case GET_ALL_EMAIL_TEMPLATES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        emailTemplates: [...action.payload],
       };
     case CREATE_SITE_BANNER_FAILURE:
     case UPDATE_SITE_BANNER_FAILURE:
@@ -176,12 +241,16 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
       };
     case DELETE_CITY_FAILURE:
     case DELETE_COUNTY_FAILURE:
+    case DELETE_EMAIL_TEMPLATE_FAILURE:
     case CREATE_CITY_FAILURE:
     case CREATE_COUNTY_FAILURE:
+    case CREATE_EMAIL_TEMPLATE_FAILURE:
     case UPDATE_CITY_FAILURE:
     case UPDATE_COUNTY_FAILURE:
+    case UPDATE_EMAIL_TEMPLATE_FAILURE:
     case GET_CITY_BY_ID_FAILURE:
     case GET_COUNTY_BY_ID_FAILURE:
+    case GET_EMAIL_TEMPLATE_BY_NAME_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -200,6 +269,13 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         isLoading: false,
         hasError: true,
         counties: [],
+      };
+    case GET_ALL_EMAIL_TEMPLATES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        emailTemplates: [],
       };
     default:
       return state;
@@ -337,5 +413,67 @@ export const getCountyById = (id: number) => ({
     endpoint: ADMIN_COUNTY_BY_ID_ENDPOINT(id),
     method: 'GET',
     types: [GET_COUNTY_BY_ID_REQUEST, GET_COUNTY_BY_ID_SUCCESS, GET_COUNTY_BY_ID_FAILURE],
+  },
+});
+
+export const createEmailTemplate = (template: EmailTemplateType) => ({
+  [RSAA]: {
+    endpoint: ADMIN_EMAIL_TEMPLATE_ENDPOINT,
+    method: 'POST',
+    body: JSON.stringify(template),
+    types: [
+      CREATE_EMAIL_TEMPLATE_REQUEST,
+      CREATE_EMAIL_TEMPLATE_SUCCESS,
+      CREATE_EMAIL_TEMPLATE_FAILURE,
+    ],
+  },
+});
+
+export const getAllEmailTemplates = () => ({
+  [RSAA]: {
+    endpoint: ADMIN_EMAIL_TEMPLATE_ENDPOINT,
+    method: 'GET',
+    types: [
+      GET_ALL_EMAIL_TEMPLATES_REQUEST,
+      GET_ALL_EMAIL_TEMPLATES_SUCCESS,
+      GET_ALL_EMAIL_TEMPLATES_FAILURE,
+    ],
+  },
+});
+
+export const updateEmailTemplate = (template: EmailTemplateType) => ({
+  [RSAA]: {
+    endpoint: ADMIN_EMAIL_TEMPLATE_ENDPOINT,
+    method: 'PUT',
+    body: JSON.stringify(template),
+    types: [
+      UPDATE_EMAIL_TEMPLATE_REQUEST,
+      UPDATE_EMAIL_TEMPLATE_SUCCESS,
+      UPDATE_EMAIL_TEMPLATE_FAILURE,
+    ],
+  },
+});
+
+export const deleteEmailTemplate = (templateName: string) => ({
+  [RSAA]: {
+    endpoint: `${ADMIN_EMAIL_TEMPLATE_ENDPOINT}?templateName=${templateName}`,
+    method: 'DELETE',
+    types: [
+      DELETE_EMAIL_TEMPLATE_REQUEST,
+      DELETE_EMAIL_TEMPLATE_SUCCESS,
+      DELETE_EMAIL_TEMPLATE_FAILURE,
+    ],
+  },
+});
+
+export const getEmailTemplateByName = (templateName: string) => ({
+  [RSAA]: {
+    endpoint: ADMIN_EMAIL_TEMPLATE_BY_NAME_ENDPOINT(templateName),
+    method: 'GET',
+    types: [
+      GET_EMAIL_TEMPLATE_BY_NAME_REQUEST,
+      GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS,
+      GET_EMAIL_TEMPLATE_BY_NAME_FAILURE,
+    ],
   },
 });

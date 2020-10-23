@@ -23,10 +23,15 @@ export const GET_HISTORY_LISTINGS_REQUEST = 'GET_HISTORY_LISTINGS_REQUEST';
 export const GET_HISTORY_LISTINGS_SUCCESS = 'GET_HISTORY_LISTINGS_SUCCESS';
 export const GET_HISTORY_LISTINGS_FAILURE = 'GET_HISTORY_LISTINGS_FAILURE';
 
+export const CHANGE_COUNTY_FILTER = 'CHANGE_COUNTY_FILTER';
+export const TOGGLE_SALES_AREA_FILTER = 'TOGGLE_SALES_AREA_FILTER';
+
 export const initialState: ListingStoreType = {
   isLoading: false,
   hasError: false,
   lastFetched: undefined,
+  countyFilter: '',
+  salesAreaOnly: false,
   new: [],
   pending: [],
   awarded: [],
@@ -89,8 +94,22 @@ export default (
         hasError: true,
         lastFetched: undefined,
       };
+    case CHANGE_COUNTY_FILTER:
+      return {
+        ...state,
+        countyFilter: action.payload,
+      };
+    case TOGGLE_SALES_AREA_FILTER:
+      return {
+        ...state,
+        salesAreaOnly: action.payload,
+      };
     case LOGOUT_REQUEST:
-      return { ...initialState };
+      return {
+        ...initialState,
+        countyFilter: state.countyFilter,
+        salesAreaOnly: state.salesAreaOnly,
+      };
     default:
       return state;
   }
@@ -154,4 +173,14 @@ export const getHistoryListings = () => ({
       GET_HISTORY_LISTINGS_FAILURE,
     ],
   },
+});
+
+export const changeCountyFilter = (countyName: string) => ({
+  type: CHANGE_COUNTY_FILTER,
+  payload: countyName,
+});
+
+export const toggleSalesAreaFilter = (value: boolean) => ({
+  type: TOGGLE_SALES_AREA_FILTER,
+  payload: value,
 });
