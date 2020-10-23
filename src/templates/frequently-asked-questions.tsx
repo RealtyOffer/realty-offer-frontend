@@ -48,8 +48,11 @@ type FAQPageProps = {
 
 const HeroBox = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
-  padding: ${doubleSpacer};
+  padding: ${baseSpacer};
   max-width: ${breakpoints.md};
+  @media only screen and (min-width: ${breakpoints.sm}) {
+    padding: ${doubleSpacer};
+  }
 `;
 
 export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({

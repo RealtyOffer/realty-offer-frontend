@@ -358,8 +358,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               {isSmallScreen && !isLoggedInConsumer && !isLoggedInAgent && (
                 <>
                   {/* todo: consumer/start */}
-                  <Link to="/consumer-landing">Find An Agent</Link>
-                  <Link to="/login">Sign In</Link>
+                  <Link to="/consumer-landing" onClick={() => toggleMenu()}>
+                    Find An Agent
+                  </Link>
+                  <Link to="/login" onClick={() => toggleMenu()}>
+                    Sign In
+                  </Link>
                 </>
               )}
               {isSmallScreen && isLoggedInAgent && (

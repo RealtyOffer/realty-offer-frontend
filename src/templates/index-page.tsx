@@ -23,7 +23,7 @@ import {
   Testimonial,
 } from '../components';
 
-import { baseSpacer, doubleSpacer, quadrupleSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer, quadrupleSpacer, breakpoints } from '../styles/size';
 import {
   brandPrimary,
   brandPrimaryAccentLight,
@@ -64,7 +64,10 @@ type IndexPageProps = {
 
 const HeroBox = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
-  padding: ${doubleSpacer};
+  padding: ${baseSpacer};
+  @media only screen and (min-width: ${breakpoints.sm}) {
+    padding: ${doubleSpacer};
+  }
 `;
 
 const SlidderWrapper = styled.div`
