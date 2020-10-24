@@ -295,19 +295,19 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
-      <PageContainer>
-        <FlexContainer
-          justifyContent={
-            (auth.isLoggedIn && auth.roles.includes('Consumer')) ||
-            (!isSmallScreen && auth.isLoggedIn && auth.roles.includes('Agent')) ||
-            (!isSmallScreen && !auth.isLoggedIn)
-              ? 'space-between'
-              : 'center'
-          }
-          height={quadrupleSpacer}
-        >
-          {isSmallScreen && !isLoggedInConsumer && (
-            <ClientOnly>
+      <ClientOnly>
+        <PageContainer>
+          <FlexContainer
+            justifyContent={
+              (auth.isLoggedIn && auth.roles.includes('Consumer')) ||
+              (!isSmallScreen && auth.isLoggedIn && auth.roles.includes('Agent')) ||
+              (!isSmallScreen && !auth.isLoggedIn)
+                ? 'space-between'
+                : 'center'
+            }
+            height={quadrupleSpacer}
+          >
+            {isSmallScreen && !isLoggedInConsumer && (
               <StyledMenuToggle>
                 <Hamburger
                   color={white}
@@ -315,36 +315,35 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   toggle={() => setMenuIsOpen(!menuIsOpen)}
                 />
               </StyledMenuToggle>
-            </ClientOnly>
-          )}
-          <StyledLogoLink
-            to={
-              // eslint-disable-next-line no-nested-ternary
-              isLoggedInAgent
-                ? '/agent/listings/new'
-                : isLoggedInConsumer
-                ? '/consumer/listing'
-                : '/'
-            }
-            title="Logo"
-          >
-            <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
-          </StyledLogoLink>
-          {false && ( // isSmallScreen && ( // TODO when notifications are ready
-            <ClientOnly>
-              {shouldShowMenuToggle && (
-                <FlexContainer>
-                  <div style={{ position: 'relative', marginRight: halfSpacer }}>
-                    <Link to="/agent/notifications">
-                      <FaRegBell size={doubleSpacer} color={white} />
-                      <NotificationDot isSmallScreen />
-                    </Link>
-                  </div>
-                </FlexContainer>
-              )}
-            </ClientOnly>
-          )}
-          <ClientOnly>
+            )}
+            <StyledLogoLink
+              to={
+                // eslint-disable-next-line no-nested-ternary
+                isLoggedInAgent
+                  ? '/agent/listings/new'
+                  : isLoggedInConsumer
+                  ? '/consumer/listing'
+                  : '/'
+              }
+              title="Logo"
+            >
+              <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
+            </StyledLogoLink>
+            {false && ( // isSmallScreen && ( // TODO when notifications are ready
+              <>
+                {shouldShowMenuToggle && (
+                  <FlexContainer>
+                    <div style={{ position: 'relative', marginRight: halfSpacer }}>
+                      <Link to="/agent/notifications">
+                        <FaRegBell size={doubleSpacer} color={white} />
+                        <NotificationDot isSmallScreen />
+                      </Link>
+                    </div>
+                  </FlexContainer>
+                )}
+              </>
+            )}
+
             <StyledMenu
               id="navMenu"
               isLoggedIn={auth.isLoggedIn}
@@ -493,9 +492,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </Button>
               </div>
             )}
-          </ClientOnly>
-        </FlexContainer>
-      </PageContainer>
+          </FlexContainer>
+        </PageContainer>
+      </ClientOnly>
     </StyledNavbar>
   );
 };
