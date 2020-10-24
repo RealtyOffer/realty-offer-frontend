@@ -51,7 +51,7 @@ const AvatarImageWrapper = styled.div`
   width: ${(props) => props.size && renderSize(props.size)};
   /* min-width ensures it doesnt get resized when in a flexed parent */
   min-width: ${(props) => props.size && renderSize(props.size)};
-  ${(props) => props.bottomMargin && `margin-bottom: ${baseSpacer}`}
+  margin-bottom: ${(props) => (props.bottomMargin ? baseSpacer : 0)};
 
   /* If image fails to load, provide some fallback styling to make it look better */
   & img {
@@ -81,7 +81,7 @@ const Avatar: FunctionComponent<AvatarProps> = (props) => {
   // size of 192px(sextupleSpacer * 2x)
   const gravatarUrl = `https://www.gravatar.com/avatar/${Md5.hashStr(
     props.gravatarEmail
-  )}?d=identicon&s=192`;
+  )}?d=mp&s=192`;
   return (
     <AvatarImageWrapper
       size={props.size || 'sm'}

@@ -130,7 +130,9 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             {bids.map((bid, index) => (
               <Column key={bid.id} md={4}>
                 <Box textAlign="center">
-                  <Avatar size="md" bottomMargin />
+                  <FlexContainer>
+                    <Avatar size="md" bottomMargin gravatarEmail="" />
+                  </FlexContainer>
                   <Heading as="h2" styledAs="subtitle" align="center">
                     Future Agent {index + 1}
                   </Heading>
@@ -244,7 +246,12 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           <p>Agent contact information and terms of the contract can be found below.</p>
           <Row>
             <Column lg={2}>
-              <Avatar size="lg" bottomMargin src={winner.avatar} />
+              <Avatar
+                size="lg"
+                bottomMargin
+                src={winner.avatar}
+                gravatarEmail={winner.emailAddress as string}
+              />
             </Column>
             <Column lg={10}>
               <Row>
