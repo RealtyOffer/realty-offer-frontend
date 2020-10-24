@@ -29,15 +29,20 @@ const Modal: FunctionComponent<ModalProps> = (props) => (
         border: baseBorderStyle,
         boxShadow: z1Shadow,
         borderRadius,
-        bottom: 'initial',
-        maxWidth: screenSizes.small,
+        maxWidth: screenSizes.medium,
         margin: '0 auto',
         top: doubleSpacer,
         right: doubleSpacer,
         left: doubleSpacer,
+        bottom: 'initial',
+        marginBottom: doubleSpacer,
+        WebkitOverflowScrolling: 'touch',
       },
       overlay: {
         backgroundColor: 'rgba(0,0,0,.75)',
+        position: 'fixed',
+        height: '100%',
+        overflow: 'auto',
       },
     }}
   >

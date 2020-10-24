@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,7 +14,6 @@ import Countdown from './Countdown';
 import Avatar from './Avatar';
 import Box from './Box';
 import Button from './Button';
-
 import { BidType } from '../redux/ducks/agent.d';
 import { displayDropdownListText } from '../utils/dropdownUtils';
 import { isExpired, isExpiringSoon } from '../utils/countdownTimerUtils';
@@ -26,10 +25,12 @@ import {
 } from '../redux/ducks/consumer';
 import { ConsumerStoreType, WinningAgentProfileType } from '../redux/ducks/consumer.d';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
-import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
+import { buySellTotal, buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
 import { RootState } from '../redux/ducks';
 import { ActionResponseType } from '../redux/constants';
 import { addAlert } from '../redux/ducks/globalAlerts';
+import { Modal } from './index';
+import BidDetails from './BidDetails';
 
 type ConsumerListingCardProps = {
   consumer: ConsumerStoreType;
@@ -56,9 +57,14 @@ const ConsumerListingCardBody = styled.div`
   padding: ${halfSpacer} ${baseSpacer};
 `;
 
+type SelectedBidType = BidType & {
+  index: number;
+};
+
 const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
   consumer: { listing, bids, winner, isLoading },
 }) => {
+  const [selectedBid, setSelectedBid] = useState<SelectedBidType | undefined>();
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
 
@@ -111,6 +117,75 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           />
         </FlexContainer>
       </ConsumerListingCardHeader>
+      {bids && bids.length > 0 && !winner && (
+        <ConsumerListingCardBody>
+          <Heading as="h4">Select your agent below</Heading>
+          <p>
+            Please select your RealtyOffer agent below. Below are the three best Agents based on the
+            information you provided. If you do not like the choices below, you can start a new
+            listing to receive three more bids
+          </p>
+          {/* TODO: do a PUT on consumer to have listing start over */}
+          <Row>
+            {bids.map((bid, index) => (
+              <Column key={bid.id} md={4}>
+                <Box textAlign="center">
+                  <Avatar size="md" bottomMargin />
+                  <Heading as="h2" styledAs="subtitle" align="center">
+                    Future Agent {index + 1}
+                  </Heading>
+                  <dl>
+                    <dt>Total Savings</dt>
+                    <dd>
+                      {listing.type === 'seller' &&
+                        sellTotal({
+                          values: bid,
+                          priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                          priceRangesList,
+                        })}
+                      {listing.type === 'buyer' &&
+                        buyTotal({
+                          values: bid,
+                          priceRangeId: Number(listing.buyingPriceRangeId),
+                          priceRangesList,
+                        })}
+                      {listing.type === 'buyerSeller' &&
+                        buySellTotal({
+                          values: bid,
+                          buyPriceRangeId: Number(listing.buyingPriceRangeId),
+                          sellPriceRangeId: Number(
+                            listing.sellersListingPriceInMindPriceRangeInMindId
+                          ),
+                          priceRangesList,
+                        })}
+                    </dd>
+                  </dl>
+
+                  <p>
+                    <Button
+                      type="button"
+                      color="text"
+                      allowTextWrap
+                      onClick={() => setSelectedBid({ ...bid, index })}
+                    >
+                      View Full Package Details
+                    </Button>
+                  </p>
+                  <Button
+                    type="button"
+                    onClick={() => selectWinningAgent(bid)}
+                    block
+                    isLoading={isLoading}
+                  >
+                    Select Agent
+                  </Button>
+                </Box>
+              </Column>
+            ))}
+          </Row>
+          <HorizontalRule />
+        </ConsumerListingCardBody>
+      )}
       <ConsumerListingCardBody>
         {listing.type?.toLowerCase().includes('seller') && (
           <Row>
@@ -162,117 +237,6 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           </Row>
         )}
       </ConsumerListingCardBody>
-      {bids && bids.length > 0 && !winner && (
-        <ConsumerListingCardBody>
-          <HorizontalRule />
-          <Row>
-            {bids.map((bid, index) => (
-              <Column key={bid.id} sm={4}>
-                <Box textAlign="center">
-                  <Avatar size="md" bottomMargin />
-                  <Heading as="h2" styledAs="subtitle" align="center">
-                    Future Agent {index + 1}
-                  </Heading>
-                  {listing.type?.toLowerCase().includes('seller') && (
-                    <dl>
-                      <dt>Listing Agent Commission</dt>
-                      <dd>{bid.listingAgentCommission}%</dd>
-                      <dt>Buying Agent Commission</dt>
-                      <dd>{bid.buyersAgentCommission}%</dd>
-                      {bid.sellerBrokerComplianceAmount && (
-                        <>
-                          <dt>Seller Compliance Fee</dt>
-                          <dd>${bid.sellerBrokerComplianceAmount}</dd>
-                        </>
-                      )}
-                      {bid.sellerPreInspectionAmount && (
-                        <>
-                          <dt>Seller Pre-Inspection</dt>
-                          <dd>${bid.sellerPreInspectionAmount}</dd>
-                        </>
-                      )}
-                      {bid.sellerPreCertifyAmount && (
-                        <>
-                          <dt>Seller Pre-Certification</dt>
-                          <dd>${bid.sellerPreCertifyAmount}</dd>
-                        </>
-                      )}
-                      {bid.sellerMovingCompanyAmount && (
-                        <>
-                          <dt>Seller Moving Costs</dt>
-                          <dd>${bid.sellerMovingCompanyAmount}</dd>
-                        </>
-                      )}
-                      {bid.sellerPhotographyAmount && (
-                        <>
-                          <dt>Seller Photography</dt>
-                          <dd>${bid.sellerPhotographyAmount}</dd>
-                        </>
-                      )}
-                      <dt>Total savings towards your closing costs and prepaid items:</dt>
-                      <dd>
-                        {sellTotal({
-                          values: bid,
-                          priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
-                          priceRangesList,
-                        })}
-                      </dd>
-                    </dl>
-                  )}
-                  {listing.type === 'buyerSeller' && <HorizontalRule />}
-                  {listing.type?.includes('buyer') && (
-                    <dl>
-                      <dt>Total Buyer Commission</dt>
-                      <dd>{bid.buyerCommission}%</dd>
-                      {bid.buyerBrokerComplianceAmount && (
-                        <>
-                          <dt>Buyer Compliance Fee</dt>
-                          <dd>${bid.buyerBrokerComplianceAmount}</dd>
-                        </>
-                      )}
-                      {bid.buyerInspectionAmount && (
-                        <>
-                          <dt>Buyer Inspection</dt>
-                          <dd>${bid.buyerInspectionAmount}</dd>
-                        </>
-                      )}
-                      {bid.buyerHomeWarrantyAmount && (
-                        <>
-                          <dt>Buyer Home Warranty</dt>
-                          <dd>${bid.buyerHomeWarrantyAmount}</dd>
-                        </>
-                      )}
-                      {bid.buyerAppraisalAmount && (
-                        <>
-                          <dt>Buyer Appraisal</dt>
-                          <dd>${bid.buyerAppraisalAmount}</dd>
-                        </>
-                      )}
-                      {bid.buyerMovingCompanyAmount && (
-                        <>
-                          <dt>Buyer Moving Costs</dt>
-                          <dd>${bid.buyerMovingCompanyAmount}</dd>
-                        </>
-                      )}
-                      <dt>Total savings towards your closing costs and prepaid items</dt>
-                      <dd>
-                        {buyTotal({
-                          values: bid,
-                          priceRangeId: Number(listing.buyingPriceRangeId),
-                          priceRangesList,
-                        })}
-                      </dd>
-                    </dl>
-                  )}
-                  <Button type="button" onClick={() => selectWinningAgent(bid)} block isLoading={isLoading}>
-                    Select
-                  </Button>
-                </Box>
-              </Column>
-            ))}
-          </Row>
-        </ConsumerListingCardBody>
-      )}
       {winner && winner.agentId && (
         <ConsumerListingCardBody>
           <HorizontalRule />
@@ -317,107 +281,65 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           </Row>
           <HorizontalRule />
           <Heading as="h3">Listing Contract</Heading>
-          <Row>
-            {listing.type?.toLowerCase().includes('seller') && winningBid && (
-              <Column xs={6}>
-                <dl>
-                  <dt>Listing Agent Commission</dt>
-                  <dd>{winningBid.listingAgentCommission}%</dd>
-                  <dt>Buying Agent Commission</dt>
-                  <dd>{winningBid.buyersAgentCommission}%</dd>
-                  {winningBid.sellerBrokerComplianceAmount && (
-                    <>
-                      <dt>Seller Compliance Fee</dt>
-                      <dd>${winningBid.sellerBrokerComplianceAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.sellerPreInspectionAmount && (
-                    <>
-                      <dt>Seller Pre-Inspection</dt>
-                      <dd>${winningBid.sellerPreInspectionAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.sellerPreCertifyAmount && (
-                    <>
-                      <dt>Seller Pre-Certification</dt>
-                      <dd>${winningBid.sellerPreCertifyAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.sellerMovingCompanyAmount && (
-                    <>
-                      <dt>Seller Moving Costs</dt>
-                      <dd>${winningBid.sellerMovingCompanyAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.sellerPhotographyAmount && (
-                    <>
-                      <dt>Seller Photography</dt>
-                      <dd>${winningBid.sellerPhotographyAmount}</dd>
-                    </>
-                  )}
-                </dl>
-                <Heading as="h5">
-                  Total savings towards your closing costs and prepaid items
-                </Heading>
-                <p>
-                  {sellTotal({
-                    values: winningBid,
-                    priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
-                    priceRangesList,
-                  })}
-                </p>
-              </Column>
-            )}
-            {listing.type?.includes('buyer') && winningBid && (
-              <Column xs={6}>
-                <dl>
-                  <dt>Total Buyer Commission</dt>
-                  <dd>{winningBid.buyerCommission}%</dd>
-                  {winningBid.buyerBrokerComplianceAmount && (
-                    <>
-                      <dt>Buyer Compliance Fee</dt>
-                      <dd>${winningBid.buyerBrokerComplianceAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.buyerInspectionAmount && (
-                    <>
-                      <dt>Buyer Inspection</dt>
-                      <dd>${winningBid.buyerInspectionAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.buyerHomeWarrantyAmount && (
-                    <>
-                      <dt>Buyer Home Warranty</dt>
-                      <dd>${winningBid.buyerHomeWarrantyAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.buyerAppraisalAmount && (
-                    <>
-                      <dt>Buyer Appraisal</dt>
-                      <dd>${winningBid.buyerAppraisalAmount}</dd>
-                    </>
-                  )}
-                  {winningBid.buyerMovingCompanyAmount && (
-                    <>
-                      <dt>Buyer Moving Costs</dt>
-                      <dd>${winningBid.buyerMovingCompanyAmount}</dd>
-                    </>
-                  )}
-                </dl>
-                <Heading as="h5">
-                  Total savings towards your closing costs and prepaid items
-                </Heading>
-                <p>
-                  {buyTotal({
-                    values: winningBid,
-                    priceRangeId: Number(listing.buyingPriceRangeId),
-                    priceRangesList,
-                  })}
-                </p>
-              </Column>
-            )}
-          </Row>
+          {winningBid && <BidDetails listing={listing} bid={winningBid} />}
         </ConsumerListingCardBody>
+      )}
+      {selectedBid && (
+        <Modal toggleModal={() => setSelectedBid(undefined)} isOpen={Boolean(selectedBid)}>
+          <Heading as="h1" styledAs="title" align="center">
+            Future Agent #{selectedBid.index + 1} - Package Details
+          </Heading>
+          <FlexContainer flexDirection="column">
+            <Heading as="h2" styledAs="subtitle" align="center" noMargin>
+              Total Package:{' '}
+              {listing.type === 'seller' &&
+                sellTotal({
+                  values: selectedBid,
+                  priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                  priceRangesList,
+                })}
+              {listing.type === 'buyer' &&
+                buyTotal({
+                  values: selectedBid,
+                  priceRangeId: Number(listing.buyingPriceRangeId),
+                  priceRangesList,
+                })}
+              {listing.type === 'buyerSeller' &&
+                buySellTotal({
+                  values: selectedBid,
+                  buyPriceRangeId: Number(listing.buyingPriceRangeId),
+                  sellPriceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                  priceRangesList,
+                })}
+            </Heading>
+            <p>
+              <small>Money towards your closing costs and prepaid items</small>
+            </p>
+          </FlexContainer>
+          <BidDetails listing={listing} bid={selectedBid} />
+          <Row>
+            <Column xs={6}>
+              <Button
+                type="button"
+                onClick={() => setSelectedBid(undefined)}
+                color="primaryOutline"
+                block
+              >
+                Close
+              </Button>
+            </Column>
+            <Column xs={6}>
+              <Button
+                type="button"
+                onClick={() => selectWinningAgent(selectedBid)}
+                block
+                isLoading={isLoading}
+              >
+                Select Agent
+              </Button>
+            </Column>
+          </Row>
+        </Modal>
       )}
     </ConsumerListingCardWrapper>
   );
