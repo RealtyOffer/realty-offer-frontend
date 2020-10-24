@@ -36,6 +36,7 @@ import SubNav from './SubNav';
 import SiteMetadata from './SiteMetadata';
 import Table from './Table';
 import Testimonial from './Testimonial';
+import TimelineProgress from './TimelineProgress';
 
 export {
   Alert,
@@ -76,4 +77,5 @@ export {
   SiteMetadata,
   Table,
   Testimonial,
+  TimelineProgress,
 };

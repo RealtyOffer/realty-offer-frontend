@@ -9,13 +9,14 @@ import Heading from './Heading';
 type CardProps = {
   cardTitle: string;
   cardSubtitle?: string;
+  fullWidth?: boolean;
 };
 
-const Card: FunctionComponent<CardProps> = ({ cardTitle, cardSubtitle, children }) => (
-  <Row>
-    <Column md={6} mdOffset={3}>
-      <div>
-        <Box backgroundAccent>
+const Card: FunctionComponent<CardProps> = ({ cardTitle, cardSubtitle, children, fullWidth }) => (
+  <div>
+    <Box backgroundAccent>
+      <Row>
+        <Column md={fullWidth ? 12 : 6} mdOffset={fullWidth ? 0 : 3}>
           <FlexContainer flexDirection="column">
             <Heading styledAs="title" align="center">
               {cardTitle}
@@ -27,10 +28,10 @@ const Card: FunctionComponent<CardProps> = ({ cardTitle, cardSubtitle, children 
             )}
           </FlexContainer>
           {children}
-        </Box>
-      </div>
-    </Column>
-  </Row>
+        </Column>
+      </Row>
+    </Box>
+  </div>
 );
 
 export default Card;

@@ -13,8 +13,8 @@ import {
   Column,
   Row,
   HorizontalRule,
-  ProgressBar,
   ClientOnly,
+  TimelineProgress,
 } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { getUserCities } from '../../../redux/ducks/user';
@@ -74,122 +74,119 @@ const Buying: FunctionComponent<BuyingProps> = () => {
   return (
     <ClientOnly>
       <Seo title="Buy A Home" />
+      <TimelineProgress
+        items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}
+        currentStep={2}
+      />
       <Card
-        cardTitle="Tell us about your move"
-        cardSubtitle="No contracts, no obligation, no awkward negotiations"
+        cardTitle="Buy a New Home"
+        cardSubtitle="Let us know about where you are planning to move, and how much you are looking to spend."
       >
-        <>
-          <ProgressBar
-            value={isBuyerAndSeller ? 33 : 50}
-            label={`Step 1/${isBuyerAndSeller ? 3 : 2}`}
-            name="progress"
-          />
-          <Formik
-            validateOnMount
-            initialValues={initialValues}
-            onSubmit={(values) => {
-              // return array of CityType DTOs
-              const cityDTOs =
-                cities &&
-                values.buyingCities.map(
-                  (value) => cities.find((city) => city.name === value) as CityType
-                );
-              dispatch(
-                captureConsumerData({
-                  buyingCities: cityDTOs,
-                  buyingPriceRangeId: Number(values.buyingPriceRange),
-                  freeMortgageConsult: values.freeMortgageConsult,
-                  preApproved: values.preApproved,
-                  createDateTime: new Date(),
-                  buyerTypeOfHomeId: Number(values.buyerTypeOfHomeId),
-                })
+        <Formik
+          validateOnMount
+          initialValues={initialValues}
+          onSubmit={(values) => {
+            // return array of CityType DTOs
+            const cityDTOs =
+              cities &&
+              values.buyingCities.map(
+                (value) => cities.find((city) => city.name === value) as CityType
               );
-              navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/sign-up');
-            }}
-          >
-            {({ values, isSubmitting, isValid, ...rest }) => (
-              <Form>
-                <Field
-                  as={Input}
-                  type="select"
-                  isMulti
-                  name="buyingCities"
-                  options={cityOptions}
-                  label="What city/cities are you looking to move to?"
-                  validate={requiredSelect}
-                  required
-                  {...rest}
-                />
-                <p>
-                  <small>
-                    City not in our list? No problem at all.{' '}
-                    <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
-                    specialist who can assist with your move.
-                  </small>
-                </p>
-                <Field
-                  as={Input}
-                  type="select"
-                  name="buyingPriceRange"
-                  options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
-                  label="Do you have a purchase price in mind?"
-                  validate={requiredSelect}
-                  required
-                  {...rest}
-                />
-                <Field
-                  as={Input}
-                  type="select"
-                  name="buyerTypeOfHomeId"
-                  label="What is the type of home you are looking for?"
-                  validate={requiredSelect}
-                  required
-                  options={createOptionsFromManagedDropdownList(homeTypesList)}
-                  {...rest}
-                />
-                <Field
-                  as={Input}
-                  type="checkbox"
-                  checked={values.freeMortgageConsult}
-                  name="freeMortgageConsult"
-                  label="Would you like a free mortgage consultation?"
-                />
-                <Field
-                  as={Input}
-                  type="checkbox"
-                  checked={values.preApproved}
-                  name="preApproved"
-                  label="Have you received a mortgage pre-approval?"
-                />
-                <HorizontalRule />
-                <Row>
-                  <Column xs={6}>
-                    <Button
-                      type="button"
-                      onClick={() => toggleUnsavedChangesModal()}
-                      block
-                      color="primaryOutline"
-                      iconLeft={<FaCaretLeft />}
-                    >
-                      Cancel
-                    </Button>
-                  </Column>
-                  <Column xs={6}>
-                    <Button
-                      type="submit"
-                      block
-                      iconRight={<FaCaretRight />}
-                      disabled={isSubmitting || !isValid}
-                      isLoading={isSubmitting}
-                    >
-                      Next
-                    </Button>
-                  </Column>
-                </Row>
-              </Form>
-            )}
-          </Formik>
-        </>
+            dispatch(
+              captureConsumerData({
+                buyingCities: cityDTOs,
+                buyingPriceRangeId: Number(values.buyingPriceRange),
+                freeMortgageConsult: values.freeMortgageConsult,
+                preApproved: values.preApproved,
+                createDateTime: new Date(),
+                buyerTypeOfHomeId: Number(values.buyerTypeOfHomeId),
+              })
+            );
+            navigate(isBuyerAndSeller ? '/consumer/selling' : '/consumer/sign-up');
+          }}
+        >
+          {({ values, isSubmitting, isValid, ...rest }) => (
+            <Form>
+              <Field
+                as={Input}
+                type="select"
+                isMulti
+                name="buyingCities"
+                options={cityOptions}
+                label="What city/cities are you looking to move to?"
+                validate={requiredSelect}
+                required
+                {...rest}
+              />
+              <p>
+                <small>
+                  City not in our list? No problem at all.{' '}
+                  <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
+                  specialist who can assist with your move.
+                </small>
+              </p>
+              <Field
+                as={Input}
+                type="select"
+                name="buyingPriceRange"
+                options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
+                label="Do you have a purchase price in mind?"
+                validate={requiredSelect}
+                required
+                {...rest}
+              />
+              <Field
+                as={Input}
+                type="select"
+                name="buyerTypeOfHomeId"
+                label="What is the type of home you are looking for?"
+                validate={requiredSelect}
+                required
+                options={createOptionsFromManagedDropdownList(homeTypesList)}
+                {...rest}
+              />
+              <Field
+                as={Input}
+                type="checkbox"
+                checked={values.freeMortgageConsult}
+                name="freeMortgageConsult"
+                label="Would you like a free mortgage consultation?"
+              />
+              <Field
+                as={Input}
+                type="checkbox"
+                checked={values.preApproved}
+                name="preApproved"
+                label="Have you received a mortgage pre-approval?"
+              />
+              <HorizontalRule />
+              <Row>
+                <Column xs={6}>
+                  <Button
+                    type="button"
+                    onClick={() => toggleUnsavedChangesModal()}
+                    block
+                    color="primaryOutline"
+                    iconLeft={<FaCaretLeft />}
+                  >
+                    Cancel
+                  </Button>
+                </Column>
+                <Column xs={6}>
+                  <Button
+                    type="submit"
+                    block
+                    iconRight={<FaCaretRight />}
+                    disabled={isSubmitting || !isValid}
+                    isLoading={isSubmitting}
+                  >
+                    Next
+                  </Button>
+                </Column>
+              </Row>
+            </Form>
+          )}
+        </Formik>
       </Card>
       <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
     </ClientOnly>

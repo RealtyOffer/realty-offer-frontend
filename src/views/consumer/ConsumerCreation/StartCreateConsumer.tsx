@@ -2,9 +2,19 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { FaCaretRight } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { navigate } from 'gatsby';
+import { navigate, Link } from 'gatsby';
 
-import { ClientOnly, Box, Button, Card, Heading, Seo } from '../../../components';
+import {
+  Row,
+  Column,
+  ClientOnly,
+  Box,
+  Button,
+  Card,
+  Heading,
+  Seo,
+  TimelineProgress,
+} from '../../../components';
 import { RootState } from '../../../redux/ducks';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { ConsumerStoreType } from '../../../redux/ducks/consumer.d';
@@ -18,7 +28,7 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
   const dropdowns = useSelector((state: RootState) => state.dropdowns);
   const cities = useSelector((state: RootState) => state.user.cities);
   const setCustomerType = (type: ConsumerStoreType['listing']['type']) => {
-    dispatch(captureConsumerData({ type }));
+    dispatch(captureConsumerData({ type, createDateTime: new Date() }));
     navigate(type === 'seller' ? '/consumer/selling' : '/consumer/buying');
   };
 
@@ -43,63 +53,77 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
   return (
     <ClientOnly>
       <Seo title="Ready to buy or sell a home?" />
+      <TimelineProgress
+        items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}
+        currentStep={1}
+      />
       <Card
-        cardTitle="Ready to buy or sell a home?"
-        cardSubtitle="No contracts, no obligation, no awkward negotiations"
+        fullWidth
+        cardTitle="Let's Get Started"
+        cardSubtitle="Ready to buy or sell a home? Start by selecting what you are looking to do below."
       >
-        <>
-          <Box>
-            <Heading as="h3" styledAs="subtitle">
-              Sell My Home
-            </Heading>
-            <p>
-              Within 24 hours, multiple agents will offer less than commission to sell your home, in
-              order to win your business!
-            </p>
-            <Button
-              type="button"
-              onClick={() => setCustomerType('seller')}
-              block
-              iconRight={<FaCaretRight />}
-            >
-              Sell Your Home
-            </Button>
-          </Box>
-          <Box>
-            <Heading as="h3" styledAs="subtitle">
-              Buy A Home
-            </Heading>
-            <p>
-              Within 24 hours, multiple agents will offer part of their commission in order to pay
-              for your closing costs, in order to win your business!
-            </p>
-            <Button
-              type="button"
-              onClick={() => setCustomerType('buyer')}
-              block
-              iconRight={<FaCaretRight />}
-            >
-              Buy A Home
-            </Button>
-          </Box>
-          <Box>
-            <Heading as="h3" styledAs="subtitle">
-              Buy &amp; Sell A Home
-            </Heading>
-            <p>
-              Within 24 hours, multiple agents will offer less commission to sell your home, or part
-              of their commission to find you a home!
-            </p>
-            <Button
-              type="button"
-              onClick={() => setCustomerType('buyerSeller')}
-              block
-              iconRight={<FaCaretRight />}
-            >
-              Buy &amp; Sell A Home
-            </Button>
-          </Box>
-        </>
+        <Row>
+          <Column md={4}>
+            <Box>
+              <Heading as="h3" styledAs="subtitle">
+                Sell My Home
+              </Heading>
+              <p>
+                Within 24 hours, multiple agents will offer less than commission to sell your home,
+                in order to win your business!
+              </p>
+              <Button
+                type="button"
+                onClick={() => setCustomerType('seller')}
+                block
+                iconRight={<FaCaretRight />}
+              >
+                Sell Your Home
+              </Button>
+            </Box>
+          </Column>
+          <Column md={4}>
+            <Box>
+              <Heading as="h3" styledAs="subtitle">
+                Buy A Home
+              </Heading>
+              <p>
+                Within 24 hours, multiple agents will offer part of their commission in order to pay
+                for your closing costs, in order to win your business!
+              </p>
+              <Button
+                type="button"
+                onClick={() => setCustomerType('buyer')}
+                block
+                iconRight={<FaCaretRight />}
+              >
+                Buy A Home
+              </Button>
+            </Box>
+          </Column>
+          <Column md={4}>
+            <Box>
+              <Heading as="h3" styledAs="subtitle">
+                Buy &amp; Sell A Home
+              </Heading>
+              <p>
+                Within 24 hours, multiple agents will offer less commission to sell your home, or
+                part of their commission to find you a home!
+              </p>
+              <Button
+                type="button"
+                onClick={() => setCustomerType('buyerSeller')}
+                block
+                iconRight={<FaCaretRight />}
+              >
+                Buy &amp; Sell A Home
+              </Button>
+            </Box>
+          </Column>
+        </Row>
+        <p style={{ textAlign: 'center' }}>
+          Already have an account? <Link to="/login">Log In Now</Link>
+        </p>
       </Card>
     </ClientOnly>
   );
