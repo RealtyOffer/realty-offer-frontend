@@ -53,10 +53,8 @@ const BidDetails = ({ listing, bid }: { listing: ListingType; bid: BidType }) =>
               </>
             )}
           </dl>
-          {bid.winner && (
-            <Heading as="h5">Total savings towards your closing costs and prepaid items</Heading>
-          )}
-          {!bid.winner && <dt>Total savings towards your closing costs and prepaid items:</dt>}
+          {bid.winner && <Heading as="h5">Selling Total Savings</Heading>}
+          {!bid.winner && <dt>Selling Total Savings:</dt>}
           <dd>
             {sellTotal({
               values: bid,
@@ -102,10 +100,8 @@ const BidDetails = ({ listing, bid }: { listing: ListingType; bid: BidType }) =>
               </>
             )}
           </dl>
-          {bid.winner && (
-            <Heading as="h5">Total savings towards your closing costs and prepaid items</Heading>
-          )}
-          {!bid.winner && <dt>Total savings towards your closing costs and prepaid items</dt>}
+          {bid.winner && <Heading as="h5">Buying Total Savings</Heading>}
+          {!bid.winner && <dt>Buying Total Savings:</dt>}
           <dd>
             {buyTotal({
               values: bid,

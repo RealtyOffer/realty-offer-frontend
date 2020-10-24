@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'gatsby';
 
 import Heading from './Heading';
 import { brandDanger, white, brandPrimary } from '../styles/color';
@@ -26,7 +25,7 @@ import {
 } from '../redux/ducks/consumer';
 import { ConsumerStoreType, WinningAgentProfileType } from '../redux/ducks/consumer.d';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
-import { sellTotal } from '../utils/buyingAndSellingCalculator';
+import { buySellTotal, buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
 import { RootState } from '../redux/ducks';
 import { ActionResponseType } from '../redux/constants';
 import { addAlert } from '../redux/ducks/globalAlerts';
@@ -122,31 +121,55 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
         <ConsumerListingCardBody>
           <Heading as="h4">Select your agent below</Heading>
           <p>
-            Please select your RealtyOffer™ agent below. Below are the three best Agents based on
-            the information you provided. If you do not like the choices below, you can{' '}
-            <Link to="/consumer/selling">start a new listing</Link> to receive three more bids
+            Please select your RealtyOffer agent below. Below are the three best Agents based on the
+            information you provided. If you do not like the choices below, you can start a new
+            listing to receive three more bids
           </p>
+          {/* TODO: do a PUT on consumer to have listing start over */}
           <Row>
             {bids.map((bid, index) => (
-              <Column key={bid.id} sm={4}>
+              <Column key={bid.id} md={4}>
                 <Box textAlign="center">
                   <Avatar size="md" bottomMargin />
                   <Heading as="h2" styledAs="subtitle" align="center">
                     Future Agent {index + 1}
                   </Heading>
-                  <span>Total Savings</span>
+                  <dl>
+                    <dt>Total Savings</dt>
+                    <dd>
+                      {listing.type === 'seller' &&
+                        sellTotal({
+                          values: bid,
+                          priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                          priceRangesList,
+                        })}
+                      {listing.type === 'buyer' &&
+                        buyTotal({
+                          values: bid,
+                          priceRangeId: Number(listing.buyingPriceRangeId),
+                          priceRangesList,
+                        })}
+                      {listing.type === 'buyerSeller' &&
+                        buySellTotal({
+                          values: bid,
+                          buyPriceRangeId: Number(listing.buyingPriceRangeId),
+                          sellPriceRangeId: Number(
+                            listing.sellersListingPriceInMindPriceRangeInMindId
+                          ),
+                          priceRangesList,
+                        })}
+                    </dd>
+                  </dl>
+
                   <p>
-                    {sellTotal({
-                      values: bid,
-                      priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
-                      priceRangesList,
-                    })}
-                  </p>
-                  <p>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    <a onClick={() => setSelectedBid({ ...bid, index })}>
+                    <Button
+                      type="button"
+                      color="text"
+                      allowTextWrap
+                      onClick={() => setSelectedBid({ ...bid, index })}
+                    >
                       View Full Package Details
-                    </a>
+                    </Button>
                   </p>
                   <Button
                     type="button"
@@ -263,18 +286,32 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
       )}
       {selectedBid && (
         <Modal toggleModal={() => setSelectedBid(undefined)} isOpen={Boolean(selectedBid)}>
-          <Heading styledAs="subtitle" align="center">
+          <Heading as="h1" styledAs="title" align="center">
             Future Agent #{selectedBid.index + 1} - Package Details
           </Heading>
           <FlexContainer flexDirection="column">
-            <span>
+            <Heading as="h2" styledAs="subtitle" align="center" noMargin>
               Total Package:{' '}
-              {sellTotal({
-                values: selectedBid,
-                priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
-                priceRangesList,
-              })}
-            </span>
+              {listing.type === 'seller' &&
+                sellTotal({
+                  values: selectedBid,
+                  priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                  priceRangesList,
+                })}
+              {listing.type === 'buyer' &&
+                buyTotal({
+                  values: selectedBid,
+                  priceRangeId: Number(listing.buyingPriceRangeId),
+                  priceRangesList,
+                })}
+              {listing.type === 'buyerSeller' &&
+                buySellTotal({
+                  values: selectedBid,
+                  buyPriceRangeId: Number(listing.buyingPriceRangeId),
+                  sellPriceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                  priceRangesList,
+                })}
+            </Heading>
             <p>
               <small>Money towards your closing costs and prepaid items</small>
             </p>

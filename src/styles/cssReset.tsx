@@ -249,6 +249,10 @@ const CssReset = createGlobalStyle`
   .accordion *:focus {
     outline: none;
   }
+
+  body.ReactModal__Body--open {
+    overflow: hidden;
+  }
 `;
 
 export default CssReset;

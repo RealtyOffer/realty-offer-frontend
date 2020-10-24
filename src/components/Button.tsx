@@ -38,6 +38,7 @@ type ButtonProps = {
   iconRight?: React.ReactNode;
   block?: boolean;
   isLoading?: boolean;
+  allowTextWrap?: boolean;
 };
 
 const primaryButtonStyles = `
@@ -155,7 +156,7 @@ const allStyles = css`
   font-size: ${fontSizeBase};
   justify-content: center;
   align-items: center;
-  white-space: nowrap;
+  white-space: ${(props: ButtonProps) => (props.allowTextWrap ? 'wrap' : 'nowrap')};
   vertical-align: middle;
   touch-action: manipulation;
   cursor: pointer;
@@ -231,6 +232,7 @@ const Button: FunctionComponent<ButtonProps> = ({
   iconRight,
   block,
   isLoading,
+  allowTextWrap,
 }) => {
   if (type === 'link' && to) {
     return (
@@ -240,6 +242,7 @@ const Button: FunctionComponent<ButtonProps> = ({
         disabled={disabled}
         block={block}
         type={type}
+        allowTextWrap={allowTextWrap}
       >
         <Link to={to}>
           {iconLeft}&nbsp;{children}&nbsp;{iconRight}
@@ -257,6 +260,7 @@ const Button: FunctionComponent<ButtonProps> = ({
         onClick={onClick}
         disabled={disabled || isLoading}
         block={block}
+        allowTextWrap={allowTextWrap}
       >
         {isLoading && <LoadingSpinner />} {iconLeft}&nbsp;{children}&nbsp;{iconRight}
       </StyledButton>
