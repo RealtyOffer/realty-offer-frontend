@@ -297,7 +297,13 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <PageContainer>
         <FlexContainer
-          justifyContent={!isSmallScreen && isLoggedInConsumer ? 'space-between' : 'center'}
+          justifyContent={
+            (auth.isLoggedIn && auth.roles.includes('Consumer')) ||
+            (!isSmallScreen && auth.isLoggedIn && auth.roles.includes('Agent')) ||
+            (!isSmallScreen && !auth.isLoggedIn)
+              ? 'space-between'
+              : 'center'
+          }
           height={quadrupleSpacer}
         >
           {isSmallScreen && !isLoggedInConsumer && (
@@ -357,7 +363,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     {navItem.name}
                   </Link>
                 ))}
-              {isSmallScreen && !isLoggedInConsumer && !isLoggedInAgent && (
+              {isSmallScreen && !auth.isLoggedIn && (
                 <>
                   {/* todo: consumer/start */}
                   <Link to="/consumer-landing" onClick={() => toggleMenu()}>
@@ -476,7 +482,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 Log Out
               </Link>
             )}
-            {!isLoggedInConsumer && !isLoggedInAgent && !isSmallScreen && (
+            {!auth.isLoggedIn && !isSmallScreen && (
               <div>
                 {/* todo: consumer/start */}
                 <Button type="link" to="/consumer-landing" rightspacer color="inverseOutline">
