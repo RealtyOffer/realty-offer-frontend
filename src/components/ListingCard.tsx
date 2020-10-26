@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import TextTruncate from 'react-text-truncate';
@@ -8,6 +8,9 @@ import { FaEyeSlash } from 'react-icons/fa';
 import Button from './Button';
 import Heading from './Heading';
 import Countdown from './Countdown';
+import Modal from './Modal';
+import Row from './Row';
+import Column from './Column';
 
 import { brandSuccess, brandDanger, textColor, white, brandTertiary } from '../styles/color';
 import { halfSpacer, baseSpacer, borderRadius } from '../styles/size';
@@ -84,6 +87,7 @@ const StyledHideIcon = styled(FaEyeSlash)`
 `;
 
 const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType, isHideable }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
   return (
     <ListingCardWrapper
@@ -106,13 +110,39 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType
             }}
           />
           {isHideable && (
-            <StyledHideIcon
-              onClick={() => {
-                if (listing.id) {
-                  dispatch(toggleListingVisibility(listing.id));
-                }
-              }}
-            />
+            <>
+              <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
+                <Heading styledAs="title">Hide Listing?</Heading>
+                <p>Are you sure you want to hide the listing?</p>
+                <Row>
+                  <Column xs={6}>
+                    <Button
+                      type="button"
+                      onClick={() => setModalIsOpen(false)}
+                      color="primaryOutline"
+                      block
+                    >
+                      Cancel
+                    </Button>
+                  </Column>
+                  <Column xs={6}>
+                    <Button
+                      type="button"
+                      onClick={async () => {
+                        if (listing.id != null) {
+                          dispatch(toggleListingVisibility(listing.id));
+                        }
+                      }}
+                      block
+                      color="danger"
+                    >
+                      Hide
+                    </Button>
+                  </Column>
+                </Row>
+              </Modal>
+              <StyledHideIcon onClick={() => setModalIsOpen(true)} />
+            </>
           )}
           <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>
         </FlexContainer>
