@@ -55,6 +55,10 @@ export default (
     case CREATE_CONTACT_REQUEST:
     case CREATE_RECURRING_REQUEST:
     case CREATE_ACCOUNTVAULT_REQUEST:
+    case GET_RECURRING_REQUEST:
+    case GET_ACCOUNTVAULT_REQUEST:
+    case DELETE_ACCOUNTVAULT_REQUEST:
+    case EDIT_RECURRING_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -95,9 +99,38 @@ export default (
         hasError: false,
         recurring: action.payload,
       };
+    case DELETE_ACCOUNTVAULT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        accountVault: initialState.accountVault,
+      };
+    case EDIT_RECURRING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        recurring: action.payload,
+      };
+    case GET_ACCOUNTVAULT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        accountVault: initialState.accountVault,
+      };
+    case DELETE_ACCOUNTVAULT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+      };
     case CREATE_RECURRING_FAILURE:
     case CREATE_CONTACT_FAILURE:
     case CREATE_ACCOUNTVAULT_FAILURE:
+    case GET_RECURRING_FAILURE:
+    case EDIT_RECURRING_FAILURE:
     case LOGOUT_REQUEST:
       return { ...initialState };
     default:

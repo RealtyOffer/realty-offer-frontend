@@ -27,6 +27,7 @@ const HeroImageWrapper = styled.div`
   position: relative;
   margin-top: -${baseSpacer};
   min-height: 250px;
+  height: 100%;
   @media only screen and (min-width: ${breakpoints.sm}) {
     margin-top: -${doubleSpacer};
   }
@@ -40,12 +41,12 @@ const ChildrenWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  text-align: center;
+  min-height: 100%;
   color: ${white};
 
   & h1,
-  & h2 {
+  & h2,
+  & h3 {
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
   }
 `;

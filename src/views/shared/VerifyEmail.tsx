@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle, jsx-a11y/label-has-associated-control */
-import React, { useState, FunctionComponent, SyntheticEvent } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useLocation } from '@reach/router';
@@ -31,48 +31,43 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
 
   const initialValues = {
     email: auth.email,
-    digit1: '',
-    digit2: '',
-    digit3: '',
-    digit4: '',
-    digit5: '',
-    digit6: '',
+    confirmationCode: '',
   };
 
   const resend = (email: string) => {
     dispatch(resendSignupEmail(email));
   };
 
-  const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (target.value.length >= 1) {
-      const currentInputIndex = Number(target.name.charAt(5));
-      const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
-      if (inputToBeFocused) {
-        inputToBeFocused.focus();
-      }
-    }
-  };
+  // const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
+  //   const target = e.target as HTMLInputElement;
+  //   if (target.value.length >= 1) {
+  //     const currentInputIndex = Number(target.name.charAt(5));
+  //     const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
+  //     if (inputToBeFocused) {
+  //       inputToBeFocused.focus();
+  //     }
+  //   }
+  // };
 
-  const handlePasteEvent = (e: ClipboardEvent, setFieldValue: Function, validateForm: Function) => {
-    e.stopPropagation();
-    e.preventDefault();
+  // const handlePasteEvent = (e: ClipboardEvent, setFieldValue: Function, validateForm: Function) => {
+  //   e.stopPropagation();
+  //   e.preventDefault();
 
-    const pastedData = e.clipboardData && e.clipboardData.getData('Text');
+  //   const pastedData = e.clipboardData && e.clipboardData.getData('Text');
 
-    if (pastedData && pastedData.toString().length === 6) {
-      setFieldValue('digit1', pastedData[0]);
-      setFieldValue('digit2', pastedData[1]);
-      setFieldValue('digit3', pastedData[2]);
-      setFieldValue('digit4', pastedData[3]);
-      setFieldValue('digit5', pastedData[4]);
-      setFieldValue('digit6', pastedData[5]);
-      const inputToBeFocused = document.getElementsByName('digit6')[0];
-      if (inputToBeFocused) {
-        validateForm().then(() => inputToBeFocused.focus());
-      }
-    }
-  };
+  //   if (pastedData && pastedData.toString().length === 6) {
+  //     setFieldValue('digit1', pastedData[0]);
+  //     setFieldValue('digit2', pastedData[1]);
+  //     setFieldValue('digit3', pastedData[2]);
+  //     setFieldValue('digit4', pastedData[3]);
+  //     setFieldValue('digit5', pastedData[4]);
+  //     setFieldValue('digit6', pastedData[5]);
+  //     const inputToBeFocused = document.getElementsByName('digit6')[0];
+  //     if (inputToBeFocused) {
+  //       validateForm().then(() => inputToBeFocused.focus());
+  //     }
+  //   }
+  // };
 
   return (
     <>
@@ -116,12 +111,13 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                 validateOnMount
                 initialValues={initialValues}
                 onSubmit={(values, { setSubmitting }) => {
-                  const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
-                  const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
+                  // const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
+                  // const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
                   dispatch(
                     verifyEmail({
                       email: values.email,
-                      confirmationCode: combined,
+                      // confirmationCode: combined,
+                      confirmationCode: values.confirmationCode,
                     })
                   ).then((response: ActionResponseType) => {
                     setSubmitting(false);
@@ -131,7 +127,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                   });
                 }}
               >
-                {({ isSubmitting, isValid, values, setFieldValue, validateForm }) => (
+                {({ isSubmitting, isValid, values }) => (
                   <Form style={{ width: '100%' }}>
                     <Field
                       as={Input}
@@ -141,8 +137,8 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                       validate={requiredEmail}
                       required
                     />
-                    <label>Verification Code</label>
-                    <FlexContainer justifyContent="space-between" flexWrap="nowrap">
+                    {/* <label>Verification Code</label> */}
+                    {/* <FlexContainer justifyContent="space-between" flexWrap="nowrap">
                       {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
                         <Field
                           key={digit}
@@ -159,7 +155,16 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                           required
                         />
                       ))}
-                    </FlexContainer>
+                    </FlexContainer> */}
+                    <Field
+                      as={Input}
+                      type="number"
+                      maxLength={6}
+                      name="confirmationCode"
+                      label="Verification Code"
+                      validate={requiredField}
+                      required
+                    />
                     <FlexContainer>
                       <Button
                         block

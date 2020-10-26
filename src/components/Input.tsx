@@ -3,13 +3,11 @@ import styled, { css } from 'styled-components';
 import { useField, FieldMetaProps, FormikHelpers } from 'formik';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Select, { CommonProps } from 'react-select';
-import ReactTooltip from 'react-tooltip';
 
 import {
   inputHeight,
   inputPaddingY,
   inputPaddingX,
-  halfSpacer,
   baseSpacer,
   borderRadius,
   sextupleSpacer,
@@ -29,7 +27,6 @@ import {
 } from '../styles/color';
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
-import ClientOnly from './ClientOnly';
 
 type OptionType = { label: string; value: string };
 
@@ -40,7 +37,7 @@ type InputProps = {
   square?: boolean;
   hiddenLabel?: boolean;
   type: string;
-  label: string | JSX.Element;
+  label: string;
   helpText?: string | JSX.Element;
   checked?: boolean;
   options?: OptionType[];
@@ -118,9 +115,6 @@ const InputWrapper = styled.div`
   margin-bottom: ${baseSpacer};
   ${(props) => props.square && `max-width: ${inputHeight};`}
   ${(props) => props.hidden && `display: none;`}
-  & .tooltip {
-    padding: 0 ${halfSpacer};
-  }
 `;
 
 const StyledToggle = styled.input`
@@ -346,26 +340,15 @@ const Input: FunctionComponent<InputProps> = (props) => {
       alignRight={props.alignRight}
     >
       {props.label && props.type !== 'checkbox' && (
-        <ClientOnly>
-          <StyledLabel
-            htmlFor={props.id || props.name}
-            hiddenLabel={props.hiddenLabel}
-            invalid={meta && meta.touched && meta.error != null}
-            required={props.required || false}
-            data-tip={props.required ? `${props.label}: Required` : props.label}
-            data-for="input"
-          >
-            {props.label}
-          </StyledLabel>
-          <ReactTooltip
-            id="input"
-            place="bottom"
-            type="dark"
-            effect="float"
-            className="tooltip"
-            offset={{ top: 8 }}
-          />
-        </ClientOnly>
+        <StyledLabel
+          htmlFor={props.id || props.name}
+          hiddenLabel={props.hiddenLabel}
+          invalid={meta && meta.touched && meta.error != null}
+          required={props.required || false}
+          title={props.required ? `${props.label}: Required` : props.label}
+        >
+          {props.label}
+        </StyledLabel>
       )}
       {inputTypeToRender}
       {props.helpText && <small>{props.helpText}</small>}

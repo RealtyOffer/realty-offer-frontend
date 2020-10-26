@@ -27,6 +27,8 @@ import {
   GET_USER_AVATAR_SUCCESS,
   GET_USER_AVATAR_FAILURE,
   UPDATE_USER_AVATAR,
+  ADD_ATTEMPTED_PRIVATE_PAGE,
+  REMOVE_ATTEMPTED_PRIVATE_PAGE,
 } from './user';
 import { LogoutRequestAction } from './auth.d';
 
@@ -71,6 +73,7 @@ export type UserStoreType = {
   notificationTypes: Array<NotificationTypesType>;
   userNotificationSubscriptions: Array<UserNotificationSubscriptionType>;
   avatar?: string;
+  location?: string;
 };
 
 export type GetUserSiteBannersRequestAction = {
@@ -198,6 +201,15 @@ export type UpdateUserAvatarAction = {
   payload: { url: string };
 };
 
+export type AddAttemptedPrivatePageAction = {
+  type: typeof ADD_ATTEMPTED_PRIVATE_PAGE;
+  payload: string;
+};
+
+export type RemoveAttemptedPrivatePageAction = {
+  type: typeof REMOVE_ATTEMPTED_PRIVATE_PAGE;
+};
+
 export type UserActionTypes =
   | GetUserSiteBannersRequestAction
   | GetUserSiteBannersSuccessAction
@@ -227,4 +239,6 @@ export type UserActionTypes =
   | GetUserAvatarSuccessAction
   | GetUserAvatarFailureAction
   | UpdateUserAvatarAction
+  | AddAttemptedPrivatePageAction
+  | RemoveAttemptedPrivatePageAction
   | LogoutRequestAction;

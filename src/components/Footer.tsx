@@ -9,7 +9,9 @@ import {
   FaFacebookSquare,
 } from 'react-icons/fa';
 
-import { Heading, Row, Column, PageContainer } from '.';
+import { FlexContainer, Heading, Row, Column, PageContainer } from '.';
+import appleAppStoreBadge from '../images/apple-app-store.svg';
+import googlePlayStoreBadge from '../images/google-play-store.svg';
 
 import { brandTertiary, white } from '../styles/color';
 import { tripleSpacer, baseSpacer, doubleSpacer } from '../styles/size';
@@ -45,6 +47,10 @@ const LogoLink = styled(Link)`
 const SocialLink = styled.a`
   margin-right: ${baseSpacer};
   font-size: ${fontSizeH3};
+`;
+
+const Badge = styled.div`
+  margin-right: ${baseSpacer};
 `;
 
 const Footer = () => (
@@ -91,13 +97,30 @@ const Footer = () => (
               <FaTwitterSquare />
             </SocialLink>
           </p>
+          <p style={{ margin: 0 }}>
+            <small>Download our Agent Mobile App</small>
+          </p>
+          <div>
+            <FlexContainer flexDirection="row" justifyContent="flex-start">
+              <Badge>
+                <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
+                  <img src={appleAppStoreBadge} height={40} alt="Download on Apple App Store" />
+                </a>
+              </Badge>
+              <Badge>
+                <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
+                  <img src={googlePlayStoreBadge} height={40} alt="Download on Google Play Store" />
+                </a>
+              </Badge>
+            </FlexContainer>
+          </div>
         </Column>
         <Column sm={4} md={2} lgOffset={1}>
           <Heading as="h6" inverse>
             CONSUMERS
           </Heading>
           <p>
-            {/* todo: consumer/start*/}
+            {/* todo: consumer/start */}
             <Link to="/consumer-landing">Buy or Sell</Link>
           </p>
           <p>
@@ -136,12 +159,14 @@ const Footer = () => (
           </p>
         </Column>
       </Row>
-      <p>
+      {/* <p>
         <a href="mailto:info@realtyoffer.com" className="email">
           info@realtyoffer.com
         </a>
+      </p> */}
+      <p style={{ textAlign: 'center' }}>
+        <small>{`${new Date().getFullYear()} RealtyOffer. All Rights Reserved. `}</small>
       </p>
-      <small>{`${new Date().getFullYear()} RealtyOffer. All Rights Reserved. `}</small>
     </PageContainer>
   </StyledFooter>
 );

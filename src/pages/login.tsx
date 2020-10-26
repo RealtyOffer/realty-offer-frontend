@@ -10,6 +10,7 @@ import { requiredField } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
 import { authenticateCredentials } from '../redux/ducks/auth';
 import { RootState } from '../redux/ducks';
+import { removeAttemptedPrivatePage } from '../redux/ducks/user';
 
 type LoginProps = {};
 
@@ -21,6 +22,7 @@ type LoginResponseType = {
 
 const Login: FunctionComponent<LoginProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
+  const user = useSelector((state: RootState) => state.user);
   const inLockoutPeriod =
     auth.lockoutTimestamp && isAfter(new Date(auth.lockoutTimestamp), new Date());
   const dispatch = useDispatch();
@@ -62,10 +64,20 @@ const Login: FunctionComponent<LoginProps> = () => {
                 setSubmitting(false);
                 if ((response as ActionResponseType) && !(response as ActionResponseType).error) {
                   if ((response as LoginResponseType).payload.roles.includes('Agent')) {
-                    navigate('/agent');
+                    if (user.location) {
+                      dispatch(removeAttemptedPrivatePage());
+                      navigate(user.location);
+                    } else {
+                      navigate('/agent');
+                    }
                   }
                   if ((response as LoginResponseType).payload.roles.includes('Consumer')) {
-                    navigate('/consumer/listing');
+                    if (user.location) {
+                      dispatch(removeAttemptedPrivatePage());
+                      navigate(user.location);
+                    } else {
+                      navigate('/consumer/listing');
+                    }
                   }
                 }
               }

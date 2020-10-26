@@ -11,7 +11,7 @@ import {
   Heading,
   Card,
   Seo,
-  ClientOnly,
+  TimelineProgress,
   LoadingPage,
 } from '../../../components';
 import { ActionResponseType } from '../../../redux/constants';
@@ -78,14 +78,25 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   };
 
   return (
-    <ClientOnly>
+    <>
+      <Seo title="Confirm Payment" />
+      <TimelineProgress
+        items={[
+          'Create Account',
+          'Verify Email',
+          'Agent Info',
+          'Business Info',
+          'Payment',
+          'Confirm',
+        ]}
+        currentStep={6}
+      />
       <Card
         cardTitle={confirmed ? 'Confirmed' : 'Confirm Payment'}
         cardSubtitle={
           confirmed ? 'You have successfully completed your profile!' : 'Total Amount Due:'
         }
       >
-        <Seo title="Confirm Payment" />
         {confirmed ? (
           <FlexContainer height="100px">
             <Button type="link" to="/agent/listings/new">
@@ -127,7 +138,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
           </>
         )}
       </Card>
-    </ClientOnly>
+    </>
   );
 };
 

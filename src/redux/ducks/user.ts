@@ -65,6 +65,9 @@ export const GET_USER_AVATAR_FAILURE = 'GET_USER_AVATAR_FAILURE';
 
 export const UPDATE_USER_AVATAR = 'UPDATE_USER_AVATAR';
 
+export const ADD_ATTEMPTED_PRIVATE_PAGE = 'ADD_ATTEMPTED_PRIVATE_PAGE';
+export const REMOVE_ATTEMPTED_PRIVATE_PAGE = 'REMOVE_ATTEMPTED_PRIVATE_PAGE';
+
 export const initialState: UserStoreType = {
   isLoading: false,
   hasError: false,
@@ -82,6 +85,7 @@ export const initialState: UserStoreType = {
   notificationTypes: [],
   userNotificationSubscriptions: [],
   avatar: '',
+  location: undefined,
 };
 
 export default (state: UserStoreType = initialState, action: UserActionTypes): UserStoreType => {
@@ -150,6 +154,16 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
         hasError: false,
         avatar: action.payload.url,
       };
+    case ADD_ATTEMPTED_PRIVATE_PAGE: {
+      return {
+        location: action.payload,
+      };
+    }
+    case REMOVE_ATTEMPTED_PRIVATE_PAGE: {
+      return {
+        location: undefined,
+      };
+    }
     case GET_USER_SITE_BANNERS_FAILURE:
       return {
         ...state,
@@ -330,4 +344,13 @@ export const getUserAvatar = () => ({
 export const updateUserAvatar = (url: string) => ({
   type: UPDATE_USER_AVATAR,
   payload: { url },
+});
+
+export const addAttemptedPrivatePage = (payload: string) => ({
+  type: ADD_ATTEMPTED_PRIVATE_PAGE,
+  payload,
+});
+
+export const removeAttemptedPrivatePage = () => ({
+  type: REMOVE_ATTEMPTED_PRIVATE_PAGE,
 });

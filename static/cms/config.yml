@@ -255,3 +255,78 @@ collections:
             }
           - { label: Title, name: title, widget: string }
           - { label: Body, name: body, widget: markdown }
+      - file: "src/pages/agents.md"
+        label: "Agents Page"
+        name: "agents"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "agents",
+            }
+          - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
+          - { label: "Hero Heading", name: heroHeading, widget: string }
+          - { label: "Hero Subheading", name: heroSubheading, widget: string }
+          - {
+              label: Mainpitch,
+              name: mainpitch,
+              widget: object,
+              fields:
+                [
+                  { label: Title, name: title, widget: string },
+                  { label: Video URL, name: videoUrl, widget: string },
+                  { label: Description, name: description, widget: markdown },
+                  { label: Image, name: image, widget: image},
+                  { label: Call To Action text, name: ctaText, widget: string },
+                  {
+                    label: Steps,
+                    name: steps,
+                    widget: list,
+                    fields:
+                      [
+                        { label: Title, name: title, widget: string },
+                        { label: Text, name: body, widget: markdown },
+                      ],
+                  },
+                ],
+            }
+          - {
+            label: SecondPitch,
+            name: secondpitch,
+            widget: object,
+            fields:
+              [
+                { label: Title, name: title, widget: string },
+                { label: Video URL, name: videoUrl, widget: string },
+                { label: Description, name: description, widget: markdown },
+                { label: Image, name: image, widget: image},
+                { label: Call To Action text, name: ctaText, widget: string },
+              ],
+          }
+          - {
+            label: ThirdPitch,
+            name: thirdpitch,
+            widget: object,
+            fields:
+              [
+                { label: Title, name: title, widget: string },
+                { label: Video URL, name: videoUrl, widget: string },
+                { label: Description, name: description, widget: markdown },
+                { label: Image, name: image, widget: image},
+                { label: Call To Action text, name: ctaText, widget: string },
+              ],
+          }
+          - {
+            label: "Testimonial",
+            name: testimonials,
+            widget: list,
+            fields:
+              [
+                { label: Quote, name: quote, widget: string },
+                { label: Author, name: author, widget: string },
+                { label: Avatar, name: avatar, widget: image },
+              ],
+          }

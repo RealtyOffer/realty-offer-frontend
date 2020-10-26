@@ -4,15 +4,7 @@ import { addMonths, format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import PaymentIcon from 'react-payment-icons';
 
-import {
-  FlexContainer,
-  Row,
-  Column,
-  Box,
-  Heading,
-  Seo,
-  HorizontalRule,
-} from '../../../../components';
+import { FlexContainer, Box, Heading, Seo, HorizontalRule } from '../../../../components';
 import { RootState } from '../../../../redux/ducks';
 import { getFortispayAccountvaults, getFortispayRecurrings } from '../../../../redux/ducks/fortis';
 

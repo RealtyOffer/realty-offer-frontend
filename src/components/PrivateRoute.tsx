@@ -1,9 +1,11 @@
-import React, { ComponentType, FunctionComponent } from 'react';
+import React, { ComponentType, FunctionComponent, useEffect } from 'react';
 import { navigate } from 'gatsby';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps, WindowLocation } from '@reach/router';
 
 import { RootState } from '../redux/ducks';
+import { addAlert } from '../redux/ducks/globalAlerts';
+import { addAttemptedPrivatePage } from '../redux/ducks/user';
 
 type AllowedRoleType = 'Agent' | 'Consumer' | 'Admin';
 
@@ -12,7 +14,6 @@ type PrivateRouteProps = {
   component: ComponentType & RouteComponentProps;
   path: string;
   allowedRole: AllowedRoleType;
-  listingType?: 'awarded' | 'history';
 };
 
 const isRoleAllowed = (roles: string, allowedRole: AllowedRoleType) => roles.includes(allowedRole);
@@ -24,6 +25,22 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   ...rest
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!auth.isLoading && !auth.isLoggedIn) {
+      if (location) {
+        dispatch(addAttemptedPrivatePage(location.pathname));
+      }
+      navigate('/login');
+      dispatch(
+        addAlert({
+          type: 'danger',
+          message: 'Please log in to access that page',
+        })
+      );
+    }
+  }, []);
+
   if (
     auth &&
     !auth.isLoggedIn &&

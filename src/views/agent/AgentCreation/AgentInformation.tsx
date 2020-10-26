@@ -12,12 +12,11 @@ import {
   Button,
   Input,
   Heading,
-  ProgressBar,
+  TimelineProgress,
   HorizontalRule,
   Card,
   Seo,
   LoadingPage,
-  ClientOnly,
 } from '../../../components';
 import { requiredEmail, requiredField, requiredPhoneNumber } from '../../../utils/validations';
 import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks/agent';
@@ -71,13 +70,23 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
   };
 
   return (
-    <ClientOnly>
+    <>
+      <Seo title="Agent Information" />
+      <TimelineProgress
+        items={[
+          'Create Account',
+          'Verify Email',
+          'Agent Info',
+          'Business Info',
+          'Payment',
+          'Confirm',
+        ]}
+        currentStep={3}
+      />
       <Card
         cardTitle="Agent Information"
         cardSubtitle="Get started by simply providing your Agent Information"
       >
-        <Seo title="Agent Information" />
-        <ProgressBar value={33} label="Step 1/3" name="progress" />
         {statesList.length > 0 && cities && cities.length > 0 ? (
           <Formik
             validateOnMount
@@ -268,7 +277,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
           Complete Later
         </Button>
       </Card>
-    </ClientOnly>
+    </>
   );
 };
 

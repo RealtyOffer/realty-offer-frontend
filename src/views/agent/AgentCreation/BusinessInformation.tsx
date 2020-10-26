@@ -9,11 +9,11 @@ import {
   Heading,
   Button,
   Input,
-  ProgressBar,
+  TimelineProgress,
   Card,
   Seo,
   HorizontalRule,
-  ClientOnly,
+  LoadingPage,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
 import { getUserCities } from '../../../redux/ducks/user';
@@ -71,78 +71,92 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
   };
 
   return (
-    <ClientOnly>
+    <>
+      <Seo title="Business Information" />
+      <TimelineProgress
+        items={[
+          'Create Account',
+          'Verify Email',
+          'Agent Info',
+          'Business Info',
+          'Payment',
+          'Confirm',
+        ]}
+        currentStep={4}
+      />
       <Card
         cardTitle="Business Information"
         cardSubtitle="Select the cities you would like to receive leads in"
       >
-        <Seo title="Business Information" />
-        <ProgressBar value={66} label="Step 2/3" name="progress" />
-        <Formik
-          validateOnMount
-          initialValues={initialValues}
-          onSubmit={(values, { setSubmitting }) => {
-            const cityDTOs =
-              cities &&
-              values.cities.map(
-                (value: string) => cities.find((city) => city.name === value) as CityType
+        {cities && cities.length > 0 ? (
+          <Formik
+            validateOnMount
+            initialValues={initialValues}
+            onSubmit={(values, { setSubmitting }) => {
+              const cityDTOs =
+                cities &&
+                values.cities.map(
+                  (value: string) => cities.find((city) => city.name === value) as CityType
+                );
+              dispatch(
+                captureAgentSignupData({
+                  cities: cityDTOs,
+                  total: Number(getTotal(values.cities)),
+                })
               );
-            dispatch(
-              captureAgentSignupData({
-                cities: cityDTOs,
-                total: Number(getTotal(values.cities)),
-              })
-            );
-            setSubmitting(false);
-            navigate('/agent/payment-information');
-          }}
-        >
-          {({ isSubmitting, isValid, values, ...rest }) => (
-            <Form>
-              <Field
-                as={Input}
-                type="select"
-                isMulti
-                name="cities"
-                label="Cities"
-                options={cityOptions}
-                validate={requiredField}
-                required
-                {...rest}
-              />
-              <HorizontalRule />
-              <FlexContainer justifyContent="space-between">
-                <Heading as="h5" noMargin>
-                  Total:
-                </Heading>
-                <Heading as="h5" noMargin>
-                  ${numberWithCommas(Number(getTotal(values.cities)))}
-                </Heading>
-              </FlexContainer>
-              <FlexContainer justifyContent="space-between">
-                <p>
-                  {values.cities.length === 1 ? '1 city' : `${values.cities.length} cities`}{' '}
-                  selected
-                </p>
-                <p>per month</p>
-              </FlexContainer>
-              <Button
-                type="submit"
-                color="primary"
-                block
-                disabled={isSubmitting || !isValid}
-                isLoading={isSubmitting || agent.isLoading}
-              >
-                Checkout
-              </Button>
-            </Form>
-          )}
-        </Formik>
+              setSubmitting(false);
+              navigate('/agent/payment-information');
+            }}
+          >
+            {({ isSubmitting, isValid, values, ...rest }) => (
+              <Form>
+                <Field
+                  as={Input}
+                  type="select"
+                  isMulti
+                  name="cities"
+                  label="Cities"
+                  options={cityOptions}
+                  validate={requiredField}
+                  required
+                  {...rest}
+                />
+                <HorizontalRule />
+                <FlexContainer justifyContent="space-between">
+                  <Heading as="h5" noMargin>
+                    Total:
+                  </Heading>
+                  <Heading as="h5" noMargin>
+                    ${numberWithCommas(Number(getTotal(values.cities)))}
+                  </Heading>
+                </FlexContainer>
+                <FlexContainer justifyContent="space-between">
+                  <p>
+                    {values.cities.length === 1 ? '1 city' : `${values.cities.length} cities`}{' '}
+                    selected
+                  </p>
+                  <p>per month</p>
+                </FlexContainer>
+                <Button
+                  type="submit"
+                  color="primary"
+                  block
+                  disabled={isSubmitting || !isValid}
+                  isLoading={isSubmitting || agent.isLoading}
+                >
+                  Checkout
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        ) : (
+          <LoadingPage />
+        )}
         <Button type="button" onClick={() => save()} color="text" block>
           Save &amp; Complete Later
         </Button>
       </Card>
-    </ClientOnly>
+    </>
   );
 };
 

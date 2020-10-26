@@ -4,7 +4,16 @@ import { Link, navigate } from 'gatsby';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useLocation } from '@reach/router';
 
-import { Button, Input, Row, Card, Column, HorizontalRule, Seo } from '../../../components';
+import {
+  TimelineProgress,
+  Button,
+  Input,
+  Row,
+  Card,
+  Column,
+  HorizontalRule,
+  Seo,
+} from '../../../components';
 
 import {
   requiredEmail,
@@ -37,110 +46,124 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
   };
 
   return (
-    <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
+    <>
       <Seo title="Sign Up" />
-      <Formik
-        validateOnMount
-        initialValues={initialValues}
-        onSubmit={(values, { setSubmitting }) => {
-          dispatch(
-            captureAgentSignupData({
-              isPilotUser: location.pathname.includes('pilot'),
-            })
-          );
-          dispatch(
-            createUser({
-              ...values,
-              phoneNumber: `${reformattedPhoneForCognito(values.phoneNumber)}`,
-            })
-          ).then((response: ActionResponseType) => {
-            setSubmitting(false);
-            if (response && !response.error) {
-              dispatch(
-                addAlert({
-                  message: 'Successfully created account. Check your email for a verification code',
-                  type: 'success',
-                })
-              );
-              navigate('/agent/verify-email');
-            }
-          });
-        }}
-      >
-        {({ isSubmitting, isValid }: FormikProps<any>) => (
-          <Form>
-            <Row>
-              <Column xs={6}>
-                <Field
-                  as={Input}
-                  type="text"
-                  name="firstName"
-                  label="First Name"
-                  validate={requiredField}
-                  required
-                />
-              </Column>
-              <Column xs={6}>
-                <Field
-                  as={Input}
-                  type="text"
-                  name="lastName"
-                  label="Last Name"
-                  validate={requiredField}
-                  required
-                />
-              </Column>
-            </Row>
-            <Field
-              as={Input}
-              type="tel"
-              name="phoneNumber"
-              label="Phone Number"
-              validate={requiredPhoneNumber}
-              required
-            />
-            <Field
-              as={Input}
-              type="email"
-              name="email"
-              label="Email Address"
-              validate={requiredEmail}
-              required
-            />
-            <Field
-              as={Input}
-              name="password"
-              type="password"
-              label="Password"
-              helpText={passwordRulesString}
-              validate={requiredPassword}
-              required
-            />
-            <HorizontalRule />
-            <Button
-              type="submit"
-              disabled={isSubmitting || !isValid}
-              block
-              isLoading={isSubmitting || auth.isLoading}
-            >
-              Create Account
-            </Button>
-            <p style={{ textAlign: 'center' }}>
-              <small>
-                By clicking &quot;Create Account&quot;, I agree to the{' '}
-                <a href="/terms" target="_blank">
-                  Terms &amp; Conditions
-                </a>
-                .
-              </small>
-            </p>
-          </Form>
-        )}
-      </Formik>
-      <p style={{ textAlign: 'center' }}>
-        Already have an account? <Link to="/login">Log in now</Link>
-      </p>
-    </Card>
+      <TimelineProgress
+        items={[
+          'Create Account',
+          'Verify Email',
+          'Agent Info',
+          'Business Info',
+          'Payment',
+          'Confirm',
+        ]}
+        currentStep={1}
+      />
+      <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
+        <Formik
+          validateOnMount
+          initialValues={initialValues}
+          onSubmit={(values, { setSubmitting }) => {
+            dispatch(
+              captureAgentSignupData({
+                isPilotUser: location.pathname.includes('pilot'),
+              })
+            );
+            dispatch(
+              createUser({
+                ...values,
+                phoneNumber: `${reformattedPhoneForCognito(values.phoneNumber)}`,
+              })
+            ).then((response: ActionResponseType) => {
+              setSubmitting(false);
+              if (response && !response.error) {
+                dispatch(
+                  addAlert({
+                    message:
+                      'Successfully created account. Check your email for a verification code',
+                    type: 'success',
+                  })
+                );
+                navigate('/agent/verify-email');
+              }
+            });
+          }}
+        >
+          {({ isSubmitting, isValid }: FormikProps<any>) => (
+            <Form>
+              <Row>
+                <Column xs={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="firstName"
+                    label="First Name"
+                    validate={requiredField}
+                    required
+                  />
+                </Column>
+                <Column xs={6}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="lastName"
+                    label="Last Name"
+                    validate={requiredField}
+                    required
+                  />
+                </Column>
+              </Row>
+              <Field
+                as={Input}
+                type="tel"
+                name="phoneNumber"
+                label="Phone Number"
+                validate={requiredPhoneNumber}
+                required
+              />
+              <Field
+                as={Input}
+                type="email"
+                name="email"
+                label="Email Address"
+                validate={requiredEmail}
+                required
+              />
+              <Field
+                as={Input}
+                name="password"
+                type="password"
+                label="Password"
+                helpText={passwordRulesString}
+                validate={requiredPassword}
+                required
+              />
+              <HorizontalRule />
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isValid}
+                block
+                isLoading={isSubmitting || auth.isLoading}
+              >
+                Create Account
+              </Button>
+              <p style={{ textAlign: 'center' }}>
+                <small>
+                  By clicking &quot;Create Account&quot;, I agree to the{' '}
+                  <a href="/terms" target="_blank">
+                    Terms &amp; Conditions
+                  </a>
+                  .
+                </small>
+              </p>
+            </Form>
+          )}
+        </Formik>
+        <p style={{ textAlign: 'center' }}>
+          Already have an account? <Link to="/login">Log in now</Link>
+        </p>
+      </Card>
+    </>
   );
 };
 

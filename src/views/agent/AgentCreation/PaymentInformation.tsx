@@ -7,11 +7,10 @@ import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
-  ProgressBar,
   HorizontalRule,
   Card,
   Seo,
-  ClientOnly,
+  TimelineProgress,
   Row,
   Column,
   Input,
@@ -62,178 +61,186 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     return years;
   };
   return (
-    <ClientOnly>
+    <>
+      <Seo title="Payment Information" />
+      <TimelineProgress
+        items={[
+          'Create Account',
+          'Verify Email',
+          'Agent Info',
+          'Business Info',
+          'Payment',
+          'Confirm',
+        ]}
+        currentStep={5}
+      />
       <Card
         cardTitle="Payment Information"
         cardSubtitle="We will save this information for fast, easy, &amp; convenient in-app purchases"
       >
-        <>
-          <Seo title="Payment Information" />
-          <ProgressBar value={100} label="Step 3/3" name="progress" />
-          <Formik
-            validateOnMount
-            initialValues={initialValues}
-            onSubmit={(values, { setSubmitting }) => {
-              if (agent.fortispayContactId) {
+        <Formik
+          validateOnMount
+          initialValues={initialValues}
+          onSubmit={(values, { setSubmitting }) => {
+            if (agent.fortispayContactId) {
+              dispatch(
+                createFortispayAccountvault({
+                  email: auth.email,
+                  contact_id: agent.fortispayContactId,
+                  account_holder_name: values.cardholderName,
+                  account_number: values.cardNumber.toString(),
+                  payment_method: 'cc',
+                  exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
+                  billing_address: `${values.billingAddressLine1} ${values.billingAddressLine2}`,
+                  billing_city: values.billingCity,
+                  billing_state: values.billingState,
+                  billing_zip: values.billingZip.toString(),
+                })
+              ).then((response: CreateAccountvaultSuccessAction) => {
                 dispatch(
-                  createFortispayAccountvault({
-                    email: auth.email,
-                    contact_id: agent.fortispayContactId,
-                    account_holder_name: values.cardholderName,
-                    account_number: values.cardNumber.toString(),
-                    payment_method: 'cc',
-                    exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
-                    billing_address: `${values.billingAddressLine1} ${values.billingAddressLine2}`,
-                    billing_city: values.billingCity,
-                    billing_state: values.billingState,
-                    billing_zip: values.billingZip.toString(),
+                  updateAgentProfile({
+                    ...agent,
+                    cities: agent.signupData.cities,
+                    fortispayAccountVaultId: response.payload.id,
                   })
-                ).then((response: CreateAccountvaultSuccessAction) => {
-                  dispatch(
-                    updateAgentProfile({
-                      ...agent,
-                      cities: agent.signupData.cities,
-                      fortispayAccountVaultId: response.payload.id,
-                    })
-                  ).then((res: ActionResponseType) => {
-                    if (res && !res.error) {
-                      navigate('/agent/confirm-payment');
-                    }
-                  });
-                  setSubmitting(false);
+                ).then((res: ActionResponseType) => {
+                  if (res && !res.error) {
+                    navigate('/agent/confirm-payment');
+                  }
                 });
-              }
-            }}
-          >
-            {({ isSubmitting, isValid, ...rest }) => (
-              <Form>
-                <Heading as="h5">Payment Information</Heading>
-                <Field
-                  as={Input}
-                  type="text"
-                  name="cardholderName"
-                  label="Cardholder Name"
-                  validate={requiredField}
-                  required
-                />
+                setSubmitting(false);
+              });
+            }
+          }}
+        >
+          {({ isSubmitting, isValid, ...rest }) => (
+            <Form>
+              <Heading as="h5">Payment Information</Heading>
+              <Field
+                as={Input}
+                type="text"
+                name="cardholderName"
+                label="Cardholder Name"
+                validate={requiredField}
+                required
+              />
 
-                <Field
-                  as={Input}
-                  type="number"
-                  name="cardNumber"
-                  label="Card Number"
-                  validate={requiredField}
-                  required
-                />
-                <Row>
-                  <Column xs={6}>
-                    <Field
-                      as={Input}
-                      type="select"
-                      name="cardExpirationMonth"
-                      label="Expiration Month"
-                      validate={requiredSelect}
-                      options={[
-                        { value: '01', label: '01 - January' },
-                        { value: '02', label: '02 - February' },
-                        { value: '03', label: '03 - March' },
-                        { value: '04', label: '04 - April' },
-                        { value: '05', label: '05 - May' },
-                        { value: '06', label: '06 - June' },
-                        { value: '07', label: '07 - July' },
-                        { value: '08', label: '08 - August' },
-                        { value: '09', label: '09 - September' },
-                        { value: '10', label: '10 - October' },
-                        { value: '11', label: '11 - November' },
-                        { value: '12', label: '12 - September' },
-                      ]}
-                      required
-                      {...rest}
-                    />
-                  </Column>
-                  <Column xs={6}>
-                    <Field
-                      as={Input}
-                      type="select"
-                      name="cardExpirationYear"
-                      label="Expiration Year"
-                      validate={requiredSelect}
-                      required
-                      options={createExpYear()}
-                      {...rest}
-                    />
-                  </Column>
-                </Row>
+              <Field
+                as={Input}
+                type="number"
+                name="cardNumber"
+                label="Card Number"
+                validate={requiredField}
+                required
+              />
+              <Row>
+                <Column xs={6}>
+                  <Field
+                    as={Input}
+                    type="select"
+                    name="cardExpirationMonth"
+                    label="Expiration Month"
+                    validate={requiredSelect}
+                    options={[
+                      { value: '01', label: '01 - January' },
+                      { value: '02', label: '02 - February' },
+                      { value: '03', label: '03 - March' },
+                      { value: '04', label: '04 - April' },
+                      { value: '05', label: '05 - May' },
+                      { value: '06', label: '06 - June' },
+                      { value: '07', label: '07 - July' },
+                      { value: '08', label: '08 - August' },
+                      { value: '09', label: '09 - September' },
+                      { value: '10', label: '10 - October' },
+                      { value: '11', label: '11 - November' },
+                      { value: '12', label: '12 - September' },
+                    ]}
+                    required
+                    {...rest}
+                  />
+                </Column>
+                <Column xs={6}>
+                  <Field
+                    as={Input}
+                    type="select"
+                    name="cardExpirationYear"
+                    label="Expiration Year"
+                    validate={requiredSelect}
+                    required
+                    options={createExpYear()}
+                    {...rest}
+                  />
+                </Column>
+              </Row>
 
-                <Heading as="h5">Billing Address</Heading>
-                <Field
-                  as={Input}
-                  type="text"
-                  name="billingAddressLine1"
-                  label="Address"
-                  validate={requiredField}
-                  required
-                />
+              <Heading as="h5">Billing Address</Heading>
+              <Field
+                as={Input}
+                type="text"
+                name="billingAddressLine1"
+                label="Address"
+                validate={requiredField}
+                required
+              />
 
-                <Field as={Input} type="text" name="billingAddressLine2" label="Address Line 2" />
-                <Row>
-                  <Column md={5}>
-                    <Field
-                      as={Input}
-                      type="text"
-                      name="billingCity"
-                      label="City"
-                      validate={requiredField}
-                      required
-                    />
-                  </Column>
-                  <Column md={3}>
-                    <Field
-                      as={Input}
-                      type="select"
-                      name="billingState"
-                      label="State"
-                      validate={requiredSelect}
-                      required
-                      options={createOptionsFromManagedDropdownList(statesList)}
-                      {...rest}
-                    />
-                  </Column>
-                  <Column md={4}>
-                    <Field
-                      as={Input}
-                      type="number"
-                      name="billingZip"
-                      label="Zip"
-                      validate={requiredField}
-                      required
-                      maxLength={5}
-                    />
-                  </Column>
-                </Row>
-                <Button
-                  type="submit"
-                  color="primary"
-                  block
-                  disabled={isSubmitting || !isValid}
-                  isLoading={isSubmitting || fortis.isLoading}
-                >
-                  Review
-                </Button>
-                <small>
-                  You won&apos;t be charged yet, you will have a chance to review your information
-                  on the next page.
-                </small>
-              </Form>
-            )}
-          </Formik>
-          <HorizontalRule />
-          <Button type="button" onClick={() => {}} color="text" block>
-            Save &amp; Complete Later
-          </Button>
-        </>
+              <Field as={Input} type="text" name="billingAddressLine2" label="Address Line 2" />
+              <Row>
+                <Column md={5}>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="billingCity"
+                    label="City"
+                    validate={requiredField}
+                    required
+                  />
+                </Column>
+                <Column md={3}>
+                  <Field
+                    as={Input}
+                    type="select"
+                    name="billingState"
+                    label="State"
+                    validate={requiredSelect}
+                    required
+                    options={createOptionsFromManagedDropdownList(statesList)}
+                    {...rest}
+                  />
+                </Column>
+                <Column md={4}>
+                  <Field
+                    as={Input}
+                    type="number"
+                    name="billingZip"
+                    label="Zip"
+                    validate={requiredField}
+                    required
+                    maxLength={5}
+                  />
+                </Column>
+              </Row>
+              <Button
+                type="submit"
+                color="primary"
+                block
+                disabled={isSubmitting || !isValid}
+                isLoading={isSubmitting || fortis.isLoading}
+              >
+                Review
+              </Button>
+              <small>
+                You won&apos;t be charged yet, you will have a chance to review your information on
+                the next page.
+              </small>
+            </Form>
+          )}
+        </Formik>
+        <HorizontalRule />
+        <Button type="button" onClick={() => {}} color="text" block>
+          Save &amp; Complete Later
+        </Button>
       </Card>
-    </ClientOnly>
+    </>
   );
 };
 
