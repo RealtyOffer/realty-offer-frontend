@@ -1,5 +1,4 @@
 import { RSAA } from 'redux-api-middleware';
-import { PersistedState } from 'redux-persist';
 // import { differenceInSeconds } from 'date-fns';
 
 import { LISTINGS_ENDPOINT } from '../constants';
@@ -29,7 +28,7 @@ export const TOGGLE_SALES_AREA_FILTER = 'TOGGLE_SALES_AREA_FILTER';
 
 export const TOGGLE_LISTING_VISIBILITY = 'TOGGLE_LISTING_VISIBILITY';
 
-export const initialState: ListingStoreType & PersistedState = {
+export const initialState: ListingStoreType = {
   isLoading: false,
   hasError: false,
   lastFetched: undefined,
@@ -40,10 +39,6 @@ export const initialState: ListingStoreType & PersistedState = {
   awarded: [],
   history: [],
   hiddenListingIds: [],
-  _persist: {
-    version: -1,
-    rehydrated: false,
-  },
 };
 
 export default (
