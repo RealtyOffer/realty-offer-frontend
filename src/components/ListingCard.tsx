@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import TextTruncate from 'react-text-truncate';
 import { useDispatch } from 'react-redux';
+import { FaEyeSlash } from 'react-icons/fa';
 
 import Button from './Button';
 import Heading from './Heading';
@@ -18,6 +19,7 @@ import {
   getPendingListings,
   getAwardedListings,
   getHistoryListings,
+  toggleListingVisibility,
 } from '../redux/ducks/listings';
 import { ListingType } from '../redux/ducks/listings.d';
 import { displayDropdownListText } from '../utils/dropdownUtils';
@@ -26,6 +28,7 @@ import { isExpired, isExpiringSoon } from '../utils/countdownTimerUtils';
 type ListingCardProps = {
   listing: ListingType;
   listingType: 'new' | 'pending' | 'awarded' | 'history';
+  isHideable?: boolean;
 };
 
 type WrapperProps = {
@@ -76,7 +79,11 @@ const ListingCardFooter = styled.div`
   padding: ${halfSpacer};
 `;
 
-const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType }) => {
+const StyledHideIcon = styled(FaEyeSlash)`
+  cursor: pointer;
+`;
+
+const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType, isHideable }) => {
   const dispatch = useDispatch();
   return (
     <ListingCardWrapper
@@ -98,6 +105,15 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType
               }, 5000);
             }}
           />
+          {isHideable && (
+            <StyledHideIcon
+              onClick={() => {
+                if (listing.id) {
+                  dispatch(toggleListingVisibility(listing.id));
+                }
+              }}
+            />
+          )}
           <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>
         </FlexContainer>
       </ListingCardHeader>

@@ -13,6 +13,7 @@ import {
   GET_HISTORY_LISTINGS_FAILURE,
   CHANGE_COUNTY_FILTER,
   TOGGLE_SALES_AREA_FILTER,
+  TOGGLE_LISTING_VISIBILITY,
 } from './listings';
 import { LogoutRequestAction } from './auth.d';
 import { CityType } from './admin.d';
@@ -47,6 +48,7 @@ export type ListingStoreType = {
   pending: Array<ListingType>;
   awarded: Array<ListingType>;
   history: Array<ListingType>;
+  hiddenListingIds: Array<number>;
 };
 
 export type GetNewListingsRequestAction = {
@@ -111,6 +113,11 @@ export type ToggleSalesAreaAction = {
   payload: boolean;
 };
 
+export type ToggleListingVisibility = {
+  type: typeof TOGGLE_LISTING_VISIBILITY;
+  payload: number;
+};
+
 export type ListingsStoreActions =
   | GetNewListingsRequestAction
   | GetNewListingsSuccessAction
@@ -126,4 +133,5 @@ export type ListingsStoreActions =
   | GetHistoryListingsFailureAction
   | ChangeCountyNameAction
   | ToggleSalesAreaAction
-  | LogoutRequestAction;
+  | LogoutRequestAction
+  | ToggleListingVisibility;

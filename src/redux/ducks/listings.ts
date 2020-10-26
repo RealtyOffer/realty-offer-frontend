@@ -1,4 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
+import { PersistedState } from 'redux-persist';
 // import { differenceInSeconds } from 'date-fns';
 
 import { LISTINGS_ENDPOINT } from '../constants';
@@ -26,7 +27,9 @@ export const GET_HISTORY_LISTINGS_FAILURE = 'GET_HISTORY_LISTINGS_FAILURE';
 export const CHANGE_COUNTY_FILTER = 'CHANGE_COUNTY_FILTER';
 export const TOGGLE_SALES_AREA_FILTER = 'TOGGLE_SALES_AREA_FILTER';
 
-export const initialState: ListingStoreType = {
+export const TOGGLE_LISTING_VISIBILITY = 'TOGGLE_LISTING_VISIBILITY';
+
+export const initialState: ListingStoreType & PersistedState = {
   isLoading: false,
   hasError: false,
   lastFetched: undefined,
@@ -36,6 +39,11 @@ export const initialState: ListingStoreType = {
   pending: [],
   awarded: [],
   history: [],
+  hiddenListingIds: [],
+  _persist: {
+    version: -1,
+    rehydrated: false,
+  },
 };
 
 export default (
@@ -104,6 +112,13 @@ export default (
         ...state,
         salesAreaOnly: action.payload,
       };
+    case TOGGLE_LISTING_VISIBILITY: {
+      const hiddenListingIds = [...state.hiddenListingIds, action.payload];
+      return {
+        ...state,
+        hiddenListingIds,
+      };
+    }
     case LOGOUT_REQUEST:
       return {
         ...initialState,
@@ -183,4 +198,9 @@ export const changeCountyFilter = (countyName: string) => ({
 export const toggleSalesAreaFilter = (value: boolean) => ({
   type: TOGGLE_SALES_AREA_FILTER,
   payload: value,
+});
+
+export const toggleListingVisibility = (payload: number) => ({
+  type: TOGGLE_LISTING_VISIBILITY,
+  payload,
 });
