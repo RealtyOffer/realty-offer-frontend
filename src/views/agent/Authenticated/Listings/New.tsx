@@ -174,9 +174,9 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
             )}
             {!isFilteredByCounty && listingsToShow && listingsToShow.length === 0 && !isLoading && (
               <EmptyListingsView
-                title="There are no new listings in your current sales area."
-                buttonText="Add More Cities"
-                to="/agent/account/billing"
+                title="There are no new listings at this time."
+                buttonText="Refresh New Listings"
+                onClick={() => document.location.reload()}
               />
             )}
           </Form>

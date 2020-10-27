@@ -51,6 +51,7 @@ const SocialLink = styled.a`
 
 const Badge = styled.div`
   margin-right: ${baseSpacer};
+  margin-bottom: ${baseSpacer};
 `;
 
 const Footer = () => (
@@ -124,7 +125,7 @@ const Footer = () => (
             <Link to="/consumer-landing">Buy or Sell</Link>
           </p>
           <p>
-            <Link to="/consumer-landing">Mortgage Consultation</Link>
+            <Link to="/mortgage-consultation">Mortgage Consultation</Link>
           </p>
           <p>
             <Link to="/frequently-asked-questions">FAQs</Link>

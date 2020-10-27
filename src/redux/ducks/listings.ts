@@ -32,7 +32,7 @@ export const initialState: ListingStoreType = {
   isLoading: false,
   hasError: false,
   lastFetched: undefined,
-  countyFilter: '',
+  countyFilter: 'All Counties',
   salesAreaOnly: false,
   new: [],
   pending: [],
