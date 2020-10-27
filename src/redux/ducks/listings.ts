@@ -119,6 +119,7 @@ export default (
         ...initialState,
         countyFilter: state.countyFilter,
         salesAreaOnly: state.salesAreaOnly,
+        hiddenListingIds: state.hiddenListingIds,
       };
     default:
       return state;

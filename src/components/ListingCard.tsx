@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import TextTruncate from 'react-text-truncate';
 import { useDispatch } from 'react-redux';
-import { FaEyeSlash } from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
 
 import Button from './Button';
 import Heading from './Heading';
@@ -12,7 +12,7 @@ import Modal from './Modal';
 import Row from './Row';
 import Column from './Column';
 
-import { brandSuccess, brandDanger, textColor, white, brandTertiary } from '../styles/color';
+import { brandSuccess, brandDanger, textColor, white } from '../styles/color';
 import { halfSpacer, baseSpacer, borderRadius } from '../styles/size';
 import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import FlexContainer from './FlexContainer';
@@ -60,13 +60,13 @@ const ListingCardHeader = styled.div`
   border-bottom: ${baseBorderStyle};
 `;
 
-const CardType = styled.span`
-  background-color: ${brandTertiary};
-  border-radius: ${borderRadius};
-  color: ${white};
-  padding: 0 ${halfSpacer};
-  text-transform: capitalize;
-`;
+// const CardType = styled.span`
+//   background-color: ${brandTertiary};
+//   border-radius: ${borderRadius};
+//   color: ${white};
+//   padding: 0 ${halfSpacer};
+//   text-transform: capitalize;
+// `;
 
 const ListingCardBody = styled.div`
   padding: ${halfSpacer} ${baseSpacer};
@@ -80,10 +80,6 @@ const ListingCardBody = styled.div`
 const ListingCardFooter = styled.div`
   border-top: ${baseBorderStyle};
   padding: ${halfSpacer};
-`;
-
-const StyledHideIcon = styled(FaEyeSlash)`
-  cursor: pointer;
 `;
 
 const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType, isHideable }) => {
@@ -109,42 +105,51 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType
               }, 5000);
             }}
           />
-          {isHideable && (
-            <>
-              <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
-                <Heading styledAs="title">Hide Listing?</Heading>
-                <p>Are you sure you want to hide the listing?</p>
-                <Row>
-                  <Column xs={6}>
-                    <Button
-                      type="button"
-                      onClick={() => setModalIsOpen(false)}
-                      color="primaryOutline"
-                      block
-                    >
-                      Cancel
-                    </Button>
-                  </Column>
-                  <Column xs={6}>
-                    <Button
-                      type="button"
-                      onClick={async () => {
-                        if (listing.id != null) {
-                          dispatch(toggleListingVisibility(listing.id));
-                        }
-                      }}
-                      block
-                      color="danger"
-                    >
-                      Hide
-                    </Button>
-                  </Column>
-                </Row>
-              </Modal>
-              <StyledHideIcon onClick={() => setModalIsOpen(true)} />
-            </>
-          )}
-          <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType>
+          <div>
+            {/* <CardType>{listing.type === 'buyerSeller' ? 'Buyer & Seller' : listing.type}</CardType> */}
+            {isHideable && (
+              <>
+                <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
+                  <Heading styledAs="title">Hide Listing?</Heading>
+                  <p>Are you sure you want to hide the listing?</p>
+                  <Row>
+                    <Column xs={6}>
+                      <Button
+                        type="button"
+                        onClick={() => setModalIsOpen(false)}
+                        color="primaryOutline"
+                        block
+                      >
+                        Cancel
+                      </Button>
+                    </Column>
+                    <Column xs={6}>
+                      <Button
+                        type="button"
+                        onClick={async () => {
+                          if (listing.id != null) {
+                            dispatch(toggleListingVisibility(listing.id));
+                          }
+                        }}
+                        block
+                        color="danger"
+                      >
+                        Hide
+                      </Button>
+                    </Column>
+                  </Row>
+                </Modal>
+                <Button
+                  type="button"
+                  onClick={() => setModalIsOpen(true)}
+                  iconLeft={<FaTrashAlt />}
+                  color="text"
+                >
+                  Remove Listing
+                </Button>
+              </>
+            )}
+          </div>
         </FlexContainer>
       </ListingCardHeader>
       <ListingCardBody>

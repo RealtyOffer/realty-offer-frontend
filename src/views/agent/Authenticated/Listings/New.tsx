@@ -54,17 +54,16 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
       return obj;
     });
 
-  const isFilteredByCounty = listings.countyFilter !== 'All Counties';
+  const isFilteredByCounty =
+    listings.countyFilter !== 'All Counties' && listings.countyFilter !== '';
   const isFilteredBySalesArea = listings.salesAreaOnly;
 
+  let listingsToShow = newListings;
+
+  // Remove listings hidden by the user
+  listingsToShow = listingsToShow.filter(({ id }) => id != null && !hiddenListingIds.includes(id));
+
   const filteredListings = () => {
-    let listingsToShow = newListings;
-
-    // Remove listings hidden by the user
-    listingsToShow = listingsToShow.filter(
-      ({ id }) => id != null && !hiddenListingIds.includes(id)
-    );
-
     if (isFilteredByCounty) {
       const sellersCityMatchesByCounty = listingsToShow.filter(
         (l) => l.sellersCity?.countyId === Number(listings.countyFilter)
@@ -93,7 +92,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
   };
 
   const initialValues = {
-    countyFilter: listings.countyFilter || 'All Counties',
+    countyFilter: listings.countyFilter === '' ? 'All Counties' : listings.countyFilter,
     salesAreaOnly: listings.salesAreaOnly || false,
   };
 
@@ -116,7 +115,9 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
           }
           resetForm({
             values: {
-              countyFilter: values.salesAreaOnly ? 'All Counties' : values.countyFilter,
+              countyFilter: values.salesAreaOnly
+                ? 'All Counties'
+                : values.countyFilter || 'All Counties',
               salesAreaOnly: values.salesAreaOnly,
             },
           });
@@ -147,7 +148,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
               </Column>
             </Row>
             {isLoading && <ListingCardsLoader />}
-            {newListings && newListings.length > 0 && !isLoading && (
+            {listingsToShow && listingsToShow.length > 0 && !isLoading && (
               <Row>
                 {filteredListings()?.map((listing) => (
                   <Column sm={6} lg={4} key={listing.id}>
@@ -171,7 +172,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
                 }}
               />
             )}
-            {!isFilteredByCounty && newListings && newListings.length === 0 && !isLoading && (
+            {!isFilteredByCounty && listingsToShow && listingsToShow.length === 0 && !isLoading && (
               <EmptyListingsView
                 title="There are no new listings in your current sales area."
                 buttonText="Add More Cities"
