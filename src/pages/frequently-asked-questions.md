@@ -1,7 +1,7 @@
 ---
 templateKey: frequently-asked-questions
 title: Learn more about RealtyOffer
-heroImage: /img/shutterstock_image5.jpg
+heroImage: /img/shutterstock_image2_purchased_landing-page.jpg
 heroHeading: Learn more about RealtyOffer
 heroSubheading: >-
   Explore our frequently asked questions below to learn more about how
