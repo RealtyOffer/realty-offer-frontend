@@ -2,7 +2,7 @@
 templateKey: agents
 title: Same Agent Less Commission
 heroImage: /img/shutterstock_image5.jpg
-mobileHeroImage: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x copy.png
+mobileHeroImage: /img/shutterstock_image5.jpg
 heroHeading: Brokers & Agents... Do you love making money?
 heroSubheading: >-
   Do you spend thousands of dollars per month on marketing, hoping it will bring
