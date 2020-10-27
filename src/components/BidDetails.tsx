@@ -22,31 +22,31 @@ const BidDetails = ({ listing, bid }: { listing: ListingType; bid: BidType }) =>
             <dd>{bid.listingAgentCommission}%</dd>
             <dt>Buying Agent Commission</dt>
             <dd>{bid.buyersAgentCommission}%</dd>
-            {bid.sellerBrokerComplianceAmount && (
+            {!!bid.sellerBrokerComplianceAmount && (
               <>
                 <dt>Seller Compliance Fee</dt>
                 <dd>${bid.sellerBrokerComplianceAmount}</dd>
               </>
             )}
-            {bid.sellerPreInspectionAmount && (
+            {!!bid.sellerPreInspectionAmount && (
               <>
                 <dt>Seller Pre-Inspection</dt>
                 <dd>${bid.sellerPreInspectionAmount}</dd>
               </>
             )}
-            {bid.sellerPreCertifyAmount && (
+            {!!bid.sellerPreCertifyAmount && (
               <>
                 <dt>Seller Pre-Certification</dt>
                 <dd>${bid.sellerPreCertifyAmount}</dd>
               </>
             )}
-            {bid.sellerMovingCompanyAmount && (
+            {!!bid.sellerMovingCompanyAmount && (
               <>
                 <dt>Seller Moving Costs</dt>
                 <dd>${bid.sellerMovingCompanyAmount}</dd>
               </>
             )}
-            {bid.sellerPhotographyAmount && (
+            {!!bid.sellerPhotographyAmount && (
               <>
                 <dt>Seller Photography</dt>
                 <dd>${bid.sellerPhotographyAmount}</dd>
@@ -69,31 +69,31 @@ const BidDetails = ({ listing, bid }: { listing: ListingType; bid: BidType }) =>
           <dl>
             <dt>Total Buyer Commission</dt>
             <dd>{bid.buyerCommission}%</dd>
-            {bid.buyerBrokerComplianceAmount && (
+            {!!bid.buyerBrokerComplianceAmount && (
               <>
                 <dt>Buyer Compliance Fee</dt>
                 <dd>${bid.buyerBrokerComplianceAmount}</dd>
               </>
             )}
-            {bid.buyerInspectionAmount && (
+            {!!bid.buyerInspectionAmount && (
               <>
                 <dt>Buyer Inspection</dt>
                 <dd>${bid.buyerInspectionAmount}</dd>
               </>
             )}
-            {bid.buyerHomeWarrantyAmount && (
+            {!!bid.buyerHomeWarrantyAmount && (
               <>
                 <dt>Buyer Home Warranty</dt>
                 <dd>${bid.buyerHomeWarrantyAmount}</dd>
               </>
             )}
-            {bid.buyerAppraisalAmount && (
+            {!!bid.buyerAppraisalAmount && (
               <>
                 <dt>Buyer Appraisal</dt>
                 <dd>${bid.buyerAppraisalAmount}</dd>
               </>
             )}
-            {bid.buyerMovingCompanyAmount && (
+            {!!bid.buyerMovingCompanyAmount && (
               <>
                 <dt>Buyer Moving Costs</dt>
                 <dd>${bid.buyerMovingCompanyAmount}</dd>
