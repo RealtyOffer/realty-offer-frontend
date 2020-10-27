@@ -23,10 +23,9 @@ mainpitch:
   steps:
     - title: Subscribe to your favorite cities or counties...
       body: >-
-        Subscribe to your favorite cities or counties...
-
-        Through an AI-Digitized platform, RealtyOffer will send oyu serious
-        clients that are ready to buy, sell, or both!
+        Subscribe to your favorite cities or counties... Through an AI-Digitized
+        platform, RealtyOffer will send you serious clients that are ready to
+        buy, sell, or both!
     - title: Bid your best...
       body: >-
         The automated bidding works two ways: choose to discount your commission
@@ -45,20 +44,21 @@ secondpitch:
 
 
     Our dedicated mortgage affiliates are vetted and work with the top banks in
-    the county. Pre-approve your clients ahead of time before you submit an
+    the country. Pre-approve your clients ahead of time before you submit an
     offer. We are not referring to a simple credit check. We are referring to
     pre-approvals from a direct underwriting system. This system reviews and
     discusses your client's information ahead of time. Don't get stuck!
 
-    - Set your clients apart from other offers
 
-    - Expedite your closings
+    * Set your clients apart from other offers
 
-    - Better reviews
+    * Expedite your closings
 
-    - More referrals
+    * Better reviews
 
-    - More business in your pocket
+    * More referrals
+
+    * More business in your pocket
   ctaText: Mortgage Consultation
   image: /img/shutterstock_image4_landingpage.jpg
 thirdpitch:
