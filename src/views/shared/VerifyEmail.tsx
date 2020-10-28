@@ -117,7 +117,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                     verifyEmail({
                       email: values.email,
                       // confirmationCode: combined,
-                      confirmationCode: values.confirmationCode,
+                      confirmationCode: String(values.confirmationCode),
                     })
                   ).then((response: ActionResponseType) => {
                     setSubmitting(false);
