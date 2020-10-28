@@ -32,6 +32,7 @@ type ListingCardProps = {
   listing: ListingType;
   listingType: 'new' | 'pending' | 'awarded' | 'history';
   isHideable?: boolean;
+  awarded?: boolean;
 };
 
 type WrapperProps = {
@@ -82,14 +83,19 @@ const ListingCardFooter = styled.div`
   padding: ${halfSpacer};
 `;
 
-const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, listingType, isHideable }) => {
+const ListingCard: FunctionComponent<ListingCardProps> = ({
+  listing,
+  listingType,
+  isHideable,
+  awarded,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
   return (
     <ListingCardWrapper
       expiringSoon={isExpiringSoon(listing.createDateTime)}
       isExpired={isExpired(listing.createDateTime)}
-      awarded={listingType === 'awarded'}
+      awarded={Boolean(awarded)}
     >
       <ListingCardHeader expiringSoon={isExpiringSoon(listing.createDateTime)}>
         <FlexContainer justifyContent="space-between">

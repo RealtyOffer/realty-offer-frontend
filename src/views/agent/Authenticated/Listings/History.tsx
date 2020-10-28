@@ -32,13 +32,15 @@ const ListingHistory: FunctionComponent<RouteComponentProps> = () => {
       {isLoading && <ListingCardsLoader />}
       {historyListings && historyListings.length > 0 && !isLoading && (
         <Row>
-          {historyListings // remove awarded listings from history
-            .filter((listing) => !awardedListings.some((l) => l.id === listing.id))
-            .map((listing) => (
-              <Column sm={6} lg={4} key={listing.id}>
-                <ListingCard listing={listing} listingType="history" />
-              </Column>
-            ))}
+          {historyListings.map((listing) => (
+            <Column sm={6} lg={4} key={listing.id}>
+              <ListingCard
+                listing={listing}
+                listingType="history"
+                awarded={awardedListings.some((l) => l.id === listing.id)}
+              />
+            </Column>
+          ))}
         </Row>
       )}
       {historyListings && historyListings.length === 0 && !isLoading && (

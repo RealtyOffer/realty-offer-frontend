@@ -115,10 +115,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
       <Seo title={title} />
       <HeroImage imgSrc={heroImage}>
         <HeroBox>
-          <Heading inverse align="center">
-            {heroHeading}
-          </Heading>
-          <Heading inverse as="h2" align="center">
+          <Heading inverse>{heroHeading}</Heading>
+          <Heading inverse as="h2">
             {heroSubheading}
           </Heading>
           <Button type="button" onClick={() => scrollTo('#start')}>

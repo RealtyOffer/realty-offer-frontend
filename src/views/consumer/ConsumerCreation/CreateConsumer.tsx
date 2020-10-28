@@ -32,7 +32,7 @@ import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { RootState } from '../../../redux/ducks';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
-import { getDropdownListText } from '../../../utils/dropdownUtils';
+import { getDropdownListText, displayDropdownListText } from '../../../utils/dropdownUtils';
 
 type CreateConsumerProps = {} & RouteComponentProps;
 
@@ -101,7 +101,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                     );
                     if (consumer.listing?.freeMortgageConsult) {
                       postFormUrlEncoded('free-mortgage-consultation', {
-                        ...consumer.listing,
+                        type: consumer?.listing?.type,
                         buyingCities: consumer?.listing?.buyingCities
                           ?.map((city) => city.name)
                           .toString(),
@@ -109,9 +109,9 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         sellersState: consumer?.listing?.sellersCity?.state,
                         sellingPriceRange: consumer?.listing
                           ?.sellersListingPriceInMindPriceRangeInMindId
-                          ? getDropdownListText(
-                              priceRangesList,
-                              String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
+                          ? displayDropdownListText(
+                              consumer.listing.sellersListingPriceInMindPriceRangeInMindId,
+                              'priceRanges'
                             )
                           : '',
                         buyingPriceRange: consumer?.listing?.buyingPriceRangeId

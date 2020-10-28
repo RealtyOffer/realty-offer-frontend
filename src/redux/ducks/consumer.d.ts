@@ -44,12 +44,15 @@ export type WinningAgentProfileType = {
   phoneNumber?: string;
   brokerName?: string;
   brokerPhoneNumber?: string;
+  brokerEmail?: string;
   brokerAddressLine1?: string;
   brokerAddressLine2?: string;
   brokerCity?: string;
   brokerZip?: string;
   brokerState?: string;
   avatar?: string;
+  aboutMe?: string;
+  certificates?: string;
 };
 
 export type ConsumerStoreType = {

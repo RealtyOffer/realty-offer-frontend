@@ -53,6 +53,18 @@ export type AgentProfileType = {
   hasCompletedSignup?: boolean;
   licenseExpirationDate?: string;
   isPilotUser?: boolean;
+  bidDefaults: {
+    sellerBrokerComplianceAmount?: number;
+    buyerHomeWarrantyAmount?: number;
+    buyerInspectionAmount?: number;
+    sellerPreInspectionAmount?: number;
+    buyerBrokerComplianceAmount?: number;
+    sellerPreCertifyAmount?: number;
+    sellerMovingCompanyAmount?: number;
+    sellerPhotographyAmount?: number;
+    buyerAppraisalAmount?: number;
+    buyerMovingCompanyAmount?: number;
+  };
 };
 
 export type BidType = {
@@ -73,6 +85,12 @@ export type BidType = {
   listingId?: number | string;
   agentId?: number;
   winner?: boolean;
+  consumer?: {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    emailAddress: string;
+  };
 };
 
 export type AgentSignupDataType = {

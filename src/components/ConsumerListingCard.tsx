@@ -117,6 +117,143 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           />
         </FlexContainer>
       </ConsumerListingCardHeader>
+      {winner && winner.agentId && (
+        <ConsumerListingCardBody>
+          <Heading as="h3">Winning Realtor</Heading>
+          <p>Agent contact information and terms of the contract can be found below.</p>
+          <Row>
+            <Column lg={2}>
+              <Avatar
+                size="lg"
+                bottomMargin
+                src={winner.avatar}
+                gravatarEmail={winner.emailAddress as string}
+              />
+            </Column>
+            <Column lg={10}>
+              <Row>
+                <Column md={4}>
+                  <Heading as="h4" styledAs="subtitle">
+                    {winner.firstName} {winner.lastName}
+                  </Heading>
+                  <dl>
+                    <dt>Agent ID:</dt>
+                    <dd>{winner.agentId}</dd>
+                    <dt>Broker:</dt>
+                    <dd>
+                      {winner.brokerName}
+                      <br />
+                      {winner.brokerAddressLine1}
+                      <br />
+                      {!!winner.brokerAddressLine2 && (
+                        <>
+                          {winner.brokerAddressLine2}
+                          <br />
+                        </>
+                      )}
+                      {winner.brokerCity}, {winner.brokerState} {winner.brokerZip}
+                    </dd>
+                  </dl>
+                </Column>
+                <Column md={8}>
+                  <Heading as="h4" styledAs="subtitle">
+                    Contact Information
+                  </Heading>
+                  <dl>
+                    <dt>Agent Email:</dt>
+                    <dd>{winner.emailAddress}</dd>
+                    <dt>Agent Phone:</dt>
+                    <dd>{winner.phoneNumber && formatPhoneNumberValue(winner.phoneNumber)}</dd>
+                    <dt>Broker Email:</dt>
+                    <dd>{winner.brokerEmail}</dd>
+                    <dt>Broker Phone:</dt>
+                    <dd>
+                      {winner.brokerPhoneNumber && formatPhoneNumberValue(winner.brokerPhoneNumber)}
+                    </dd>
+                  </dl>
+                </Column>
+              </Row>
+              {winner.aboutMe && winner.aboutMe?.length > 0 && (
+                <>
+                  <Heading as="h4" styledAs="subtitle">
+                    About {winner.firstName}
+                  </Heading>
+                  <p>{winner.aboutMe || 'No bio provided'}</p>
+                </>
+              )}
+              {winner.certificates && winner.certificates?.length > 0 && (
+                <>
+                  <Heading as="h4" styledAs="subtitle">
+                    Certificates
+                  </Heading>
+                  <p>{winner.certificates}</p>
+                </>
+              )}
+            </Column>
+          </Row>
+          <HorizontalRule />
+          <Heading as="h3">Listing Contract</Heading>
+          {winningBid && <BidDetails listing={listing} bid={winningBid} />}
+          <HorizontalRule />
+        </ConsumerListingCardBody>
+      )}
+      {selectedBid && (
+        <Modal toggleModal={() => setSelectedBid(undefined)} isOpen={Boolean(selectedBid)}>
+          <Heading as="h1" styledAs="title" align="center">
+            Future Agent #{selectedBid.index + 1} - Package Details
+          </Heading>
+          <FlexContainer flexDirection="column">
+            <Heading as="h2" styledAs="subtitle" align="center" noMargin>
+              Total Package:{' '}
+              {listing.type === 'seller' &&
+                sellTotal({
+                  values: selectedBid,
+                  priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                  priceRangesList,
+                })}
+              {listing.type === 'buyer' &&
+                buyTotal({
+                  values: selectedBid,
+                  priceRangeId: Number(listing.buyingPriceRangeId),
+                  priceRangesList,
+                })}
+              {listing.type === 'buyerSeller' &&
+                buySellTotal({
+                  values: selectedBid,
+                  buyPriceRangeId: Number(listing.buyingPriceRangeId),
+                  sellPriceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
+                  priceRangesList,
+                })}
+            </Heading>
+            <p>
+              <small>Money towards your closing costs and prepaid items</small>
+            </p>
+          </FlexContainer>
+          <BidDetails listing={listing} bid={selectedBid} />
+          <Row>
+            <Column xs={6}>
+              <Button
+                type="button"
+                onClick={() => setSelectedBid(undefined)}
+                color="primaryOutline"
+                block
+              >
+                Close
+              </Button>
+            </Column>
+            <Column xs={6}>
+              <Button
+                type="button"
+                onClick={() => selectWinningAgent(selectedBid)}
+                block
+                isLoading={isLoading}
+              >
+                Select Agent
+              </Button>
+            </Column>
+          </Row>
+        </Modal>
+      )}
       {bids && bids.length > 0 && !winner && (
         <ConsumerListingCardBody>
           <Heading as="h4">Select your agent below</Heading>
@@ -239,115 +376,6 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           </Row>
         )}
       </ConsumerListingCardBody>
-      {winner && winner.agentId && (
-        <ConsumerListingCardBody>
-          <HorizontalRule />
-          <Heading as="h3">Winning Realtor</Heading>
-          <p>Agent contact information and terms of the contract can be found below.</p>
-          <Row>
-            <Column lg={2}>
-              <Avatar
-                size="lg"
-                bottomMargin
-                src={winner.avatar}
-                gravatarEmail={winner.emailAddress as string}
-              />
-            </Column>
-            <Column lg={10}>
-              <Row>
-                <Column md={4}>
-                  <Heading as="h4" styledAs="subtitle">
-                    {winner.firstName} {winner.lastName}
-                  </Heading>
-                  <p>{winner.brokerName}</p>
-                </Column>
-                <Column md={8}>
-                  <Heading as="h4" styledAs="subtitle">
-                    Contact Information
-                  </Heading>
-                  <Row>
-                    <Column xs={6}>
-                      <p>
-                        <strong>Email:</strong> {winner.emailAddress}
-                      </p>
-                    </Column>
-                    <Column xs={6}>
-                      <p>
-                        <strong>Phone:</strong>{' '}
-                        {winner.phoneNumber && formatPhoneNumberValue(winner.phoneNumber)}
-                      </p>
-                    </Column>
-                  </Row>
-                </Column>
-              </Row>
-              <Heading as="h4" styledAs="subtitle">
-                About {winner.firstName}
-              </Heading>
-              <p>Agent bio goes here</p>
-            </Column>
-          </Row>
-          <HorizontalRule />
-          <Heading as="h3">Listing Contract</Heading>
-          {winningBid && <BidDetails listing={listing} bid={winningBid} />}
-        </ConsumerListingCardBody>
-      )}
-      {selectedBid && (
-        <Modal toggleModal={() => setSelectedBid(undefined)} isOpen={Boolean(selectedBid)}>
-          <Heading as="h1" styledAs="title" align="center">
-            Future Agent #{selectedBid.index + 1} - Package Details
-          </Heading>
-          <FlexContainer flexDirection="column">
-            <Heading as="h2" styledAs="subtitle" align="center" noMargin>
-              Total Package:{' '}
-              {listing.type === 'seller' &&
-                sellTotal({
-                  values: selectedBid,
-                  priceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
-                  priceRangesList,
-                })}
-              {listing.type === 'buyer' &&
-                buyTotal({
-                  values: selectedBid,
-                  priceRangeId: Number(listing.buyingPriceRangeId),
-                  priceRangesList,
-                })}
-              {listing.type === 'buyerSeller' &&
-                buySellTotal({
-                  values: selectedBid,
-                  buyPriceRangeId: Number(listing.buyingPriceRangeId),
-                  sellPriceRangeId: Number(listing.sellersListingPriceInMindPriceRangeInMindId),
-                  priceRangesList,
-                })}
-            </Heading>
-            <p>
-              <small>Money towards your closing costs and prepaid items</small>
-            </p>
-          </FlexContainer>
-          <BidDetails listing={listing} bid={selectedBid} />
-          <Row>
-            <Column xs={6}>
-              <Button
-                type="button"
-                onClick={() => setSelectedBid(undefined)}
-                color="primaryOutline"
-                block
-              >
-                Close
-              </Button>
-            </Column>
-            <Column xs={6}>
-              <Button
-                type="button"
-                onClick={() => selectWinningAgent(selectedBid)}
-                block
-                isLoading={isLoading}
-              >
-                Select Agent
-              </Button>
-            </Column>
-          </Row>
-        </Modal>
-      )}
     </ConsumerListingCardWrapper>
   );
 };

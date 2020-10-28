@@ -139,7 +139,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
               </Column>
               <Column sm={6} md={4} mdOffset={4}>
                 <Field
-                  type="checkbox"
+                  type="toggle"
                   as={Input}
                   name="salesAreaOnly"
                   label="Show Listings for my Sales Area only"

@@ -233,7 +233,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
               <Form>
                 <Field
                   as={Input}
-                  type="checkbox"
+                  type="toggle"
                   checked={values.enableNotifications}
                   name="enableNotifications"
                   label="Receive Notifications"

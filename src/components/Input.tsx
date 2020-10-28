@@ -282,8 +282,24 @@ const Input: FunctionComponent<InputProps> = (props) => {
     case 'checkbox':
       inputTypeToRender = (
         <>
+          <StyledLabel htmlFor={props.id || props.name}>
+            <input {...field} {...props} id={props.name} checked={props.checked} /> {props.label}
+          </StyledLabel>
+        </>
+      );
+      break;
+    case 'toggle':
+      inputTypeToRender = (
+        <>
           <StyledLabel htmlFor={props.id || props.name}>{props.label}</StyledLabel>
-          <StyledToggle {...field} {...props} {...meta} id={props.name} checked={props.checked} />
+          <StyledToggle
+            {...field}
+            {...props}
+            {...meta}
+            id={props.name}
+            checked={props.checked}
+            type="checkbox"
+          />
           <StyledToggleLabel
             htmlFor={props.name}
             disabled={props.disabled}
@@ -339,7 +355,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
       hidden={props.type === 'hidden'}
       alignRight={props.alignRight}
     >
-      {props.label && props.type !== 'checkbox' && (
+      {props.label && props.type !== 'toggle' && props.type !== 'checkbox' && (
         <StyledLabel
           htmlFor={props.id || props.name}
           hiddenLabel={props.hiddenLabel}

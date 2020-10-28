@@ -167,6 +167,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   type="text"
                   name="where"
                   label="Where?"
+                  helpText="Where is your home located, or where are you looking to buy? Enter a city or multiple cities"
                   validate={requiredField}
                   required
                 />
@@ -219,7 +220,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                 />
                 <Field
                   as={Input}
-                  type="checkbox"
+                  type="toggle"
                   checked={values.freeMortgageConsult}
                   name="freeMortgageConsult"
                   label="Would you like a free mortgage consultation?"

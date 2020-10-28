@@ -15,7 +15,8 @@ import {
 
 type CountdownProps = {
   createDateTime: Date;
-  onComplete: () => void;
+  onComplete?: () => void;
+  showRemainingTimeString?: boolean;
 };
 
 const CountdownWrapper = styled.div`
@@ -27,7 +28,11 @@ const CountdownWrapper = styled.div`
   }
 `;
 
-const Countdown: FunctionComponent<CountdownProps> = ({ createDateTime, onComplete }) => (
+const Countdown: FunctionComponent<CountdownProps> = ({
+  createDateTime,
+  onComplete,
+  showRemainingTimeString,
+}) => (
   <CountdownWrapper expiringSoon={isExpiringSoon(createDateTime)}>
     {isExpired(createDateTime) ? (
       <span>{format(localizedCreateDateTime(createDateTime), 'MM/dd/yyyy hh:mmaa')}</span>
@@ -35,6 +40,7 @@ const Countdown: FunctionComponent<CountdownProps> = ({ createDateTime, onComple
       <>
         <FaRegClock />
         <ReactCountdown date={expiresAt(createDateTime)} daysInHours onComplete={onComplete} />
+        {showRemainingTimeString && <span> remaining</span>}
       </>
     )}
   </CountdownWrapper>

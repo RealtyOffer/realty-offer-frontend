@@ -147,14 +147,14 @@ const Buying: FunctionComponent<BuyingProps> = () => {
               />
               <Field
                 as={Input}
-                type="checkbox"
+                type="toggle"
                 checked={values.freeMortgageConsult}
                 name="freeMortgageConsult"
                 label="Would you like a free mortgage consultation?"
               />
               <Field
                 as={Input}
-                type="checkbox"
+                type="toggle"
                 checked={values.preApproved}
                 name="preApproved"
                 label="Have you received a mortgage pre-approval?"

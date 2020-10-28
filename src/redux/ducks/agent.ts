@@ -64,6 +64,7 @@ export const initialState: AgentStoreType = {
   aboutMe: undefined,
   certificates: undefined,
   agentLanguages: [],
+  bidDefaults: {},
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {

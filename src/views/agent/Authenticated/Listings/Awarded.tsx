@@ -33,7 +33,7 @@ const AwardedListings: FunctionComponent<RouteComponentProps> = () => {
         <Row>
           {awardedListings.map((listing) => (
             <Column sm={6} lg={4} key={listing.id}>
-              <ListingCard listing={listing} listingType="awarded" />
+              <ListingCard listing={listing} listingType="awarded" awarded />
             </Column>
           ))}
         </Row>
