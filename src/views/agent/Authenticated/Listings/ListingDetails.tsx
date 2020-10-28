@@ -88,7 +88,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
 
   const isNewOrPending = pathType === 'new' || pathType === 'pending';
 
-  const initialValues = {
+  const existingBidInitialValues = {
     listingAgentCommission: activeBid ? String(activeBid.listingAgentCommission) : '',
     buyersAgentCommission: activeBid ? String(activeBid.buyersAgentCommission) : '',
     sellerBrokerComplianceAmount: activeBid ? String(activeBid.sellerBrokerComplianceAmount) : '0',
@@ -102,6 +102,24 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     buyerHomeWarrantyAmount: activeBid ? String(activeBid.buyerHomeWarrantyAmount) : '0',
     buyerAppraisalAmount: activeBid ? String(activeBid.buyerAppraisalAmount) : '0',
     buyerMovingCompanyAmount: activeBid ? String(activeBid.buyerMovingCompanyAmount) : '0',
+    listingId: props.listingId,
+    saveBidDetails: false,
+  };
+
+  const newInitialValues = {
+    listingAgentCommission: '',
+    buyersAgentCommission: '',
+    sellerBrokerComplianceAmount: agent.bidDefaults.sellerBrokerComplianceAmount || '0',
+    sellerPreInspectionAmount: agent.bidDefaults.sellerPreInspectionAmount || '0',
+    sellerPreCertifyAmount: agent.bidDefaults.sellerPreCertifyAmount || '0',
+    sellerMovingCompanyAmount: agent.bidDefaults.sellerMovingCompanyAmount || '0',
+    sellerPhotographyAmount: agent.bidDefaults.sellerPhotographyAmount || '0',
+    buyerCommission: '',
+    buyerBrokerComplianceAmount: agent.bidDefaults.buyerBrokerComplianceAmount || '0',
+    buyerInspectionAmount: agent.bidDefaults.buyerInspectionAmount || '0',
+    buyerHomeWarrantyAmount: agent.bidDefaults.buyerHomeWarrantyAmount || '0',
+    buyerAppraisalAmount: agent.bidDefaults.buyerAppraisalAmount || '0',
+    buyerMovingCompanyAmount: agent.bidDefaults.buyerMovingCompanyAmount || '0',
     listingId: props.listingId,
     saveBidDetails: false,
   };
@@ -195,7 +213,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
         {!agent.isLoading && !agent.activeBid?.isLoading && agent.activeBid?.id && listing ? (
           <Formik
             validateOnMount
-            initialValues={initialValues}
+            initialValues={pathType === 'new' ? newInitialValues : existingBidInitialValues}
             onSubmit={(values) => {
               if (values.saveBidDetails) {
                 dispatch(

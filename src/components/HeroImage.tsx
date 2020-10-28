@@ -57,7 +57,7 @@ const FullBleedImage: FunctionComponent<FullBleedImageProps> = ({
   mobileImgSrc,
 }) => {
   const size = useWindowSize();
-  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.small);
+  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
 
   return (
     <HeroImageWrapper>

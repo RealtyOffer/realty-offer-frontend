@@ -81,7 +81,7 @@ type AgentsPageProps = {
 };
 
 const HeroBox = styled.div`
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.75);
   padding: ${baseSpacer};
   @media only screen and (min-width: ${breakpoints.sm}) {
     padding: ${doubleSpacer};
@@ -126,7 +126,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
         <PageContainer>
           <Row>
-            <Column md={6}>
+            <Column lg={5} lgOffset={7}>
               <HeroBox>
                 <Heading inverse as="h1">
                   {heroHeading}
@@ -138,28 +138,27 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                   <br />
                   The one-stop sho for the buyer, seller, and agent.
                 </p>
-                <Button type="link" to="/agent/sign-up">
+                <Button type="link" to="/agent/sign-up" block>
                   Create Account
                 </Button>
-                <br />
-                <br />
-                <FlexContainer flexDirection="row" justifyContent="flex-start">
-                  <Badge>
-                    <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
-                      <img src={appleAppStoreBadge} height={40} alt="Download on Apple App Store" />
-                    </a>
-                  </Badge>
-                  <Badge>
-                    <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
-                      <img
-                        src={googlePlayStoreBadge}
-                        height={40}
-                        alt="Download on Google Play Store"
-                      />
-                    </a>
-                  </Badge>
-                </FlexContainer>
               </HeroBox>
+              <br />
+              <FlexContainer flexDirection="row">
+                <Badge>
+                  <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
+                    <img src={appleAppStoreBadge} height={40} alt="Download on Apple App Store" />
+                  </a>
+                </Badge>
+                <Badge>
+                  <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
+                    <img
+                      src={googlePlayStoreBadge}
+                      height={40}
+                      alt="Download on Google Play Store"
+                    />
+                  </a>
+                </Badge>
+              </FlexContainer>
             </Column>
           </Row>
         </PageContainer>
