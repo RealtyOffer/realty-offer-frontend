@@ -138,9 +138,10 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                   <br />
                   The one-stop sho for the buyer, seller, and agent.
                 </p>
+                {/* TODO for prod
                 <Button type="link" to="/agent/sign-up" block>
                   Create Account
-                </Button>
+                </Button> */}
               </HeroBox>
               <br />
               <FlexContainer flexDirection="row">

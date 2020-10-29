@@ -69,8 +69,10 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
                 Sell My Home
               </Heading>
               <p>
-                Within 24 hours, multiple agents will offer less than commission to sell your home,
-                in order to win your business!
+                Why pay 6 to 8%...
+                <br />
+                <br /> Within 24 hours, top-rated certified and vetted agents in your area will
+                simply offer to charge less commission to win your business!
               </p>
               <Button
                 type="button"
@@ -88,8 +90,11 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
                 Buy A Home
               </Heading>
               <p>
-                Within 24 hours, multiple agents will offer part of their commission in order to pay
-                for your closing costs, in order to win your business!
+                Imagine getting paid to do it...
+                <br />
+                <br /> Within 24 hours, multiple agents will offer part of their commission in order
+                to be used towards your closing costs and pre-paid items. This means less money you
+                bring to the closing table!
               </p>
               <Button
                 type="button"
@@ -107,8 +112,11 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
                 Buy &amp; Sell A Home
               </Heading>
               <p>
-                Within 24 hours, multiple agents will offer less commission to sell your home, or
-                part of their commission to find you a home!
+                Simple as 1, 2, 3... <br />
+                <br />
+                Within 24 hours, specialized agents in your area will offer savings on both
+                transactions. You will pay less commission to sell your home and receive part of the
+                agent’s commission to use towards your closing costs when you buy a home!
               </p>
               <Button
                 type="button"

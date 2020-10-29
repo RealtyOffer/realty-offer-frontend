@@ -13,7 +13,7 @@ consumer:
   icon: /img/np_real-estate_3187456_000000.svg
 mainpitch:
   title: 'Wondering how it works?'
-  videoUrl: https://youtube.com
+  videoUrl: https://www.youtube.com/embed/USvuAqJF3Is?rel=0
   steps:
     - title: Step One
       body: >-

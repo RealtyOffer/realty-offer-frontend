@@ -167,7 +167,16 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
               ))}
             </Column>
             <Column md={6}>
-              <FlexContainer>{/* todo: youtube embed */}</FlexContainer>
+              <FlexContainer height="100%">
+                <iframe
+                  width="560"
+                  height="315"
+                  src={mainpitch.videoUrl}
+                  frameBorder="0"
+                  allowFullScreen
+                  title="RealtyOffer Consumer Video"
+                />
+              </FlexContainer>
             </Column>
           </Row>
         </PageContainer>
