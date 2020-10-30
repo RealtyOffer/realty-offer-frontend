@@ -12,8 +12,8 @@ mainpitch:
   videoUrl: https://www.youtube.com/embed/R9jCqtpG770?rel=0
   image: /img/Simulator Screen Shot - iPhone 11 - 2020-10-26 at 11.56.52.png
   description: >-
-    RealtyOffer will connect you with serious clients, while removing the upfrom
-    awkward negotation out of the way. Instead of spending thousands of dollars
+    RealtyOffer will connect you with serious clients, while removing the upfront
+    awkward negotiations out of the way. Instead of spending thousands of dollars
     on wasted marking and leads, agents will have the opportunity to simple bid
     for their next client.
 
