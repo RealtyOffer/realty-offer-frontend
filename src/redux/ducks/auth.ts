@@ -286,8 +286,12 @@ export const refreshAccessToken = () => (dispatch: Dispatch, getState: any) => {
     [RSAA]: {
       endpoint: AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT,
       method: 'POST',
+      skipOauth: true,
       bailout: state.auth.tokenIsRefreshing,
-      body: JSON.stringify({ refreshToken: state.auth.refreshToken }),
+      body: JSON.stringify({
+        refreshToken: state.auth.refreshToken,
+        accessToken: state.auth.accessToken,
+      }),
       types: [TOKEN_REFRESH_REQUEST, TOKEN_REFRESH_SUCCESS, TOKEN_REFRESH_FAILURE],
     },
   });

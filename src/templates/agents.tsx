@@ -10,7 +10,6 @@ import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import {
   Row,
   Column,
-  Box,
   Button,
   FlexContainer,
   HeroImage,

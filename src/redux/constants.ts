@@ -10,7 +10,7 @@ export const AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT = `${AUTH_ROOT}/resend-signup-ema
 export const AUTH_LOGIN_ENDPOINT = `${AUTH_ROOT}/login`;
 export const AUTH_FORGOT_PASSWORD_ENDPOINT = `${AUTH_ROOT}/forgot-password`;
 export const AUTH_RESET_PASSWORD_ENDPOINT = `${AUTH_ROOT}/reset-password`;
-export const AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT = `${AUTH_ROOT}/secured/refresh-access-token`;
+export const AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT = `${AUTH_ROOT}/refresh-access-token`;
 export const AUTH_SECURED_PROFILE_ENDPOINT = `${AUTH_ROOT}/secured/profile`;
 
 // Agent
