@@ -9,7 +9,7 @@ heroSubheading: >-
   you leads, that just don't go anywhere?
 mainpitch:
   title: Here is how it works!
-  videoUrl: 'https://youtube.com'
+  videoUrl: https://www.youtube.com/embed/R9jCqtpG770?rel=0
   image: /img/Simulator Screen Shot - iPhone 11 - 2020-10-26 at 11.56.52.png
   description: >-
     RealtyOffer will connect you with serious clients, while removing the upfrom

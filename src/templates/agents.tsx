@@ -167,21 +167,29 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: lightestGray }}>
         <PageContainer>
           <Row>
-            <Column md={4} xsOrder={2} mdOrder={1}>
-              <SectionImageWrapper>
-                <PreviewCompatibleImage
-                  imageInfo={{
-                    image: mainpitch.image,
-                    alt: 'mockup of RealtyOffer app on iphone',
-                  }}
-                />
-              </SectionImageWrapper>
-            </Column>
-            <Column md={8} xsOrder={1} mdOrder={2}>
-              <Heading as="h2" styledAs="title">
+            <Column md={8} mdOffset={2}>
+              <Heading as="h2" styledAs="title" align="center">
                 {mainpitch.title}
               </Heading>
-              <ReactMarkdown source={mainpitch.description} />
+              <div style={{ textAlign: 'center' }}>
+                <ReactMarkdown source={mainpitch.description} />
+              </div>
+            </Column>
+          </Row>
+          <Row>
+            <Column md={6}>
+              <FlexContainer>
+                <iframe
+                  width="560"
+                  height="315"
+                  src={mainpitch.videoUrl}
+                  frameBorder="0"
+                  allowFullScreen
+                  title="RealtyOffer Consumer Video"
+                />
+              </FlexContainer>
+            </Column>
+            <Column md={6}>
               {mainpitch.steps.map((step, index) => (
                 <div
                   key={step.title}
@@ -198,14 +206,15 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                   <ReactMarkdown source={step.body} />
                 </div>
               ))}
-              <br />
-              <Button type="link" to="/agents">
-                {mainpitch.ctaText}
-              </Button>
-              <br />
-              <br />
             </Column>
           </Row>
+          <div style={{ textAlign: 'center' }}>
+            <br />
+            <br />
+            <Button type="link" to="/agents">
+              {mainpitch.ctaText}
+            </Button>
+          </div>
         </PageContainer>
       </section>
 
