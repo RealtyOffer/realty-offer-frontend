@@ -74,7 +74,7 @@ thirdpitch:
 
     * No penalties
 
-    * Licensed in the state of MI
+    * Licensed 
 
     * Active membership with a realtor association
   ctaText: Become a RealtyOffer agent
