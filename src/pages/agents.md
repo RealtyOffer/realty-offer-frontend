@@ -28,7 +28,8 @@ mainpitch:
       body: >-
         The automated bidding works two ways: choose to discount your commission
         for a sale or offer part of your commission for a purchase, allowing the
-        consumer to use it towards their closing costs. The amount is up to you!
+        consumer to use the proceeds towards their closing costs and pre-paid
+        items. The amount is up to you!
     - body: >-
         Within 24 hours, clients will choose their best offer and connect with a
         compatible agent in seconds. All on your smartphone.
