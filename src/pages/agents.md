@@ -13,7 +13,7 @@ mainpitch:
   image: /img/Simulator Screen Shot - iPhone 11 - 2020-10-26 at 11.56.52.png
   description: >-
     RealtyOffer will connect you with serious clients, while removing the
-    upfront awkward negotiations. Instead of spending thousands of dollars on
+    upfront awkward negotiation. Instead of spending thousands of dollars on
     wasted marking and leads, agents will have the opportunity to simply bid for
     their next client. The bidding works two ways: choose to discount your
     commission for a sale, or offer part of your commission for a purchase...
