@@ -9,17 +9,15 @@ heroSubheading: >-
   you leads, that just don't go anywhere?
 mainpitch:
   title: Here is how it works!
-  videoUrl: https://www.youtube.com/embed/R9jCqtpG770?rel=0
+  videoUrl: 'https://www.youtube.com/embed/R9jCqtpG770?rel=0'
   image: /img/Simulator Screen Shot - iPhone 11 - 2020-10-26 at 11.56.52.png
   description: >-
-    RealtyOffer will connect you with serious clients, while removing the upfront
-    awkward negotiations out of the way. Instead of spending thousands of dollars
-    on wasted marking and leads, agents will have the opportunity to simple bid
-    for their next client.
-
-    The bidding works two ways: choose to discount your commission for a sale,
-    or offer part of your commission for a purchase... the amount is up to you.
-    Everyone wins...
+    RealtyOffer will connect you with serious clients, while removing the
+    upfront awkward negotiations. Instead of spending thousands of dollars on
+    wasted marking and leads, agents will have the opportunity to simply bid for
+    their next client. The bidding works two ways: choose to discount your
+    commission for a sale, or offer part of your commission for a purchase...
+    the amount is up to you. Everyone wins...
   steps:
     - title: Subscribe to your favorite cities or counties...
       body: >-
