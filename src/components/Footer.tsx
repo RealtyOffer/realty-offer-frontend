@@ -88,7 +88,10 @@ const Footer = () => (
               <FaLinkedin />
             </SocialLink>
             {/* TODO */}
-            <SocialLink href="https://youtube.com/" target="_blank">
+            <SocialLink
+              href="https://www.youtube.com/channel/UCA2Lxd_nxREIZ7ruAzq18Ag"
+              target="_blank"
+            >
               <FaYoutubeSquare />
             </SocialLink>
             <SocialLink href="https://www.instagram.com/realtyofferus/" target="_blank">
