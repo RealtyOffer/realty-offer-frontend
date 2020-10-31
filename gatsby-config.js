@@ -23,6 +23,14 @@ module.exports = {
       },
     },
     {
+      resolve: '@sentry/gatsby',
+      options: {
+        dsn: process.env.GATSBY_SENTRY_DSN,
+        sampleRate: 0.7,
+        normalizeDepth: 10,
+      },
+    },
+    {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',
       options: {

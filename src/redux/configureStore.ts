@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import * as Sentry from '@sentry/gatsby';
 // Note: imported 'isomorphic-fetch' this way so that in reducer tests we can mock Fetch/Response
 import 'isomorphic-fetch';
 
@@ -23,6 +24,10 @@ import { initialState as globalAlertsInitialState } from './ducks/globalAlerts';
 import { initialState as listingsInitialState } from './ducks/listings';
 import { initialState as userInitialState } from './ducks/user';
 
+const sentryReduxEnhancer = Sentry.createReduxEnhancer({
+  // Optionally pass options
+});
+
 export const getMiddlewares = () => [oauth, requestHeaders, apiMiddleware, errorCatcher, thunk];
 
 const middlewares = getMiddlewares();
@@ -33,7 +38,7 @@ if (isBrowser && (window.__ENVIRONMENT || process.env.GATSBY_ENVIRONMENT !== 'PR
   middlewares.push(logger);
 }
 
-const functionsToCompose = [applyMiddleware(...middlewares)];
+const functionsToCompose = [applyMiddleware(...middlewares), sentryReduxEnhancer];
 
 // eslint-disable-next-line
 if (isBrowser && (window.__ENVIRONMENT || process.env.GATSBY_ENVIRONMENT !== 'PRODUCTION')) {

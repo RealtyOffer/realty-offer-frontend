@@ -12,6 +12,7 @@ import { offWhite } from '../styles/color';
 import GlobalAlerts from './GlobalAlerts';
 import GlobalBanners from './GlobalBanners';
 import PageContainer from './PageContainer';
+import ErrorBoundary from './ErrorBoundary';
 import CssReset from '../styles/cssReset';
 
 const LayoutWrapper = styled.div`
@@ -46,7 +47,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ element }) => (
             <GlobalAlerts />
             <GlobalBanners />
           </PageContainer>
-          {element}
+          <ErrorBoundary>{element}</ErrorBoundary>
         </PageBody>
         <Footer />
       </LayoutWrapper>

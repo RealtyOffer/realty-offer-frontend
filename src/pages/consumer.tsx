@@ -12,7 +12,7 @@ import Home from '../views/consumer/Authenticated/Home';
 import MissingCity from '../views/shared/MissingCity';
 
 import NotFoundPage from './404';
-import { LoadingPage, PageContainer, PrivateRoute } from '../components';
+import { LoadingPage, PageContainer, PrivateRoute, ErrorBoundary } from '../components';
 import { getUserSiteBanners } from '../redux/ducks/user';
 import { RootState } from '../redux/ducks';
 import { addBanner } from '../redux/ducks/globalAlerts';
@@ -56,20 +56,22 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
 
   return (
     <PageContainer>
-      <Router basepath="/consumer">
-        <LoadingPage path="/" />
-        <StartCreateConsumer path="/start" />
-        <Buying path="/buying" />
-        <Selling path="/selling" />
-        <CreateConsumer path="/sign-up" />
-        <VerifyEmail path="/verify-email" />
-        <MissingCity path="/missing-city" />
-        <PrivateRoute component={Home} path="/listing" allowedRole="Consumer" />
-        <PrivateRoute component={Home} path="/profile" allowedRole="Consumer" />
-        <PrivateRoute component={Home} path="/preferences" allowedRole="Consumer" />
-        <PrivateRoute component={Home} path="/manage-notifications" allowedRole="Consumer" />
-        <NotFoundPage default />
-      </Router>
+      <ErrorBoundary>
+        <Router basepath="/consumer">
+          <LoadingPage path="/" />
+          <StartCreateConsumer path="/start" />
+          <Buying path="/buying" />
+          <Selling path="/selling" />
+          <CreateConsumer path="/sign-up" />
+          <VerifyEmail path="/verify-email" />
+          <MissingCity path="/missing-city" />
+          <PrivateRoute component={Home} path="/listing" allowedRole="Consumer" />
+          <PrivateRoute component={Home} path="/profile" allowedRole="Consumer" />
+          <PrivateRoute component={Home} path="/preferences" allowedRole="Consumer" />
+          <PrivateRoute component={Home} path="/manage-notifications" allowedRole="Consumer" />
+          <NotFoundPage default />
+        </Router>
+      </ErrorBoundary>
     </PageContainer>
   );
 };

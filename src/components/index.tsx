@@ -9,6 +9,7 @@ import ConsumerListingCard from './ConsumerListingCard';
 import Content from './Content';
 import Countdown from './Countdown';
 import EmptyListingsView from './EmptyListingsView';
+import ErrorBoundary from './ErrorBoundary';
 import FileUpload from './FileUpload';
 import FlexContainer from './FlexContainer';
 import Footer from './Footer';
@@ -50,6 +51,7 @@ export {
   Content,
   Countdown,
   EmptyListingsView,
+  ErrorBoundary,
   FileUpload,
   FlexContainer,
   Footer,
