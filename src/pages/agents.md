@@ -64,20 +64,19 @@ thirdpitch:
   title: Ready to grow your business?
   videoUrl: hello
   description: >-
-    Pre-qualify now
+    Pre-qualify now, Agent criteria:
 
-    Agent Criteria:
 
-    - Must be an agent for at least 12 months
+    * Must be an agent for at least 12 months
 
-    - Must have closed 6 transactions, three of which you were representing the
+    * Must have closed 6 transactions, three of which you were representing the
     seller
 
-    - No penalties
+    * No penalties
 
-    - Licensed in the state of MI
+    * Licensed in the state of MI
 
-    - Active membership with a realtor association
+    * Active membership with a realtor association
   ctaText: Become a RealtyOffer agent
   image: /img/shutterstock_image3_landingpage.jpg
 testimonials:
