@@ -32,7 +32,7 @@ mainpitch:
         items. The amount is up to you!
     - body: >-
         Within 24 hours, clients will choose their best offer and connect with a
-        compatible agent in seconds. All on your smartphone.
+        compatible agent in seconds. All through your smartphone.
       title: Client Selects Winning Agent
   ctaText: Learn more about becoming an agent
 secondpitch:
