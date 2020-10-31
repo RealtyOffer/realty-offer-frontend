@@ -8,23 +8,25 @@ consumer:
   title: Why RealtyOffer?
   subtitle: Do you need an agent that will do the right thing for you?
   body: >-
-    Our goal is to make buying or selling a home, or getting a mortgage, as easy and stress-free as possible. Our Artifical Intelligence-Digitized platform is designed to **educate & empower the consumer** and connect you with **top-rated certified agents**, while saving thousands of dollars through the process.
+    Our goal is to make buying or selling a home, or getting a mortgage, as easy
+    and stress-free as possible. Our Artifical Intelligence-Digitized platform
+    is designed to **educate & empower the consumer** and connect you with
+    **top-rated certified agents**, while saving thousands of dollars through
+    the process.
   cta: Connect with a RealtyOffer Specialist
   icon: /img/np_real-estate_3187456_000000.svg
 mainpitch:
-  title: 'Wondering how it works?'
-  videoUrl: https://www.youtube.com/embed/USvuAqJF3Is?rel=0
+  title: Wondering how it works?
+  videoUrl: 'https://www.youtube.com/embed/USvuAqJF3Is?rel=0'
   steps:
     - title: Step One
       body: >-
         Fill in some simple information, sit back and RealtyOffer will connect
-        you with compatible agents, while removing the upfront negotiation out
-        of the way.
+        you with compatible agents, while removing the upfront negotiation.
 
 
         No contracts, no obligation, no awkward negotiation,... and the best
         part about it, it's completely FREE!
-
     - title: Step Two
       body: >-
         Agents will receive your information and within 24 hours, agents have
@@ -34,7 +36,6 @@ mainpitch:
         The bidding works both ways: Agents simply discount their commission in
         order to sell your home, or offer part of their commission towards your
         closing costs for you to purchase a home.
-
     - body: >-
         Within 24 hours, you will be able to review three bids from compatible
         agents in your area.
