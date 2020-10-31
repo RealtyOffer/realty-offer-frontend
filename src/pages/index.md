@@ -35,7 +35,8 @@ mainpitch:
 
         The bidding works both ways: Agents simply discount their commission in
         order to sell your home, or offer part of their commission towards your
-        closing costs for you to purchase a home.
+        closing costs and pre-paid items for you to purchase a home - this means
+        less money to the closing table!
     - body: >-
         Within 24 hours, you will be able to review three bids from compatible
         agents in your area.
