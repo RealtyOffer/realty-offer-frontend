@@ -29,8 +29,8 @@ import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 import { getDropdownListText } from '../utils/dropdownUtils';
 
 const ConsumerLandingForm: FunctionComponent<{}> = () => {
-  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
-  const homesTypeList = useSelector((state: RootState) => state.dropdowns.homeTypes.list);
+  const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges);
+  const homesTypeList = useSelector((state: RootState) => state.dropdowns.homeTypes);
   const dispatch = useDispatch();
   const initialValues = {
     firstName: '',
@@ -57,15 +57,18 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
     <PageContainer>
       <Card cardTitle="Connect with a RealtyOffer Specialist">
         <ClientOnly>
-          {priceRangesList.length > 0 && homesTypeList.length > 0 ? (
+          {priceRangesList &&
+          priceRangesList.list.length > 0 &&
+          homesTypeList &&
+          homesTypeList.list.length > 0 ? (
             <Formik
               validateOnMount
               initialValues={initialValues}
               onSubmit={(values, { resetForm, setSubmitting }) => {
                 const valuesWithSubject = {
                   ...values,
-                  homeValue: getDropdownListText(priceRangesList, values.homeValue),
-                  styleOfHome: getDropdownListText(homesTypeList, values.styleOfHome),
+                  homeValue: getDropdownListText(priceRangesList.list, values.homeValue),
+                  styleOfHome: getDropdownListText(homesTypeList.list, values.styleOfHome),
                   subject: `New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`,
                 };
                 postFormUrlEncoded('consumer-landing', valuesWithSubject)
@@ -177,7 +180,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                     as={Input}
                     type="select"
                     name="homeValue"
-                    options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
+                    options={createOptionsFromManagedDropdownList(priceRangesList.list.slice(1))}
                     label="Estimated Home Value"
                     setFieldValue={setFieldValue}
                     {...rest}
@@ -186,7 +189,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                     as={Input}
                     type="select"
                     name="styleOfHome"
-                    options={createOptionsFromManagedDropdownList(homesTypeList)}
+                    options={createOptionsFromManagedDropdownList(homesTypeList.list)}
                     label="Style of Home"
                     setFieldValue={setFieldValue}
                     {...rest}
