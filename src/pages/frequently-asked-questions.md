@@ -123,12 +123,18 @@ agentFaq:
         Our consultants are on stand-by to discuss any questions you might have.
     - question: How does my freemium subscription work?
       answer: >-
-        The city in which your office is located is free for three months.
+        Select agents are chosen from state to state to participate in a
+        *RealtyOffer Pilot program.* With this program agents are permitted to
+        bid at an unlimited capacity.
 
 
         If a bid is awarded and a sale or purchase is consummated, **RealtyOffer
-        will charge a $595 marketing fee from the agents closing commission, a
+        will charge a $595 marketing fee from the agents credit card on file, a
         binding agreement will be required during the freemium opportunity.**
+
+
+        At anytime agents will have the ability to simply subscribe to any city
+        of choice and avoid a $595 marketing fee per *"**Closed"***transaction.
     - question: >-
         Is there a guarantee the consumer will choose my services after I am
         awarded a bid? 
