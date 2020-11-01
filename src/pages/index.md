@@ -25,8 +25,8 @@ mainpitch:
         you with compatible agents, while removing the upfront negotiation.
 
 
-        No contracts, no obligation, no awkward negotiation,... and the best
-        part about it, it's completely FREE!
+        No contracts, no obligation, no awkward negotiation... and the best part
+        about it, it's completely FREE!
     - title: Step Two
       body: >-
         Agents will receive your information and within 24 hours, agents have
