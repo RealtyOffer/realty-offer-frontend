@@ -134,9 +134,12 @@ agentFaq:
       answer: >-
         There is no guarantee. RealtyOffer is designed to connect a serious
         client with a serious agent. Clients and agents have a  mutual choice
-        after meeting, if they would like to move forward. The objective is for
-        the agent to sign their agreement with the client after the awkward
-        negotiation has been done through our proprietary bidding platform.
+        after meeting, if they would like to move forward. 
+
+
+        The objective is for the agent to sign their agreement with the client
+        after the awkward negotiation has been done through our proprietary
+        bidding platform.
     - question: Is there a contract that an agent needs to sign with RealtyOffer?
       answer: >-
         Yes.
@@ -171,8 +174,9 @@ agentFaq:
         platform.
     - question: What happens if I cancel my subscription to use RealtyOffer?
       answer: >-
-        You have the right to cancel a subscription at any time, and a prorated
-        amount paid will be refunded to the agent within 30 days.
+        You have the right to cancel a subscription at any time. Monthly
+        subscriptions are paid in advance, agents have the ability to cancel
+        their monthly subscription right before their next billing cycle.
     - question: What happens if my subscription is not approved?
       answer: You will receive a full refund within 7-10 business days.
     - question: Will my personal informational shared?
