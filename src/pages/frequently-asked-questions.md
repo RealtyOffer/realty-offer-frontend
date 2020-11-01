@@ -88,11 +88,31 @@ agentFaq:
         coming agent.
     - question: What is the cost to become a member of RealtyOffer?
       answer: >-
-        Here’s how it works: After a vetting process, agents automatically
-        qualify for a three-month subscription to try our service for **FREE.
-        (One Time Offer-Freemium Subscription)**This is limited to the city
-        where your license is parked. At any time, agents can expand their
-        territory into multiple cities. Restrictions do apply.
+        Here’s how it works: After a vetting process, agents can begin to bid on
+        consumer leads. Once an agent is awarded the lead, they have two
+        options: 
+
+
+        **1. Pay As You Go**
+
+
+        The winning agent can choose to purchase JUST the lead they were
+        awarded, one lead at a time.
+
+
+        OR
+
+
+        **2. Monthly Subscription for Unlimited Leads**
+
+
+        The winning agent can choose to purchase a monthly subscription in the
+        city, cities or counties of their choosing. No matter the number of
+        leads awarded, the price is fixed.
+
+
+        At any time, agents can expand their territory into multiple cities or
+        countied. Restrictions do apply.
 
 
         Agents can choose to subscribe to multiple cities. Each city is assigned
