@@ -57,9 +57,9 @@ consumerFaq:
         agent you choose, after the criteria match and bidding process occurs.
     - question: Can any agent compete for my service?
       answer: >-
-        No. Only vetted and compatible licensed agents that are specialized in
-        your home area, and meet your criteria are permitted to bid for your
-        business.
+        No. Only certified-vetted and compatible licensed agents that are
+        specialized in your home area and meet your criteria are permitted to
+        bid for your business.
     - question: Do I need a pre-approval to put an offer on a home?
       answer: >-
         Yes. All agents require a pre-approval before placing offers on homes,
