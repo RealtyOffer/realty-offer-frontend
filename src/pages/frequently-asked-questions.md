@@ -52,10 +52,9 @@ consumerFaq:
       answer: 'No. At this time, we do not have a mobile or manufactured home division.'
     - question: Are there any contracts that I need to sign with RealtyOffer?
       answer: >-
-        No. The questionnaire we require you to e-sign is free, and is a
-        non-binding agreement to use our service. It is up to you to sign a
-        binding agreement with the agent you choose, after the criteria match
-        and bidding process occurs.
+        No. The questionnaire we require is a simple and non-binding agreement
+        to use our service. It is up to you to sign a binding agreement with the
+        agent you choose, after the criteria match and bidding process occurs.
     - question: Can any agent compete for my service?
       answer: >-
         No. Only vetted and compatible licensed agents that are specialized in
