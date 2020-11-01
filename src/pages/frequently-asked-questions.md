@@ -97,7 +97,7 @@ agentFaq:
 
 
         The winning agent can choose to purchase JUST the lead they were
-        awarded, one lead at a time.
+        awarded, one lead at a time, pricing varies from city to city.
 
 
         OR
@@ -112,11 +112,12 @@ agentFaq:
 
 
         At any time, agents can expand their territory into multiple cities or
-        countied. Restrictions do apply.
+        counties. Restrictions do apply.
 
 
         Agents can choose to subscribe to multiple cities. Each city is assigned
-        a cost based on its size and population density. 
+        a cost based on its size and population density. Any pricing can be
+        purchased with any major credit card.
 
 
         Our consultants are on stand-by to discuss any questions you might have.
