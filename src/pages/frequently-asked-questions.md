@@ -81,10 +81,11 @@ agentFaq:
   items:
     - question: What is RealtyOffer?
       answer: >-
-        We are a marketing platform designed to connect the everyday consumer
-        with an agent that is looking to increase their client base and brand
-        awareness. RealtyOffer realizes there is a gap between knowledge to the
-        consumer, and potential opportunities to the up and coming agent.
+        We are an AI-Digitized marketing platform designed to connect the
+        everyday consumer with an agent that is looking to increase their client
+        base and brand awareness. RealtyOffer realizes there is a gap between
+        knowledge to the consumer, and potential opportunities to the up and
+        coming agent.
     - question: What is the cost to become a member of RealtyOffer?
       answer: >-
         Here’s how it works: After a vetting process, agents automatically
