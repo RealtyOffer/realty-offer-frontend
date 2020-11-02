@@ -20,7 +20,7 @@ class ErrorBoundary extends Component<Props, {}> {
                   <Heading as="h2">There was an error in loading this page.</Heading>
                   <p>
                     An unhandled error has occurred. If this continues to occur, please contact
-                    info@realtyoffer.com.
+                    <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>.
                   </p>
                   <p>
                     <Button type="button" rightspacer onClick={() => resetError()}>

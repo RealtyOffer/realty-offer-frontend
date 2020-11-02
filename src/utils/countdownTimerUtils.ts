@@ -11,16 +11,18 @@ export const localizedCreateDateTime = (createDateTime: Date) =>
 // difference in minutes from expiration date to now, divided by 1440 which is number of minutes
 // in a day (24*60). Then multiply that by 100 to get percentage value
 export const timeDifference = (createDateTime: Date) => {
-  return (differenceInMinutes(Date.now(), localizedCreateDateTime(createDateTime)) / 120) * 100;
+  return (
+    100 - (differenceInMinutes(Date.now(), localizedCreateDateTime(createDateTime)) / 1440) * 100
+  );
 };
 
-// 2 hours out of 24
+// 2 hours out of 24, or 8.33% of 24
 export const isExpiringSoon = (createDateTime: Date) => {
-  return timeDifference(localizedCreateDateTime(createDateTime)) < 8.3333333;
+  return timeDifference(createDateTime) < 8.3333333;
 };
 
 export const expiresAt = (createDateTime: Date) =>
-  addMinutes(localizedCreateDateTime(createDateTime), 5);
+  addHours(localizedCreateDateTime(createDateTime), 24);
 
 export const isExpired = (createDateTime: Date) => isPast(expiresAt(createDateTime));
 

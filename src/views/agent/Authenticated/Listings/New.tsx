@@ -151,7 +151,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
             {listingsToShow && listingsToShow.length > 0 && !isLoading && (
               <Row>
                 {filteredListings()?.map((listing) => (
-                  <Column sm={6} lg={4} key={listing.id}>
+                  <Column md={6} lg={4} key={listing.id}>
                     <ListingCard listing={listing} listingType="new" isHideable />
                   </Column>
                 ))}

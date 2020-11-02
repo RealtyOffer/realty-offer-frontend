@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Link } from 'gatsby';
 import styled from 'styled-components';
-import TextTruncate from 'react-text-truncate';
 import { useDispatch } from 'react-redux';
 import { FaTrashAlt } from 'react-icons/fa';
 
@@ -12,8 +10,9 @@ import Modal from './Modal';
 import Row from './Row';
 import Column from './Column';
 
-import { brandSuccess, brandDanger, textColor, white } from '../styles/color';
-import { halfSpacer, baseSpacer, borderRadius } from '../styles/size';
+import { brandSuccess, brandDanger, textColor, white, lightestGray } from '../styles/color';
+import { halfSpacer, baseSpacer, borderRadius, quarterSpacer } from '../styles/size';
+import { fontSizeH6 } from '../styles/typography';
 import { z1Shadow, baseBorderStyle } from '../styles/mixins';
 import FlexContainer from './FlexContainer';
 import HorizontalRule from './HorizontalRule';
@@ -42,7 +41,7 @@ type WrapperProps = {
 };
 
 const ListingCardWrapper = styled.div`
-  text-align: center;
+  /* text-align: center; */
   background: ${white};
   margin-bottom: ${baseSpacer};
   box-shadow: ${z1Shadow};
@@ -72,10 +71,30 @@ const ListingCardHeader = styled.div`
 const ListingCardBody = styled.div`
   padding: ${halfSpacer} ${baseSpacer};
   flex: 1;
-  justify-content: center;
+  /* justify-content: center;
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
+`;
+
+const ListingDetailsTable = styled.table`
+  width: 100%;
+  & tr {
+    padding: 0 ${quarterSpacer};
+  }
+  & tr:nth-child(1) td {
+    font-size: ${fontSizeH6};
+    font-weight: bold;
+  }
+  & tr:nth-child(even) {
+    background-color: ${lightestGray};
+  }
+  & td:nth-child(odd) {
+    font-weight: bold;
+  }
+  & td:nth-child(even) {
+    text-align: right;
+  }
 `;
 
 const ListingCardFooter = styled.div`
@@ -100,6 +119,7 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({
       <ListingCardHeader expiringSoon={isExpiringSoon(listing.createDateTime)}>
         <FlexContainer justifyContent="space-between">
           <Countdown
+            showRemainingTimeString
             createDateTime={listing.createDateTime}
             onComplete={() => {
               // give it 5 seconds so the backend has time to work
@@ -150,54 +170,78 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({
                   onClick={() => setModalIsOpen(true)}
                   iconLeft={<FaTrashAlt />}
                   color="text"
-                >
-                  Remove Listing
-                </Button>
+                />
               </>
             )}
           </div>
         </FlexContainer>
       </ListingCardHeader>
       <ListingCardBody>
-        {listing.type?.includes('buyer') && (
-          <>
-            <Heading as="h1" noMargin styledAs="title">
-              {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
-            </Heading>
-            <span>
-              Buying in{' '}
-              {Array.isArray(listing.buyingCities) && listing.buyingCities.length > 0 && (
-                <TextTruncate
-                  line={1}
-                  element="span"
-                  truncateText="…"
-                  text={Array(listing.buyingCities.map((city) => city.name))
-                    .toString()
-                    .replace(/,/g, ', ')}
-                  textTruncateChild={
-                    <Link to={`/agent/listings/${listingType}/${listing.id}`}>More</Link>
-                  }
-                />
-              )}
-            </span>
-          </>
+        {listing.type?.toLowerCase().includes('seller') && (
+          <ListingDetailsTable>
+            <tbody>
+              <tr>
+                <td>Est. Listing Price:</td>
+                <td>
+                  {displayDropdownListText(
+                    listing.sellersListingPriceInMindPriceRangeInMindId,
+                    'priceRanges'
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>Location:</td>
+                <td>{listing.sellersCity?.name}</td>
+              </tr>
+              <tr>
+                <td>Mortgage Balance:</td>
+                <td>{displayDropdownListText(listing.sellersMortgageBalanceId, 'priceRanges')}</td>
+              </tr>
+              <tr>
+                <td>Timeline:</td>
+                <td>{listing.sellersTimeline}</td>
+              </tr>
+              <tr>
+                <td>Home Type:</td>
+                <td>{displayDropdownListText(listing.sellerTypeOfHomeId, 'homeTypes')}</td>
+              </tr>
+            </tbody>
+          </ListingDetailsTable>
         )}
         {listing.type === 'buyerSeller' && <HorizontalRule />}
-        {listing.type?.toLowerCase().includes('seller') && (
-          <>
-            <Heading as="h1" noMargin styledAs="title">
-              {displayDropdownListText(
-                listing.sellersListingPriceInMindPriceRangeInMindId,
-                'priceRanges'
-              )}
-            </Heading>
-            <span>Selling in {listing.sellersCity?.name}</span>
-          </>
+        {listing.type?.includes('buyer') && (
+          <ListingDetailsTable>
+            <tbody>
+              <tr>
+                <td>Est. Purchase Price:</td>
+                <td>{displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}</td>
+              </tr>
+              <tr>
+                <td>Location:</td>
+                <td>
+                  {Array.isArray(listing.buyingCities) &&
+                    listing.buyingCities.length > 0 &&
+                    Array(listing.buyingCities.map((city) => city.name))
+                      .toString()
+                      .replace(/,/g, ', ')}
+                </td>
+              </tr>
+              <tr>
+                <td>Home Type:</td>
+                <td>{displayDropdownListText(listing.buyerTypeOfHomeId, 'homeTypes')}</td>
+              </tr>
+            </tbody>
+          </ListingDetailsTable>
         )}
       </ListingCardBody>
       <ListingCardFooter>
-        <Button type="link" to={`/agent/listings/${listingType}/${listing.id}`} block>
-          Listing Details
+        <Button
+          type="link"
+          to={`/agent/listings/${listingType}/${listing.id}`}
+          block
+          color="tertiary"
+        >
+          {listingType === 'new' ? 'Place Bid' : 'View My Bid'}
         </Button>
       </ListingCardFooter>
     </ListingCardWrapper>

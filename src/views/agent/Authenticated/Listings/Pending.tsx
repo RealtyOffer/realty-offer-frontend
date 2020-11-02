@@ -32,7 +32,7 @@ const PendingListings: FunctionComponent<RouteComponentProps> = () => {
       {pendingListings && pendingListings.length > 0 && !isLoading && (
         <Row>
           {pendingListings.map((listing) => (
-            <Column sm={6} lg={4} key={listing.id}>
+            <Column md={6} lg={4} key={listing.id}>
               <ListingCard listing={listing} listingType="pending" />
             </Column>
           ))}

@@ -33,7 +33,7 @@ const ListingHistory: FunctionComponent<RouteComponentProps> = () => {
       {historyListings && historyListings.length > 0 && !isLoading && (
         <Row>
           {historyListings.map((listing) => (
-            <Column sm={6} lg={4} key={listing.id}>
+            <Column md={6} lg={4} key={listing.id}>
               <ListingCard
                 listing={listing}
                 listingType="history"
