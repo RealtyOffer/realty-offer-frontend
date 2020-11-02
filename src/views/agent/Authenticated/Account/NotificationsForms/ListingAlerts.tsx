@@ -49,21 +49,28 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
     { value: 'oncePerDay', label: 'Once per day' },
   ];
 
-  listingAlerts.forEach((item) => {
-    initialValues[item.notificationName] = {
-      email:
-        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.email ??
-        false,
-      sms:
-        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.sms ?? false,
-      desktop: true,
-      inAppPush:
-        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
-        false,
-      notificationId: item.id,
-      notificationFrequency: 'realTime',
-    };
-  });
+  if (
+    !user.isLoading &&
+    user.userNotificationSubscriptions.length &&
+    user.notificationSettings.emailAddress
+  ) {
+    listingAlerts.forEach((item) => {
+      initialValues[item.notificationName] = {
+        email:
+          user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.email ??
+          false,
+        sms:
+          user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.sms ??
+          false,
+        desktop: true,
+        inAppPush:
+          user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)
+            ?.inAppPush ?? false,
+        notificationId: item.id,
+        notificationFrequency: 'realTime',
+      };
+    });
+  }
 
   return (
     <Box>

@@ -55,10 +55,6 @@ export const TOKEN_REFRESH_REQUEST = 'TOKEN_REFRESH_REQUEST';
 export const TOKEN_REFRESH_SUCCESS = 'TOKEN_REFRESH_SUCCESS';
 export const TOKEN_REFRESH_FAILURE = 'TOKEN_REFRESH_FAILURE';
 
-// export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST';
-// export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
-// export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
-
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
 export const initialState: AuthStoreType = {
@@ -89,9 +85,9 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
     case UPDATE_USER_REQUEST:
-      // case CHANGE_PASSWORD_REQUEST:
       return {
         ...state,
+        tokenIsRefreshing: false,
         isLoading: true,
         hasError: false,
       };
@@ -141,7 +137,6 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
     case RESET_PASSWORD_SUCCESS:
     case FORGOT_PASSWORD_SUCCESS:
     case RESEND_SIGNUP_EMAIL_SUCCESS:
-      // case CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -173,7 +168,6 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case TOKEN_REFRESH_FAILURE:
-      // case CHANGE_PASSWORD_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -260,22 +254,6 @@ export const resetPassword = (payload: ResetPasswordFormValues) => ({
   },
 });
 
-// export const changePassword = (payload: {
-//   newPassword: string,
-//   currentPassword: string,
-// }) => ({
-//   [RSAA]: {
-//     // endpoint: CHANGE_PASSWORD_ENDPOINT,
-//     method: 'POST',
-//     body: JSON.stringify(payload),
-//     types: [
-//       CHANGE_PASSWORD_REQUEST,
-//       CHANGE_PASSWORD_SUCCESS,
-//       CHANGE_PASSWORD_FAILURE,
-//     ],
-//   },
-// });
-
 export const logout = () => ({
   type: LOGOUT_REQUEST,
 });
@@ -287,7 +265,7 @@ export const refreshAccessToken = () => (dispatch: Dispatch, getState: any) => {
       endpoint: AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT,
       method: 'POST',
       skipOauth: true,
-      bailout: state.auth.tokenIsRefreshing,
+      // bailout: state.auth.tokenIsRefreshing,
       body: JSON.stringify({
         refreshToken: state.auth.refreshToken,
         accessToken: state.auth.accessToken,

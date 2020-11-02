@@ -34,21 +34,28 @@ const AccountAlertsForm: FunctionComponent<AccountAlertsProps> = ({ user }) => {
 
   const initialValues = {} as InitialValuesType;
 
-  accountAlerts.forEach((item) => {
-    initialValues[item.notificationName] = {
-      email:
-        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.email ??
-        false,
-      sms:
-        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.sms ?? false,
-      desktop: true,
-      inAppPush:
-        user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.inAppPush ??
-        false,
-      notificationId: item.id,
-      notificationFrequency: 'realTime',
-    };
-  });
+  if (
+    !user.isLoading &&
+    user.userNotificationSubscriptions.length &&
+    user.notificationSettings.emailAddress
+  ) {
+    accountAlerts.forEach((item) => {
+      initialValues[item.notificationName] = {
+        email:
+          user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.email ??
+          false,
+        sms:
+          user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)?.sms ??
+          false,
+        desktop: true,
+        inAppPush:
+          user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)
+            ?.inAppPush ?? false,
+        notificationId: item.id,
+        notificationFrequency: 'realTime',
+      };
+    });
+  }
 
   return (
     <Box>
