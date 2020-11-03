@@ -280,6 +280,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     if (isLoggedInConsumer) {
       return [];
     }
+    // not finished with signup process, so return nothing
     if (!isLoggedInAgent && auth.roles.includes('Agent')) {
       return [];
     }

@@ -73,7 +73,6 @@ export type CityType = {
   id: number;
   name: string;
   countyId: number;
-  state: string;
   monthlyPrice: number;
 };
 

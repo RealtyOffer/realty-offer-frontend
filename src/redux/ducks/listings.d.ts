@@ -133,5 +133,5 @@ export type ListingsStoreActions =
   | GetHistoryListingsFailureAction
   | ChangeCountyNameAction
   | ToggleSalesAreaAction
-  | LogoutRequestAction
-  | ToggleListingVisibility;
+  | ToggleListingVisibility
+  | LogoutRequestAction;

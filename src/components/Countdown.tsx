@@ -20,7 +20,8 @@ type CountdownProps = {
 };
 
 const CountdownWrapper = styled.div`
-  color: ${(props: { expiringSoon: boolean }) => (props.expiringSoon ? brandDanger : textColor)};
+  color: ${(props: { expiringSoon: boolean; isExpired: boolean }) =>
+    props.expiringSoon && !props.isExpired ? brandDanger : textColor};
   display: flex;
   align-items: center;
   & span {
@@ -33,7 +34,10 @@ const Countdown: FunctionComponent<CountdownProps> = ({
   onComplete,
   showRemainingTimeString,
 }) => (
-  <CountdownWrapper expiringSoon={isExpiringSoon(createDateTime)}>
+  <CountdownWrapper
+    expiringSoon={isExpiringSoon(createDateTime)}
+    isExpired={isExpired(createDateTime)}
+  >
     {isExpired(createDateTime) ? (
       <span>{format(localizedCreateDateTime(createDateTime), 'MM/dd/yyyy hh:mmaa')}</span>
     ) : (

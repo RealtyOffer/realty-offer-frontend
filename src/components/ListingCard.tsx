@@ -137,7 +137,7 @@ const ListingCard: FunctionComponent<ListingCardProps> = ({
               <>
                 <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
                   <Heading styledAs="title">Hide Listing?</Heading>
-                  <p>Are you sure you want to hide the listing?</p>
+                  <p>Are you sure you want to hide this listing?</p>
                   <Row>
                     <Column xs={6}>
                       <Button
