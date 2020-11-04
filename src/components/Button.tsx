@@ -91,6 +91,7 @@ const successButtonStyles = `
 `;
 
 const successOutlineButtonStyles = `
+  background-color: ${white};
   border-color: ${brandSuccess};
   color: ${brandSuccess};
   

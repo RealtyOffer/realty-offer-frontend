@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState } from 'react';
-import { graphql } from 'gatsby';
+import React, { FunctionComponent, useState, useEffect } from 'react';
+import { graphql, navigate } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import 'react-rangeslider/lib/index.css';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 import {
   Row,
@@ -32,6 +33,7 @@ import {
   textColor,
 } from '../styles/color';
 import numberWithCommas from '../utils/numberWithCommas';
+import { RootState } from '../redux/ducks';
 
 type IndexPageProps = {
   title: string;
@@ -108,8 +110,21 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   mainpitch,
   testimonials,
 }) => {
+  const auth = useSelector((state: RootState) => state.auth);
   const [sellRange, setSellRange] = useState(250000);
   const [buyRange, setBuyRange] = useState(350000);
+
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      if (auth.roles.includes('Agent')) {
+        navigate('/agent/listings/new');
+      }
+      if (auth.roles.includes('Consumer')) {
+        navigate('/consumer/listing');
+      }
+    }
+  }, []);
+
   return (
     <div>
       <Seo title={title} />

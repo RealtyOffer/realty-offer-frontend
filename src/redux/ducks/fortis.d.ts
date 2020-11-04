@@ -20,6 +20,12 @@ import {
   GET_RECURRING_REQUEST,
   GET_RECURRING_SUCCESS,
   GET_RECURRING_FAILURE,
+  GET_TRANSACTIONS_REQUEST,
+  GET_TRANSACTIONS_SUCCESS,
+  GET_TRANSACTIONS_FAILURE,
+  UPDATE_ACCOUNTVAULT_REQUEST,
+  UPDATE_ACCOUNTVAULT_SUCCESS,
+  UPDATE_ACCOUNTVAULT_FAILURE,
 } from './fortis';
 
 import { LogoutRequestAction } from './auth.d';
@@ -28,8 +34,9 @@ export type FortispayStoreType = {
   isLoading: boolean;
   hasError: boolean;
   contact?: FortispayContactType;
-  accountVault?: Array<FortispayAccountvaultResponseType>;
-  recurring?: Array<FortispayRecurringResponseType>;
+  accountVaults: Array<FortispayAccountvaultResponseType>;
+  recurring: Array<FortispayRecurringResponseType>;
+  transactions: Array<FortispayTransactionResponseType>;
 };
 
 export type FortispayContactType = {
@@ -70,6 +77,8 @@ export type FortispayContactResponseType = {
 } & FortispayContactType;
 
 export type FortispayAccountvaultType = {
+  id?: string;
+  account_vault_api_id?: string;
   payment_method: 'cc';
   account_number: string;
   exp_date: string;
@@ -163,6 +172,61 @@ export type FortispayRecurringResponseType = {
   }>;
 };
 
+export type FortispayTransactionResponseType = {
+  id: string;
+  payment_method: string;
+  account_vault_id: string;
+  recurring_id?: string;
+  first_six: string;
+  last_four: string;
+  account_holder_name: string;
+  transaction_amount: string;
+  description?: string;
+  transaction_code?: string;
+  avs: string;
+  batch: string;
+  order_num: string;
+  verbiage: string;
+  transaction_settlement_status?: string;
+  effective_date?: string;
+  routing?: string;
+  return_date?: string;
+  created_ts: number;
+  modified_ts: number;
+  transaction_api_id?: string;
+  terms_agree: number;
+  notification_email_address?: string;
+  notification_email_sent: boolean;
+  response_message?: string;
+  auth_amount: string;
+  auth_code: string;
+  status_id: number;
+  type_id: number;
+  location_id: string;
+  reason_code_id: number;
+  contact_id: string;
+  billing_zip: string;
+  billing_street: string;
+  product_transaction_id: string;
+  avs_enhanced: string;
+  cvv_response: string;
+  billing_phone?: string;
+  billing_city: string;
+  billing_state: string;
+  clerk_number?: string;
+  tip_amount: string;
+  created_user_id: string;
+  modified_user_id: string;
+  ach_identifier?: string;
+  check_number?: string;
+  settle_date?: string;
+  charge_back_date?: string;
+  void_date?: string;
+  account_type: string;
+  is_recurring: boolean;
+  is_accountvault: boolean;
+};
+
 export type CreateContactRequestAction = {
   type: typeof CREATE_CONTACT_REQUEST;
 };
@@ -182,7 +246,7 @@ export type CreateAccountvaultRequestAction = {
 
 export type CreateAccountvaultSuccessAction = {
   type: typeof CREATE_ACCOUNTVAULT_SUCCESS;
-  payload: Array<FortispayAccountvaultResponseType>;
+  payload: FortispayAccountvaultResponseType;
 };
 
 export type CreateAccountvaultFailureAction = {
@@ -202,13 +266,24 @@ export type GetAccountvaultFailureAction = {
   type: typeof GET_ACCOUNTVAULT_FAILURE;
 };
 
+export type UpdateAccountvaultRequestAction = {
+  type: typeof UPDATE_ACCOUNTVAULT_REQUEST;
+};
+export type UpdateAccountvaultSuccessAction = {
+  type: typeof UPDATE_ACCOUNTVAULT_SUCCESS;
+  payload: FortispayAccountvaultResponseType;
+};
+export type UpdateAccountvaultFailureAction = {
+  type: typeof UPDATE_ACCOUNTVAULT_FAILURE;
+};
+
 export type DeleteAccountvaultRequestAction = {
   type: typeof DELETE_ACCOUNTVAULT_REQUEST;
+  payload: { id: string };
 };
 
 export type DeleteAccountvaultSuccessAction = {
   type: typeof DELETE_ACCOUNTVAULT_SUCCESS;
-  payload: any;
 };
 
 export type DeleteAccountvaultFailureAction = {
@@ -233,7 +308,7 @@ export type EditRecurringRequestAction = {
 };
 export type EditRecurringSuccessAction = {
   type: typeof EDIT_RECURRING_SUCCESS;
-  payload: Array<FortispayRecurringResponseType>;
+  payload: FortispayRecurringResponseType;
 };
 export type EditRecurringFailureAction = {
   type: typeof EDIT_RECURRING_FAILURE;
@@ -248,6 +323,17 @@ export type GetRecurringSuccessAction = {
 };
 export type GetRecurringFailureAction = {
   type: typeof GET_RECURRING_FAILURE;
+};
+
+export type GetTransactionsRequestAction = {
+  type: typeof GET_TRANSACTIONS_REQUEST;
+};
+export type GetTransactionsSuccessAction = {
+  type: typeof GET_TRANSACTIONS_SUCCESS;
+  payload: Array<FortispayTransactionResponseType>;
+};
+export type GetTransactionsFailureAction = {
+  type: typeof GET_TRANSACTIONS_FAILURE;
 };
 
 export type FortispayStoreActions =
@@ -269,7 +355,13 @@ export type FortispayStoreActions =
   | GetRecurringRequestAction
   | GetRecurringSuccessAction
   | GetRecurringFailureAction
+  | UpdateAccountvaultRequestAction
+  | UpdateAccountvaultSuccessAction
+  | UpdateAccountvaultFailureAction
   | DeleteAccountvaultRequestAction
   | DeleteAccountvaultSuccessAction
   | DeleteAccountvaultFailureAction
+  | GetTransactionsRequestAction
+  | GetTransactionsSuccessAction
+  | GetTransactionsFailureAction
   | LogoutRequestAction;

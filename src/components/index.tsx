@@ -8,6 +8,7 @@ import Column from './Column';
 import ConsumerListingCard from './ConsumerListingCard';
 import Content from './Content';
 import Countdown from './Countdown';
+import CreditCard from './CreditCard';
 import EmptyListingsView from './EmptyListingsView';
 import ErrorBoundary from './ErrorBoundary';
 import FileUpload from './FileUpload';
@@ -50,6 +51,7 @@ export {
   ConsumerListingCard,
   Content,
   Countdown,
+  CreditCard,
   EmptyListingsView,
   ErrorBoundary,
   FileUpload,

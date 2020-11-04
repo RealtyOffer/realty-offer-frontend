@@ -19,7 +19,7 @@ class ErrorBoundary extends Component<Props, {}> {
                 <Box>
                   <Heading as="h2">There was an error in loading this page.</Heading>
                   <p>
-                    An unhandled error has occurred. If this continues to occur, please contact
+                    An unhandled error has occurred. If this continues to occur, please contact:{' '}
                     <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>.
                   </p>
                   <p>

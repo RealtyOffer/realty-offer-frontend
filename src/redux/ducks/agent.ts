@@ -87,8 +87,8 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        // TODO: after pilot, switch back to below
-        hasCompletedSignup: Boolean(action.payload.fortispayRecurringId),
+        // TODO change what is considered complete?
+        hasCompletedSignup: Boolean(action.payload.fortispayAccountVaultId),
         // hasCompletedSignup: action.payload.cities && action.payload.cities.length > 0,
         ...action.payload,
       };

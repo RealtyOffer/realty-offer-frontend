@@ -72,29 +72,31 @@ const Table: FunctionComponent<TableProps> = ({ columns, data }) => {
                   <StyledTd {...cell.getCellProps()} key={cell.getCellProps().key}>
                     {String(cell.getCellProps().key).includes('action') ? (
                       <>
-                        {cell.row.original.actions.map((action: TableActionType) => {
-                          if (action.onClick) {
-                            return (
-                              <Button
-                                type="button"
-                                key={action.label}
-                                onClick={action.onClick}
-                                color="text"
-                              >
-                                {action.label}
-                              </Button>
-                            );
-                          }
-                          if (action.to) {
-                            // TODO: more styling options like icon only button, colored button
-                            return (
-                              <Button type="link" key={action.label} to={action.to} color="text">
-                                {action.label}
-                              </Button>
-                            );
-                          }
-                          return null;
-                        })}
+                        {cell.row.original.actions &&
+                          cell.row.original.actions.length > 0 &&
+                          cell.row.original.actions.map((action: TableActionType) => {
+                            if (action.onClick) {
+                              return (
+                                <Button
+                                  type="button"
+                                  key={action.label}
+                                  onClick={action.onClick}
+                                  color="text"
+                                >
+                                  {action.label}
+                                </Button>
+                              );
+                            }
+                            if (action.to) {
+                              // TODO: more styling options like icon only button, colored button
+                              return (
+                                <Button type="link" key={action.label} to={action.to} color="text">
+                                  {action.label}
+                                </Button>
+                              );
+                            }
+                            return null;
+                          })}
                       </>
                     ) : (
                       cell.value

@@ -2,9 +2,9 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { navigate } from 'gatsby';
-
 import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   Button,
   HorizontalRule,
@@ -153,7 +153,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                       { value: '09', label: '09 - September' },
                       { value: '10', label: '10 - October' },
                       { value: '11', label: '11 - November' },
-                      { value: '12', label: '12 - September' },
+                      { value: '12', label: '12 - December' },
                     ]}
                     required
                     {...rest}
