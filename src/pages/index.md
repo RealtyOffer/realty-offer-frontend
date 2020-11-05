@@ -34,7 +34,7 @@ mainpitch:
 
 
         The bidding works both ways: Agents simply discount their commission in
-        order to sell your home, or offer part of their commission towards your
+        order to sell your home or offer part of their commission towards your
         closing costs and pre-paid items for you to purchase a home - this means
         less money to the closing table!
     - body: >-
