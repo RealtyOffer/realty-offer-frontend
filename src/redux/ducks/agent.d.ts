@@ -22,6 +22,7 @@ import {
   DELETE_BID_BY_ID_FAILURE,
   RESET_PROFILE_COMPLETE_ALERT,
   CAPTURE_AGENT_SIGNUP_DATA,
+  UPDATE_AGENT_IS_IN_GOOD_STANDING,
 } from './agent';
 
 import { CityType } from './admin.d';
@@ -105,6 +106,7 @@ export type AgentStoreType = {
   hasError: boolean;
   signupData: AgentSignupDataType;
   activeBid?: { isLoading: boolean } & BidType;
+  isInGoodStanding: boolean;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {
@@ -203,6 +205,11 @@ export type CaptureAgentSignupDataAction = {
   payload: AgentSignupDataType;
 };
 
+export type UpdateAgentIsInGoodStandingAction = {
+  type: typeof UPDATE_AGENT_IS_IN_GOOD_STANDING;
+  payload: boolean;
+};
+
 export type AgentActionTypes =
   | CreateAgentProfileRequestAction
   | CreateAgentProfileSuccessAction
@@ -227,4 +234,5 @@ export type AgentActionTypes =
   | DeleteBidByIdFailureAction
   | ResetProfileCompleteAlertAction
   | CaptureAgentSignupDataAction
+  | UpdateAgentIsInGoodStandingAction
   | LogoutRequestAction;

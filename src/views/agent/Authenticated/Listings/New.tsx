@@ -81,7 +81,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
         agent.cities?.some((c) => c.name === l.sellersCity?.name)
       );
       const buyersCityMatchesByCity = listingsToShow.filter((l) =>
-        agent.cities?.some((c) => c.name === l.sellersCity?.name)
+        agent.cities?.some((c) => l.buyingCities?.some((b) => c.name === b?.name))
       );
       return uniqBy(
         [...(sellersCityMatchesByCity || []), ...(buyersCityMatchesByCity || [])],
@@ -176,7 +176,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
               <EmptyListingsView
                 title="There are no new listings at this time."
                 buttonText="Refresh New Listings"
-                onClick={() => document.location.reload()}
+                onClick={() => dispatch(getNewListings())}
               />
             )}
           </Form>

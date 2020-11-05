@@ -1,8 +1,8 @@
 ---
 templateKey: agents
 title: Same Agent Less Commission
-heroImage: /img/young-man-on-sidewalk-using-a-black-iphone-6.png
-mobileHeroImage: /img/young-man-on-sidewalk-using-a-black-iphone-6 copy.png
+heroImage: /img/RO-Beach-Image-1440-500.png
+mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: Brokers & Agents... Do you love making money?
 heroSubheading: >-
   Do you spend thousands of dollars per month on marketing, hoping it will bring

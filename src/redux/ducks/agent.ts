@@ -47,6 +47,8 @@ export const RESET_PROFILE_COMPLETE_ALERT = 'RESET_PROFILE_COMPLETE_ALERT';
 
 export const CAPTURE_AGENT_SIGNUP_DATA = 'CAPTURE_AGENT_SIGNUP_DATA';
 
+export const UPDATE_AGENT_IS_IN_GOOD_STANDING = 'UPDATE_AGENT_IS_IN_GOOD_STANDING';
+
 export const initialState: AgentStoreType = {
   id: undefined,
   state: '',
@@ -65,6 +67,7 @@ export const initialState: AgentStoreType = {
   certificates: undefined,
   agentLanguages: [],
   bidDefaults: {},
+  isInGoodStanding: true,
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {
@@ -100,6 +103,11 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         activeBid: {
           isLoading: true,
         },
+      };
+    case UPDATE_AGENT_IS_IN_GOOD_STANDING:
+      return {
+        ...state,
+        isInGoodStanding: action.payload,
       };
     case CREATE_AGENT_BID_SUCCESS:
     case UPDATE_AGENT_BID_SUCCESS:
@@ -241,5 +249,10 @@ export const resetProfileCompleteAlert = () => ({
 
 export const captureAgentSignupData = (payload: AgentSignupDataType) => ({
   type: CAPTURE_AGENT_SIGNUP_DATA,
+  payload,
+});
+
+export const updateAgentIsInGoodStanding = (payload: boolean) => ({
+  type: UPDATE_AGENT_IS_IN_GOOD_STANDING,
   payload,
 });

@@ -50,6 +50,7 @@ const GlobalBanners: FunctionComponent<GlobalBannersProps> = () => {
           alertNumber={1}
           alertNumberTotal={banners.length}
           callToActionLink={currentBanner.callToActionLink}
+          callToActionLinkText={currentBanner.callToActionLinkText}
           message={currentBanner.message || 'An error occurred. Please try again.'}
         />
       )}

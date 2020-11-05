@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect, FunctionComponent } from 'react';
 import { Router, WindowLocation } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +21,11 @@ import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
 import { ErrorBoundary, Alert, PageContainer, PrivateRoute, LoadingPage } from '../components';
-import { getAgentProfile, resetProfileCompleteAlert } from '../redux/ducks/agent';
+import {
+  getAgentProfile,
+  resetProfileCompleteAlert,
+  updateAgentIsInGoodStanding,
+} from '../redux/ducks/agent';
 import {
   getUserSiteBanners,
   getUserAvatar,
@@ -33,12 +38,18 @@ import { ActionResponseType } from '../redux/constants';
 import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 import { getPriceRangesList } from '../redux/ducks/dropdowns';
+import {
+  getFortispayAccountvaults,
+  getFortispayRecurrings,
+  getFortispayTransactions,
+} from '../redux/ducks/fortis';
 
 const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const auth = useSelector((state: RootState) => state.auth);
   const banners = useSelector((state: RootState) => state.user.banners);
   const dropdowns = useSelector((state: RootState) => state.dropdowns);
   const agent = useSelector((state: RootState) => state.agent);
+  const fortis = useSelector((state: RootState) => state.fortis);
   const dispatch = useDispatch();
 
   const prevBanners = usePrevious(banners);
@@ -79,6 +90,33 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (auth.isLoggedIn && agent.fortispayContactId != null) {
+      dispatch(getFortispayAccountvaults({ contact_id: agent.fortispayContactId }));
+      dispatch(getFortispayTransactions({ contact_id: agent.fortispayContactId }));
+      dispatch(getFortispayRecurrings({ contact_id: agent.fortispayContactId }));
+    }
+  }, [agent.fortispayContactId, agent.fortispayRecurringId]);
+
+  useEffect(() => {
+    if (auth.isLoggedIn && fortis.transactions && fortis.transactions.length > 0) {
+      if (fortis.transactions.sort((a, b) => b.created_ts - a.created_ts)[0].status_id === 301) {
+        dispatch(updateAgentIsInGoodStanding(false));
+        dispatch(
+          addBanner({
+            message: 'Your last transaction was declined. Please visit the',
+            type: 'danger',
+            dismissable: false,
+            callToActionLink: '/agent/account/billing',
+            callToActionLinkText: 'Billing page to update your payment method',
+          })
+        );
+      } else {
+        dispatch(updateAgentIsInGoodStanding(true));
+      }
+    }
+  }, [fortis.transactions]);
 
   useEffect(() => {
     if (auth.isLoggedIn && !prevBanners) {

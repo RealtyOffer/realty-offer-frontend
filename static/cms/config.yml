@@ -243,6 +243,18 @@ collections:
             }
           - { label: Title, name: title, widget: string }
           - { label: Body, name: body, widget: markdown }
+      - file: "src/pages/pilot-terms.md"
+        label: "Pilot Terms"
+        name: "pilot-terms"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "pilot-terms",
+            }
+          - { label: Title, name: title, widget: string }
+          - { label: Body, name: body, widget: markdown }
       - file: "src/pages/privacy.md"
         label: "Privacy"
         name: "privacy"

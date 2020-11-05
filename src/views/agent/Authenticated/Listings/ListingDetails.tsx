@@ -18,6 +18,7 @@ import {
   Countdown,
   Modal,
   LoadingPage,
+  Alert,
 } from '../../../../components';
 import {
   requiredListingAgentCommissionAmount,
@@ -210,7 +211,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
           </>
         )}
 
-        {!agent.isLoading && !agent.activeBid?.isLoading && agent.activeBid?.id && listing ? (
+        {!agent.isLoading && listing ? (
           <Formik
             validateOnMount
             initialValues={pathType === 'new' ? newInitialValues : existingBidInitialValues}
@@ -561,48 +562,64 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                 {isNewOrPending && (
                   <Row>
                     <Column md={6} mdOffset={3}>
-                      <Button
-                        type="submit"
-                        disabled={!isValid || isSubmitting || isExpired(listing.createDateTime)}
-                        isLoading={isSubmitting || agent.isLoading}
-                        rightspacer={pathType === 'pending'}
-                        block
-                      >
-                        {pathType === 'new' ? 'Place bid' : 'Update Bid'}
-                      </Button>
-                      {pathType === 'pending' && (
+                      {agent.isInGoodStanding ? (
                         <>
-                          <br />
-                          <br />
                           <Button
-                            type="button"
-                            onClick={() => setModalIsOpen(!modalIsOpen)}
-                            color="danger"
+                            type="submit"
+                            disabled={!isValid || isSubmitting || isExpired(listing.createDateTime)}
+                            isLoading={isSubmitting || agent.isLoading}
+                            rightspacer={pathType === 'pending'}
                             block
                           >
-                            Remove My Bid
+                            {pathType === 'new' ? 'Place bid' : 'Update Bid'}
                           </Button>
+                          {pathType === 'pending' && (
+                            <>
+                              <br />
+                              <br />
+                              <Button
+                                type="button"
+                                onClick={() => setModalIsOpen(!modalIsOpen)}
+                                color="danger"
+                                block
+                              >
+                                Remove My Bid
+                              </Button>
+                            </>
+                          )}
+                          {pathType === 'new' && (
+                            <>
+                              <br />
+                              <br />
+                              <Field
+                                as={Input}
+                                type="checkbox"
+                                name="saveBidDetails"
+                                checked={values.saveBidDetails}
+                                label="Save my details for my next bid"
+                              />
+                              <div>
+                                <small>
+                                  By clicking &quot;Place Bid&quot;, I agree to the{' '}
+                                  <a href="/terms" target="_blank">
+                                    Terms &amp; Conditions
+                                  </a>
+                                </small>
+                              </div>
+                            </>
+                          )}
                         </>
-                      )}
-                      {pathType === 'new' && (
+                      ) : (
                         <>
-                          <br />
-                          <br />
-                          <Field
-                            as={Input}
-                            type="checkbox"
-                            name="saveBidDetails"
-                            checked={values.saveBidDetails}
-                            label="Save my details for my next bid"
+                          <Alert
+                            type="danger"
+                            message="Your last payment failed, so you must update your payment method before you can bid. Please visit the"
+                            callToActionLink="/agent/account/billing"
+                            callToActionLinkText="Billing page to update your payment method"
                           />
-                          <div>
-                            <small>
-                              By clicking &quot;Place Bid&quot;, I agree to the{' '}
-                              <a href="/terms" target="_blank">
-                                Terms &amp; Conditions
-                              </a>
-                            </small>
-                          </div>
+                          <Button type="button" disabled block>
+                            {pathType === 'new' ? 'Place bid' : 'Update Bid'}
+                          </Button>
                         </>
                       )}
                     </Column>
