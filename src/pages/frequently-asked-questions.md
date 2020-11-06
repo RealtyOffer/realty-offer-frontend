@@ -26,12 +26,12 @@ consumerFaq:
         struggle to become a premier agent.
 
 
-        Our goal is to make buying/selling a home, or getting a mortgage, as
-        easy and stress-free as possible.
+        Our goal is to make buying/selling a home or getting a mortgage, as easy
+        and stress-free as possible.
 
 
         Our proprietary digital format will make it painless and free, while
-        connecting you with one of our top-rated agents.
+        connecting you with one of our top-rated certified agents.
     - question: Will a consultant call or email me for free?
       answer: 'Yes, we will!'
     - question: Are your mortgage advisors credible?
