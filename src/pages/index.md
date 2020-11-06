@@ -43,7 +43,7 @@ mainpitch:
 
 
         Choose your best offer and simply get connected, while removing the
-        upfront awkward negotiation out of the way.
+        upfront awkward negotiation.
       title: Step Three
 testimonials:
   - quote: Quote here
