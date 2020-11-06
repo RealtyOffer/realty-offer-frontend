@@ -12,8 +12,8 @@ consumerFaq:
       answer: No. Our service is completely free to you!
     - question: How does RealtyOffer benefit?
       answer: >-
-        Our agents pay a monthly subscription fee in order to receive the
-        opportunity to compete and win your business.
+        Our agents pay a transaction or monthly subscription fee in order to
+        receive the opportunity to compete and win your business.
     - question: What kind of experience does your company have?
       answer: >-
         Our directors have been in the Real Estate & PropTech industry for over
