@@ -130,13 +130,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 <Heading inverse as="h1">
                   {heroHeading}
                 </Heading>
-                <p>{heroSubheading}</p>
-
-                <p>
-                  Welcome to RealtyOffer!
-                  <br />
-                  The one-stop sho for the buyer, seller, and agent.
-                </p>
+                <ReactMarkdown source={heroSubheading} />
                 {/* TODO for prod
                 <Button type="link" to="/agent/sign-up" block>
                   Create Account

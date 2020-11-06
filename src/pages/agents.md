@@ -7,6 +7,10 @@ heroHeading: Brokers & Agents... Do you love making money?
 heroSubheading: >-
   Do you spend thousands of dollars per month on marketing, hoping it will bring
   you leads, that just don't go anywhere?
+
+
+  Welcome to RealtyOffer!
+  The one-stop shop for the buyer, seller, and agent.
 mainpitch:
   title: Here is how it works!
   videoUrl: 'https://www.youtube.com/embed/R9jCqtpG770?rel=0'

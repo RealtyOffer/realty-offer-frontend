@@ -281,7 +281,7 @@ collections:
           - { label: "Hero Image", name: heroImage, widget: image }
           - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
           - { label: "Hero Heading", name: heroHeading, widget: string }
-          - { label: "Hero Subheading", name: heroSubheading, widget: string }
+          - { label: "Hero Subheading", name: heroSubheading, widget: markdown }
           - {
               label: Mainpitch,
               name: mainpitch,
