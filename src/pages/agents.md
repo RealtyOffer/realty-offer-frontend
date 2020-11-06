@@ -46,7 +46,7 @@ secondpitch:
     the country. Pre-approve your clients ahead of time before you submit an
     offer. We are not referring to a simple credit check. We are referring to
     pre-approvals from a direct underwriting system. This system reviews and
-    discusses your client's information ahead of time. Don't get stuck!
+    verifies your client's information ahead of time. Don't get stuck!
 
 
     * Set your clients apart from other offers
