@@ -204,6 +204,10 @@ const allStyles = css`
     outline: none;
     filter: brightness(.85);
   }
+
+  & svg {
+    margin: 0 2px;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -254,7 +258,9 @@ const Button: FunctionComponent<ButtonProps> = ({
         allowTextWrap={allowTextWrap}
       >
         <Link to={to}>
-          {iconLeft}&nbsp;{children}&nbsp;{iconRight}
+          {iconLeft}
+          {children}
+          {iconRight}
         </Link>
       </StyledLink>
     );
@@ -271,7 +277,9 @@ const Button: FunctionComponent<ButtonProps> = ({
         block={block}
         allowTextWrap={allowTextWrap}
       >
-        {isLoading && <LoadingSpinner />} {iconLeft}&nbsp;{children}&nbsp;{iconRight}
+        {isLoading && <LoadingSpinner />} {iconLeft}
+        {children}
+        {iconRight}
       </StyledButton>
     );
   }

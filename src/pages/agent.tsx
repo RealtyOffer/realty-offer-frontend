@@ -79,8 +79,6 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           navigate('/agent/business-information');
         } else if (!response.payload.fortispayAccountVaultId) {
           navigate('/agent/payment-information');
-        } else if (!response.payload.fortispayRecurringId) {
-          navigate('/agent/confirm-payment');
         } else if (props.location.pathname === '/agent') {
           navigate('/agent/listings/new');
         }

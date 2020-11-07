@@ -79,7 +79,7 @@ const ListingCardBody = styled.div`
 
 const ListingDetailsTable = styled.table`
   width: 100%;
-  & tr {
+  & td {
     padding: 0 ${quarterSpacer};
   }
   & tr:nth-child(1) td {

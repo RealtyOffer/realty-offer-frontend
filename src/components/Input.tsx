@@ -272,7 +272,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
             name={props.name}
             onChange={(option: OptionType) => onChange(option)}
             onBlur={() => props.setFieldTouched(props.name)}
-            blurInputOnSelect
+            blurInputOnSelect={!props.required}
             isDisabled={props.disabled}
             invalid={meta && meta.touched && meta.error}
           />

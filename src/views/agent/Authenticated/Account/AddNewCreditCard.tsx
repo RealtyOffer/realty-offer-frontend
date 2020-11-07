@@ -9,6 +9,7 @@ import { createFortispayAccountvault } from '../../../../redux/ducks/fortis';
 import { RootState } from '../../../../redux/ducks';
 import { ActionResponseType } from '../../../../redux/constants';
 import { createOptionsFromManagedDropdownList } from '../../../../utils/createOptionsFromArray';
+import { addAlert } from '../../../../redux/ducks/globalAlerts';
 
 type AddNewCreditCardProps = {
   toggleModal: (value: boolean) => void;
@@ -67,6 +68,12 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
             ).then((response: ActionResponseType) => {
               if (response && !response.error) {
                 setSubmitting(false);
+                dispatch(
+                  addAlert({
+                    type: 'success',
+                    message: 'Successfully added new payment method',
+                  })
+                );
                 props.toggleModal(false);
               }
             });

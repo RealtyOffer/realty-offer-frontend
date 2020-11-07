@@ -14,6 +14,7 @@ import {
   Heading,
   Seo,
   TimelineProgress,
+  FlexContainer,
 } from '../../../components';
 import { RootState } from '../../../redux/ducks';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
@@ -65,67 +66,73 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
         <Row>
           <Column md={4}>
             <Box>
-              <Heading as="h3" styledAs="subtitle">
-                Sell My Home
-              </Heading>
-              <p>
-                Why pay 6 to 8%...
-                <br />
-                <br /> Within 24 hours, top-rated certified and vetted agents in your area will
-                simply offer to charge less commission to win your business!
-              </p>
-              <Button
-                type="button"
-                onClick={() => setCustomerType('seller')}
-                block
-                iconRight={<FaCaretRight />}
-              >
-                Sell Your Home
-              </Button>
+              <FlexContainer flexDirection="column" justifyContent="space-between" height="100%">
+                <Heading as="h3" styledAs="subtitle">
+                  Sell My Home
+                </Heading>
+                <p style={{ flex: 1 }}>
+                  Why pay 6 to 8%...
+                  <br />
+                  <br /> Within 24 hours, top-rated certified and vetted agents in your area will
+                  simply offer to charge less commission to win your business!
+                </p>
+                <Button
+                  type="button"
+                  onClick={() => setCustomerType('seller')}
+                  block
+                  iconRight={<FaCaretRight />}
+                >
+                  Sell Your Home
+                </Button>
+              </FlexContainer>
             </Box>
           </Column>
           <Column md={4}>
             <Box>
-              <Heading as="h3" styledAs="subtitle">
-                Buy A Home
-              </Heading>
-              <p>
-                Imagine getting paid to do it...
-                <br />
-                <br /> Within 24 hours, multiple agents will offer part of their commission in order
-                to be used towards your closing costs and pre-paid items. This means less money you
-                bring to the closing table!
-              </p>
-              <Button
-                type="button"
-                onClick={() => setCustomerType('buyer')}
-                block
-                iconRight={<FaCaretRight />}
-              >
-                Buy A Home
-              </Button>
+              <FlexContainer flexDirection="column" justifyContent="space-between" height="100%">
+                <Heading as="h3" styledAs="subtitle">
+                  Buy A Home
+                </Heading>
+                <p style={{ flex: 1 }}>
+                  Imagine getting paid to do it...
+                  <br />
+                  <br /> Within 24 hours, multiple agents will offer part of their commission in
+                  order to be used towards your closing costs and pre-paid items. This means less
+                  money you bring to the closing table!
+                </p>
+                <Button
+                  type="button"
+                  onClick={() => setCustomerType('buyer')}
+                  block
+                  iconRight={<FaCaretRight />}
+                >
+                  Buy A Home
+                </Button>
+              </FlexContainer>
             </Box>
           </Column>
           <Column md={4}>
             <Box>
-              <Heading as="h3" styledAs="subtitle">
-                Buy &amp; Sell A Home
-              </Heading>
-              <p>
-                Simple as 1, 2, 3... <br />
-                <br />
-                Within 24 hours, specialized agents in your area will offer savings on both
-                transactions. You will pay less commission to sell your home and receive part of the
-                agent’s commission to use towards your closing costs when you buy a home!
-              </p>
-              <Button
-                type="button"
-                onClick={() => setCustomerType('buyerSeller')}
-                block
-                iconRight={<FaCaretRight />}
-              >
-                Buy &amp; Sell A Home
-              </Button>
+              <FlexContainer flexDirection="column" justifyContent="space-between" height="100%">
+                <Heading as="h3" styledAs="subtitle">
+                  Buy &amp; Sell A Home
+                </Heading>
+                <p style={{ flex: 1 }}>
+                  Simple as 1, 2, 3... <br />
+                  <br />
+                  Within 24 hours, specialized agents in your area will offer savings on both
+                  transactions. You will pay less commission to sell your home and receive part of
+                  the agent’s commission to use towards your closing costs when you buy a home!
+                </p>
+                <Button
+                  type="button"
+                  onClick={() => setCustomerType('buyerSeller')}
+                  block
+                  iconRight={<FaCaretRight />}
+                >
+                  Buy &amp; Sell A Home
+                </Button>
+              </FlexContainer>
             </Box>
           </Column>
         </Row>

@@ -175,14 +175,6 @@ const Billing: FunctionComponent<BillingProps> = () => {
               <HorizontalRule />
             </div>
           ))}
-        {!fortis.isLoading && fortis.accountVaults && fortis.accountVaults.length > 1 && (
-          <p>
-            <small>
-              To remove a payment method, you must select a different default payment method first.
-            </small>
-          </p>
-        )}
-
         <Button type="button" onClick={() => setModalIsOpen(true)}>
           Add New Payment Method
         </Button>

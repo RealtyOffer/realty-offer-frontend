@@ -16,7 +16,13 @@ import {
   Modal,
 } from '../../components';
 import { RootState } from '../../redux/ducks';
-import { createCity, deleteCityById, updateCity, getAllCounties } from '../../redux/ducks/admin';
+import {
+  createCity,
+  deleteCityById,
+  updateCity,
+  getAllCounties,
+  getAllCities,
+} from '../../redux/ducks/admin';
 import { ActionResponseType } from '../../redux/constants';
 import { addAlert } from '../../redux/ducks/globalAlerts';
 import { getStatesList } from '../../redux/ducks/dropdowns';
@@ -36,14 +42,14 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (statesList.length === 0) {
-      dispatch(getStatesList());
-    }
-  }, []);
-
-  useEffect(() => {
     if (counties.length === 0) {
       dispatch(getAllCounties());
+    }
+    if (cities.length === 0) {
+      dispatch(getAllCities());
+    }
+    if (statesList.length === 0) {
+      dispatch(getStatesList());
     }
   }, []);
 
@@ -59,8 +65,6 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
   const matchingCity =
     (cities && cities.find((c) => c.id === Number(props.id))) || newCityInitialValues;
 
-  const activeCity = isNewCity ? newCityInitialValues : { ...matchingCity };
-
   const countiesOptions =
     counties &&
     counties.map((county) => {
@@ -70,7 +74,7 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
       return obj;
     });
 
-  if (!props.id || !cities || !activeCity) {
+  if (!props.id || !cities) {
     return null;
   }
 
@@ -82,10 +86,14 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
           Back to All Cities
         </Button>
       </FlexContainer>
-      {statesList.length > 0 && counties.length > 0 ? (
+      {cities.length > 0 && statesList.length > 0 && counties.length > 0 && props.id ? (
         <Formik
           validateOnMount
-          initialValues={{ ...activeCity }}
+          initialValues={
+            isNewCity
+              ? newCityInitialValues
+              : { ...matchingCity, state: 'MI', countyId: matchingCity.countyId.toString() }
+          }
           onSubmit={(values, { setSubmitting }) => {
             dispatch(
               isNewCity
@@ -105,8 +113,9 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
             });
           }}
         >
-          {({ isValid, isSubmitting, ...rest }) => (
+          {({ isValid, isSubmitting, initialValues, ...rest }) => (
             <Form>
+              {console.log(initialValues)}
               <Row>
                 <Column md={3}>
                   <Field
@@ -174,51 +183,51 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
                   </Button>
                 )}
               </FlexContainer>
+              <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
+                <Heading styledAs="title">Delete {initialValues.name}?</Heading>
+                <p>Are you sure you want to delete {initialValues.name}?</p>
+                <Row>
+                  <Column xs={6}>
+                    <Button
+                      type="button"
+                      onClick={() => setModalIsOpen(false)}
+                      color="primaryOutline"
+                      block
+                    >
+                      Cancel
+                    </Button>
+                  </Column>
+                  <Column xs={6}>
+                    <Button
+                      type="button"
+                      onClick={async () => {
+                        if (!isNewCity) {
+                          await dispatch(deleteCityById(initialValues.id));
+                          dispatch(
+                            addAlert({
+                              type: 'success',
+                              message: `Successfully removed ${initialValues.name}`,
+                            })
+                          );
+                          navigate('/admin/cities');
+                        }
+                      }}
+                      block
+                      color="danger"
+                      disabled={isLoading}
+                      isLoading={isLoading}
+                    >
+                      Delete
+                    </Button>
+                  </Column>
+                </Row>
+              </Modal>
             </Form>
           )}
         </Formik>
       ) : (
         <LoadingPage />
       )}
-      <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
-        <Heading styledAs="title">Delete {activeCity.name}?</Heading>
-        <p>Are you sure you want to delete {activeCity.name}?</p>
-        <Row>
-          <Column xs={6}>
-            <Button
-              type="button"
-              onClick={() => setModalIsOpen(false)}
-              color="primaryOutline"
-              block
-            >
-              Cancel
-            </Button>
-          </Column>
-          <Column xs={6}>
-            <Button
-              type="button"
-              onClick={async () => {
-                if (!isNewCity) {
-                  await dispatch(deleteCityById(activeCity.id));
-                  dispatch(
-                    addAlert({
-                      type: 'success',
-                      message: `Successfully removed ${activeCity.name}`,
-                    })
-                  );
-                  navigate('/admin/cities');
-                }
-              }}
-              block
-              color="danger"
-              disabled={isLoading}
-              isLoading={isLoading}
-            >
-              Delete
-            </Button>
-          </Column>
-        </Row>
-      </Modal>
     </>
   );
 };
