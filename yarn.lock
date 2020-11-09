@@ -9336,6 +9336,13 @@ gatsby-plugin-graphql-codegen@^2.7.1:
     fs-extra "^7.0.1"
     lodash.debounce "^4.0.8"
 
+gatsby-plugin-hotjar-tracking@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-hotjar-tracking/-/gatsby-plugin-hotjar-tracking-1.1.0.tgz#9dd1e1c780a68ceb4d4118a29e36984821d3f0d5"
+  integrity sha512-ec3t8cLz0FABGqnmhccCwam/SCPdDdCAw7mqTGLoq2XPM6zKGZkbArjdXUIX6NS3jmuqk9h9An8Rwr+zyb9Asw==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+
 gatsby-plugin-manifest@^2.2.47:
   version "2.2.47"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.2.47.tgz#f13c17c67fba6ec597e0ef333974ab8238c925bd"

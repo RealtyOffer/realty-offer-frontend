@@ -60,7 +60,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   };
 
   useEffect(() => {
-    if (agent.fortispayContactId && !fortis.accountVault) {
+    if (agent.fortispayContactId && fortis.accountVaults.length === 0) {
       dispatch(
         getFortispayAccountvaults({
           // eslint-disable-next-line @typescript-eslint/camelcase
@@ -105,7 +105,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
           </FlexContainer>
         ) : (
           <>
-            {fortis.isLoading || !fortis.accountVault ? (
+            {fortis.isLoading || !fortis.accountVaults ? (
               <LoadingPage />
             ) : (
               <FlexContainer justifyContent="center" flexDirection="column">
@@ -113,7 +113,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
                   ${numberWithCommas(agent.signupData.total || getTotal() || 0)}
                 </Heading>
 
-                <p>Will be paid from Card ending in: {fortis.accountVault[0].last_four}</p>
+                <p>Will be paid from Card ending in: {fortis.accountVaults[0].last_four}</p>
                 <Button
                   type="button"
                   color="primary"

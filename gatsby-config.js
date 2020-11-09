@@ -31,6 +31,13 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-hotjar-tracking',
+      options: {
+        id: process.env.GATSBY_HOTJAR_ID,
+        sv: process.env.GATSBY_HOTJAR_SV,
+      },
+    },
+    {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',
       options: {

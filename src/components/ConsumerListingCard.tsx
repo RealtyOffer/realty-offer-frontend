@@ -45,7 +45,8 @@ const ConsumerListingCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100% - ${baseSpacer});
-  ${(props: { expiringSoon: boolean }) => props.expiringSoon && `border-color: ${brandDanger}`};
+  ${(props: { expiringSoon: boolean; isExpired: boolean }) =>
+    props.expiringSoon && !props.isExpired && `border-color: ${brandDanger}`};
 `;
 
 const ConsumerListingCardHeader = styled.div`
@@ -65,6 +66,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
   consumer: { listing, bids, winner, isLoading },
 }) => {
   const [selectedBid, setSelectedBid] = useState<SelectedBidType | undefined>();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
 
@@ -94,7 +96,10 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
   const winningBid = winner && bids.find((bid) => bid.agentId === Number(winner.id));
 
   return (
-    <ConsumerListingCardWrapper expiringSoon={isExpiringSoon(listing.createDateTime)}>
+    <ConsumerListingCardWrapper
+      expiringSoon={isExpiringSoon(listing.createDateTime)}
+      isExpired={isExpired(listing.createDateTime)}
+    >
       <ConsumerListingCardHeader>
         <FlexContainer flexDirection="column">
           {!isExpired(listing.createDateTime) ? (
@@ -119,7 +124,97 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
       </ConsumerListingCardHeader>
       {winner && winner.agentId && (
         <ConsumerListingCardBody>
-          <Heading as="h3">Winning Realtor</Heading>
+          <FlexContainer justifyContent="space-between">
+            <Heading as="h3">Winning Realtor</Heading>
+            <p>
+              <Button type="button" onClick={() => setModalIsOpen(true)} color="text">
+                What should I expect now?
+              </Button>
+            </p>
+          </FlexContainer>
+          <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
+            <Heading styledAs="title">What should I expect now?</Heading>
+            {listing.type === 'seller' && (
+              <>
+                <p>
+                  Now that you are selling your home, you should be prepared to go to market. Have
+                  you had your home pre-inspected? Do you think it needs repairs?
+                </p>
+                <p>
+                  Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
+                </p>
+                <p>
+                  Homeowners save and profit 10% to 15% extra by simply having a certified home
+                  inspector prepare a 250 point inspection & repair list. Our affiliates will give
+                  you an instant full review on any home repairs that need to be done in advance.
+                  Prepare yourself and don&apos;t get stuck in a negotiation battle.
+                </p>
+                <p>Now that you are ready to sell, Realtyoffer is here to help you think ahead.</p>
+                <p>
+                  Will you be purchasing a new home? Do you need an experienced home lending advisor
+                  to pre-approve your new purchase? Do you need a second review? Listing agents will
+                  not accept an offer without this document being included. Don&apos;t let the home
+                  of your dreams slip through your fingers by not being prepared. Mortgage
+                  consultations are completely free!
+                </p>
+              </>
+            )}
+            {listing.type === 'buyer' && (
+              <>
+                <p>
+                  Now that you are purchasing a new home, you will need a certified home inspection
+                  company.
+                </p>
+                <p>
+                  Our affiliates are standing by and are ready to make sure you are purchasing the
+                  right home at the right price.
+                </p>
+                <p>
+                  Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
+                </p>
+                <p>
+                  Now that you are ready to start looking for a new home, Realtyoffer is here to
+                  help you think ahead.
+                </p>
+                <p>
+                  Do you need an experienced home lending advisor to pre-approve your new purchase?
+                  Do you need a second review? Listing agents will not accept an offer without this
+                  document being included. Don&apos;t miss out on the home of your dreams by not
+                  being prepared. Mortgage consultations are completely free.
+                </p>
+              </>
+            )}
+
+            {listing.type === 'buyerSeller' && (
+              <>
+                <p>
+                  Now that you are selling one home and purchasing another, you will need a
+                  certified home inspection company.
+                </p>
+                <p>
+                  Have you had your home pre-inspected? Do you think it needs repairs? Our
+                  affiliates are standing by and are ready to help you through the process.
+                </p>
+                <p>
+                  Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
+                </p>
+                <p>
+                  Now that you are ready to start looking for a new home, Realtyoffer is here to
+                  help you think ahead.
+                </p>
+                <p>
+                  Do you need an experienced home lending advisor to pre-approve your new purchase?
+                  Do you need a second review? Listing agents will not accept an offer without this
+                  document being included. Don&apos;t miss out on the home of your dreams by not
+                  being prepared. Mortgage consultations are completely free.
+                </p>
+              </>
+            )}
+
+            <Button type="button" onClick={() => {}}>
+              Select
+            </Button>
+          </Modal>
           <p>Agent contact information and terms of the contract can be found below.</p>
           <Row>
             <Column lg={2}>
