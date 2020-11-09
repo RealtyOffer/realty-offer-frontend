@@ -9,6 +9,10 @@ import {
   ADMIN_COUNTY_BY_ID_ENDPOINT,
   ADMIN_EMAIL_TEMPLATE_ENDPOINT,
   ADMIN_EMAIL_TEMPLATE_BY_NAME_ENDPOINT,
+  ADMIN_METRICS_AGENTS_BY_CITY_ENDPOINT,
+  ADMIN_METRICS_AGENTS_BY_COUNTY_ENDPOINT,
+  ADMIN_METRICS_AWARDED_BIDS_BY_DATE_ENDPOINT,
+  ADMIN_METRICS_LISTINGS_BY_TYPE,
 } from '../constants';
 import {
   AdminStoreType,
@@ -95,6 +99,22 @@ export const GET_EMAIL_TEMPLATE_BY_NAME_REQUEST = 'GET_EMAIL_TEMPLATE_BY_NAME_RE
 export const GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS = 'GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS';
 export const GET_EMAIL_TEMPLATE_BY_NAME_FAILURE = 'GET_EMAIL_TEMPLATE_BY_NAME_FAILURE';
 
+export const GET_AGENTS_BY_CITY_REQUEST = 'GET_AGENTS_BY_CITY_REQUEST';
+export const GET_AGENTS_BY_CITY_SUCCESS = 'GET_AGENTS_BY_CITY_SUCCESS';
+export const GET_AGENTS_BY_CITY_FAILURE = 'GET_AGENTS_BY_CITY_FAILURE';
+
+export const GET_AGENTS_BY_COUNTY_REQUEST = 'GET_AGENTS_BY_COUNTY_REQUEST';
+export const GET_AGENTS_BY_COUNTY_SUCCESS = 'GET_AGENTS_BY_COUNTY_SUCCESS';
+export const GET_AGENTS_BY_COUNTY_FAILURE = 'GET_AGENTS_BY_COUNTY_FAILURE';
+
+export const GET_AWARDED_BIDS_BY_DATE_REQUEST = 'GET_AWARDED_BIDS_BY_DATE_REQUEST';
+export const GET_AWARDED_BIDS_BY_DATE_SUCCESS = 'GET_AWARDED_BIDS_BY_DATE_SUCCESS';
+export const GET_AWARDED_BIDS_BY_DATE_FAILURE = 'GET_AWARDED_BIDS_BY_DATE_FAILURE';
+
+export const GET_LISTINGS_BY_TYPE_REQUEST = 'GET_LISTINGS_BY_TYPE_REQUEST';
+export const GET_LISTINGS_BY_TYPE_SUCCESS = 'GET_LISTINGS_BY_TYPE_SUCCESS';
+export const GET_LISTINGS_BY_TYPE_FAILURE = 'GET_LISTINGS_BY_TYPE_FAILURE';
+
 export const initialState: AdminStoreType = {
   isLoading: false,
   hasError: false,
@@ -103,6 +123,28 @@ export const initialState: AdminStoreType = {
   counties: [],
   emailTemplates: [],
   activeEmailTemplate: undefined,
+  metrics: {
+    agentsByCity: {
+      isLoading: false,
+      hasError: false,
+      values: [],
+    },
+    agentsByCounty: {
+      isLoading: false,
+      hasError: false,
+      values: [],
+    },
+    awardedBidsByDate: {
+      isLoading: false,
+      hasError: false,
+      values: [],
+    },
+    listingsByType: {
+      isLoading: false,
+      hasError: false,
+      values: [],
+    },
+  },
 };
 
 export default (state: AdminStoreType = initialState, action: AdminActionTypes): AdminStoreType => {
@@ -277,6 +319,150 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         hasError: true,
         emailTemplates: [],
       };
+    case GET_AGENTS_BY_CITY_REQUEST: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          agentsByCity: {
+            ...initialState.metrics.agentsByCity,
+            isLoading: true,
+          },
+        },
+      };
+    }
+    case GET_AGENTS_BY_CITY_SUCCESS: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          agentsByCity: {
+            ...initialState.metrics.agentsByCity,
+            values: action.payload,
+          },
+        },
+      };
+    }
+    case GET_AGENTS_BY_CITY_FAILURE: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          agentsByCity: {
+            ...initialState.metrics.agentsByCity,
+            hasError: true,
+          },
+        },
+      };
+    }
+    case GET_AGENTS_BY_COUNTY_REQUEST: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          agentsByCounty: {
+            ...initialState.metrics.agentsByCounty,
+            isLoading: true,
+          },
+        },
+      };
+    }
+    case GET_AGENTS_BY_COUNTY_SUCCESS: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          agentsByCounty: {
+            ...initialState.metrics.agentsByCounty,
+            values: action.payload,
+          },
+        },
+      };
+    }
+    case GET_AGENTS_BY_COUNTY_FAILURE: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          agentsByCounty: {
+            ...initialState.metrics.agentsByCounty,
+            hasError: true,
+          },
+        },
+      };
+    }
+    case GET_AWARDED_BIDS_BY_DATE_REQUEST: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          awardedBidsByDate: {
+            ...initialState.metrics.awardedBidsByDate,
+            isLoading: true,
+          },
+        },
+      };
+    }
+    case GET_AWARDED_BIDS_BY_DATE_SUCCESS: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          awardedBidsByDate: {
+            ...initialState.metrics.awardedBidsByDate,
+            values: action.payload,
+          },
+        },
+      };
+    }
+    case GET_AWARDED_BIDS_BY_DATE_FAILURE: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          awardedBidsByDate: {
+            ...initialState.metrics.awardedBidsByDate,
+            hasError: true,
+          },
+        },
+      };
+    }
+    case GET_LISTINGS_BY_TYPE_REQUEST: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          listingsByType: {
+            ...initialState.metrics.listingsByType,
+            isLoading: true,
+          },
+        },
+      };
+    }
+    case GET_LISTINGS_BY_TYPE_SUCCESS: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          listingsByType: {
+            ...initialState.metrics.listingsByType,
+            values: action.payload,
+          },
+        },
+      };
+    }
+    case GET_LISTINGS_BY_TYPE_FAILURE: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          listingsByType: {
+            ...initialState.metrics.listingsByType,
+            hasError: true,
+          },
+        },
+      };
+    }
     default:
       return state;
   }
@@ -474,6 +660,50 @@ export const getEmailTemplateByName = (templateName: string) => ({
       GET_EMAIL_TEMPLATE_BY_NAME_REQUEST,
       GET_EMAIL_TEMPLATE_BY_NAME_SUCCESS,
       GET_EMAIL_TEMPLATE_BY_NAME_FAILURE,
+    ],
+  },
+});
+
+export const getAgentsByCity = () => ({
+  [RSAA]: {
+    endpoint: ADMIN_METRICS_AGENTS_BY_CITY_ENDPOINT,
+    method: 'GET',
+    types: [GET_AGENTS_BY_CITY_REQUEST, GET_AGENTS_BY_CITY_SUCCESS, GET_AGENTS_BY_CITY_FAILURE],
+  },
+});
+
+export const getAgentsByCounty = () => ({
+  [RSAA]: {
+    endpoint: ADMIN_METRICS_AGENTS_BY_COUNTY_ENDPOINT,
+    method: 'GET',
+    types: [
+      GET_AGENTS_BY_COUNTY_REQUEST,
+      GET_AGENTS_BY_COUNTY_SUCCESS,
+      GET_AGENTS_BY_COUNTY_FAILURE,
+    ],
+  },
+});
+
+export const getAwardedBidsByDate = () => ({
+  [RSAA]: {
+    endpoint: ADMIN_METRICS_AWARDED_BIDS_BY_DATE_ENDPOINT,
+    method: 'GET',
+    types: [
+      GET_AWARDED_BIDS_BY_DATE_REQUEST,
+      GET_AWARDED_BIDS_BY_DATE_SUCCESS,
+      GET_AWARDED_BIDS_BY_DATE_FAILURE,
+    ],
+  },
+});
+
+export const getListingsByType = () => ({
+  [RSAA]: {
+    endpoint: ADMIN_METRICS_LISTINGS_BY_TYPE,
+    method: 'GET',
+    types: [
+      GET_LISTINGS_BY_TYPE_REQUEST,
+      GET_LISTINGS_BY_TYPE_SUCCESS,
+      GET_LISTINGS_BY_TYPE_FAILURE,
     ],
   },
 });

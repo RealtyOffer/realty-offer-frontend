@@ -56,6 +56,18 @@ import {
   DELETE_EMAIL_TEMPLATE_REQUEST,
   DELETE_EMAIL_TEMPLATE_SUCCESS,
   DELETE_EMAIL_TEMPLATE_FAILURE,
+  GET_AGENTS_BY_CITY_REQUEST,
+  GET_AGENTS_BY_CITY_SUCCESS,
+  GET_AGENTS_BY_CITY_FAILURE,
+  GET_AGENTS_BY_COUNTY_REQUEST,
+  GET_AGENTS_BY_COUNTY_SUCCESS,
+  GET_AGENTS_BY_COUNTY_FAILURE,
+  GET_AWARDED_BIDS_BY_DATE_REQUEST,
+  GET_AWARDED_BIDS_BY_DATE_SUCCESS,
+  GET_AWARDED_BIDS_BY_DATE_FAILURE,
+  GET_LISTINGS_BY_TYPE_REQUEST,
+  GET_LISTINGS_BY_TYPE_SUCCESS,
+  GET_LISTINGS_BY_TYPE_FAILURE,
 } from './admin';
 
 export type BannerType = {
@@ -90,6 +102,26 @@ export type EmailTemplateType = {
   bodyText: string;
 };
 
+export type AgentsByCityType = {
+  name: string;
+  count: number;
+};
+
+export type AgentsByCountyType = {
+  name: string;
+  count: number;
+};
+
+export type AwardedBidsByDateType = {
+  name: string;
+  count: number;
+};
+
+export type ListingsByTypeType = {
+  name: string;
+  count: number;
+};
+
 export type AdminStoreType = {
   isLoading: boolean;
   hasError: boolean;
@@ -98,6 +130,28 @@ export type AdminStoreType = {
   counties: Array<CountyType>;
   emailTemplates: Array<EmailTemplateType>;
   activeEmailTemplate?: EmailTemplateType;
+  metrics: {
+    agentsByCity: {
+      isLoading: boolean;
+      hasError: boolean;
+      values: Array<AgentsByCityType>;
+    };
+    agentsByCounty: {
+      isLoading: boolean;
+      hasError: boolean;
+      values: Array<AgentsByCountyType>;
+    };
+    awardedBidsByDate: {
+      isLoading: boolean;
+      hasError: boolean;
+      values: Array<AwardedBidsByDateType>;
+    };
+    listingsByType: {
+      isLoading: boolean;
+      hasError: boolean;
+      values: Array<ListingsByTypeType>;
+    };
+  };
 };
 
 export type CreateSiteBannerRequestAction = {
@@ -353,6 +407,58 @@ export type GetEmailTemplateByNameFailureAction = {
   type: typeof GET_EMAIL_TEMPLATE_BY_NAME_FAILURE;
 };
 
+export type GetAgentsByCityRequestActionType = {
+  type: typeof GET_AGENTS_BY_CITY_REQUEST;
+};
+
+export type GetAgentsByCitySuccessActionType = {
+  type: typeof GET_AGENTS_BY_CITY_SUCCESS;
+  payload: Array<AgentsByCityType>;
+};
+
+export type GetAgentsByCityFailureActionType = {
+  type: typeof GET_AGENTS_BY_CITY_FAILURE;
+};
+
+export type GetAgentsByCountyRequestActionType = {
+  type: typeof GET_AGENTS_BY_COUNTY_REQUEST;
+};
+
+export type GetAgentsByCountySuccessActionType = {
+  type: typeof GET_AGENTS_BY_COUNTY_SUCCESS;
+  payload: Array<AgentsByCountyType>;
+};
+
+export type GetAgentsByCountyFailureActionType = {
+  type: typeof GET_AGENTS_BY_COUNTY_FAILURE;
+};
+
+export type GetAwardedBidsByDateRequestActionType = {
+  type: typeof GET_AWARDED_BIDS_BY_DATE_REQUEST;
+};
+
+export type GetAwardedBidsByDateSuccessActionType = {
+  type: typeof GET_AWARDED_BIDS_BY_DATE_SUCCESS;
+  payload: Array<AwardedBidsByDateType>;
+};
+
+export type GetAwardedBidsByDateFailureActionType = {
+  type: typeof GET_AWARDED_BIDS_BY_DATE_FAILURE;
+};
+
+export type GetListingsByTypeRequestActionType = {
+  type: typeof GET_LISTINGS_BY_TYPE_REQUEST;
+};
+
+export type GetListingsByTypeSuccessActionType = {
+  type: typeof GET_LISTINGS_BY_TYPE_SUCCESS;
+  payload: Array<ListingsByTypeType>;
+};
+
+export type GetListingsByTypeFailureActionType = {
+  type: typeof GET_LISTINGS_BY_TYPE_FAILURE;
+};
+
 export type AdminActionTypes =
   | CreateSiteBannerRequestAction
   | CreateSiteBannerSuccessAction
@@ -410,4 +516,16 @@ export type AdminActionTypes =
   | DeleteEmailTemplateFailureAction
   | GetEmailTemplateByNameRequestAction
   | GetEmailTemplateByNameSuccessAction
-  | GetEmailTemplateByNameFailureAction;
+  | GetEmailTemplateByNameFailureAction
+  | GetAgentsByCityRequestActionType
+  | GetAgentsByCitySuccessActionType
+  | GetAgentsByCityFailureActionType
+  | GetAgentsByCountyRequestActionType
+  | GetAgentsByCountySuccessActionType
+  | GetAgentsByCountyFailureActionType
+  | GetAwardedBidsByDateRequestActionType
+  | GetAwardedBidsByDateSuccessActionType
+  | GetAwardedBidsByDateFailureActionType
+  | GetListingsByTypeRequestActionType
+  | GetListingsByTypeSuccessActionType
+  | GetListingsByTypeFailureActionType;
