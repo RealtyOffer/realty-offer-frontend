@@ -101,8 +101,12 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
     <>
       <Seo title="Home" />
       <HeadingWrapper>
-        <Heading>Congrats {auth.firstName}!</Heading>
-        <p>Your listing has been sent to hundreds of our agents.</p>
+        {!consumer.winner && (
+          <>
+            <Heading>Congrats {auth.firstName}!</Heading>
+            <p>Your listing has been sent to hundreds of our agents.</p>
+          </>
+        )}
       </HeadingWrapper>
       {!profileComplete && !consumer.isLoading && (
         <StyledAlert>

@@ -22,6 +22,7 @@ import {
   getConsumerBids,
   getWinningAgentProfile,
   getWinningAgentProfilePhoto,
+  createConsumerProfile,
 } from '../redux/ducks/consumer';
 import { ConsumerStoreType, WinningAgentProfileType } from '../redux/ducks/consumer.d';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
@@ -63,10 +64,12 @@ type SelectedBidType = BidType & {
 };
 
 const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
-  consumer: { listing, bids, winner, isLoading },
+  consumer: { listing, bids, winner, isLoading, profile },
 }) => {
+  const auth = useSelector((state: RootState) => state.auth);
   const [selectedBid, setSelectedBid] = useState<SelectedBidType | undefined>();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [restartListingModalIsOpen, setRestartListingModalIsOpen] = useState(false);
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const dispatch = useDispatch();
 
@@ -94,6 +97,22 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
   }
 
   const winningBid = winner && bids.find((bid) => bid.agentId === Number(winner.id));
+
+  const restartListing = () => {
+    dispatch(
+      createConsumerProfile({
+        email: auth.email,
+        listing: {
+          ...listing,
+          sellersZip: (listing && String(listing.sellersZip)) || '',
+          createDateTime: new Date(),
+        },
+        profile: {
+          ...profile,
+        },
+      })
+    );
+  };
 
   return (
     <ConsumerListingCardWrapper
@@ -141,9 +160,6 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                   you had your home pre-inspected? Do you think it needs repairs?
                 </p>
                 <p>
-                  Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
-                </p>
-                <p>
                   Homeowners save and profit 10% to 15% extra by simply having a certified home
                   inspector prepare a 250 point inspection & repair list. Our affiliates will give
                   you an instant full review on any home repairs that need to be done in advance.
@@ -170,9 +186,6 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                   right home at the right price.
                 </p>
                 <p>
-                  Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
-                </p>
-                <p>
                   Now that you are ready to start looking for a new home, Realtyoffer is here to
                   help you think ahead.
                 </p>
@@ -196,9 +209,6 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
                   affiliates are standing by and are ready to help you through the process.
                 </p>
                 <p>
-                  Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
-                </p>
-                <p>
                   Now that you are ready to start looking for a new home, Realtyoffer is here to
                   help you think ahead.
                 </p>
@@ -211,9 +221,9 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
               </>
             )}
 
-            <Button type="button" onClick={() => {}}>
-              Select
-            </Button>
+            <p>
+              Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
+            </p>
           </Modal>
           <p>Agent contact information and terms of the contract can be found below.</p>
           <Row>
@@ -354,10 +364,42 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           <Heading as="h4">Select your agent below</Heading>
           <p>
             Please select your RealtyOffer agent below. Below are the three best Agents based on the
-            information you provided. If you do not like the choices below, you can start a new
-            listing to receive three more bids
+            information you provided. If you do not like the choices below, you can{' '}
+            <span
+              role="button"
+              onKeyPress={() => setRestartListingModalIsOpen(true)}
+              onClick={() => setRestartListingModalIsOpen(true)}
+              style={{ color: brandPrimary, textDecoration: 'underline' }}
+              tabIndex={-1}
+            >
+              start a new listing
+            </span>{' '}
+            to receive three more bids.
           </p>
-          {/* TODO: do a PUT on consumer to have listing start over */}
+          <Modal
+            toggleModal={() => setRestartListingModalIsOpen(false)}
+            isOpen={restartListingModalIsOpen}
+          >
+            <Heading styledAs="title">Are you sure you want to start a new listing?</Heading>
+            <p>These bids will be disgarded and you will receive three new bids.</p>
+            <Row>
+              <Column xs={6}>
+                <Button
+                  type="button"
+                  onClick={() => setRestartListingModalIsOpen(false)}
+                  color="primaryOutline"
+                  block
+                >
+                  Cancel
+                </Button>
+              </Column>
+              <Column xs={6}>
+                <Button type="button" onClick={() => restartListing()} color="dangerOutline" block>
+                  Restart Listing
+                </Button>
+              </Column>
+            </Row>
+          </Modal>
           <Row>
             {bids.map((bid, index) => (
               <Column key={bid.id} md={4}>
