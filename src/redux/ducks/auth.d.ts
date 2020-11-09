@@ -23,6 +23,9 @@ import {
   TOKEN_REFRESH_REQUEST,
   TOKEN_REFRESH_SUCCESS,
   TOKEN_REFRESH_FAILURE,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILURE,
   LOGOUT_REQUEST,
 } from './auth';
 
@@ -195,6 +198,18 @@ export type TokenRefreshFailureAction = {
   payload: { message?: string };
 };
 
+export type ChangePasswordRequestAction = {
+  type: typeof CHANGE_PASSWORD_REQUEST;
+};
+export type ChangePasswordSuccessAction = {
+  type: typeof CHANGE_PASSWORD_SUCCESS;
+  payload: { currentPassword: string; newPassword: string };
+};
+export type ChangePasswordFailureAction = {
+  type: typeof CHANGE_PASSWORD_FAILURE;
+  payload: { message?: string };
+};
+
 export type LogoutRequestAction = {
   type: typeof LOGOUT_REQUEST;
 };
@@ -224,4 +239,7 @@ export type AuthActionTypes =
   | TokenRefreshRequestAction
   | TokenRefreshSuccessAction
   | TokenRefreshFailureAction
+  | ChangePasswordRequestAction
+  | ChangePasswordSuccessAction
+  | ChangePasswordFailureAction
   | LogoutRequestAction;

@@ -75,7 +75,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     brokerCity: agent.brokerCity,
     brokerState: agent.brokerState,
     brokerZip: agent.brokerZip,
-    state: 'MI', // TODO
+    state: 'MI',
     // initialize gender so our PUT still works
     genderId: String(agent.genderId),
   };

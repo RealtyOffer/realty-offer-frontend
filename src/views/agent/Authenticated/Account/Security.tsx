@@ -2,16 +2,26 @@ import React, { FunctionComponent, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { RouteComponentProps } from '@reach/router';
 import { FaLock } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Heading, Box, Input, Button } from '../../../../components';
+import { Heading, Box, Input, Button, Alert } from '../../../../components';
 
-import { requiredPassword, passwordRulesString } from '../../../../utils/validations';
-import AutoSave from '../../../../utils/autoSave';
+import {
+  requiredField,
+  requiredPassword,
+  passwordRulesString,
+} from '../../../../utils/validations';
+import { changePassword } from '../../../../redux/ducks/auth';
+import { RootState } from '../../../../redux/ducks';
+import { ActionResponseType } from '../../../../redux/constants';
 
 type AgentSecurityProps = {} & RouteComponentProps;
 
 const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
+  const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [errorResponse, showErrorResponse] = useState(false);
   const initialValues = {
     currentPassword: '',
     newPassword: '',
@@ -24,13 +34,34 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
         <Formik
           validateOnMount
           initialValues={initialValues}
-          onSubmit={(values) => {
-            // TODO
+          onSubmit={(values, { setSubmitting }) => {
+            dispatch(changePassword(values)).then((response: ActionResponseType) => {
+              if (response && !response.error) {
+                setTimeout(() => {
+                  setShowPasswordForm(false);
+                }, 2000);
+                setSubmitting(false);
+              }
+              if (response && response.error) {
+                showErrorResponse(true);
+                setTimeout(() => {
+                  showErrorResponse(false);
+                }, 5000);
+                setSubmitting(false);
+              }
+            });
           }}
         >
-          {() => (
+          {({ isSubmitting, isValid }) => (
             <Form>
-              <Field as={Input} type="password" name="currentPassword" label="Current Password" />
+              <Field
+                as={Input}
+                type="password"
+                name="currentPassword"
+                label="Current Password"
+                required
+                validate={requiredField}
+              />
               <Field
                 as={Input}
                 type="password"
@@ -48,7 +79,12 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
                 validate={requiredPassword}
                 required
               />
-              <AutoSave />
+              {errorResponse && (
+                <Alert type="danger" message="Something went wrong, please try again." />
+              )}
+              <Button type="submit" disabled={!isValid || isSubmitting || auth.isLoading}>
+                Submit
+              </Button>
             </Form>
           )}
         </Formik>

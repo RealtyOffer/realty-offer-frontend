@@ -84,7 +84,7 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
           </div>
         </PageContainer>
       </section>
-      {/* <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: brandTertiary }}>
+      {/* TODO: uncomment when ready <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: brandTertiary }}>
         <PageContainer>
           <Heading as="h3" inverse>
             Team Members

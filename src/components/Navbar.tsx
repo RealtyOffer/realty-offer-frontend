@@ -269,7 +269,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     };
   }, []);
 
-  const isLoggedInAgent = auth.isLoggedIn && agent.hasCompletedSignup;
+  const isLoggedInAgent = auth.isLoggedIn && agent.agentId !== '';
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
   const shouldShowMenuToggle = isLoggedInAgent && isSmallScreen;
 

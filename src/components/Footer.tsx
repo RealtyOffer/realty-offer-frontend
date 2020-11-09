@@ -18,6 +18,7 @@ import { tripleSpacer, baseSpacer, doubleSpacer } from '../styles/size';
 import { fontSizeH3 } from '../styles/typography';
 
 import logo from '../images/logo.svg';
+import { visuallyHiddenStyle } from '../styles/mixins';
 
 const StyledFooter = styled.footer`
   background-color: ${brandTertiary};
@@ -47,6 +48,10 @@ const LogoLink = styled(Link)`
 const SocialLink = styled.a`
   margin-right: ${baseSpacer};
   font-size: ${fontSizeH3};
+`;
+
+const HiddenText = styled.span`
+  ${visuallyHiddenStyle}
 `;
 
 const Badge = styled.div`
@@ -83,22 +88,26 @@ const Footer = () => (
           <p>
             <SocialLink href="https://www.facebook.com/RealtyOffer" target="_blank">
               <FaFacebookSquare />
+              <HiddenText>Facebook</HiddenText>
             </SocialLink>
             <SocialLink href="https://www.linkedin.com/company/realtyoffer/" target="_blank">
               <FaLinkedin />
+              <HiddenText>LinkedIn</HiddenText>
             </SocialLink>
-            {/* TODO */}
             <SocialLink
               href="https://www.youtube.com/channel/UCA2Lxd_nxREIZ7ruAzq18Ag"
               target="_blank"
             >
               <FaYoutubeSquare />
+              <HiddenText>Youtube</HiddenText>
             </SocialLink>
             <SocialLink href="https://www.instagram.com/realtyofferus/" target="_blank">
               <FaInstagram />
+              <HiddenText>Instagram</HiddenText>
             </SocialLink>
             <SocialLink href="https://twitter.com/realtyoffer1" target="_blank">
               <FaTwitterSquare />
+              <HiddenText>Twitter</HiddenText>
             </SocialLink>
           </p>
           <p style={{ margin: 0 }}>
@@ -125,7 +134,7 @@ const Footer = () => (
           </Heading>
           <p>
             {/* todo: consumer/start */}
-            <Link to="/consumer-landing">Buy or Sell</Link>
+            <Link to="/">Buy or Sell</Link>
           </p>
           <p>
             <Link to="/mortgage-consultation">Mortgage Consultation</Link>
@@ -139,7 +148,7 @@ const Footer = () => (
             AGENTS
           </Heading>
           <p>
-            <Link to="/agent/sign-up">Become an Agent</Link>
+            <Link to="/agents">Become an Agent</Link>
           </p>
           <p>
             <Link to="/frequently-asked-questions">FAQs</Link>

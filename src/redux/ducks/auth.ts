@@ -11,6 +11,7 @@ import {
   AUTH_RESEND_SIGNUP_EMAIL_ENDPOINT,
   AUTH_SECURED_PROFILE_ENDPOINT,
   AUTH_REFRESH_ACCESS_TOKEN_ENDPOINT,
+  AUTH_CHANGE_PASSWORD_ENDPOINT,
 } from '../constants';
 
 import {
@@ -55,6 +56,10 @@ export const TOKEN_REFRESH_REQUEST = 'TOKEN_REFRESH_REQUEST';
 export const TOKEN_REFRESH_SUCCESS = 'TOKEN_REFRESH_SUCCESS';
 export const TOKEN_REFRESH_FAILURE = 'TOKEN_REFRESH_FAILURE';
 
+export const CHANGE_PASSWORD_REQUEST = 'CHANGE_PASSWORD_REQUEST';
+export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
+export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE';
+
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
 export const initialState: AuthStoreType = {
@@ -85,6 +90,7 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
     case UPDATE_USER_REQUEST:
+    case CHANGE_PASSWORD_REQUEST:
       return {
         ...state,
         tokenIsRefreshing: false,
@@ -121,6 +127,11 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
         hasError: false,
         tokenIsRefreshing: false,
         ...action.payload,
+      };
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
       };
     case CREATE_USER_REQUEST:
       return {
@@ -168,6 +179,7 @@ export default (state: AuthStoreType = initialState, action: AuthActionTypes): A
     case FORGOT_PASSWORD_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case TOKEN_REFRESH_FAILURE:
+    case CHANGE_PASSWORD_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -274,3 +286,12 @@ export const refreshAccessToken = () => (dispatch: Dispatch, getState: any) => {
     },
   });
 };
+
+export const changePassword = (payload: { currentPassword: string; newPassword: string }) => ({
+  [RSAA]: {
+    endpoint: AUTH_CHANGE_PASSWORD_ENDPOINT,
+    method: 'PUT',
+    body: JSON.stringify(payload),
+    types: [CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAILURE],
+  },
+});

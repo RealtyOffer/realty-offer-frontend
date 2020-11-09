@@ -257,7 +257,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 {thirdpitch.title}
               </Heading>
               <ReactMarkdown source={thirdpitch.description} />
-              <Button type="link" to="/agent/sign-up">
+              <Button type="link" to="/agents">
                 {thirdpitch.ctaText}
               </Button>
               <br />
@@ -304,8 +304,8 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
           <Heading as="h3" align="center" inverse>
             Same agent, less commission. <br />
           </Heading>
-          {/* todo: consumer/start */}
-          <Button type="link" to="/agent/sign-up" color="tertiary">
+          {/* todo: agent/sign-up */}
+          <Button type="link" to="/agents" color="tertiary">
             Get Started Now
           </Button>
         </PageContainer>
