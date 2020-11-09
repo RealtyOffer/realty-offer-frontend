@@ -124,8 +124,8 @@ agentFaq:
     - question: How does my freemium subscription work?
       answer: >-
         Select agents are chosen from state to state to participate in a
-        *RealtyOffer Pilot program.* With this program agents are permitted to
-        bid at an unlimited capacity.
+        ***RealtyOffer Pilot program.*** With this program agents are permitted
+        to bid at an unlimited capacity.
 
 
         If a bid is awarded and a sale or purchase is consummated, **RealtyOffer
