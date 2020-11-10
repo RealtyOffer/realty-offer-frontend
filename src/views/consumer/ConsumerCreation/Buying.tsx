@@ -49,18 +49,8 @@ const Buying: FunctionComponent<BuyingProps> = () => {
 
   useEffect(() => {
     dispatch(getUserCities());
-  }, []);
-
-  useEffect(() => {
-    if (!priceRangesList || priceRangesList.length === 0) {
-      dispatch(getPriceRangesList());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!homeTypesList || homeTypesList.length === 0) {
-      dispatch(getHomeTypesList());
-    }
+    dispatch(getPriceRangesList());
+    dispatch(getHomeTypesList());
   }, []);
 
   const initialValues: BuyingFormValues = {
@@ -89,10 +79,7 @@ const Buying: FunctionComponent<BuyingProps> = () => {
         cardTitle="Buy a New Home"
         cardSubtitle="Let us know about where you are planning to move, and how much you are looking to spend."
       >
-        {priceRangesList &&
-        priceRangesList.length > 0 &&
-        homeTypesList &&
-        homeTypesList.length > 0 ? (
+        {priceRangesList.length > 0 && homeTypesList.length > 0 ? (
           <Formik
             validateOnMount
             initialValues={initialValues}

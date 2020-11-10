@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
@@ -33,6 +33,7 @@ import { RootState } from '../../../redux/ducks';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
 import { getDropdownListText, displayDropdownListText } from '../../../utils/dropdownUtils';
+import { getPriceRangesList, getHomeTypesList } from '../../../redux/ducks/dropdowns';
 
 type CreateConsumerProps = {} & RouteComponentProps;
 
@@ -43,6 +44,11 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges.list);
   const homeTypesList = useSelector((state: RootState) => state.dropdowns.homeTypes.list);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPriceRangesList());
+    dispatch(getHomeTypesList());
+  }, []);
 
   const initialValues: CreateUserFormValues = {
     firstName: '',

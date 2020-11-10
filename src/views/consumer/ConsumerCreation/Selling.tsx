@@ -15,6 +15,7 @@ import {
   HorizontalRule,
   TimelineProgress,
   ClientOnly,
+  LoadingPage,
 } from '../../../components';
 import { captureConsumerData } from '../../../redux/ducks/consumer';
 import { getUserCities } from '../../../redux/ducks/user';
@@ -27,7 +28,7 @@ import {
   createOptionsFromManagedDropdownList,
 } from '../../../utils/createOptionsFromArray';
 import { CityType } from '../../../redux/ducks/admin.d';
-import { getHomeTypesList } from '../../../redux/ducks/dropdowns';
+import { getHomeTypesList, getPriceRangesList } from '../../../redux/ducks/dropdowns';
 
 type SellingFormValues = {
   sellersAddressLine1: string;
@@ -56,15 +57,9 @@ const Selling: FunctionComponent<SellingProps> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!cities || cities.length === 0) {
-      dispatch(getUserCities());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!homeTypesList || homeTypesList.length === 0) {
-      dispatch(getHomeTypesList());
-    }
+    dispatch(getUserCities());
+    dispatch(getHomeTypesList());
+    dispatch(getPriceRangesList());
   }, []);
 
   const initialValues: SellingFormValues = {
@@ -95,129 +90,133 @@ const Selling: FunctionComponent<SellingProps> = () => {
         cardTitle="Sell My Home"
         cardSubtitle="Tell us more about the home you are looking to sell."
       >
-        <Formik
-          validateOnMount
-          initialValues={initialValues}
-          onSubmit={(values) => {
-            // return array of CityType DTOs
-            const cityDTO =
-              cities && (cities.find((city) => city.name === values.sellersCity) as CityType);
-            dispatch(
-              captureConsumerData({
-                createDateTime: new Date(),
-                sellersAddressLine1: values.sellersAddressLine1,
-                sellersAddressLine2: values.sellersAddressLine2,
-                sellersCity: cityDTO,
-                sellersZip: '',
-                sellersTimeline: values.sellersTimeline,
-                sellersListingPriceInMindPriceRangeInMindId: Number(
-                  values.sellersListingPriceInMind
-                ),
-                sellersMortgageBalanceId: Number(values.sellersMortgageBalance),
-                sellerTypeOfHomeId: Number(values.sellerTypeOfHomeId),
-              })
-            );
-            navigate('/consumer/sign-up');
-          }}
-        >
-          {({ isSubmitting, isValid, ...rest }) => (
-            <Form>
-              <Field
-                as={Input}
-                type="text"
-                name="sellersAddressLine1"
-                label="Address Line 1"
-                validate={requiredField}
-                required
-              />
-              <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
-              <Field
-                as={Input}
-                type="select"
-                name="sellersCity"
-                options={cityOptions}
-                label="City"
-                validate={requiredSelect}
-                required
-                {...rest}
-              />
+        {cities && cities.length > 0 && priceRangesList.length > 0 && homeTypesList.length > 0 ? (
+          <Formik
+            validateOnMount
+            initialValues={initialValues}
+            onSubmit={(values) => {
+              // return array of CityType DTOs
+              const cityDTO =
+                cities && (cities.find((city) => city.name === values.sellersCity) as CityType);
+              dispatch(
+                captureConsumerData({
+                  createDateTime: new Date(),
+                  sellersAddressLine1: values.sellersAddressLine1,
+                  sellersAddressLine2: values.sellersAddressLine2,
+                  sellersCity: cityDTO,
+                  sellersZip: '',
+                  sellersTimeline: values.sellersTimeline,
+                  sellersListingPriceInMindPriceRangeInMindId: Number(
+                    values.sellersListingPriceInMind
+                  ),
+                  sellersMortgageBalanceId: Number(values.sellersMortgageBalance),
+                  sellerTypeOfHomeId: Number(values.sellerTypeOfHomeId),
+                })
+              );
+              navigate('/consumer/sign-up');
+            }}
+          >
+            {({ isSubmitting, isValid, ...rest }) => (
+              <Form>
+                <Field
+                  as={Input}
+                  type="text"
+                  name="sellersAddressLine1"
+                  label="Address Line 1"
+                  validate={requiredField}
+                  required
+                />
+                <Field as={Input} type="text" name="sellersAddressLine2" label="Address Line 2" />
+                <Field
+                  as={Input}
+                  type="select"
+                  name="sellersCity"
+                  options={cityOptions}
+                  label="City"
+                  validate={requiredSelect}
+                  required
+                  {...rest}
+                />
 
-              <p>
-                <small>
-                  City not in our list? No problem at all.{' '}
-                  <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
-                  specialist who can assist with your move.
-                </small>
-              </p>
+                <p>
+                  <small>
+                    City not in our list? No problem at all.{' '}
+                    <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
+                    specialist who can assist with your move.
+                  </small>
+                </p>
 
-              <Field
-                as={Input}
-                type="select"
-                name="sellersTimeline"
-                label="How soon are you looking to sell your home?"
-                validate={requiredSelect}
-                required
-                options={howSoonOptions}
-                {...rest}
-              />
-              <Field
-                as={Input}
-                type="select"
-                name="sellersListingPriceInMind"
-                label="Do you have a listing price in mind?"
-                validate={requiredSelect}
-                required
-                options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
-                {...rest}
-              />
-              <Field
-                as={Input}
-                type="select"
-                name="sellersMortgageBalance"
-                label="What is the estimated mortgage balance?"
-                validate={requiredSelect}
-                required
-                options={createOptionsFromManagedDropdownList(priceRangesList)}
-                {...rest}
-              />
-              <Field
-                as={Input}
-                type="select"
-                name="sellerTypeOfHomeId"
-                label="What is the type of home?"
-                validate={requiredSelect}
-                required
-                options={createOptionsFromManagedDropdownList(homeTypesList)}
-                {...rest}
-              />
-              <HorizontalRule />
-              <Row>
-                <Column xs={6}>
-                  <Button
-                    type="button"
-                    onClick={() => toggleUnsavedChangesModal()}
-                    block
-                    color="primaryOutline"
-                    iconLeft={<FaCaretLeft />}
-                  >
-                    Cancel
-                  </Button>
-                </Column>
-                <Column xs={6}>
-                  <Button
-                    type="submit"
-                    block
-                    iconRight={<FaCaretRight />}
-                    disabled={isSubmitting || !isValid}
-                    isLoading={isSubmitting}
-                  >
-                    Next
-                  </Button>
-                </Column>
-              </Row>
-            </Form>
-          )}
-        </Formik>
+                <Field
+                  as={Input}
+                  type="select"
+                  name="sellersTimeline"
+                  label="How soon are you looking to sell your home?"
+                  validate={requiredSelect}
+                  required
+                  options={howSoonOptions}
+                  {...rest}
+                />
+                <Field
+                  as={Input}
+                  type="select"
+                  name="sellersListingPriceInMind"
+                  label="Do you have a listing price in mind?"
+                  validate={requiredSelect}
+                  required
+                  options={createOptionsFromManagedDropdownList(priceRangesList.slice(1))}
+                  {...rest}
+                />
+                <Field
+                  as={Input}
+                  type="select"
+                  name="sellersMortgageBalance"
+                  label="What is the estimated mortgage balance?"
+                  validate={requiredSelect}
+                  required
+                  options={createOptionsFromManagedDropdownList(priceRangesList)}
+                  {...rest}
+                />
+                <Field
+                  as={Input}
+                  type="select"
+                  name="sellerTypeOfHomeId"
+                  label="What is the type of home?"
+                  validate={requiredSelect}
+                  required
+                  options={createOptionsFromManagedDropdownList(homeTypesList)}
+                  {...rest}
+                />
+                <HorizontalRule />
+                <Row>
+                  <Column xs={6}>
+                    <Button
+                      type="button"
+                      onClick={() => toggleUnsavedChangesModal()}
+                      block
+                      color="primaryOutline"
+                      iconLeft={<FaCaretLeft />}
+                    >
+                      Cancel
+                    </Button>
+                  </Column>
+                  <Column xs={6}>
+                    <Button
+                      type="submit"
+                      block
+                      iconRight={<FaCaretRight />}
+                      disabled={isSubmitting || !isValid}
+                      isLoading={isSubmitting}
+                    >
+                      Next
+                    </Button>
+                  </Column>
+                </Row>
+              </Form>
+            )}
+          </Formik>
+        ) : (
+          <LoadingPage />
+        )}
       </Card>
       <UnsavedChangesModal modalIsOpen={modalIsOpen} toggleModal={toggleUnsavedChangesModal} />
     </ClientOnly>

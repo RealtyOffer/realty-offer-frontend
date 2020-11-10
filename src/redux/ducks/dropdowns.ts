@@ -280,6 +280,7 @@ export const getGendersList = () => ({
   [RSAA]: {
     endpoint: DROPDOWN_LIST_GENDERS_ENDPOINT,
     method: 'GET',
+    skipOauth: true,
     types: [GET_GENDERS_LIST_REQUEST, GET_GENDERS_LIST_SUCCESS, GET_GENDERS_LIST_FAILURE],
   },
 });
@@ -288,6 +289,7 @@ export const getGenderPreferencesList = () => ({
   [RSAA]: {
     endpoint: DROPDOWN_LIST_GENDER_PREFERENCES_ENDPOINT,
     method: 'GET',
+    skipOauth: true,
     types: [
       GET_GENDER_PREFERENCES_LIST_REQUEST,
       GET_GENDER_PREFERENCES_LIST_SUCCESS,
@@ -300,6 +302,7 @@ export const getAgePreferencesList = () => ({
   [RSAA]: {
     endpoint: DROPDOWN_LIST_AGE_PREFERENCES_ENDPOINT,
     method: 'GET',
+    skipOauth: true,
     types: [
       GET_AGE_PREFERENCES_LIST_REQUEST,
       GET_AGE_PREFERENCES_LIST_SUCCESS,
@@ -312,6 +315,7 @@ export const getLanguagesList = () => ({
   [RSAA]: {
     endpoint: DROPDOWN_LIST_LANGUAGES_ENDPOINT,
     method: 'GET',
+    skipOauth: true,
     types: [GET_LANGUAGES_LIST_REQUEST, GET_LANGUAGES_LIST_SUCCESS, GET_LANGUAGES_LIST_FAILURE],
   },
 });
@@ -320,6 +324,7 @@ export const getStatesList = () => ({
   [RSAA]: {
     endpoint: DROPDOWN_LIST_STATES_ENDPOINT,
     method: 'GET',
+    skipOauth: true,
     types: [GET_STATES_LIST_REQUEST, GET_STATES_LIST_SUCCESS, GET_STATES_LIST_FAILURE],
   },
 });
@@ -328,6 +333,7 @@ export const getPriceRangesList = () => ({
   [RSAA]: {
     endpoint: DROPDOWN_LIST_PRICE_RANGES_ENDPOINT,
     method: 'GET',
+    skipOauth: true,
     types: [
       GET_PRICE_RANGES_LIST_REQUEST,
       GET_PRICE_RANGES_LIST_SUCCESS,
@@ -340,6 +346,7 @@ export const getHomeTypesList = () => ({
   [RSAA]: {
     endpoint: DROPDOWN_LIST_HOME_TYPES_ENDPOINT,
     method: 'GET',
+    skipOauth: true,
     types: [GET_HOME_TYPES_LIST_REQUEST, GET_HOME_TYPES_LIST_SUCCESS, GET_HOME_TYPES_LIST_FAILURE],
   },
 });
