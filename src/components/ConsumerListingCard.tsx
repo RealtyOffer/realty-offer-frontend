@@ -22,7 +22,7 @@ import {
   getConsumerBids,
   getWinningAgentProfile,
   getWinningAgentProfilePhoto,
-  createConsumerProfile,
+  restartConsumerListing,
 } from '../redux/ducks/consumer';
 import { ConsumerStoreType, WinningAgentProfileType } from '../redux/ducks/consumer.d';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
@@ -64,9 +64,8 @@ type SelectedBidType = BidType & {
 };
 
 const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
-  consumer: { listing, bids, winner, isLoading, profile },
+  consumer: { listing, bids, winner, isLoading },
 }) => {
-  const auth = useSelector((state: RootState) => state.auth);
   const [selectedBid, setSelectedBid] = useState<SelectedBidType | undefined>();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [restartListingModalIsOpen, setRestartListingModalIsOpen] = useState(false);
@@ -100,16 +99,9 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
 
   const restartListing = () => {
     dispatch(
-      createConsumerProfile({
-        email: auth.email,
-        listing: {
-          ...listing,
-          sellersZip: (listing && String(listing.sellersZip)) || '',
-          createDateTime: new Date(),
-        },
-        profile: {
-          ...profile,
-        },
+      restartConsumerListing({
+        ...listing,
+        sellersZip: (listing && String(listing.sellersZip)) || '',
       })
     );
   };

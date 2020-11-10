@@ -27,6 +27,7 @@ export const LISTING_BY_ID_ENDPOINT = (id: number) => `${LISTINGS_ENDPOINT}/${id
 // Consumer
 export const CREATE_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/profile`;
 export const SECURED_CONSUMER_PROFILE_ENDPOINT = `${API_ROOT}/consumer/secured/profile`;
+export const SECURED_CONSUMER_LISTINGS_ENDPOINT = `${API_ROOT}/consumer/secured/listings`;
 export const SECURED_CONSUMER_BIDS_ENDPOINT = `${API_ROOT}/consumer/secured/bids`;
 export const SECURED_CONSUMER_BIDS_WINNER_ENDPOINT = `${SECURED_CONSUMER_BIDS_ENDPOINT}/winner`;
 export const SECURED_CONSUMER_BIDS_WINNING_AGENT_ENDPOINT = `${SECURED_CONSUMER_BIDS_ENDPOINT}/get-winning-agent`;
@@ -49,6 +50,7 @@ const USER_DROPDOWN_LISTS_ENDPOINT = `${USER_ENDPOINT}/dropdown`;
 const USER_SECURED_ENDPOINT = `${API_ROOT}/user/secured`;
 export const USER_SITE_BANNERS_ENDPOINT = `${USER_SECURED_ENDPOINT}/site-banners`;
 export const USER_CITIES_ENDPOINT = `${USER_ENDPOINT}/cities`;
+export const USER_COUNTIES_ENDPOINT = `${USER_ENDPOINT}/counties`;
 export const DROPDOWN_LIST_GENDERS_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/genders`;
 export const DROPDOWN_LIST_GENDER_PREFERENCES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/genderpreferences`;
 export const DROPDOWN_LIST_AGE_PREFERENCES_ENDPOINT = `${USER_DROPDOWN_LISTS_ENDPOINT}/age-preferences`;

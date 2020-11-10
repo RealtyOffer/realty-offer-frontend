@@ -9,6 +9,9 @@ import {
   UPDATE_CONSUMER_PROFILE_REQUEST,
   UPDATE_CONSUMER_PROFILE_SUCCESS,
   UPDATE_CONSUMER_PROFILE_FAILURE,
+  RESTART_CONSUMER_LISTING_REQUEST,
+  RESTART_CONSUMER_LISTING_SUCCESS,
+  RESTART_CONSUMER_LISTING_FAILURE,
   GET_CONSUMER_BIDS_REQUEST,
   GET_CONSUMER_BIDS_SUCCESS,
   GET_CONSUMER_BIDS_FAILURE,
@@ -153,6 +156,17 @@ export type GetWinningAgentProfilePhotoFailureAction = {
   type: typeof GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE;
 };
 
+export type RestartConsumerListingRequestAction = {
+  type: typeof RESTART_CONSUMER_LISTING_REQUEST;
+};
+export type RestartConsumerListingSuccessAction = {
+  type: typeof RESTART_CONSUMER_LISTING_SUCCESS;
+  payload: { listing: ListingType };
+};
+export type RestartConsumerListingFailureAction = {
+  type: typeof RESTART_CONSUMER_LISTING_FAILURE;
+};
+
 export type ConsumerStoreActions =
   | CaptureConsumerDataAction
   | CreateConsumerProfileRequestAction
@@ -176,4 +190,7 @@ export type ConsumerStoreActions =
   | GetWinningAgentProfilePhotoRequestAction
   | GetWinningAgentProfilePhotoSuccessAction
   | GetWinningAgentProfilePhotoFailureAction
+  | RestartConsumerListingRequestAction
+  | RestartConsumerListingSuccessAction
+  | RestartConsumerListingFailureAction
   | LogoutRequestAction;

@@ -3,6 +3,7 @@ import { RSAA } from 'redux-api-middleware';
 import {
   USER_SITE_BANNERS_ENDPOINT,
   USER_CITIES_ENDPOINT,
+  USER_COUNTIES_ENDPOINT,
   USER_NOTIFICATION_SETTINGS_ENDPOINT,
   USER_NOTIFICATION_SETTINGS_CONFIRM_ENDPOINT,
   USER_NOTIFICATION_TYPES_ENDPOINT,
@@ -25,6 +26,10 @@ export const GET_USER_SITE_BANNERS_FAILURE = 'GET_USER_SITE_BANNERS_FAILURE';
 export const GET_USER_CITIES_REQUEST = 'GET_USER_CITIES_REQUEST';
 export const GET_USER_CITIES_SUCCESS = 'GET_USER_CITIES_SUCCESS';
 export const GET_USER_CITIES_FAILURE = 'GET_USER_CITIES_FAILURE';
+
+export const GET_USER_COUNTIES_REQUEST = 'GET_USER_COUNTIES_REQUEST';
+export const GET_USER_COUNTIES_SUCCESS = 'GET_USER_COUNTIES_SUCCESS';
+export const GET_USER_COUNTIES_FAILURE = 'GET_USER_COUNTIES_FAILURE';
 
 export const GET_USER_NOTIFICATION_SETTINGS_REQUEST = 'GET_USER_NOTIFICATION_SETTINGS_REQUEST';
 export const GET_USER_NOTIFICATION_SETTINGS_SUCCESS = 'GET_USER_NOTIFICATION_SETTINGS_SUCCESS';
@@ -73,6 +78,7 @@ export const initialState: UserStoreType = {
   hasError: false,
   banners: [],
   cities: [],
+  counties: [],
   notificationSettings: {
     enableNotifications: false,
     emailAddress: '',
@@ -93,6 +99,7 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
     case UPDATE_USER_NOTIFICATION_SETTINGS_REQUEST:
     case GET_USER_SITE_BANNERS_REQUEST:
     case GET_USER_CITIES_REQUEST:
+    case GET_USER_COUNTIES_REQUEST:
     case GET_USER_NOTIFICATION_SETTINGS_REQUEST:
     case GET_NOTIFICATION_TYPES_REQUEST:
     case GET_USER_NOTIFICATION_SUBSCRIPTIONS_REQUEST:
@@ -146,6 +153,13 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
         hasError: false,
         cities: [...action.payload],
       };
+    case GET_USER_COUNTIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        counties: [...action.payload],
+      };
     case GET_USER_AVATAR_SUCCESS:
     case UPDATE_USER_AVATAR:
       return {
@@ -156,11 +170,13 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
       };
     case ADD_ATTEMPTED_PRIVATE_PAGE: {
       return {
+        ...state,
         location: action.payload,
       };
     }
     case REMOVE_ATTEMPTED_PRIVATE_PAGE: {
       return {
+        ...state,
         location: undefined,
       };
     }
@@ -177,6 +193,13 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
         isLoading: false,
         hasError: true,
         cities: [],
+      };
+    case GET_USER_COUNTIES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        counties: [],
       };
     case UPDATE_USER_NOTIFICATION_SETTINGS_FAILURE:
     case CONFIRM_DEVICE_FAILURE:
@@ -255,6 +278,15 @@ export const getUserCities = () => ({
     method: 'GET',
     skipOauth: true,
     types: [GET_USER_CITIES_REQUEST, GET_USER_CITIES_SUCCESS, GET_USER_CITIES_FAILURE],
+  },
+});
+
+export const getUserCounties = () => ({
+  [RSAA]: {
+    endpoint: USER_COUNTIES_ENDPOINT,
+    method: 'GET',
+    skipOauth: true,
+    types: [GET_USER_COUNTIES_REQUEST, GET_USER_COUNTIES_SUCCESS, GET_USER_COUNTIES_FAILURE],
   },
 });
 

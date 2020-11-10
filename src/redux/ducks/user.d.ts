@@ -5,6 +5,9 @@ import {
   GET_USER_CITIES_REQUEST,
   GET_USER_CITIES_SUCCESS,
   GET_USER_CITIES_FAILURE,
+  GET_USER_COUNTIES_REQUEST,
+  GET_USER_COUNTIES_SUCCESS,
+  GET_USER_COUNTIES_FAILURE,
   GET_USER_NOTIFICATION_SETTINGS_REQUEST,
   GET_USER_NOTIFICATION_SETTINGS_SUCCESS,
   GET_USER_NOTIFICATION_SETTINGS_FAILURE,
@@ -32,7 +35,7 @@ import {
 } from './user';
 import { LogoutRequestAction } from './auth.d';
 
-import { BannerType, CityType } from './admin.d';
+import { BannerType, CityType, CountyType } from './admin.d';
 
 export type NotificationSettingsType = {
   enableNotifications: boolean;
@@ -69,6 +72,7 @@ export type UserStoreType = {
   hasError: boolean;
   banners?: Array<BannerType>;
   cities?: Array<CityType>;
+  counties?: Array<CountyType>;
   notificationSettings: NotificationSettingsType;
   notificationTypes: Array<NotificationTypesType>;
   userNotificationSubscriptions: Array<UserNotificationSubscriptionType>;
@@ -100,6 +104,19 @@ export type GetUserCitiesSuccessAction = {
 
 export type GetUserCitiesFailureAction = {
   type: typeof GET_USER_CITIES_FAILURE;
+};
+
+export type GetUserCountiesRequestAction = {
+  type: typeof GET_USER_COUNTIES_REQUEST;
+};
+
+export type GetUserCountiesSuccessAction = {
+  type: typeof GET_USER_COUNTIES_SUCCESS;
+  payload: Array<CountyType>;
+};
+
+export type GetUserCountiesFailureAction = {
+  type: typeof GET_USER_COUNTIES_FAILURE;
 };
 
 export type GetUserNotificationSettingsRequestAction = {
@@ -217,6 +234,9 @@ export type UserActionTypes =
   | GetUserCitiesRequestAction
   | GetUserCitiesSuccessAction
   | GetUserCitiesFailureAction
+  | GetUserCountiesRequestAction
+  | GetUserCountiesSuccessAction
+  | GetUserCountiesFailureAction
   | GetUserNotificationSettingsRequestAction
   | GetUserNotificationSettingsSuccessAction
   | GetUserNotificationSettingsFailureAction

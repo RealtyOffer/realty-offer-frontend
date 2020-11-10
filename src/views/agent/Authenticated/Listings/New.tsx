@@ -21,7 +21,7 @@ import {
   toggleSalesAreaFilter,
 } from '../../../../redux/ducks/listings';
 import { RootState } from '../../../../redux/ducks';
-import { getAllCounties } from '../../../../redux/ducks/admin';
+import { getUserCounties } from '../../../../redux/ducks/user';
 import { screenSizes } from '../../../../styles/size';
 import useWindowSize from '../../../../utils/useWindowSize';
 
@@ -29,7 +29,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
   const agent = useSelector((state: RootState) => state.agent);
   const listings = useSelector((state: RootState) => state.listings);
   const { isLoading, new: newListings, hiddenListingIds } = listings;
-  const counties = useSelector((state: RootState) => state.admin.counties);
+  const counties = useSelector((state: RootState) => state.user.counties);
   const dispatch = useDispatch();
 
   const size = useWindowSize();
@@ -40,19 +40,20 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
   }, []);
 
   useEffect(() => {
-    if (counties.length === 0) {
-      dispatch(getAllCounties());
+    if (!counties || (counties && counties.length === 0)) {
+      dispatch(getUserCounties());
     }
   }, []);
 
   const countiesOptions =
-    counties &&
-    counties.map((county) => {
-      const obj = { value: '', label: '' };
-      obj.value = String(county.id);
-      obj.label = county.name;
-      return obj;
-    });
+    counties && counties.length > 0
+      ? counties.map((county) => {
+          const obj = { value: '', label: '' };
+          obj.value = String(county.id);
+          obj.label = county.name;
+          return obj;
+        })
+      : [];
 
   const isFilteredByCounty =
     listings.countyFilter !== 'All Counties' && listings.countyFilter !== '';
@@ -125,28 +126,30 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
       >
         {({ handleSubmit, resetForm, ...rest }) => (
           <Form onBlur={() => handleSubmit()} onChange={() => handleSubmit()}>
-            <Row>
-              <Column sm={6} md={4}>
-                <Field
-                  type="select"
-                  as={Input}
-                  name="countyFilter"
-                  options={[{ value: 'All Counties', label: 'All Counties' }, ...countiesOptions]}
-                  label="Show Listings for..."
-                  isMulti={false}
-                  {...rest}
-                />
-              </Column>
-              <Column sm={6} md={4} mdOffset={4}>
-                <Field
-                  type="toggle"
-                  as={Input}
-                  name="salesAreaOnly"
-                  label="Show Listings for my Sales Area only"
-                  alignRight={!isExtraSmallScreen}
-                />
-              </Column>
-            </Row>
+            {counties && counties.length > 0 && (
+              <Row>
+                <Column sm={6} md={4}>
+                  <Field
+                    type="select"
+                    as={Input}
+                    name="countyFilter"
+                    options={[{ value: 'All Counties', label: 'All Counties' }, ...countiesOptions]}
+                    label="Show Listings for..."
+                    isMulti={false}
+                    {...rest}
+                  />
+                </Column>
+                <Column sm={6} md={4} mdOffset={4}>
+                  <Field
+                    type="toggle"
+                    as={Input}
+                    name="salesAreaOnly"
+                    label="Show Listings for my Sales Area only"
+                    alignRight={!isExtraSmallScreen}
+                  />
+                </Column>
+              </Row>
+            )}
             {isLoading && <ListingCardsLoader />}
             {listingsToShow && listingsToShow.length > 0 && !isLoading && (
               <Row>

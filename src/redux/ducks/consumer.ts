@@ -4,6 +4,7 @@ import { LOGOUT_REQUEST } from './auth';
 import {
   CREATE_CONSUMER_PROFILE_ENDPOINT,
   SECURED_CONSUMER_PROFILE_ENDPOINT,
+  SECURED_CONSUMER_LISTINGS_ENDPOINT,
   SECURED_CONSUMER_BIDS_ENDPOINT,
   SECURED_CONSUMER_BIDS_WINNER_ENDPOINT,
   SECURED_CONSUMER_BIDS_WINNING_AGENT_ENDPOINT,
@@ -44,6 +45,10 @@ export const GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST = 'GET_WINNING_AGENT_PROFIL
 export const GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS = 'GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS';
 export const GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE = 'GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE';
 
+export const RESTART_CONSUMER_LISTING_REQUEST = 'RESTART_CONSUMER_LISTING_REQUEST';
+export const RESTART_CONSUMER_LISTING_SUCCESS = 'RESTART_CONSUMER_LISTING_SUCCESS';
+export const RESTART_CONSUMER_LISTING_FAILURE = 'RESTART_CONSUMER_LISTING_FAILURE';
+
 export const initialState: ConsumerStoreType = {
   isLoading: false,
   hasError: false,
@@ -78,6 +83,7 @@ export default (
     case GET_WINNING_AGENT_PROFILE_REQUEST:
     case UPDATE_CONSUMER_PROFILE_REQUEST:
     case GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST:
+    case RESTART_CONSUMER_LISTING_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -139,6 +145,14 @@ export default (
           avatar: action.payload.url,
         },
       };
+    case RESTART_CONSUMER_LISTING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        listing: { createDateTime: new Date(), ...action.payload },
+        bids: [],
+      };
     case GET_CONSUMER_BIDS_FAILURE:
       return {
         ...state,
@@ -152,6 +166,7 @@ export default (
     case GET_WINNING_AGENT_PROFILE_FAILURE:
     case UPDATE_CONSUMER_PROFILE_FAILURE:
     case GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE:
+    case RESTART_CONSUMER_LISTING_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -253,6 +268,19 @@ export const getWinningAgentProfilePhoto = (userName: string) => ({
       GET_WINNING_AGENT_PROFILE_PHOTO_REQUEST,
       GET_WINNING_AGENT_PROFILE_PHOTO_SUCCESS,
       GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE,
+    ],
+  },
+});
+
+export const restartConsumerListing = (payload: ListingType) => ({
+  [RSAA]: {
+    endpoint: SECURED_CONSUMER_LISTINGS_ENDPOINT,
+    method: 'POST',
+    body: JSON.stringify(payload),
+    types: [
+      RESTART_CONSUMER_LISTING_REQUEST,
+      RESTART_CONSUMER_LISTING_SUCCESS,
+      RESTART_CONSUMER_LISTING_FAILURE,
     ],
   },
 });
