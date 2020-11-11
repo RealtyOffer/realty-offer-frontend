@@ -6,7 +6,7 @@ import Settings from './Settings';
 import Security from './Security';
 import Notifications from './Notifications';
 import Billing from './Billing';
-import { Row, Column, SubNav } from '../../../../components';
+import { Row, Column, SubNav, MortgagePartnerForm } from '../../../../components';
 import { agentAccountNavigationitems } from '../../../../utils/agentNavigationItems';
 
 type AgentSettingsProps = {} & RouteComponentProps;
@@ -15,6 +15,7 @@ const AgentSettings: FunctionComponent<AgentSettingsProps> = () => (
   <Row>
     <Column md={3}>
       <SubNav items={agentAccountNavigationitems} />
+      <MortgagePartnerForm />
     </Column>
     <Column md={9}>
       <Router>

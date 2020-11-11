@@ -24,7 +24,7 @@ const NetlifyForms: FunctionComponent<{}> = () => (
         </Button>
       </FlexContainer>
     </Card>
-    <Formik initialValues={{}} onSubmit={() => console.log('hello')}>
+    <Formik initialValues={{}} onSubmit={() => console.log('')}>
       {() => (
         <Form
           name="get-financed-form"
@@ -50,7 +50,32 @@ const NetlifyForms: FunctionComponent<{}> = () => (
         </Form>
       )}
     </Formik>
-    <Formik initialValues={{}} onSubmit={() => console.log('hello')}>
+    <Formik initialValues={{}} onSubmit={() => console.log('')}>
+      {() => (
+        <Form
+          name="mortgage-partner-form"
+          method="post"
+          netlify-honeypot="bot-field"
+          data-netlify="true"
+        >
+          <input type="hidden" name="form-name" value="mortgage-partner-form" />
+          {[
+            'firstName',
+            'lastName',
+            'email',
+            'phoneNumber',
+            'subject',
+            'brokerName',
+            'brokerPhoneNumber',
+            'brokerEmail',
+            'brokerCity',
+          ].map((name) => (
+            <input type="hidden" name={name} value="" key={name} />
+          ))}
+        </Form>
+      )}
+    </Formik>
+    <Formik initialValues={{}} onSubmit={() => console.log('')}>
       {() => (
         <Form name="missing-city" method="post" netlify-honeypot="bot-field" data-netlify="true">
           <input type="hidden" name="form-name" value="missing-city" />
@@ -74,7 +99,7 @@ const NetlifyForms: FunctionComponent<{}> = () => (
         </Form>
       )}
     </Formik>
-    <Formik initialValues={{}} onSubmit={() => console.log('hello')}>
+    <Formik initialValues={{}} onSubmit={() => console.log('')}>
       {() => (
         <Form
           name="free-mortgage-consultation"
