@@ -55,7 +55,6 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination }) 
     page,
     rows,
     prepareRow,
-
     canPreviousPage,
     canNextPage,
     pageOptions,
