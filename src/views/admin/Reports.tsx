@@ -31,7 +31,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
         <LoadingPage />
       ) : (
         <>
-          <Heading styledAs="sectionHeading">Agents by City</Heading>
+          <Heading styledAs="sectionHeading">Agents By City</Heading>
           <Table
             columns={[
               { header: 'City Name', accessor: 'name' },
@@ -47,7 +47,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
         <LoadingPage />
       ) : (
         <>
-          <Heading styledAs="sectionHeading">Agents by County</Heading>
+          <Heading styledAs="sectionHeading">Agents By County</Heading>
           <Table
             columns={[
               { header: 'County Name', accessor: 'name' },
@@ -62,7 +62,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
         <LoadingPage />
       ) : (
         <>
-          <Heading styledAs="sectionHeading">Awarded Bids by date</Heading>
+          <Heading styledAs="sectionHeading">Awarded Bids By Date</Heading>
           <Table
             columns={[
               { header: 'Date', accessor: 'name' },
@@ -77,7 +77,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
         <LoadingPage />
       ) : (
         <>
-          <Heading styledAs="sectionHeading">Listings by Type</Heading>
+          <Heading styledAs="sectionHeading">Listings By Type</Heading>
           <Table
             columns={[
               { header: 'Listing Type', accessor: 'name' },
