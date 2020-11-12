@@ -2,7 +2,7 @@ import React, { useEffect, FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LoadingPage, FlexContainer, Heading, HorizontalRule } from '../../components';
+import { LoadingPage, FlexContainer, Heading, HorizontalRule, Table } from '../../components';
 import {
   getAgentsByCity,
   getAgentsByCounty,
@@ -30,7 +30,14 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
       {metrics.agentsByCity.isLoading ? (
         <LoadingPage />
       ) : (
-        <div>{JSON.stringify(metrics.agentsByCity.values)}</div>
+        <Table
+          columns={[
+            { header: 'City Name', accessor: 'name' },
+            { header: 'Count', accessor: 'count' },
+          ]}
+          data={metrics.agentsByCity.values}
+          hasPagination
+        />
       )}
       <HorizontalRule />
       {metrics.agentsByCounty.isLoading ? (

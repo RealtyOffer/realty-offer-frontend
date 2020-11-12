@@ -6,6 +6,7 @@ type FlexContainerProps = {
   justifyContent?:
     | 'space-between'
     | 'space-around'
+    | 'space-evenly'
     | 'center'
     | 'start'
     | 'end'
