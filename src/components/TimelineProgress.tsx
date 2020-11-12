@@ -31,7 +31,6 @@ const TrackValue = styled.div`
   background-color: ${brandTertiary};
   position: absolute;
   top: 0;
-  z-index: 1;
   border-radius: ${borderRadius};
 `;
 
@@ -48,7 +47,6 @@ const StepCircle = styled.div`
   align-items: center;
   position: absolute;
   top: -14px;
-  z-index: 2;
 `;
 
 const ItemLabel = styled.p`

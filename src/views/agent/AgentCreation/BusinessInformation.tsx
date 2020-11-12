@@ -1,9 +1,11 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RouteComponentProps } from '@reach/router';
+import { FaCheck } from 'react-icons/fa';
+
 import {
   FlexContainer,
   Heading,
@@ -14,6 +16,9 @@ import {
   Seo,
   HorizontalRule,
   LoadingPage,
+  Box,
+  Column,
+  Row,
 } from '../../../components';
 import { requiredField } from '../../../utils/validations';
 import { getUserCities } from '../../../redux/ducks/user';
@@ -21,6 +26,7 @@ import { captureAgentSignupData } from '../../../redux/ducks/agent';
 import { RootState } from '../../../redux/ducks';
 import { CityType } from '../../../redux/ducks/admin.d';
 import { logout } from '../../../redux/ducks/auth';
+import { brandSuccess } from '../../../styles/color';
 
 type BusinessInformationProps = {} & RouteComponentProps;
 
@@ -28,6 +34,7 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
   const cities = useSelector((state: RootState) => state.user.cities);
   const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
+  const [pricingModel, setPricingModel] = useState<'payAsYouGo' | 'monthly' | null>(null);
 
   const numberWithCommas = (x: number) => {
     const parts = x.toString().split('.');
@@ -85,9 +92,98 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
         currentStep={4}
       />
       <Card
+        fullWidth
         cardTitle="Business Information"
-        cardSubtitle="Select the cities you would like to receive leads in"
+        cardSubtitle="Please select your subscription type"
       >
+        <Row>
+          <Column md={5} mdOffset={1}>
+            <Box>
+              <FlexContainer flexDirection="column" height="100%">
+                <Heading as="h3">Pay as you go</Heading>
+                <div style={{ flex: 1 }}>
+                  <Row>
+                    <Column xs={1}>
+                      <FaCheck color={brandSuccess} />
+                    </Column>
+                    <Column xs={11}>
+                      <div>Full access to bid on all listings within the RealtyOffer platform</div>
+                    </Column>
+                  </Row>
+                  <HorizontalRule compact />
+                  <Row>
+                    <Column xs={1}>
+                      <FaCheck color={brandSuccess} />
+                    </Column>
+                    <Column xs={11}>
+                      <div>Pay a one-time fee of $295 only when you are awarded a bid</div>
+                    </Column>
+                  </Row>
+                  <HorizontalRule compact />
+                </div>
+                <Button type="button" onClick={() => setPricingModel('payAsYouGo')} block>
+                  Select
+                </Button>
+              </FlexContainer>
+            </Box>
+          </Column>
+          <Column md={5}>
+            <Box>
+              <FlexContainer flexDirection="column" height="100%">
+                <Heading as="h3">Monthly Subscription</Heading>
+                <div style={{ flex: 1 }}>
+                  <Row>
+                    <Column xs={1}>
+                      <FaCheck color={brandSuccess} />
+                    </Column>
+                    <Column xs={11}>
+                      <div>Full access to bid on all listings within the RealtyOffer platform</div>
+                    </Column>
+                  </Row>
+                  <HorizontalRule compact />
+                  <Row>
+                    <Column xs={1}>
+                      <FaCheck color={brandSuccess} />
+                    </Column>
+                    <Column xs={11}>
+                      <div>
+                        For listings in your subscription area, receive unlimited access by paying a
+                        monthly subscription fee that ranges from $199 to $995 per city
+                      </div>
+                    </Column>
+                  </Row>
+                  <HorizontalRule compact />
+                  <Row>
+                    <Column xs={1}>
+                      <FaCheck color={brandSuccess} />
+                    </Column>
+                    <Column xs={11}>
+                      <div>
+                        For listings outside your subscription area, choose to pay a one-time fee of
+                        $295 or add that city to your subscription
+                      </div>
+                    </Column>
+                  </Row>
+                  <HorizontalRule compact />
+                  <Row>
+                    <Column xs={1}>
+                      <FaCheck color={brandSuccess} />
+                    </Column>
+                    <Column xs={11}>
+                      <div>
+                        Purchase an entire county for a discount compared to buying multiple cities
+                      </div>
+                    </Column>
+                  </Row>
+                  <HorizontalRule compact />
+                </div>
+                <Button type="button" onClick={() => setPricingModel('monthly')} block>
+                  Select
+                </Button>
+              </FlexContainer>
+            </Box>
+          </Column>
+        </Row>
         {cities && cities.length > 0 ? (
           <Formik
             validateOnMount
@@ -110,6 +206,7 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
           >
             {({ isSubmitting, isValid, values, ...rest }) => (
               <Form>
+                {pricingModel}
                 <Field
                   as={Input}
                   type="select"

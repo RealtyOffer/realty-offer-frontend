@@ -55,7 +55,10 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
 
   return (
     <PageContainer>
-      <Card cardTitle="Connect with a RealtyOffer Specialist">
+      <Card
+        cardTitle="Learn more about RealtyOffer"
+        cardSubtitle="We will be launching soon, but leave us your information and we will be in touch"
+      >
         <ClientOnly>
           {priceRangesList &&
           priceRangesList.list.length > 0 &&

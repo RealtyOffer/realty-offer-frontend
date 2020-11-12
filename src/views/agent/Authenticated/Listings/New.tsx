@@ -124,7 +124,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
           });
         }}
       >
-        {({ handleSubmit, resetForm, ...rest }) => (
+        {({ handleSubmit, values, resetForm, ...rest }) => (
           <Form onBlur={() => handleSubmit()} onChange={() => handleSubmit()}>
             {counties && counties.length > 0 && (
               <Row>
@@ -144,6 +144,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
                     type="toggle"
                     as={Input}
                     name="salesAreaOnly"
+                    checked={values.salesAreaOnly}
                     label="Show Listings for my Sales Area only"
                     alignRight={!isExtraSmallScreen}
                   />

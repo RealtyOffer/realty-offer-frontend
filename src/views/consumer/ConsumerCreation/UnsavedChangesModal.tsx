@@ -29,7 +29,7 @@ const UnsavedChangesModal: FunctionComponent<UnsavedChangesModalProps> = (props)
           </Button>
         </Column>
         <Column xs={6}>
-          <Button type="button" onClick={() => clearDataAndNavigate()} block>
+          <Button type="button" onClick={() => clearDataAndNavigate()} block color="danger">
             Yes
           </Button>
         </Column>

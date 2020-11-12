@@ -126,12 +126,13 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       agentLanguages: [],
                       brokerZip: String(values.brokerZip),
                       brokerPhoneNumber: values.brokerPhoneNumber,
-                      cities,
+                      cities: [],
                       licenseExpirationDate: format(
                         addMonths(new Date(), agent.signupData.isPilotUser ? 12 : 3),
                         `yyyy-MM-dd'T'HH:mm`
                       ),
                       isPilotUser: agent.signupData.isPilotUser,
+                      bidDefaults: {},
                     })
                   ).then((response: ActionResponseType) => {
                     setSubmitting(false);

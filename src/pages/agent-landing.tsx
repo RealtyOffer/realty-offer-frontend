@@ -26,7 +26,10 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
 
   return (
     <PageContainer>
-      <Card cardTitle="Become a RealtyOffer Agent">
+      <Card
+        cardTitle="Learn more more about becoming a RealtyOffer Agent"
+        cardSubtitle="We will be launching soon, but leave us your information and we will be in touch"
+      >
         <Formik
           validateOnMount
           initialValues={initialValues}

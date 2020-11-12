@@ -131,10 +131,9 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                   {heroHeading}
                 </Heading>
                 <ReactMarkdown source={heroSubheading} />
-                {/* TODO for prod
-                <Button type="link" to="/agent/sign-up" block>
-                  Create Account
-                </Button> */}
+                <Button type="link" to="/agent-landing" block>
+                  Get Started
+                </Button>
               </HeroBox>
               <br />
               <FlexContainer flexDirection="row">
@@ -204,7 +203,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
           <div style={{ textAlign: 'center' }}>
             <br />
             <br />
-            <Button type="link" to="/agents">
+            <Button type="link" to="/agent-landing">
               {mainpitch.ctaText}
             </Button>
           </div>
@@ -219,7 +218,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 {secondpitch.title}
               </Heading>
               <ReactMarkdown source={secondpitch.description} />
-              <Button type="link" to="/agents">
+              <Button type="link" to="/agent-landing">
                 {secondpitch.ctaText}
               </Button>
               <br />
@@ -257,7 +256,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 {thirdpitch.title}
               </Heading>
               <ReactMarkdown source={thirdpitch.description} />
-              <Button type="link" to="/agents">
+              <Button type="link" to="/agent-landing">
                 {thirdpitch.ctaText}
               </Button>
               <br />
@@ -305,7 +304,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             Same agent, less commission. <br />
           </Heading>
           {/* todo: agent/sign-up */}
-          <Button type="link" to="/agents" color="tertiary">
+          <Button type="link" to="/agent-landing" color="tertiary">
             Get Started Now
           </Button>
         </PageContainer>

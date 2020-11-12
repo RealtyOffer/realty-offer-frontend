@@ -141,8 +141,10 @@ const Selling: FunctionComponent<SellingProps> = () => {
                 <p>
                   <small>
                     City not in our list? No problem at all.{' '}
-                    <Link to="/consumer/missing-city/">Connect directly</Link> with a RealtyOffer
-                    specialist who can assist with your move.
+                    <a href="/consumer/missing-city/" target="_blank">
+                      Connect directly
+                    </a>{' '}
+                    with a RealtyOffer specialist who can assist with your move.
                   </small>
                 </p>
 

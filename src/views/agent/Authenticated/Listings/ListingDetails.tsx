@@ -86,6 +86,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
 
   const isBuyer = listing && listing.type?.toLowerCase().includes('buyer');
   const isSeller = listing && listing.type?.toLowerCase().includes('seller');
+  const isBuyerSeller = listing && listing.type === 'buyerSeller';
 
   const isNewOrPending = pathType === 'new' || pathType === 'pending';
 
@@ -280,7 +281,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
               <Form>
                 <Row>
                   {isSeller && (
-                    <Column md={6}>
+                    <Column md={isBuyerSeller ? 5 : 6}>
                       <Row>
                         <Column xs={6}>
                           <Heading as="h3" noMargin>
@@ -312,108 +313,100 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                       </Row>
                       <HorizontalRule />
                       <Heading as="h4">Sell Bid Details</Heading>
-                      <Row>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="listingAgentCommission"
-                            label="Total Listing Agent Commission (%)"
-                            step={0.001}
-                            min={1}
-                            max={4}
-                            helpText={helpTextListingAgentCommissionAmount}
-                            validate={requiredListingAgentCommissionAmount}
-                            required
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="buyersAgentCommission"
-                            label="Total Buyer's Agent Commission (%)"
-                            step={0.001}
-                            min={2}
-                            max={4}
-                            helpText={helpTextBuyersAgentCommissionAmount}
-                            validate={requiredBuyersAgentCommissionAmount}
-                            required
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="sellerBrokerComplianceAmount"
-                            label="Seller Compliance Fee ($)"
-                            step={0.01}
-                            min={0}
-                            max={595}
-                            helpText={helpTextBrokerComplianceAmount}
-                            validate={requiredBrokerComplianceAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="sellerPreInspectionAmount"
-                            label="Seller Pre Inspection ($)"
-                            step={0.01}
-                            min={0}
-                            max={350}
-                            helpText={helpTextPreInspectionAmount}
-                            validate={requiredPreInspectionAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="sellerPreCertifyAmount"
-                            label="Seller Pre Certification ($)"
-                            step={0.01}
-                            min={0}
-                            max={250}
-                            helpText={helpTextPreCertifyAmount}
-                            validate={requiredPreCertifyAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="sellerMovingCompanyAmount"
-                            label="Seller Moving Costs ($)"
-                            step={0.01}
-                            min={0}
-                            max={1000}
-                            helpText={helpTextMovingCompanyAmount}
-                            validate={requiredMovingCompanyAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="sellerPhotographyAmount"
-                            label="Seller Photography ($)"
-                            step={0.01}
-                            min={0}
-                            max={300}
-                            helpText={helpTextPhotographyAmount}
-                            validate={requiredPhotographyAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                      </Row>
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="listingAgentCommission"
+                        label="Total Listing Agent Commission (%)"
+                        step={0.001}
+                        min={1}
+                        max={4}
+                        helpText={helpTextListingAgentCommissionAmount}
+                        validate={requiredListingAgentCommissionAmount}
+                        required
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="buyersAgentCommission"
+                        label="Total Buyer's Agent Commission (%)"
+                        step={0.001}
+                        min={2}
+                        max={4}
+                        helpText={helpTextBuyersAgentCommissionAmount}
+                        validate={requiredBuyersAgentCommissionAmount}
+                        required
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="sellerBrokerComplianceAmount"
+                        label="Seller Compliance Fee ($)"
+                        step={0.01}
+                        min={0}
+                        max={595}
+                        helpText={helpTextBrokerComplianceAmount}
+                        validate={requiredBrokerComplianceAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="sellerPreInspectionAmount"
+                        label="Seller Pre Inspection ($)"
+                        step={0.01}
+                        min={0}
+                        max={350}
+                        helpText={helpTextPreInspectionAmount}
+                        validate={requiredPreInspectionAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="sellerPreCertifyAmount"
+                        label="Seller Pre Certification ($)"
+                        step={0.01}
+                        min={0}
+                        max={250}
+                        helpText={helpTextPreCertifyAmount}
+                        validate={requiredPreCertifyAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="sellerMovingCompanyAmount"
+                        label="Seller Moving Costs ($)"
+                        step={0.01}
+                        min={0}
+                        max={1000}
+                        helpText={helpTextMovingCompanyAmount}
+                        validate={requiredMovingCompanyAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="sellerPhotographyAmount"
+                        label="Seller Photography ($)"
+                        step={0.01}
+                        min={0}
+                        max={300}
+                        helpText={helpTextPhotographyAmount}
+                        validate={requiredPhotographyAmount}
+                        disabled={!isNewOrPending}
+                      />
+
                       <Heading as="h3">
                         {listing.sellersListingPriceInMindPriceRangeInMindId &&
                           `Total: ${sellTotal({
@@ -426,7 +419,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                   )}
 
                   {isBuyer && (
-                    <Column md={6}>
+                    <Column md={isBuyerSeller ? 5 : 6} mdOffset={isBuyerSeller ? 2 : 0}>
                       <Row>
                         <Column xs={6}>
                           <Heading as="h3" noMargin>
@@ -461,93 +454,86 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                       </Row>
                       <HorizontalRule />
                       <Heading as="h4">Purchase Bid Details</Heading>
-                      <Row>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            step={0.001}
-                            min={0}
-                            max={2}
-                            name="buyerCommission"
-                            label="Total Buyer Commission Contribution Towards Closing Costs (%)"
-                            helpText={helpTextBuyerCommissionAmount}
-                            validate={requiredBuyerCommissionAmount}
-                            required
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="buyerBrokerComplianceAmount"
-                            label="Buyer Compliance Fee ($)"
-                            step={0.01}
-                            min={0}
-                            max={595}
-                            helpText={helpTextBrokerComplianceAmount}
-                            validate={requiredBrokerComplianceAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="buyerInspectionAmount"
-                            label="Buyer Inspection ($)"
-                            step={0.01}
-                            min={0}
-                            max={500}
-                            helpText={helpTextInspectionAmount}
-                            validate={requiredInspectionAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="buyerHomeWarrantyAmount"
-                            label="Buyer Home Warranty ($)"
-                            step={0.01}
-                            min={0}
-                            max={500}
-                            helpText={helpTextHomeWarrantyAmount}
-                            validate={requiredHomeWarrantyAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="buyerAppraisalAmount"
-                            label="Buyer Appraisal ($)"
-                            step={0.01}
-                            min={0}
-                            max={800}
-                            helpText={helpTextAppraisalAmount}
-                            validate={requiredAppraisalAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                        <Column md={6}>
-                          <Field
-                            as={Input}
-                            type="number"
-                            name="buyerMovingCompanyAmount"
-                            label="Buyer Moving Costs ($)"
-                            step={0.01}
-                            min={0}
-                            max={1000}
-                            helpText={helpTextMovingCompanyAmount}
-                            validate={requiredMovingCompanyAmount}
-                            disabled={!isNewOrPending}
-                          />
-                        </Column>
-                      </Row>
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        step={0.001}
+                        min={0}
+                        max={2}
+                        name="buyerCommission"
+                        label="Total Buyer Commission Contribution Towards Closing Costs (%)"
+                        helpText={helpTextBuyerCommissionAmount}
+                        validate={requiredBuyerCommissionAmount}
+                        required
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="buyerBrokerComplianceAmount"
+                        label="Buyer Compliance Fee ($)"
+                        step={0.01}
+                        min={0}
+                        max={595}
+                        helpText={helpTextBrokerComplianceAmount}
+                        validate={requiredBrokerComplianceAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="buyerInspectionAmount"
+                        label="Buyer Inspection ($)"
+                        step={0.01}
+                        min={0}
+                        max={500}
+                        helpText={helpTextInspectionAmount}
+                        validate={requiredInspectionAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="buyerHomeWarrantyAmount"
+                        label="Buyer Home Warranty ($)"
+                        step={0.01}
+                        min={0}
+                        max={500}
+                        helpText={helpTextHomeWarrantyAmount}
+                        validate={requiredHomeWarrantyAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="buyerAppraisalAmount"
+                        label="Buyer Appraisal ($)"
+                        step={0.01}
+                        min={0}
+                        max={800}
+                        helpText={helpTextAppraisalAmount}
+                        validate={requiredAppraisalAmount}
+                        disabled={!isNewOrPending}
+                      />
+
+                      <Field
+                        as={Input}
+                        type="number"
+                        name="buyerMovingCompanyAmount"
+                        label="Buyer Moving Costs ($)"
+                        step={0.01}
+                        min={0}
+                        max={1000}
+                        helpText={helpTextMovingCompanyAmount}
+                        validate={requiredMovingCompanyAmount}
+                        disabled={!isNewOrPending}
+                      />
+
                       <Heading as="h3">
                         {listing.buyingPriceRangeId &&
                           `Total: ${buyTotal({
