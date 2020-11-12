@@ -25,37 +25,67 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
   return (
     <>
       <FlexContainer justifyContent="space-between">
-        <Heading>Reports</Heading>
+        <Heading styledAs="title">Reports</Heading>
       </FlexContainer>
       {metrics.agentsByCity.isLoading ? (
         <LoadingPage />
       ) : (
-        <Table
-          columns={[
-            { header: 'City Name', accessor: 'name' },
-            { header: 'Count', accessor: 'count' },
-          ]}
-          data={metrics.agentsByCity.values}
-          hasPagination
-        />
+        <>
+          <Heading styledAs="sectionHeading">Agents by City</Heading>
+          <Table
+            columns={[
+              { header: 'City Name', accessor: 'name' },
+              { header: 'Count', accessor: 'count' },
+            ]}
+            data={metrics.agentsByCity.values}
+            hasPagination
+          />
+        </>
       )}
       <HorizontalRule />
       {metrics.agentsByCounty.isLoading ? (
         <LoadingPage />
       ) : (
-        <div>{JSON.stringify(metrics.agentsByCounty.values)}</div>
+        <>
+          <Heading styledAs="sectionHeading">Agents by County</Heading>
+          <Table
+            columns={[
+              { header: 'County Name', accessor: 'name' },
+              { header: 'Count', accessor: 'count' },
+            ]}
+            data={metrics.agentsByCounty.values}
+          />
+        </>
       )}
       <HorizontalRule />
       {metrics.awardedBidsByDate.isLoading ? (
         <LoadingPage />
       ) : (
-        <div>{JSON.stringify(metrics.awardedBidsByDate.values)}</div>
+        <>
+          <Heading styledAs="sectionHeading">Awarded Bids by date</Heading>
+          <Table
+            columns={[
+              { header: 'Date', accessor: 'name' },
+              { header: 'Count', accessor: 'count' },
+            ]}
+            data={metrics.awardedBidsByDate.values}
+          />
+        </>
       )}
       <HorizontalRule />
       {metrics.listingsByType.isLoading ? (
         <LoadingPage />
       ) : (
-        <div>{JSON.stringify(metrics.listingsByType.values)}</div>
+        <>
+          <Heading styledAs="sectionHeading">Listings by Type</Heading>
+          <Table
+            columns={[
+              { header: 'Listing Type', accessor: 'name' },
+              { header: 'Count', accessor: 'count' },
+            ]}
+            data={metrics.listingsByType.values}
+          />
+        </>
       )}
     </>
   );
