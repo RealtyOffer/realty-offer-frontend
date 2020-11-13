@@ -33,16 +33,23 @@ export const SECURED_CONSUMER_BIDS_WINNER_ENDPOINT = `${SECURED_CONSUMER_BIDS_EN
 export const SECURED_CONSUMER_BIDS_WINNING_AGENT_ENDPOINT = `${SECURED_CONSUMER_BIDS_ENDPOINT}/get-winning-agent`;
 
 // Admin
-export const ADMIN_SITE_BANNERS_ENDPOINT = `${API_ROOT}/admin/site-banners`;
+const ADMIN_ROOT = `${API_ROOT}/admin`;
+export const ADMIN_SITE_BANNERS_ENDPOINT = `${ADMIN_ROOT}/site-banners`;
 export const ADMIN_SITE_BANNER_BY_ID_ENDPOINT = (id: number) =>
   `${ADMIN_SITE_BANNERS_ENDPOINT}/${id}`;
-export const ADMIN_CITIES_ENDPOINT = `${API_ROOT}/admin/cities`;
+export const ADMIN_CITIES_ENDPOINT = `${ADMIN_ROOT}/cities`;
 export const ADMIN_CITY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_CITIES_ENDPOINT}/${id}`;
-export const ADMIN_COUNTIES_ENDPOINT = `${API_ROOT}/admin/counties`;
+export const ADMIN_COUNTIES_ENDPOINT = `${ADMIN_ROOT}/counties`;
 export const ADMIN_COUNTY_BY_ID_ENDPOINT = (id: number) => `${ADMIN_COUNTIES_ENDPOINT}/${id}`;
-export const ADMIN_EMAIL_TEMPLATE_ENDPOINT = `${API_ROOT}/admin/email-templates`;
+export const ADMIN_EMAIL_TEMPLATE_ENDPOINT = `${ADMIN_ROOT}/email-templates`;
 export const ADMIN_EMAIL_TEMPLATE_BY_NAME_ENDPOINT = (templateName: string) =>
   `${ADMIN_EMAIL_TEMPLATE_ENDPOINT}/${templateName}`;
+
+const ADMIN_METRICS_ROOT = `${ADMIN_ROOT}/metrics`;
+export const ADMIN_METRICS_AGENTS_BY_CITY_ENDPOINT = `${ADMIN_METRICS_ROOT}/agents-by-city`;
+export const ADMIN_METRICS_AGENTS_BY_COUNTY_ENDPOINT = `${ADMIN_METRICS_ROOT}/agents-by-county`;
+export const ADMIN_METRICS_AWARDED_BIDS_BY_DATE_ENDPOINT = `${ADMIN_METRICS_ROOT}/awarded-bids-by-date`;
+export const ADMIN_METRICS_LISTINGS_BY_TYPE = `${ADMIN_METRICS_ROOT}/listings-by-type`;
 
 // User (generic)
 const USER_ENDPOINT = `${API_ROOT}/user`;

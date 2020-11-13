@@ -13,6 +13,7 @@ import Counties from '../views/admin/Counties';
 import CountyDetails from '../views/admin/CountyDetails';
 import EmailTemplates from '../views/admin/EmailTemplates';
 import EmailTemplateDetails from '../views/admin/EmailTemplateDetails';
+import Reports from '../views/admin/Reports';
 import NotFoundPage from './404';
 import { RootState } from '../redux/ducks';
 import { getAgentProfile } from '../redux/ducks/agent';
@@ -56,6 +57,7 @@ const AdminApp: FunctionComponent<{}> = () => {
                 path="/email-templates/:name"
                 allowedRole="Admin"
               />
+              <PrivateRoute component={Reports} path="/reports" allowedRole="Admin" />
               <NotFoundPage default />
             </Router>
           </Box>
