@@ -27,65 +27,57 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
       <FlexContainer justifyContent="space-between">
         <Heading styledAs="title">Reports</Heading>
       </FlexContainer>
+      <Heading styledAs="sectionHeading">Agents By City</Heading>
       {metrics.agentsByCity.isLoading ? (
         <LoadingPage />
       ) : (
-        <>
-          <Heading styledAs="sectionHeading">Agents By City</Heading>
-          <Table
-            columns={[
-              { header: 'City Name', accessor: 'name' },
-              { header: 'Count', accessor: 'count' },
-            ]}
-            data={metrics.agentsByCity.values}
-            hasPagination
-          />
-        </>
+        <Table
+          columns={[
+            { header: 'City Name', accessor: 'name' },
+            { header: 'Count', accessor: 'count' },
+          ]}
+          data={metrics.agentsByCity.values}
+          hasPagination
+        />
       )}
       <HorizontalRule />
+      <Heading styledAs="sectionHeading">Agents By County</Heading>
       {metrics.agentsByCounty.isLoading ? (
         <LoadingPage />
       ) : (
-        <>
-          <Heading styledAs="sectionHeading">Agents By County</Heading>
-          <Table
-            columns={[
-              { header: 'County Name', accessor: 'name' },
-              { header: 'Count', accessor: 'count' },
-            ]}
-            data={metrics.agentsByCounty.values}
-          />
-        </>
+        <Table
+          columns={[
+            { header: 'County Name', accessor: 'name' },
+            { header: 'Count', accessor: 'count' },
+          ]}
+          data={metrics.agentsByCounty.values}
+        />
       )}
       <HorizontalRule />
+      <Heading styledAs="sectionHeading">Awarded Bids By Date</Heading>
       {metrics.awardedBidsByDate.isLoading ? (
         <LoadingPage />
       ) : (
-        <>
-          <Heading styledAs="sectionHeading">Awarded Bids By Date</Heading>
-          <Table
-            columns={[
-              { header: 'Date', accessor: 'name' },
-              { header: 'Count', accessor: 'count' },
-            ]}
-            data={metrics.awardedBidsByDate.values}
-          />
-        </>
+        <Table
+          columns={[
+            { header: 'Date', accessor: 'name' },
+            { header: 'Count', accessor: 'count' },
+          ]}
+          data={metrics.awardedBidsByDate.values}
+        />
       )}
       <HorizontalRule />
+      <Heading styledAs="sectionHeading">Listings By Type</Heading>
       {metrics.listingsByType.isLoading ? (
         <LoadingPage />
       ) : (
-        <>
-          <Heading styledAs="sectionHeading">Listings By Type</Heading>
-          <Table
-            columns={[
-              { header: 'Listing Type', accessor: 'name' },
-              { header: 'Count', accessor: 'count' },
-            ]}
-            data={metrics.listingsByType.values}
-          />
-        </>
+        <Table
+          columns={[
+            { header: 'Listing Type', accessor: 'name' },
+            { header: 'Count', accessor: 'count' },
+          ]}
+          data={metrics.listingsByType.values}
+        />
       )}
     </>
   );
