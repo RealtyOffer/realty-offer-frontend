@@ -154,11 +154,7 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination }) 
             {'<'}
           </Button>
           <span>
-            {' '}
-            Page{' '}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}{' '}
-            </strong>
+            Page {pageIndex + 1} of {pageOptions.length}
           </span>
           <Button
             type="button"
