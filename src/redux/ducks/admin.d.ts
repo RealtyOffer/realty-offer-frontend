@@ -102,24 +102,12 @@ export type EmailTemplateType = {
   bodyText: string;
 };
 
-export type AgentsByCityType = {
-  name: string;
-  count: number;
-};
+export type MetricValuesType = { name: string; count: number };
 
-export type AgentsByCountyType = {
-  name: string;
-  count: number;
-};
-
-export type AwardedBidsByDateType = {
-  name: string;
-  count: number;
-};
-
-export type ListingsByTypeType = {
-  name: string;
-  count: number;
+export type MetricsType = {
+  isLoading: boolean;
+  hasError: boolean;
+  values: Array<MetricValuesType>;
 };
 
 export type AdminStoreType = {
@@ -131,26 +119,10 @@ export type AdminStoreType = {
   emailTemplates: Array<EmailTemplateType>;
   activeEmailTemplate?: EmailTemplateType;
   metrics: {
-    agentsByCity: {
-      isLoading: boolean;
-      hasError: boolean;
-      values: Array<AgentsByCityType>;
-    };
-    agentsByCounty: {
-      isLoading: boolean;
-      hasError: boolean;
-      values: Array<AgentsByCountyType>;
-    };
-    awardedBidsByDate: {
-      isLoading: boolean;
-      hasError: boolean;
-      values: Array<AwardedBidsByDateType>;
-    };
-    listingsByType: {
-      isLoading: boolean;
-      hasError: boolean;
-      values: Array<ListingsByTypeType>;
-    };
+    agentsByCity: MetricsType;
+    agentsByCounty: MetricsType;
+    awardedBidsByDate: MetricsType;
+    listingsByType: MetricsType;
   };
 };
 
@@ -413,7 +385,7 @@ export type GetAgentsByCityRequestActionType = {
 
 export type GetAgentsByCitySuccessActionType = {
   type: typeof GET_AGENTS_BY_CITY_SUCCESS;
-  payload: Array<AgentsByCityType>;
+  payload: Array<MetricsType>;
 };
 
 export type GetAgentsByCityFailureActionType = {
@@ -426,7 +398,7 @@ export type GetAgentsByCountyRequestActionType = {
 
 export type GetAgentsByCountySuccessActionType = {
   type: typeof GET_AGENTS_BY_COUNTY_SUCCESS;
-  payload: Array<AgentsByCountyType>;
+  payload: Array<MetricsType>;
 };
 
 export type GetAgentsByCountyFailureActionType = {
@@ -439,7 +411,7 @@ export type GetAwardedBidsByDateRequestActionType = {
 
 export type GetAwardedBidsByDateSuccessActionType = {
   type: typeof GET_AWARDED_BIDS_BY_DATE_SUCCESS;
-  payload: Array<AwardedBidsByDateType>;
+  payload: Array<MetricsType>;
 };
 
 export type GetAwardedBidsByDateFailureActionType = {
@@ -452,7 +424,7 @@ export type GetListingsByTypeRequestActionType = {
 
 export type GetListingsByTypeSuccessActionType = {
   type: typeof GET_LISTINGS_BY_TYPE_SUCCESS;
-  payload: Array<ListingsByTypeType>;
+  payload: Array<MetricsType>;
 };
 
 export type GetListingsByTypeFailureActionType = {
