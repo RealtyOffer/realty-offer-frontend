@@ -36,6 +36,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
           ]}
           data={metrics.agentsByCity.values}
           hasPagination
+          hasSorting
         />
       )}
       <HorizontalRule />
@@ -49,6 +50,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
             { header: 'Count', accessor: 'count' },
           ]}
           data={metrics.agentsByCounty.values}
+          hasSorting
         />
       )}
       <HorizontalRule />
@@ -62,6 +64,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
             { header: 'Count', accessor: 'count' },
           ]}
           data={metrics.awardedBidsByDate.values}
+          hasSorting
         />
       )}
       <HorizontalRule />
@@ -75,6 +78,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
             { header: 'Count', accessor: 'count' },
           ]}
           data={metrics.listingsByType.values}
+          hasSorting
         />
       )}
     </>
