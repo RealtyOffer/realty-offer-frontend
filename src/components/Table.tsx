@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { useTable, usePagination } from 'react-table';
+import { useTable, usePagination, useSortBy } from 'react-table';
 import styled from 'styled-components';
 
 import { quarterSpacer, baseSpacer } from '../styles/size';
@@ -22,6 +22,7 @@ type TableProps = {
   data: Array<any>;
   actions?: Array<TableActionType>;
   hasPagination?: boolean;
+  hasSorting?: boolean;
 };
 
 const StyledTable = styled.table`
@@ -48,7 +49,7 @@ const StyledTh = styled.th`
   background-color: ${lightestGray};
 `;
 
-const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination }) => {
+const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination, hasSorting }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -62,12 +63,14 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination }) 
     gotoPage,
     nextPage,
     previousPage,
+    headerGroups,
     state: { pageIndex },
   } = useTable(
     {
       columns,
       data,
     },
+    useSortBy,
     usePagination
   );
   const pageOrRows = hasPagination ? page : rows;
@@ -76,11 +79,30 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination }) 
     <>
       <StyledTable {...getTableProps()}>
         <thead>
-          <StyledTr>
-            {columns.map((column) => (
-              <StyledTh key={column.header}>{column.header}</StyledTh>
-            ))}
-          </StyledTr>
+          {headerGroups.map((headerGroup) => {
+            const headerGroupProps = headerGroup.getHeaderGroupProps();
+            return (
+              <StyledTr key={headerGroupProps.key} {...headerGroupProps}>
+                {headerGroup.headers.map((column) => {
+                  const thProps = hasSorting
+                    ? column.getHeaderProps(column.getSortByToggleProps())
+                    : {};
+                  return (
+                    <StyledTh key={column.header} {...thProps}>
+                      {column.header}
+                      {hasSorting && (
+                        <>
+                          {' '}
+                          <span>{column.isSorted && column.isSortedDesc && '🔽'}</span>
+                          <span>{column.isSorted && !column.isSortedDesc && '🔼'}</span>
+                        </>
+                      )}
+                    </StyledTh>
+                  );
+                })}
+              </StyledTr>
+            );
+          })}
         </thead>
         <tbody {...getTableBodyProps()}>
           {pageOrRows.map((row) => {
