@@ -24,9 +24,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <>
-      <FlexContainer justifyContent="space-between">
-        <Heading>Reports</Heading>
-      </FlexContainer>
+      <Heading>Reports</Heading>
       <Heading styledAs="sectionHeading">Agents By City</Heading>
       {metrics.agentsByCity.isLoading ? (
         <LoadingPage />
