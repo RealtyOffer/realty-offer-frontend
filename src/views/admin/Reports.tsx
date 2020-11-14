@@ -2,7 +2,7 @@ import React, { useEffect, FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LoadingPage, FlexContainer, Heading, HorizontalRule, Table } from '../../components';
+import { LoadingPage, Heading, HorizontalRule, Table } from '../../components';
 import {
   getAgentsByCity,
   getAgentsByCounty,

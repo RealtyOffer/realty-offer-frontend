@@ -63,7 +63,7 @@ export type ConsumerStoreType = {
   hasError: boolean;
   listing: ListingType | null;
   profile: ConsumerProfileType | null;
-  bids: Array<BidType>;
+  bids: Array<BidType> | null;
   winner: WinningAgentProfileType | null;
 };
 

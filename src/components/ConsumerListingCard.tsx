@@ -95,7 +95,8 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
     return null;
   }
 
-  const winningBid = winner && bids.find((bid) => bid.agentId === Number(winner.id));
+  const winningBid =
+    winner && bids && bids.length > 0 && bids.find((bid) => bid.agentId === Number(winner.id));
 
   const restartListing = () => {
     dispatch(
@@ -351,6 +352,25 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           </Row>
         </Modal>
       )}
+      {bids && bids.length === 0 && !winner && (
+        <ConsumerListingCardBody>
+          <Heading as="h4">Sorry, your listing didn&apos;t receive any bids.</Heading>
+          <p>
+            You can{' '}
+            <span
+              role="button"
+              onKeyPress={() => setRestartListingModalIsOpen(true)}
+              onClick={() => setRestartListingModalIsOpen(true)}
+              style={{ color: brandPrimary, textDecoration: 'underline' }}
+              tabIndex={-1}
+            >
+              start a new listing
+            </span>{' '}
+            to receive three more bids.
+          </p>
+          <HorizontalRule />
+        </ConsumerListingCardBody>
+      )}
       {bids && bids.length > 0 && !winner && (
         <ConsumerListingCardBody>
           <Heading as="h4">Select your agent below</Heading>
@@ -368,30 +388,6 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             </span>{' '}
             to receive three more bids.
           </p>
-          <Modal
-            toggleModal={() => setRestartListingModalIsOpen(false)}
-            isOpen={restartListingModalIsOpen}
-          >
-            <Heading styledAs="title">Are you sure you want to start a new listing?</Heading>
-            <p>These bids will be disgarded and you will receive three new bids.</p>
-            <Row>
-              <Column xs={6}>
-                <Button
-                  type="button"
-                  onClick={() => setRestartListingModalIsOpen(false)}
-                  color="primaryOutline"
-                  block
-                >
-                  Cancel
-                </Button>
-              </Column>
-              <Column xs={6}>
-                <Button type="button" onClick={() => restartListing()} color="dangerOutline" block>
-                  Restart Listing
-                </Button>
-              </Column>
-            </Row>
-          </Modal>
           <Row>
             {bids.map((bid, index) => (
               <Column key={bid.id} md={4}>
@@ -505,6 +501,30 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           </Row>
         )}
       </ConsumerListingCardBody>
+      <Modal
+        toggleModal={() => setRestartListingModalIsOpen(false)}
+        isOpen={restartListingModalIsOpen}
+      >
+        <Heading styledAs="title">Are you sure you want to start a new listing?</Heading>
+        <p>These bids will be disgarded and you will receive three new bids.</p>
+        <Row>
+          <Column xs={6}>
+            <Button
+              type="button"
+              onClick={() => setRestartListingModalIsOpen(false)}
+              color="primaryOutline"
+              block
+            >
+              Cancel
+            </Button>
+          </Column>
+          <Column xs={6}>
+            <Button type="button" onClick={() => restartListing()} color="dangerOutline" block>
+              Restart Listing
+            </Button>
+          </Column>
+        </Row>
+      </Modal>
     </ConsumerListingCardWrapper>
   );
 };

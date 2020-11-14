@@ -25,6 +25,7 @@ import {
   editFortispayRecurring,
   deleteFortispayAccountvault,
 } from '../../../../redux/ducks/fortis';
+import { updateAgentProfile } from '../../../../redux/ducks/agent';
 import TransactionsTable from './TransactionsTable';
 import { getStatesList } from '../../../../redux/ducks/dropdowns';
 import { getCreditCardIconType, getCreditCardType } from '../../../../components/CreditCard';
@@ -62,6 +63,18 @@ const Billing: FunctionComponent<BillingProps> = () => {
     dispatch(editFortispayRecurring({ ...recurring, account_vault_id: id })).then(
       (response: ActionResponseType) => {
         if (response && !response.error && agent.fortispayContactId != null) {
+          dispatch(updateAgentProfile({ ...agent, fortispayAccountVaultId: id })).then(
+            (res: ActionResponseType) => {
+              if (res && !res.error) {
+                dispatch(
+                  addAlert({
+                    type: 'info',
+                    message: 'Successfully updated payment method',
+                  })
+                );
+              }
+            }
+          );
           dispatch(getFortispayAccountvaults({ contact_id: agent.fortispayContactId }));
         }
       }

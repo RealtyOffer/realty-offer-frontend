@@ -83,6 +83,7 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
   useEffect(() => {
     if (
       consumer.listing &&
+      consumer.bids &&
       consumer.bids.length > 0 &&
       isExpired(consumer.listing.createDateTime) &&
       consumer.bids.findIndex((bid) => bid.winner) > -1

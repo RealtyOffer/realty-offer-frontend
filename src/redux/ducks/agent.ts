@@ -92,6 +92,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         hasError: false,
         // TODO change what is considered complete?
         hasCompletedSignup: Boolean(action.payload.fortispayAccountVaultId),
+        isInGoodStanding: Boolean(action.payload.fortispayAccountVaultId),
         // hasCompletedSignup: action.payload.cities && action.payload.cities.length > 0,
         ...action.payload,
       };
@@ -137,6 +138,15 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
                 ...state.signupData,
                 ...action.payload,
               },
+      };
+    case DELETE_BID_BY_ID_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        activeBid: {
+          isLoading: false,
+        },
       };
     case GET_BID_DETAILS_BY_ID_FAILURE:
       return {

@@ -104,6 +104,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     buyerHomeWarrantyAmount: activeBid ? String(activeBid.buyerHomeWarrantyAmount) : '0',
     buyerAppraisalAmount: activeBid ? String(activeBid.buyerAppraisalAmount) : '0',
     buyerMovingCompanyAmount: activeBid ? String(activeBid.buyerMovingCompanyAmount) : '0',
+    id: activeBid?.id,
     listingId: props.listingId,
     saveBidDetails: false,
   };
@@ -130,7 +131,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     if (props.listingId && listing && listing.agentSubmittedBidId) {
       dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId)));
     }
-  }, [dispatch, listing, props.listingId]);
+  }, []);
 
   const deleteBidAndNavigate = () => {
     if (activeBid && activeBid.id) {
@@ -256,7 +257,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
               dispatch(
                 pathType === 'new'
                   ? createAgentBid({ ...formattedValues })
-                  : updateAgentBid({ ...formattedValues })
+                  : updateAgentBid({ ...formattedValues, id: agent.activeBid?.id })
               ).then((response: ActionResponseType) => {
                 if (response && !response.error) {
                   dispatch(
@@ -599,7 +600,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         <>
                           <Alert
                             type="danger"
-                            message="Your last payment failed, so you must update your payment method before you can bid. Please visit the"
+                            message="You do not have a payment method on file, or your last payment failed. Please visit the"
                             callToActionLink="/agent/account/billing"
                             callToActionLinkText="Billing page to update your payment method"
                           />

@@ -54,7 +54,7 @@ export const initialState: ConsumerStoreType = {
   hasError: false,
   listing: null,
   profile: null,
-  bids: [],
+  bids: null,
   winner: null,
 };
 
@@ -151,14 +151,15 @@ export default (
         isLoading: false,
         hasError: false,
         listing: { createDateTime: new Date(), ...action.payload },
-        bids: [],
+        bids: null,
+        winner: null,
       };
     case GET_CONSUMER_BIDS_FAILURE:
       return {
         ...state,
         isLoading: false,
         hasError: false,
-        bids: [],
+        bids: null,
       };
     case GET_CONSUMER_PROFILE_FAILURE:
     case CREATE_CONSUMER_PROFILE_FAILURE:

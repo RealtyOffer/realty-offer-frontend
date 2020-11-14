@@ -115,7 +115,6 @@ const CityDetails: FunctionComponent<CityDetailsProps> = (props) => {
         >
           {({ isValid, isSubmitting, initialValues, ...rest }) => (
             <Form>
-              {console.log(initialValues)}
               <Row>
                 <Column md={3}>
                   <Field

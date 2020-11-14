@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, CSSProperties } from 'styled-components';
 import { FluidObject } from 'gatsby-image';
 
 import { baseSpacer, doubleSpacer, quadrupleSpacer } from '../styles/size';
@@ -7,6 +7,7 @@ import { white, brandPrimaryAccentLight } from '../styles/color';
 import { z1Shadow, z2Shadow, z3Shadow, z4Shadow } from '../styles/mixins';
 
 type BoxProps = {
+  style?: CSSProperties;
   textAlign?: 'center' | 'left' | 'right';
   height?: number;
   zindex?: 1 | 2 | 3 | 4;
@@ -82,6 +83,7 @@ const Box: FunctionComponent<BoxProps> = ({
   backgroundAccent,
   bgSrc,
   footer,
+  ...rest
 }) => (
   <StyledBox
     bgSrc={bgSrc}
@@ -90,6 +92,7 @@ const Box: FunctionComponent<BoxProps> = ({
     zindex={zindex}
     largePadding={largePadding}
     footer={footer}
+    {...rest}
   >
     {bgSrc && !backgroundAccent && <BackgroundImageOverlay>{children}</BackgroundImageOverlay>}
     {!bgSrc && backgroundAccent && <StyledBoxBackground>{children}</StyledBoxBackground>}

@@ -142,7 +142,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       })
                     );
                     if (response && !response.error) {
-                      navigate('/agent/listings/new');
+                      navigate('/agent/business-information');
                     }
                   });
                 }

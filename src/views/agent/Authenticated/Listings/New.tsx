@@ -161,7 +161,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
                 ))}
               </Row>
             )}
-            {isFilteredByCounty && filteredListings()?.length === 0 && !isLoading && (
+            {isFilteredByCounty && filteredListings().length === 0 && !isLoading && (
               <EmptyListingsView
                 title="There are no new listings match your current county filter."
                 buttonText="Reset Filters"
@@ -176,7 +176,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
                 }}
               />
             )}
-            {!isFilteredByCounty && listingsToShow && listingsToShow.length === 0 && !isLoading && (
+            {!isFilteredByCounty && filteredListings().length === 0 && !isLoading && (
               <EmptyListingsView
                 title="There are no new listings at this time."
                 buttonText="Refresh New Listings"

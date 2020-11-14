@@ -12,6 +12,7 @@ type TimelineProgressProps = {
 
 const TimelineProgressWrapper = styled.div`
   position: relative;
+  margin-top: ${doubleSpacer};
 `;
 
 const TrackBackground = styled.div`

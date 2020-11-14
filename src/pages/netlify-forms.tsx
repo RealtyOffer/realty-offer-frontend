@@ -24,7 +24,7 @@ const NetlifyForms: FunctionComponent<{}> = () => (
         </Button>
       </FlexContainer>
     </Card>
-    <Formik initialValues={{}} onSubmit={() => console.log('')}>
+    <Formik initialValues={{}} onSubmit={() => undefined}>
       {() => (
         <Form
           name="get-financed-form"
@@ -50,7 +50,7 @@ const NetlifyForms: FunctionComponent<{}> = () => (
         </Form>
       )}
     </Formik>
-    <Formik initialValues={{}} onSubmit={() => console.log('')}>
+    <Formik initialValues={{}} onSubmit={() => undefined}>
       {() => (
         <Form
           name="mortgage-partner-form"
@@ -75,7 +75,7 @@ const NetlifyForms: FunctionComponent<{}> = () => (
         </Form>
       )}
     </Formik>
-    <Formik initialValues={{}} onSubmit={() => console.log('')}>
+    <Formik initialValues={{}} onSubmit={() => undefined}>
       {() => (
         <Form name="missing-city" method="post" netlify-honeypot="bot-field" data-netlify="true">
           <input type="hidden" name="form-name" value="missing-city" />
@@ -99,7 +99,7 @@ const NetlifyForms: FunctionComponent<{}> = () => (
         </Form>
       )}
     </Formik>
-    <Formik initialValues={{}} onSubmit={() => console.log('')}>
+    <Formik initialValues={{}} onSubmit={() => undefined}>
       {() => (
         <Form
           name="free-mortgage-consultation"

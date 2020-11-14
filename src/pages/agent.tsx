@@ -3,7 +3,6 @@ import React, { useEffect, FunctionComponent } from 'react';
 import { Router, WindowLocation } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
-import isPast from 'date-fns/isPast';
 import { navigate } from 'gatsby';
 
 import CreateAgent from '../views/agent/AgentCreation/CreateAgent';
@@ -20,12 +19,8 @@ import ListingDetails from '../views/agent/Authenticated/Listings/ListingDetails
 import AgentAccount from '../views/agent/Authenticated/Account/Account';
 import NotFoundPage from './404';
 
-import { ErrorBoundary, Alert, PageContainer, PrivateRoute, LoadingPage } from '../components';
-import {
-  getAgentProfile,
-  resetProfileCompleteAlert,
-  updateAgentIsInGoodStanding,
-} from '../redux/ducks/agent';
+import { ErrorBoundary, PageContainer, PrivateRoute, LoadingPage } from '../components';
+import { getAgentProfile, updateAgentIsInGoodStanding } from '../redux/ducks/agent';
 import {
   getUserSiteBanners,
   getUserAvatar,
@@ -142,18 +137,6 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
 
   return (
     <PageContainer>
-      {true &&
-      agent.profileCompleteResetDate &&
-      isPast(agent.profileCompleteResetDate) && ( // TODO: once we have languages/gender/bio/certification fields, hook this up
-          <Alert
-            type="info"
-            message="Increase your chances of matching with potential clients by updating your profile with additional information."
-            callToActionLink="/agent/account/profile"
-            callToActionLinkText="Update Profile"
-            dismissable
-            close={() => dispatch(resetProfileCompleteAlert())}
-          />
-        )}
       <ErrorBoundary>
         <Router basepath="/agent">
           <LoadingPage path="/" />
