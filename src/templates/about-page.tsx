@@ -30,7 +30,7 @@ import { fontSizeH6 } from '../styles/typography';
 
 type AboutPageProps = {
   title: string;
-  body: any;
+  content: any;
   mission: any;
   heroImage: { childImageSharp: { fluid: FluidObject } };
   mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
@@ -80,7 +80,7 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
             <Heading as="h3" inverse>
               The Objective of RealtyOffer
             </Heading>
-            <ReactMarkdown source={props.body} />
+            <ReactMarkdown source={props.content} />
           </div>
         </PageContainer>
       </section>
@@ -243,7 +243,7 @@ const AboutPage = ({
     <AboutPageTemplate
       title={post.frontmatter.title}
       mission={post.frontmatter.mission}
-      body={post.frontmatter.body}
+      content={post.frontmatter.content}
       heroImage={post.frontmatter.heroImage}
       mobileHeroImage={post.frontmatter.mobileHeroImage}
       teamMembers={post.frontmatter.teamMembers}
@@ -274,7 +274,7 @@ export const aboutPageQuery = graphql`
           }
         }
         mission
-        body
+        content
         teamMembers {
           name
           title
