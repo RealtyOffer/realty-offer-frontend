@@ -1,6 +1,5 @@
 ---
 templateKey: about-page
-path: /about
 title: About Us - Our Mission & Objectives
 heroImage: /img/Keys-Door.jpeg
 mobileHeroImage: /img/Keys-Door.jpeg
