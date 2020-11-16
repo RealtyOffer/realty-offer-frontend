@@ -1,5 +1,5 @@
 ---
-templateKey: 'about-page'
+templateKey: about-page
 path: /about
 title: About Us - Our Mission & Objectives
 heroImage: /img/Keys-Door.jpeg
