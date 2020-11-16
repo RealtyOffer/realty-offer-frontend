@@ -14,7 +14,6 @@ module.exports = {
     'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
-    'gatsby-plugin-graphql-codegen',
     'gatsby-plugin-smoothscroll',
     {
       resolve: `gatsby-plugin-google-analytics`,
