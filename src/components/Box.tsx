@@ -42,8 +42,7 @@ const StyledBox = styled.div`
   margin-bottom: ${baseSpacer};
   box-shadow: ${(props: BoxProps) => props.zindex && renderShadow(props.zindex)};
   text-align: ${(props: BoxProps) => props.textAlign};
-  height: ${(props: BoxProps) =>
-    props.height ? `${props.height}px` : `calc(100% - ${baseSpacer})`};
+  height: ${(props: BoxProps) => (props.height ? `${props.height}px` : 'auto')};
   background: ${(props: BoxProps) =>
     props.bgSrc
       ? `url(${props.bgSrc.childImageSharp.fluid.src}) center center / cover no-repeat`

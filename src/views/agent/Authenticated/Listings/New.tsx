@@ -139,16 +139,18 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
                     {...rest}
                   />
                 </Column>
-                <Column sm={6} md={4} mdOffset={4}>
-                  <Field
-                    type="toggle"
-                    as={Input}
-                    name="salesAreaOnly"
-                    checked={values.salesAreaOnly}
-                    label="Show Listings for my Sales Area only"
-                    alignRight={!isExtraSmallScreen}
-                  />
-                </Column>
+                {agent && !agent.isPilotUser && (
+                  <Column sm={6} md={4} mdOffset={4}>
+                    <Field
+                      type="toggle"
+                      as={Input}
+                      name="salesAreaOnly"
+                      checked={values.salesAreaOnly}
+                      label="Show Listings for my Sales Area only"
+                      alignRight={!isExtraSmallScreen}
+                    />
+                  </Column>
+                )}
               </Row>
             )}
             {isLoading && <ListingCardsLoader />}

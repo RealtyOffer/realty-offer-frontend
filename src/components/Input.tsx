@@ -52,7 +52,8 @@ const sharedStyles = css`
   width: 100%;
   height: ${(props: InputProps) => (props.type === 'textarea' ? 'auto' : inputHeight)};
   padding: ${inputPaddingY} ${inputPaddingX};
-  font-size: ${fontSizeBase};
+  /* dont use fontSizeBase for font-size, because less than 16px and it will cause mobile viewports to zoom in */
+  font-size: 16px;
   line-height: ${lineHeightBase};
   color: ${textColor};
   background-color: ${white};

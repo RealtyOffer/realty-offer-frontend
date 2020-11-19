@@ -2,6 +2,7 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDays, format } from 'date-fns';
+import { navigate } from 'gatsby';
 
 import { RouteComponentProps } from '@reach/router';
 import { createFortispayRecurring, getFortispayAccountvaults } from '../../../redux/ducks/fortis';
@@ -16,7 +17,8 @@ import {
 } from '../../../components';
 import { ActionResponseType } from '../../../redux/constants';
 import { RootState } from '../../../redux/ducks';
-import { updateAgentProfile } from '../../../redux/ducks/agent';
+import { clearAgentSignupData, updateAgentProfile } from '../../../redux/ducks/agent';
+import numberWithCommas from '../../../utils/numberWithCommas';
 
 const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   const [confirmed, setConfirmed] = useState(false);
@@ -24,38 +26,51 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
   const fortis = useSelector((state: RootState) => state.fortis);
   const dispatch = useDispatch();
 
-  const getTotal = () => {
-    return agent.cities?.reduce((acc, curr) => {
-      return acc + curr.monthlyPrice;
-    }, 0);
-  };
+  const subscriberType = agent.cities && agent.cities.length > 0 ? 'monthly' : 'payAsYouGo';
 
-  const confirmPayment = () => {
+  useEffect(() => {
+    if (!agent.fortispayContactId) {
+      navigate('/agent/agent-information');
+    }
+    if (!agent.fortispayAccountVaultId) {
+      navigate('/agent/payment-information');
+    }
+  }, []);
+
+  const completeSignup = () => {
     if (agent.fortispayAccountVaultId) {
-      dispatch(
-        createFortispayRecurring({
-          account_vault_id: agent.fortispayAccountVaultId,
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          transaction_amount: getTotal()?.toString() || agent.signupData.total?.toString()!,
-          interval_type: 'm',
-          interval: 1,
-          start_date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
-        })
-      ).then((response: ActionResponseType) => {
-        if (response && !response.error) {
-          dispatch(
-            updateAgentProfile({
-              ...agent,
-              fortispayRecurringId: response.payload.id,
-              hasCompletedSignup: true,
-            })
-          ).then((res: ActionResponseType) => {
-            if (res && !res.error) {
-              setConfirmed(true);
-            }
-          });
-        }
-      });
+      if (agent.isPilotUser) {
+        setConfirmed(true);
+        dispatch(clearAgentSignupData());
+      }
+      if (subscriberType === 'payAsYouGo') {
+        setConfirmed(true);
+        dispatch(clearAgentSignupData());
+      }
+      if (subscriberType === 'monthly' && agent.signupData.total) {
+        dispatch(
+          createFortispayRecurring({
+            account_vault_id: agent.fortispayAccountVaultId,
+            transaction_amount: agent.signupData.total?.toString(),
+            interval_type: 'm',
+            interval: 1,
+            start_date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
+          })
+        ).then((response: ActionResponseType) => {
+          if (response && !response.error) {
+            dispatch(
+              updateAgentProfile({
+                ...agent,
+                fortispayRecurringId: response.payload.id,
+              })
+            ).then((res: ActionResponseType) => {
+              if (res && !res.error) {
+                setConfirmed(true);
+              }
+            });
+          }
+        });
+      }
     }
   };
 
@@ -63,38 +78,36 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
     if (agent.fortispayContactId && fortis.accountVaults.length === 0) {
       dispatch(
         getFortispayAccountvaults({
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           contact_id: agent.fortispayContactId,
         })
       );
     }
   }, [agent]);
 
-  const numberWithCommas = (x: number) => {
-    const parts = x.toString().split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
-  };
-
   return (
     <>
       <Seo title="Confirm Payment" />
       <TimelineProgress
-        items={[
-          'Create Account',
-          'Verify Email',
-          'Agent Info',
-          'Business Info',
-          'Payment',
-          'Confirm',
-        ]}
-        currentStep={6}
+        items={
+          agent && agent.signupData.isPilotUser
+            ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+            : [
+                'Create Account',
+                'Verify Email',
+                'Agent Info',
+                'Business Info',
+                'Payment Info',
+                'Confirm',
+              ]
+        }
+        currentStep={agent && agent.signupData.isPilotUser ? 5 : 6}
       />
       <Card
-        cardTitle={confirmed ? 'Confirmed' : 'Confirm Payment'}
+        cardTitle={confirmed ? 'Confirmed' : 'Confirm Payment Method'}
         cardSubtitle={
-          confirmed ? 'You have successfully completed your profile!' : 'Total Amount Due:'
+          confirmed
+            ? 'You have successfully completed your profile! You can now view listings and bid on them.'
+            : ''
         }
       >
         {confirmed ? (
@@ -105,30 +118,60 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
           </FlexContainer>
         ) : (
           <>
-            {fortis.isLoading || !fortis.accountVaults ? (
+            {fortis.isLoading || !fortis.accountVaults || fortis.accountVaults.length === 0 ? (
               <LoadingPage />
             ) : (
               <FlexContainer justifyContent="center" flexDirection="column">
-                <Heading as="h2">
-                  ${numberWithCommas(agent.signupData.total || getTotal() || 0)}
-                </Heading>
+                {subscriberType === 'payAsYouGo' ? (
+                  <>
+                    <Heading as="h2">Pay as You Go</Heading>
+                    <p>
+                      You will be charged $295 for each awarded bid from Card ending in{' '}
+                      {fortis.accountVaults[0].last_four}.{' '}
+                      <strong>You will not be charged today</strong>.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <Heading as="h2">Monthly Subscription</Heading>
+                    <p>
+                      You have signed up for unlimited access to{' '}
+                      <strong>
+                        {agent.cities?.length === 1 ? '1 city' : `${agent.cities?.length} cities`}
+                      </strong>{' '}
+                      on a monthly basis, expiring{' '}
+                      {agent.licenseExpirationDate &&
+                        format(new Date(agent.licenseExpirationDate), 'MM/dd/yyyy')}
+                      .
+                    </p>
+                    {!agent.isPilotUser && agent.signupData.total && (
+                      <p>
+                        {numberWithCommas(agent.signupData.total)} will be paid from Card ending in:{' '}
+                        {fortis.accountVaults[0].last_four}
+                      </p>
+                    )}
+                  </>
+                )}
 
-                <p>Will be paid from Card ending in: {fortis.accountVaults[0].last_four}</p>
                 <Button
                   type="button"
                   color="primary"
                   block
-                  onClick={() => confirmPayment()}
+                  onClick={() => completeSignup()}
                   disabled={fortis.isLoading || agent.isLoading}
                   isLoading={fortis.isLoading || agent.isLoading}
                 >
-                  Confirm Payment
+                  Complete Signup
                 </Button>
                 <FlexContainer height="100px">
                   <small>
-                    By clicking &quot;Confirm Payment&quot;, I agree to the{' '}
-                    <a href="/terms" target="_blank">
-                      Terms &amp; Conditions
+                    By clicking &quot;Complete Signup&quot;, I agree to the{' '}
+                    <a
+                      href={agent.isPilotUser ? '/pilot-terms' : '/terms'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Terms of Use
                     </a>
                     .
                   </small>

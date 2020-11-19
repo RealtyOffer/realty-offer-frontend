@@ -311,8 +311,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
             Welcome to RealtyOffer
           </Heading>
           <Heading as="h3" align="center" inverse>
-            Same agent, less commission. <br />
-            Agents that will earn less for your business.
+            Same agent, less commission.
           </Heading>
           {/* todo: consumer/start */}
           <Button type="link" to="/consumer-landing" color="tertiary">

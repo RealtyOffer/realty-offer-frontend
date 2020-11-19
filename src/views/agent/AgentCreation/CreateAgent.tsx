@@ -15,6 +15,7 @@ import {
   Seo,
   Heading,
   Modal,
+  Alert,
 } from '../../../components';
 
 import {
@@ -52,14 +53,18 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
     <>
       <Seo title="Sign Up" />
       <TimelineProgress
-        items={[
-          'Create Account',
-          'Verify Email',
-          'Agent Info',
-          'Business Info',
-          'Payment',
-          'Confirm',
-        ]}
+        items={
+          location.pathname.includes('pilot')
+            ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+            : [
+                'Create Account',
+                'Verify Email',
+                'Agent Info',
+                'Business Info',
+                'Payment Info',
+                'Confirm',
+              ]
+        }
         currentStep={1}
       />
       <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
@@ -94,8 +99,11 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
         >
           {({ isSubmitting, isValid, handleSubmit }) => (
             <Form>
+              {location.pathname.includes('pilot') && (
+                <Alert type="info" message="Hey, you are signing up for a pilot account" />
+              )}
               <Row>
-                <Column xs={6}>
+                <Column sm={6}>
                   <Field
                     as={Input}
                     type="text"
@@ -105,7 +113,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                     required
                   />
                 </Column>
-                <Column xs={6}>
+                <Column sm={6}>
                   <Field
                     as={Input}
                     type="text"

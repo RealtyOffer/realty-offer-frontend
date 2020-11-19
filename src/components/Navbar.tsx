@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaBell, FaRegBell, FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import ReactTooltip from 'react-tooltip';
+import { useLocation } from '@reach/router';
 
 import { PageContainer, FlexContainer, Avatar, HorizontalRule, ClientOnly, Button } from '.';
 
@@ -217,15 +218,21 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const agent = useSelector((state: RootState) => state.agent);
   const user = useSelector((state: RootState) => state.user);
+
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [subMenuIsOpen, setSubMenuIsOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
+
   const notificationsNode = useRef<HTMLDivElement>(null);
   const profileNode = useRef<HTMLDivElement>(null);
+
   const size = useWindowSize();
   const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
+
   const primaryNavigation = agentNavigationItems.filter((item) => item.primary);
   const secondaryNavigation = agentNavigationItems.filter((item) => !item.primary);
 
@@ -272,16 +279,30 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const isLoggedInAgent = auth.isLoggedIn && agent.agentId !== '';
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
   const shouldShowMenuToggle = isLoggedInAgent && isSmallScreen;
+  // list of routes that are part of sign up process for either agnet or consumer
+  const signupPagesArr = [
+    'sign-up',
+    'agent-information',
+    'verify-email',
+    'business-information',
+    'payment-information',
+    'confirm-payment',
+    'start',
+    'selling',
+    'buying',
+    'pilot',
+  ];
+  const isInSignupProcess = signupPagesArr.some((route) => location.pathname.includes(route));
 
   const menuItemsToRender = () => {
-    if (isLoggedInAgent) {
+    if (isLoggedInAgent && !isInSignupProcess) {
       return primaryNavigation;
     }
     if (isLoggedInConsumer) {
       return [];
     }
-    // not finished with signup process, so return nothing
-    if (!isLoggedInAgent && auth.roles.includes('Agent')) {
+    // not finished with signup process, so return nothing. "Exit" button at end of <StyledNavbar>
+    if (isInSignupProcess) {
       return [];
     }
     if (!isLoggedInAgent && !isLoggedInConsumer) {
@@ -363,7 +384,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     {navItem.name}
                   </Link>
                 ))}
-              {isSmallScreen && !auth.isLoggedIn && (
+              {isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
                 <>
                   {/* todo: consumer/start */}
                   <Link to="/consumer-landing" onClick={() => toggleMenu()}>
@@ -373,6 +394,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     Sign In
                   </Link>
                 </>
+              )}
+              {isSmallScreen && isInSignupProcess && (
+                <Link to="/logout" onClick={() => toggleMenu()}>
+                  Exit Signup
+                </Link>
               )}
               {isSmallScreen && isLoggedInAgent && (
                 <>
@@ -407,7 +433,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </>
               )}
             </StyledMenu>
-            {!isSmallScreen && isLoggedInAgent && (
+            {!isSmallScreen && isLoggedInAgent && !isInSignupProcess && (
               <FlexContainer>
                 {false && ( //
                   <>
@@ -482,7 +508,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 Log Out
               </Link>
             )}
-            {!auth.isLoggedIn && !isSmallScreen && (
+            {!auth.isLoggedIn && !isSmallScreen && !isInSignupProcess && (
               <div>
                 {/* todo: consumer/start */}
                 <Button type="link" to="/consumer-landing" rightspacer color="inverseOutline">
@@ -492,6 +518,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   Sign In
                 </Button>
               </div>
+            )}
+            {!isSmallScreen && isInSignupProcess && (
+              <Button type="link" to="/logout" color="inverseOutline">
+                Exit Signup
+              </Button>
             )}
           </FlexContainer>
         </PageContainer>

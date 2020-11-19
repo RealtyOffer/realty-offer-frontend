@@ -26,6 +26,7 @@ type VerifyEmailType = {};
 const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = () => {
   const [verified, setVerified] = useState(false);
   const auth = useSelector((state: RootState) => state.auth);
+  const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -79,14 +80,18 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
         />
       ) : (
         <TimelineProgress
-          items={[
-            'Create Account',
-            'Verify Email',
-            'Agent Info',
-            'Business Info',
-            'Payment',
-            'Confirm',
-          ]}
+          items={
+            agent && agent.signupData.isPilotUser
+              ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+              : [
+                  'Create Account',
+                  'Verify Email',
+                  'Agent Info',
+                  'Business Info',
+                  'Payment',
+                  'Confirm',
+                ]
+          }
           currentStep={2}
         />
       )}

@@ -46,6 +46,7 @@ export const DELETE_BID_BY_ID_FAILURE = 'DELETE_BID_BY_ID_FAILURE';
 export const RESET_PROFILE_COMPLETE_ALERT = 'RESET_PROFILE_COMPLETE_ALERT';
 
 export const CAPTURE_AGENT_SIGNUP_DATA = 'CAPTURE_AGENT_SIGNUP_DATA';
+export const CLEAR_AGENT_SIGNUP_DATA = 'CLEAR_AGENT_SIGNUP_DATA';
 
 export const UPDATE_AGENT_IS_IN_GOOD_STANDING = 'UPDATE_AGENT_IS_IN_GOOD_STANDING';
 
@@ -60,7 +61,6 @@ export const initialState: AgentStoreType = {
   hasError: false,
   profileCompleteResetDate: undefined,
   signupData: {},
-  hasCompletedSignup: false,
   genderId: 0,
   activeBid: undefined,
   aboutMe: undefined,
@@ -90,10 +90,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        // TODO change what is considered complete?
-        hasCompletedSignup: Boolean(action.payload.fortispayAccountVaultId),
         isInGoodStanding: Boolean(action.payload.fortispayAccountVaultId),
-        // hasCompletedSignup: action.payload.cities && action.payload.cities.length > 0,
         ...action.payload,
       };
     case GET_BID_DETAILS_BY_ID_REQUEST:
@@ -138,6 +135,11 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
                 ...state.signupData,
                 ...action.payload,
               },
+      };
+    case CLEAR_AGENT_SIGNUP_DATA:
+      return {
+        ...state,
+        signupData: {},
       };
     case DELETE_BID_BY_ID_SUCCESS:
       return {
@@ -260,6 +262,10 @@ export const resetProfileCompleteAlert = () => ({
 export const captureAgentSignupData = (payload: AgentSignupDataType) => ({
   type: CAPTURE_AGENT_SIGNUP_DATA,
   payload,
+});
+
+export const clearAgentSignupData = () => ({
+  type: CLEAR_AGENT_SIGNUP_DATA,
 });
 
 export const updateAgentIsInGoodStanding = (payload: boolean) => ({

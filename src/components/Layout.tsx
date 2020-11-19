@@ -40,11 +40,11 @@ const Layout: FunctionComponent<LayoutProps> = ({ element }) => (
   <>
     <CssReset />
     <IconContext.Provider value={{ style: { position: 'relative' } }}>
+      <GlobalAlerts />
       <LayoutWrapper>
         <Navbar />
         <PageBody>
           <PageContainer>
-            <GlobalAlerts />
             <GlobalBanners />
           </PageContainer>
           <ErrorBoundary>{element}</ErrorBoundary>

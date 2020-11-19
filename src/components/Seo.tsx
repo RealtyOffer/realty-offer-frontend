@@ -75,6 +75,10 @@ const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => 
           name: 'twitter:description',
           content: metaDescription,
         },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover',
+        },
       ].concat(meta || [])}
     />
   );

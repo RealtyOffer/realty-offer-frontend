@@ -23,6 +23,7 @@ import {
   RESET_PROFILE_COMPLETE_ALERT,
   CAPTURE_AGENT_SIGNUP_DATA,
   UPDATE_AGENT_IS_IN_GOOD_STANDING,
+  CLEAR_AGENT_SIGNUP_DATA,
 } from './agent';
 
 import { CityType } from './admin.d';
@@ -51,7 +52,6 @@ export type AgentProfileType = {
   fortispayContactId?: string;
   fortispayAccountVaultId?: string;
   fortispayRecurringId?: string;
-  hasCompletedSignup?: boolean;
   licenseExpirationDate?: string;
   isPilotUser?: boolean;
   bidDefaults: {
@@ -96,7 +96,6 @@ export type BidType = {
 
 export type AgentSignupDataType = {
   isPilotUser?: boolean;
-  agentProfileComplete?: boolean;
   cities?: Array<CityType>;
   total?: number;
 };
@@ -205,6 +204,10 @@ export type CaptureAgentSignupDataAction = {
   payload: AgentSignupDataType;
 };
 
+export type ClearAgentSignupDataAction = {
+  type: typeof CLEAR_AGENT_SIGNUP_DATA;
+};
+
 export type UpdateAgentIsInGoodStandingAction = {
   type: typeof UPDATE_AGENT_IS_IN_GOOD_STANDING;
   payload: boolean;
@@ -234,5 +237,6 @@ export type AgentActionTypes =
   | DeleteBidByIdFailureAction
   | ResetProfileCompleteAlertAction
   | CaptureAgentSignupDataAction
+  | ClearAgentSignupDataAction
   | UpdateAgentIsInGoodStandingAction
   | LogoutRequestAction;

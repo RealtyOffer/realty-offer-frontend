@@ -588,8 +588,12 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                               <div>
                                 <small>
                                   By clicking &quot;Place Bid&quot;, I agree to the{' '}
-                                  <a href="/terms" target="_blank">
-                                    Terms &amp; Conditions
+                                  <a
+                                    href={agent.isPilotUser ? '/pilot-terms' : '/terms'}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    Terms of Use
                                   </a>
                                 </small>
                               </div>

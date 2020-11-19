@@ -3,7 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
-import { FaCheck, FaCheckCircle } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
 
 import {
   FlexContainer,
@@ -14,7 +14,6 @@ import {
   Card,
   Seo,
   HorizontalRule,
-  LoadingPage,
   Box,
   Column,
   Row,
@@ -48,12 +47,6 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
   }, []);
 
   const save = () => {
-    dispatch(
-      captureAgentSignupData({
-        agentProfileComplete: false,
-        cities: [],
-      })
-    );
     dispatch(logout());
     navigate('/');
   };
@@ -105,7 +98,7 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
           'Verify Email',
           'Agent Info',
           'Business Info',
-          'Payment',
+          'Payment Info',
           'Confirm',
         ]}
         currentStep={4}
@@ -238,26 +231,53 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
             <Row>
               <Column md={8} mdOffset={2}>
                 {pricingModel === 'payAsYouGo' ? (
-                  <Button type="link" to="/agent/payment-information" block>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      dispatch(
+                        captureAgentSignupData({
+                          cities: [],
+                          total: undefined,
+                        })
+                      );
+                      navigate('/agent/payment-information');
+                    }}
+                    block
+                  >
                     Continue
                   </Button>
                 ) : (
                   <>
-                    <p>Select which cities you would like to receive unlimited access to:</p>
                     <Formik
                       validateOnMount
                       initialValues={initialValues}
                       onSubmit={(values, { setSubmitting }) => {
+                        const selectedCounties =
+                          counties &&
+                          counties
+                            .filter((county) => values.counties.some((c) => c === county.name))
+                            .map((s) => s.id);
+                        const citiesByCounty =
+                          cities &&
+                          cities.filter((city) => selectedCounties?.includes(city.countyId));
+
                         const cityDTOs =
                           cities &&
                           values.cities.map(
                             (value: string) =>
                               cities.find((city) => city.name === value) as CityType
                           );
+
                         dispatch(
                           captureAgentSignupData({
-                            cities: cityDTOs,
-                            total: Number(getCitiesTotal(values.cities)),
+                            cities:
+                              citiesByCounty && citiesByCounty?.length > 0
+                                ? citiesByCounty
+                                : cityDTOs,
+                            total:
+                              citiesByCounty && citiesByCounty?.length > 0
+                                ? Number(getCountiesTotal(values.counties))
+                                : Number(getCitiesTotal(values.cities)),
                           })
                         );
                         setSubmitting(false);
@@ -266,21 +286,28 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                     >
                       {({ isSubmitting, isValid, values, ...rest }) => (
                         <Form>
-                          <Field
-                            as={Input}
-                            type="select"
-                            isMulti
-                            name="cities"
-                            label="Cities"
-                            options={cityOptions}
-                            required
-                            {...rest}
-                          />
-                          {(values.cities.length > 2 || values.counties.length >= 1) && (
+                          {values.counties.length === 0 && (
+                            <>
+                              <p>
+                                Select which cities you would like to receive unlimited access to:
+                              </p>
+                              <Field
+                                as={Input}
+                                type="select"
+                                isMulti
+                                name="cities"
+                                label="Cities"
+                                options={cityOptions}
+                                required
+                                {...rest}
+                              />
+                            </>
+                          )}
+                          {values.cities.length > 2 && (
                             <>
                               <Alert
                                 type="info"
-                                message="It may be cheaper to purchase an entire county rather than multiple cities. Select a county or counties below for bulk savings!"
+                                message="It may be cheaper to purchase an entire county rather than multiple cities. Select a county or counties below for bulk savings."
                               />
                               <Field
                                 as={Input}
@@ -292,6 +319,12 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                                 required
                                 {...rest}
                               />
+                              <p>
+                                <small>
+                                  <FaInfoCircle /> Remove all counties to select cities individually
+                                  again.
+                                </small>
+                              </p>
                             </>
                           )}
 
@@ -333,7 +366,7 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                             disabled={isSubmitting || !isValid}
                             isLoading={isSubmitting || agent.isLoading}
                           >
-                            Checkout
+                            Continue
                           </Button>
                         </Form>
                       )}

@@ -237,7 +237,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 <small>
                   By clicking &quot;Create Account&quot;, I agree to the{' '}
                   <a href="/terms" target="_blank">
-                    Terms &amp; Conditions
+                    Terms of Use
                   </a>
                   .
                 </small>

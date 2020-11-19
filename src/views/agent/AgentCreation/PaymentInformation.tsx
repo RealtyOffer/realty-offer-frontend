@@ -15,6 +15,7 @@ import {
   Column,
   Input,
   Heading,
+  CreditCard,
 } from '../../../components';
 import { requiredField, requiredSelect } from '../../../utils/validations';
 import { updateAgentProfile } from '../../../redux/ducks/agent';
@@ -38,13 +39,18 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!agent.fortispayContactId) {
+      navigate('/agent/agent-information');
+    }
+  }, []);
+
   const initialValues = {
     cardholderName: `${auth.firstName} ${auth.lastName}`,
-    cardNumber: '5454545454545454',
+    cardNumber: '',
     cardExpirationMonth: '',
     cardExpirationYear: '',
-    billingAddressLine1: '',
-    billingAddressLine2: '',
+    billingAddress: '',
     billingCity: '',
     billingState: 'MI',
     billingZip: '',
@@ -64,19 +70,23 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     <>
       <Seo title="Payment Information" />
       <TimelineProgress
-        items={[
-          'Create Account',
-          'Verify Email',
-          'Agent Info',
-          'Business Info',
-          'Payment',
-          'Confirm',
-        ]}
-        currentStep={5}
+        items={
+          agent && agent.signupData.isPilotUser
+            ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+            : [
+                'Create Account',
+                'Verify Email',
+                'Agent Info',
+                'Business Info',
+                'Payment Info',
+                'Confirm',
+              ]
+        }
+        currentStep={agent && agent.signupData.isPilotUser ? 4 : 5}
       />
       <Card
         cardTitle="Payment Information"
-        cardSubtitle="We will save this information for fast, easy, &amp; convenient in-app purchases"
+        cardSubtitle="You will need a payment method on file before you can bid on listings"
       >
         <Formik
           validateOnMount
@@ -91,7 +101,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                   account_number: values.cardNumber.toString(),
                   payment_method: 'cc',
                   exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
-                  billing_address: `${values.billingAddressLine1} ${values.billingAddressLine2}`,
+                  billing_address: values.billingAddress,
                   billing_city: values.billingCity,
                   billing_state: values.billingState,
                   billing_zip: values.billingZip.toString(),
@@ -113,8 +123,9 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
             }
           }}
         >
-          {({ isSubmitting, isValid, ...rest }) => (
+          {({ isSubmitting, isValid, values, ...rest }) => (
             <Form>
+              <CreditCard values={values} />
               <Heading as="h5">Payment Information</Heading>
               <Field
                 as={Input}
@@ -127,11 +138,13 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
 
               <Field
                 as={Input}
-                type="number"
+                type="text"
+                pattern="\d*"
                 name="cardNumber"
                 label="Card Number"
                 validate={requiredField}
                 required
+                maxLength={19}
               />
               <Row>
                 <Column xs={6}>
@@ -177,13 +190,11 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
               <Field
                 as={Input}
                 type="text"
-                name="billingAddressLine1"
+                name="billingAddress"
                 label="Address"
                 validate={requiredField}
                 required
               />
-
-              <Field as={Input} type="text" name="billingAddressLine2" label="Address Line 2" />
               <Row>
                 <Column md={5}>
                   <Field

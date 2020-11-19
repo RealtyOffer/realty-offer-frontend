@@ -59,12 +59,13 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     dispatch(getUserCities());
   }, []);
 
+  useEffect(() => {
+    if (!auth.isLoading && !auth.isLoggedIn) {
+      navigate('/agent/sign-up');
+    }
+  }, []);
+
   const save = () => {
-    dispatch(
-      captureAgentSignupData({
-        agentProfileComplete: false,
-      })
-    );
     dispatch(logout());
     navigate('/');
   };
@@ -73,14 +74,18 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     <>
       <Seo title="Agent Information" />
       <TimelineProgress
-        items={[
-          'Create Account',
-          'Verify Email',
-          'Agent Info',
-          'Business Info',
-          'Payment',
-          'Confirm',
-        ]}
+        items={
+          agent && agent.signupData.isPilotUser
+            ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+            : [
+                'Create Account',
+                'Verify Email',
+                'Agent Info',
+                'Business Info',
+                'Payment',
+                'Confirm',
+              ]
+        }
         currentStep={3}
       />
       <Card
@@ -126,7 +131,8 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       agentLanguages: [],
                       brokerZip: String(values.brokerZip),
                       brokerPhoneNumber: values.brokerPhoneNumber,
-                      cities: [],
+                      // sign up pilot user for all cities, otherwise keep blank for now until next step
+                      cities: agent.signupData.isPilotUser ? cities : [],
                       licenseExpirationDate: format(
                         addMonths(new Date(), agent.signupData.isPilotUser ? 12 : 3),
                         `yyyy-MM-dd'T'HH:mm`
@@ -135,14 +141,20 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       bidDefaults: {},
                     })
                   ).then((response: ActionResponseType) => {
-                    setSubmitting(false);
-                    dispatch(
-                      captureAgentSignupData({
-                        agentProfileComplete: true,
-                      })
-                    );
                     if (response && !response.error) {
-                      navigate('/agent/business-information');
+                      if (agent && agent.signupData.isPilotUser) {
+                        dispatch(
+                          captureAgentSignupData({
+                            // sign up pilot user for all cities, but for free
+                            cities,
+                            total: undefined,
+                          })
+                        );
+                        navigate('/agent/payment-information');
+                      } else {
+                        navigate('/agent/business-information');
+                      }
+                      setSubmitting(false);
                     }
                   });
                 }

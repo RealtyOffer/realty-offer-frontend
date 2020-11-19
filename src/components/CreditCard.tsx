@@ -83,7 +83,9 @@ const StyledCreditCardInner = styled.div`
 
 const CreditCard: FunctionComponent<CreditCardProps> = ({ values }) => {
   return (
-    <StyledCreditCard cardColor={getCreditCardIconType(getCreditCardType(values.cardNumber))}>
+    <StyledCreditCard
+      cardColor={getCreditCardIconType(getCreditCardType(values.cardNumber.toString()))}
+    >
       <StyledCreditCardInner>
         <FlexContainer
           flexDirection="column"
@@ -92,15 +94,15 @@ const CreditCard: FunctionComponent<CreditCardProps> = ({ values }) => {
           height="100%"
         >
           <PaymentIcon
-            id={getCreditCardIconType(getCreditCardType(values.cardNumber))}
+            id={getCreditCardIconType(getCreditCardType(values.cardNumber.toString()))}
             style={{ width: 100 }}
           />
           <div style={{ width: '100%' }}>
             <FlexContainer justifyContent="space-between">
               <div>
-                {(values.cardNumber.length < 13
-                  ? values.cardNumber.replace(/\d/g, '*')
-                  : masked(values.cardNumber)
+                {(values.cardNumber.toString().length < 13
+                  ? values.cardNumber.toString().replace(/\d/g, '*')
+                  : masked(values.cardNumber.toString())
                 ).replace(/(.{4})/g, '$1 ')}
                 &nbsp;
               </div>

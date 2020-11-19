@@ -46,6 +46,7 @@ const renderIcon = (type: AlertType['type']) => {
 };
 
 const AlertWrapper = styled.div`
+  text-align: center;
   background-color: ${(props: { type: AlertType['type'] }) =>
     props.type && renderColor(props.type)};
   padding: ${baseSpacer} ${doubleSpacer} ${baseSpacer} ${baseSpacer};

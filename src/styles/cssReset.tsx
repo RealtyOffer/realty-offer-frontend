@@ -43,7 +43,7 @@ const CssReset = createGlobalStyle`
   button[disabled],html input[disabled]{cursor:not-allowed}
   button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
   input{line-height:normal}
-  input[type="text"],input[type="password"],input[type="email"],input[type="url"],textarea{appearance:none}
+  input[type="text"],input[type="password"],input[type="email"],input[type="url"], input[type="number"], input[type="tel"],textarea{appearance:none}
   input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
   input[type="number"]{-moz-appearance: textfield;}
   input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto;-webkit-appearance:none;margin: 0;}
