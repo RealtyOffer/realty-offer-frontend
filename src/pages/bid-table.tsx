@@ -108,6 +108,11 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       type: 'success',
                     })
                   );
+                  if (window && window.analytics) {
+                    window.analytics.track(`Bid table completed`, {
+                      ...values,
+                    });
+                  }
                 })
                 .catch(() => {
                   dispatch(
@@ -116,6 +121,11 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       type: 'danger',
                     })
                   );
+                  if (window && window.analytics) {
+                    window.analytics.track(`Bid table failure`, {
+                      ...values,
+                    });
+                  }
                 })
                 .finally(() => {
                   setSubmitting(false);

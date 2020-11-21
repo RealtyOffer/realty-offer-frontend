@@ -15,6 +15,11 @@ const Logout: FunctionComponent<LogoutProps> = () => {
   useEffect(() => {
     if (auth.isLoggedIn) {
       dispatch(logout());
+      if (window && window.analytics) {
+        window.analytics.track('Logout', {
+          location: 'Logout page',
+        });
+      }
     }
     navigate('/');
   }, []);

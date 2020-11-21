@@ -44,7 +44,6 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
     email: auth.email,
     phoneNumber: auth.phoneNumber,
     city: consumer?.listing?.sellersCity?.name,
-    state: consumer?.listing?.sellersCity?.state,
     buyingPriceRange: consumer?.listing?.buyingPriceRangeId
       ? getDropdownListText(priceRangesList, String(consumer.listing.buyingPriceRangeId))
       : '',
@@ -73,6 +72,11 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
                   type: 'success',
                 })
               );
+              if (window && window.analytics) {
+                window.analytics.track(`${formName} completed`, {
+                  ...values,
+                });
+              }
               setShowForm(false);
             })
             .catch(() => {
@@ -83,6 +87,11 @@ const GetFinancedForm: FunctionComponent<Props> = () => {
                   type: 'danger',
                 })
               );
+              if (window && window.analytics) {
+                window.analytics.track(`${formName} failure`, {
+                  ...values,
+                });
+              }
             });
         }}
       >

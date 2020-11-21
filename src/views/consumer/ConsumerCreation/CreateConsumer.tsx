@@ -116,6 +116,9 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                       })
                     );
                     if (consumer.listing?.freeMortgageConsult) {
+                      if (window && window.analytics) {
+                        window.analytics.track(`Free Mortgage Consultation Form completed`, {});
+                      }
                       postFormUrlEncoded('free-mortgage-consultation', {
                         type: consumer?.listing?.type,
                         buyingCities: consumer?.listing?.buyingCities

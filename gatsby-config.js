@@ -15,17 +15,17 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
     'gatsby-plugin-smoothscroll',
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     trackingId: process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-segment-js`,
       options: {
         prodKey: process.env.GATSBY_SEGMENT_API_KEY,
-        devKey: process.env.GATSBY_SEGMENT_API_KEY,
+        // devKey: process.env.GATSBY_SEGMENT_API_KEY,
         trackPage: true,
         trackPageDelay: 50,
       },
@@ -38,13 +38,13 @@ module.exports = {
         normalizeDepth: 10,
       },
     },
-    {
-      resolve: 'gatsby-plugin-hotjar-tracking',
-      options: {
-        id: process.env.GATSBY_HOTJAR_ID,
-        sv: process.env.GATSBY_HOTJAR_SV,
-      },
-    },
+    // {
+    //   resolve: 'gatsby-plugin-hotjar-tracking',
+    //   options: {
+    //     id: process.env.GATSBY_HOTJAR_ID,
+    //     sv: process.env.GATSBY_HOTJAR_SV,
+    //   },
+    // },
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',

@@ -84,6 +84,11 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                         type: 'success',
                       })
                     );
+                    if (window && window.analytics) {
+                      window.analytics.track('Consumer Landing Form completed', {
+                        ...valuesWithSubject,
+                      });
+                    }
                   })
                   .catch(() => {
                     dispatch(
@@ -92,6 +97,11 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                         type: 'danger',
                       })
                     );
+                    if (window && window.analytics) {
+                      window.analytics.track('Consumer Landing Form failure', {
+                        ...valuesWithSubject,
+                      });
+                    }
                   })
                   .finally(() => {
                     setSubmitting(false);

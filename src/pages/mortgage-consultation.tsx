@@ -49,6 +49,11 @@ const MortgageConsultation: FunctionComponent<{}> = () => {
                     type: 'success',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track('Mortgage Consultation Form completed', {
+                    ...valuesWithSubject,
+                  });
+                }
               })
               .catch(() => {
                 dispatch(
@@ -57,6 +62,11 @@ const MortgageConsultation: FunctionComponent<{}> = () => {
                     type: 'danger',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track('Mortgage Consultation Form failure', {
+                    ...valuesWithSubject,
+                  });
+                }
               })
               .finally(() => {
                 setSubmitting(false);

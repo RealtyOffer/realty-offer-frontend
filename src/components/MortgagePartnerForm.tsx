@@ -56,6 +56,11 @@ const MortgagePartnerForm: FunctionComponent<MortgagePartnerFormProps> = () => {
                   type: 'success',
                 })
               );
+              if (window && window.analytics) {
+                window.analytics.track(`${formName} completed`, {
+                  ...values,
+                });
+              }
               setShowForm(false);
             })
             .catch(() => {
@@ -66,6 +71,11 @@ const MortgagePartnerForm: FunctionComponent<MortgagePartnerFormProps> = () => {
                   type: 'danger',
                 })
               );
+              if (window && window.analytics) {
+                window.analytics.track(`${formName} failure`, {
+                  ...values,
+                });
+              }
             });
         }}
       >

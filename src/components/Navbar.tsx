@@ -429,6 +429,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     onClick={() => {
                       toggleMenu();
                       dispatch(logout());
+                      if (window && window.analytics) {
+                        window.analytics.track('Logout', {
+                          location: 'StyledMenu',
+                        });
+                      }
                     }}
                   >
                     Log Out
@@ -488,7 +493,17 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                           Admin
                         </Link>
                       )}
-                      <Link to="/" onClick={() => dispatch(logout())}>
+                      <Link
+                        to="/"
+                        onClick={() => {
+                          dispatch(logout());
+                          if (window && window.analytics) {
+                            window.analytics.track('Logout', {
+                              location: 'StyledDropdown',
+                            });
+                          }
+                        }}
+                      >
                         Log Out
                       </Link>
                     </StyledDropdown>
@@ -507,7 +522,18 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               </FlexContainer>
             )}
             {isLoggedInConsumer && (
-              <Link to="/" onClick={() => dispatch(logout())} style={{ color: white }}>
+              <Link
+                to="/"
+                onClick={() => {
+                  dispatch(logout());
+                  if (window && window.analytics) {
+                    window.analytics.track('Logout', {
+                      location: 'Consumer Nav',
+                    });
+                  }
+                }}
+                style={{ color: white }}
+              >
                 Log Out
               </Link>
             )}

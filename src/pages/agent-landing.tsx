@@ -47,6 +47,11 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     type: 'success',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track('Agent Landing Form completed', {
+                    ...valuesWithSubject,
+                  });
+                }
               })
               .catch(() => {
                 dispatch(
@@ -55,6 +60,11 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     type: 'danger',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track('Agent Landing Form failure', {
+                    ...valuesWithSubject,
+                  });
+                }
               });
           }}
         >

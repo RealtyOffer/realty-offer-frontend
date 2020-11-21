@@ -11,6 +11,11 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
       // If we've gotten to this point, a request snuck through with a bad token
       // Call logout to nuke the data
       store.dispatch(logout());
+      if (window && window.analytics) {
+        window.analytics.track('Logout', {
+          location: 'errorCatcher.ts - 401 error',
+        });
+      }
       navigate('/login');
 
       return store.dispatch(

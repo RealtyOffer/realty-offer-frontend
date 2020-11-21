@@ -67,6 +67,11 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
 
   const save = () => {
     dispatch(logout());
+    if (window && window.analytics) {
+      window.analytics.track('Logout', {
+        location: 'Agent Information',
+      });
+    }
     navigate('/');
   };
 

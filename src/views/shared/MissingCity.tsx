@@ -137,6 +137,11 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     type: 'success',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track(`Missing City Form completed`, {
+                    ...postingValues,
+                  });
+                }
               })
               .catch(() => {
                 dispatch(
@@ -145,6 +150,11 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     type: 'danger',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track(`Missing City Form failure`, {
+                    ...postingValues,
+                  });
+                }
               })
               .finally(() => {
                 setSubmitting(false);

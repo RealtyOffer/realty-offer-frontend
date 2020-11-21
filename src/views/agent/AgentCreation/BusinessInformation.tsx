@@ -49,6 +49,11 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
 
   const save = () => {
     dispatch(logout());
+    if (window && window.analytics) {
+      window.analytics.track('Logout', {
+        location: 'Business Information',
+      });
+    }
     navigate('/');
   };
 

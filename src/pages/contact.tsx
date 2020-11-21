@@ -53,6 +53,11 @@ const Contact: FunctionComponent<ContactProps> = () => {
                     type: 'success',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track('Contact Form completed', {
+                    ...valuesWithSubject,
+                  });
+                }
               })
               .catch(() => {
                 dispatch(
@@ -61,6 +66,11 @@ const Contact: FunctionComponent<ContactProps> = () => {
                     type: 'danger',
                   })
                 );
+                if (window && window.analytics) {
+                  window.analytics.track('Contact Form failure', {
+                    ...valuesWithSubject,
+                  });
+                }
               })
               .finally(() => {
                 setSubmitting(false);

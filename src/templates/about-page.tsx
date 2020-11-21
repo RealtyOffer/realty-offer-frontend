@@ -139,6 +139,11 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
                             type: 'success',
                           })
                         );
+                        if (window && window.analytics) {
+                          window.analytics.track(`About Page Contact Form completed`, {
+                            ...valuesWithSubject,
+                          });
+                        }
                       })
                       .catch(() => {
                         dispatch(
@@ -147,6 +152,11 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
                             type: 'danger',
                           })
                         );
+                        if (window && window.analytics) {
+                          window.analytics.track(`About Page Contact Form failure`, {
+                            ...valuesWithSubject,
+                          });
+                        }
                       })
                       .finally(() => {
                         setSubmitting(false);
