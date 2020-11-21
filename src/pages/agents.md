@@ -9,8 +9,7 @@ heroSubheading: >-
   you leads, that just don't go anywhere?
 
 
-  Welcome to RealtyOffer!
-  The one-stop shop for the buyer, seller, and agent.
+  Welcome to RealtyOffer! The one-stop shop for the buyer, seller, and agent.
 mainpitch:
   title: Here is how it works!
   videoUrl: 'https://www.youtube.com/embed/R9jCqtpG770?rel=0'
@@ -27,7 +26,7 @@ mainpitch:
       body: >-
         Subscribe to your favorite cities or counties... Through an AI-Digitized
         platform, RealtyOffer will send you serious clients that are ready to
-        buy, sell, or both!
+        buy, sell, or **both**!
     - title: Bid your best...
       body: >-
         The automated bidding works two ways: choose to discount your commission
