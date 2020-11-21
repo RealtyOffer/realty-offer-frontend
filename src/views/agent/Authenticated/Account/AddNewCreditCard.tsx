@@ -68,6 +68,11 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
             ).then((response: ActionResponseType) => {
               if (response && !response.error) {
                 setSubmitting(false);
+                if (window && window.analytics) {
+                  window.analytics.track('Agent added new payment method', {
+                    user: auth.email,
+                  });
+                }
                 dispatch(
                   addAlert({
                     type: 'success',

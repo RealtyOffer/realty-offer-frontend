@@ -1,17 +1,9 @@
-import React, { FunctionComponent, SyntheticEvent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from 'gatsby';
 
-import {
-  PageContainer,
-  Button,
-  Card,
-  Input,
-  HorizontalRule,
-  FlexContainer,
-  Seo,
-} from '../components';
+import { PageContainer, Button, Card, Input, HorizontalRule, Seo } from '../components';
 
 import {
   requiredField,
@@ -38,38 +30,39 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
     digit4: '',
     digit5: '',
     digit6: '',
+    token: '',
   };
 
-  const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (target.value.length >= 1) {
-      const currentInputIndex = Number(target.name.charAt(5));
-      const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
-      if (inputToBeFocused) {
-        inputToBeFocused.focus();
-      }
-    }
-  };
+  // const autoFocusNextInput = (e: SyntheticEvent<HTMLInputElement>) => {
+  //   const target = e.target as HTMLInputElement;
+  //   if (target.value.length >= 1) {
+  //     const currentInputIndex = Number(target.name.charAt(5));
+  //     const inputToBeFocused = document.getElementsByName(`digit${currentInputIndex + 1}`)[0];
+  //     if (inputToBeFocused) {
+  //       inputToBeFocused.focus();
+  //     }
+  //   }
+  // };
 
-  const handlePasteEvent = (e: ClipboardEvent, setFieldValue: Function, validateForm: Function) => {
-    e.stopPropagation();
-    e.preventDefault();
+  // const handlePasteEvent = (e: ClipboardEvent, setFieldValue: Function, validateForm: Function) => {
+  //   e.stopPropagation();
+  //   e.preventDefault();
 
-    const pastedData = e.clipboardData && e.clipboardData.getData('Text');
+  //   const pastedData = e.clipboardData && e.clipboardData.getData('Text');
 
-    if (pastedData && pastedData.toString().length === 6) {
-      setFieldValue('digit1', pastedData[0]);
-      setFieldValue('digit2', pastedData[1]);
-      setFieldValue('digit3', pastedData[2]);
-      setFieldValue('digit4', pastedData[3]);
-      setFieldValue('digit5', pastedData[4]);
-      setFieldValue('digit6', pastedData[5]);
-      const inputToBeFocused = document.getElementsByName('digit6')[0];
-      if (inputToBeFocused) {
-        validateForm().then(() => inputToBeFocused.focus());
-      }
-    }
-  };
+  //   if (pastedData && pastedData.toString().length === 6) {
+  //     setFieldValue('digit1', pastedData[0]);
+  //     setFieldValue('digit2', pastedData[1]);
+  //     setFieldValue('digit3', pastedData[2]);
+  //     setFieldValue('digit4', pastedData[3]);
+  //     setFieldValue('digit5', pastedData[4]);
+  //     setFieldValue('digit6', pastedData[5]);
+  //     const inputToBeFocused = document.getElementsByName('digit6')[0];
+  //     if (inputToBeFocused) {
+  //       validateForm().then(() => inputToBeFocused.focus());
+  //     }
+  //   }
+  // };
 
   return (
     <PageContainer>
@@ -82,16 +75,21 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
-            const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
+            // const { digit1, digit2, digit3, digit4, digit5, digit6 } = values;
+            // const combined = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
             dispatch(
               resetPassword({
                 ...values,
-                token: combined,
+                // token: combined,
               })
             ).then((response: ActionResponseType) => {
               setSubmitting(false);
               if (response && !response.error) {
+                if (window && window.analytics) {
+                  window.analytics.track('Reset Password', {
+                    user: values.email,
+                  });
+                }
                 dispatch(
                   addAlert({
                     type: 'success',
@@ -103,7 +101,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
             });
           }}
         >
-          {({ isSubmitting, isValid, setFieldValue, validateForm }) => (
+          {({ isSubmitting, isValid }) => (
             <Form>
               <Field
                 as={Input}
@@ -113,7 +111,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                 validate={requiredEmail}
                 required
               />
-              <label htmlFor="digit1">
+              {/* <label htmlFor="digit1">
                 Verification Code
                 <FlexContainer justifyContent="space-between" flexWrap="nowrap">
                   {['digit1', 'digit2', 'digit3', 'digit4', 'digit5', 'digit6'].map((digit) => (
@@ -133,7 +131,16 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
                     />
                   ))}
                 </FlexContainer>
-              </label>
+              </label> */}
+              <Field
+                as={Input}
+                type="number"
+                maxLength={6}
+                name="token"
+                label="Verification Code"
+                validate={requiredField}
+                required
+              />
               <Field
                 as={Input}
                 type="password"

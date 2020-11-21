@@ -75,6 +75,16 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
+            if (window && window.analytics) {
+              window.analytics.track('Consumer Signup', {
+                ...consumer.listing,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                phoneNumber: values.phoneNumber,
+                email: values.email,
+                role: 'Consumer',
+              });
+            }
             dispatch(
               createUser({
                 ...values,
@@ -112,7 +122,6 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                           ?.map((city) => city.name)
                           .toString(),
                         sellersCity: consumer?.listing?.sellersCity?.name,
-                        sellersState: consumer?.listing?.sellersCity?.state,
                         sellingPriceRange: consumer?.listing
                           ?.sellersListingPriceInMindPriceRangeInMindId
                           ? displayDropdownListText(

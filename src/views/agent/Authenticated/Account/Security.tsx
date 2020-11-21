@@ -37,6 +37,11 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
           onSubmit={(values, { setSubmitting }) => {
             dispatch(changePassword(values)).then((response: ActionResponseType) => {
               if (response && !response.error) {
+                if (window && window.analytics) {
+                  window.analytics.track('Agent updated password', {
+                    user: auth.email,
+                  });
+                }
                 setTimeout(() => {
                   setShowPasswordForm(false);
                 }, 2000);

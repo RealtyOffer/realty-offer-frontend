@@ -72,6 +72,15 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
+            if (window && window.analytics) {
+              window.analytics.track('Agent Signup', {
+                firstName: values.firstName,
+                lastName: values.lastName,
+                phoneNumber: values.phoneNumber,
+                email: values.email,
+                role: 'Agent',
+              });
+            }
             dispatch(
               captureAgentSignupData({
                 isPilotUser: location.pathname.includes('pilot'),

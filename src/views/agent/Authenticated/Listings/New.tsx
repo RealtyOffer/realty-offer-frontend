@@ -105,6 +105,11 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values, { resetForm }) => {
+          if (window && window.analytics) {
+            window.analytics.track('Agent updated filter', {
+              ...values,
+            });
+          }
           if (initialValues.countyFilter !== values.countyFilter) {
             dispatch(changeCountyFilter(values.countyFilter));
           }

@@ -64,6 +64,11 @@ const Login: FunctionComponent<LoginProps> = () => {
                 setSubmitting(false);
                 if ((response as ActionResponseType) && !(response as ActionResponseType).error) {
                   if ((response as LoginResponseType).payload.roles.includes('Agent')) {
+                    if (window && window.analytics) {
+                      window.analytics.track('Agent Login', {
+                        user: values.email,
+                      });
+                    }
                     if (user.location) {
                       dispatch(removeAttemptedPrivatePage());
                       navigate(user.location);
@@ -72,6 +77,11 @@ const Login: FunctionComponent<LoginProps> = () => {
                     }
                   }
                   if ((response as LoginResponseType).payload.roles.includes('Consumer')) {
+                    if (window && window.analytics) {
+                      window.analytics.track('Consumer Login', {
+                        user: values.email,
+                      });
+                    }
                     if (user.location) {
                       dispatch(removeAttemptedPrivatePage());
                       navigate(user.location);

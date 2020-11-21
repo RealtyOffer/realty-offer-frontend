@@ -19,13 +19,13 @@ import { addBanner } from '../redux/ducks/globalAlerts';
 import usePrevious from '../utils/usePrevious';
 
 const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const auth = useSelector((state: RootState) => state.auth);
   const banners = useSelector((state: RootState) => state.user.banners);
   const dispatch = useDispatch();
 
   const prevBanners = usePrevious(banners);
   useEffect(() => {
-    if (isLoggedIn && !prevBanners) {
+    if (auth.isLoggedIn && !prevBanners) {
       dispatch(getUserSiteBanners('consumer'));
     }
     if (!isEqual(prevBanners, banners)) {
@@ -46,11 +46,21 @@ const ConsumerApp: FunctionComponent<{ location: WindowLocation }> = (props) => 
   }, [banners]);
 
   useEffect(() => {
-    if (!isLoggedIn && props.location.pathname === '/consumer') {
+    if (!auth.isLoggedIn && props.location.pathname === '/consumer') {
       navigate('/consumer/start');
     }
-    if (isLoggedIn && props.location.pathname === '/consumer') {
+    if (auth.isLoggedIn && props.location.pathname === '/consumer') {
       navigate('/consumer/listing');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window && window.analytics && auth.isLoggedIn) {
+      window.analytics.identify(auth.email, {
+        email: auth.email,
+        firstName: auth.firstName,
+        lastName: auth.lastName,
+      });
     }
   }, []);
 

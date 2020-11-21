@@ -100,6 +100,9 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 genderId: Number(values.genderId),
               })
             );
+            if (window && window.analytics) {
+              window.analytics.track('Agent updated cognito info', { ...agent, values });
+            }
           }
           dispatch(
             updateUser({
@@ -107,6 +110,9 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
               phoneNumber: reformattedPhoneForCognito(values.phoneNumber),
             })
           ).then(() => {
+            if (window && window.analytics) {
+              window.analytics.track('Agent updated cognito info', { ...values });
+            }
             setSubmitting(false);
           });
         }}
@@ -198,8 +204,12 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 ...values,
                 genderId: Number(values.genderId),
                 brokerZip: String(values.brokerZip),
+                bidDefaults: { ...agent.bidDefaults },
               })
             ).then(() => {
+              if (window && window.analytics) {
+                window.analytics.track('Agent updated Agent Profile Info', { ...agent, ...values });
+              }
               setSubmitting(false);
             });
           }}
@@ -302,6 +312,12 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 agentLanguages: values.agentLanguages?.map((val) => Number(val)),
               })
             ).then(() => {
+              if (window && window.analytics) {
+                window.analytics.track('Agent updated Agent Profile Info ', {
+                  ...agent,
+                  ...values,
+                });
+              }
               setSubmitting(false);
             });
           }}

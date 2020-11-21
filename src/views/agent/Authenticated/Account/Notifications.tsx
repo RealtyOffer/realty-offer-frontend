@@ -84,6 +84,9 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
         forceResendEmailCode: true,
       })
     );
+    if (window && window.analytics) {
+      window.analytics.track('Agent requested new email confirmation code', {});
+    }
     setEmailCodeSent(true);
     setTimeout(() => {
       setEmailCodeSent(false);
@@ -98,6 +101,9 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
         forceResendPhoneCode: true,
       })
     );
+    if (window && window.analytics) {
+      window.analytics.track('Agent requested new phone confirmation code', {});
+    }
     setPhoneCodeSent(true);
     setTimeout(() => {
       setPhoneCodeSent(false);
@@ -141,6 +147,9 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       | { error: boolean; payload: NotificationSettingsType }
                   ) => {
                     if (response && !response.error) {
+                      if (window && window.analytics) {
+                        window.analytics.track('Agent confirmed new email address', {});
+                      }
                       setSubmitting(false);
                       resetForm({
                         values: { ...(response.payload as NotificationSettingsType) },
@@ -162,6 +171,9 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       | { error: boolean; payload: { response: NotificationSettingsType } }
                   ) => {
                     if (response && !response.error) {
+                      if (window && window.analytics) {
+                        window.analytics.track('Agent confirmed new phone number', {});
+                      }
                       setSubmitting(false);
                       resetForm({
                         values: { ...(response.payload.response as NotificationSettingsType) },

@@ -38,6 +38,7 @@ import { getUserCounties } from '../../../../redux/ducks/user';
 type BillingProps = {} & RouteComponentProps;
 
 const Billing: FunctionComponent<BillingProps> = () => {
+  const auth = useSelector((state: RootState) => state.auth);
   const agent = useSelector((state: RootState) => state.agent);
   const fortis = useSelector((state: RootState) => state.fortis);
   const dispatch = useDispatch();
@@ -72,6 +73,11 @@ const Billing: FunctionComponent<BillingProps> = () => {
           dispatch(updateAgentProfile({ ...agent, fortispayAccountVaultId: id })).then(
             (res: ActionResponseType) => {
               if (res && !res.error) {
+                if (window && window.analytics) {
+                  window.analytics.track('Agent updated default payment method', {
+                    user: auth.email,
+                  });
+                }
                 dispatch(
                   addAlert({
                     type: 'info',
@@ -90,6 +96,11 @@ const Billing: FunctionComponent<BillingProps> = () => {
   const deleteAccountVault = (id: string) => {
     dispatch(deleteFortispayAccountvault({ id })).then((response: ActionResponseType) => {
       if (response && !response.error) {
+        if (window && window.analytics) {
+          window.analytics.track('Agent removed payment method', {
+            user: auth.email,
+          });
+        }
         dispatch(
           addAlert({
             type: 'success',

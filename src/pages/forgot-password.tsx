@@ -28,6 +28,11 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
+            if (window && window.analytics) {
+              window.analytics.track('Forgot Password Submitted', {
+                user: values.email,
+              });
+            }
             dispatch(forgotPassword(values)).then((response: ActionResponseType) => {
               if (response && !response.error) {
                 setSubmitting(false);

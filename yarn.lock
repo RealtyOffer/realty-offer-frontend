@@ -3354,6 +3354,11 @@
     "@types/glob" "*"
     "@types/node" "*"
 
+"@types/segment-analytics@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/segment-analytics/-/segment-analytics-0.0.33.tgz#7580723d3978993126636e2f293d5831c8e9585b"
+  integrity sha512-8OB3OhKGuIkItHeQxgQpzldyaL1dVKzJQF9ujfVLmO0MJyIhXZTiOIZtkSHF6jhptEQZqm8EyTuceIAR36OS3A==
+
 "@types/sizzle@2.3.2":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
