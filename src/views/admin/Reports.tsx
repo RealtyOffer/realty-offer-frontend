@@ -2,7 +2,7 @@ import React, { useEffect, FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LoadingPage, Heading, HorizontalRule, Table } from '../../components';
+import { Seo, LoadingPage, Heading, HorizontalRule, Table } from '../../components';
 import {
   getAgentsByCity,
   getAgentsByCounty,
@@ -24,6 +24,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <>
+      <Seo title="Reports" />
       <Heading>Reports</Heading>
       <Heading styledAs="sectionHeading">Agents By City</Heading>
       {metrics.agentsByCity.isLoading ? (

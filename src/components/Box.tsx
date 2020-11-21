@@ -9,7 +9,7 @@ import { z1Shadow, z2Shadow, z3Shadow, z4Shadow } from '../styles/mixins';
 type BoxProps = {
   style?: CSSProperties;
   textAlign?: 'center' | 'left' | 'right';
-  height?: number;
+  height?: string;
   zindex?: 1 | 2 | 3 | 4;
   largePadding?: boolean;
   backgroundAccent?: boolean;
@@ -42,7 +42,7 @@ const StyledBox = styled.div`
   margin-bottom: ${baseSpacer};
   box-shadow: ${(props: BoxProps) => props.zindex && renderShadow(props.zindex)};
   text-align: ${(props: BoxProps) => props.textAlign};
-  height: ${(props: BoxProps) => (props.height ? `${props.height}px` : 'auto')};
+  height: ${(props: BoxProps) => (props.height ? `${props.height}` : `calc(100% - ${baseSpacer})`)};
   background: ${(props: BoxProps) =>
     props.bgSrc
       ? `url(${props.bgSrc.childImageSharp.fluid.src}) center center / cover no-repeat`

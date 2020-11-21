@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, FunctionComponent } from 'react';
 import { RouteComponentProps, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
+import { Seo, LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
 import { getAllEmailTemplates } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 import EmailTemplateDetails from './EmailTemplateDetails';
@@ -38,6 +38,7 @@ const EmailTemplates: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <>
+      <Seo title="Email Templates" />
       <FlexContainer justifyContent="space-between">
         <Heading>Email Templates</Heading>
         <Button type="link" to="/admin/email-templates/new">

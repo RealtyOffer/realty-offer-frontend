@@ -11,6 +11,16 @@ import FlexContainer from './FlexContainer';
 type TableActionType = {
   to?: string;
   label: string;
+  color:
+    | 'text'
+    | 'primary'
+    | 'primaryOutline'
+    | 'success'
+    | 'successOutline'
+    | 'danger'
+    | 'dangerOutline'
+    | 'tertiary'
+    | 'inverseOutline';
   onClick?: () => void;
 };
 
@@ -124,7 +134,7 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination, ha
                                     type="button"
                                     key={action.label}
                                     onClick={action.onClick}
-                                    color="text"
+                                    color={action.color || 'text'}
                                   >
                                     {action.label}
                                   </Button>
@@ -157,7 +167,7 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination, ha
           })}
         </tbody>
       </StyledTable>
-      {hasPagination && (
+      {hasPagination && pageOptions.length > 1 && (
         <FlexContainer justifyContent="space-between">
           <div>
             <Button

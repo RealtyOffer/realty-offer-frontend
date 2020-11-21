@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, FunctionComponent } from 'react';
 import { RouteComponentProps, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
+import { Seo, LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
 import { getAllCounties } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 import CountyDetails from './CountyDetails';
@@ -48,6 +48,7 @@ const Counties: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <>
+      <Seo title="Counties" />
       <FlexContainer justifyContent="space-between">
         <Heading>Counties</Heading>
         <Button type="link" to="/admin/counties/new">

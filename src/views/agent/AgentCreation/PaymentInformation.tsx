@@ -71,7 +71,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
       <Seo title="Payment Information" />
       <TimelineProgress
         items={
-          agent && agent.signupData.isPilotUser
+          agent && agent.isPilotUser
             ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
             : [
                 'Create Account',
@@ -82,7 +82,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                 'Confirm',
               ]
         }
-        currentStep={agent && agent.signupData.isPilotUser ? 4 : 5}
+        currentStep={agent && agent.isPilotUser ? 4 : 5}
       />
       <Card
         cardTitle="Payment Information"
@@ -110,7 +110,6 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                 dispatch(
                   updateAgentProfile({
                     ...agent,
-                    cities: agent.signupData.cities,
                     fortispayAccountVaultId: response.payload.id,
                   })
                 ).then((res: ActionResponseType) => {

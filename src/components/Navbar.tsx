@@ -295,6 +295,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const isInSignupProcess = signupPagesArr.some((route) => location.pathname.includes(route));
 
   const menuItemsToRender = () => {
+    if (auth.isLoading || agent.isLoading) {
+      return [];
+    }
     if (isLoggedInAgent && !isInSignupProcess) {
       return primaryNavigation;
     }

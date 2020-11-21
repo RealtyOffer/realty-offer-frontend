@@ -27,11 +27,13 @@ import {
 } from '../../../../redux/ducks/fortis';
 import { updateAgentProfile } from '../../../../redux/ducks/agent';
 import TransactionsTable from './TransactionsTable';
+import SubscriptionsTable from './SubscriptionsTable';
 import { getStatesList } from '../../../../redux/ducks/dropdowns';
 import { getCreditCardIconType, getCreditCardType } from '../../../../components/CreditCard';
 import { baseSpacer } from '../../../../styles/size';
 import { ActionResponseType } from '../../../../redux/constants';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
+import { getUserCounties } from '../../../../redux/ducks/user';
 
 type BillingProps = {} & RouteComponentProps;
 
@@ -47,6 +49,10 @@ const Billing: FunctionComponent<BillingProps> = () => {
     if (statesList.length === 0) {
       dispatch(getStatesList());
     }
+  }, []);
+
+  useEffect(() => {
+    dispatch(getUserCounties());
   }, []);
 
   useEffect(() => {
@@ -100,43 +106,62 @@ const Billing: FunctionComponent<BillingProps> = () => {
       <Heading>Billing</Heading>
 
       <Box>
-        <Heading as="h2">Monthly Charges</Heading>
-        {fortis.isLoading && <Skeleton count={5} />}
-        {!fortis.isLoading && recurring && fortis.accountVaults && fortis.accountVaults.length > 0 && (
+        {agent.cities && agent.cities.length === 0 ? (
           <>
-            <p>
-              for {format(new Date(parseISO(recurring.next_run_date)), 'MMM do')} &mdash;{' '}
-              {format(addMonths(new Date(parseISO(recurring.next_run_date)), 1), 'MMM do')}
-            </p>
+            <Heading as="h2">Current Plan: Pay As You Go</Heading>
             <FlexContainer justifyContent="flex-start">
               <Heading as="h3" styledAs="title">
-                ${recurring.transaction_amount}
+                $295
               </Heading>
 
               <p style={{ marginLeft: 16 }}>
-                Scheduled to come out of card ending in{' '}
-                {fortis.accountVaults.find((accountVault) => accountVault.has_recurring)?.last_four}{' '}
-                on {format(new Date(parseISO(recurring.next_run_date)), 'MMMM do')}.
+                Will come out of card ending in{' '}
+                {
+                  fortis.accountVaults.find((accountVault) => !accountVault.has_recurring)
+                    ?.last_four
+                }{' '}
+                when you are awarded a bid.
               </p>
             </FlexContainer>
-            {agent && agent.cities && agent.cities.length > 0 && (
-              <p>
-                Your sales area currently includes:
-                <br />
-                <strong>
-                  {Array(
-                    agent.cities
-                      ?.sort((a, b) => a.name.localeCompare(b.name))
-                      .map((city) => city.name)
-                  )
-                    .toString()
-                    .replace(/,/g, ', ')}
-                </strong>
-              </p>
-            )}
+          </>
+        ) : (
+          <>
+            <Heading as="h2">Monthly Charges</Heading>
+            {fortis.isLoading && <Skeleton count={5} />}
+            {!fortis.isLoading &&
+              recurring &&
+              fortis.accountVaults &&
+              fortis.accountVaults.length > 0 && (
+                <>
+                  <p>
+                    for {format(new Date(parseISO(recurring.next_run_date)), 'MMM do')} &mdash;{' '}
+                    {format(addMonths(new Date(parseISO(recurring.next_run_date)), 1), 'MMM do')}
+                  </p>
+                  <FlexContainer justifyContent="flex-start">
+                    <Heading as="h3" styledAs="title">
+                      ${recurring.transaction_amount}
+                    </Heading>
+
+                    <p style={{ marginLeft: 16 }}>
+                      Scheduled to come out of card ending in{' '}
+                      {
+                        fortis.accountVaults.find((accountVault) => accountVault.has_recurring)
+                          ?.last_four
+                      }{' '}
+                      on {format(new Date(parseISO(recurring.next_run_date)), 'MMMM do')}.
+                    </p>
+                  </FlexContainer>
+                  {agent && agent.cities && agent.cities.length > 0 && (
+                    <>
+                      <p>Your sales area currently includes:</p>
+                      <SubscriptionsTable cities={agent.cities} />
+                    </>
+                  )}
+                </>
+              )}
+            {!fortis.isLoading && !recurring && <p>No monthly charges</p>}
           </>
         )}
-        {!fortis.isLoading && !recurring && <p>No monthly charges</p>}
       </Box>
 
       <Box>

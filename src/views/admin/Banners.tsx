@@ -3,7 +3,7 @@ import { RouteComponentProps, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import format from 'date-fns/format';
 
-import { LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
+import { Seo, LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
 import { getAllSiteBanners } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 import BannerDetails from './BannerDetails';
@@ -65,6 +65,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <>
+      <Seo title="Site Banners" />
       <FlexContainer justifyContent="space-between">
         <Heading>Site Banners</Heading>
         <Button type="link" to="/admin/banners/new">

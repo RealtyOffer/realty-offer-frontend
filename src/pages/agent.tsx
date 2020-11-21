@@ -50,7 +50,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const prevBanners = usePrevious(banners);
 
   useEffect(() => {
-    if (auth.isLoggedIn && !agent.agentId && !agent.isLoading) {
+    if (auth.isLoggedIn && !agent.isLoading) {
       if (props.location.pathname === '/agent') {
         // if we are landing on the /agent page from logging in, redirect to new listings
         // otherwise, its a page refresh while logged in and we dont want to redirect
@@ -66,14 +66,19 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
             navigate('/agent/listings/new');
           }
         }
-        if (!response.payload.agentId) {
+        if (!response.payload.agentId || !response.payload.fortispayContactId) {
           navigate('/agent/agent-information');
-        }
-        // TODO: uncomment after Pilot/Beta
-        else if (response.payload.cities.length === 0) {
+        } else if (!response.payload.cities.length && !response.payload.fortispayAccountVaultId) {
           navigate('/agent/business-information');
         } else if (!response.payload.fortispayAccountVaultId) {
           navigate('/agent/payment-information');
+        } else if (
+          response &&
+          response.payload.cities.length > 0 &&
+          !response.payload.fortispayRecurringId &&
+          !response.payload.isPilotUser
+        ) {
+          navigate('/agent/confirm-payment');
         } else if (props.location.pathname === '/agent') {
           navigate('/agent/listings/new');
         }

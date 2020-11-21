@@ -14,7 +14,7 @@ type CardProps = {
 
 const Card: FunctionComponent<CardProps> = ({ cardTitle, cardSubtitle, children, fullWidth }) => (
   <div>
-    <Box backgroundAccent>
+    <Box backgroundAccent height="auto">
       <Row>
         <Column md={fullWidth ? 12 : 6} mdOffset={fullWidth ? 0 : 3}>
           <FlexContainer flexDirection="column">

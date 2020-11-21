@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, FunctionComponent } from 'react';
 import { RouteComponentProps, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
+import { Seo, LoadingPage, Button, FlexContainer, Heading, Table } from '../../components';
 import { getAllCities, getAllCounties } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 import CityDetails from './CityDetails';
@@ -58,13 +58,18 @@ const Cities: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <>
+      <Seo title="Cities" />
       <FlexContainer justifyContent="space-between">
         <Heading>Cities</Heading>
         <Button type="link" to="/admin/cities/new">
           Add New City
         </Button>
       </FlexContainer>
-      {admin.isLoading ? <LoadingPage /> : <Table columns={cityColumns} data={cityData} />}
+      {admin.isLoading ? (
+        <LoadingPage />
+      ) : (
+        <Table columns={cityColumns} data={cityData} hasSorting hasPagination />
+      )}
       <Router>
         <CityDetails path="/:id" />
         <CityDetails path="/new" />

@@ -22,6 +22,15 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-segment-js`,
+      options: {
+        prodKey: process.env.GATSBY_SEGMENT_API_KEY,
+        devKey: process.env.GATSBY_SEGMENT_API_KEY,
+        trackPage: true,
+        trackPageDelay: 50,
+      },
+    },
+    {
       resolve: '@sentry/gatsby',
       options: {
         dsn: process.env.GATSBY_SENTRY_DSN,

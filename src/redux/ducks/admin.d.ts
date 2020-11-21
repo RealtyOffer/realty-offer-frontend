@@ -385,7 +385,7 @@ export type GetAgentsByCityRequestActionType = {
 
 export type GetAgentsByCitySuccessActionType = {
   type: typeof GET_AGENTS_BY_CITY_SUCCESS;
-  payload: Array<MetricsType>;
+  payload: Array<MetricValuesType>;
 };
 
 export type GetAgentsByCityFailureActionType = {
@@ -398,7 +398,7 @@ export type GetAgentsByCountyRequestActionType = {
 
 export type GetAgentsByCountySuccessActionType = {
   type: typeof GET_AGENTS_BY_COUNTY_SUCCESS;
-  payload: Array<MetricsType>;
+  payload: Array<MetricValuesType>;
 };
 
 export type GetAgentsByCountyFailureActionType = {
@@ -411,7 +411,7 @@ export type GetAwardedBidsByDateRequestActionType = {
 
 export type GetAwardedBidsByDateSuccessActionType = {
   type: typeof GET_AWARDED_BIDS_BY_DATE_SUCCESS;
-  payload: Array<MetricsType>;
+  payload: Array<MetricValuesType>;
 };
 
 export type GetAwardedBidsByDateFailureActionType = {
@@ -424,7 +424,7 @@ export type GetListingsByTypeRequestActionType = {
 
 export type GetListingsByTypeSuccessActionType = {
   type: typeof GET_LISTINGS_BY_TYPE_SUCCESS;
-  payload: Array<MetricsType>;
+  payload: Array<MetricValuesType>;
 };
 
 export type GetListingsByTypeFailureActionType = {

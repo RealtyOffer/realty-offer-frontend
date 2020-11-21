@@ -47,11 +47,11 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
         setConfirmed(true);
         dispatch(clearAgentSignupData());
       }
-      if (subscriberType === 'monthly' && agent.signupData.total) {
+      if (subscriberType === 'monthly' && agent.fortispayRecurringAmount) {
         dispatch(
           createFortispayRecurring({
             account_vault_id: agent.fortispayAccountVaultId,
-            transaction_amount: agent.signupData.total?.toString(),
+            transaction_amount: agent.fortispayRecurringAmount?.toString(),
             interval_type: 'm',
             interval: 1,
             start_date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
@@ -89,7 +89,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
       <Seo title="Confirm Payment" />
       <TimelineProgress
         items={
-          agent && agent.signupData.isPilotUser
+          agent && agent.isPilotUser
             ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
             : [
                 'Create Account',
@@ -100,7 +100,7 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
                 'Confirm',
               ]
         }
-        currentStep={agent && agent.signupData.isPilotUser ? 5 : 6}
+        currentStep={agent && agent.isPilotUser ? 5 : 6}
       />
       <Card
         cardTitle={confirmed ? 'Confirmed' : 'Confirm Payment Method'}
@@ -144,12 +144,15 @@ const ConfirmPayment: FunctionComponent<RouteComponentProps> = () => {
                         format(new Date(agent.licenseExpirationDate), 'MM/dd/yyyy')}
                       .
                     </p>
-                    {!agent.isPilotUser && agent.signupData.total && (
-                      <p>
-                        {numberWithCommas(agent.signupData.total)} will be paid from Card ending in:{' '}
-                        {fortis.accountVaults[0].last_four}
-                      </p>
-                    )}
+                    {!agent.isPilotUser &&
+                      agent.cities &&
+                      agent.cities.length > 0 &&
+                      agent.fortispayRecurringAmount && (
+                        <p>
+                          ${numberWithCommas(agent.fortispayRecurringAmount)} will be paid from Card
+                          ending in {fortis.accountVaults[0].last_four}
+                        </p>
+                      )}
                   </>
                 )}
 

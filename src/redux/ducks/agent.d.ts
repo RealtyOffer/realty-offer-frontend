@@ -52,6 +52,7 @@ export type AgentProfileType = {
   fortispayContactId?: string;
   fortispayAccountVaultId?: string;
   fortispayRecurringId?: string;
+  fortispayRecurringAmount?: number;
   licenseExpirationDate?: string;
   isPilotUser?: boolean;
   bidDefaults: {
