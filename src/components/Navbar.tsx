@@ -2,7 +2,14 @@ import React, { useState, FunctionComponent, useRef, useEffect, SyntheticEvent }
 import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaBell, FaRegBell, FaCaretDown, FaCaretUp } from 'react-icons/fa';
+import {
+  FaBell,
+  FaRegBell,
+  FaCaretDown,
+  FaCaretUp,
+  FaChevronDown,
+  FaChevronUp,
+} from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import ReactTooltip from 'react-tooltip';
 import { useLocation } from '@reach/router';
@@ -98,7 +105,7 @@ const StyledDropdownWrapper = styled.div`
   padding: ${halfSpacer};
   border-radius: ${tripleSpacer};
   height: ${tripleSpacer};
-  width: ${tripleSpacer};
+  width: auto;
   background-color: transparent;
   transition: background 0.1s ease-out;
 
@@ -480,7 +487,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   data-for="profile"
                   ref={profileNode}
                 >
+                  Hi, {auth.firstName}&nbsp;&nbsp;
                   <Avatar src={user.avatar} gravatarEmail={auth.email} />
+                  &nbsp;&nbsp;
+                  {profileDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
                   {profileDropdownOpen && (
                     <StyledDropdown>
                       {secondaryNavigation.map((navItem) => (
