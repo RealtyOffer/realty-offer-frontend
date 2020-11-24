@@ -23,6 +23,9 @@ import {
   GET_TRANSACTIONS_REQUEST,
   GET_TRANSACTIONS_SUCCESS,
   GET_TRANSACTIONS_FAILURE,
+  POST_SINGLE_TRANSACTION_REQUEST,
+  POST_SINGLE_TRANSACTION_SUCCESS,
+  POST_SINGLE_TRANSACTION_FAILURE,
   UPDATE_ACCOUNTVAULT_REQUEST,
   UPDATE_ACCOUNTVAULT_SUCCESS,
   UPDATE_ACCOUNTVAULT_FAILURE,
@@ -336,6 +339,17 @@ export type GetTransactionsFailureAction = {
   type: typeof GET_TRANSACTIONS_FAILURE;
 };
 
+export type PostSingleFortispayTransactionRequestAction = {
+  type: typeof POST_SINGLE_TRANSACTION_REQUEST;
+};
+export type PostSingleFortispayTransactionSuccessAction = {
+  type: typeof POST_SINGLE_TRANSACTION_SUCCESS;
+  payload: FortispayTransactionResponseType;
+};
+export type PostSingleFortispayTransactionFailureAction = {
+  type: typeof POST_SINGLE_TRANSACTION_FAILURE;
+};
+
 export type FortispayStoreActions =
   | CreateContactRequestAction
   | CreateContactSuccessAction
@@ -364,4 +378,7 @@ export type FortispayStoreActions =
   | GetTransactionsRequestAction
   | GetTransactionsSuccessAction
   | GetTransactionsFailureAction
+  | PostSingleFortispayTransactionRequestAction
+  | PostSingleFortispayTransactionSuccessAction
+  | PostSingleFortispayTransactionFailureAction
   | LogoutRequestAction;

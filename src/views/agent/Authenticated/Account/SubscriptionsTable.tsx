@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { FunctionComponent, useMemo, useState } from 'react';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, formatISO } from 'date-fns';
+import { FaTrash } from 'react-icons/fa';
 
 import { Button, Column, Heading, Modal, Row, Table } from '../../../../components';
 import { CityType } from '../../../../redux/ducks/admin.d';
@@ -12,24 +13,36 @@ import { editFortispayRecurring, getFortispayAccountvaults } from '../../../../r
 import { ActionResponseType } from '../../../../redux/constants';
 import { updateAgentProfile } from '../../../../redux/ducks/agent';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
+import { getUserCities, getUserCounties } from '../../../../redux/ducks/user';
 
 type SubscriptionsTableProps = {
   cities: Array<CityType>;
 };
 
 const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities }) => {
-  const counties = useSelector((state: RootState) => state.user.counties);
+  const countiesList = useSelector((state: RootState) => state.user.counties);
+  const citiesList = useSelector((state: RootState) => state.user.cities);
   const fortis = useSelector((state: RootState) => state.fortis);
   const agent = useSelector((state: RootState) => state.agent);
   const [removeCityModalIsOpen, setRemoveCityModalIsOpen] = useState(false);
+
   const [selectedCity, setSelectedCity] = useState<CityType | undefined>(undefined);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!citiesList || citiesList.length === 0) {
+      dispatch(getUserCities());
+    }
+    if (!countiesList || countiesList.length === 0) {
+      dispatch(getUserCounties());
+    }
+  }, []);
 
   const columns = useMemo(
     () => [
       {
         header: 'Name',
-        accessor: 'name', // accessor is the "key" in the data
+        accessor: 'name',
       },
       {
         header: 'County',
@@ -38,6 +51,10 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
       {
         header: 'Monthly Price',
         accessor: 'monthlyPrice',
+      },
+      {
+        header: 'Expires',
+        accessor: 'expirationDate',
       },
       {
         header: 'Action',
@@ -59,54 +76,72 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
     .map((city) => {
       return {
         ...city,
-        countyId: counties && counties.find((county) => city.countyId === county.id)?.name,
+        countyId: countiesList && countiesList.find((county) => city.countyId === county.id)?.name,
         monthlyPrice: `$${numberWithCommas(city.monthlyPrice)}`,
+        expirationDate: city.expirationDate
+          ? format(new Date(parseISO(city.expirationDate)), 'MM/dd/yyy')
+          : '',
         actions: [
-          {
-            label: 'Remove',
-            onClick: () => {
-              setSelectedCity(city);
-              setRemoveCityModalIsOpen(true);
-            },
-            color: 'dangerOutline',
-          },
+          // if city has an expiration date, hide the Remove button since its already removed
+          city.expirationDate
+            ? {}
+            : {
+                label: 'Remove',
+                icon: <FaTrash />,
+                onClick: () => {
+                  setSelectedCity(city);
+                  setRemoveCityModalIsOpen(true);
+                },
+                color: 'dangerOutline',
+              },
         ],
       };
     });
 
-  if (cities.length === 0 || counties?.length === 0) {
+  if (cities.length === 0 || countiesList?.length === 0) {
     return <Skeleton count={5} />;
   }
 
-  const getCitiesTotal = () => {
-    return cities?.reduce((acc, curr) => {
-      return acc + curr.monthlyPrice;
-    }, 0);
-  };
-
-  const newRecurringAmount = () => {
+  const newRecurringAmountAfterRemoval = () => {
     if (selectedCity) {
-      return getCitiesTotal() - selectedCity?.monthlyPrice;
+      return (
+        cities
+          ?.filter((city) => city.expirationDate === null)
+          .reduce((acc, curr) => {
+            return acc + curr.monthlyPrice;
+          }, 0) - selectedCity?.monthlyPrice
+      );
     }
     return 0;
   };
 
   const recurring = fortis.recurring && fortis.recurring[0];
 
-  const updateRecurringAmount = () => {
+  const removeCitiesFromRecurring = () => {
     if (recurring && selectedCity && agent.cities && agent.cities.length > 0) {
       setRemoveCityModalIsOpen(false);
       setSelectedCity(undefined);
+
+      // Update the Recurring amount, and set an expiration date on the selected city to be removed
+      // set to the recurring.next_run_date so a user will have this city until their next billing cycle
       dispatch(
-        editFortispayRecurring({ ...recurring, transaction_amount: String(newRecurringAmount()) })
+        editFortispayRecurring({
+          ...recurring,
+          transaction_amount: String(newRecurringAmountAfterRemoval()),
+        })
       ).then((response: ActionResponseType) => {
         if (response && !response.error && agent.fortispayContactId != null) {
           dispatch(
             updateAgentProfile({
               ...agent,
-              fortispayRecurringAmount: newRecurringAmount(),
-              // TODO: keep city, but add expiration date to selected city
-              cities: agent.cities?.filter((city) => city.id !== selectedCity.id),
+              fortispayRecurringAmount: newRecurringAmountAfterRemoval(),
+              cities: [
+                ...(agent.cities || []),
+                {
+                  ...selectedCity,
+                  expirationDate: formatISO(new Date(parseISO(recurring.next_run_date))),
+                },
+              ],
             })
           ).then((res: ActionResponseType) => {
             if (res && !res.error) {
@@ -127,6 +162,7 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
   return (
     <>
       <Table columns={columns} data={data} hasPagination hasSorting />
+
       {selectedCity && (
         <Modal toggleModal={() => setRemoveCityModalIsOpen(false)} isOpen={removeCityModalIsOpen}>
           <Heading styledAs="title">Remove {selectedCity?.name}?</Heading>
@@ -142,7 +178,7 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
 
           <p>
             Your new monthly subscription will be{' '}
-            <strong>${numberWithCommas(newRecurringAmount())}</strong>.
+            <strong>${numberWithCommas(newRecurringAmountAfterRemoval())}</strong>.
           </p>
 
           <Row>
@@ -160,7 +196,12 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
               </Button>
             </Column>
             <Column xs={6}>
-              <Button type="button" onClick={() => updateRecurringAmount()} block color="danger">
+              <Button
+                type="button"
+                onClick={() => removeCitiesFromRecurring()}
+                block
+                color="danger"
+              >
                 Remove
               </Button>
             </Column>

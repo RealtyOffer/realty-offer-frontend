@@ -11,6 +11,7 @@ import FlexContainer from './FlexContainer';
 type TableActionType = {
   to?: string;
   label: string;
+  icon: JSX.Element;
   color:
     | 'text'
     | 'primary'
@@ -135,6 +136,7 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination, ha
                                     key={action.label}
                                     onClick={action.onClick}
                                     color={action.color || 'text'}
+                                    iconLeft={action.icon}
                                   >
                                     {action.label}
                                   </Button>
@@ -147,7 +149,8 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination, ha
                                     type="link"
                                     key={action.label}
                                     to={action.to}
-                                    color="text"
+                                    color={action.color || 'text'}
+                                    iconLeft={action.icon}
                                   >
                                     {action.label}
                                   </Button>

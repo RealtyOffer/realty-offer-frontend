@@ -49,6 +49,10 @@ export const GET_TRANSACTIONS_REQUEST = 'GET_TRANSACTIONS_REQUEST';
 export const GET_TRANSACTIONS_SUCCESS = 'GET_TRANSACTIONS_SUCCESS';
 export const GET_TRANSACTIONS_FAILURE = 'GET_TRANSACTIONS_FAILURE';
 
+export const POST_SINGLE_TRANSACTION_REQUEST = 'POST_SINGLE_TRANSACTION_REQUEST';
+export const POST_SINGLE_TRANSACTION_SUCCESS = 'POST_SINGLE_TRANSACTION_SUCCESS';
+export const POST_SINGLE_TRANSACTION_FAILURE = 'POST_SINGLE_TRANSACTION_FAILURE';
+
 export const initialState: FortispayStoreType = {
   isLoading: false,
   hasError: false,
@@ -70,6 +74,7 @@ export default (
     case GET_ACCOUNTVAULT_REQUEST:
     case EDIT_RECURRING_REQUEST:
     case GET_TRANSACTIONS_REQUEST:
+    case POST_SINGLE_TRANSACTION_REQUEST:
     case UPDATE_ACCOUNTVAULT_REQUEST:
       return {
         ...state,
@@ -147,7 +152,13 @@ export default (
         hasError: false,
         transactions: [...action.payload],
       };
-
+    case POST_SINGLE_TRANSACTION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        transactions: [...state.transactions, action.payload],
+      };
     case EDIT_RECURRING_SUCCESS:
       return {
         ...state,
@@ -188,6 +199,7 @@ export default (
     case GET_RECURRING_FAILURE:
     case EDIT_RECURRING_FAILURE:
     case GET_TRANSACTIONS_FAILURE:
+    case POST_SINGLE_TRANSACTION_FAILURE:
     case LOGOUT_REQUEST:
       return { ...initialState };
     default:
@@ -277,5 +289,21 @@ export const getFortispayTransactions = (payload: { contact_id: string }) => ({
     method: 'POST',
     body: JSON.stringify({ type: 'gettransactions', ...payload }),
     types: [GET_TRANSACTIONS_REQUEST, GET_TRANSACTIONS_SUCCESS, GET_TRANSACTIONS_FAILURE],
+  },
+});
+
+export const postSingleFortispayTransaction = (payload: {
+  transaction_amount: number;
+  account_vault_id: string;
+}) => ({
+  [RSAA]: {
+    endpoint: FORTISPAY_ENDPOINT,
+    method: 'POST',
+    body: JSON.stringify({ type: 'posttransaction', ...payload }),
+    types: [
+      POST_SINGLE_TRANSACTION_REQUEST,
+      POST_SINGLE_TRANSACTION_SUCCESS,
+      POST_SINGLE_TRANSACTION_FAILURE,
+    ],
   },
 });

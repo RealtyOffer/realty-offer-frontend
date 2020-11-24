@@ -71,7 +71,7 @@ const TransactionsTable: FunctionComponent<TransactionsTableProps> = ({ transact
   if (transactions.length === 0) {
     return null;
   }
-  return <Table columns={columns} data={data} />;
+  return <Table columns={columns} data={data} hasPagination hasSorting />;
 };
 
 export default TransactionsTable;

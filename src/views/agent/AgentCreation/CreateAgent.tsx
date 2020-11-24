@@ -109,7 +109,10 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           {({ isSubmitting, isValid, handleSubmit }) => (
             <Form>
               {location.pathname.includes('pilot') && (
-                <Alert type="info" message="Hey, you are signing up for a pilot account" />
+                <Alert
+                  type="info"
+                  message="Congratulations, you have been selected for a private pilot account on RealtyOffer!"
+                />
               )}
               <Row>
                 <Column sm={6}>

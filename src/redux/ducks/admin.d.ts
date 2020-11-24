@@ -86,6 +86,7 @@ export type CityType = {
   name: string;
   countyId: number;
   monthlyPrice: number;
+  expirationDate?: string;
 };
 
 export type CountyType = {

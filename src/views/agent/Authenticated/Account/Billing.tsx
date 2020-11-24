@@ -33,7 +33,9 @@ import { getCreditCardIconType, getCreditCardType } from '../../../../components
 import { baseSpacer } from '../../../../styles/size';
 import { ActionResponseType } from '../../../../redux/constants';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
-import { getUserCounties } from '../../../../redux/ducks/user';
+import { getUserCounties, getUserCities } from '../../../../redux/ducks/user';
+import numberWithCommas from '../../../../utils/numberWithCommas';
+import AddNewCityToSubscription from './AddNewCityToSubscription';
 
 type BillingProps = {} & RouteComponentProps;
 
@@ -42,8 +44,11 @@ const Billing: FunctionComponent<BillingProps> = () => {
   const agent = useSelector((state: RootState) => state.agent);
   const fortis = useSelector((state: RootState) => state.fortis);
   const dispatch = useDispatch();
+  const countiesList = useSelector((state: RootState) => state.user.counties);
+  const citiesList = useSelector((state: RootState) => state.user.cities);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
 
+  const [addCityModalIsOpen, setAddCityModalIsOpen] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
@@ -53,7 +58,12 @@ const Billing: FunctionComponent<BillingProps> = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUserCounties());
+    if (!citiesList || citiesList.length === 0) {
+      dispatch(getUserCities());
+    }
+    if (!countiesList || countiesList.length === 0) {
+      dispatch(getUserCounties());
+    }
   }, []);
 
   useEffect(() => {
@@ -134,6 +144,15 @@ const Billing: FunctionComponent<BillingProps> = () => {
                 when you are awarded a bid.
               </p>
             </FlexContainer>
+            <HorizontalRule />
+            <p>
+              You can also switch to a Monthly Subscription by adding cities. For listings outside
+              your subscription area, you can still pay a one-time fee of $295 for access to the
+              consumer&apos;s information.
+            </p>
+            <Button type="button" onClick={() => setAddCityModalIsOpen(true)}>
+              Add Cities
+            </Button>
           </>
         ) : (
           <>
@@ -150,7 +169,7 @@ const Billing: FunctionComponent<BillingProps> = () => {
                   </p>
                   <FlexContainer justifyContent="flex-start">
                     <Heading as="h3" styledAs="title">
-                      ${recurring.transaction_amount}
+                      ${numberWithCommas(Number(recurring.transaction_amount))}
                     </Heading>
 
                     <p style={{ marginLeft: 16 }}>
@@ -166,13 +185,39 @@ const Billing: FunctionComponent<BillingProps> = () => {
                     <>
                       <p>Your sales area currently includes:</p>
                       <SubscriptionsTable cities={agent.cities} />
+                      <Button type="button" onClick={() => setAddCityModalIsOpen(true)}>
+                        Add More Cities
+                      </Button>
                     </>
                   )}
                 </>
               )}
-            {!fortis.isLoading && !recurring && <p>No monthly charges</p>}
+            {!fortis.isLoading && !recurring && !agent.isPilotUser ? (
+              <p>No monthly charges</p>
+            ) : (
+              <p>
+                You are a Pilot user and are receiving access to{' '}
+                <strong>{agent.cities?.length} cities</strong> for free{' '}
+                {agent.licenseExpirationDate && (
+                  <>
+                    until{' '}
+                    <strong>
+                      {format(
+                        new Date(parseISO(agent.licenseExpirationDate as string)),
+                        'MM/dd/yyyy'
+                      )}
+                    </strong>
+                  </>
+                )}
+                .
+              </p>
+            )}
           </>
         )}
+        <AddNewCityToSubscription
+          toggleModal={setAddCityModalIsOpen}
+          modalIsOpen={addCityModalIsOpen}
+        />
       </Box>
 
       <Box>
@@ -241,10 +286,13 @@ const Billing: FunctionComponent<BillingProps> = () => {
         fortis.transactions.length >= 1 ? (
           <TransactionsTable transactions={fortis.transactions} />
         ) : (
-          <Skeleton count={5} />
-        )}
-        {!fortis.isLoading && fortis.transactions?.length === 0 && (
-          <p>No past billing statements</p>
+          <>
+            {!fortis.isLoading && fortis.transactions?.length === 0 ? (
+              <p>No past billing statements</p>
+            ) : (
+              <Skeleton count={5} />
+            )}
+          </>
         )}
       </Box>
     </div>

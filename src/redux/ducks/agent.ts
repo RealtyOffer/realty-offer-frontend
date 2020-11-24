@@ -96,7 +96,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
     case GET_BID_DETAILS_BY_ID_REQUEST:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
         hasError: false,
         activeBid: {
           isLoading: true,

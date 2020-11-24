@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,6 +64,7 @@ import {
   getAwardedListings,
   getHistoryListings,
 } from '../../../../redux/ducks/listings';
+import { postSingleFortispayTransaction } from '../../../../redux/ducks/fortis';
 
 type ListingDetailsProps = {
   listingId?: string;
@@ -90,6 +92,13 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const isBuyerSeller = listing && listing.type === 'buyerSeller';
 
   const isNewOrPending = pathType === 'new' || pathType === 'pending';
+
+  const agentCanViewConsumerInfo =
+    // see if agent has one of the buying or selling cities in their subscription
+    agent.cities?.some((city) => listing.buyingCities?.some((c) => c.id === city.id)) ||
+    agent.cities?.some((city) => listing.sellersCity?.id === city.id);
+
+  const isMonthlySubscriber = agent.cities && agent.cities.length > 0 && agent.fortispayRecurringId;
 
   const existingBidInitialValues = {
     listingAgentCommission: activeBid ? String(activeBid.listingAgentCommission) : '',
@@ -133,6 +142,16 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
       dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId)));
     }
   }, []);
+
+  const payOneTimeFee = () => {
+    // TODO: on sucess of one-time fee, update listing
+    dispatch(
+      postSingleFortispayTransaction({
+        transaction_amount: 295,
+        account_vault_id: agent.fortispayAccountVaultId as string,
+      })
+    );
+  };
 
   const deleteBidAndNavigate = () => {
     if (activeBid && activeBid.id) {
@@ -179,7 +198,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
         </Link>
       </p>
       <Box>
-        {activeBid?.consumer?.firstName && listing ? (
+        {activeBid?.consumer?.firstName && listing && agentCanViewConsumerInfo ? ( // TODO remove ! from agentCanView
           <>
             <Row>
               <Column sm={3}>
@@ -220,6 +239,33 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                 )
               }
             />
+            {!agentCanViewConsumerInfo && ( // TODO: add ! to agentCanView
+              <>
+                <Alert
+                  type="info"
+                  message={
+                    !isMonthlySubscriber
+                      ? `In order to view this customer's contact information, you must pay a one-time fee of $295`
+                      : `In order to view this customer's contact information, you must either pay a one-time fee of $295 or add one of the following cities to your monthly subscription: ${Array.isArray(
+                          listing.buyingCities
+                        ) &&
+                          listing.buyingCities.length > 0 &&
+                          Array(listing.buyingCities.map((city) => city.name))
+                            .toString()
+                            .replace(/,/g, ', ')}${listing.type === 'buyerSeller' &&
+                          ', '}${listing.sellersCity && listing.sellersCity.name}`
+                  }
+                />
+                <Button type="button" rightspacer onClick={() => payOneTimeFee()}>
+                  Pay One-Time Fee - $295
+                </Button>
+                {isMonthlySubscriber && (
+                  <Button type="link" to="/agent/account/billing" color="primaryOutline">
+                    Update Subscription
+                  </Button>
+                )}
+              </>
+            )}
             <HorizontalRule />
           </>
         )}
