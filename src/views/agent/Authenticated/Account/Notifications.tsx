@@ -152,7 +152,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       }
                       setSubmitting(false);
                       resetForm({
-                        values: { ...(response.payload as NotificationSettingsType) },
+                        values: { ...(response.payload as typeof settingsInitialValues) },
                       });
                     }
                   }
@@ -168,7 +168,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                   (
                     response:
                       | ActionResponseType
-                      | { error: boolean; payload: { response: NotificationSettingsType } }
+                      | { error: boolean; payload: NotificationSettingsType }
                   ) => {
                     if (response && !response.error) {
                       if (window && window.analytics) {
@@ -176,7 +176,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       }
                       setSubmitting(false);
                       resetForm({
-                        values: { ...(response.payload.response as NotificationSettingsType) },
+                        values: { ...(response.payload as typeof settingsInitialValues) },
                       });
                     }
                   }

@@ -10,7 +10,7 @@ import VerifyEmail from '../views/shared/VerifyEmail';
 import AgentInformation from '../views/agent/AgentCreation/AgentInformation';
 import BusinessInformation from '../views/agent/AgentCreation/BusinessInformation';
 import PaymentInformation from '../views/agent/AgentCreation/PaymentInformation';
-import ConfirmPayment from '../views/agent/AgentCreation/ConfirmPayment';
+import ConfirmRegistration from '../views/agent/AgentCreation/ConfirmRegistration';
 import NewListings from '../views/agent/Authenticated/Listings/New';
 import PendingListings from '../views/agent/Authenticated/Listings/Pending';
 import AwardedListings from '../views/agent/Authenticated/Listings/Awarded';
@@ -68,17 +68,19 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         }
         if (!response.payload.agentId || !response.payload.fortispayContactId) {
           navigate('/agent/agent-information');
-        } else if (!response.payload.cities.length && !response.payload.fortispayAccountVaultId) {
+        } else if (
+          !response.payload.cities.length &&
+          !response.payload.fortispayAccountVaultId &&
+          !response.payload.isPilotUser
+        ) {
           navigate('/agent/business-information');
-        } else if (!response.payload.fortispayAccountVaultId) {
-          navigate('/agent/payment-information');
         } else if (
           response &&
           response.payload.cities.length > 0 &&
           !response.payload.fortispayRecurringId &&
           !response.payload.isPilotUser
         ) {
-          navigate('/agent/confirm-payment');
+          navigate('/agent/confirm-registration');
         } else if (props.location.pathname === '/agent') {
           navigate('/agent/listings/new');
         }
@@ -95,14 +97,18 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   }, [agent.fortispayContactId, agent.fortispayRecurringId]);
 
   useEffect(() => {
-    if (auth.isLoggedIn && fortis.transactions && fortis.transactions.length > 0) {
-      if (fortis.transactions.sort((a, b) => b.created_ts - a.created_ts)[0].status_id === 301) {
+    if (auth.isLoggedIn && !agent.isPilotUser && !fortis.isLoading) {
+      if (
+        fortis.transactions &&
+        fortis.transactions.length > 0 &&
+        fortis.transactions.sort((a, b) => b.created_ts - a.created_ts)[0].status_id === 301
+      ) {
         dispatch(updateAgentIsInGoodStanding(false));
         dispatch(
           addBanner({
             message: 'Your last transaction was declined. Please visit the',
             type: 'danger',
-            dismissable: false,
+            dismissable: true,
             callToActionLink: '/agent/account/billing',
             callToActionLinkText: 'Billing page to update your payment method',
           })
@@ -111,7 +117,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         dispatch(updateAgentIsInGoodStanding(true));
       }
     }
-  }, [fortis.transactions]);
+  }, [fortis.isLoading]);
 
   useEffect(() => {
     if (auth.isLoggedIn && !prevBanners) {
@@ -162,7 +168,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           <AgentInformation path="/agent-information" />
           <BusinessInformation path="/business-information" />
           <PaymentInformation path="/payment-information" />
-          <ConfirmPayment path="/confirm-payment" />
+          <ConfirmRegistration path="/confirm-registration" />
           <PrivateRoute
             component={ListingDetails}
             path="/listings/new/:listingId"

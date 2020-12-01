@@ -32,7 +32,8 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
     if (
       action.error &&
       action.type !== 'GET_AGENT_PROFILE_FAILURE' &&
-      action.type !== 'GET_USER_AVATAR_FAILURE'
+      action.type !== 'GET_USER_AVATAR_FAILURE' &&
+      action.type !== 'GET_WINNING_AGENT_PROFILE_PHOTO_FAILURE'
     ) {
       // Any other 4xx errors should return a response,
       // so first add an alert for each error message in the response

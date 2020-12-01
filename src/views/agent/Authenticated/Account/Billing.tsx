@@ -192,9 +192,10 @@ const Billing: FunctionComponent<BillingProps> = () => {
                   )}
                 </>
               )}
-            {!fortis.isLoading && !recurring && !agent.isPilotUser ? (
-              <p>No monthly charges</p>
-            ) : (
+            {!fortis.isLoading && !recurring && !agent.isPilotUser && (
+              <p>No current monthly charges</p>
+            )}
+            {!fortis.isLoading && agent.isPilotUser && (
               <p>
                 You are a Pilot user and are receiving access to{' '}
                 <strong>{agent.cities?.length} cities</strong> for free{' '}

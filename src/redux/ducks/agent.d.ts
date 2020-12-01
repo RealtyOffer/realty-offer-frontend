@@ -87,6 +87,7 @@ export type BidType = {
   listingId?: number | string;
   agentId?: number;
   winner?: boolean;
+  agentCanViewContactInfo?: boolean;
   consumer?: {
     firstName: string;
     lastName: string;

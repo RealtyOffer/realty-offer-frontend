@@ -55,7 +55,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
       <TimelineProgress
         items={
           location.pathname.includes('pilot')
-            ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+            ? ['Create Account', 'Verify Email', 'Agent Info', 'Confirm']
             : [
                 'Create Account',
                 'Verify Email',

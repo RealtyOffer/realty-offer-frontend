@@ -38,6 +38,12 @@ module.exports = {
         normalizeDepth: 10,
       },
     },
+    {
+      resolve: 'gatsby-plugin-mailchimp',
+      options: {
+        endpoint: process.env.GATSBY_MAILCHIMP_ENDPOINT,
+      },
+    },
     // {
     //   resolve: 'gatsby-plugin-hotjar-tracking',
     //   options: {

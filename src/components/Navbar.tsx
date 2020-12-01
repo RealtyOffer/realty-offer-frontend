@@ -293,7 +293,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     'verify-email',
     'business-information',
     'payment-information',
-    'confirm-payment',
+    'confirm-registration',
     'start',
     'selling',
     'buying',

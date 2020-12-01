@@ -20,6 +20,7 @@ import {
   Modal,
   LoadingPage,
   Alert,
+  Card,
 } from '../../../../components';
 import {
   requiredListingAgentCommissionAmount,
@@ -65,6 +66,8 @@ import {
   getHistoryListings,
 } from '../../../../redux/ducks/listings';
 import { postSingleFortispayTransaction } from '../../../../redux/ducks/fortis';
+import { FortispayTransactionResponseType } from '../../../../redux/ducks/fortis.d';
+import { formatPhoneNumberValue } from '../../../../utils/phoneNumber';
 
 type ListingDetailsProps = {
   listingId?: string;
@@ -92,11 +95,14 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const isBuyerSeller = listing && listing.type === 'buyerSeller';
 
   const isNewOrPending = pathType === 'new' || pathType === 'pending';
+  const isNewOrPendingAndNotExpired = isNewOrPending && !isExpired(listing.createDateTime);
 
-  const agentCanViewConsumerInfo =
-    // see if agent has one of the buying or selling cities in their subscription
+  const isListingInSubscriptionArea =
     agent.cities?.some((city) => listing.buyingCities?.some((c) => c.id === city.id)) ||
     agent.cities?.some((city) => listing.sellersCity?.id === city.id);
+
+  const showPaymentNeededAlert =
+    !agent.isPilotUser && !agent.activeBid?.agentCanViewContactInfo && agent.activeBid?.winner;
 
   const isMonthlySubscriber = agent.cities && agent.cities.length > 0 && agent.fortispayRecurringId;
 
@@ -139,18 +145,51 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
 
   useEffect(() => {
     if (props.listingId && listing && listing.agentSubmittedBidId) {
-      dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId)));
+      dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId))).then(
+        (response: ActionResponseType) => {
+          if (
+            response &&
+            !response.error &&
+            isListingInSubscriptionArea &&
+            agent.activeBid?.id &&
+            !agent.activeBid?.agentCanViewContactInfo
+          ) {
+            dispatch(
+              updateAgentBid({
+                ...activeBid,
+                agentCanViewContactInfo: true,
+              })
+            );
+          }
+        }
+      );
     }
   }, []);
 
   const payOneTimeFee = () => {
-    // TODO: on sucess of one-time fee, update listing
     dispatch(
       postSingleFortispayTransaction({
         transaction_amount: 295,
         account_vault_id: agent.fortispayAccountVaultId as string,
       })
-    );
+    ).then((response: FortispayTransactionResponseType) => {
+      if (response && response.status_id === 101) {
+        dispatch(
+          updateAgentBid({
+            ...activeBid,
+            agentCanViewContactInfo: true,
+          })
+        );
+      }
+      if (response && response.status_id !== 101) {
+        dispatch(
+          addAlert({
+            type: 'danger',
+            message: 'Your payment has failed. Please try again, or update your payment method',
+          })
+        );
+      }
+    });
   };
 
   const deleteBidAndNavigate = () => {
@@ -198,31 +237,49 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
         </Link>
       </p>
       <Box>
-        {activeBid?.consumer?.firstName && listing && agentCanViewConsumerInfo ? ( // TODO remove ! from agentCanView
+        {activeBid?.consumer?.firstName && listing && !showPaymentNeededAlert ? (
           <>
-            <Row>
-              <Column sm={3}>
-                <Heading as="h4" noMargin>
-                  {activeBid.consumer.firstName} {activeBid.consumer.lastName}
-                </Heading>
-              </Column>
-              <Column sm={3}>
-                <FaEnvelope />{' '}
-                <a href={`mailto:${activeBid.consumer.emailAddress}`}>
-                  {activeBid.consumer.emailAddress}
-                </a>
-              </Column>
-              <Column sm={3}>
-                <FaPhone />{' '}
-                <a href={`tel:${activeBid.consumer.phoneNumber}`}>
-                  {activeBid.consumer.phoneNumber}
-                </a>
-              </Column>
-              <Column sm={3}>
-                Listing ended{' '}
-                {format(localizedCreateDateTime(listing.createDateTime), 'MM/dd/yyyy')}
-              </Column>
-            </Row>
+            <Card
+              fullWidth
+              cardTitle="Consumer Contact Information"
+              cardSubtitle={`Congrats on your new connection, now go help them ${
+                listing.type === 'buyerSeller' ? 'buy & sell' : listing.type?.replace('er', '')
+              } a home!`}
+            >
+              <Row>
+                <Column md={3}>
+                  <Heading as="h4">
+                    {activeBid.consumer.firstName} {activeBid.consumer.lastName}
+                  </Heading>
+                </Column>
+                <Column md={3}>
+                  <p>
+                    <FaEnvelope />{' '}
+                    <a href={`mailto:${activeBid.consumer.emailAddress}`}>
+                      {activeBid.consumer.emailAddress}
+                    </a>
+                  </p>
+                </Column>
+                <Column md={3}>
+                  <p>
+                    <FaPhone />{' '}
+                    {activeBid.consumer.phoneNumber ? (
+                      <a href={`tel:${activeBid.consumer.phoneNumber}`}>
+                        {formatPhoneNumberValue(activeBid.consumer.phoneNumber)}
+                      </a>
+                    ) : (
+                      'No phone number provided'
+                    )}
+                  </p>
+                </Column>
+                <Column md={3}>
+                  <p>
+                    Listing ended{' '}
+                    {format(localizedCreateDateTime(listing.createDateTime), 'MM/dd/yyyy')}
+                  </p>
+                </Column>
+              </Row>
+            </Card>
             <HorizontalRule />
           </>
         ) : (
@@ -239,7 +296,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                 )
               }
             />
-            {!agentCanViewConsumerInfo && ( // TODO: add ! to agentCanView
+            {showPaymentNeededAlert && (
               <>
                 <Alert
                   type="info"
@@ -408,7 +465,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         helpText={helpTextListingAgentCommissionAmount}
                         validate={requiredListingAgentCommissionAmount}
                         required
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -422,7 +479,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         helpText={helpTextBuyersAgentCommissionAmount}
                         validate={requiredBuyersAgentCommissionAmount}
                         required
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -435,7 +492,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={595}
                         helpText={helpTextBrokerComplianceAmount}
                         validate={requiredBrokerComplianceAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -448,7 +505,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={350}
                         helpText={helpTextPreInspectionAmount}
                         validate={requiredPreInspectionAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -461,7 +518,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={250}
                         helpText={helpTextPreCertifyAmount}
                         validate={requiredPreCertifyAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -474,7 +531,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={1000}
                         helpText={helpTextMovingCompanyAmount}
                         validate={requiredMovingCompanyAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -487,7 +544,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={300}
                         helpText={helpTextPhotographyAmount}
                         validate={requiredPhotographyAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Heading as="h3">
@@ -549,7 +606,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         helpText={helpTextBuyerCommissionAmount}
                         validate={requiredBuyerCommissionAmount}
                         required
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -562,7 +619,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={595}
                         helpText={helpTextBrokerComplianceAmount}
                         validate={requiredBrokerComplianceAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -575,7 +632,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={500}
                         helpText={helpTextInspectionAmount}
                         validate={requiredInspectionAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -588,7 +645,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={500}
                         helpText={helpTextHomeWarrantyAmount}
                         validate={requiredHomeWarrantyAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -601,7 +658,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={800}
                         helpText={helpTextAppraisalAmount}
                         validate={requiredAppraisalAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Field
@@ -614,7 +671,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         max={1000}
                         helpText={helpTextMovingCompanyAmount}
                         validate={requiredMovingCompanyAmount}
-                        disabled={!isNewOrPending}
+                        disabled={!isNewOrPendingAndNotExpired}
                       />
 
                       <Heading as="h3">
@@ -628,7 +685,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                     </Column>
                   )}
                 </Row>
-                {isNewOrPending && (
+                {isNewOrPendingAndNotExpired && (
                   <Row>
                     <Column md={6} mdOffset={3}>
                       {agent.isInGoodStanding ? (

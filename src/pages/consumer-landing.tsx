@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { FaCaretRight } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
+import addToMailchimp from 'gatsby-plugin-mailchimp';
 
 import {
   Button,
@@ -74,6 +75,11 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                   styleOfHome: getDropdownListText(homesTypeList.list, values.styleOfHome),
                   subject: `New Interested Consumer: ${values.firstName} ${values.lastName} - ${values.type}`,
                 };
+                addToMailchimp(values.email, {
+                  FNAME: values.firstName,
+                  LNAME: values.lastName,
+                  'group[78807][1]': '1',
+                });
                 postFormUrlEncoded('consumer-landing', valuesWithSubject)
                   .then(() => {
                     resetForm();

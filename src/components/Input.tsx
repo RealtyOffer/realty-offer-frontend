@@ -325,13 +325,16 @@ const Input: FunctionComponent<InputProps> = (props) => {
     case 'password':
       inputTypeToRender = (
         <PasswordWrapper>
-          <StyledInput id={props.name} {...field} {...props} {...meta} />
+          <StyledInput
+            id={props.name}
+            {...field}
+            {...props}
+            {...meta}
+            type={!passwordVisibility ? 'password' : 'text'}
+          />
           <PasswordToggle onClick={() => setPasswordVisibiility(!passwordVisibility)}>
             {passwordVisibility ? <FaEye /> : <FaEyeSlash />}
           </PasswordToggle>
-          {passwordVisibility && field.value.length > 0 && (
-            <span style={{ marginLeft: baseSpacer }}>{field.value}</span>
-          )}
         </PasswordWrapper>
       );
       break;

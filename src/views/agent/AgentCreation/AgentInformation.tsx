@@ -18,13 +18,18 @@ import {
   Seo,
   LoadingPage,
 } from '../../../components';
-import { requiredEmail, requiredField, requiredPhoneNumber } from '../../../utils/validations';
+import {
+  requiredEmail,
+  requiredField,
+  requiredPhoneNumber,
+  requiredSelect,
+} from '../../../utils/validations';
 import { createAgentProfile, captureAgentSignupData } from '../../../redux/ducks/agent';
 import { ActionResponseType } from '../../../redux/constants';
 import { RootState } from '../../../redux/ducks';
 import { logout } from '../../../redux/ducks/auth';
 import { createFortispayContact } from '../../../redux/ducks/fortis';
-import { getStatesList } from '../../../redux/ducks/dropdowns';
+import { getGendersList, getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
 import { getUserCities } from '../../../redux/ducks/user';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
@@ -37,6 +42,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
   const agent = useSelector((state: RootState) => state.agent);
   const fortis = useSelector((state: RootState) => state.fortis);
   const statesList = useSelector((state: RootState) => state.dropdowns.states.list);
+  const gendersList = useSelector((state: RootState) => state.dropdowns.genders.list);
   const cities = useSelector((state: RootState) => state.user.cities);
 
   const initialValues = {
@@ -47,16 +53,18 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     brokerAddressLine2: '',
     brokerCity: '',
     brokerZip: '',
-    brokerState: '',
+    brokerState: 'MI',
     brokerPhoneNumber: '',
     brokerEmail: '',
     emailAddress: auth.email,
+    genderId: '',
     id: 0,
   };
 
   useEffect(() => {
     dispatch(getStatesList());
     dispatch(getUserCities());
+    dispatch(getGendersList());
   }, []);
 
   useEffect(() => {
@@ -81,7 +89,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
       <TimelineProgress
         items={
           agent && agent.signupData.isPilotUser
-            ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+            ? ['Create Account', 'Verify Email', 'Agent Info', 'Confirm']
             : [
                 'Create Account',
                 'Verify Email',
@@ -130,7 +138,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                     createAgentProfile({
                       ...values,
                       fortispayContactId: res.payload.id,
-                      genderId: 0,
+                      genderId: Number(values.genderId),
                       aboutMe: '',
                       certificates: '',
                       agentLanguages: [],
@@ -155,7 +163,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                             total: undefined,
                           })
                         );
-                        navigate('/agent/payment-information');
+                        navigate('/agent/confirm-registration');
                       } else {
                         navigate('/agent/business-information');
                       }
@@ -194,6 +202,17 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                     />
                   </Column>
                 </Row>
+                <Field
+                  as={Input}
+                  type="select"
+                  name="genderId"
+                  label="Gender"
+                  options={createOptionsFromManagedDropdownList(gendersList)}
+                  validate={requiredSelect}
+                  required
+                  helpText="Why do we ask? Some consumers may prefer to only work with certain genders due to religious or cultural reasons."
+                  {...rest}
+                />
 
                 <Heading as="h5">Broker Information</Heading>
                 <Row>

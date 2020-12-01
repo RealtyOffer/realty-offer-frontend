@@ -52,7 +52,9 @@ const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
           user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)
             ?.inAppPush ?? false,
         notificationId: item.id,
-        notificationFrequency: 'realTime',
+        notificationFrequency:
+          user.userNotificationSubscriptions?.find((x) => x.notificationId === item.id)
+            ?.notificationFrequency ?? 'realTime',
       };
     });
   }

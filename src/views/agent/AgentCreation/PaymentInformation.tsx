@@ -70,19 +70,15 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     <>
       <Seo title="Payment Information" />
       <TimelineProgress
-        items={
-          agent && agent.isPilotUser
-            ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
-            : [
-                'Create Account',
-                'Verify Email',
-                'Agent Info',
-                'Business Info',
-                'Payment Info',
-                'Confirm',
-              ]
-        }
-        currentStep={agent && agent.isPilotUser ? 4 : 5}
+        items={[
+          'Create Account',
+          'Verify Email',
+          'Agent Info',
+          'Business Info',
+          'Payment Info',
+          'Confirm',
+        ]}
+        currentStep={5}
       />
       <Card
         cardTitle="Payment Information"
@@ -114,7 +110,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                   })
                 ).then((res: ActionResponseType) => {
                   if (res && !res.error) {
-                    navigate('/agent/confirm-payment');
+                    navigate('/agent/confirm-registration');
                   }
                 });
                 setSubmitting(false);

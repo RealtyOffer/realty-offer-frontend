@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { FaCaretRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
+import addToMailchimp from 'gatsby-plugin-mailchimp';
 
 import { Card, Button, HorizontalRule, Input, Row, Column, PageContainer } from '../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../utils/validations';
@@ -38,6 +39,11 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
               ...values,
               subject: `New Interested Agent: ${values.firstName} ${values.lastName}`,
             };
+            addToMailchimp(values.email, {
+              FNAME: values.firstName,
+              LNAME: values.lastName,
+              'group[78807][2]': '2',
+            });
             postFormUrlEncoded('agent-landing', valuesWithSubject)
               .then(() => {
                 navigate('/');
@@ -131,6 +137,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                 name="agentId"
                 label="Agent ID"
                 validate={requiredField}
+                required
               />
               <Field as={Input} type="text" name="brokerName" label="Broker" />
 

@@ -82,7 +82,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
         <TimelineProgress
           items={
             agent && agent.signupData.isPilotUser
-              ? ['Create Account', 'Verify Email', 'Agent Info', 'Payment Info', 'Confirm']
+              ? ['Create Account', 'Verify Email', 'Agent Info', 'Confirm']
               : [
                   'Create Account',
                   'Verify Email',

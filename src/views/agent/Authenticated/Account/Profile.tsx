@@ -72,6 +72,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     brokerPhoneNumber: agent.brokerPhoneNumber,
     brokerAddressLine1: agent.brokerAddressLine1,
     brokerAddressLine2: agent.brokerAddressLine2,
+    brokerEmail: agent.brokerEmail,
     brokerCity: agent.brokerCity,
     brokerState: agent.brokerState,
     brokerZip: agent.brokerZip,
@@ -168,6 +169,11 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         options={createOptionsFromManagedDropdownList(gendersList)}
                         validate={requiredSelect}
                         required
+                        helpText={
+                          personalInfoInitialValues.genderId === 'null'
+                            ? 'Why do we ask? Some consumers may prefer to only work with certain genders due to religious or cultural reasons.'
+                            : ''
+                        }
                         {...rest}
                       />
                     </Column>
@@ -219,7 +225,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
               <Box>
                 <Heading as="h2">Agent Information</Heading>
                 <Row>
-                  <Column sm={4}>
+                  <Column sm={3}>
                     <Field
                       as={Input}
                       type="text"
@@ -229,7 +235,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       required
                     />
                   </Column>
-                  <Column sm={4}>
+                  <Column sm={3}>
                     <Field
                       as={Input}
                       type="text"
@@ -239,13 +245,23 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       required
                     />
                   </Column>
-                  <Column sm={4}>
+                  <Column sm={3}>
                     <Field
                       as={Input}
                       type="tel"
                       name="brokerPhoneNumber"
                       label="Broker Phone Number"
                       validate={requiredPhoneNumber}
+                      required
+                    />
+                  </Column>
+                  <Column sm={3}>
+                    <Field
+                      as={Input}
+                      type="text"
+                      name="brokerEmail"
+                      label="Broker Email"
+                      validate={requiredEmail}
                       required
                     />
                   </Column>
@@ -259,7 +275,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       required
                     />
                   </Column>
-                  <Column sm={6}>
+                  <Column sm={4}>
                     <Field
                       as={Input}
                       type="text"
@@ -309,7 +325,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 ...agent,
                 certificates: values.certificates,
                 aboutMe: values.aboutMe,
-                agentLanguages: values.agentLanguages?.map((val) => Number(val)),
+                agentLanguages: (values.agentLanguages as Array<string>)?.map((val) => Number(val)),
               })
             ).then(() => {
               if (window && window.analytics) {

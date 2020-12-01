@@ -132,13 +132,31 @@ export default (state: UserStoreType = initialState, action: UserActionTypes): U
         hasError: false,
         userNotificationSubscriptions: [...action.payload],
       };
-    case UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_SUCCESS:
+    case UPDATE_USER_NOTIFICATION_SUBSCRIPTIONS_SUCCESS: {
+      const index = state.userNotificationSubscriptions.findIndex(
+        (x: UserNotificationSubscriptionType) => x.notificationId === action.payload.notificationId
+      );
+      const userNotificationSubscriptions = [
+        ...state.userNotificationSubscriptions.slice(0, index),
+        action.payload,
+        ...state.userNotificationSubscriptions.slice(index + 1),
+      ];
+
+      if (index === -1) {
+        return {
+          ...state,
+          isLoading: false,
+          hasError: false,
+          userNotificationSubscriptions: [...state.userNotificationSubscriptions],
+        };
+      }
       return {
         ...state,
         isLoading: false,
         hasError: false,
-        userNotificationSubscriptions: [...state.userNotificationSubscriptions, action.payload],
+        userNotificationSubscriptions,
       };
+    }
     case GET_USER_SITE_BANNERS_SUCCESS:
       return {
         ...state,
