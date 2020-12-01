@@ -3,6 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import { Link, navigate } from 'gatsby';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useLocation } from '@reach/router';
+import addToMailchimp from 'gatsby-plugin-mailchimp';
 
 import {
   TimelineProgress,
@@ -72,6 +73,11 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
+            addToMailchimp(values.email, {
+              FNAME: values.firstName,
+              LNAME: values.lastName,
+              'group[78807][12]': '2',
+            });
             if (window && window.analytics) {
               window.analytics.track('Agent Signup', {
                 firstName: values.firstName,

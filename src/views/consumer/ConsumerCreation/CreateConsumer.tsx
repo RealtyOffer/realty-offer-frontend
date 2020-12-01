@@ -3,6 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
+import addToMailchimp from 'gatsby-plugin-mailchimp';
 
 import {
   Button,
@@ -75,6 +76,11 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
+            addToMailchimp(values.email, {
+              FNAME: values.firstName,
+              LNAME: values.lastName,
+              'group[78807][1]': '1',
+            });
             if (window && window.analytics) {
               window.analytics.track('Consumer Signup', {
                 ...consumer.listing,
