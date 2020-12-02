@@ -76,7 +76,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
             addToMailchimp(values.email, {
               FNAME: values.firstName,
               LNAME: values.lastName,
-              'group[78807][12]': '2',
+              'group[78807][2]': '2',
             });
             if (window && window.analytics) {
               window.analytics.track('Agent Signup', {
