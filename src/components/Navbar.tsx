@@ -396,8 +396,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 ))}
               {isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
                 <>
-                  {/* todo: consumer/start */}
-                  <Link to="/consumer-landing" onClick={() => toggleMenu()}>
+                  <Link to="/consumer/start" onClick={() => toggleMenu()}>
                     Find An Agent
                   </Link>
                   <Link to="/login" onClick={() => toggleMenu()}>
@@ -549,8 +548,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             )}
             {!auth.isLoggedIn && !isSmallScreen && !isInSignupProcess && (
               <div>
-                {/* todo: consumer/start */}
-                <Button type="link" to="/consumer-landing" rightspacer color="inverseOutline">
+                <Button type="link" to="/consumer/start" rightspacer color="inverseOutline">
                   Find An Agent
                 </Button>
                 <Button type="link" to="/login" color="tertiary">

@@ -33,7 +33,7 @@ import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { RootState } from '../../../redux/ducks';
 import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
-import { getDropdownListText, displayDropdownListText } from '../../../utils/dropdownUtils';
+import { getDropdownListText } from '../../../utils/dropdownUtils';
 import { getPriceRangesList, getHomeTypesList } from '../../../redux/ducks/dropdowns';
 
 type CreateConsumerProps = {} & RouteComponentProps;
@@ -133,9 +133,9 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         sellersCity: consumer?.listing?.sellersCity?.name,
                         sellingPriceRange: consumer?.listing
                           ?.sellersListingPriceInMindPriceRangeInMindId
-                          ? displayDropdownListText(
-                              consumer.listing.sellersListingPriceInMindPriceRangeInMindId,
-                              'priceRanges'
+                          ? getDropdownListText(
+                              priceRangesList,
+                              String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
                             )
                           : '',
                         buyingPriceRange: consumer?.listing?.buyingPriceRangeId

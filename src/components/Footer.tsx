@@ -133,8 +133,7 @@ const Footer = () => (
             CONSUMERS
           </Heading>
           <p>
-            {/* todo: consumer/start */}
-            <Link to="/">Buy or Sell</Link>
+            <Link to="/consumer/start">Buy or Sell</Link>
           </p>
           <p>
             <Link to="/mortgage-consultation">Mortgage Consultation</Link>

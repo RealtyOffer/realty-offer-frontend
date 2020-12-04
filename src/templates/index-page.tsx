@@ -314,7 +314,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
             Same agent, less commission.
           </Heading>
           {/* todo: consumer/start */}
-          <Button type="link" to="/consumer-landing" color="tertiary">
+          <Button type="link" to="/consumer/start" color="tertiary">
             Get Started Now
           </Button>
         </PageContainer>

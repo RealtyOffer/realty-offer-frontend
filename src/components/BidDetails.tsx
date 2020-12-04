@@ -17,6 +17,7 @@ const BidDetails = ({ listing, bid }: { listing: ListingType; bid: BidType }) =>
     <Row>
       {listing.type?.toLowerCase().includes('seller') && bid && (
         <Column xs={6}>
+          <Heading as="h3">Selling</Heading>
           <dl>
             <dt>Listing Agent Commission</dt>
             <dd>{bid.listingAgentCommission}%</dd>
@@ -66,6 +67,7 @@ const BidDetails = ({ listing, bid }: { listing: ListingType; bid: BidType }) =>
       )}
       {listing.type?.includes('buyer') && bid && (
         <Column xs={6}>
+          <Heading as="h3">Buying</Heading>
           <dl>
             <dt>Total Buyer Commission</dt>
             <dd>{bid.buyerCommission}%</dd>

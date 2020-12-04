@@ -139,7 +139,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           <FlexContainer justifyContent="space-between">
             <Heading as="h3">Winning Realtor</Heading>
             <p>
-              <Button type="button" onClick={() => setModalIsOpen(true)} color="text">
+              <Button type="button" onClick={() => setModalIsOpen(true)} color="primaryOutline">
                 What should I expect now?
               </Button>
             </p>
@@ -219,6 +219,20 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             </p>
           </Modal>
           <p>Agent contact information and terms of the contract can be found below.</p>
+          <p>
+            If you don&apos;t feel like your Agent is a good match once you have connected, you can
+            always{' '}
+            <span
+              role="button"
+              onKeyPress={() => setRestartListingModalIsOpen(true)}
+              onClick={() => setRestartListingModalIsOpen(true)}
+              style={{ color: brandPrimary, textDecoration: 'underline' }}
+              tabIndex={-1}
+            >
+              start a new listing
+            </span>{' '}
+            to start the process over and receive more bids.
+          </p>
           <Row>
             <Column lg={2}>
               <Avatar
@@ -366,7 +380,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             >
               start a new listing
             </span>{' '}
-            to receive three more bids.
+            to receive more bids.
           </p>
           <HorizontalRule />
         </ConsumerListingCardBody>
@@ -375,8 +389,11 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
         <ConsumerListingCardBody>
           <Heading as="h4">Select your agent below</Heading>
           <p>
-            Please select your RealtyOffer agent below. Below are the three best Agents based on the
-            information you provided. If you do not like the choices below, you can{' '}
+            Please select your RealtyOffer agent below.{' '}
+            {bids.length === 1
+              ? 'Only one Agent was matched with you'
+              : `Below are the ${bids.length} best Agents`}{' '}
+            based on the information you provided. If you do not like the choices below, you can{' '}
             <span
               role="button"
               onKeyPress={() => setRestartListingModalIsOpen(true)}
@@ -386,7 +403,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             >
               start a new listing
             </span>{' '}
-            to receive three more bids.
+            to receive more bids.
           </p>
           <Row>
             {bids.map((bid, index) => (
