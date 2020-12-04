@@ -73,7 +73,7 @@ consumerFaq:
         choice of moving forward with a contract. RealtyOffer simply empowers
         the consumer and removes the upfront negotiation, in order to save you
         thousands of dollars.
-    - question: Will my personal informational shared?
+    - question: Will my personal information shared?
       answer: >-
         No. Your privacy is very important to us. We will NEVER share your
         personal information with third parties.
