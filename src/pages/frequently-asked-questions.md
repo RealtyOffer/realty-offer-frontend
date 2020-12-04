@@ -186,7 +186,7 @@ agentFaq:
         their monthly subscription right before their next billing cycle.
     - question: What happens if my subscription is not approved?
       answer: You will receive a full refund within 7-10 business days.
-    - question: Will my personal informational shared?
+    - question: Will my personal information shared?
       answer: >-
         No.
 
