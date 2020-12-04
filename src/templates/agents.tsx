@@ -203,7 +203,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
           <div style={{ textAlign: 'center' }}>
             <br />
             <br />
-            <Button type="link" to="/agent/sign-up">
+            <Button type="link" to="/frequently-asked-questions">
               {mainpitch.ctaText}
             </Button>
           </div>
@@ -218,7 +218,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 {secondpitch.title}
               </Heading>
               <ReactMarkdown source={secondpitch.description} />
-              <Button type="link" to="/agent/sign-up">
+              <Button type="link" to="/mortgage-consultation">
                 {secondpitch.ctaText}
               </Button>
               <br />
