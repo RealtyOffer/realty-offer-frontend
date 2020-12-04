@@ -24,7 +24,7 @@ mainpitch:
   steps:
     - title: Subscribe to your favorite cities or counties...
       body: >-
-        Subscribe to your favorite cities or counties... Through an AI-Digitized
+        Subscribe to your favorite cities or counties... Through an Ai-Digitized
         platform, RealtyOffer will send you serious clients that are ready to
         buy, sell, or **both**!
     - title: Bid your best...
