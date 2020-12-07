@@ -10,6 +10,7 @@ import { RootState } from '../../../../redux/ducks';
 import { ActionResponseType } from '../../../../redux/constants';
 import { createOptionsFromManagedDropdownList } from '../../../../utils/createOptionsFromArray';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
+import { unformattedCreditCardValue } from '../../../../utils/creditCard';
 
 type AddNewCreditCardProps = {
   toggleModal: (value: boolean) => void;
@@ -57,7 +58,7 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
                 email: auth.email,
                 contact_id: agent.fortispayContactId,
                 account_holder_name: values.cardholderName,
-                account_number: values.cardNumber.toString(),
+                account_number: unformattedCreditCardValue(values.cardNumber),
                 payment_method: 'cc',
                 exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
                 billing_address: values.billingAddress,
@@ -106,7 +107,7 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
               <Column sm={6}>
                 <Field
                   as={Input}
-                  type="text"
+                  type="creditCard"
                   name="cardNumber"
                   label="Card Number"
                   validate={requiredField}

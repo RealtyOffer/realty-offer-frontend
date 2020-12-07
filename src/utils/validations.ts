@@ -56,6 +56,9 @@ export const isDecimalNumer = (value: string) =>
 export const isAlphaNumeric = (value: string) =>
   value && /[^a-zA-Z0-9 ]/i.test(value) ? 'Only alphanumeric characters' : undefined;
 
+export const isNumbersAndSpacesOnly = (value: string) =>
+  value && /[0-9 ]/i.test(value) ? 'Only numbers and spaces allowed' : undefined;
+
 const allowedSpecialCharacters = '!@#$%^&*()\\-_=+\\[{\\]}|;:\\\\\'",<.>/?`~';
 const disallowedCharactersRegex = new RegExp(`[^A-Za-z\\d${allowedSpecialCharacters}]`, 'g');
 const validPasswordRegex = new RegExp(

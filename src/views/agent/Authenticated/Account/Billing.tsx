@@ -15,6 +15,8 @@ import {
   Seo,
   Modal,
   HorizontalRule,
+  Column,
+  Row,
 } from '../../../../components';
 import AddNewCreditCard from './AddNewCreditCard';
 import { RootState } from '../../../../redux/ducks';
@@ -36,6 +38,7 @@ import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { getUserCounties, getUserCities } from '../../../../redux/ducks/user';
 import numberWithCommas from '../../../../utils/numberWithCommas';
 import AddNewCityToSubscription from './AddNewCityToSubscription';
+import { FortispayAccountvaultResponseType } from '../../../../redux/ducks/fortis.d';
 
 type BillingProps = {} & RouteComponentProps;
 
@@ -50,6 +53,11 @@ const Billing: FunctionComponent<BillingProps> = () => {
 
   const [addCityModalIsOpen, setAddCityModalIsOpen] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [removeCardModalIsOpen, setRemoveCardModalIsOpen] = useState(false);
+  const [
+    activeAccountVaultToBeRemoved,
+    setActiveAccountVaultToBeRemoved,
+  ] = useState<FortispayAccountvaultResponseType | null>(null);
 
   useEffect(() => {
     if (statesList.length === 0) {
@@ -242,9 +250,25 @@ const Billing: FunctionComponent<BillingProps> = () => {
                   {`${accountVault.exp_date.slice(0, 2)}/${accountVault.exp_date.slice(2, 4)}`}
                 </div>
                 {accountVault.has_recurring ? (
-                  <Button type="button" color="text" disabled iconLeft={<FaCheckCircle />}>
-                    Default
-                  </Button>
+                  <div>
+                    <Button
+                      type="button"
+                      color="successOutline"
+                      disabled
+                      iconLeft={<FaCheckCircle />}
+                      rightspacer
+                    >
+                      Default
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => setRemoveCardModalIsOpen(true)}
+                      color="dangerOutline"
+                      iconLeft={<FaTrash />}
+                    >
+                      Remove
+                    </Button>
+                  </div>
                 ) : (
                   <div>
                     <Button
@@ -258,7 +282,10 @@ const Billing: FunctionComponent<BillingProps> = () => {
                     </Button>
                     <Button
                       type="button"
-                      onClick={() => deleteAccountVault(accountVault.id)}
+                      onClick={() => {
+                        setRemoveCardModalIsOpen(true);
+                        setActiveAccountVaultToBeRemoved(accountVault);
+                      }}
                       color="dangerOutline"
                       iconLeft={<FaTrash />}
                     >
@@ -275,6 +302,55 @@ const Billing: FunctionComponent<BillingProps> = () => {
         </Button>
         <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
           <AddNewCreditCard toggleModal={() => setModalIsOpen(false)} />
+        </Modal>
+        <Modal
+          toggleModal={() => {
+            setRemoveCardModalIsOpen(false);
+            setActiveAccountVaultToBeRemoved(null);
+          }}
+          isOpen={removeCardModalIsOpen}
+        >
+          <Heading>Remove Payment Method</Heading>
+
+          {activeAccountVaultToBeRemoved ? (
+            <p>Are you sure you want to remove this payment method?</p>
+          ) : (
+            <p>
+              This card is currently your default payment method. You must first change your default
+              to a new card before you can remove this card.
+            </p>
+          )}
+          <Row>
+            <Column xs={6}>
+              <Button
+                type="button"
+                block
+                color="primaryOutline"
+                onClick={() => {
+                  setRemoveCardModalIsOpen(false);
+                  setActiveAccountVaultToBeRemoved(null);
+                }}
+              >
+                Cancel
+              </Button>
+            </Column>
+            <Column xs={6}>
+              {activeAccountVaultToBeRemoved && (
+                <Button
+                  block
+                  type="button"
+                  color="danger"
+                  onClick={() => {
+                    deleteAccountVault(activeAccountVaultToBeRemoved.id);
+                    setRemoveCardModalIsOpen(false);
+                    setActiveAccountVaultToBeRemoved(null);
+                  }}
+                >
+                  Remove
+                </Button>
+              )}
+            </Column>
+          </Row>
         </Modal>
       </Box>
 

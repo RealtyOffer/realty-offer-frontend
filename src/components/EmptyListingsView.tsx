@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { FaRegFrown } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
 
 import Box from './Box';
 import Button from './Button';
@@ -16,7 +16,7 @@ type EmptyListingsViewProps = {
 
 const EmptyListingsView: FunctionComponent<EmptyListingsViewProps> = (props) => (
   <Box backgroundAccent textAlign="center">
-    <FaRegFrown fontSize={64} style={{ margin: doubleSpacer }} />
+    <FaHome fontSize={64} style={{ margin: doubleSpacer }} />
     <Heading styledAs="title" align="center">
       {props.title}
     </Heading>

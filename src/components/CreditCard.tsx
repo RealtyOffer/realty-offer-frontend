@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import masked from 'masked-credit-card-number';
 import creditCardType from 'credit-card-type';
 import styled from 'styled-components';
 import PaymentIcon from 'react-payment-icons';
@@ -9,6 +8,7 @@ import { halfSpacer, baseSpacer, doubleSpacer, breakpoints } from '../styles/siz
 import { darkGray, white } from '../styles/color';
 import { z1Shadow } from '../styles/mixins';
 import { fontFamilyMonospace } from '../styles/typography';
+import { unformattedCreditCardValue } from '../utils/creditCard';
 
 type CreditCardProps = {
   values: {
@@ -82,10 +82,9 @@ const StyledCreditCardInner = styled.div`
 `;
 
 const CreditCard: FunctionComponent<CreditCardProps> = ({ values }) => {
+  const unformattedCardValue = unformattedCreditCardValue(values.cardNumber);
   return (
-    <StyledCreditCard
-      cardColor={getCreditCardIconType(getCreditCardType(values.cardNumber.toString()))}
-    >
+    <StyledCreditCard cardColor={getCreditCardIconType(getCreditCardType(unformattedCardValue))}>
       <StyledCreditCardInner>
         <FlexContainer
           flexDirection="column"
@@ -94,16 +93,13 @@ const CreditCard: FunctionComponent<CreditCardProps> = ({ values }) => {
           height="100%"
         >
           <PaymentIcon
-            id={getCreditCardIconType(getCreditCardType(values.cardNumber.toString()))}
+            id={getCreditCardIconType(getCreditCardType(unformattedCardValue))}
             style={{ width: 100 }}
           />
           <div style={{ width: '100%' }}>
             <FlexContainer justifyContent="space-between">
               <div>
-                {(values.cardNumber.toString().length < 13
-                  ? values.cardNumber.toString().replace(/\d/g, '*')
-                  : masked(values.cardNumber.toString())
-                ).replace(/(.{4})/g, '$1 ')}
+                {values.cardNumber.toString().replace(/[0-9]/g, '*')}
                 &nbsp;
               </div>
               <div>

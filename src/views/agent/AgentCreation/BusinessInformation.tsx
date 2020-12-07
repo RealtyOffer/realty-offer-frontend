@@ -112,8 +112,8 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
       />
       <Card
         fullWidth
-        cardTitle="Business Information"
-        cardSubtitle="Please select your subscription type"
+        cardTitle="Congratulations! You are on your way to becoming a RealtyOffer Partner. "
+        cardSubtitle="Please select your subscription type:"
       >
         <Row>
           <Column md={5} mdOffset={1}>
@@ -126,14 +126,18 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
               }}
             >
               <FlexContainer flexDirection="column" height="100%">
-                <Heading as="h3">Pay as you go</Heading>
+                <Heading as="h3">Simply pay as you go&hellip;</Heading>
+                <p>(cost may vary from area to area)</p>
                 <div style={{ flex: 1 }}>
                   <Row>
                     <Column xs={1}>
                       <FaCheck color={brandSuccess} />
                     </Column>
                     <Column xs={11}>
-                      <div>Full access to bid on all listings within the RealtyOffer platform</div>
+                      <div>
+                        Receive unlimited access in the areas of your choosing within the
+                        RealtyOffer platform.
+                      </div>
                     </Column>
                   </Row>
                   <HorizontalRule compact />
@@ -142,7 +146,10 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                       <FaCheck color={brandSuccess} />
                     </Column>
                     <Column xs={11}>
-                      <div>Pay a one-time fee of $295 only when you are awarded a bid</div>
+                      <div>
+                        Once awarded a bid, pay a <strong>one-time</strong> fee of $295 or instantly
+                        subscribe to that city or county for unlimited future bids.
+                      </div>
                     </Column>
                   </Row>
                   <HorizontalRule compact />
@@ -167,25 +174,18 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
               }}
             >
               <FlexContainer flexDirection="column" height="100%">
-                <Heading as="h3">Monthly Subscription</Heading>
+                <Heading as="h3">Monthly Subscription&hellip;</Heading>
+                <p>(cost may vary from area to area)</p>
                 <div style={{ flex: 1 }}>
                   <Row>
                     <Column xs={1}>
                       <FaCheck color={brandSuccess} />
                     </Column>
                     <Column xs={11}>
-                      <div>Full access to bid on all listings within the RealtyOffer platform</div>
-                    </Column>
-                  </Row>
-                  <HorizontalRule compact />
-                  <Row>
-                    <Column xs={1}>
-                      <FaCheck color={brandSuccess} />
-                    </Column>
-                    <Column xs={11}>
                       <div>
-                        For listings in your subscription area, receive unlimited access by paying a
-                        monthly subscription fee that ranges from $199 to $995 per city
+                        Subscribe to your City or County and receive unlimited access to bid on all
+                        listings within the RealtyOffer platform. Once a bid is awarded, you will be
+                        able to connect with your new client instantly.
                       </div>
                     </Column>
                   </Row>
@@ -196,20 +196,11 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                     </Column>
                     <Column xs={11}>
                       <div>
-                        For listings outside your subscription area, choose to pay a one-time fee of
-                        $295 or add that city to your subscription
-                      </div>
-                    </Column>
-                  </Row>
-                  <HorizontalRule compact />
-                  <Row>
-                    <Column xs={1}>
-                      <FaCheck color={brandSuccess} />
-                    </Column>
-                    <Column xs={11}>
-                      <div>
-                        Purchase an entire county for a discount compared to buying multiple cities
-                        separately
+                        Choose to receive listings outside your subscription area, once a bid is
+                        awarded – you will have the option of paying a <strong>one-time</strong>{' '}
+                        $295 fee or instantly subscribe to that City or County to receive unlimited
+                        bids. This gives you the ability to explore different areas outside your
+                        current market.
                       </div>
                     </Column>
                   </Row>
@@ -307,47 +298,44 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                       >
                         {({ isSubmitting, isValid, values, ...rest }) => (
                           <Form>
-                            {values.counties.length === 0 && (
-                              <>
-                                <p>
-                                  Select which cities you would like to receive unlimited access to:
-                                </p>
-                                <Field
-                                  as={Input}
-                                  type="select"
-                                  isMulti
-                                  name="cities"
-                                  label="Cities"
-                                  options={cityOptions}
-                                  required
-                                  {...rest}
-                                />
-                              </>
-                            )}
-                            {values.cities.length > 2 && (
-                              <>
-                                <Alert
-                                  type="info"
-                                  message="It may be cheaper to purchase an entire county rather than multiple cities. Select a county or counties below for bulk savings."
-                                />
-                                <Field
-                                  as={Input}
-                                  type="select"
-                                  isMulti
-                                  name="counties"
-                                  label="Counties"
-                                  options={countyOptions}
-                                  required
-                                  {...rest}
-                                />
-                                <p>
-                                  <small>
-                                    <FaInfoCircle /> Remove all counties to select cities
-                                    individually again.
-                                  </small>
-                                </p>
-                              </>
-                            )}
+                            <>
+                              <p>
+                                Select which cities you would like to receive unlimited access to:
+                              </p>
+                              <Field
+                                as={Input}
+                                type="select"
+                                isMulti
+                                name="cities"
+                                label="Cities"
+                                options={cityOptions}
+                                required
+                                {...rest}
+                              />
+                            </>
+
+                            <>
+                              <Alert
+                                type="info"
+                                message="It may be cheaper to purchase an entire county rather than multiple cities. Select a county or counties below for bulk savings."
+                              />
+                              <Field
+                                as={Input}
+                                type="select"
+                                isMulti
+                                name="counties"
+                                label="Counties"
+                                options={countyOptions}
+                                required
+                                {...rest}
+                              />
+                              <p>
+                                <small>
+                                  <FaInfoCircle /> Remove all counties to select cities individually
+                                  again.
+                                </small>
+                              </p>
+                            </>
 
                             <HorizontalRule />
                             <FlexContainer justifyContent="space-between">

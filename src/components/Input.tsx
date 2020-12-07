@@ -27,6 +27,7 @@ import {
 } from '../styles/color';
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
+import { formatCreditCardValue } from '../utils/creditCard';
 
 type OptionType = { label: string; value: string };
 
@@ -45,7 +46,7 @@ type InputProps = {
   alignRight?: boolean;
 } & FieldMetaProps<string> &
   FormikHelpers<string> &
-  CommonProps<OptionType | OptionType[]>;
+  CommonProps<OptionType | OptionType[], boolean>;
 
 const sharedStyles = css`
   display: block;
@@ -318,6 +319,20 @@ const Input: FunctionComponent<InputProps> = (props) => {
           {...meta}
           onChange={(event) => {
             field.onChange(event.target.name)(formatPhoneNumberValue(event.target.value));
+          }}
+        />
+      );
+      break;
+    case 'creditCard':
+      inputTypeToRender = (
+        <StyledInput
+          id={props.name}
+          {...field}
+          {...props}
+          {...meta}
+          type="text"
+          onChange={(event) => {
+            field.onChange(event.target.name)(formatCreditCardValue(event.target.value));
           }}
         />
       );
