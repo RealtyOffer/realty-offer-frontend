@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 
 import { Table } from '../../../../components';
 import { FortispayTransactionResponseType } from '../../../../redux/ducks/fortis.d';
+import numberWithCommas from '../../../../utils/numberWithCommas';
 
 type TransactionsTableProps = {
   transactions: Array<FortispayTransactionResponseType>;
@@ -61,7 +62,7 @@ const TransactionsTable: FunctionComponent<TransactionsTableProps> = ({ transact
       return {
         ...transaction,
         created_ts: format(new Date(Number(`${transaction.created_ts}000`)), 'MMM do, yyyy'),
-        auth_amount: `$${transaction.auth_amount}`,
+        auth_amount: `$${numberWithCommas(Number(transaction.auth_amount))}`,
         last_four: `**** **** **** ${transaction.last_four}`,
         status_id: getTransactionStatus(transaction.status_id),
         is_recurring: transaction.is_recurring ? 'Recurring Payment' : 'One Time Payment',

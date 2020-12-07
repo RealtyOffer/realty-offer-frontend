@@ -49,10 +49,6 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
         accessor: 'countyId',
       },
       {
-        header: 'Monthly Price',
-        accessor: 'monthlyPrice',
-      },
-      {
         header: 'Expires',
         accessor: 'expirationDate',
       },
@@ -77,7 +73,6 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
       return {
         ...city,
         countyId: countiesList && countiesList.find((county) => city.countyId === county.id)?.name,
-        monthlyPrice: `$${numberWithCommas(city.monthlyPrice)}`,
         expirationDate: city.expirationDate
           ? format(new Date(parseISO(city.expirationDate)), 'MM/dd/yyy')
           : '',

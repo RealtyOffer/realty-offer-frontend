@@ -25,6 +25,7 @@ import { CreateAccountvaultSuccessAction } from '../../../redux/ducks/fortis.d';
 import { getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
 import { ActionResponseType } from '../../../redux/constants';
+import { unformattedCreditCardValue } from '../../../utils/creditCard';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
@@ -94,7 +95,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                   email: auth.email,
                   contact_id: agent.fortispayContactId,
                   account_holder_name: values.cardholderName,
-                  account_number: values.cardNumber.toString(),
+                  account_number: unformattedCreditCardValue(values.cardNumber),
                   payment_method: 'cc',
                   exp_date: `${values.cardExpirationMonth}${values.cardExpirationYear}`,
                   billing_address: values.billingAddress,
@@ -133,8 +134,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
 
               <Field
                 as={Input}
-                type="text"
-                pattern="\d*"
+                type="creditCard"
                 name="cardNumber"
                 label="Card Number"
                 validate={requiredField}

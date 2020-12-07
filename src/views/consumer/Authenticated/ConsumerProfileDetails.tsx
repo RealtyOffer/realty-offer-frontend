@@ -11,6 +11,7 @@ import { RootState } from '../../../redux/ducks';
 import { updateUser } from '../../../redux/ducks/auth';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { reformattedPhoneForCognito, formatPhoneNumberValue } from '../../../utils/phoneNumber';
+import { ActionResponseType } from '../../../redux/constants';
 
 type ConsumerProfileDetailsProps = {} & RouteComponentProps;
 

@@ -20,7 +20,6 @@ import {
   requiredPhoneNumber,
   requiredConfirmationCode,
 } from '../../../../utils/validations';
-import AutoSave from '../../../../utils/autoSave';
 import { RootState } from '../../../../redux/ducks';
 import {
   getUserNotificationSettings,
@@ -197,7 +196,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                 );
             }}
           >
-            {({ values }) => (
+            {({ values, isValid, isSubmitting, initialValues }) => (
               <Form>
                 <Field
                   as={Input}
@@ -323,7 +322,13 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       </Column>
                     )}
                 </Row>
-                <AutoSave />
+                <Button
+                  type="submit"
+                  disabled={user.isLoading || !isValid || isSubmitting || initialValues === values}
+                  isLoading={user.isLoading}
+                >
+                  Save
+                </Button>
               </Form>
             )}
           </Formik>

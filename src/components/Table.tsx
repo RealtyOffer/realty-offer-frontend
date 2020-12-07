@@ -171,47 +171,50 @@ const Table: FunctionComponent<TableProps> = ({ columns, data, hasPagination, ha
         </tbody>
       </StyledTable>
       {hasPagination && pageOptions.length > 1 && (
-        <FlexContainer justifyContent="space-between">
-          <div>
-            <Button
-              type="button"
-              color="primaryOutline"
-              onClick={() => gotoPage(0)}
-              disabled={!canPreviousPage}
-            >
-              {'<<'}
-            </Button>
-            <Button
-              type="button"
-              color="primaryOutline"
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
-            >
-              {'<'}
-            </Button>
-          </div>
-          <span>
-            Page {pageIndex + 1} of {pageOptions.length}
-          </span>
-          <div>
-            <Button
-              type="button"
-              color="primaryOutline"
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
-            >
-              {'>'}
-            </Button>
-            <Button
-              type="button"
-              color="primaryOutline"
-              onClick={() => gotoPage(pageCount - 1)}
-              disabled={!canNextPage}
-            >
-              {'>>'}
-            </Button>
-          </div>
-        </FlexContainer>
+        <>
+          <FlexContainer justifyContent="space-between">
+            <div>
+              <Button
+                type="button"
+                color="primaryOutline"
+                onClick={() => gotoPage(0)}
+                disabled={!canPreviousPage}
+              >
+                {'<<'}
+              </Button>
+              <Button
+                type="button"
+                color="primaryOutline"
+                onClick={() => previousPage()}
+                disabled={!canPreviousPage}
+              >
+                {'<'}
+              </Button>
+            </div>
+            <span>
+              Page {pageIndex + 1} of {pageOptions.length}
+            </span>
+            <div>
+              <Button
+                type="button"
+                color="primaryOutline"
+                onClick={() => nextPage()}
+                disabled={!canNextPage}
+              >
+                {'>'}
+              </Button>
+              <Button
+                type="button"
+                color="primaryOutline"
+                onClick={() => gotoPage(pageCount - 1)}
+                disabled={!canNextPage}
+              >
+                {'>>'}
+              </Button>
+            </div>
+          </FlexContainer>
+          <p>&nbsp;</p>
+        </>
       )}
     </>
   );

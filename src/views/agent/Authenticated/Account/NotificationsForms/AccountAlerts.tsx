@@ -10,6 +10,7 @@ import AutoSave from '../../../../../utils/autoSave';
 import { UserStoreType } from '../../../../../redux/ducks/user.d';
 import { updateUserNotificationSubscriptions } from '../../../../../redux/ducks/user';
 import { ActionResponseType } from '../../../../../redux/constants';
+import { addAlert } from '../../../../../redux/ducks/globalAlerts';
 
 type AccountAlertsProps = {
   user: UserStoreType;
@@ -86,14 +87,26 @@ const AccountAlertsForm: FunctionComponent<AccountAlertsProps> = ({ user }) => {
             onSubmit={(values, { setSubmitting, resetForm }) => {
               Object.keys(values).forEach((key) => {
                 if (!isEqual(initialValues[key], values[key])) {
-                  dispatch(updateUserNotificationSubscriptions({ ...values[key] })).then(
-                    (response: ActionResponseType) => {
-                      if (response && !response.error) {
-                        setSubmitting(false);
-                        resetForm({ values });
+                  if (values[key].sms && !user.notificationSettings.phoneNumberConfirmed) {
+                    dispatch(
+                      addAlert({
+                        type: 'danger',
+                        message:
+                          'You must first confirm your phone number before enabling SMS notifications',
+                      })
+                    );
+                    setSubmitting(false);
+                    resetForm();
+                  } else {
+                    dispatch(updateUserNotificationSubscriptions({ ...values[key] })).then(
+                      (response: ActionResponseType) => {
+                        if (response && !response.error) {
+                          setSubmitting(false);
+                          resetForm({ values });
+                        }
                       }
-                    }
-                  );
+                    );
+                  }
                 }
               });
             }}
