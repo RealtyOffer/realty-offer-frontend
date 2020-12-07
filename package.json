@@ -6,6 +6,7 @@
   "author": "Tony Mamo <tony.mamo@galileo-insights.com>",
   "dependencies": {
     "@hot-loader/react-dom": "npm:@hot-loader/react-dom",
+    "@mailchimp/mailchimp_marketing": "^3.0.25",
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
     "@reach/router": "^1.3.3",

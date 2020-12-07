@@ -117,6 +117,7 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     label="Phone Number"
                     validate={requiredPhoneNumber}
                     required
+                    placeholder="XXX-XXX-XXXX"
                   />
                 </Column>
                 <Column xs={6}>

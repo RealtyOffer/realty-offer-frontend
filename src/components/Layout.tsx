@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IconContext } from 'react-icons';
 import Modal from 'react-modal';
 import 'typeface-lato';
+import mailchimp from '@mailchimp/mailchimp_marketing';
 
 import Footer from './Footer';
 import Navbar from './Navbar';
@@ -35,6 +36,11 @@ const PageBody = styled.div`
 type LayoutProps = { element: any };
 
 Modal.setAppElement('#___gatsby');
+
+mailchimp.setConfig({
+  apiKey: process.env.GATSBY_MAILCHIMP_API_KEY,
+  server: 'us7',
+});
 
 const Layout: FunctionComponent<LayoutProps> = ({ element }) => (
   <>

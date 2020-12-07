@@ -79,6 +79,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
             addToMailchimp(values.email, {
               FNAME: values.firstName,
               LNAME: values.lastName,
+              PHONE: values.phoneNumber,
               'group[78807][1]': '1',
             });
             if (window && window.analytics) {
@@ -224,6 +225,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 label="Phone Number"
                 validate={requiredPhoneNumber}
                 required
+                placeholder="XXX-XXX-XXXX"
               />
               <Field
                 as={Input}

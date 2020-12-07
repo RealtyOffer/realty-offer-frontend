@@ -22,4 +22,5 @@ export const formatCreditCardValue = (value: string) => {
   return formattedCardNum;
 };
 
-export const unformattedCreditCardValue = (str: string | number) => str.toString().replace(' ', '');
+export const unformattedCreditCardValue = (str: string | number) =>
+  str.toString().replace(/\s/g, '');

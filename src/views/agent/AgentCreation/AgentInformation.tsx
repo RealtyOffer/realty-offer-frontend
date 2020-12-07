@@ -234,6 +234,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       label="Broker Phone Number"
                       validate={requiredPhoneNumber}
                       required
+                      placeholder="XXX-XXX-XXXX"
                     />
                   </Column>
                   <Column>

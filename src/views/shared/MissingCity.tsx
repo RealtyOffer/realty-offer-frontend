@@ -205,6 +205,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     label="Phone Number"
                     required
                     validate={requiredPhoneNumber}
+                    placeholder="XXX-XXX-XXXX"
                   />
                 </Column>
                 <Column sm={6}>

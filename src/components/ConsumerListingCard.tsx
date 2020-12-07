@@ -149,74 +149,199 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
             {listing.type === 'seller' && (
               <>
                 <p>
-                  Now that you are selling your home, you should be prepared to go to market. Have
-                  you had your home pre-inspected? Do you think it needs repairs?
+                  Congratulations,
+                  <br />
+                  You are on your way to saving thousands of dollars on the sale of your home! Now
+                  that you have selected your top-rated certified agent, here are a few things you
+                  should expect:
                 </p>
-                <p>
-                  Homeowners save and profit 10% to 15% extra by simply having a certified home
-                  inspector prepare a 250 point inspection & repair list. Our affiliates will give
-                  you an instant full review on any home repairs that need to be done in advance.
-                  Prepare yourself and don&apos;t get stuck in a negotiation battle.
-                </p>
-                <p>Now that you are ready to sell, Realtyoffer is here to help you think ahead.</p>
-                <p>
-                  Will you be purchasing a new home? Do you need an experienced home lending advisor
-                  to pre-approve your new purchase? Do you need a second review? Listing agents will
-                  not accept an offer without this document being included. Don&apos;t let the home
-                  of your dreams slip through your fingers by not being prepared. Mortgage
-                  consultations are completely free!
-                </p>
+                <ol>
+                  <li>
+                    <p>
+                      You will notice a downloadable PDF in the upper right corner of your awarded
+                      offer page. This PDF entails the terms and conditions your agent has offered
+                      and agreed to. Your agent will have the same terms and conditions to present
+                      to you.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Your selected agent will provide a listing contract that will entail a reduced
+                      commission structure, that will match your downloadable PDF terms and
+                      conditions. A standard listing contract is typically signed for a term of 3
+                      months. This time frame can vary based on your location and season during
+                      which you list your home.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Now that you are selling your home and purchasing another, you will need a
+                      certified home inspection company. Have you had your home pre-inspected? Do
+                      you think it requires any repairs? Prepare your home for a sale by requesting
+                      a certified home inspector through RealtyCert. They will prepare a 125-point
+                      home PRE-inspection; this will allow you to complete your repairs before your
+                      home goes on the market. Our affiliates are standing by and are ready to help
+                      you through the process.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Now that you are ready to start looking for a new home, RealtyOffer is here to
+                      help you think ahead.
+                      <br />
+                      <br />
+                      Do you need an experienced home lending advisor to pre-approve your new
+                      purchase? Do you need a second review? Listing agents will not accept an offer
+                      without a pre-approval included in the offer package. Don&apos;t miss out on
+                      the home of your dreams by not being prepared. Mortgage consultations are
+                      completely free.
+                    </p>
+                  </li>
+                </ol>
               </>
             )}
             {listing.type === 'buyer' && (
               <>
                 <p>
-                  Now that you are purchasing a new home, you will need a certified home inspection
-                  company.
+                  Congratulations,
+                  <br />
+                  You are on your way to saving thousands of dollars on your next home purchase! Now
+                  that you have selected your top-rated certified agent, here are a few things you
+                  should expect:
                 </p>
-                <p>
-                  Our affiliates are standing by and are ready to make sure you are purchasing the
-                  right home at the right price.
-                </p>
-                <p>
-                  Now that you are ready to start looking for a new home, Realtyoffer is here to
-                  help you think ahead.
-                </p>
-                <p>
-                  Do you need an experienced home lending advisor to pre-approve your new purchase?
-                  Do you need a second review? Listing agents will not accept an offer without this
-                  document being included. Don&apos;t miss out on the home of your dreams by not
-                  being prepared. Mortgage consultations are completely free.
-                </p>
+                <ol>
+                  <li>
+                    <p>
+                      You will notice a downloadable PDF in the upper right corner of your awarded
+                      offer page. This PDF entails the terms and conditions your agent has offered
+                      and agreed to. Your agent will have the same terms and conditions to present
+                      to you.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      In order for an agent to offer you part of their commission, they will need to
+                      create an addendum to your purchase agreement. This addendum will show the
+                      same commission amount that was agreed upon. Once executed, you will need to
+                      submit it to your mortgage company (if any) and title company of choice. The
+                      title company will simply deduct the amount from the agent’s commission. Your
+                      mortgage company will simply apply the commission towards your closing costs
+                      and pre-paid items – this means less money for you to bring to the closing
+                      table.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The selected agent may present an exclusive agency agreement. This is a
+                      standard legal document that some real estate brokerages require their clients
+                      and agents to sign. It states that you are choosing to work exclusively with
+                      your selected agent, and their broker. If for any reason you are not satisfied
+                      with the service provided by your agent, you can simply notify them via email
+                      that you no longer wish to work together, and the agreement will be
+                      terminated.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Now that you are ready to start looking for a new home, RealtyOffer is here to
+                      help you think ahead. Do you need an experienced home lending advisor to
+                      pre-approve your new purchase? Do you need a second review? Listing agents
+                      will not accept an offer without a pre-approval included in the offer package.
+                      Don&apos;t miss out on the home of your dreams by not being prepared. Mortgage
+                      consultations are completely free.
+                    </p>
+                  </li>
+                </ol>
               </>
             )}
 
             {listing.type === 'buyerSeller' && (
               <>
                 <p>
-                  Now that you are selling one home and purchasing another, you will need a
-                  certified home inspection company.
+                  Congratulations,
+                  <br />
+                  You are on your way to saving thousands of dollars on the sale of your home and
+                  thousands of dollars in closing costs on your next home purchase! Now that you
+                  have selected your top-rated certified agent, here are a few things you should
+                  expect:
                 </p>
-                <p>
-                  Have you had your home pre-inspected? Do you think it needs repairs? Our
-                  affiliates are standing by and are ready to help you through the process.
-                </p>
-                <p>
-                  Now that you are ready to start looking for a new home, Realtyoffer is here to
-                  help you think ahead.
-                </p>
-                <p>
-                  Do you need an experienced home lending advisor to pre-approve your new purchase?
-                  Do you need a second review? Listing agents will not accept an offer without this
-                  document being included. Don&apos;t miss out on the home of your dreams by not
-                  being prepared. Mortgage consultations are completely free.
-                </p>
+                <ol>
+                  <li>
+                    <p>
+                      You will notice a downloadable PDF in the upper right corner of your awarded
+                      offer page. This PDF entails the terms and conditions your agent has offered
+                      and agreed to. Your agent will have the same terms and conditions to present
+                      to you.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Your selected agent will provide a listing contract that will entail a reduced
+                      commission structure that will match your downloadable PDF terms and
+                      conditions. A standard listing contract is typically signed for a term of 3
+                      months. This time frame can vary based on your location and season during
+                      which you list your home.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Upcoming purchase: In order for an agent to offer you part of their
+                      commission, they will need to create an addendum to your purchase agreement.
+                      This addendum will show the same commission amount that was agreed upon. Once
+                      executed, you will need to submit it to your mortgage company (if any) and
+                      title company of choice. The title company will simply deduct the amount from
+                      the agent’s commission. Your mortgage company will simply apply the commission
+                      towards your closing costs and pre-paid items – this means less money for you
+                      to bring to the closing table.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The selected agent may present an exclusive agency agreement. This is a
+                      standard legal document that some real estate brokerages require their clients
+                      and agents to sign. It states that you are choosing to work exclusively with
+                      your selected agent, and their broker. If for any reason you are not satisfied
+                      with the service provided by your agent, you can simply notify them via email
+                      that you no longer wish to work together, and the agreement will be
+                      terminated.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Now that you are selling your home and purchasing another, you will need a
+                      certified home inspection company. Have you had your home pre-inspected? Do
+                      you think it needs repairs? Prepare your home for a sale, request a certified
+                      home inspector through RealtyCert. They will prepare a 125-point home
+                      PRE-inspection; this will allow you to complete your repairs before your home
+                      goes on the market. Prevent yourself from going into a seller battle! Our
+                      affiliates are standing by and are ready to help you through the process.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Now that you are ready to start looking for a new home, RealtyOffer is here to
+                      help you think ahead. Do you need an experienced home lending advisor to
+                      pre-approve your new purchase? Do you need a second review? Listing agents
+                      will not accept an offer without a pre-approval included in the offer package.
+                      Don&apos;t miss out on the home of your dreams by not being prepared. Mortgage
+                      consultations are completely free.
+                    </p>
+                  </li>
+                </ol>
               </>
             )}
 
             <p>
-              Get connected <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a>
+              <a
+                href={`mailto:info@realtyoffer.com?subject=Next%20Steps&body=I%20am%20interested%20in%20learning%20about%20how%20RealtyOffer%20can%20help%20my%20in%20the%20next%20steps%20for%20${
+                  listing.type === 'buyerSeller' ? 'buying%20and%20selling' : listing.type
+                }`}
+              >
+                Click to Get Connected - info@realtyoffer.com
+              </a>
             </p>
+            <p>Congratulations!</p>
+            <p>And welcome to RealtyOffer.</p>
           </Modal>
           <p>Agent contact information and terms of the contract can be found below.</p>
           <p>

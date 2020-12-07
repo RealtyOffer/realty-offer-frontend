@@ -305,6 +305,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                       label="Phone Number"
                       validate={requiredPhoneNumber}
                       required
+                      placeholder="XXX-XXX-XXXX"
                     />
                   </Column>
                   <Column xs={6} md={4}>

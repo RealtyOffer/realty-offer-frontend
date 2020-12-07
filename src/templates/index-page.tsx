@@ -134,8 +134,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           <Heading inverse as="h2">
             {heroSubheading}
           </Heading>
-          <Button type="button" onClick={() => scrollTo('#start')}>
+          <Button type="link" to="/consumer/start" rightspacer>
             Get Started Now
+          </Button>
+          <Button type="button" onClick={() => scrollTo('#start')} color="primaryOutline">
+            Learn More
           </Button>
         </HeroBox>
       </HeroImage>

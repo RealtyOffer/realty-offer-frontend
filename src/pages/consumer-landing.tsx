@@ -157,6 +157,7 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                         label="Phone Number"
                         validate={requiredPhoneNumber}
                         required
+                        placeholder="XXX-XXX-XXXX"
                       />
                     </Column>
                     <Column sm={6}>

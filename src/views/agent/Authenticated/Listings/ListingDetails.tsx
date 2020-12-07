@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useLocation } from '@reach/router';
 import { navigate, Link } from 'gatsby';
-import { FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaFileDownload } from 'react-icons/fa';
 import { format } from 'date-fns';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 import {
   Box,
@@ -21,6 +23,7 @@ import {
   LoadingPage,
   Alert,
   Card,
+  FlexContainer,
 } from '../../../../components';
 import {
   requiredListingAgentCommissionAmount,
@@ -215,6 +218,41 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     }
   };
 
+  const listingRef = useRef<HTMLDivElement>(null);
+
+  const download = () => {
+    if (listingRef.current) {
+      html2canvas(listingRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 0.6,
+      }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+
+        // eslint-disable-next-line new-cap
+        const pdf = new jsPDF({
+          unit: 'in',
+        });
+        pdf.text('RealtyOffer - Listing Details', 0.75, 0.75);
+        pdf.addImage(imgData, 'PNG', 0.75, 1.5, undefined, undefined, '', undefined, 0);
+
+        pdf.save('RealtyOffer-Agent-Contract.pdf');
+      });
+
+      // const doc = new jsPDF({
+      //   unit: 'in',
+      // });
+      // doc.html(listing.current, {
+      //   callback: (d) => d.save('my-listing'),
+      //   margin: [0.75, 0.75, 0.75, 0.75],
+      //   x: 0.75,
+      //   y: 0.75,
+      //   html2canvas: {
+      //     width: 100,
+      //   },
+      // });
+    }
+  };
+
   if (!listing || !props.listingId) {
     if (window && window.analytics) {
       window.analytics.track('Listing not found', {
@@ -231,566 +269,577 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   }
   return (
     <>
-      <p>
-        <Link to={`/agent/listings/${pathType}`}>
-          Back to {pathType.charAt(0).toUpperCase() + pathType.slice(1)} Listings
-        </Link>
-      </p>
-      <Box>
-        {activeBid?.consumer?.firstName && listing && !showPaymentNeededAlert ? (
-          <>
-            <Card
-              fullWidth
-              cardTitle="Consumer Contact Information"
-              cardSubtitle={`Congrats on your new connection, now go help them ${
-                listing.type === 'buyerSeller' ? 'buy & sell' : listing.type?.replace('er', '')
-              } a home!`}
-            >
-              <Row>
-                <Column md={3}>
-                  <Heading as="h4">
-                    {activeBid.consumer.firstName} {activeBid.consumer.lastName}
-                  </Heading>
-                </Column>
-                <Column md={3}>
-                  <p>
-                    <FaEnvelope />{' '}
-                    <a href={`mailto:${activeBid.consumer.emailAddress}`}>
-                      {activeBid.consumer.emailAddress}
-                    </a>
-                  </p>
-                </Column>
-                <Column md={3}>
-                  <p>
-                    <FaPhone />{' '}
-                    {activeBid.consumer.phoneNumber ? (
-                      <a href={`tel:${activeBid.consumer.phoneNumber}`}>
-                        {formatPhoneNumberValue(activeBid.consumer.phoneNumber)}
-                      </a>
-                    ) : (
-                      'No phone number provided'
-                    )}
-                  </p>
-                </Column>
-                <Column md={3}>
-                  <p>
-                    Listing ended{' '}
-                    {format(localizedCreateDateTime(listing.createDateTime), 'MM/dd/yyyy')}
-                  </p>
-                </Column>
-              </Row>
-            </Card>
-            <HorizontalRule />
-          </>
-        ) : (
-          <>
-            <Countdown
-              createDateTime={listing.createDateTime}
-              showRemainingTimeString
-              onComplete={() =>
-                dispatch(
-                  addAlert({
-                    type: 'info',
-                    message: 'The bidding window for this listing has just ended.',
-                  })
-                )
-              }
-            />
-            {showPaymentNeededAlert && (
-              <>
-                <Alert
-                  type="info"
-                  message={
-                    !isMonthlySubscriber
-                      ? `In order to view this customer's contact information, you must pay a one-time fee of $295`
-                      : `In order to view this customer's contact information, you must either pay a one-time fee of $295 or add one of the following cities to your monthly subscription: ${Array.isArray(
-                          listing.buyingCities
-                        ) &&
-                          listing.buyingCities.length > 0 &&
-                          Array(listing.buyingCities.map((city) => city.name))
-                            .toString()
-                            .replace(/,/g, ', ')}${listing.type === 'buyerSeller' &&
-                          ', '}${listing.sellersCity && listing.sellersCity.name}`
-                  }
-                />
-                <Button type="button" rightspacer onClick={() => payOneTimeFee()}>
-                  Pay One-Time Fee - $295
-                </Button>
-                {isMonthlySubscriber && (
-                  <Button type="link" to="/agent/account/billing" color="primaryOutline">
-                    Update Subscription
-                  </Button>
-                )}
-              </>
-            )}
-            <HorizontalRule />
-          </>
+      <FlexContainer justifyContent="space-between">
+        <p>
+          <Link to={`/agent/listings/${pathType}`}>
+            Back to {pathType.charAt(0).toUpperCase() + pathType.slice(1)} Listings
+          </Link>
+        </p>
+        {activeBid?.consumer?.firstName && listing && !showPaymentNeededAlert && (
+          <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
+            Download PDF
+          </Button>
         )}
-
-        {!agent.isLoading && listing ? (
-          <Formik
-            validateOnMount
-            initialValues={pathType === 'new' ? newInitialValues : existingBidInitialValues}
-            onSubmit={(values) => {
-              if (values.saveBidDetails) {
-                if (window && window.analytics) {
-                  window.analytics.track('Agent saved bid defaults', {
-                    user: auth.email,
-                    bidDefaults: {
-                      sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
-                      buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
-                      buyerInspectionAmount: Number(values.buyerInspectionAmount),
-                      sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
-                      buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
-                      sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
-                      sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
-                      sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
-                      buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
-                      buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
-                    },
-                  });
-                }
-                dispatch(
-                  updateAgentProfile({
-                    ...agent,
-                    bidDefaults: {
-                      sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
-                      buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
-                      buyerInspectionAmount: Number(values.buyerInspectionAmount),
-                      sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
-                      buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
-                      sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
-                      sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
-                      sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
-                      buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
-                      buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
-                    },
-                  })
-                );
-              }
-              // API requires numbers, Formik outputs strings so convert them here
-              const formattedValues = {
-                listingAgentCommission: Number(values.listingAgentCommission),
-                buyersAgentCommission: Number(values.buyersAgentCommission),
-                sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
-                sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
-                sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
-                sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
-                sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
-                buyerCommission: Number(values.buyerCommission),
-                buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
-                buyerInspectionAmount: Number(values.buyerInspectionAmount),
-                buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
-                buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
-                buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
-                listingId: Number(props.listingId),
-              };
-              dispatch(
-                pathType === 'new'
-                  ? createAgentBid({ ...formattedValues })
-                  : updateAgentBid({ ...formattedValues, id: agent.activeBid?.id })
-              ).then((response: ActionResponseType) => {
-                if (response && !response.error) {
-                  if (window && window.analytics) {
-                    window.analytics.track(
-                      pathType === 'new' ? 'Agent submitted bid' : 'Agent updated bid',
-                      {
-                        ...formattedValues,
-                      }
-                    );
-                  }
+      </FlexContainer>
+      <div ref={listingRef}>
+        <Box>
+          {activeBid?.consumer?.firstName && listing && !showPaymentNeededAlert ? (
+            <>
+              <Card
+                fullWidth
+                cardTitle="Consumer Contact Information"
+                cardSubtitle={`Congrats on your new connection, now go help them ${
+                  listing.type === 'buyerSeller' ? 'buy & sell' : listing.type?.replace('er', '')
+                } a home!`}
+              >
+                <Row>
+                  <Column md={3}>
+                    <Heading as="h4">
+                      {activeBid.consumer.firstName} {activeBid.consumer.lastName}
+                    </Heading>
+                  </Column>
+                  <Column md={3}>
+                    <p>
+                      <FaEnvelope />{' '}
+                      <a href={`mailto:${activeBid.consumer.emailAddress}`}>
+                        {activeBid.consumer.emailAddress}
+                      </a>
+                    </p>
+                  </Column>
+                  <Column md={3}>
+                    <p>
+                      <FaPhone />{' '}
+                      {activeBid.consumer.phoneNumber ? (
+                        <a href={`tel:${activeBid.consumer.phoneNumber}`}>
+                          {formatPhoneNumberValue(activeBid.consumer.phoneNumber)}
+                        </a>
+                      ) : (
+                        'No phone number provided'
+                      )}
+                    </p>
+                  </Column>
+                  <Column md={3}>
+                    <p>
+                      Listing ended{' '}
+                      {format(localizedCreateDateTime(listing.createDateTime), 'MM/dd/yyyy')}
+                    </p>
+                  </Column>
+                </Row>
+              </Card>
+              <HorizontalRule />
+            </>
+          ) : (
+            <>
+              <Countdown
+                createDateTime={listing.createDateTime}
+                showRemainingTimeString
+                onComplete={() =>
                   dispatch(
                     addAlert({
-                      message:
-                        pathType === 'new'
-                          ? 'Successfully submitted bid'
-                          : 'Successfully updated bid',
-                      type: 'success',
+                      type: 'info',
+                      message: 'The bidding window for this listing has just ended.',
                     })
-                  );
-                  dispatch(getNewListings());
-                  dispatch(getPendingListings());
-                  dispatch(getAwardedListings());
-                  dispatch(getHistoryListings());
-                  navigate(`/agent/listings/${pathType}`);
+                  )
                 }
-              });
-            }}
-          >
-            {({ isValid, isSubmitting, values }) => (
-              <Form>
-                <Row>
-                  {isSeller && (
-                    <Column md={isBuyerSeller ? 5 : 6}>
-                      <Row>
-                        <Column xs={6}>
-                          <Heading as="h3" noMargin>
-                            Est. Listing Price:
-                          </Heading>
-                        </Column>
-                        <Column xs={6}>
-                          <Heading as="h3" noMargin>
-                            {displayDropdownListText(
-                              listing.sellersListingPriceInMindPriceRangeInMindId,
-                              'priceRanges'
-                            )}
-                          </Heading>
-                        </Column>
-                        <Column xs={6}>
-                          <strong>Location:</strong>
-                        </Column>
-                        <Column xs={6}>{listing.sellersCity?.name}</Column>
-                        <Column xs={6}>
-                          <strong>Home Type:</strong>
-                        </Column>
-                        <Column xs={6}>
-                          {displayDropdownListText(listing.sellerTypeOfHomeId, 'homeTypes')}
-                        </Column>
-                        <Column xs={6}>
-                          <strong>Timeline:</strong>
-                        </Column>
-                        <Column xs={6}>{listing.sellersTimeline}</Column>
-                      </Row>
-                      <HorizontalRule />
-                      <Heading as="h4">Sell Bid Details</Heading>
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="listingAgentCommission"
-                        label="Total Listing Agent Commission (%)"
-                        step={0.001}
-                        min={1}
-                        max={4}
-                        helpText={helpTextListingAgentCommissionAmount}
-                        validate={requiredListingAgentCommissionAmount}
-                        required
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="buyersAgentCommission"
-                        label="Total Buyer's Agent Commission (%)"
-                        step={0.001}
-                        min={2}
-                        max={4}
-                        helpText={helpTextBuyersAgentCommissionAmount}
-                        validate={requiredBuyersAgentCommissionAmount}
-                        required
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="sellerBrokerComplianceAmount"
-                        label="Seller Compliance Fee ($)"
-                        step={0.01}
-                        min={0}
-                        max={595}
-                        helpText={helpTextBrokerComplianceAmount}
-                        validate={requiredBrokerComplianceAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="sellerPreInspectionAmount"
-                        label="Seller Pre Inspection ($)"
-                        step={0.01}
-                        min={0}
-                        max={350}
-                        helpText={helpTextPreInspectionAmount}
-                        validate={requiredPreInspectionAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="sellerPreCertifyAmount"
-                        label="Seller Pre Certification ($)"
-                        step={0.01}
-                        min={0}
-                        max={250}
-                        helpText={helpTextPreCertifyAmount}
-                        validate={requiredPreCertifyAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="sellerMovingCompanyAmount"
-                        label="Seller Moving Costs ($)"
-                        step={0.01}
-                        min={0}
-                        max={1000}
-                        helpText={helpTextMovingCompanyAmount}
-                        validate={requiredMovingCompanyAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="sellerPhotographyAmount"
-                        label="Seller Photography ($)"
-                        step={0.01}
-                        min={0}
-                        max={300}
-                        helpText={helpTextPhotographyAmount}
-                        validate={requiredPhotographyAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Heading as="h3">
-                        {listing.sellersListingPriceInMindPriceRangeInMindId &&
-                          `Total: ${sellTotal({
-                            values,
-                            priceRangeId: listing.sellersListingPriceInMindPriceRangeInMindId,
-                            priceRangesList,
-                          })}`}
-                      </Heading>
-                    </Column>
-                  )}
-
-                  {isBuyer && (
-                    <Column md={isBuyerSeller ? 5 : 6} mdOffset={isBuyerSeller ? 2 : 0}>
-                      <Row>
-                        <Column xs={6}>
-                          <Heading as="h3" noMargin>
-                            Est. Purchase Price:
-                          </Heading>
-                        </Column>
-                        <Column xs={6}>
-                          <Heading as="h3" noMargin>
-                            {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
-                          </Heading>
-                        </Column>
-                        <Column xs={6}>
-                          <strong>Location:</strong>
-                        </Column>
-                        <Column xs={6}>
-                          {Array.isArray(listing.buyingCities) &&
+              />
+              {showPaymentNeededAlert && (
+                <>
+                  <Alert
+                    type="info"
+                    message={
+                      !isMonthlySubscriber
+                        ? `In order to view this customer's contact information, you must pay a one-time fee of $295`
+                        : `In order to view this customer's contact information, you must either pay a one-time fee of $295 or add one of the following cities to your monthly subscription: ${Array.isArray(
+                            listing.buyingCities
+                          ) &&
                             listing.buyingCities.length > 0 &&
                             Array(listing.buyingCities.map((city) => city.name))
                               .toString()
-                              .replace(/,/g, ', ')}
-                        </Column>
-                        <Column xs={6}>
-                          <strong>Home Type:</strong>
-                        </Column>
-                        <Column xs={6}>
-                          {displayDropdownListText(listing.buyerTypeOfHomeId, 'homeTypes')}
-                        </Column>
-                        <Column xs={6}>
-                          <strong>&nbsp;</strong>
-                        </Column>
-                        <Column xs={6}>&nbsp;</Column>
-                      </Row>
-                      <HorizontalRule />
-                      <Heading as="h4">Purchase Bid Details</Heading>
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        step={0.001}
-                        min={0}
-                        max={2}
-                        name="buyerCommission"
-                        label="Total Buyer Commission Contribution Towards Closing Costs (%)"
-                        helpText={helpTextBuyerCommissionAmount}
-                        validate={requiredBuyerCommissionAmount}
-                        required
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="buyerBrokerComplianceAmount"
-                        label="Buyer Compliance Fee ($)"
-                        step={0.01}
-                        min={0}
-                        max={595}
-                        helpText={helpTextBrokerComplianceAmount}
-                        validate={requiredBrokerComplianceAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="buyerInspectionAmount"
-                        label="Buyer Inspection ($)"
-                        step={0.01}
-                        min={0}
-                        max={500}
-                        helpText={helpTextInspectionAmount}
-                        validate={requiredInspectionAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="buyerHomeWarrantyAmount"
-                        label="Buyer Home Warranty ($)"
-                        step={0.01}
-                        min={0}
-                        max={500}
-                        helpText={helpTextHomeWarrantyAmount}
-                        validate={requiredHomeWarrantyAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="buyerAppraisalAmount"
-                        label="Buyer Appraisal ($)"
-                        step={0.01}
-                        min={0}
-                        max={800}
-                        helpText={helpTextAppraisalAmount}
-                        validate={requiredAppraisalAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Field
-                        as={Input}
-                        type="number"
-                        name="buyerMovingCompanyAmount"
-                        label="Buyer Moving Costs ($)"
-                        step={0.01}
-                        min={0}
-                        max={1000}
-                        helpText={helpTextMovingCompanyAmount}
-                        validate={requiredMovingCompanyAmount}
-                        disabled={!isNewOrPendingAndNotExpired}
-                      />
-
-                      <Heading as="h3">
-                        {listing.buyingPriceRangeId &&
-                          `Total: ${buyTotal({
-                            values,
-                            priceRangeId: listing.buyingPriceRangeId,
-                            priceRangesList,
-                          })}`}
-                      </Heading>
-                    </Column>
+                              .replace(/,/g, ', ')}${listing.type === 'buyerSeller' &&
+                            ', '}${listing.sellersCity && listing.sellersCity.name}`
+                    }
+                  />
+                  <Button type="button" rightspacer onClick={() => payOneTimeFee()}>
+                    Pay One-Time Fee - $295
+                  </Button>
+                  {isMonthlySubscriber && (
+                    <Button type="link" to="/agent/account/billing" color="primaryOutline">
+                      Update Subscription
+                    </Button>
                   )}
-                </Row>
-                {isNewOrPendingAndNotExpired && (
+                </>
+              )}
+              <HorizontalRule />
+            </>
+          )}
+
+          {!agent.isLoading && listing ? (
+            <Formik
+              validateOnMount
+              initialValues={pathType === 'new' ? newInitialValues : existingBidInitialValues}
+              onSubmit={(values) => {
+                if (values.saveBidDetails) {
+                  if (window && window.analytics) {
+                    window.analytics.track('Agent saved bid defaults', {
+                      user: auth.email,
+                      bidDefaults: {
+                        sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
+                        buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
+                        buyerInspectionAmount: Number(values.buyerInspectionAmount),
+                        sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
+                        buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
+                        sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
+                        sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
+                        sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
+                        buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
+                        buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
+                      },
+                    });
+                  }
+                  dispatch(
+                    updateAgentProfile({
+                      ...agent,
+                      bidDefaults: {
+                        sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
+                        buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
+                        buyerInspectionAmount: Number(values.buyerInspectionAmount),
+                        sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
+                        buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
+                        sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
+                        sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
+                        sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
+                        buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
+                        buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
+                      },
+                    })
+                  );
+                }
+                // API requires numbers, Formik outputs strings so convert them here
+                const formattedValues = {
+                  listingAgentCommission: Number(values.listingAgentCommission),
+                  buyersAgentCommission: Number(values.buyersAgentCommission),
+                  sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
+                  sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
+                  sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
+                  sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
+                  sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
+                  buyerCommission: Number(values.buyerCommission),
+                  buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
+                  buyerInspectionAmount: Number(values.buyerInspectionAmount),
+                  buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
+                  buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
+                  buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
+                  listingId: Number(props.listingId),
+                };
+                dispatch(
+                  pathType === 'new'
+                    ? createAgentBid({ ...formattedValues })
+                    : updateAgentBid({ ...formattedValues, id: agent.activeBid?.id })
+                ).then((response: ActionResponseType) => {
+                  if (response && !response.error) {
+                    if (window && window.analytics) {
+                      window.analytics.track(
+                        pathType === 'new' ? 'Agent submitted bid' : 'Agent updated bid',
+                        {
+                          ...formattedValues,
+                        }
+                      );
+                    }
+                    dispatch(
+                      addAlert({
+                        message:
+                          pathType === 'new'
+                            ? 'Successfully submitted bid'
+                            : 'Successfully updated bid',
+                        type: 'success',
+                      })
+                    );
+                    dispatch(getNewListings());
+                    dispatch(getPendingListings());
+                    dispatch(getAwardedListings());
+                    dispatch(getHistoryListings());
+                    navigate(`/agent/listings/${pathType}`);
+                  }
+                });
+              }}
+            >
+              {({ isValid, isSubmitting, values }) => (
+                <Form>
                   <Row>
-                    <Column md={6} mdOffset={3}>
-                      {agent.isInGoodStanding ? (
-                        <>
-                          <Button
-                            type="submit"
-                            disabled={!isValid || isSubmitting || isExpired(listing.createDateTime)}
-                            isLoading={isSubmitting || agent.isLoading}
-                            rightspacer={pathType === 'pending'}
-                            block
-                          >
-                            {pathType === 'new' ? 'Place bid' : 'Update Bid'}
-                          </Button>
-                          {pathType === 'pending' && (
-                            <>
-                              <br />
-                              <br />
-                              <Button
-                                type="button"
-                                onClick={() => setModalIsOpen(!modalIsOpen)}
-                                color="danger"
-                                block
-                              >
-                                Remove My Bid
-                              </Button>
-                            </>
-                          )}
-                          {pathType === 'new' && (
-                            <>
-                              <br />
-                              <br />
-                              <Field
-                                as={Input}
-                                type="checkbox"
-                                name="saveBidDetails"
-                                checked={values.saveBidDetails}
-                                label="Save my details for my next bid"
-                              />
-                              <div>
-                                <small>
-                                  By clicking &quot;Place Bid&quot;, I agree to the{' '}
-                                  <a
-                                    href={agent.isPilotUser ? '/pilot-terms' : '/terms'}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    Terms of Use
-                                  </a>
-                                </small>
-                              </div>
-                            </>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          <Alert
-                            type="danger"
-                            message="You do not have a payment method on file, or your last payment failed. Please visit the"
-                            callToActionLink="/agent/account/billing"
-                            callToActionLinkText="Billing page to update your payment method"
-                          />
-                          <Button type="button" disabled block>
-                            {pathType === 'new' ? 'Place bid' : 'Update Bid'}
-                          </Button>
-                        </>
-                      )}
-                    </Column>
+                    {isSeller && (
+                      <Column md={isBuyerSeller ? 5 : 6}>
+                        <Row>
+                          <Column xs={6}>
+                            <Heading as="h3" noMargin>
+                              Est. Listing Price:
+                            </Heading>
+                          </Column>
+                          <Column xs={6}>
+                            <Heading as="h3" noMargin>
+                              {displayDropdownListText(
+                                listing.sellersListingPriceInMindPriceRangeInMindId,
+                                'priceRanges'
+                              )}
+                            </Heading>
+                          </Column>
+                          <Column xs={6}>
+                            <strong>Location:</strong>
+                          </Column>
+                          <Column xs={6}>{listing.sellersCity?.name}</Column>
+                          <Column xs={6}>
+                            <strong>Home Type:</strong>
+                          </Column>
+                          <Column xs={6}>
+                            {displayDropdownListText(listing.sellerTypeOfHomeId, 'homeTypes')}
+                          </Column>
+                          <Column xs={6}>
+                            <strong>Timeline:</strong>
+                          </Column>
+                          <Column xs={6}>{listing.sellersTimeline}</Column>
+                        </Row>
+                        <HorizontalRule />
+                        <Heading as="h4">Sell Bid Details</Heading>
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="listingAgentCommission"
+                          label="Total Listing Agent Commission (%)"
+                          step={0.001}
+                          min={1}
+                          max={4}
+                          helpText={helpTextListingAgentCommissionAmount}
+                          validate={requiredListingAgentCommissionAmount}
+                          required
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="buyersAgentCommission"
+                          label="Total Buyer's Agent Commission (%)"
+                          step={0.001}
+                          min={2}
+                          max={4}
+                          helpText={helpTextBuyersAgentCommissionAmount}
+                          validate={requiredBuyersAgentCommissionAmount}
+                          required
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="sellerBrokerComplianceAmount"
+                          label="Seller Compliance Fee ($)"
+                          step={0.01}
+                          min={0}
+                          max={595}
+                          helpText={helpTextBrokerComplianceAmount}
+                          validate={requiredBrokerComplianceAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="sellerPreInspectionAmount"
+                          label="Seller Pre Inspection ($)"
+                          step={0.01}
+                          min={0}
+                          max={350}
+                          helpText={helpTextPreInspectionAmount}
+                          validate={requiredPreInspectionAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="sellerPreCertifyAmount"
+                          label="Seller Pre Certification ($)"
+                          step={0.01}
+                          min={0}
+                          max={250}
+                          helpText={helpTextPreCertifyAmount}
+                          validate={requiredPreCertifyAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="sellerMovingCompanyAmount"
+                          label="Seller Moving Costs ($)"
+                          step={0.01}
+                          min={0}
+                          max={1000}
+                          helpText={helpTextMovingCompanyAmount}
+                          validate={requiredMovingCompanyAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="sellerPhotographyAmount"
+                          label="Seller Photography ($)"
+                          step={0.01}
+                          min={0}
+                          max={300}
+                          helpText={helpTextPhotographyAmount}
+                          validate={requiredPhotographyAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Heading as="h3">
+                          {listing.sellersListingPriceInMindPriceRangeInMindId &&
+                            `Total: ${sellTotal({
+                              values,
+                              priceRangeId: listing.sellersListingPriceInMindPriceRangeInMindId,
+                              priceRangesList,
+                            })}`}
+                        </Heading>
+                      </Column>
+                    )}
+
+                    {isBuyer && (
+                      <Column md={isBuyerSeller ? 5 : 6} mdOffset={isBuyerSeller ? 2 : 0}>
+                        <Row>
+                          <Column xs={6}>
+                            <Heading as="h3" noMargin>
+                              Est. Purchase Price:
+                            </Heading>
+                          </Column>
+                          <Column xs={6}>
+                            <Heading as="h3" noMargin>
+                              {displayDropdownListText(listing.buyingPriceRangeId, 'priceRanges')}
+                            </Heading>
+                          </Column>
+                          <Column xs={6}>
+                            <strong>Location:</strong>
+                          </Column>
+                          <Column xs={6}>
+                            {Array.isArray(listing.buyingCities) &&
+                              listing.buyingCities.length > 0 &&
+                              Array(listing.buyingCities.map((city) => city.name))
+                                .toString()
+                                .replace(/,/g, ', ')}
+                          </Column>
+                          <Column xs={6}>
+                            <strong>Home Type:</strong>
+                          </Column>
+                          <Column xs={6}>
+                            {displayDropdownListText(listing.buyerTypeOfHomeId, 'homeTypes')}
+                          </Column>
+                          <Column xs={6}>
+                            <strong>&nbsp;</strong>
+                          </Column>
+                          <Column xs={6}>&nbsp;</Column>
+                        </Row>
+                        <HorizontalRule />
+                        <Heading as="h4">Purchase Bid Details</Heading>
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          step={0.001}
+                          min={0}
+                          max={2}
+                          name="buyerCommission"
+                          label="Total Buyer Commission Contribution Towards Closing Costs (%)"
+                          helpText={helpTextBuyerCommissionAmount}
+                          validate={requiredBuyerCommissionAmount}
+                          required
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="buyerBrokerComplianceAmount"
+                          label="Buyer Compliance Fee ($)"
+                          step={0.01}
+                          min={0}
+                          max={595}
+                          helpText={helpTextBrokerComplianceAmount}
+                          validate={requiredBrokerComplianceAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="buyerInspectionAmount"
+                          label="Buyer Inspection ($)"
+                          step={0.01}
+                          min={0}
+                          max={500}
+                          helpText={helpTextInspectionAmount}
+                          validate={requiredInspectionAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="buyerHomeWarrantyAmount"
+                          label="Buyer Home Warranty ($)"
+                          step={0.01}
+                          min={0}
+                          max={500}
+                          helpText={helpTextHomeWarrantyAmount}
+                          validate={requiredHomeWarrantyAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="buyerAppraisalAmount"
+                          label="Buyer Appraisal ($)"
+                          step={0.01}
+                          min={0}
+                          max={800}
+                          helpText={helpTextAppraisalAmount}
+                          validate={requiredAppraisalAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Field
+                          as={Input}
+                          type="number"
+                          name="buyerMovingCompanyAmount"
+                          label="Buyer Moving Costs ($)"
+                          step={0.01}
+                          min={0}
+                          max={1000}
+                          helpText={helpTextMovingCompanyAmount}
+                          validate={requiredMovingCompanyAmount}
+                          disabled={!isNewOrPendingAndNotExpired}
+                        />
+
+                        <Heading as="h3">
+                          {listing.buyingPriceRangeId &&
+                            `Total: ${buyTotal({
+                              values,
+                              priceRangeId: listing.buyingPriceRangeId,
+                              priceRangesList,
+                            })}`}
+                        </Heading>
+                      </Column>
+                    )}
                   </Row>
-                )}
-              </Form>
-            )}
-          </Formik>
-        ) : (
-          <LoadingPage />
-        )}
-        {pathType === 'pending' && (
-          <Modal toggleModal={() => false} isOpen={modalIsOpen}>
-            <Heading styledAs="title">Delete Bid?</Heading>
-            <p>Are you sure you want to delete your bid on this listing?</p>
-            <Row>
-              <Column xs={6}>
-                <Button
-                  type="button"
-                  onClick={() => setModalIsOpen(!modalIsOpen)}
-                  color="primaryOutline"
-                  block
-                >
-                  No, Keep Bid
-                </Button>
-              </Column>
-              <Column xs={6}>
-                <Button
-                  type="button"
-                  onClick={() => deleteBidAndNavigate()}
-                  block
-                  color="danger"
-                  isLoading={agent.isLoading}
-                >
-                  Yes, Delete Bid
-                </Button>
-              </Column>
-            </Row>
-          </Modal>
-        )}
-      </Box>
+                  {isNewOrPendingAndNotExpired && (
+                    <Row>
+                      <Column md={6} mdOffset={3}>
+                        {agent.isInGoodStanding ? (
+                          <>
+                            <Button
+                              type="submit"
+                              disabled={
+                                !isValid || isSubmitting || isExpired(listing.createDateTime)
+                              }
+                              isLoading={isSubmitting || agent.isLoading}
+                              rightspacer={pathType === 'pending'}
+                              block
+                            >
+                              {pathType === 'new' ? 'Place bid' : 'Update Bid'}
+                            </Button>
+                            {pathType === 'pending' && (
+                              <>
+                                <br />
+                                <br />
+                                <Button
+                                  type="button"
+                                  onClick={() => setModalIsOpen(!modalIsOpen)}
+                                  color="danger"
+                                  block
+                                >
+                                  Remove My Bid
+                                </Button>
+                              </>
+                            )}
+                            {pathType === 'new' && (
+                              <>
+                                <br />
+                                <br />
+                                <Field
+                                  as={Input}
+                                  type="checkbox"
+                                  name="saveBidDetails"
+                                  checked={values.saveBidDetails}
+                                  label="Save my details for my next bid"
+                                />
+                                <div>
+                                  <small>
+                                    By clicking &quot;Place Bid&quot;, I agree to the{' '}
+                                    <a
+                                      href={agent.isPilotUser ? '/pilot-terms' : '/terms'}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      Terms of Use
+                                    </a>
+                                  </small>
+                                </div>
+                              </>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <Alert
+                              type="danger"
+                              message="You do not have a payment method on file, or your last payment failed. Please visit the"
+                              callToActionLink="/agent/account/billing"
+                              callToActionLinkText="Billing page to update your payment method"
+                            />
+                            <Button type="button" disabled block>
+                              {pathType === 'new' ? 'Place bid' : 'Update Bid'}
+                            </Button>
+                          </>
+                        )}
+                      </Column>
+                    </Row>
+                  )}
+                </Form>
+              )}
+            </Formik>
+          ) : (
+            <LoadingPage />
+          )}
+          {pathType === 'pending' && (
+            <Modal toggleModal={() => false} isOpen={modalIsOpen}>
+              <Heading styledAs="title">Delete Bid?</Heading>
+              <p>Are you sure you want to delete your bid on this listing?</p>
+              <Row>
+                <Column xs={6}>
+                  <Button
+                    type="button"
+                    onClick={() => setModalIsOpen(!modalIsOpen)}
+                    color="primaryOutline"
+                    block
+                  >
+                    No, Keep Bid
+                  </Button>
+                </Column>
+                <Column xs={6}>
+                  <Button
+                    type="button"
+                    onClick={() => deleteBidAndNavigate()}
+                    block
+                    color="danger"
+                    isLoading={agent.isLoading}
+                  >
+                    Yes, Delete Bid
+                  </Button>
+                </Column>
+              </Row>
+            </Modal>
+          )}
+        </Box>
+      </div>
     </>
   );
 };

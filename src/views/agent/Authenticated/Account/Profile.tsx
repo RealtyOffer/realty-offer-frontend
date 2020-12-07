@@ -158,6 +158,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         label="Phone Number"
                         validate={requiredPhoneNumber}
                         required
+                        placeholder="XXX-XXX-XXXX"
                       />
                     </Column>
                     <Column sm={6}>
@@ -253,6 +254,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       label="Broker Phone Number"
                       validate={requiredPhoneNumber}
                       required
+                      placeholder="XXX-XXX-XXXX"
                     />
                   </Column>
                   <Column sm={3}>

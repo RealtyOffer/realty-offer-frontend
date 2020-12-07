@@ -180,44 +180,41 @@ const AddNewCityToSubscription: FunctionComponent<AddNewCityToSubscriptionProps>
           >
             {({ isSubmitting, isValid, values, ...rest }) => (
               <Form>
-                {values.counties.length === 0 && (
-                  <>
-                    <p>Select which new cities you would like to receive unlimited access to:</p>
-                    <Field
-                      as={Input}
-                      type="select"
-                      isMulti
-                      name="cities"
-                      label="Cities"
-                      options={cityOptions}
-                      required
-                      {...rest}
-                    />
-                  </>
-                )}
-                {values.cities.length > 2 && (
-                  <>
-                    <Alert
-                      type="info"
-                      message="It may be cheaper to purchase an entire county rather than multiple cities. Select a county or counties below for bulk savings."
-                    />
-                    <Field
-                      as={Input}
-                      type="select"
-                      isMulti
-                      name="counties"
-                      label="Counties"
-                      options={countyOptions}
-                      required
-                      {...rest}
-                    />
-                    <p>
-                      <small>
-                        <FaInfoCircle /> Remove all counties to select cities individually again.
-                      </small>
-                    </p>
-                  </>
-                )}
+                <>
+                  <p>Select which new cities you would like to receive unlimited access to:</p>
+                  <Field
+                    as={Input}
+                    type="select"
+                    isMulti
+                    name="cities"
+                    label="Cities"
+                    options={cityOptions}
+                    required
+                    {...rest}
+                  />
+                </>
+
+                <>
+                  <Alert
+                    type="info"
+                    message="It may be cheaper to purchase an entire county rather than multiple cities. Select a county or counties below for bulk savings."
+                  />
+                  <Field
+                    as={Input}
+                    type="select"
+                    isMulti
+                    name="counties"
+                    label="Counties"
+                    options={countyOptions}
+                    required
+                    {...rest}
+                  />
+                  <p>
+                    <small>
+                      <FaInfoCircle /> Remove all counties to select cities individually again.
+                    </small>
+                  </p>
+                </>
 
                 <HorizontalRule />
                 <FlexContainer justifyContent="space-between">

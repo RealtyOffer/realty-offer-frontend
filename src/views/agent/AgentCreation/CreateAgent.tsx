@@ -76,6 +76,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
             addToMailchimp(values.email, {
               FNAME: values.firstName,
               LNAME: values.lastName,
+              PHONE: values.phoneNumber,
               'group[78807][2]': '2',
             });
             if (window && window.analytics) {
@@ -149,6 +150,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                 label="Phone Number"
                 validate={requiredPhoneNumber}
                 required
+                placeholder="XXX-XXX-XXXX"
               />
               <Field
                 as={Input}
