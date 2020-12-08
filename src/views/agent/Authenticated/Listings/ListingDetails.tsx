@@ -175,8 +175,8 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
         transaction_amount: 295,
         account_vault_id: agent.fortispayAccountVaultId as string,
       })
-    ).then((response: FortispayTransactionResponseType) => {
-      if (response && response.status_id === 101) {
+    ).then((response: { payload: FortispayTransactionResponseType }) => {
+      if (response && response.payload.status_id === 101) {
         dispatch(
           updateAgentBid({
             ...activeBid,
@@ -184,7 +184,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
           })
         );
       }
-      if (response && response.status_id !== 101) {
+      if (response && response.payload.status_id !== 101) {
         dispatch(
           addAlert({
             type: 'danger',
@@ -359,7 +359,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                             ', '}${listing.sellersCity && listing.sellersCity.name}`
                     }
                   />
-                  <Button type="button" rightspacer onClick={() => payOneTimeFee()}>
+                  <Button type="button" rightspacer onClick={() => payOneTimeFee()} color="success">
                     Pay One-Time Fee - $295
                   </Button>
                   {isMonthlySubscriber && (

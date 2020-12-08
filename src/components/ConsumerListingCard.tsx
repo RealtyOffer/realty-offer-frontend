@@ -139,7 +139,7 @@ const ConsumerListingCard: FunctionComponent<ConsumerListingCardProps> = ({
           <FlexContainer justifyContent="space-between">
             <Heading as="h3">Winning Realtor</Heading>
             <p>
-              <Button type="button" onClick={() => setModalIsOpen(true)} color="primaryOutline">
+              <Button type="button" onClick={() => setModalIsOpen(true)} color="success">
                 What should I expect now?
               </Button>
             </p>

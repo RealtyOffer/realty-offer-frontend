@@ -98,7 +98,7 @@ const Billing: FunctionComponent<BillingProps> = () => {
                 }
                 dispatch(
                   addAlert({
-                    type: 'info',
+                    type: 'success',
                     message: 'Successfully updated payment method',
                   })
                 );
