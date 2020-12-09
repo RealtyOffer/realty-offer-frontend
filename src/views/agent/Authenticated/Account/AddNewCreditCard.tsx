@@ -50,15 +50,15 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
       props.toggleModal(false);
     };
 
-    window.addEventListener('message', receiveMessage, false);
-    return () => window.removeEventListener('message', receiveMessage, false);
+    window.addEventListener('message', receiveMessage);
+    return () => window.removeEventListener('message', receiveMessage);
   }, []); // Empty array ensures that effect is only run on mount and unmount
 
   const encryptionKey = process.env.GATSBY_FORTIS_HPP_ENCRYPTION_KEY as string;
 
   const hostedPaymentPageConfig = {
     id: process.env.GATSBY_FORTIS_HPP_ID,
-    stylesheet_url: 'https://realtyoffer.com/static/css/fortis.css',
+    stylesheet_url: 'https://realtyoffer.com/css/fortis.css',
     field_configuration: {
       body: {
         fields: [
@@ -90,10 +90,8 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
   };
 
   const stringifiedConfig = JSON.stringify(hostedPaymentPageConfig);
-
   const encryptedData = CryptoJS.AES.encrypt(stringifiedConfig, encryptionKey).toString();
   const encodedData = encodeURIComponent(encryptedData);
-
   const url = `${process.env.GATSBY_FORTIS_API_URL}/hostedpaymentpage?id=11eb38df43290f2a86948d0a&data=${encodedData}`;
 
   return (
