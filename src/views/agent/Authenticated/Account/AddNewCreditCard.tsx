@@ -4,7 +4,10 @@ import CryptoJS from 'crypto-js';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../../../redux/ducks';
-import { getFortispayAccountvaults } from '../../../../redux/ducks/fortis';
+import {
+  getFortispayAccountvaults,
+  deleteFortispayAccountvault,
+} from '../../../../redux/ducks/fortis';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
 
 type AddNewCreditCardProps = {
@@ -38,16 +41,20 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
           })
         );
         dispatch(getFortispayAccountvaults({ contact_id: agent.fortispayContactId as string }));
+        props.toggleModal(false);
       } else if (response && response.avs === 'BAD') {
-        dispatch(
-          addAlert({
-            type: 'danger',
-            message: 'We could not verify your credit card details. Please try again later.',
-          })
-        );
+        dispatch(deleteFortispayAccountvault({ id: response.account_vault_id })).then(() => {
+          dispatch(
+            addAlert({
+              type: 'danger',
+              message:
+                'We could not verify your credit card details. Please double check that you entered everything correctly.',
+            })
+          );
+          dispatch(getFortispayAccountvaults({ contact_id: agent.fortispayContactId as string }));
+          props.toggleModal(false);
+        });
       }
-
-      props.toggleModal(false);
     };
 
     window.addEventListener('message', receiveMessage);

@@ -1,7 +1,7 @@
 body {
   font-family: 'Lato', 'Open Sans', sans-serif;
-  font-size: calc(12px + 0.35vw);
-  line-height: calc(12px + 1.05vw);
+  font-size: 16px;
+  line-height: 1;
   color: #646c6e;
 }
 
@@ -75,15 +75,18 @@ body {
   border-color: #0077cc;
   border-width: 2px;
   outline: 0;
+  box-shadow: none;
 }
 
-.has-error {
+.has-error,
+.has-error:focus {
   border-color: #e51616;
   border-width: 2px;
   box-shadow: none;
 }
 
-.has-success {
+.has-success,
+.has-success:focus {
   border: 1px solid #077f23;
   border-width: 2px;
   box-shadow: none;
@@ -126,6 +129,7 @@ body {
   text-decoration: none;
   background-color: #0077cc;
   color: #ffffff;
+  border-radius: 0;
 }
 
 .hppform_field_button:hover,
