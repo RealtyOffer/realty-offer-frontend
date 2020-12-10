@@ -53,6 +53,7 @@ body {
 
 .hppform_field_label {
   font-weight: normal;
+  margin-bottom: 4px;
 }
 
 .hppform_field_input,
@@ -67,7 +68,11 @@ body {
   line-height: 1.5;
   color: #646c6e;
   margin-bottom: 16px;
+  -webkit-transition: border-color 0.2s ease-in-out;
   transition: border-color 0.2s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .hppform_field_input:focus,

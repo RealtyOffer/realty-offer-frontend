@@ -57,6 +57,7 @@ const TransactionsTable: FunctionComponent<TransactionsTableProps> = ({ transact
   );
 
   const data = transactions
+    .filter((t) => t.transaction_amount !== '0.00')
     .sort((a, b) => b.created_ts - a.created_ts)
     .map((transaction) => {
       return {

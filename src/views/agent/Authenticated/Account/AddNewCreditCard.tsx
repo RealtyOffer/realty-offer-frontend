@@ -4,11 +4,14 @@ import CryptoJS from 'crypto-js';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../../../redux/ducks';
+import { Heading } from '../../../../components';
 import {
   getFortispayAccountvaults,
   deleteFortispayAccountvault,
+  getFortispayTransactions,
 } from '../../../../redux/ducks/fortis';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
+import { FortispayTransactionResponseType } from '../../../../redux/ducks/fortis.d';
 
 type AddNewCreditCardProps = {
   toggleModal: (value: boolean) => void;
@@ -30,6 +33,8 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
       if (event.origin !== allowed) return;
 
       const response = JSON.parse(event.data);
+
+      // AVS Good means card has been validated with issuer to be legit
       if (response && response.avs === 'GOOD') {
         if (window && window.analytics) {
           window.analytics.track('Agent added new payment method', {});
@@ -40,20 +45,39 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
             message: 'Successfully added new payment method',
           })
         );
+        // get updated list of account vaults
         dispatch(getFortispayAccountvaults({ contact_id: agent.fortispayContactId as string }));
+        // close the modal
         props.toggleModal(false);
-      } else if (response && response.avs === 'BAD') {
-        dispatch(deleteFortispayAccountvault({ id: response.account_vault_id })).then(() => {
-          dispatch(
-            addAlert({
-              type: 'danger',
-              message:
-                'We could not verify your credit card details. Please double check that you entered everything correctly.',
-            })
-          );
-          dispatch(getFortispayAccountvaults({ contact_id: agent.fortispayContactId as string }));
-          props.toggleModal(false);
-        });
+      } else if (response && response.avs !== 'GOOD') {
+        // AVS can also be STREET, ZIP, or BAD, meaning contact info did not validate. we dont care
+        // which it is, so we get the list of transactions from Fortis, find the latest one added
+        // from Hosted Payment Page interaction, and then delete the Account Vault it created
+        dispatch(getFortispayTransactions({ contact_id: agent.fortispayContactId as string })).then(
+          (transactionsResponse: { payload: Array<FortispayTransactionResponseType> }) => {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const recentTransaction = transactionsResponse.payload.find(
+              (t) => t.id === response.transaction_id
+            )!;
+            dispatch(deleteFortispayAccountvault({ id: recentTransaction.account_vault_id })).then(
+              () => {
+                dispatch(
+                  addAlert({
+                    type: 'danger',
+                    message:
+                      'We could not verify your credit card details. Please double check that you entered everything correctly.',
+                  })
+                );
+                // refetch account vaults to the latest just in case
+                dispatch(
+                  getFortispayAccountvaults({ contact_id: agent.fortispayContactId as string })
+                );
+                // close the modal
+                props.toggleModal(false);
+              }
+            );
+          }
+        );
       }
     };
 
@@ -103,11 +127,12 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
 
   return (
     <div>
+      <Heading>Add New Payment Method</Heading>
       {url && (
         <iframe
           title="Hosted Payment Page"
           src={url}
-          style={{ border: 0, width: '100%', height: 575 }}
+          style={{ border: 0, width: '100%', height: 800 }}
         />
       )}
     </div>
