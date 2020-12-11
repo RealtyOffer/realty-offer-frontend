@@ -51,6 +51,16 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
     navigate('/');
     return null;
   }
+  if (auth && auth.isLoggedIn && !isRoleAllowed(auth.roles, allowedRole)) {
+    navigate('/');
+    dispatch(
+      addAlert({
+        type: 'danger',
+        message: 'You do not have access to that page.',
+      })
+    );
+    return null;
+  }
   return <Component {...rest} />;
 };
 
