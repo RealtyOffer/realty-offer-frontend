@@ -100,6 +100,8 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         hasError: false,
         activeBid: {
           isLoading: true,
+          winner: false,
+          consumer: undefined,
         },
       };
     case UPDATE_AGENT_IS_IN_GOOD_STANDING:

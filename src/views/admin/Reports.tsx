@@ -8,10 +8,11 @@ import {
   getAgentsByCounty,
   getAwardedBidsByDate,
   getListingsByType,
+  getProfilesByDate,
 } from '../../redux/ducks/admin';
 import { RootState } from '../../redux/ducks';
 
-const Banners: FunctionComponent<RouteComponentProps> = () => {
+const Reports: FunctionComponent<RouteComponentProps> = () => {
   const metrics = useSelector((state: RootState) => state.admin.metrics);
   const dispatch = useDispatch();
 
@@ -20,6 +21,7 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
     dispatch(getAgentsByCounty());
     dispatch(getAwardedBidsByDate());
     dispatch(getListingsByType());
+    dispatch(getProfilesByDate());
   }, []);
 
   return (
@@ -82,8 +84,40 @@ const Banners: FunctionComponent<RouteComponentProps> = () => {
           hasSorting
         />
       )}
+      <HorizontalRule />
+      <Heading styledAs="sectionHeading">Profiles By Date</Heading>
+      {metrics.profilesByDate.isLoading ? (
+        <LoadingPage />
+      ) : (
+        <>
+          <Table
+            columns={[
+              { header: 'Weekly', accessor: 'name' },
+              { header: 'Count', accessor: 'count' },
+            ]}
+            data={metrics.profilesByDate.values[0].metrics}
+            hasSorting
+          />
+          <Table
+            columns={[
+              { header: 'Monthly', accessor: 'name' },
+              { header: 'Count', accessor: 'count' },
+            ]}
+            data={metrics.profilesByDate.values[1].metrics}
+            hasSorting
+          />
+          <Table
+            columns={[
+              { header: 'Total', accessor: 'name' },
+              { header: 'Count', accessor: 'count' },
+            ]}
+            data={metrics.profilesByDate.values[2].metrics}
+            hasSorting
+          />
+        </>
+      )}
     </>
   );
 };
 
-export default Banners;
+export default Reports;

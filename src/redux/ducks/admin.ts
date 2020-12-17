@@ -12,7 +12,8 @@ import {
   ADMIN_METRICS_AGENTS_BY_CITY_ENDPOINT,
   ADMIN_METRICS_AGENTS_BY_COUNTY_ENDPOINT,
   ADMIN_METRICS_AWARDED_BIDS_BY_DATE_ENDPOINT,
-  ADMIN_METRICS_LISTINGS_BY_TYPE,
+  ADMIN_METRICS_LISTINGS_BY_TYPE_ENDPOINT,
+  ADMIN_METRICS_PROFILES_BY_DATE_ENDPOINT,
 } from '../constants';
 import {
   AdminStoreType,
@@ -115,6 +116,10 @@ export const GET_LISTINGS_BY_TYPE_REQUEST = 'GET_LISTINGS_BY_TYPE_REQUEST';
 export const GET_LISTINGS_BY_TYPE_SUCCESS = 'GET_LISTINGS_BY_TYPE_SUCCESS';
 export const GET_LISTINGS_BY_TYPE_FAILURE = 'GET_LISTINGS_BY_TYPE_FAILURE';
 
+export const GET_PROFILES_BY_DATE_REQUEST = 'GET_PROFILES_BY_DATE_REQUEST';
+export const GET_PROFILES_BY_DATE_SUCCESS = 'GET_PROFILES_BY_DATE_SUCCESS';
+export const GET_PROFILES_BY_DATE_FAILURE = 'GET_PROFILES_BY_DATE_FAILURE';
+
 export const initialState: AdminStoreType = {
   isLoading: false,
   hasError: false,
@@ -140,6 +145,11 @@ export const initialState: AdminStoreType = {
       values: [],
     },
     listingsByType: {
+      isLoading: false,
+      hasError: false,
+      values: [],
+    },
+    profilesByDate: {
       isLoading: false,
       hasError: false,
       values: [],
@@ -463,6 +473,42 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         },
       };
     }
+    case GET_PROFILES_BY_DATE_REQUEST: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          profilesByDate: {
+            ...initialState.metrics.profilesByDate,
+            isLoading: true,
+          },
+        },
+      };
+    }
+    case GET_PROFILES_BY_DATE_SUCCESS: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          profilesByDate: {
+            ...initialState.metrics.profilesByDate,
+            values: action.payload,
+          },
+        },
+      };
+    }
+    case GET_PROFILES_BY_DATE_FAILURE: {
+      return {
+        ...state,
+        metrics: {
+          ...state.metrics,
+          profilesByDate: {
+            ...initialState.metrics.profilesByDate,
+            hasError: true,
+          },
+        },
+      };
+    }
     default:
       return state;
   }
@@ -698,12 +744,24 @@ export const getAwardedBidsByDate = () => ({
 
 export const getListingsByType = () => ({
   [RSAA]: {
-    endpoint: ADMIN_METRICS_LISTINGS_BY_TYPE,
+    endpoint: ADMIN_METRICS_LISTINGS_BY_TYPE_ENDPOINT,
     method: 'GET',
     types: [
       GET_LISTINGS_BY_TYPE_REQUEST,
       GET_LISTINGS_BY_TYPE_SUCCESS,
       GET_LISTINGS_BY_TYPE_FAILURE,
+    ],
+  },
+});
+
+export const getProfilesByDate = () => ({
+  [RSAA]: {
+    endpoint: ADMIN_METRICS_PROFILES_BY_DATE_ENDPOINT,
+    method: 'GET',
+    types: [
+      GET_PROFILES_BY_DATE_REQUEST,
+      GET_PROFILES_BY_DATE_SUCCESS,
+      GET_PROFILES_BY_DATE_FAILURE,
     ],
   },
 });

@@ -46,6 +46,7 @@ export type AgentProfileType = {
   emailAddress?: string;
   cities?: Array<CityType>;
   genderId?: number;
+  birthYear?: number;
   aboutMe?: string;
   certificates?: string;
   agentLanguages?: Array<number>;
@@ -88,12 +89,14 @@ export type BidType = {
   agentId?: number;
   winner?: boolean;
   agentCanViewContactInfo?: boolean;
-  consumer?: {
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    emailAddress: string;
-  };
+  consumer?:
+    | {
+        firstName: string;
+        lastName: string;
+        phoneNumber: string;
+        emailAddress: string;
+      }
+    | undefined;
 };
 
 export type AgentSignupDataType = {

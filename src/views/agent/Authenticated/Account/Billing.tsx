@@ -155,7 +155,7 @@ const Billing: FunctionComponent<BillingProps> = () => {
             <HorizontalRule />
             <p>
               You can also switch to a Monthly Subscription by adding cities. For listings outside
-              your subscription area, you can still pay a one-time fee of $295 for access to the
+              your subscription area, you will still pay a one-time fee of $295 for access to the
               consumer&apos;s information.
             </p>
             <Button type="button" onClick={() => setAddCityModalIsOpen(true)}>
@@ -249,7 +249,7 @@ const Billing: FunctionComponent<BillingProps> = () => {
                   ending in {accountVault.last_four}, exp.{' '}
                   {`${accountVault.exp_date.slice(0, 2)}/${accountVault.exp_date.slice(2, 4)}`}
                 </div>
-                {accountVault.has_recurring ? (
+                {accountVault.has_recurring || accountVault.id === agent.fortispayAccountVaultId ? (
                   <div>
                     <Button
                       type="button"
@@ -278,7 +278,7 @@ const Billing: FunctionComponent<BillingProps> = () => {
                       color="primaryOutline"
                       rightspacer
                     >
-                      Make Default
+                      Set as Default
                     </Button>
                     <Button
                       type="button"
@@ -360,16 +360,10 @@ const Billing: FunctionComponent<BillingProps> = () => {
         fortis.accountVaults &&
         fortis.accountVaults.length > 0 &&
         fortis.transactions &&
-        fortis.transactions.length >= 1 ? (
+        fortis.transactions.filter((t) => t.transaction_amount !== '0.00').length >= 1 ? (
           <TransactionsTable transactions={fortis.transactions} />
         ) : (
-          <>
-            {!fortis.isLoading && fortis.transactions?.length === 0 ? (
-              <p>No past billing statements</p>
-            ) : (
-              <Skeleton count={5} />
-            )}
-          </>
+          <>{!fortis.isLoading ? <p>No past billing statements</p> : <Skeleton count={5} />}</>
         )}
       </Box>
     </div>

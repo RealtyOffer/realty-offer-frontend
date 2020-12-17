@@ -49,7 +49,8 @@ const ADMIN_METRICS_ROOT = `${ADMIN_ROOT}/metrics`;
 export const ADMIN_METRICS_AGENTS_BY_CITY_ENDPOINT = `${ADMIN_METRICS_ROOT}/agents-by-city`;
 export const ADMIN_METRICS_AGENTS_BY_COUNTY_ENDPOINT = `${ADMIN_METRICS_ROOT}/agents-by-county`;
 export const ADMIN_METRICS_AWARDED_BIDS_BY_DATE_ENDPOINT = `${ADMIN_METRICS_ROOT}/awarded-bids-by-date`;
-export const ADMIN_METRICS_LISTINGS_BY_TYPE = `${ADMIN_METRICS_ROOT}/listings-by-type`;
+export const ADMIN_METRICS_LISTINGS_BY_TYPE_ENDPOINT = `${ADMIN_METRICS_ROOT}/listings-by-type`;
+export const ADMIN_METRICS_PROFILES_BY_DATE_ENDPOINT = `${ADMIN_METRICS_ROOT}/profiles-by-date`;
 
 // User (generic)
 const USER_ENDPOINT = `${API_ROOT}/user`;

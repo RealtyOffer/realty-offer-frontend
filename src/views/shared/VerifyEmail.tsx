@@ -177,7 +177,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                         disabled={isSubmitting || !isValid || values === initialValues}
                         isLoading={isSubmitting || auth.isLoading}
                       >
-                        Confirm Email
+                        {auth.isLoading ? 'Confirming' : 'Confirm Email'}
                       </Button>
                       <Button type="link" to="/" color="text" block>
                         Cancel

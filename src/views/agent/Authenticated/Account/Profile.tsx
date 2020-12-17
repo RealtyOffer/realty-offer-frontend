@@ -62,8 +62,6 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     lastName: auth.lastName,
     phoneNumber: formatPhoneNumberValue(auth.phoneNumber.replace('+', '')),
     email: auth.email,
-    // we want to visually have gender dropdown in this section, so initialize it here
-    genderId: String(agent.genderId),
   };
   const agentInfoInitialValues = {
     id: agent.id,
@@ -77,13 +75,14 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
     brokerState: agent.brokerState,
     brokerZip: agent.brokerZip,
     state: 'MI',
-    // initialize gender so our PUT still works
-    genderId: String(agent.genderId),
   };
   const aboutMeInitialValues = {
     certificates: agent.certificates || '',
     agentLanguages: agent.agentLanguages?.map((val) => String(val)) || '',
     aboutMe: agent.aboutMe || '',
+    // initialize gender so our PUT still works
+    genderId: String(agent.genderId),
+    birthYear: agent.birthYear || '',
   };
 
   return (
@@ -94,17 +93,6 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
         validateOnMount
         initialValues={personalInfoInitialValues}
         onSubmit={(values, { setSubmitting }) => {
-          if (values.genderId) {
-            dispatch(
-              updateAgentProfile({
-                ...agent,
-                genderId: Number(values.genderId),
-              })
-            );
-            if (window && window.analytics) {
-              window.analytics.track('Agent updated cognito info', { ...agent, values });
-            }
-          }
           dispatch(
             updateUser({
               ...values,
@@ -118,7 +106,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
           });
         }}
       >
-        {({ ...rest }) => (
+        {() => (
           <Form>
             <Box>
               <Heading as="h2">Personal Information</Heading>
@@ -161,23 +149,6 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                         placeholder="XXX-XXX-XXXX"
                       />
                     </Column>
-                    <Column sm={6}>
-                      <Field
-                        as={Input}
-                        type="select"
-                        name="genderId"
-                        label="Gender"
-                        options={createOptionsFromManagedDropdownList(gendersList)}
-                        validate={requiredSelect}
-                        required
-                        helpText={
-                          personalInfoInitialValues.genderId === 'null'
-                            ? 'Why do we ask? Some consumers may prefer to only work with certain genders due to religious or cultural reasons.'
-                            : ''
-                        }
-                        {...rest}
-                      />
-                    </Column>
                   </Row>
                 </Column>
               </Row>
@@ -209,7 +180,6 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
             dispatch(
               updateAgentProfile({
                 ...values,
-                genderId: Number(values.genderId),
                 brokerZip: String(values.brokerZip),
                 bidDefaults: { ...agent.bidDefaults },
               })
@@ -226,7 +196,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
               <Box>
                 <Heading as="h2">Agent Information</Heading>
                 <Row>
-                  <Column sm={3}>
+                  <Column sm={6}>
                     <Field
                       as={Input}
                       type="text"
@@ -236,7 +206,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       required
                     />
                   </Column>
-                  <Column sm={3}>
+                  <Column sm={6}>
                     <Field
                       as={Input}
                       type="text"
@@ -246,18 +216,18 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       required
                     />
                   </Column>
-                  <Column sm={3}>
+                  <Column sm={6}>
                     <Field
                       as={Input}
                       type="tel"
                       name="brokerPhoneNumber"
-                      label="Broker Phone Number"
+                      label="Broker Phone"
                       validate={requiredPhoneNumber}
                       required
                       placeholder="XXX-XXX-XXXX"
                     />
                   </Column>
-                  <Column sm={3}>
+                  <Column sm={6}>
                     <Field
                       as={Input}
                       type="text"
@@ -277,7 +247,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                       required
                     />
                   </Column>
-                  <Column sm={4}>
+                  <Column sm={6}>
                     <Field
                       as={Input}
                       type="text"
@@ -325,13 +295,15 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
             dispatch(
               updateAgentProfile({
                 ...agent,
+                birthYear: Number(values.birthYear),
+                genderId: Number(values.genderId[0]),
                 certificates: values.certificates,
                 aboutMe: values.aboutMe,
                 agentLanguages: (values.agentLanguages as Array<string>)?.map((val) => Number(val)),
               })
             ).then(() => {
               if (window && window.analytics) {
-                window.analytics.track('Agent updated Agent Profile Info ', {
+                window.analytics.track('Agent updated Agent Profile Info', {
                   ...agent,
                   ...values,
                 });
@@ -344,6 +316,41 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
             <Form>
               <Box>
                 <Heading as="h2">About You</Heading>
+                <Row>
+                  <Column sm={6}>
+                    <Field
+                      as={Input}
+                      type="text"
+                      placeholder="XXXX"
+                      maxLength={4}
+                      name="birthYear"
+                      label="Year of Birth"
+                      helpText={
+                        aboutMeInitialValues.birthYear === null
+                          ? 'Why do we ask? Some consumers may prefer to only work with certain age ranges.'
+                          : ''
+                      }
+                    />
+                  </Column>
+                  <Column sm={6}>
+                    <Field
+                      as={Input}
+                      type="select"
+                      name="genderId"
+                      label="Gender"
+                      options={createOptionsFromManagedDropdownList(gendersList)}
+                      validate={requiredSelect}
+                      required
+                      helpText={
+                        aboutMeInitialValues.genderId === null
+                          ? 'Why do we ask? Some consumers may prefer to only work with certain genders due to religious or cultural reasons.'
+                          : ''
+                      }
+                      {...rest}
+                    />
+                  </Column>
+                </Row>
+
                 <Field
                   as={Input}
                   type="select"

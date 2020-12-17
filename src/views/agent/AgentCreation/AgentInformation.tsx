@@ -58,6 +58,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
     brokerEmail: '',
     emailAddress: auth.email,
     genderId: '',
+    birthYear: '',
     id: 0,
   };
 
@@ -139,6 +140,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       ...values,
                       fortispayContactId: res.payload.id,
                       genderId: Number(values.genderId),
+                      birthYear: Number(values.birthYear),
                       aboutMe: '',
                       certificates: '',
                       agentLanguages: [],
@@ -212,6 +214,18 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   required
                   helpText="Why do we ask? Some consumers may prefer to only work with certain genders due to religious or cultural reasons."
                   {...rest}
+                />
+
+                <Field
+                  as={Input}
+                  type="text"
+                  name="birthYear"
+                  label="Year of Birth"
+                  placeholder="XXXX"
+                  maxLength={4}
+                  validate={requiredField}
+                  required
+                  helpText="Why do we ask? Some consumers may prefer to only work with certain age ranges."
                 />
 
                 <Heading as="h5">Broker Information</Heading>

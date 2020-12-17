@@ -68,6 +68,9 @@ import {
   GET_LISTINGS_BY_TYPE_REQUEST,
   GET_LISTINGS_BY_TYPE_SUCCESS,
   GET_LISTINGS_BY_TYPE_FAILURE,
+  GET_PROFILES_BY_DATE_REQUEST,
+  GET_PROFILES_BY_DATE_SUCCESS,
+  GET_PROFILES_BY_DATE_FAILURE,
 } from './admin';
 
 export type BannerType = {
@@ -111,6 +114,11 @@ export type MetricsType = {
   values: Array<MetricValuesType>;
 };
 
+export type ProfilesByDateMetricsType = {
+  isLoading: boolean;
+  hasError: boolean;
+  values: Array<{ name: string; metrics: Array<MetricValuesType> }>;
+};
 export type AdminStoreType = {
   isLoading: boolean;
   hasError: boolean;
@@ -124,6 +132,7 @@ export type AdminStoreType = {
     agentsByCounty: MetricsType;
     awardedBidsByDate: MetricsType;
     listingsByType: MetricsType;
+    profilesByDate: ProfilesByDateMetricsType;
   };
 };
 
@@ -432,6 +441,17 @@ export type GetListingsByTypeFailureActionType = {
   type: typeof GET_LISTINGS_BY_TYPE_FAILURE;
 };
 
+export type GetProfilesByDateRequestAction = {
+  type: typeof GET_PROFILES_BY_DATE_REQUEST;
+};
+export type GetProfilesByDateSuccessAction = {
+  type: typeof GET_PROFILES_BY_DATE_SUCCESS;
+  payload: Array<ProfilesByDateMetricsType['values']>;
+};
+export type GetProfilesByDateFailureAction = {
+  type: typeof GET_PROFILES_BY_DATE_FAILURE;
+};
+
 export type AdminActionTypes =
   | CreateSiteBannerRequestAction
   | CreateSiteBannerSuccessAction
@@ -501,4 +521,7 @@ export type AdminActionTypes =
   | GetAwardedBidsByDateFailureActionType
   | GetListingsByTypeRequestActionType
   | GetListingsByTypeSuccessActionType
-  | GetListingsByTypeFailureActionType;
+  | GetListingsByTypeFailureActionType
+  | GetProfilesByDateRequestAction
+  | GetProfilesByDateSuccessAction
+  | GetProfilesByDateFailureAction;

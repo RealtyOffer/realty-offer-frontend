@@ -4,7 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useLocation } from '@reach/router';
 import { navigate, Link } from 'gatsby';
-import { FaEnvelope, FaPhone, FaFileDownload } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaFileDownload, FaUser, FaClock } from 'react-icons/fa';
 import { format } from 'date-fns';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
@@ -104,10 +104,8 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     agent.cities?.some((city) => listing.buyingCities?.some((c) => c.id === city.id)) ||
     agent.cities?.some((city) => listing.sellersCity?.id === city.id);
 
-  const showPaymentNeededAlert =
-    !agent.isPilotUser && !agent.activeBid?.agentCanViewContactInfo && agent.activeBid?.winner;
-
-  const isMonthlySubscriber = agent.cities && agent.cities.length > 0 && agent.fortispayRecurringId;
+  const isMonthlySubscriber =
+    agent.cities && agent.cities.length > 0 && agent.fortispayRecurringId !== null;
 
   const existingBidInitialValues = {
     listingAgentCommission: activeBid ? String(activeBid.listingAgentCommission) : '',
@@ -153,47 +151,68 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
           if (
             response &&
             !response.error &&
-            isListingInSubscriptionArea &&
-            agent.activeBid?.id &&
-            !agent.activeBid?.agentCanViewContactInfo
+            response.payload.id &&
+            response.payload.agentCanViewContactInfo
           ) {
-            dispatch(
-              updateAgentBid({
-                ...activeBid,
-                agentCanViewContactInfo: true,
-              })
-            );
+            return; // return out, no need to continue
+          }
+          if (
+            response &&
+            !response.error &&
+            response.payload.id &&
+            response.payload.winner &&
+            !response.payload.agentCanViewContactInfo
+          ) {
+            // in the subscription area and is a monthly subscriber, so update agentCanViewContactInfo
+            if (isMonthlySubscriber && isListingInSubscriptionArea) {
+              dispatch(
+                updateAgentBid({
+                  ...activeBid,
+                  agentCanViewContactInfo: true,
+                })
+              ).then(() => {
+                // refetch bid details to get consumer info
+                dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId)));
+              });
+              return;
+            }
+            // not in subscription area, or not a monthly subscriber, so pay the one time 295 fee
+            // then update agentCanViewContactInfo
+            // then get bid details again
+            if ((isMonthlySubscriber && !isListingInSubscriptionArea) || !isMonthlySubscriber)
+              dispatch(
+                postSingleFortispayTransaction({
+                  transaction_amount: 295,
+                  account_vault_id: agent.fortispayAccountVaultId as string,
+                })
+              ).then((res: { payload: FortispayTransactionResponseType }) => {
+                if (res && res.payload.status_id === 101) {
+                  dispatch(
+                    updateAgentBid({
+                      ...activeBid,
+                      agentCanViewContactInfo: true,
+                    })
+                  ).then(() => {
+                    // refetch bid details to get consumer info
+                    dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId)));
+                  });
+                  return;
+                }
+                if (res && res.payload.status_id !== 101) {
+                  dispatch(
+                    addAlert({
+                      type: 'danger',
+                      message:
+                        'Your payment has failed. Please try again, or update your payment method',
+                    })
+                  );
+                }
+              });
           }
         }
       );
     }
   }, []);
-
-  const payOneTimeFee = () => {
-    dispatch(
-      postSingleFortispayTransaction({
-        transaction_amount: 295,
-        account_vault_id: agent.fortispayAccountVaultId as string,
-      })
-    ).then((response: { payload: FortispayTransactionResponseType }) => {
-      if (response && response.payload.status_id === 101) {
-        dispatch(
-          updateAgentBid({
-            ...activeBid,
-            agentCanViewContactInfo: true,
-          })
-        );
-      }
-      if (response && response.payload.status_id !== 101) {
-        dispatch(
-          addAlert({
-            type: 'danger',
-            message: 'Your payment has failed. Please try again, or update your payment method',
-          })
-        );
-      }
-    });
-  };
 
   const deleteBidAndNavigate = () => {
     if (activeBid && activeBid.id) {
@@ -233,7 +252,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
           unit: 'in',
         });
         pdf.text('RealtyOffer - Listing Details', 0.75, 0.75);
-        pdf.addImage(imgData, 'PNG', 0.75, 1.5, undefined, undefined, '', undefined, 0);
+        pdf.addImage(imgData, 'PNG', 0.75, 1.5, 0, 0, '', undefined, 0);
 
         pdf.save('RealtyOffer-Agent-Contract.pdf');
       });
@@ -275,7 +294,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             Back to {pathType.charAt(0).toUpperCase() + pathType.slice(1)} Listings
           </Link>
         </p>
-        {activeBid?.consumer?.firstName && listing && !showPaymentNeededAlert && (
+        {activeBid?.consumer?.firstName && listing && activeBid.agentCanViewContactInfo && (
           <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
             Download PDF
           </Button>
@@ -283,7 +302,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
       </FlexContainer>
       <div ref={listingRef}>
         <Box>
-          {activeBid?.consumer?.firstName && listing && !showPaymentNeededAlert ? (
+          {activeBid?.consumer?.firstName && listing && activeBid.agentCanViewContactInfo ? (
             <>
               <Card
                 fullWidth
@@ -293,22 +312,28 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                 } a home!`}
               >
                 <Row>
-                  <Column md={3}>
-                    <Heading as="h4">
-                      {activeBid.consumer.firstName} {activeBid.consumer.lastName}
-                    </Heading>
+                  <Column xs={6} lg={3}>
+                    <FlexContainer flexDirection="column">
+                      <FaUser size={24} style={{ margin: 16 }} />
+                      <Heading as="h4">
+                        {activeBid.consumer.firstName} {activeBid.consumer.lastName}
+                      </Heading>
+                    </FlexContainer>
                   </Column>
-                  <Column md={3}>
-                    <p>
-                      <FaEnvelope />{' '}
-                      <a href={`mailto:${activeBid.consumer.emailAddress}`}>
+                  <Column xs={6} lg={4}>
+                    <FlexContainer flexDirection="column">
+                      <FaEnvelope size={24} style={{ margin: 16 }} />
+                      <a
+                        href={`mailto:${activeBid.consumer.emailAddress}`}
+                        style={{ wordBreak: 'break-all' }}
+                      >
                         {activeBid.consumer.emailAddress}
                       </a>
-                    </p>
+                    </FlexContainer>
                   </Column>
-                  <Column md={3}>
-                    <p>
-                      <FaPhone />{' '}
+                  <Column xs={6} lg={2}>
+                    <FlexContainer flexDirection="column">
+                      <FaPhone size={24} style={{ margin: 16 }} />
                       {activeBid.consumer.phoneNumber ? (
                         <a href={`tel:${activeBid.consumer.phoneNumber}`}>
                           {formatPhoneNumberValue(activeBid.consumer.phoneNumber)}
@@ -316,13 +341,16 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                       ) : (
                         'No phone number provided'
                       )}
-                    </p>
+                    </FlexContainer>
                   </Column>
-                  <Column md={3}>
-                    <p>
-                      Listing ended{' '}
-                      {format(localizedCreateDateTime(listing.createDateTime), 'MM/dd/yyyy')}
-                    </p>
+                  <Column xs={6} lg={3}>
+                    <FlexContainer flexDirection="column">
+                      <FaClock size={24} style={{ margin: 16 }} />
+                      <span>
+                        Listing ended{' '}
+                        {format(localizedCreateDateTime(listing.createDateTime), 'MM/dd/yyyy')}
+                      </span>
+                    </FlexContainer>
                   </Column>
                 </Row>
               </Card>
@@ -342,33 +370,6 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                   )
                 }
               />
-              {showPaymentNeededAlert && (
-                <>
-                  <Alert
-                    type="info"
-                    message={
-                      !isMonthlySubscriber
-                        ? `In order to view this customer's contact information, you must pay a one-time fee of $295`
-                        : `In order to view this customer's contact information, you must either pay a one-time fee of $295 or add one of the following cities to your monthly subscription: ${Array.isArray(
-                            listing.buyingCities
-                          ) &&
-                            listing.buyingCities.length > 0 &&
-                            Array(listing.buyingCities.map((city) => city.name))
-                              .toString()
-                              .replace(/,/g, ', ')}${listing.type === 'buyerSeller' &&
-                            ', '}${listing.sellersCity && listing.sellersCity.name}`
-                    }
-                  />
-                  <Button type="button" rightspacer onClick={() => payOneTimeFee()} color="success">
-                    Pay One-Time Fee - $295
-                  </Button>
-                  {isMonthlySubscriber && (
-                    <Button type="link" to="/agent/account/billing" color="primaryOutline">
-                      Update Subscription
-                    </Button>
-                  )}
-                </>
-              )}
               <HorizontalRule />
             </>
           )}

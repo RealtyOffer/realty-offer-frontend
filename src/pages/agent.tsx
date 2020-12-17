@@ -101,7 +101,9 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
       if (
         fortis.transactions &&
         fortis.transactions.length > 0 &&
-        fortis.transactions.sort((a, b) => b.created_ts - a.created_ts)[0].status_id === 301
+        fortis.transactions.sort((a, b) => b.created_ts - a.created_ts)[0].status_id === 301 &&
+        fortis.transactions.sort((a, b) => b.created_ts - a.created_ts)[0].transaction_amount !==
+          '0.00'
       ) {
         dispatch(updateAgentIsInGoodStanding(false));
         dispatch(
