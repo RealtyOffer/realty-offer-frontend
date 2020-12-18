@@ -50,6 +50,8 @@ export const CLEAR_AGENT_SIGNUP_DATA = 'CLEAR_AGENT_SIGNUP_DATA';
 
 export const UPDATE_AGENT_IS_IN_GOOD_STANDING = 'UPDATE_AGENT_IS_IN_GOOD_STANDING';
 
+export const HIDE_MORTGAGE_PARTNER_FORM = 'HIDE_MORTGAGE_PARTNER_FORM';
+
 export const initialState: AgentStoreType = {
   id: undefined,
   state: '',
@@ -68,6 +70,7 @@ export const initialState: AgentStoreType = {
   agentLanguages: [],
   bidDefaults: {},
   isInGoodStanding: true,
+  showMortgagePartnerForm: true,
 };
 
 export default (state: AgentStoreType = initialState, action: AgentActionTypes): AgentStoreType => {
@@ -151,6 +154,11 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         activeBid: {
           isLoading: false,
         },
+      };
+    case HIDE_MORTGAGE_PARTNER_FORM:
+      return {
+        ...state,
+        showMortgagePartnerForm: addDays(new Date(), 30),
       };
     case GET_BID_DETAILS_BY_ID_FAILURE:
       return {
@@ -273,4 +281,8 @@ export const clearAgentSignupData = () => ({
 export const updateAgentIsInGoodStanding = (payload: boolean) => ({
   type: UPDATE_AGENT_IS_IN_GOOD_STANDING,
   payload,
+});
+
+export const hideMortgagePartnerForm = () => ({
+  type: HIDE_MORTGAGE_PARTNER_FORM,
 });

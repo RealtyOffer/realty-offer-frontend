@@ -60,9 +60,11 @@ const ConsumerListing: FunctionComponent<ConsumerListingProps> = () => {
       <FlexContainer justifyContent="space-between">
         <Heading as="h2">My Listing</Heading>
         {consumer.winner && (
-          <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
-            Download PDF
-          </Button>
+          <p>
+            <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
+              Download PDF
+            </Button>
+          </p>
         )}
       </FlexContainer>
       <div ref={listing}>

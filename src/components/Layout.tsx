@@ -39,7 +39,7 @@ Modal.setAppElement('#___gatsby');
 const Layout: FunctionComponent<LayoutProps> = ({ element }) => (
   <>
     <CssReset />
-    <IconContext.Provider value={{ style: { position: 'relative' } }}>
+    <IconContext.Provider value={{ style: { fontSize: '.85em' } }}>
       <GlobalAlerts />
       <LayoutWrapper>
         <Navbar />

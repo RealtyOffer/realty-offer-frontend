@@ -106,32 +106,36 @@ const ConsumerHome: FunctionComponent<RouteComponentProps> = () => {
           <>
             <Heading>Congrats {auth.firstName}!</Heading>
             <p>Your listing has been sent to hundreds of our agents.</p>
+            <HorizontalRule />
           </>
         )}
       </HeadingWrapper>
       {!profileComplete && !consumer.isLoading && (
-        <StyledAlert>
-          <FlexContainer justifyContent="space-between" flexWrap="nowrap" alignItems="start">
-            <div>
-              <FaQuestionCircle size={doubleSpacer} />
-            </div>
-            <div style={{ marginLeft: baseSpacer }}>
-              <Heading inverse as="h3">
-                While you sit back and wait, take our personal information questionnaire.
-              </Heading>
-              <p>
-                Answer a few questions about yourself, and what you prefer in an Agent. RealtyOffer
-                will use this information to ensure you are matched with the best Agent for you.
-              </p>
-              <Button type="link" to="/consumer/preferences">
-                Take Questionnaire
-              </Button>
-            </div>
-          </FlexContainer>
-        </StyledAlert>
+        <>
+          <StyledAlert>
+            <FlexContainer justifyContent="space-between" flexWrap="nowrap" alignItems="start">
+              <div>
+                <FaQuestionCircle size={doubleSpacer} />
+              </div>
+              <div style={{ marginLeft: baseSpacer }}>
+                <Heading inverse as="h3">
+                  While you sit back and wait, take our personal information questionnaire.
+                </Heading>
+                <p>
+                  Answer a few questions about yourself, and what you prefer in an Agent.
+                  RealtyOffer will use this information to ensure you are matched with the best
+                  Agent for you.
+                </p>
+                <Button type="link" to="/consumer/preferences">
+                  Take Questionnaire
+                </Button>
+              </div>
+            </FlexContainer>
+          </StyledAlert>
+          <HorizontalRule />
+        </>
       )}
 
-      <HorizontalRule />
       <Row>
         <Column md={3}>
           <SubNav items={consumerNavigationItems} />

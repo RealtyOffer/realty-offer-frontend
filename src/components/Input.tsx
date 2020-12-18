@@ -173,6 +173,7 @@ const StyledLabel = styled.label<{
   invalid?: boolean;
   required?: boolean;
 }>`
+  font-weight: bold;
   margin: 0;
   ${(props) => props.hiddenLabel && visuallyHiddenStyle}
   ${(props) =>

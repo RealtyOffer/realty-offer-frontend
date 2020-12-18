@@ -208,7 +208,7 @@ const allStyles = css`
   }
 
   & svg {
-    margin: 0 2px;
+    margin: 0 4px;
   }
 `;
 

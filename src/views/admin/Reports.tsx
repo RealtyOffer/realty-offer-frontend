@@ -86,9 +86,10 @@ const Reports: FunctionComponent<RouteComponentProps> = () => {
       )}
       <HorizontalRule />
       <Heading styledAs="sectionHeading">User Counts By Date</Heading>
-      {metrics.profilesByDate.isLoading ? (
+      {metrics.profilesByDate.isLoading && metrics.profilesByDate.values.length === 0 && (
         <LoadingPage />
-      ) : (
+      )}
+      {!metrics.profilesByDate.isLoading && metrics.profilesByDate.values.length > 0 && (
         <>
           <Table
             columns={[

@@ -23,6 +23,7 @@ import {
   CountyType,
   EmailTemplateType,
 } from './admin.d';
+import { LOGOUT_REQUEST } from './auth';
 
 export const CREATE_SITE_BANNER_REQUEST = 'CREATE_SITE_BANNER_REQUEST';
 export const CREATE_SITE_BANNER_SUCCESS = 'CREATE_SITE_BANNER_SUCCESS';
@@ -509,6 +510,8 @@ export default (state: AdminStoreType = initialState, action: AdminActionTypes):
         },
       };
     }
+    case LOGOUT_REQUEST:
+      return { ...initialState };
     default:
       return state;
   }

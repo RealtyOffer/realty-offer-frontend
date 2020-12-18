@@ -16,7 +16,9 @@ type EmptyListingsViewProps = {
 
 const EmptyListingsView: FunctionComponent<EmptyListingsViewProps> = (props) => (
   <Box backgroundAccent textAlign="center">
-    <FaHome fontSize={64} style={{ margin: doubleSpacer }} />
+    <div style={{ fontSize: 64 }}>
+      <FaHome style={{ margin: doubleSpacer }} />
+    </div>
     <Heading styledAs="title" align="center">
       {props.title}
     </Heading>

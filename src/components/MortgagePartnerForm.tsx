@@ -3,11 +3,13 @@ import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretRight } from 'react-icons/fa';
 import styled from 'styled-components';
+import { isBefore } from 'date-fns';
 
 import { Button, Box, Heading } from '.';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 import { RootState } from '../redux/ducks';
+import { hideMortgagePartnerForm } from '../redux/ducks/agent';
 
 type MortgagePartnerFormProps = {};
 
@@ -36,7 +38,7 @@ const MortgagePartnerForm: FunctionComponent<MortgagePartnerFormProps> = () => {
     brokerCity: agent.brokerCity,
   };
 
-  if (!showForm) {
+  if (!showForm || isBefore(new Date(), agent.showMortgagePartnerForm as Date)) {
     return null;
   }
 
@@ -62,6 +64,7 @@ const MortgagePartnerForm: FunctionComponent<MortgagePartnerFormProps> = () => {
                 });
               }
               setShowForm(false);
+              dispatch(hideMortgagePartnerForm());
             })
             .catch(() => {
               setSubmitting(false);
@@ -104,6 +107,14 @@ const MortgagePartnerForm: FunctionComponent<MortgagePartnerFormProps> = () => {
                 isLoading={isSubmitting}
               >
                 Get Connected
+              </Button>
+              <Button
+                type="button"
+                block
+                color="text"
+                onClick={() => dispatch(hideMortgagePartnerForm())}
+              >
+                Remind me later
               </Button>
             </Box>
           </Form>

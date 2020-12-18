@@ -73,6 +73,8 @@ import {
   GET_PROFILES_BY_DATE_FAILURE,
 } from './admin';
 
+import { LogoutRequestAction } from './auth.d';
+
 export type BannerType = {
   id: number;
   message: string;
@@ -446,7 +448,7 @@ export type GetProfilesByDateRequestAction = {
 };
 export type GetProfilesByDateSuccessAction = {
   type: typeof GET_PROFILES_BY_DATE_SUCCESS;
-  payload: Array<ProfilesByDateMetricsType['values']>;
+  payload: ProfilesByDateMetricsType['values'];
 };
 export type GetProfilesByDateFailureAction = {
   type: typeof GET_PROFILES_BY_DATE_FAILURE;
@@ -524,4 +526,5 @@ export type AdminActionTypes =
   | GetListingsByTypeFailureActionType
   | GetProfilesByDateRequestAction
   | GetProfilesByDateSuccessAction
-  | GetProfilesByDateFailureAction;
+  | GetProfilesByDateFailureAction
+  | LogoutRequestAction;

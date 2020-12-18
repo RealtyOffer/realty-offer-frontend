@@ -129,17 +129,24 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const newInitialValues = {
     listingAgentCommission: '',
     buyersAgentCommission: '',
-    sellerBrokerComplianceAmount: agent.bidDefaults.sellerBrokerComplianceAmount || '0',
-    sellerPreInspectionAmount: agent.bidDefaults.sellerPreInspectionAmount || '0',
-    sellerPreCertifyAmount: agent.bidDefaults.sellerPreCertifyAmount || '0',
-    sellerMovingCompanyAmount: agent.bidDefaults.sellerMovingCompanyAmount || '0',
-    sellerPhotographyAmount: agent.bidDefaults.sellerPhotographyAmount || '0',
+    sellerBrokerComplianceAmount:
+      (agent.bidDefaults && agent.bidDefaults.sellerBrokerComplianceAmount) || '0',
+    sellerPreInspectionAmount:
+      (agent.bidDefaults && agent.bidDefaults.sellerPreInspectionAmount) || '0',
+    sellerPreCertifyAmount: (agent.bidDefaults && agent.bidDefaults.sellerPreCertifyAmount) || '0',
+    sellerMovingCompanyAmount:
+      (agent.bidDefaults && agent.bidDefaults.sellerMovingCompanyAmount) || '0',
+    sellerPhotographyAmount:
+      (agent.bidDefaults && agent.bidDefaults.sellerPhotographyAmount) || '0',
     buyerCommission: '',
-    buyerBrokerComplianceAmount: agent.bidDefaults.buyerBrokerComplianceAmount || '0',
-    buyerInspectionAmount: agent.bidDefaults.buyerInspectionAmount || '0',
-    buyerHomeWarrantyAmount: agent.bidDefaults.buyerHomeWarrantyAmount || '0',
-    buyerAppraisalAmount: agent.bidDefaults.buyerAppraisalAmount || '0',
-    buyerMovingCompanyAmount: agent.bidDefaults.buyerMovingCompanyAmount || '0',
+    buyerBrokerComplianceAmount:
+      (agent.bidDefaults && agent.bidDefaults.buyerBrokerComplianceAmount) || '0',
+    buyerInspectionAmount: (agent.bidDefaults && agent.bidDefaults.buyerInspectionAmount) || '0',
+    buyerHomeWarrantyAmount:
+      (agent.bidDefaults && agent.bidDefaults.buyerHomeWarrantyAmount) || '0',
+    buyerAppraisalAmount: (agent.bidDefaults && agent.bidDefaults.buyerAppraisalAmount) || '0',
+    buyerMovingCompanyAmount:
+      (agent.bidDefaults && agent.bidDefaults.buyerMovingCompanyAmount) || '0',
     listingId: props.listingId,
     saveBidDetails: false,
   };
@@ -295,9 +302,11 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
           </Link>
         </p>
         {activeBid?.consumer?.firstName && listing && activeBid.agentCanViewContactInfo && (
-          <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
-            Download PDF
-          </Button>
+          <p>
+            <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
+              Download PDF
+            </Button>
+          </p>
         )}
       </FlexContainer>
       <div ref={listingRef}>

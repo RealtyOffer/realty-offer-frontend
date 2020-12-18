@@ -9,6 +9,12 @@ import {
   FaCaretUp,
   FaChevronDown,
   FaChevronUp,
+  FaUserLock,
+  FaCreditCard,
+  FaUser,
+  FaSignOutAlt,
+  FaSignInAlt,
+  FaSearch,
 } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import ReactTooltip from 'react-tooltip';
@@ -325,6 +331,13 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     return isCurrent ? { className: 'active' } : {};
   };
 
+  const getIcon = (icon: string) => {
+    if (icon === 'user') return <FaUser />;
+    if (icon === 'credit-card') return <FaCreditCard />;
+    if (icon === 'bell-o') return <FaBell />;
+    return null;
+  };
+
   return (
     <StyledNavbar role="navigation" aria-label="main-navigation">
       <ClientOnly>
@@ -397,16 +410,16 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               {isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
                 <>
                   <Link to="/consumer/start" onClick={() => toggleMenu()}>
-                    Find An Agent
+                    <FaSearch /> Find An Agent
                   </Link>
                   <Link to="/login" onClick={() => toggleMenu()}>
-                    Sign In
+                    <FaSignInAlt /> Sign In
                   </Link>
                 </>
               )}
               {isSmallScreen && isInSignupProcess && (
                 <Link to="/logout" onClick={() => toggleMenu()}>
-                  Exit Signup
+                  <FaSignOutAlt /> Exit Signup
                 </Link>
               )}
               {isSmallScreen && isLoggedInAgent && (
@@ -418,14 +431,14 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   {subMenuIsOpen &&
                     secondaryNavigation.map((navItem) => (
                       <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
-                        {navItem.name}
+                        {getIcon(navItem.icon as string)} {navItem.name}
                       </Link>
                     ))}
                   <HorizontalRule />
                   {auth.roles.includes('Admin') && (
                     <>
                       <Link to="/admin/banners" onClick={() => toggleMenu()}>
-                        Admin
+                        <FaUserLock /> Admin
                       </Link>
                       <HorizontalRule />
                     </>
@@ -442,7 +455,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                       }
                     }}
                   >
-                    Log Out
+                    <FaSignOutAlt /> Log Out
                   </Link>
                 </>
               )}
@@ -494,12 +507,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     <StyledDropdown>
                       {secondaryNavigation.map((navItem) => (
                         <Link key={navItem.name} to={navItem.path}>
-                          {navItem.name}
+                          {getIcon(navItem.icon as string)} {navItem.name}
                         </Link>
                       ))}
                       {auth.roles.includes('Admin') && (
                         <Link to="/admin/banners" onClick={() => toggleMenu()}>
-                          Admin
+                          <FaUserLock /> Admin
                         </Link>
                       )}
                       <Link
@@ -513,7 +526,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                           }
                         }}
                       >
-                        Log Out
+                        <FaSignOutAlt /> Log Out
                       </Link>
                     </StyledDropdown>
                   )}
@@ -543,21 +556,28 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 }}
                 style={{ color: white }}
               >
+                <FaSignOutAlt />
                 Log Out
               </Link>
             )}
             {!auth.isLoggedIn && !isSmallScreen && !isInSignupProcess && (
               <div>
-                <Button type="link" to="/consumer/start" rightspacer color="inverseOutline">
+                <Button
+                  type="link"
+                  to="/consumer/start"
+                  rightspacer
+                  color="inverseOutline"
+                  iconLeft={<FaSearch />}
+                >
                   Find An Agent
                 </Button>
-                <Button type="link" to="/login" color="tertiary">
+                <Button type="link" to="/login" color="tertiary" iconLeft={<FaSignInAlt />}>
                   Sign In
                 </Button>
               </div>
             )}
             {!isSmallScreen && isInSignupProcess && (
-              <Button type="link" to="/logout" color="inverseOutline">
+              <Button type="link" to="/logout" color="inverseOutline" iconLeft={<FaSignOutAlt />}>
                 Exit Signup
               </Button>
             )}

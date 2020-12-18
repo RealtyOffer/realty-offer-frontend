@@ -24,6 +24,7 @@ import {
   CAPTURE_AGENT_SIGNUP_DATA,
   UPDATE_AGENT_IS_IN_GOOD_STANDING,
   CLEAR_AGENT_SIGNUP_DATA,
+  HIDE_MORTGAGE_PARTNER_FORM,
 } from './agent';
 
 import { CityType } from './admin.d';
@@ -111,6 +112,7 @@ export type AgentStoreType = {
   signupData: AgentSignupDataType;
   activeBid?: { isLoading: boolean } & BidType;
   isInGoodStanding: boolean;
+  showMortgagePartnerForm: boolean | Date;
 } & AgentProfileType;
 
 export type CreateAgentProfileRequestAction = {
@@ -218,6 +220,10 @@ export type UpdateAgentIsInGoodStandingAction = {
   payload: boolean;
 };
 
+export type HideMortgagePartnerFormAction = {
+  type: typeof HIDE_MORTGAGE_PARTNER_FORM;
+};
+
 export type AgentActionTypes =
   | CreateAgentProfileRequestAction
   | CreateAgentProfileSuccessAction
@@ -244,4 +250,5 @@ export type AgentActionTypes =
   | CaptureAgentSignupDataAction
   | ClearAgentSignupDataAction
   | UpdateAgentIsInGoodStandingAction
+  | HideMortgagePartnerFormAction
   | LogoutRequestAction;
