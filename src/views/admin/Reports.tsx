@@ -85,14 +85,14 @@ const Reports: FunctionComponent<RouteComponentProps> = () => {
         />
       )}
       <HorizontalRule />
-      <Heading styledAs="sectionHeading">Profiles By Date</Heading>
+      <Heading styledAs="sectionHeading">User Counts By Date</Heading>
       {metrics.profilesByDate.isLoading ? (
         <LoadingPage />
       ) : (
         <>
           <Table
             columns={[
-              { header: 'Weekly', accessor: 'name' },
+              { header: 'Last Week', accessor: 'name' },
               { header: 'Count', accessor: 'count' },
             ]}
             data={metrics.profilesByDate.values[0].metrics}
@@ -100,7 +100,7 @@ const Reports: FunctionComponent<RouteComponentProps> = () => {
           />
           <Table
             columns={[
-              { header: 'Monthly', accessor: 'name' },
+              { header: 'Last Month', accessor: 'name' },
               { header: 'Count', accessor: 'count' },
             ]}
             data={metrics.profilesByDate.values[1].metrics}
