@@ -77,7 +77,7 @@ const ListingCardBody = styled.div`
   flex-direction: column; */
 `;
 
-const ListingDetailsTable = styled.table`
+export const ListingDetailsTable = styled.table`
   width: 100%;
   & td {
     padding: 0 ${quarterSpacer};

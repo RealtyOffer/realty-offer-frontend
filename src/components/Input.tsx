@@ -22,8 +22,10 @@ import {
   brandDangerRGB,
   brandPrimary,
   brandPrimaryRGB,
+  brandTertiary,
   lightGray,
   offWhite,
+  brandTertiaryHover,
 } from '../styles/color';
 import { baseBorderStyle, disabledStyle, visuallyHiddenStyle } from '../styles/mixins';
 import { formatPhoneNumberValue } from '../utils/phoneNumber';
@@ -174,6 +176,7 @@ const StyledLabel = styled.label<{
   required?: boolean;
 }>`
   font-weight: bold;
+  color: ${brandTertiaryHover};
   margin: 0;
   ${(props) => props.hiddenLabel && visuallyHiddenStyle}
   ${(props) =>
