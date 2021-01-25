@@ -3,7 +3,9 @@ import React, { useEffect, FunctionComponent } from 'react';
 import { Router, WindowLocation } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
-import { navigate } from 'gatsby';
+import { navigate, Link } from 'gatsby';
+import styled from 'styled-components';
+import { FaBullhorn } from 'react-icons/fa';
 
 import CreateAgent from '../views/agent/AgentCreation/CreateAgent';
 import VerifyEmail from '../views/shared/VerifyEmail';
@@ -38,6 +40,39 @@ import {
   getFortispayRecurrings,
   getFortispayTransactions,
 } from '../redux/ducks/fortis';
+import { white, brandSuccess } from '../styles/color';
+import { z1Shadow } from '../styles/mixins';
+import {
+  quadrupleSpacer,
+  baseAndAHalfSpacer,
+  octupleSpacer,
+  quarterSpacer,
+  borderRadius,
+} from '../styles/size';
+
+const FeedbackLink = styled(Link)`
+  position: fixed;
+  z-index: 1;
+  right: -${quadrupleSpacer};
+  height: ${quadrupleSpacer};
+  margin-top: -${baseAndAHalfSpacer}; /* half of above */
+  top: 50%;
+  width: ${octupleSpacer};
+  background: ${brandSuccess};
+  color: ${white};
+  padding: ${quarterSpacer};
+  box-shadow: ${z1Shadow};
+  border-radius: ${borderRadius} ${borderRadius} 0 0;
+  transform: rotate(-90deg);
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: ${white};
+    opacity: 0.8;
+    right: calc(-${quadrupleSpacer} + ${quarterSpacer});
+  }
+`;
 
 const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -199,6 +234,9 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           <NotFoundPage default />
         </Router>
       </ErrorBoundary>
+      <FeedbackLink to="/feedback" state={{ pathname: props.location.pathname }}>
+        <FaBullhorn /> Feedback
+      </FeedbackLink>
     </PageContainer>
   );
 };

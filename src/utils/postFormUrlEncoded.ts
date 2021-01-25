@@ -5,7 +5,8 @@ const encode = (data: { [key: string]: any }) => {
 };
 
 export default async (formName: string, values: any) =>
-  fetch('https://realtyoffer.com/', {
+  // use GATSBY_SITE_URL from netlify.toml if available
+  fetch(process.env.GATSBY_SITE_URL ? process.env.GATSBY_SITE_URL : 'https://realtyoffer.com/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: encode({
