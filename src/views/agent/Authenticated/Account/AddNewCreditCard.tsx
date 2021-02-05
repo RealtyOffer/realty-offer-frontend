@@ -30,8 +30,8 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
       // Make sure the value for allowed matches the domain of the iFrame you are embedding.
       const allowed =
         process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
-          ? process.env.GATSBY_DEV_FORTIS_API_URL
-          : process.env.GATSBY_FORTIS_API_URL;
+          ? process.env.GATSBY_DEV_FORTISPAY_API_URL
+          : process.env.GATSBY_FORTISPAY_API_URL;
       // Verify sender's identity
       if (event.origin !== allowed) return;
 
@@ -89,14 +89,14 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
   }, []); // Empty array ensures that effect is only run on mount and unmount
 
   const encryptionKey = (process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
-    ? process.env.GATSBY_DEV_FORTIS_HPP_ENCRYPTION_KEY
-    : process.env.GATSBY_FORTIS_HPP_ENCRYPTION_KEY) as string;
+    ? process.env.GATSBY_DEV_FORTISPAY_HPP_ENCRYPTION_KEY
+    : process.env.GATSBY_FORTISPAY_HPP_ENCRYPTION_KEY) as string;
 
   const hostedPaymentPageConfig = {
     id:
       process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
-        ? process.env.GATSBY_DEV_FORTIS_HPP_ID
-        : process.env.GATSBY_FORTIS_HPP_ID,
+        ? process.env.GATSBY_DEV_FORTISPAY_HPP_ID
+        : process.env.GATSBY_FORTISPAY_HPP_ID,
     stylesheet_url: 'https://realtyoffer.com/css/fortis.css',
     field_configuration: {
       body: {
