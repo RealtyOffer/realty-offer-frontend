@@ -1,9 +1,13 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
-import { FaCheck, FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle } from 'react-icons/fa';
+import { flatten, isEmpty, omit } from 'lodash';
 
 import {
   FlexContainer,
@@ -23,15 +27,14 @@ import {
 import { getUserCities, getUserCounties } from '../../../redux/ducks/user';
 import { captureAgentSignupData, updateAgentProfile } from '../../../redux/ducks/agent';
 import { RootState } from '../../../redux/ducks';
-import { CityType } from '../../../redux/ducks/admin.d';
 import { logout } from '../../../redux/ducks/auth';
 import { brandSuccess } from '../../../styles/color';
 
 type BusinessInformationProps = {} & RouteComponentProps;
 
 const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
-  const cities = useSelector((state: RootState) => state.user.cities);
-  const counties = useSelector((state: RootState) => state.user.counties);
+  const countiesList = useSelector((state: RootState) => state.user.counties);
+  const citiesList = useSelector((state: RootState) => state.user.cities);
   const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
   const [pricingModel, setPricingModel] = useState<'payAsYouGo' | 'monthly' | null>(null);
@@ -57,44 +60,102 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
     navigate('/');
   };
 
-  const initialValues = {
-    cities: [],
-    counties: [],
+  const cityOptions = (county: number) => {
+    return (
+      citiesList &&
+      citiesList
+        ?.filter((c) => county === c.countyId)
+        .map((city) => {
+          const obj = { value: '', label: '' };
+          obj.value = city.name;
+          obj.label = `${city.name} - $${numberWithCommas(city.monthlyPrice)}/mo`;
+          return obj;
+        })
+    );
   };
-
-  const cityOptions =
-    cities &&
-    cities.map((city) => {
-      const obj = { value: '', label: '' };
-      obj.value = city.name;
-      obj.label = `${city.name} - $${numberWithCommas(city.monthlyPrice)}/mo`;
-      return obj;
-    });
 
   const countyOptions =
-    counties &&
-    counties.map((county) => {
-      const obj = { value: '', label: '' };
-      obj.value = county.name;
-      obj.label = `${county.name} - $${numberWithCommas(county.monthlyPrice)}/mo`;
+    countiesList &&
+    countiesList.map((county) => {
+      const obj = { value: 0, label: '' };
+      obj.value = county.id;
+      obj.label = county.name;
       return obj;
     });
 
-  const getCitiesTotal = (cityVals: string | string[]) => {
-    const selectedCities = cities?.filter((city) => cityVals.includes(city.name));
+  const countyInitialVals = countiesList
+    ?.map((c) => c.name)
+    // eslint-disable-next-line no-sequences
+    .reduce((a: any, b: any) => ((a[b] = []), a), {});
 
-    return selectedCities?.reduce((acc, curr) => {
-      return acc + curr.monthlyPrice;
-    }, 0);
+  const initialValues = {
+    counties: [],
+    ...countyInitialVals,
+  } as {
+    [key: string]: [];
   };
 
-  const getCountiesTotal = (countyVals: string | string[]) => {
-    const selectedCounties = counties?.filter((county) => countyVals.includes(county.name));
+  const flattenedValues = (values: typeof initialValues) => {
+    if (isEmpty(values) || typeof values === 'undefined' || values === null) {
+      return [];
+    }
 
-    return selectedCounties?.reduce((acc, curr) => {
+    const cityValuesOnly = omit(values, 'counties');
+
+    // returns an array of city names and "all 'county'" strings from values
+    return flatten(Object.keys(cityValuesOnly).map((county) => values[county]));
+  };
+
+  const selectedCities = (values: typeof initialValues) => {
+    // first, get an array of strings from values
+    const selectedCitiesAndCounties = flattenedValues(values);
+
+    // now, find those cities in citiesList and return an array of full city DTO with name and price
+    // county names will be ignored because they wont be in citiesList
+    return citiesList?.filter((city) => selectedCitiesAndCounties.includes(city.name as never));
+  };
+
+  // total of new cities that are added individually, not any cities from an "all citys in county" selection
+  const getNewCitiesTotal = (values: typeof initialValues) =>
+    selectedCities(values)?.reduce((acc, curr) => {
       return acc + curr.monthlyPrice;
     }, 0);
+
+  // returns the county DTOs that have been selected by a "all cities in county" selection
+  const selectedCounties = (values: typeof initialValues) => {
+    // first, get an array of strings from values
+    const selectedCitiesAndCounties = flattenedValues(values);
+
+    // now, remove any cities and only return an array of values that start with the string "all "
+    // then map over to remove the "all "
+    const countyValuesOnly = selectedCitiesAndCounties
+      .filter((val: string) => val.includes('all '))
+      .map((name: string) => name.substring(4));
+
+    // find the counties from the counties list
+    return countiesList?.filter((county) => countyValuesOnly.includes(county.name));
   };
+
+  // Cost of the any selections of "all cities in county" selections
+  const getNewCountiesTotal = (values: typeof initialValues) =>
+    selectedCounties(values)?.reduce((acc, curr) => {
+      return acc + curr.monthlyPrice;
+    }, 0);
+
+  // Used for updating the Agent's cities in database
+  const allNewCitiesToBeAdded = (values: typeof initialValues) => {
+    // if a "all cities in county" was selected, grab all of those cities here
+    const citiesFromCounties = citiesList?.filter((city) =>
+      selectedCounties(values)?.some((county) => city.countyId === county.id)
+    );
+
+    // combine any of the individually selected cities plus any cities from "all cities in county" selection
+    return [...(selectedCities(values) || []), ...(citiesFromCounties || [])];
+  };
+
+  // new total of just additions, so only new cities and new "all county" selections
+  const newTotal = (values: typeof initialValues) =>
+    Number(getNewCitiesTotal(values)) + Number(getNewCountiesTotal(values));
 
   return (
     <>
@@ -246,128 +307,116 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                   </Button>
                 ) : (
                   <>
-                    {(cities && cities.length > 0) || (counties && counties.length > 0) ? (
+                    {(citiesList && citiesList.length > 0) ||
+                    (countiesList && countiesList.length > 0) ? (
                       <Formik
                         validateOnMount
                         initialValues={initialValues}
                         onSubmit={(values, { setSubmitting }) => {
-                          const selectedCounties =
-                            counties &&
-                            counties
-                              .filter((county) => values.counties.some((c) => c === county.name))
-                              .map((s) => s.id);
-                          const citiesByCounty =
-                            cities &&
-                            cities.filter((city) => selectedCounties?.includes(city.countyId));
-
-                          const cityDTOs =
-                            cities &&
-                            values.cities.map(
-                              (value: string) =>
-                                cities.find((city) => city.name === value) as CityType
-                            );
-
                           dispatch(
                             captureAgentSignupData({
-                              cities:
-                                citiesByCounty && citiesByCounty?.length > 0
-                                  ? citiesByCounty
-                                  : cityDTOs,
-                              total:
-                                citiesByCounty && citiesByCounty?.length > 0
-                                  ? Number(getCountiesTotal(values.counties))
-                                  : Number(getCitiesTotal(values.cities)),
+                              cities: [...(allNewCitiesToBeAdded(values) || [])],
+                              total: newTotal(values),
                             })
                           );
                           dispatch(
                             updateAgentProfile({
                               ...agent,
-                              cities:
-                                citiesByCounty && citiesByCounty?.length > 0
-                                  ? citiesByCounty
-                                  : cityDTOs,
-                              fortispayRecurringAmount:
-                                citiesByCounty && citiesByCounty?.length > 0
-                                  ? Number(getCountiesTotal(values.counties))
-                                  : Number(getCitiesTotal(values.cities)),
+                              cities: [...(allNewCitiesToBeAdded(values) || [])],
+                              fortispayRecurringAmount: newTotal(values),
                             })
                           );
                           setSubmitting(false);
                           navigate('/agent/payment-information');
                         }}
                       >
-                        {({ isSubmitting, isValid, values, ...rest }) => (
+                        {({ isSubmitting, isValid, values, errors, ...rest }) => (
                           <Form>
-                            <>
-                              <p>
-                                Select which cities you would like to receive unlimited access to:
-                              </p>
-                              <Field
-                                as={Input}
-                                type="select"
-                                isMulti
-                                name="cities"
-                                label="Cities"
-                                options={cityOptions}
-                                required
-                                {...rest}
-                              />
-                            </>
-
-                            <>
-                              <Alert
-                                type="info"
-                                message="It may be cheaper to purchase an entire county rather than multiple cities. Select a county or counties below for bulk savings."
-                              />
+                            {/* minHeight ensures county dropdown has enough height to not get cut off */}
+                            <div style={{ minHeight: 300 }}>
                               <Field
                                 as={Input}
                                 type="select"
                                 isMulti
                                 name="counties"
-                                label="Counties"
+                                label="Select which counties you work in"
                                 options={countyOptions}
                                 required
                                 {...rest}
                               />
-                              <p>
-                                <small>
-                                  <FaInfoCircle /> Remove all counties to select cities individually
-                                  again.
-                                </small>
-                              </p>
-                            </>
 
+                              {values.counties.length > 0 &&
+                                values.counties.map((county) => {
+                                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                                  const matchingCounty = countiesList?.find(
+                                    (c) => c.id === county
+                                  )!;
+                                  const allCountyString = `all ${matchingCounty.name}`;
+                                  return (
+                                    <Field
+                                      key={county}
+                                      as={Input}
+                                      validate={() => {
+                                        if (
+                                          values[matchingCounty.name] &&
+                                          values[matchingCounty.name].length > 1 &&
+                                          values[matchingCounty.name].indexOf(
+                                            allCountyString as never
+                                          ) > -1
+                                        ) {
+                                          return 'All Cities option is selected, please remove individual cities.';
+                                        }
+                                        return undefined;
+                                      }}
+                                      type="select"
+                                      name={matchingCounty.name}
+                                      label={`Select ${matchingCounty.name} cities`}
+                                      isMulti
+                                      options={
+                                        cityOptions(county)?.length === 0
+                                          ? []
+                                          : [
+                                              {
+                                                value: `all ${matchingCounty.name}`,
+                                                label: `All Cities in ${
+                                                  matchingCounty.name
+                                                } County - $${numberWithCommas(
+                                                  matchingCounty.monthlyPrice
+                                                )}/mo`,
+                                              },
+                                              ...(cityOptions(county) as Array<{
+                                                value: string;
+                                                label: string;
+                                              }>),
+                                            ]
+                                      }
+                                      required
+                                      {...rest}
+                                    />
+                                  );
+                                })}
+                            </div>
                             <HorizontalRule />
+                            {!isEmpty(errors) && (
+                              <Alert
+                                type="danger"
+                                message="Fix the error above to see the new total"
+                              />
+                            )}
                             <FlexContainer justifyContent="space-between">
                               <Heading as="h5" noMargin>
                                 Total:
                               </Heading>
                               <Heading as="h5" noMargin>
-                                {values.counties.length >= 1
-                                  ? `$${numberWithCommas(
-                                      Number(getCountiesTotal(values.counties))
-                                    )}`
-                                  : `$${numberWithCommas(Number(getCitiesTotal(values.cities)))}`}
+                                {!isEmpty(errors) ? (
+                                  <span>--</span>
+                                ) : (
+                                  <>${numberWithCommas(newTotal(values))}</>
+                                )}
                               </Heading>
                             </FlexContainer>
                             <FlexContainer justifyContent="space-between">
-                              <p>
-                                {values.counties.length >= 1 ? (
-                                  <>
-                                    {values.counties.length === 1
-                                      ? '1 county'
-                                      : `${values.counties.length} counties`}{' '}
-                                    selected
-                                  </>
-                                ) : (
-                                  <>
-                                    {values.cities.length === 1
-                                      ? '1 city'
-                                      : `${values.cities.length} cities`}{' '}
-                                    selected
-                                  </>
-                                )}
-                              </p>
+                              <p>&nbsp;</p>
                               <p>per month</p>
                             </FlexContainer>
                             <Button
@@ -377,9 +426,8 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                               disabled={
                                 isSubmitting ||
                                 !isValid ||
-                                Number(getCountiesTotal(values.counties) ?? 0) +
-                                  (Number(getCitiesTotal(values.cities)) ?? 0) ===
-                                  0
+                                !isEmpty(errors) ||
+                                allNewCitiesToBeAdded(values).length === 0
                               }
                               isLoading={isSubmitting || agent.isLoading}
                             >

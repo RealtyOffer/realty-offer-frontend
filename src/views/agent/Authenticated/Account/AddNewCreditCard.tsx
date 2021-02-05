@@ -28,7 +28,10 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
 
     const receiveMessage = (event: MessageEvent) => {
       // Make sure the value for allowed matches the domain of the iFrame you are embedding.
-      const allowed = process.env.GATSBY_FORTIS_API_URL;
+      const allowed =
+        process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
+          ? process.env.GATSBY_DEV_FORTIS_API_URL
+          : process.env.GATSBY_FORTIS_API_URL;
       // Verify sender's identity
       if (event.origin !== allowed) return;
 
@@ -85,10 +88,15 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
     return () => window.removeEventListener('message', receiveMessage);
   }, []); // Empty array ensures that effect is only run on mount and unmount
 
-  const encryptionKey = process.env.GATSBY_FORTIS_HPP_ENCRYPTION_KEY as string;
+  const encryptionKey = (process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
+    ? process.env.GATSBY_DEV_FORTIS_HPP_ENCRYPTION_KEY
+    : process.env.GATSBY_FORTIS_HPP_ENCRYPTION_KEY) as string;
 
   const hostedPaymentPageConfig = {
-    id: process.env.GATSBY_FORTIS_HPP_ID,
+    id:
+      process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
+        ? process.env.GATSBY_DEV_FORTIS_HPP_ID
+        : process.env.GATSBY_FORTIS_HPP_ID,
     stylesheet_url: 'https://realtyoffer.com/css/fortis.css',
     field_configuration: {
       body: {
@@ -123,7 +131,11 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
   const stringifiedConfig = JSON.stringify(hostedPaymentPageConfig);
   const encryptedData = CryptoJS.AES.encrypt(stringifiedConfig, encryptionKey).toString();
   const encodedData = encodeURIComponent(encryptedData);
-  const url = `${process.env.GATSBY_FORTIS_API_URL}/hostedpaymentpage?id=11eb38df43290f2a86948d0a&data=${encodedData}`;
+  const url = `${
+    process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
+      ? process.env.GATSBY_FORTISPAY_DEV_API_URL
+      : process.env.GATSBY_FORTISPAY_API_URL
+  }/hostedpaymentpage?id=11eb38df43290f2a86948d0a&data=${encodedData}`;
 
   return (
     <div>

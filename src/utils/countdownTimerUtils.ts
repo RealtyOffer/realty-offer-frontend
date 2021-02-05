@@ -22,7 +22,7 @@ export const isExpiringSoon = (createDateTime: Date) => {
 };
 
 export const expiresAt = (createDateTime: Date) =>
-  addMinutes(localizedCreateDateTime(createDateTime), 5);
+  addHours(localizedCreateDateTime(createDateTime), 24);
 
 export const isExpired = (createDateTime: Date) => isPast(expiresAt(createDateTime));
 

@@ -17,9 +17,10 @@ import { getUserCities, getUserCounties } from '../../../../redux/ducks/user';
 
 type SubscriptionsTableProps = {
   cities: Array<CityType>;
+  isLoading?: boolean;
 };
 
-const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities }) => {
+const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities, isLoading }) => {
   const countiesList = useSelector((state: RootState) => state.user.counties);
   const citiesList = useSelector((state: RootState) => state.user.cities);
   const fortis = useSelector((state: RootState) => state.fortis);
@@ -93,7 +94,7 @@ const SubscriptionsTable: FunctionComponent<SubscriptionsTableProps> = ({ cities
       };
     });
 
-  if (cities.length === 0 || countiesList?.length === 0) {
+  if (isLoading || cities.length === 0 || countiesList?.length === 0) {
     return <Skeleton count={5} />;
   }
 

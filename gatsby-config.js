@@ -25,7 +25,7 @@ module.exports = {
       resolve: `gatsby-plugin-segment-js`,
       options: {
         prodKey: process.env.GATSBY_SEGMENT_API_KEY,
-        // devKey: process.env.GATSBY_SEGMENT_API_KEY,
+        devKey: process.env.GATSBY_DEV_SEGMENT_API_KEY,
         trackPage: true,
         trackPageDelay: 50,
       },

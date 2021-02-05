@@ -192,7 +192,7 @@ const Billing: FunctionComponent<BillingProps> = () => {
                   {agent && agent.cities && agent.cities.length > 0 && (
                     <>
                       <p>Your sales area currently includes:</p>
-                      <SubscriptionsTable cities={agent.cities} />
+                      <SubscriptionsTable cities={agent.cities} isLoading={agent.isLoading} />
                       <Button type="button" onClick={() => setAddCityModalIsOpen(true)}>
                         Add More Cities
                       </Button>

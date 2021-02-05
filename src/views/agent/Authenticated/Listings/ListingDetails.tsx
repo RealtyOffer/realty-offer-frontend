@@ -106,7 +106,8 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
 
   const isNewOrPending = pathType === 'new' || pathType === 'pending';
-  const isNewOrPendingAndNotExpired = isNewOrPending && !isExpired(listing.createDateTime);
+  const isNewOrPendingAndNotExpired =
+    isNewOrPending && listing.createDateTime && !isExpired(listing.createDateTime);
 
   const isListingInSubscriptionArea =
     agent.cities?.some((city) => listing.buyingCities?.some((c) => c.id === city.id)) ||
