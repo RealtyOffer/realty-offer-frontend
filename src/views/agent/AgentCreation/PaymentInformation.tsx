@@ -158,7 +158,11 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     process.env.GATSBY_SITE_URL === 'https://develop.realtyoffer.com'
       ? process.env.GATSBY_DEV_FORTISPAY_API_URL
       : process.env.GATSBY_FORTISPAY_API_URL
-  }/hostedpaymentpage?id=11eb38df43290f2a86948d0a&data=${encodedData}`;
+  }/hostedpaymentpage?id=${
+    process.env.GATSBY_SITE_URL === 'https://develop.realtyoffer.com'
+      ? process.env.GATSBY_DEV_FORTISPAY_HPP_ID
+      : process.env.GATSBY_FORTISPAY_HPP_ID
+  }&data=${encodedData}`;
 
   return (
     <>

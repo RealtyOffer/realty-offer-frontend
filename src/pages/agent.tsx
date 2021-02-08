@@ -184,7 +184,6 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(process.env.GATSBY_SITE_URL);
     if (window && window.analytics && auth.isLoggedIn) {
       window.analytics.identify(auth.email, {
         email: auth.email,
