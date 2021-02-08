@@ -9,6 +9,11 @@
   Realty Offer - Frontend
 </h1>
 
+### Site is auto-deployed via Netlify with two branches
+
+[PROD](https://realtyoffer.com) - `master` branch
+[DEV](https://develop.realtyoffer.com) - `develop` branch
+
 A Gatsby project using React, Redux, Styled-Components, Storybook, Formik, and more.
 
 ## 🚀 Quick start
@@ -101,4 +106,4 @@ Looking for more guidance on the components available in this repo? Run `yarn st
 
 ## 💫 Deploy
 
-This project is automatically deployed to Netlify at `https://realtyoffer-dev.netlify.com/` via commits to the `master` branch.
+This project is automatically deployed to Netlify at `https://realtyoffer.com/` via commits to the `master` branch.
