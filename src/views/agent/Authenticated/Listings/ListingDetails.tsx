@@ -477,7 +477,9 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                     dispatch(getPendingListings());
                     dispatch(getAwardedListings());
                     dispatch(getHistoryListings());
-                    navigate(`/agent/listings/${pathType}`);
+                    navigate(
+                      pathType === 'new' ? `/agent/listings/pending` : `/agent/listings/${pathType}`
+                    );
                   }
                 });
               }}

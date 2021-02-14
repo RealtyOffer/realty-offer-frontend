@@ -33,6 +33,8 @@ import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { captureAgentSignupData } from '../../../redux/ducks/agent';
 import { RootState } from '../../../redux/ducks';
+import { baseBorderStyle } from '../../../styles/mixins';
+import { baseSpacer } from '../../../styles/size';
 
 type CreateAgentProps = {} & RouteComponentProps;
 
@@ -181,48 +183,59 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
               </Button>
               <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
                 <Heading styledAs="title">RealtyOffer Terms of Use</Heading>
-                <p>
-                  You must read and agree to our Terms of Use (the <strong>“Agreement”</strong>)
-                  because it forms the binding contract between you and RealtyOffer in connection
-                  with your use of the Service. Below please find a short summary of the Agreement
-                  (with capitalized terms defined in the Agreement). The Agreement and Service may
-                  be modified or discontinued at any time.
-                </p>
-                <p>
-                  <strong>Acceptance.</strong> By using the Service, you agree to the terms of use
-                  and any other terms provided by us to you in connection with the Service.
-                </p>
-                <p>
-                  <strong>Content.</strong> You grant RealtyOffer the right to display your profile
-                  and Content. You agree that all of your Content is accurate and truthful.
-                </p>
-                <p>
-                  <strong>Rights.</strong> RealtyOffer grants you the right to use the Service as
-                  authorized and permitted by the Agreement. See the Agreement for a full list of
-                  your representations and obligations with respect to the Service.
-                </p>
-                <p>
-                  <strong>Agents.</strong> If you are an Agent, you agree to pay RealtyOffer a
-                  marketing fee when a lead is awarded.
-                </p>
-                <p>
-                  <strong>Termination.</strong> Each of us may terminate your account at any time.
-                </p>
-                <p>
-                  <strong>Disclaimers.</strong> RealtyOffer does not guarantee any results in
-                  connection with your use of the Service. The Service is provided “as is,” and we
-                  disclaim legal liability for the quality, safety, or reliability of the Service.
-                </p>
-                <p>
-                  <strong>Indemnity.</strong> You agree to indemnify us for actions arising out of
-                  your use of the Service, your Content or your violation of this Agreement.
-                </p>
-                <p>
-                  <strong>Limitation of Liability.</strong> We will not be liable for any indirect
-                  damages. Our liability for direct damages will be limited to the amount paid by
-                  you during the twelve (12) month period preceding the date the first claim
-                  accrued.{' '}
-                </p>
+                <div
+                  style={{
+                    height: 300,
+                    overflowY: 'scroll',
+                    border: baseBorderStyle,
+                    padding: baseSpacer,
+                    marginBottom: baseSpacer,
+                  }}
+                >
+                  <p>
+                    You must read and agree to our Terms of Use (the <strong>“Agreement”</strong>)
+                    because it forms the binding contract between you and RealtyOffer in connection
+                    with your use of the Service. Below please find a short summary of the Agreement
+                    (with capitalized terms defined in the Agreement). The Agreement and Service may
+                    be modified or discontinued at any time.
+                  </p>
+                  <p>
+                    <strong>Acceptance.</strong> By using the Service, you agree to the terms of use
+                    and any other terms provided by us to you in connection with the Service.
+                  </p>
+                  <p>
+                    <strong>Content.</strong> You grant RealtyOffer the right to display your
+                    profile and Content. You agree that all of your Content is accurate and
+                    truthful.
+                  </p>
+                  <p>
+                    <strong>Rights.</strong> RealtyOffer grants you the right to use the Service as
+                    authorized and permitted by the Agreement. See the Agreement for a full list of
+                    your representations and obligations with respect to the Service.
+                  </p>
+                  <p>
+                    <strong>Agents.</strong> If you are an Agent, you agree to pay RealtyOffer a
+                    marketing fee when a lead is awarded.
+                  </p>
+                  <p>
+                    <strong>Termination.</strong> Each of us may terminate your account at any time.
+                  </p>
+                  <p>
+                    <strong>Disclaimers.</strong> RealtyOffer does not guarantee any results in
+                    connection with your use of the Service. The Service is provided “as is,” and we
+                    disclaim legal liability for the quality, safety, or reliability of the Service.
+                  </p>
+                  <p>
+                    <strong>Indemnity.</strong> You agree to indemnify us for actions arising out of
+                    your use of the Service, your Content or your violation of this Agreement.
+                  </p>
+                  <p>
+                    <strong>Limitation of Liability.</strong> We will not be liable for any indirect
+                    damages. Our liability for direct damages will be limited to the amount paid by
+                    you during the twelve (12) month period preceding the date the first claim
+                    accrued.{' '}
+                  </p>
+                </div>
                 <Row>
                   <Column xs={6}>
                     <Button

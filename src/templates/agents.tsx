@@ -20,7 +20,7 @@ import {
   PreviewCompatibleImage,
 } from '../components';
 
-import { baseSpacer, doubleSpacer, quadrupleSpacer, breakpoints } from '../styles/size';
+import { baseSpacer, doubleSpacer, quadrupleSpacer, breakpoints, halfSpacer } from '../styles/size';
 import { brandPrimary, brandTertiaryHover, lightestGray, textColor, white } from '../styles/color';
 import appleAppStoreBadge from '../images/apple-app-store-black.svg';
 import googlePlayStoreBadge from '../images/google-play-store-black.svg';
@@ -81,7 +81,7 @@ type AgentsPageProps = {
 
 const HeroBox = styled.div`
   background-color: rgba(0, 0, 0, 0.75);
-  padding: ${baseSpacer};
+  padding: ${halfSpacer};
   @media only screen and (min-width: ${breakpoints.sm}) {
     padding: ${doubleSpacer};
   }

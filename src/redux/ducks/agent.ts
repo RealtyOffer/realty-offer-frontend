@@ -93,7 +93,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        isInGoodStanding: Boolean(action.payload.fortispayAccountVaultId),
+        isInGoodStanding: state.isPilotUser || Boolean(action.payload.fortispayAccountVaultId),
         ...action.payload,
       };
     case GET_BID_DETAILS_BY_ID_REQUEST:

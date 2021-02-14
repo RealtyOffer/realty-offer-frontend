@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { navigate, Link } from 'gatsby';
+import { Link } from 'gatsby';
 
 import { Box, Input, Row, Column, ProgressBar, Heading, Seo } from '../../../components';
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../../../utils/validations';
@@ -50,7 +50,6 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
                   message: 'Successfully saved your preferences!',
                 })
               );
-              navigate('/consumer/home');
             }
             setSubmitting(false);
           });
