@@ -87,26 +87,26 @@ const Footer = () => (
           </Heading>
           <p>
             <SocialLink href="https://www.facebook.com/RealtyOffer" target="_blank">
-              <FaFacebookSquare />
+              <FaFacebookSquare color="#3b5998" />
               <HiddenText>Facebook</HiddenText>
             </SocialLink>
             <SocialLink href="https://www.linkedin.com/company/realtyoffer/" target="_blank">
-              <FaLinkedin />
+              <FaLinkedin color="#0077b5" />
               <HiddenText>LinkedIn</HiddenText>
             </SocialLink>
             <SocialLink
               href="https://www.youtube.com/channel/UCA2Lxd_nxREIZ7ruAzq18Ag"
               target="_blank"
             >
-              <FaYoutubeSquare />
+              <FaYoutubeSquare color="#ff0000" />
               <HiddenText>Youtube</HiddenText>
             </SocialLink>
             <SocialLink href="https://www.instagram.com/realtyofferus/" target="_blank">
-              <FaInstagram />
+              <FaInstagram color="#405de6" />
               <HiddenText>Instagram</HiddenText>
             </SocialLink>
             <SocialLink href="https://twitter.com/realtyoffer1" target="_blank">
-              <FaTwitterSquare />
+              <FaTwitterSquare color="#1da1f2" />
               <HiddenText>Twitter</HiddenText>
             </SocialLink>
           </p>
