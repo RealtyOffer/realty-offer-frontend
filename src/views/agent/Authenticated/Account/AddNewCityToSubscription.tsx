@@ -169,7 +169,8 @@ const AddNewCityToSubscription: FunctionComponent<AddNewCityToSubscriptionProps>
 
     return (
       Number(
-        Number(recurring.transaction_amount) - (cityCostsToBeRemovedWithAllCountySelection || 0)
+        (recurring ? Number(recurring.transaction_amount) : 0) -
+          (cityCostsToBeRemovedWithAllCountySelection || 0)
       ) + newTotal(values)
     );
   };
@@ -190,13 +191,15 @@ const AddNewCityToSubscription: FunctionComponent<AddNewCityToSubscriptionProps>
             validateOnMount
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              // pro-rated for rest of billing cycle
-              dispatch(
-                postSingleFortispayTransaction({
-                  transaction_amount: Number(proratedAmountOfNewTotal(values).toFixed(2)),
-                  account_vault_id: agent.fortispayAccountVaultId as string,
-                })
-              );
+              if (fortis.recurring.length > 0) {
+                // pro-rated for rest of billing cycle only if already have a recurring set up
+                dispatch(
+                  postSingleFortispayTransaction({
+                    transaction_amount: Number(proratedAmountOfNewTotal(values).toFixed(2)),
+                    account_vault_id: agent.fortispayAccountVaultId as string,
+                  })
+                );
+              }
 
               dispatch(
                 fortis.recurring.length > 0
@@ -206,7 +209,9 @@ const AddNewCityToSubscription: FunctionComponent<AddNewCityToSubscriptionProps>
                     })
                   : createFortispayRecurring({
                       account_vault_id: agent.fortispayAccountVaultId as string,
-                      transaction_amount: agent.fortispayRecurringAmount?.toString() as string,
+                      transaction_amount: agent.fortispayRecurringAmount
+                        ? (agent.fortispayRecurringAmount?.toString() as string)
+                        : String(newTotal(values)),
                       interval_type: 'm',
                       interval: 1,
                       start_date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
@@ -319,7 +324,7 @@ const AddNewCityToSubscription: FunctionComponent<AddNewCityToSubscriptionProps>
                   <p>per month</p>
                 </FlexContainer>
 
-                {isEmpty(errors) && newTotal(values) !== 0 && (
+                {isEmpty(errors) && newTotal(values) !== 0 && recurring && (
                   <p>
                     This amount will be added to the{' '}
                     {agent.cities && agent.cities.length === 1

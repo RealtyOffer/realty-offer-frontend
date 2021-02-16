@@ -27,7 +27,7 @@ import {
   editFortispayRecurring,
   deleteFortispayAccountvault,
 } from '../../../../redux/ducks/fortis';
-import { updateAgentProfile } from '../../../../redux/ducks/agent';
+import { getAgentProfile, updateAgentProfile } from '../../../../redux/ducks/agent';
 import TransactionsTable from './TransactionsTable';
 import SubscriptionsTable from './SubscriptionsTable';
 import { getStatesList } from '../../../../redux/ducks/dropdowns';
@@ -60,12 +60,10 @@ const Billing: FunctionComponent<BillingProps> = () => {
   ] = useState<FortispayAccountvaultResponseType | null>(null);
 
   useEffect(() => {
+    dispatch(getAgentProfile());
     if (statesList.length === 0) {
       dispatch(getStatesList());
     }
-  }, []);
-
-  useEffect(() => {
     if (!citiesList || citiesList.length === 0) {
       dispatch(getUserCities());
     }
