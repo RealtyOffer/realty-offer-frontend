@@ -45,7 +45,7 @@ const EmailTemplateDetails: FunctionComponent<EmailTemplateDetailsProps> = (prop
   }, []);
 
   useEffect(() => {
-    if (props.name) {
+    if (props.name && props.name !== 'new') {
       dispatch(getEmailTemplateByName(props.name));
     }
   }, []);
@@ -59,11 +59,6 @@ const EmailTemplateDetails: FunctionComponent<EmailTemplateDetailsProps> = (prop
 
   const isNewEmailTemplate = props.name === 'new';
 
-  const initialValues = isNewEmailTemplate
-    ? newEmailTemplateInitialValues
-    : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      admin.activeEmailTemplate!;
-
   if (!props.name || !admin.emailTemplates) {
     return null;
   }
@@ -76,11 +71,16 @@ const EmailTemplateDetails: FunctionComponent<EmailTemplateDetailsProps> = (prop
           Back to All Email Templates
         </Button>
       </FlexContainer>
-      {!isLoading && admin.activeEmailTemplate ? (
+      {!isLoading ? (
         <>
           <Formik
             validateOnMount
-            initialValues={initialValues}
+            initialValues={
+              isNewEmailTemplate
+                ? newEmailTemplateInitialValues
+                : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  admin.activeEmailTemplate!
+            }
             onSubmit={(values, { setSubmitting }) => {
               dispatch(
                 isNewEmailTemplate ? createEmailTemplate(values) : updateEmailTemplate(values)
@@ -161,45 +161,47 @@ const EmailTemplateDetails: FunctionComponent<EmailTemplateDetailsProps> = (prop
               </Form>
             )}
           </Formik>
-          <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
-            <Heading styledAs="title">Delete {admin.activeEmailTemplate.name}?</Heading>
-            <p>Are you sure you want to delete {admin.activeEmailTemplate.name}?</p>
-            <Row>
-              <Column xs={6}>
-                <Button
-                  type="button"
-                  onClick={() => setModalIsOpen(false)}
-                  color="primaryOutline"
-                  block
-                >
-                  Cancel
-                </Button>
-              </Column>
-              <Column xs={6}>
-                <Button
-                  type="button"
-                  onClick={async () => {
-                    if (!isNewEmailTemplate && admin.activeEmailTemplate) {
-                      await dispatch(deleteEmailTemplate(admin.activeEmailTemplate.name));
-                      dispatch(
-                        addAlert({
-                          type: 'success',
-                          message: `Successfully removed ${admin.activeEmailTemplate.name}`,
-                        })
-                      );
-                      navigate('/admin/email-templates');
-                    }
-                  }}
-                  block
-                  color="danger"
-                  disabled={isLoading}
-                  isLoading={isLoading}
-                >
-                  Delete
-                </Button>
-              </Column>
-            </Row>
-          </Modal>
+          {admin.activeEmailTemplate && (
+            <Modal toggleModal={() => setModalIsOpen(false)} isOpen={modalIsOpen}>
+              <Heading styledAs="title">Delete {admin.activeEmailTemplate.name}?</Heading>
+              <p>Are you sure you want to delete {admin.activeEmailTemplate.name}?</p>
+              <Row>
+                <Column xs={6}>
+                  <Button
+                    type="button"
+                    onClick={() => setModalIsOpen(false)}
+                    color="primaryOutline"
+                    block
+                  >
+                    Cancel
+                  </Button>
+                </Column>
+                <Column xs={6}>
+                  <Button
+                    type="button"
+                    onClick={async () => {
+                      if (!isNewEmailTemplate && admin.activeEmailTemplate) {
+                        await dispatch(deleteEmailTemplate(admin.activeEmailTemplate.name));
+                        dispatch(
+                          addAlert({
+                            type: 'success',
+                            message: `Successfully removed ${admin.activeEmailTemplate.name}`,
+                          })
+                        );
+                        navigate('/admin/email-templates');
+                      }
+                    }}
+                    block
+                    color="danger"
+                    disabled={isLoading}
+                    isLoading={isLoading}
+                  >
+                    Delete
+                  </Button>
+                </Column>
+              </Row>
+            </Modal>
+          )}
         </>
       ) : (
         <LoadingPage />

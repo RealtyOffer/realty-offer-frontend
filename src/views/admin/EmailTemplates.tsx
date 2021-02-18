@@ -41,6 +41,9 @@ const EmailTemplates: FunctionComponent<RouteComponentProps> = () => {
       <Seo title="Email Templates" />
       <FlexContainer justifyContent="space-between">
         <Heading>Email Templates</Heading>
+        <Button type="link" to="/admin/email-templates/new">
+          Add New Email
+        </Button>
       </FlexContainer>
       {admin.isLoading ? (
         <LoadingPage />
