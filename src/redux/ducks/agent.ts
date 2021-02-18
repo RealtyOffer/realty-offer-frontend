@@ -93,7 +93,12 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         ...state,
         isLoading: false,
         hasError: false,
-        isInGoodStanding: state.isPilotUser || Boolean(action.payload.fortispayAccountVaultId),
+        // if a pilot user, always have them in good standing. otherwise, check to see if there is
+        // an accoutn vault id. later, in Agent.tsx, we will check to see if the last transaction
+        // was successful and update using UPDATE_AGENT_IS_IN_GOOD_STANDING
+        isInGoodStanding: action.payload.isPilotUser
+          ? true
+          : Boolean(action.payload.fortispayAccountVaultId),
         ...action.payload,
       };
     case GET_BID_DETAILS_BY_ID_REQUEST:
