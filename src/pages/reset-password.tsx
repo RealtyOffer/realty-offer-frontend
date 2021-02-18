@@ -80,7 +80,7 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
             dispatch(
               resetPassword({
                 ...values,
-                // token: combined,
+                token: String(values.token),
               })
             ).then((response: ActionResponseType) => {
               setSubmitting(false);
