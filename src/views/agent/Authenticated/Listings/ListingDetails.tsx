@@ -179,8 +179,9 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             response.payload.winner &&
             !response.payload.agentCanViewContactInfo
           ) {
-            // in the subscription area and is a monthly subscriber, so update agentCanViewContactInfo
-            if (isMonthlySubscriber && isListingInSubscriptionArea) {
+            // if a pilot user, they can view contact info without paying, OR
+            // if a monthly subscriber and in the subscription area, update agentCanViewContactInfo
+            if (agent.isPilotUser || (isMonthlySubscriber && isListingInSubscriptionArea)) {
               dispatch(
                 updateAgentBid({
                   ...activeBid,
