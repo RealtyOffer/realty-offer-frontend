@@ -128,13 +128,13 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
             initialValues={settingsInitialValues}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               if (settingsInitialValues.emailAddress !== values.emailAddress) {
-                resendEmailConfirmationCode(values);
+                return resendEmailConfirmationCode(values);
               }
               if (settingsInitialValues.phoneNumber !== values.phoneNumber) {
-                resendPhoneNumberConfirmationCode(values);
+                return resendPhoneNumberConfirmationCode(values);
               }
               if (values.emailConfirmationCode) {
-                dispatch(
+                return dispatch(
                   confirmDevice({
                     confirmationCode: String(values.emailConfirmationCode),
                     deviceType: 'email',
@@ -158,7 +158,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                 );
               }
               if (values.phoneNumberConfirmationCode) {
-                dispatch(
+                return dispatch(
                   confirmDevice({
                     confirmationCode: String(values.phoneNumberConfirmationCode),
                     deviceType: 'phone',
@@ -182,7 +182,7 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                 );
               }
               if (!values.emailConfirmationCode && !values.phoneNumberConfirmationCode)
-                dispatch(updateUserNotificationSettings({ ...values })).then(
+                return dispatch(updateUserNotificationSettings({ ...values })).then(
                   (
                     response:
                       | ActionResponseType
