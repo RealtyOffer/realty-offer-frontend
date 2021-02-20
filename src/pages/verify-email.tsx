@@ -1,8 +1,14 @@
+//
+// This file is an almost duplication of /views/shared/VerifyEmail except that it is generic
+// meaning it doesnt have any agent or consumer logic in it. It is just so there is a static page
+// that we can link to in the email that gets sent from cognito in case a user abandons the process
+// before verifying their account
+//
 /* eslint-disable import/no-cycle, jsx-a11y/label-has-associated-control */
 import React, { useState, FunctionComponent } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps, useLocation } from '@reach/router';
+import { RouteComponentProps } from '@reach/router';
 
 import {
   ClientOnly,
@@ -12,13 +18,13 @@ import {
   Card,
   Seo,
   HorizontalRule,
-  TimelineProgress,
   Alert,
-} from '../../components';
-import { verifyEmail, resendSignupEmail } from '../../redux/ducks/auth';
-import { requiredField, requiredEmail } from '../../utils/validations';
-import { ActionResponseType } from '../../redux/constants';
-import { RootState } from '../../redux/ducks';
+  PageContainer,
+} from '../components';
+import { verifyEmail, resendSignupEmail } from '../redux/ducks/auth';
+import { requiredField, requiredEmail } from '../utils/validations';
+import { ActionResponseType } from '../redux/constants';
+import { RootState } from '../redux/ducks';
 
 declare const document: Document;
 
@@ -27,9 +33,7 @@ type VerifyEmailType = {};
 const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = () => {
   const [verified, setVerified] = useState(false);
   const auth = useSelector((state: RootState) => state.auth);
-  const agent = useSelector((state: RootState) => state.agent);
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const initialValues = {
     email: auth.email,
@@ -41,30 +45,8 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
   };
 
   return (
-    <>
+    <PageContainer>
       <Seo title="Verify Email" />
-      {location.pathname.includes('consumer') ? (
-        <TimelineProgress
-          items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}
-          currentStep={4}
-        />
-      ) : (
-        <TimelineProgress
-          items={
-            agent && agent.signupData.isPilotUser
-              ? ['Create Account', 'Verify Email', 'Agent Info', 'Confirm']
-              : [
-                  'Create Account',
-                  'Verify Email',
-                  'Agent Info',
-                  'Business Info',
-                  'Payment',
-                  'Confirm',
-                ]
-          }
-          currentStep={2}
-        />
-      )}
       <Card
         cardTitle={verified ? 'Verified!' : 'Verify Email Address'}
         cardSubtitle={
@@ -159,7 +141,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
           </ClientOnly>
         )}
       </Card>
-    </>
+    </PageContainer>
   );
 };
 
