@@ -184,7 +184,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             if (agent.isPilotUser || (isMonthlySubscriber && isListingInSubscriptionArea)) {
               dispatch(
                 updateAgentBid({
-                  ...activeBid,
+                  ...response,
                   agentCanViewContactInfo: true,
                 })
               ).then(() => {
