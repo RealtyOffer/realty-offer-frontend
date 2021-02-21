@@ -110,8 +110,8 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     isNewOrPending && listing && listing.createDateTime && !isExpired(listing.createDateTime);
 
   const isListingInSubscriptionArea =
-    agent.cities?.some((city) => listing.buyingCities?.some((c) => c.id === city.id)) ||
-    agent.cities?.some((city) => listing.sellersCity?.id === city.id);
+    agent.cities?.some((city) => listing && listing.buyingCities?.some((c) => c.id === city.id)) ||
+    agent.cities?.some((city) => listing && listing.sellersCity?.id === city.id);
 
   const isMonthlySubscriber =
     agent.cities && agent.cities.length > 0 && agent.fortispayRecurringId !== null;
@@ -377,18 +377,20 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             </>
           ) : (
             <FlexContainer>
-              <Countdown
-                createDateTime={listing.createDateTime}
-                showRemainingTimeString
-                onComplete={() =>
-                  dispatch(
-                    addAlert({
-                      type: 'info',
-                      message: 'The bidding window for this listing has just ended.',
-                    })
-                  )
-                }
-              />
+              {listing && listing.createDateTime && (
+                <Countdown
+                  createDateTime={listing.createDateTime}
+                  showRemainingTimeString
+                  onComplete={() =>
+                    dispatch(
+                      addAlert({
+                        type: 'info',
+                        message: 'The bidding window for this listing has just ended.',
+                      })
+                    )
+                  }
+                />
+              )}
               <HorizontalRule />
             </FlexContainer>
           )}
