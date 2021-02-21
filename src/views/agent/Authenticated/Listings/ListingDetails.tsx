@@ -107,7 +107,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
 
   const isNewOrPending = pathType === 'new' || pathType === 'pending';
   const isNewOrPendingAndNotExpired =
-    isNewOrPending && listing.createDateTime && !isExpired(listing.createDateTime);
+    isNewOrPending && listing && listing.createDateTime && !isExpired(listing.createDateTime);
 
   const isListingInSubscriptionArea =
     agent.cities?.some((city) => listing.buyingCities?.some((c) => c.id === city.id)) ||
