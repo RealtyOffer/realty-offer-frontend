@@ -130,10 +130,10 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
     case GET_NEW_LISTINGS_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         hasError: false,
         activeBid: {
-          isLoading: true,
+          isLoading: false,
           winner: false,
           consumer: undefined,
         },
