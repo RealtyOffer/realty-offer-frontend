@@ -29,6 +29,7 @@ import {
 
 import { CityType } from './admin.d';
 import { LogoutRequestAction } from './auth.d';
+import { GetNewListingsRequestAction } from './listings.d';
 
 export type AgentProfileType = {
   id?: number;
@@ -251,4 +252,5 @@ export type AgentActionTypes =
   | ClearAgentSignupDataAction
   | UpdateAgentIsInGoodStandingAction
   | HideMortgagePartnerFormAction
+  | GetNewListingsRequestAction
   | LogoutRequestAction;
