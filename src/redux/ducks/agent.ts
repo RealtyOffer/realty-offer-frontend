@@ -14,7 +14,7 @@ import {
   BidType,
   AgentSignupDataType,
 } from './agent.d';
-import { GET_NEW_LISTINGS_REQUEST } from './listings';
+import { GET_NEW_LISTINGS_REQUEST, GET_NEW_LISTINGS_SUCCESS } from './listings';
 
 export const CREATE_AGENT_PROFILE_REQUEST = 'CREATE_AGENT_PROFILE_REQUEST';
 export const CREATE_AGENT_PROFILE_SUCCESS = 'CREATE_AGENT_PROFILE_SUCCESS';
@@ -126,6 +126,17 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         isLoading: false,
         hasError: false,
         activeBid: { isLoading: false, ...action.payload },
+      };
+    case GET_NEW_LISTINGS_SUCCESS:
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false,
+        activeBid: {
+          isLoading: true,
+          winner: false,
+          consumer: undefined,
+        },
       };
     case GET_BID_DETAILS_BY_ID_SUCCESS: {
       return {
