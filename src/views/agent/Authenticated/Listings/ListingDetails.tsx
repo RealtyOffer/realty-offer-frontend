@@ -183,7 +183,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             if (agent.isPilotUser || (isMonthlySubscriber && isListingInSubscriptionArea)) {
               dispatch(
                 updateAgentBid({
-                  ...response,
+                  ...response.payload,
                   agentCanViewContactInfo: true,
                 })
               ).then(() => {
@@ -310,17 +310,23 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             Back to {pathType.charAt(0).toUpperCase() + pathType.slice(1)} Listings
           </Link>
         </p>
-        {activeBid?.consumer?.firstName && listing && activeBid.agentCanViewContactInfo && (
-          <p>
-            <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
-              Download PDF
-            </Button>
-          </p>
-        )}
+        {activeBid?.consumer?.firstName &&
+          listing &&
+          activeBid.agentCanViewContactInfo &&
+          activeBid.listingId === Number(props.listingId) && (
+            <p>
+              <Button onClick={() => download()} type="button" iconLeft={<FaFileDownload />}>
+                Download PDF
+              </Button>
+            </p>
+          )}
       </FlexContainer>
       <div ref={listingRef}>
         <Box>
-          {activeBid?.consumer?.firstName && listing && activeBid.agentCanViewContactInfo ? (
+          {activeBid?.consumer?.firstName &&
+          listing &&
+          activeBid.agentCanViewContactInfo &&
+          activeBid.listingId === Number(props.listingId) ? (
             <>
               <Card
                 fullWidth
