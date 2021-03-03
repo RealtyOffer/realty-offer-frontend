@@ -191,6 +191,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                 <iframe
                   width="560"
                   height="315"
+                  loading="lazy"
                   src={mainpitch.videoUrl}
                   frameBorder="0"
                   allowFullScreen
