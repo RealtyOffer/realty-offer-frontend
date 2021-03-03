@@ -86,7 +86,7 @@ const Footer = () => (
             CONNECT WITH US
           </Heading>
           <p>
-            <SocialLink href="https://www.facebook.com/RealtyOffer" target="_blank">
+            <SocialLink href="https://www.facebook.com/RealtyOffer" target="_blank" rel="noopener">
               <FaFacebookSquare color="#3b5998" />
               <HiddenText>Facebook</HiddenText>
             </SocialLink>
