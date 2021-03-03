@@ -21,7 +21,15 @@ import {
 } from '../components';
 
 import { baseSpacer, doubleSpacer, quadrupleSpacer, breakpoints, halfSpacer } from '../styles/size';
-import { brandPrimary, brandTertiaryHover, lightestGray, textColor, white } from '../styles/color';
+import {
+  brandPrimary,
+  brandPrimaryAccentLight,
+  brandTertiary,
+  brandTertiaryHover,
+  lightestGray,
+  textColor,
+  white,
+} from '../styles/color';
 import appleAppStoreBadge from '../images/apple-app-store-black.svg';
 import googlePlayStoreBadge from '../images/google-play-store-black.svg';
 
@@ -131,11 +139,21 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                   {heroHeading}
                 </Heading>
                 <ReactMarkdown source={heroSubheading} />
-                <Button type="link" to="/agent/sign-up" block>
+                <Button type="link" to="/agent/sign-up">
                   Get Started
                 </Button>
               </HeroBox>
-              <br />
+            </Column>
+          </Row>
+        </PageContainer>
+      </HeroImage>
+      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: brandPrimaryAccentLight }}>
+        <PageContainer>
+          <Row>
+            <Column md={8} mdOffset={2}>
+              <Heading as="h2" styledAs="title" align="center">
+                App now available for iOS and Android
+              </Heading>
               <FlexContainer flexDirection="row">
                 <Badge>
                   <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
@@ -155,8 +173,14 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             </Column>
           </Row>
         </PageContainer>
-      </HeroImage>
-      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: lightestGray }}>
+      </section>
+      <section
+        style={{
+          padding: `${doubleSpacer} 0`,
+          backgroundColor: lightestGray,
+          color: brandTertiary,
+        }}
+      >
         <PageContainer>
           <Row>
             <Column md={8} mdOffset={2}>
@@ -238,7 +262,13 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
         </PageContainer>
       </section>
 
-      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: lightestGray }}>
+      <section
+        style={{
+          padding: `${doubleSpacer} 0`,
+          backgroundColor: lightestGray,
+          color: brandTertiary,
+        }}
+      >
         <PageContainer>
           <Row>
             <Column md={4} xsOrder={2} mdOrder={1}>
@@ -340,7 +370,7 @@ export const pageQuery = graphql`
         title
         heroImage {
           childImageSharp {
-            fluid(maxWidth: 2048, quality: 100) {
+            fluid(maxWidth: 2048, quality: 60) {
               ...GatsbyImageSharpFluid
             }
           }

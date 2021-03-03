@@ -8,17 +8,16 @@ import Notifications from './Notifications';
 import Billing from './Billing';
 import { Row, Column, SubNav, MortgagePartnerForm } from '../../../../components';
 import { agentAccountNavigationitems } from '../../../../utils/agentNavigationItems';
-import { screenSizes } from '../../../../styles/size';
 import useWindowSize from '../../../../utils/useWindowSize';
 
 type AgentSettingsProps = {} & RouteComponentProps;
 
 const AgentSettings: FunctionComponent<AgentSettingsProps> = () => {
   const size = useWindowSize();
-  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
+
   return (
     <Row>
-      {!isSmallScreen && (
+      {!size.isSmallScreen && (
         <Column md={3}>
           <SubNav items={agentAccountNavigationitems} />
           <MortgagePartnerForm />

@@ -82,7 +82,7 @@ const Footer = () => (
               agents. Completely free!
             </small>
           </p>
-          <Heading as="h6" inverse>
+          <Heading as="h4" inverse>
             CONNECT WITH US
           </Heading>
           <p>

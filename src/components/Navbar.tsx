@@ -36,7 +36,6 @@ import {
   baseAndAHalfSpacer,
   quadrupleSpacer,
   halfSpacer,
-  screenSizes,
   tripleSpacer,
   threeQuarterSpacer,
 } from '../styles/size';
@@ -244,13 +243,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const profileNode = useRef<HTMLDivElement>(null);
 
   const size = useWindowSize();
-  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
 
   const primaryNavigation = agentNavigationItems.filter((item) => item.primary);
   const secondaryNavigation = agentNavigationItems.filter((item) => !item.primary);
 
   const toggleMenu = () => {
-    if (isSmallScreen) {
+    if (size.isSmallScreen) {
       setSubMenuIsOpen(false);
       setMenuIsOpen(false);
     }
@@ -291,7 +289,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   const isLoggedInAgent = auth.isLoggedIn && agent.agentId !== '';
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
-  const shouldShowMenuToggle = isLoggedInAgent && isSmallScreen;
+  const shouldShowMenuToggle = isLoggedInAgent && size.isSmallScreen;
   // list of routes that are part of sign up process for either agnet or consumer
   const signupPagesArr = [
     'sign-up',
@@ -345,16 +343,17 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           <FlexContainer
             justifyContent={
               (auth.isLoggedIn && auth.roles.includes('Consumer')) ||
-              (!isSmallScreen && auth.isLoggedIn && auth.roles.includes('Agent')) ||
-              (!isSmallScreen && !auth.isLoggedIn)
+              (!size.isSmallScreen && auth.isLoggedIn && auth.roles.includes('Agent')) ||
+              (!size.isSmallScreen && !auth.isLoggedIn)
                 ? 'space-between'
                 : 'center'
             }
             height={quadrupleSpacer}
           >
-            {isSmallScreen && !isLoggedInConsumer && (
+            {size.isSmallScreen && !isLoggedInConsumer && (
               <StyledMenuToggle>
                 <Hamburger
+                  label="menu"
                   color={white}
                   toggled={menuIsOpen}
                   toggle={() => setMenuIsOpen(!menuIsOpen)}
@@ -374,14 +373,14 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             >
               <img src={logo} alt="Realty Offer" height={doubleSpacer} /> RealtyOffer
             </StyledLogoLink>
-            {false && ( // isSmallScreen && ( // TODO when notifications are ready
+            {false && ( // size.isSmallScreen && ( // TODO when notifications are ready
               <>
                 {shouldShowMenuToggle && (
                   <FlexContainer>
                     <div style={{ position: 'relative', marginRight: halfSpacer }}>
                       <Link to="/agent/notifications">
                         <FaRegBell size={doubleSpacer} color={white} />
-                        <NotificationDot isSmallScreen />
+                        <NotificationDot isSmallScreen={Boolean(size.isSmallScreen)} />
                       </Link>
                     </div>
                   </FlexContainer>
@@ -392,7 +391,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             <StyledMenu
               id="navMenu"
               isLoggedIn={auth.isLoggedIn}
-              isSmallScreen={isSmallScreen}
+              isSmallScreen={Boolean(size.isSmallScreen)}
               menuIsOpen={menuIsOpen}
             >
               {menuItemsToRender().length > 0 &&
@@ -407,7 +406,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     {navItem.name}
                   </Link>
                 ))}
-              {isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
+              {size.isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
                 <>
                   <Link to="/consumer/start" onClick={() => toggleMenu()}>
                     <FaSearch /> Find An Agent
@@ -417,12 +416,12 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   </Link>
                 </>
               )}
-              {isSmallScreen && isInSignupProcess && (
+              {size.isSmallScreen && isInSignupProcess && (
                 <Link to="/logout" onClick={() => toggleMenu()}>
                   <FaSignOutAlt /> Exit Signup
                 </Link>
               )}
-              {isSmallScreen && isLoggedInAgent && (
+              {size.isSmallScreen && isLoggedInAgent && (
                 <>
                   <HorizontalRule />
                   <Link to="/" onClick={toggleSubMenu}>
@@ -460,7 +459,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </>
               )}
             </StyledMenu>
-            {!isSmallScreen && isLoggedInAgent && !isInSignupProcess && (
+            {!size.isSmallScreen && isLoggedInAgent && !isInSignupProcess && (
               <FlexContainer>
                 {false && ( //
                   <>
@@ -560,7 +559,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 Log Out
               </Link>
             )}
-            {!auth.isLoggedIn && !isSmallScreen && !isInSignupProcess && (
+            {!auth.isLoggedIn && !size.isSmallScreen && !isInSignupProcess && (
               <div>
                 <Button
                   type="link"
@@ -576,7 +575,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </Button>
               </div>
             )}
-            {!isSmallScreen && isInSignupProcess && (
+            {!size.isSmallScreen && isInSignupProcess && (
               <Button type="link" to="/logout" color="inverseOutline" iconLeft={<FaSignOutAlt />}>
                 Exit Signup
               </Button>

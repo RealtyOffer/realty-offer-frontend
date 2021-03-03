@@ -22,7 +22,6 @@ import {
 } from '../../../../redux/ducks/listings';
 import { RootState } from '../../../../redux/ducks';
 import { getUserCounties } from '../../../../redux/ducks/user';
-import { screenSizes } from '../../../../styles/size';
 import useWindowSize from '../../../../utils/useWindowSize';
 
 const NewListings: FunctionComponent<RouteComponentProps> = () => {
@@ -33,7 +32,6 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
 
   const size = useWindowSize();
-  const isExtraSmallScreen = Boolean(size && size.width && size.width < screenSizes.small);
 
   useEffect(() => {
     dispatch(getNewListings());
@@ -152,7 +150,7 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
                       name="salesAreaOnly"
                       checked={values.salesAreaOnly}
                       label="Show Listings for my Sales Area only"
-                      alignRight={!isExtraSmallScreen}
+                      alignRight={!size.isExtraSmallScreen}
                     />
                   </Column>
                 )}

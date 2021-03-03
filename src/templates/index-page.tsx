@@ -40,6 +40,7 @@ type IndexPageProps = {
   heroHeading: string;
   heroSubheading: string;
   heroImage: { childImageSharp: { fluid: FluidObject } };
+  mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
   consumer: {
     title: string;
     subtitle: string;
@@ -103,6 +104,7 @@ const CarouselWrapper = styled.div`
 
 export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   heroImage,
+  mobileHeroImage,
   title,
   heroHeading,
   heroSubheading,
@@ -128,7 +130,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   return (
     <div>
       <Seo title={title} />
-      <HeroImage imgSrc={heroImage}>
+      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
         <HeroBox>
           <Heading inverse>{heroHeading}</Heading>
           <Heading inverse as="h2">
@@ -332,6 +334,7 @@ const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageP
   return (
     <IndexPageTemplate
       heroImage={frontmatter.heroImage}
+      mobileHeroImage={frontmatter.mobileHeroImage}
       title={frontmatter.title}
       heroHeading={frontmatter.heroHeading}
       heroSubheading={frontmatter.heroSubheading}
@@ -351,8 +354,15 @@ export const pageQuery = graphql`
         title
         heroImage {
           childImageSharp {
-            fluid(maxWidth: 2048, quality: 100) {
+            fluid(maxWidth: 2048, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+          }
+        }
+        mobileHeroImage {
+          childImageSharp {
+            fluid(maxWidth: 768, quality: 60) {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }

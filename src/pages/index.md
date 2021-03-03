@@ -2,6 +2,7 @@
 templateKey: index-page
 title: Same Agent Less Commission
 heroImage: /img/shutterstock_image1_purchased.jpg
+mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
 heroHeading: Welcome to RealtyOffer
 heroSubheading: 'The one-stop shop for Buyer, Seller, and Agent'
 consumer:

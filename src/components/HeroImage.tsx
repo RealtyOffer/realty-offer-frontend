@@ -3,19 +3,16 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { white } from '../styles/color';
-import { baseSpacer, breakpoints, doubleSpacer, screenSizes } from '../styles/size';
 import useWindowSize from '../utils/useWindowSize';
-import ClientOnly from './ClientOnly';
-import PreviewCompatibleImage from './PreviewCompatibleImage';
+import { ClientOnly, PreviewCompatibleImage } from '.';
+import { baseSpacer, breakpoints, doubleSpacer } from '../styles/size';
 
-type FullBleedImageProps = {
-  imgSrc:
-    | {
-        childImageSharp: {
-          fluid: FluidObject;
-        };
-      }
-    | string;
+type HeroImageProps = {
+  imgSrc: {
+    childImageSharp: {
+      fluid: FluidObject;
+    };
+  };
   mobileImgSrc?: {
     childImageSharp: {
       fluid: FluidObject;
@@ -26,8 +23,7 @@ type FullBleedImageProps = {
 const HeroImageWrapper = styled.div`
   position: relative;
   margin-top: -${baseSpacer};
-  min-height: 250px;
-  height: 100%;
+  min-height: ${(props: { aspectRatio: number }) => `calc(100vw / ${props.aspectRatio})`};
   @media only screen and (min-width: ${breakpoints.sm}) {
     margin-top: -${doubleSpacer};
   }
@@ -41,30 +37,30 @@ const ChildrenWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
+  height: 100%;
   color: ${white};
 
   & h1,
-  & h2,
-  & h3 {
+  & p {
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
   }
 `;
 
-const FullBleedImage: FunctionComponent<FullBleedImageProps> = ({
-  imgSrc,
-  children,
-  mobileImgSrc,
-}) => {
+const HeroImage: FunctionComponent<HeroImageProps> = ({ imgSrc, children, mobileImgSrc }) => {
   const size = useWindowSize();
-  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
 
   return (
-    <HeroImageWrapper>
+    <HeroImageWrapper
+      aspectRatio={
+        size.isExtraSmallScreen && mobileImgSrc
+          ? mobileImgSrc.childImageSharp.fluid.aspectRatio
+          : imgSrc.childImageSharp.fluid.aspectRatio
+      }
+    >
       <ClientOnly>
         <PreviewCompatibleImage
           imageInfo={{
-            image: isSmallScreen && mobileImgSrc ? mobileImgSrc : imgSrc,
+            image: size.isExtraSmallScreen && mobileImgSrc ? mobileImgSrc : imgSrc,
             alt: '',
           }}
         />
@@ -74,4 +70,4 @@ const FullBleedImage: FunctionComponent<FullBleedImageProps> = ({
   );
 };
 
-export default FullBleedImage;
+export default HeroImage;

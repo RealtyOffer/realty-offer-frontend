@@ -73,7 +73,7 @@ import { FortispayTransactionResponseType } from '../../../../redux/ducks/fortis
 import { formatPhoneNumberValue } from '../../../../utils/phoneNumber';
 import { ListingDetailsTable } from '../../../../components/ListingCard';
 import { baseBorderStyle } from '../../../../styles/mixins';
-import { baseSpacer, quadrupleSpacer, screenSizes } from '../../../../styles/size';
+import { baseSpacer, quadrupleSpacer } from '../../../../styles/size';
 import useWindowSize from '../../../../utils/useWindowSize';
 import { lightestGray } from '../../../../styles/color';
 
@@ -103,7 +103,6 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   const isBuyerSeller = listing && listing.type === 'buyerSeller';
 
   const size = useWindowSize();
-  const isSmallScreen = Boolean(size && size.width && size.width < screenSizes.medium);
 
   const isNewOrPending = pathType === 'new' || pathType === 'pending';
   const isNewOrPendingAndNotExpired =
@@ -492,7 +491,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                   <Row>
                     {isSeller && (
                       <Column md={6} mdOffset={isBuyerSeller ? 0 : 3}>
-                        <div style={{ padding: `0 ${isSmallScreen ? 0 : quadrupleSpacer}` }}>
+                        <div style={{ padding: `0 ${size.isSmallScreen ? 0 : quadrupleSpacer}` }}>
                           <ListingDetailsTable>
                             <tbody>
                               <tr>
@@ -636,10 +635,12 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                       <Column md={6} mdOffset={isBuyerSeller ? 0 : 3}>
                         <div
                           style={{
-                            padding: `0 ${isSmallScreen ? 0 : quadrupleSpacer}`,
-                            borderLeft: isBuyerSeller && !isSmallScreen ? baseBorderStyle : 'none',
-                            borderTop: isBuyerSeller && isSmallScreen ? baseBorderStyle : 'none',
-                            marginTop: isBuyerSeller && isSmallScreen ? quadrupleSpacer : 0,
+                            padding: `0 ${size.isSmallScreen ? 0 : quadrupleSpacer}`,
+                            borderLeft:
+                              isBuyerSeller && !size.isSmallScreen ? baseBorderStyle : 'none',
+                            borderTop:
+                              isBuyerSeller && size.isSmallScreen ? baseBorderStyle : 'none',
+                            marginTop: isBuyerSeller && size.isSmallScreen ? quadrupleSpacer : 0,
                           }}
                         >
                           <ListingDetailsTable>
