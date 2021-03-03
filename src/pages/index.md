@@ -1,6 +1,6 @@
 ---
 templateKey: index-page
-title: Same Agent Less Commission
+title: Same Agent, Less Commission
 heroImage: /img/shutterstock_image1_purchased.jpg
 mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
 heroHeading: Welcome to RealtyOffer

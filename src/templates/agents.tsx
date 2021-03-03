@@ -332,7 +332,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             Welcome to RealtyOffer
           </Heading>
           <Heading as="h3" align="center" inverse>
-            Same agent, less commission. <br />
+            Same Agent, Less Commission. <br />
           </Heading>
           {/* todo: agent/sign-up */}
           <Button type="link" to="/agent/sign-up" color="tertiary">

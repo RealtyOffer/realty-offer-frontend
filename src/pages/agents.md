@@ -1,6 +1,6 @@
 ---
 templateKey: agents
-title: Same Agent Less Commission
+title: Same Agent, Less Commission
 heroImage: /img/RO-Beach-Image-1440-500 copy 2.png
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: Brokers & Agents... Do you love making money?

@@ -372,6 +372,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               title="Logo"
             >
               <img src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} /> RealtyOffer
+              <sup>&#8482;</sup>
             </StyledLogoLink>
             {false && ( // size.isSmallScreen && ( // TODO when notifications are ready
               <>

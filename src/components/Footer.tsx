@@ -64,7 +64,12 @@ const Footer = () => (
     <PageContainer>
       <LogoLink to="/" title="Logo">
         <img src={logo} alt="Realty Offer" height={tripleSpacer} width={62.11} /> RealtyOffer
+        <sup>&#8482;</sup>
+        <br />
+        <br />
+        <small>Same Agent, Less Commission</small>
       </LogoLink>
+
       <Row>
         <Column md={6} lg={5}>
           <p style={{ lineHeight: 1.2 }}>
@@ -196,7 +201,7 @@ const Footer = () => (
         </a>
       </p> */}
       <p style={{ textAlign: 'center' }}>
-        <small>{`${new Date().getFullYear()} RealtyOffer. All Rights Reserved. `}</small>
+        <small>&copy; {`${new Date().getFullYear()} RealtyOffer. All Rights Reserved. `}</small>
       </p>
     </PageContainer>
   </StyledFooter>
