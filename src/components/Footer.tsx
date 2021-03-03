@@ -63,7 +63,7 @@ const Footer = () => (
   <StyledFooter>
     <PageContainer>
       <LogoLink to="/" title="Logo">
-        <img src={logo} alt="Realty Offer" height={tripleSpacer} /> RealtyOffer
+        <img src={logo} alt="Realty Offer" height={tripleSpacer} width={62.11} /> RealtyOffer
       </LogoLink>
       <Row>
         <Column md={6} lg={5}>
@@ -117,19 +117,29 @@ const Footer = () => (
             <FlexContainer flexDirection="row" justifyContent="flex-start">
               <Badge>
                 <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
-                  <img src={appleAppStoreBadge} height={40} alt="Download on Apple App Store" />
+                  <img
+                    src={appleAppStoreBadge}
+                    height={40}
+                    width={122.3}
+                    alt="Download on Apple App Store"
+                  />
                 </a>
               </Badge>
               <Badge>
                 <a href="https://play.google.com/store/apps/details?id=com.realtyoffernative">
-                  <img src={googlePlayStoreBadge} height={40} alt="Download on Google Play Store" />
+                  <img
+                    src={googlePlayStoreBadge}
+                    height={40}
+                    width={122.3}
+                    alt="Download on Google Play Store"
+                  />
                 </a>
               </Badge>
             </FlexContainer>
           </div>
         </Column>
         <Column sm={4} md={2} lgOffset={1}>
-          <Heading as="h6" inverse>
+          <Heading as="h5" inverse>
             CONSUMERS
           </Heading>
           <p>
@@ -143,7 +153,7 @@ const Footer = () => (
           </p>
         </Column>
         <Column sm={4} md={2}>
-          <Heading as="h6" inverse>
+          <Heading as="h5" inverse>
             AGENTS
           </Heading>
           <p>
@@ -154,7 +164,7 @@ const Footer = () => (
           </p>
         </Column>
         <Column sm={4} md={2}>
-          <Heading as="h6" inverse>
+          <Heading as="h5" inverse>
             CONTACT US
           </Heading>
           <p>
