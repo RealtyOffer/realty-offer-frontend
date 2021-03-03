@@ -90,22 +90,31 @@ const Footer = () => (
               <FaFacebookSquare color="#3b5998" />
               <HiddenText>Facebook</HiddenText>
             </SocialLink>
-            <SocialLink href="https://www.linkedin.com/company/realtyoffer/" target="_blank">
+            <SocialLink
+              href="https://www.linkedin.com/company/realtyoffer/"
+              target="_blank"
+              rel="noopener"
+            >
               <FaLinkedin color="#0077b5" />
               <HiddenText>LinkedIn</HiddenText>
             </SocialLink>
             <SocialLink
               href="https://www.youtube.com/channel/UCA2Lxd_nxREIZ7ruAzq18Ag"
               target="_blank"
+              rel="noopener"
             >
               <FaYoutubeSquare color="#ff0000" />
               <HiddenText>Youtube</HiddenText>
             </SocialLink>
-            <SocialLink href="https://www.instagram.com/realtyofferus/" target="_blank">
+            <SocialLink
+              href="https://www.instagram.com/realtyofferus/"
+              target="_blank"
+              rel="noopener"
+            >
               <FaInstagram color="#405de6" />
               <HiddenText>Instagram</HiddenText>
             </SocialLink>
-            <SocialLink href="https://twitter.com/realtyoffer1" target="_blank">
+            <SocialLink href="https://twitter.com/realtyoffer1" target="_blank" rel="noopener">
               <FaTwitterSquare color="#1da1f2" />
               <HiddenText>Twitter</HiddenText>
             </SocialLink>
