@@ -18,7 +18,7 @@ consumer:
   icon: /img/np_real-estate_3187456_000000.svg
 mainpitch:
   title: Wondering how it works?
-  videoUrl: 'https://www.youtube.com/embed/USvuAqJF3Is?rel=0'
+  youtubeVideoId: 'USvuAqJF3Is'
   steps:
     - title: Step One
       body: >-

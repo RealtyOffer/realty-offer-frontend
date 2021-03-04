@@ -83,6 +83,7 @@
     "react-dom": "npm:@hot-loader/react-dom",
     "react-helmet-async": "^1.0.4",
     "react-icons": "^3.9.0",
+    "react-lite-yt-embed": "^1.2.6",
     "react-loading-skeleton": "^2.0.1",
     "react-markdown": "^4.3.1",
     "react-modal": "^3.11.2",

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { LiteYoutubeEmbed } from 'react-lite-yt-embed';
 
 import {
   Row,
@@ -32,6 +33,7 @@ import {
 } from '../styles/color';
 import appleAppStoreBadge from '../images/apple-app-store-black.svg';
 import googlePlayStoreBadge from '../images/google-play-store-black.svg';
+import useWindowSize from '../utils/useWindowSize';
 
 type AgentsPageProps = {
   title: string;
@@ -43,7 +45,7 @@ type AgentsPageProps = {
     title: string;
     description: string;
     ctaText: string;
-    videoUrl: string;
+    youtubeVideoId: string;
     image: {
       childImageSharp: {
         fluid: FluidObject;
@@ -57,7 +59,6 @@ type AgentsPageProps = {
   secondpitch: {
     title: string;
     description: string;
-    videoUrl: string;
     ctaText: string;
     image: {
       childImageSharp: {
@@ -68,7 +69,6 @@ type AgentsPageProps = {
   thirdpitch: {
     title: string;
     description: string;
-    videoUrl: string;
     ctaText: string;
     image: {
       childImageSharp: {
@@ -127,6 +127,8 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
   thirdpitch,
   testimonials,
 }) => {
+  const size = useWindowSize();
+
   return (
     <div>
       <Seo title={title} />
@@ -194,17 +196,13 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
           </Row>
           <Row>
             <Column md={6}>
-              <FlexContainer>
-                <iframe
-                  width="560"
-                  height="315"
-                  loading="lazy"
-                  src={mainpitch.videoUrl}
-                  frameBorder="0"
-                  allowFullScreen
-                  title="RealtyOffer Consumer Video"
+              <div style={{ marginTop: doubleSpacer }}>
+                <LiteYoutubeEmbed
+                  id={mainpitch.youtubeVideoId}
+                  isMobile={Boolean(size.isSmallScreen)}
+                  lazyImage
                 />
-              </FlexContainer>
+              </div>
             </Column>
             <Column md={6}>
               {mainpitch.steps.map((step, index) => (
@@ -387,7 +385,7 @@ export const pageQuery = graphql`
         heroSubheading
         mainpitch {
           title
-          videoUrl
+          youtubeVideoId
           description
           ctaText
           image {
@@ -404,7 +402,6 @@ export const pageQuery = graphql`
         }
         secondpitch {
           title
-          videoUrl
           description
           ctaText
           image {
@@ -417,7 +414,6 @@ export const pageQuery = graphql`
         }
         thirdpitch {
           title
-          videoUrl
           description
           ctaText
           image {

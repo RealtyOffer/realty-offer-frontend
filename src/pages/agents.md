@@ -12,7 +12,7 @@ heroSubheading: >-
   Welcome to RealtyOffer! The one-stop shop for the buyer, seller, and agent.
 mainpitch:
   title: Here is how it works!
-  videoUrl: 'https://www.youtube.com/embed/R9jCqtpG770?rel=0'
+  youtubeVideoId: 'R9jCqtpG770'
   image: /img/Simulator Screen Shot - iPhone 11 - 2020-10-26 at 11.56.52.png
   description: >-
     RealtyOffer will connect you with serious clients, while removing the
@@ -40,7 +40,6 @@ mainpitch:
   ctaText: Learn more about becoming an agent
 secondpitch:
   title: Need a mortgage consultant/partner?
-  videoUrl: hello
   description: >-
     Second Opinion? Agents are standing by.
 
@@ -65,7 +64,6 @@ secondpitch:
   image: /img/shutterstock_image4_landingpage.jpg
 thirdpitch:
   title: Ready to grow your business?
-  videoUrl: hello
   description: >-
     Pre-qualify now, Agent criteria:
 

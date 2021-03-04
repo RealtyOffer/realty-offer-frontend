@@ -75,7 +75,7 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
-                   { label: Video URL, name: videoUrl, widget: string },
+                   { label: Video URL, name: youtubeVideoId, widget: string },
                   {
                     label: Steps,
                     name: steps,
@@ -306,7 +306,7 @@ collections:
               fields:
                 [
                   { label: Title, name: title, widget: string },
-                  { label: Video URL, name: videoUrl, widget: string },
+                  { label: Video URL, name: youtubeVideoId, widget: string },
                   { label: Description, name: description, widget: markdown },
                   { label: Image, name: image, widget: image},
                   { label: Call To Action text, name: ctaText, widget: string },
@@ -329,7 +329,6 @@ collections:
             fields:
               [
                 { label: Title, name: title, widget: string },
-                { label: Video URL, name: videoUrl, widget: string },
                 { label: Description, name: description, widget: markdown },
                 { label: Image, name: image, widget: image},
                 { label: Call To Action text, name: ctaText, widget: string },
@@ -342,7 +341,6 @@ collections:
             fields:
               [
                 { label: Title, name: title, widget: string },
-                { label: Video URL, name: videoUrl, widget: string },
                 { label: Description, name: description, widget: markdown },
                 { label: Image, name: image, widget: image},
                 { label: Call To Action text, name: ctaText, widget: string },

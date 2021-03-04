@@ -10,13 +10,13 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import { LiteYoutubeEmbed } from 'react-lite-yt-embed';
 
 import {
   Row,
   Column,
   Box,
   Button,
-  FlexContainer,
   HeroImage,
   Heading,
   PageContainer,
@@ -34,6 +34,7 @@ import {
 } from '../styles/color';
 import numberWithCommas from '../utils/numberWithCommas';
 import { RootState } from '../redux/ducks';
+import useWindowSize from '../utils/useWindowSize';
 
 type IndexPageProps = {
   title: string;
@@ -48,7 +49,7 @@ type IndexPageProps = {
   };
   mainpitch: {
     title: string;
-    videoUrl: string;
+    youtubeVideoId: string;
     steps: Array<{
       title: string;
       body: any;
@@ -115,6 +116,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   const auth = useSelector((state: RootState) => state.auth);
   const [sellRange, setSellRange] = useState(250000);
   const [buyRange, setBuyRange] = useState(350000);
+
+  const size = useWindowSize();
 
   useEffect(() => {
     if (auth.isLoggedIn) {
@@ -187,17 +190,13 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
               ))}
             </Column>
             <Column md={6}>
-              <FlexContainer height="100%">
-                <iframe
-                  width="560"
-                  height="315"
-                  loading="lazy"
-                  src={mainpitch.videoUrl}
-                  frameBorder="0"
-                  allowFullScreen
-                  title="RealtyOffer Consumer Video"
+              <div style={{ marginTop: doubleSpacer }}>
+                <LiteYoutubeEmbed
+                  id={mainpitch.youtubeVideoId}
+                  isMobile={Boolean(size.isSmallScreen)}
+                  lazyImage
                 />
-              </FlexContainer>
+              </div>
             </Column>
           </Row>
         </PageContainer>
@@ -376,7 +375,7 @@ export const pageQuery = graphql`
         }
         mainpitch {
           title
-          videoUrl
+          youtubeVideoId
           steps {
             title
             body

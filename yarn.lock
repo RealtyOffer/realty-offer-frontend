@@ -18620,6 +18620,11 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-lite-yt-embed@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/react-lite-yt-embed/-/react-lite-yt-embed-1.2.6.tgz#65c54016499eb1754ee29f3f0d7eaf31964f19ec"
+  integrity sha512-CHIOV3p42E/unDgAKAdYO0zADXa/CUc2zUuwtQN5JgTkPQhWUlKWajvobQvBbYMoY9TIgqzB4o7u391mH/xG/A==
+
 react-loading-skeleton@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-2.1.1.tgz#2c075ea9683587c163408c8eec0703047c4203b1"
