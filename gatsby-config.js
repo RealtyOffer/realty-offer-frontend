@@ -28,6 +28,8 @@ module.exports = {
         devKey: process.env.GATSBY_DEV_SEGMENT_API_KEY,
         trackPage: true,
         trackPageDelay: 50,
+        delayLoad: true,
+        delayLoadTime: 1000,
       },
     },
     {
