@@ -1524,6 +1524,11 @@
     ts-node "^9"
     tslib "^2"
 
+"@fontsource/lato@^4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.2.2.tgz#e0e592180bf7f2276190b4448aea2feaac888d1f"
+  integrity sha512-ZE5WvqZQZinXpH8MaEiM9klDsUOfCHVQJ/tZKpNVQhi8mHt9WqPCROu500oI5jC3s6jaJuWsM7LfJ1zyEeW+XA==
+
 "@graphql-codegen/core@^1.13.1":
   version "1.17.9"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/core/-/core-1.17.9.tgz#c03e71018ff04d26f5139a2d90a32b31d3bb2b43"
@@ -22090,11 +22095,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typeface-lato@^0.0.75:
-  version "0.0.75"
-  resolved "https://registry.yarnpkg.com/typeface-lato/-/typeface-lato-0.0.75.tgz#8aa11c5611dc38416837c089b265a2abd1f7dd31"
-  integrity sha512-iA5uJD4PSTyIE4BDiSOexQeXkDkiJuX4Hu3wh3saJ06EB2TvJayab1Lbbmqq2je/LQv7KCQZHZmC0k4hedd8sw==
 
 typescript@^3.8.3:
   version "3.9.7"

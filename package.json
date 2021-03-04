@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "author": "Tony Mamo <tony.mamo@galileo-insights.com>",
   "dependencies": {
+    "@fontsource/lato": "^4.2.2",
     "@hot-loader/react-dom": "npm:@hot-loader/react-dom",
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
@@ -104,7 +105,6 @@
     "string-mask": "^0.3.0",
     "styled-components": "^5.0.1",
     "ts-md5": "^1.2.7",
-    "typeface-lato": "^0.0.75",
     "uppload": "^3.2.0",
     "uuid": "^7.0.2"
   },

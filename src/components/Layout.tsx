@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { IconContext } from 'react-icons';
 import Modal from 'react-modal';
-import 'typeface-lato';
+import '@fontsource/lato';
 
 import Footer from './Footer';
 import Navbar from './Navbar';
