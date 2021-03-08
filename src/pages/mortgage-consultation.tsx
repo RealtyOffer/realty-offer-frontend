@@ -4,7 +4,16 @@ import { FaCaretRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { navigate } from 'gatsby';
 
-import { Button, Card, HorizontalRule, Input, Row, Column, PageContainer } from '../components';
+import {
+  Seo,
+  Button,
+  Card,
+  HorizontalRule,
+  Input,
+  Row,
+  Column,
+  PageContainer,
+} from '../components';
 import {
   requiredField,
   requiredEmail,
@@ -27,8 +36,9 @@ const MortgageConsultation: FunctionComponent<{}> = () => {
   };
   return (
     <PageContainer>
+      <Seo title="Connect with a RealtyOffer Mortgage Specialist" />
       <Card
-        cardTitle="Connect with a RealtyOffer Specialist"
+        cardTitle="Connect with a RealtyOffer Mortgage Specialist"
         cardSubtitle="Interested in learning more about mortgages with one of our qualified specialists?"
       >
         <Formik

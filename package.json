@@ -7,6 +7,7 @@
   "dependencies": {
     "@fontsource/lato": "^4.2.2",
     "@hot-loader/react-dom": "npm:@hot-loader/react-dom",
+    "@loadable/component": "^5.14.1",
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
     "@reach/router": "^1.3.3",
@@ -114,6 +115,7 @@
     "@testing-library/react": "^10.0.1",
     "@types/crypto-js": "^4.0.1",
     "@types/isomorphic-fetch": "^0.0.35",
+    "@types/loadable__component": "^5.13.3",
     "@types/lodash": "^4.14.149",
     "@types/reach__router": "^1.3.0",
     "@types/react": "^16.9.23",

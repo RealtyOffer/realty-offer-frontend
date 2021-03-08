@@ -22,7 +22,6 @@ import {
   brandDangerRGB,
   brandPrimary,
   brandPrimaryRGB,
-  brandTertiary,
   lightGray,
   offWhite,
   brandTertiaryHover,
@@ -271,6 +270,7 @@ const Input: FunctionComponent<InputProps> = (props) => {
         inputTypeToRender = (
           <StyledSelect
             styles={multiSelectStyles}
+            aria-label={props.name}
             isMulti={props.isMulti}
             menuPlacement="auto"
             value={setValue(field.value)}

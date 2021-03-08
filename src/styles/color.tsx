@@ -16,7 +16,7 @@ export const white = '#ffffff';
 // Primary
 const blue = '#0077CC';
 const blueVariant = '#00A1E8';
-const blueAccentLight = '#E8F4FA';
+const blueAccentLight = '#f7fcff';
 
 // Secondary
 const yellow = '#FFBC03';

@@ -75,44 +75,50 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            addToMailchimp(values.email, {
-              FNAME: values.firstName,
-              LNAME: values.lastName,
-              PHONE: values.phoneNumber,
-              'group[78807][2]': '2',
-            });
-            if (window && window.analytics) {
-              window.analytics.track('Agent Signup', {
-                firstName: values.firstName,
-                lastName: values.lastName,
-                phoneNumber: values.phoneNumber,
-                email: values.email,
-                role: 'Agent',
+            if (!modalIsOpen) {
+              setModalIsOpen(true);
+              setSubmitting(false);
+            }
+            if (modalIsOpen) {
+              addToMailchimp(values.email, {
+                FNAME: values.firstName,
+                LNAME: values.lastName,
+                PHONE: values.phoneNumber,
+                'group[78807][2]': '2',
+              });
+              if (window && window.analytics) {
+                window.analytics.track('Agent Signup', {
+                  firstName: values.firstName,
+                  lastName: values.lastName,
+                  phoneNumber: values.phoneNumber,
+                  email: values.email,
+                  role: 'Agent',
+                });
+              }
+              dispatch(
+                captureAgentSignupData({
+                  isPilotUser: location.pathname.includes('pilot'),
+                })
+              );
+              dispatch(
+                createUser({
+                  ...values,
+                  phoneNumber: `${reformattedPhoneForCognito(values.phoneNumber)}`,
+                })
+              ).then((response: ActionResponseType) => {
+                setSubmitting(false);
+                if (response && !response.error) {
+                  dispatch(
+                    addAlert({
+                      message:
+                        'Successfully created account. Check your email for a verification code',
+                      type: 'success',
+                    })
+                  );
+                  navigate('/agent/verify-email');
+                }
               });
             }
-            dispatch(
-              captureAgentSignupData({
-                isPilotUser: location.pathname.includes('pilot'),
-              })
-            );
-            dispatch(
-              createUser({
-                ...values,
-                phoneNumber: `${reformattedPhoneForCognito(values.phoneNumber)}`,
-              })
-            ).then((response: ActionResponseType) => {
-              setSubmitting(false);
-              if (response && !response.error) {
-                dispatch(
-                  addAlert({
-                    message:
-                      'Successfully created account. Check your email for a verification code',
-                    type: 'success',
-                  })
-                );
-                navigate('/agent/verify-email');
-              }
-            });
           }}
         >
           {({ isSubmitting, isValid, handleSubmit }) => (
@@ -173,8 +179,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
               />
               <HorizontalRule />
               <Button
-                type="button"
-                onClick={() => setModalIsOpen(true)}
+                type="submit"
                 disabled={isSubmitting || !isValid}
                 block
                 isLoading={isSubmitting || auth.isLoading}
@@ -287,7 +292,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
           )}
         </Formik>
         <p style={{ textAlign: 'center' }}>
-          Already have an account? <Link to="/login">Log in now</Link>
+          Already have an account? <Link to="/login">Log In Now</Link>
         </p>
       </Card>
     </>

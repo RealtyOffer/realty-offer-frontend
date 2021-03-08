@@ -159,7 +159,12 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
               <FlexContainer flexDirection="row">
                 <Badge>
                   <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
-                    <img src={appleAppStoreBadge} height={40} alt="Download on Apple App Store" />
+                    <img
+                      src={appleAppStoreBadge}
+                      height={40}
+                      width={122}
+                      alt="Download on Apple App Store"
+                    />
                   </a>
                 </Badge>
                 <Badge>
@@ -167,6 +172,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                     <img
                       src={googlePlayStoreBadge}
                       height={40}
+                      width={122}
                       alt="Download on Google Play Store"
                     />
                   </a>
