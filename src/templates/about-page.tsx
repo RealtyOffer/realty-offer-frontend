@@ -278,7 +278,7 @@ export const aboutPageQuery = graphql`
         }
         mobileHeroImage {
           childImageSharp {
-            fluid(maxWidth: 768, quality: 60) {
+            fluid(maxWidth: 512, quality: 40) {
               ...GatsbyImageSharpFluid_withWebp
             }
           }
