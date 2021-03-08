@@ -7,7 +7,6 @@
   "dependencies": {
     "@fontsource/lato": "^4.2.2",
     "@hot-loader/react-dom": "npm:@hot-loader/react-dom",
-    "@loadable/component": "^5.14.1",
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
     "@reach/router": "^1.3.3",

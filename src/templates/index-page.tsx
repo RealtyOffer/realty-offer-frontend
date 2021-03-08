@@ -1,20 +1,21 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { graphql, navigate } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
+import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { LiteYoutubeEmbed } from 'react-lite-yt-embed';
-import Loadable from '@loadable/component';
 
 import {
   Row,
   Column,
+  Box,
   Button,
   HeroImage,
   Heading,
@@ -31,6 +32,7 @@ import {
   lightestGray,
   textColor,
 } from '../styles/color';
+import numberWithCommas from '../utils/numberWithCommas';
 import { RootState } from '../redux/ducks';
 import useWindowSize from '../utils/useWindowSize';
 
@@ -72,14 +74,34 @@ const HeroBox = styled.div`
   }
 `;
 
+const SlidderWrapper = styled.div`
+  & .rangeslider {
+    box-shadow: none;
+    background-color: ${brandPrimaryAccentLight};
+  }
+
+  & .rangeslider-horizontal .rangeslider__fill {
+    background-color: ${brandTertiaryHover};
+    box-shadow: none;
+  }
+
+  & .rangeslider .rangeslider__handle {
+    background: ${brandTertiaryHover};
+    border-color: ${brandTertiaryHover};
+    box-shadow: none;
+    outline: none;
+  }
+
+  & .rangeslider-horizontal .rangeslider__handle:after {
+    content: none;
+  }
+`;
+
 const CarouselWrapper = styled.div`
   & .carousel-indicators li {
     background-color: ${textColor};
   }
 `;
-
-const EstimatedSalePriceSlider = Loadable(() => import('../components/EstimatedSalePrice'));
-const EstimatedBuyPriceSlider = Loadable(() => import('../components/EstimatedBuyPrice'));
 
 export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   heroImage,
@@ -92,6 +114,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   testimonials,
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
+  const [sellRange, setSellRange] = useState(250000);
+  const [buyRange, setBuyRange] = useState(350000);
 
   const size = useWindowSize();
 
@@ -187,10 +211,72 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           </Heading>
           <Row>
             <Column md={6}>
-              <EstimatedSalePriceSlider />
+              <Box>
+                <Heading as="h4" styledAs="title">
+                  Selling Your Home
+                </Heading>
+                <SlidderWrapper>
+                  <p>Select Your Estimated Sale Price: {`$${numberWithCommas(sellRange)}`}</p>
+                  <Slider
+                    min={100000}
+                    max={2000000}
+                    step={50000}
+                    value={sellRange}
+                    tooltip={false}
+                    labels={{
+                      100000: '$100k',
+                      500000: '$500k',
+                      1000000: '$1M',
+                      1500000: '$1.5M',
+                      2000000: '$2M',
+                    }}
+                    onChange={(value) => setSellRange(value)}
+                  />
+                </SlidderWrapper>
+                <br />
+                <Heading as="h4" styledAs="subtitle" noMargin>
+                  Your Estimated Savings:{' '}
+                  {`$${numberWithCommas(sellRange * 0.02)} - $${numberWithCommas(
+                    sellRange * 0.03
+                  )}`}
+                </Heading>
+                <p>
+                  <small>Average savings of 2% to 3%</small>
+                </p>
+              </Box>
             </Column>
             <Column md={6}>
-              <EstimatedBuyPriceSlider />
+              <Box>
+                <Heading as="h4" styledAs="title">
+                  Buying Your Home
+                </Heading>
+                <SlidderWrapper>
+                  <p>Select Your Estimated Purchase Price: {`$${numberWithCommas(buyRange)}`}</p>
+                  <Slider
+                    min={100000}
+                    max={2000000}
+                    step={50000}
+                    value={buyRange}
+                    tooltip={false}
+                    labels={{
+                      100000: '$100k',
+                      500000: '$500k',
+                      1000000: '$1M',
+                      1500000: '$1.5M',
+                      2000000: '$2M',
+                    }}
+                    onChange={(value) => setBuyRange(value)}
+                  />
+                </SlidderWrapper>
+                <br />
+                <Heading as="h4" styledAs="subtitle" noMargin>
+                  Your Estimated Cash Back:{' '}
+                  {`$${numberWithCommas(buyRange * 0.01)} - $${numberWithCommas(buyRange * 0.02)}`}
+                </Heading>
+                <p>
+                  <small>Average cash back towards closings costs of 1% to 2%</small>
+                </p>
+              </Box>
             </Column>
           </Row>
         </PageContainer>
