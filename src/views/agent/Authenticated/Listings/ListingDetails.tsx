@@ -160,6 +160,15 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   };
 
   useEffect(() => {
+    if (listings[pathType as ListingKeyType] && listings[pathType as ListingKeyType].length === 0) {
+      dispatch(getNewListings());
+      dispatch(getPendingListings());
+      dispatch(getAwardedListings());
+      dispatch(getHistoryListings());
+    }
+  }, []);
+
+  useEffect(() => {
     if (props.listingId && listing && listing.agentSubmittedBidId) {
       dispatch(getBidDetailsById(Number(listing.agentSubmittedBidId))).then(
         (response: ActionResponseType) => {
@@ -288,6 +297,10 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     }
   };
 
+  if (listings[pathType as ListingKeyType] && listings[pathType as ListingKeyType].length === 0) {
+    return <LoadingPage />;
+  }
+
   if (!listing || !props.listingId) {
     if (window && window.analytics) {
       window.analytics.track('Listing not found', {
@@ -400,7 +413,10 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
             </FlexContainer>
           )}
 
-          {!agent.isLoading && listing ? (
+          {!agent.isLoading &&
+          listings[pathType as ListingKeyType] &&
+          listings[pathType as ListingKeyType].length > 0 &&
+          listing ? (
             <Formik
               validateOnMount
               initialValues={pathType === 'new' ? newInitialValues : existingBidInitialValues}
