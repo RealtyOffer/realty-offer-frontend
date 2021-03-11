@@ -508,7 +508,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                 });
               }}
             >
-              {({ isValid, isSubmitting, values }) => (
+              {({ isValid, isSubmitting, values, errors }) => (
                 <Form>
                   <Row>
                     {isSeller && (
@@ -826,6 +826,18 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                         <Column md={4} mdOffset={4}>
                           {agent.isInGoodStanding ? (
                             <>
+                              {Object.keys(errors).length > 0 && (
+                                <Alert
+                                  type="danger"
+                                  message="Fix the errors above before submitting"
+                                />
+                              )}
+                              {pathType === 'new' && isExpired(listing.createDateTime) && (
+                                <Alert
+                                  type="danger"
+                                  message="The bidding window for this listing has just ended."
+                                />
+                              )}
                               <Button
                                 type="submit"
                                 disabled={
