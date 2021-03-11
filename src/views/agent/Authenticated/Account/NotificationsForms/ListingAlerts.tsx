@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch } from 'react-redux';
 import { isEqual } from 'lodash';
@@ -85,13 +85,13 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
       ) : (
         <>
           <Row>
-            <Column md={6}>
+            <Column xs={6}>
               <strong>Notify me when...</strong>
             </Column>
-            <Column md={1}>
+            <Column xs={3} md={1}>
               <strong>Email</strong>
             </Column>
-            <Column md={1}>
+            <Column xs={3} md={1}>
               <strong>SMS</strong>
             </Column>
           </Row>
@@ -131,39 +131,42 @@ const ListingAlertsForm: FunctionComponent<ListingAlertsProps> = ({ user }) => {
                 {initialValues &&
                   listingAlerts &&
                   listingAlerts.map((listingAlert) => (
-                    <Row key={listingAlert.id}>
-                      <Column md={6}>{listingAlert.description}</Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="email"
-                          checked={values[listingAlert.notificationName]?.email ?? false}
-                          name={`${listingAlert.notificationName}.email`}
-                        />
-                      </Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="sms"
-                          checked={values[listingAlert.notificationName]?.sms ?? false}
-                          name={`${listingAlert.notificationName}.sms`}
-                        />
-                      </Column>
-                      {listingAlert.description === 'there are new listings in my sales area' && (
-                        <Column md={3}>
+                    <Fragment key={listingAlert.id}>
+                      <Row>
+                        <Column xs={6}>{listingAlert.description}</Column>
+                        <Column xs={3} md={1}>
                           <Field
-                            as={Input}
-                            type="select"
-                            name={`${listingAlert.notificationName}.notificationFrequency`}
-                            label=""
-                            options={notificationFrequencyOptions}
-                            validate={requiredSelect}
-                            required
-                            {...rest}
+                            as={IconCheckbox}
+                            icon="email"
+                            checked={values[listingAlert.notificationName]?.email ?? false}
+                            name={`${listingAlert.notificationName}.email`}
                           />
                         </Column>
-                      )}
-                    </Row>
+                        <Column xs={3} md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="sms"
+                            checked={values[listingAlert.notificationName]?.sms ?? false}
+                            name={`${listingAlert.notificationName}.sms`}
+                          />
+                        </Column>
+                        {listingAlert.description === 'there are new listings in my sales area' && (
+                          <Column md={3}>
+                            <Field
+                              as={Input}
+                              type="select"
+                              name={`${listingAlert.notificationName}.notificationFrequency`}
+                              label=""
+                              options={notificationFrequencyOptions}
+                              validate={requiredSelect}
+                              required
+                              {...rest}
+                            />
+                          </Column>
+                        )}
+                      </Row>
+                      <HorizontalRule />
+                    </Fragment>
                   ))}
                 <AutoSave />
               </Form>

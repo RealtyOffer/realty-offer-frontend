@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, Fragment } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { RouteComponentProps } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -370,13 +370,13 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
         ) : (
           <>
             <Row>
-              <Column md={6}>
+              <Column xs={6}>
                 <strong>Notify me when...</strong>
               </Column>
-              <Column md={1}>
+              <Column xs={3} md={1}>
                 <strong>Email</strong>
               </Column>
-              <Column md={1}>
+              <Column xs={3} md={1}>
                 <strong>SMS</strong>
               </Column>
             </Row>
@@ -404,25 +404,28 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                   {initialValues &&
                     consumerAlerts &&
                     consumerAlerts.map((consumerAlert) => (
-                      <Row key={consumerAlert.id}>
-                        <Column md={6}>{consumerAlert.description}</Column>
-                        <Column md={1}>
-                          <Field
-                            as={IconCheckbox}
-                            icon="email"
-                            checked={values[consumerAlert.notificationName]?.email ?? false}
-                            name={`${consumerAlert.notificationName}.email`}
-                          />
-                        </Column>
-                        <Column md={1}>
-                          <Field
-                            as={IconCheckbox}
-                            icon="sms"
-                            checked={values[consumerAlert.notificationName]?.sms ?? false}
-                            name={`${consumerAlert.notificationName}.sms`}
-                          />
-                        </Column>
-                      </Row>
+                      <Fragment key={consumerAlert.id}>
+                        <Row>
+                          <Column md={6}>{consumerAlert.description}</Column>
+                          <Column md={1}>
+                            <Field
+                              as={IconCheckbox}
+                              icon="email"
+                              checked={values[consumerAlert.notificationName]?.email ?? false}
+                              name={`${consumerAlert.notificationName}.email`}
+                            />
+                          </Column>
+                          <Column md={1}>
+                            <Field
+                              as={IconCheckbox}
+                              icon="sms"
+                              checked={values[consumerAlert.notificationName]?.sms ?? false}
+                              name={`${consumerAlert.notificationName}.sms`}
+                            />
+                          </Column>
+                        </Row>
+                        <HorizontalRule />
+                      </Fragment>
                     ))}
                   {initialValues &&
                     productAlerts &&

@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
@@ -70,13 +70,13 @@ const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
       ) : (
         <>
           <Row>
-            <Column md={6}>
+            <Column xs={6}>
               <strong>Notify me when...</strong>
             </Column>
-            <Column md={1}>
+            <Column xs={3} md={1}>
               <strong>Email</strong>
             </Column>
-            <Column md={1}>
+            <Column xs={3} md={1}>
               <strong>SMS</strong>
             </Column>
           </Row>
@@ -116,25 +116,28 @@ const ProductAlertsForm: FunctionComponent<ProductAlertsProps> = ({ user }) => {
                 {initialValues &&
                   productAlerts &&
                   productAlerts.map((productAlert) => (
-                    <Row key={productAlert.id}>
-                      <Column md={6}>{productAlert.description}</Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="email"
-                          checked={values[productAlert.notificationName]?.email ?? false}
-                          name={`${productAlert.notificationName}.email`}
-                        />
-                      </Column>
-                      <Column md={1}>
-                        <Field
-                          as={IconCheckbox}
-                          icon="sms"
-                          checked={values[productAlert.notificationName]?.sms ?? false}
-                          name={`${productAlert.notificationName}.sms`}
-                        />
-                      </Column>
-                    </Row>
+                    <Fragment key={productAlert.id}>
+                      <Row>
+                        <Column xs={6}>{productAlert.description}</Column>
+                        <Column xs={3} md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="email"
+                            checked={values[productAlert.notificationName]?.email ?? false}
+                            name={`${productAlert.notificationName}.email`}
+                          />
+                        </Column>
+                        <Column xs={3} md={1}>
+                          <Field
+                            as={IconCheckbox}
+                            icon="sms"
+                            checked={values[productAlert.notificationName]?.sms ?? false}
+                            name={`${productAlert.notificationName}.sms`}
+                          />
+                        </Column>
+                      </Row>
+                      <HorizontalRule />
+                    </Fragment>
                   ))}
                 <AutoSave />
               </Form>
