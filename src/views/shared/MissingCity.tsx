@@ -75,13 +75,28 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
     state: '',
     zip: '',
     // Buyer only
-    buyingCities: '',
-    buyingPriceRange: '',
+    buyingCities: isBuyer
+      ? Array(consumer?.listing?.buyingCities?.map((city) => city.name))
+          .toString()
+          .replace(/,/g, ', ')
+      : 'not a buyer',
+    buyingPriceRange:
+      isBuyer && priceRangesList.length > 0
+        ? getDropdownListText(priceRangesList, String(consumer?.listing?.buyingPriceRangeId))
+        : 'not a buyer',
     // Seller only
     sellersAddressLine1: '',
     sellersAddressLine2: '',
-    sellersCity: '',
-    sellersListingPriceInMind: '',
+    sellersCity: isSeller ? consumer?.listing?.sellersCity?.name : 'not a seller',
+    sellersListingPriceInMind:
+      isSeller &&
+      priceRangesList.length > 0 &&
+      consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
+        ? getDropdownListText(
+            priceRangesList,
+            String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
+          )
+        : 'not a seller',
   };
 
   return (
@@ -111,7 +126,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
               postingValues = {
                 ...postingValues,
                 buyingCities,
-                buyingPriceRange: getDropdownListText(priceRangesList, buyingPriceRange),
+                buyingPriceRange,
               };
             }
 
@@ -121,10 +136,7 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                 sellersAddressLine1,
                 sellersAddressLine2,
                 sellersCity,
-                sellersListingPriceInMind: getDropdownListText(
-                  priceRangesList,
-                  sellersListingPriceInMind
-                ),
+                sellersListingPriceInMind,
               };
             }
 

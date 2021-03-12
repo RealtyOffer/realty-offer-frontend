@@ -64,6 +64,9 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
     setIsOpen(!modalIsOpen);
   };
 
+  const isBuyer = consumer.listing && consumer.listing.type?.toLowerCase().includes('buyer');
+  const isSeller = consumer.listing && consumer.listing.type?.toLowerCase().includes('seller');
+
   return (
     <ClientOnly>
       <Seo title="Ready to buy or sell a home?" />
@@ -128,41 +131,61 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                       }
                       postFormUrlEncoded('free-mortgage-consultation', {
                         type: consumer?.listing?.type,
-                        buyingCities: consumer?.listing?.buyingCities
-                          ?.map((city) => city.name)
-                          .toString(),
-                        sellersCity: consumer?.listing?.sellersCity?.name,
-                        sellingPriceRange: consumer?.listing
-                          ?.sellersListingPriceInMindPriceRangeInMindId
-                          ? getDropdownListText(
-                              priceRangesList,
-                              String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
-                            )
-                          : '',
-                        buyingPriceRange: consumer?.listing?.buyingPriceRangeId
-                          ? getDropdownListText(
-                              priceRangesList,
-                              String(consumer.listing.buyingPriceRangeId)
-                            )
-                          : '',
-                        buyerTypeOfHomeId: consumer?.listing?.buyerTypeOfHomeId
-                          ? getDropdownListText(
-                              homeTypesList,
-                              String(consumer.listing.buyerTypeOfHomeId)
-                            )
-                          : '',
-                        sellerTypeOfHomeId: consumer?.listing?.sellerTypeOfHomeId
-                          ? getDropdownListText(
-                              homeTypesList,
-                              String(consumer.listing.sellerTypeOfHomeId)
-                            )
-                          : '',
-                        sellersMortgageBalanceId: consumer?.listing?.sellersMortgageBalanceId
-                          ? getDropdownListText(
-                              priceRangesList,
-                              String(consumer.listing.sellersMortgageBalanceId)
-                            )
-                          : '',
+                        buyingCities: isBuyer
+                          ? Array(consumer?.listing?.buyingCities?.map((city) => city.name))
+                              .toString()
+                              .replace(/,/g, ', ')
+                          : 'not a buyer',
+                        sellersCity: isSeller
+                          ? consumer?.listing?.sellersCity?.name
+                          : 'not a seller',
+                        sellingPriceRange:
+                          isSeller &&
+                          priceRangesList.length > 0 &&
+                          consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
+                              )
+                            : 'not a seller',
+                        buyingPriceRange:
+                          isBuyer && priceRangesList.length > 0
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.buyingPriceRangeId)
+                              )
+                            : 'not a buyer',
+                        buyerTypeOfHomeId:
+                          isBuyer && homeTypesList.length > 0
+                            ? getDropdownListText(
+                                homeTypesList,
+                                String(consumer.listing.buyerTypeOfHomeId)
+                              )
+                            : 'not a buyer',
+                        sellerTypeOfHomeId:
+                          isSeller &&
+                          homeTypesList.length > 0 &&
+                          consumer?.listing?.sellerTypeOfHomeId
+                            ? getDropdownListText(
+                                homeTypesList,
+                                String(consumer.listing.sellerTypeOfHomeId)
+                              )
+                            : 'not a seller',
+                        sellersMortgageBalanceId:
+                          isSeller &&
+                          priceRangesList.length > 0 &&
+                          consumer?.listing?.sellersMortgageBalanceId
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.sellersMortgageBalanceId)
+                              )
+                            : 'not a seller',
+                        preApproved: consumer.listing.preApproved
+                          ? 'yes, pre-approved'
+                          : 'no, not pre-approved',
+                        freeMortgageConsult: consumer.listing.freeMortgageConsult
+                          ? 'yes, wants free mortgage consultation'
+                          : 'no, does not want free mortgage consultation',
                         firstName: values.firstName,
                         lastName: values.lastName,
                         email: values.email,
