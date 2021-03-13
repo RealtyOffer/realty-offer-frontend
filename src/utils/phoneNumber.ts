@@ -15,4 +15,4 @@ export const formatPhoneNumberValue = (str: string) => {
   return removeTrailingCharIfFound(formatted.result, phoneDelimiter);
 };
 
-export const reformattedPhoneForCognito = (num: string) => `+${num.replace(/-/g, '')}`;
+export const reformattedPhoneForCognito = (num: string) => `+1${num.replace(/-/g, '')}`;
