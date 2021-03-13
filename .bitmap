@@ -25,7 +25,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/auto-save@1.0.0": {
+    "realtyoffer.collection/auto-save@1.0.1": {
         "files": [
             {
                 "relativePath": "src/utils/autoSave.tsx",
@@ -37,7 +37,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/buying-and-selling-calculator@1.0.9": {
+    "realtyoffer.collection/buying-and-selling-calculator@1.0.10": {
         "files": [
             {
                 "relativePath": "src/utils/buyingAndSellingCalculator.ts",
@@ -49,7 +49,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/color@1.0.0": {
+    "realtyoffer.collection/color@1.0.1": {
         "files": [
             {
                 "relativePath": "src/styles/color.tsx",
@@ -97,7 +97,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/create-options-from-array@1.0.8": {
+    "realtyoffer.collection/create-options-from-array@1.0.9": {
         "files": [
             {
                 "relativePath": "src/utils/createOptionsFromArray.ts",
@@ -121,7 +121,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/css-reset@1.0.7": {
+    "realtyoffer.collection/css-reset@1.0.8": {
         "files": [
             {
                 "relativePath": "src/styles/cssReset.tsx",
@@ -133,7 +133,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/dropdown-utils@1.0.8": {
+    "realtyoffer.collection/dropdown-utils@1.0.9": {
         "files": [
             {
                 "relativePath": "src/utils/dropdownUtils.tsx",
@@ -145,7 +145,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/ducks@1.0.9": {
+    "realtyoffer.collection/ducks@1.0.10": {
         "files": [
             {
                 "relativePath": "src/redux/ducks/admin.d.ts",
@@ -248,7 +248,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/error-catcher@1.0.9": {
+    "realtyoffer.collection/error-catcher@1.0.10": {
         "files": [
             {
                 "relativePath": "src/redux/middleware/errorCatcher.ts",
@@ -272,7 +272,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/mixins@1.0.0": {
+    "realtyoffer.collection/mixins@1.0.1": {
         "files": [
             {
                 "relativePath": "src/styles/mixins.tsx",
@@ -296,7 +296,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/oauth@1.0.9": {
+    "realtyoffer.collection/oauth@1.0.10": {
         "files": [
             {
                 "relativePath": "src/redux/middleware/oauth.ts",
@@ -308,7 +308,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/phone-number@1.0.3": {
+    "realtyoffer.collection/phone-number@1.0.4": {
         "files": [
             {
                 "relativePath": "src/utils/phoneNumber.ts",
@@ -416,7 +416,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/use-window-size@1.0.0": {
+    "realtyoffer.collection/use-window-size@1.0.1": {
         "files": [
             {
                 "relativePath": "src/utils/useWindowSize.ts",

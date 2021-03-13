@@ -107,3 +107,11 @@ Looking for more guidance on the components available in this repo? Run `yarn st
 ## 💫 Deploy
 
 This project is automatically deployed to Netlify at `https://realtyoffer.com/` via commits to the `master` branch.
+
+## Bit.dev
+
+This project uses bit.dev to export common functions and utilities for use in the React Native app. Workflow is:
+
+- `bit login`
+- `bit tag --all` to bump version numbers
+- `bit export realtyoffer.collection` to export to remote
