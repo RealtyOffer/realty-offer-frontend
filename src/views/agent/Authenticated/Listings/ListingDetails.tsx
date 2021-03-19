@@ -611,6 +611,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                             disabled={!isNewOrPendingAndNotExpired}
                           />
 
+                          {/* commented out until decided it is wanted again
                           <Field
                             as={Input}
                             type="number"
@@ -622,7 +623,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                             helpText={helpTextPreCertifyAmount}
                             validate={requiredPreCertifyAmount}
                             disabled={!isNewOrPendingAndNotExpired}
-                          />
+                          /> */}
 
                           <Field
                             as={Input}
