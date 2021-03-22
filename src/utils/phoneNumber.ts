@@ -16,3 +16,5 @@ export const formatPhoneNumberValue = (str: string) => {
 };
 
 export const reformattedPhoneForCognito = (num: string) => `+1${num.replace(/-/g, '')}`;
+
+export const unformatPhoneFromCognito = (num: string) => num.replace('+1', '');
