@@ -37,7 +37,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/buying-and-selling-calculator@1.0.10": {
+    "realtyoffer.collection/buying-and-selling-calculator@1.0.11": {
         "files": [
             {
                 "relativePath": "src/utils/buyingAndSellingCalculator.ts",
@@ -97,7 +97,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/create-options-from-array@1.0.9": {
+    "realtyoffer.collection/create-options-from-array@1.0.10": {
         "files": [
             {
                 "relativePath": "src/utils/createOptionsFromArray.ts",
@@ -133,7 +133,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/dropdown-utils@1.0.9": {
+    "realtyoffer.collection/dropdown-utils@1.0.10": {
         "files": [
             {
                 "relativePath": "src/utils/dropdownUtils.tsx",
@@ -145,7 +145,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/ducks@1.0.10": {
+    "realtyoffer.collection/ducks@1.0.11": {
         "files": [
             {
                 "relativePath": "src/redux/ducks/admin.d.ts",
@@ -248,7 +248,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/error-catcher@1.0.10": {
+    "realtyoffer.collection/error-catcher@1.0.11": {
         "files": [
             {
                 "relativePath": "src/redux/middleware/errorCatcher.ts",
@@ -296,7 +296,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/oauth@1.0.10": {
+    "realtyoffer.collection/oauth@1.0.11": {
         "files": [
             {
                 "relativePath": "src/redux/middleware/oauth.ts",
@@ -308,7 +308,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/phone-number@1.0.5": {
+    "realtyoffer.collection/phone-number@1.0.6": {
         "files": [
             {
                 "relativePath": "src/utils/phoneNumber.ts",

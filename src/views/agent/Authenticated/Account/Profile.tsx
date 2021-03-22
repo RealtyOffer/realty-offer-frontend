@@ -60,7 +60,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
   const personalInfoInitialValues = {
     firstName: auth.firstName,
     lastName: auth.lastName,
-    phoneNumber: formatPhoneNumberValue(auth.phoneNumber.replace('+', '')),
+    phoneNumber: formatPhoneNumberValue(auth.phoneNumber),
     email: auth.email,
   };
   const agentInfoInitialValues = {

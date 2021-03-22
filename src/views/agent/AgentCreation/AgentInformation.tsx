@@ -33,7 +33,7 @@ import { getGendersList, getStatesList } from '../../../redux/ducks/dropdowns';
 import { createOptionsFromManagedDropdownList } from '../../../utils/createOptionsFromArray';
 import { getUserCities } from '../../../redux/ducks/user';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
-import { unformatPhoneFromCognito } from '../../../utils/phoneNumber';
+import { reformattedPhoneForFortis } from '../../../utils/phoneNumber';
 
 type AgentInformationProps = {};
 
@@ -117,7 +117,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   email: auth.email,
                   first_name: auth.firstName,
                   last_name: auth.lastName,
-                  home_phone: unformatPhoneFromCognito(auth.phoneNumber),
+                  home_phone: reformattedPhoneForFortis(auth.phoneNumber),
                   office_phone: values.brokerPhoneNumber.replace(/\W/g, ''),
                   address: `${values.brokerAddressLine1} ${values.brokerAddressLine2}`,
                   city: values.brokerCity,

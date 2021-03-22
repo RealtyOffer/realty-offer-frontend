@@ -9,7 +9,8 @@ const removeTrailingCharIfFound = (str: string, char: string) =>
     .join(char);
 
 export const formatPhoneNumberValue = (str: string) => {
-  const sanitizedValue = str.replace(/\W/g, ''); // remove any non-number character
+  // remove +1 from cognito, and then remove any non-number character
+  const sanitizedValue = str.replace('+1', '').replace(/\W/g, '');
   const unmaskedValue = sanitizedValue.split(phoneDelimiter).join('');
   const formatted = StringMask.process(unmaskedValue, phoneMask);
   return removeTrailingCharIfFound(formatted.result, phoneDelimiter);
@@ -17,4 +18,4 @@ export const formatPhoneNumberValue = (str: string) => {
 
 export const reformattedPhoneForCognito = (num: string) => `+1${num.replace(/-/g, '')}`;
 
-export const unformatPhoneFromCognito = (num: string) => num.replace('+1', '');
+export const reformattedPhoneForFortis = (num: string) => num.replace('+1', '').replace(/-/g, '');
