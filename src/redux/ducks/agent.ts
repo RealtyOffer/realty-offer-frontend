@@ -205,7 +205,10 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
         profileCompleteResetDate: addDays(new Date(), 30),
       };
     case LOGOUT_REQUEST:
-      return { ...initialState };
+      return {
+        ...initialState,
+        isPilotUser: state.isPilotUser,
+      };
     default:
       return state;
   }

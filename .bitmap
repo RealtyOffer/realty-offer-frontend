@@ -308,7 +308,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "realtyoffer.collection/phone-number@1.0.4": {
+    "realtyoffer.collection/phone-number@1.0.5": {
         "files": [
             {
                 "relativePath": "src/utils/phoneNumber.ts",
