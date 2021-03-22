@@ -207,7 +207,7 @@ export default (state: AgentStoreType = initialState, action: AgentActionTypes):
     case LOGOUT_REQUEST:
       return {
         ...initialState,
-        isPilotUser: state.isPilotUser,
+        signupData: state.signupData,
       };
     default:
       return state;
