@@ -184,7 +184,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (window && window.analytics && auth.isLoggedIn) {
+    if (typeof window !== 'undefined' && window.analytics && auth.isLoggedIn) {
       window.analytics.identify(auth.email, {
         email: auth.email,
         firstName: auth.firstName,
