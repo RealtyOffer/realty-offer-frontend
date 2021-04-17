@@ -70,13 +70,16 @@ const Buying: FunctionComponent<BuyingProps> = () => {
 
   return (
     <ClientOnly>
-      <Seo title="Buy A Home" />
+      <Seo
+        title="Buy A Home"
+        description="Within 24 hours, multiple agents will offer part of their commission to be used towards your closing costs and pre-paid items. This means less money you bring to the closing table!"
+      />
       <TimelineProgress
         items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}
         currentStep={2}
       />
       <Card
-        cardTitle="Buy a New Home"
+        cardTitle="Buy a Home"
         cardSubtitle="Let us know about where you are planning to move, and how much you are looking to spend."
       >
         {priceRangesList.length > 0 && homeTypesList.length > 0 ? (

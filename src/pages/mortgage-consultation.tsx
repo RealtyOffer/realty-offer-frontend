@@ -36,7 +36,10 @@ const MortgageConsultation: FunctionComponent<{}> = () => {
   };
   return (
     <PageContainer>
-      <Seo title="Connect with a RealtyOffer Mortgage Specialist" />
+      <Seo
+        title="Connect with a RealtyOffer Mortgage Specialist"
+        description="Need a mortgage specialist or second review? Our team at RealtyOffer has been helping new and existing homeowners for over 25 years!"
+      />
       <Card
         cardTitle="Connect with a RealtyOffer Mortgage Specialist"
         cardSubtitle="Interested in learning more about mortgages with one of our qualified specialists?"

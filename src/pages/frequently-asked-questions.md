@@ -1,6 +1,9 @@
 ---
 templateKey: frequently-asked-questions
 title: Learn more about RealtyOffer
+metaTitle: Learn more about RealtyOffer
+metaDescription: Need to buy or sell a home? You will receive bids from compatible real estate agents in your area. Completely Free, no contracts, no obligation, no awkward negotiation
+metaKeywords:
 heroImage: /img/shutterstock_image2_purchased_landing-page.jpg
 heroHeading: Learn more about RealtyOffer
 heroSubheading: >-
@@ -137,7 +140,7 @@ agentFaq:
         of choice and avoid a $595 marketing fee per *"**Closed"***transaction.
     - question: >-
         Is there a guarantee the consumer will choose my services after I am
-        awarded a bid? 
+        awarded a bid?
       answer: >-
         There is no guarantee. RealtyOffer is designed to connect a serious
         client with a serious agent. Clients and agents have a  mutual choice

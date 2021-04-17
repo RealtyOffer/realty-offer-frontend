@@ -1,6 +1,9 @@
 ---
 templateKey: agents
 title: Same Agent, Less Commission
+metaTitle: Real Estate Buyer & Seller Leads. Connect with Serious Clients
+metaDescription: Need Real Estate Buyer or Seller Leads? - We've Got Them. RealtyOffer will connect you with real clients, while removing the upfront awkward negotiation
+metaKeywords:
 heroImage: /img/RO-Beach-Image-1440-500 copy 2.png
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: Brokers & Agents... Do you love making money?
@@ -17,7 +20,7 @@ mainpitch:
   description: >-
     RealtyOffer will connect you with serious clients, while removing the
     upfront awkward negotiation. Instead of spending thousands of dollars on
-    wasted marking and leads, agents will have the opportunity to simply bid for
+    wasted real estate leads, agents will have the opportunity to simply bid for
     their next client. The bidding works two ways: choose to discount your
     commission for a sale, or offer part of your commission for a purchase...
     the amount is up to you. Everyone wins...

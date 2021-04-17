@@ -16,19 +16,20 @@ import {
   Heading,
   Column,
   Row,
-  Avatar,
-  FlexContainer,
   Input,
   Button,
   HorizontalRule,
 } from '../components';
-import { brandPrimary, brandTertiary, lightestGray, white } from '../styles/color';
+import { brandPrimary, white } from '../styles/color';
 import { requiredEmail, requiredField } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 import { fontSizeH6 } from '../styles/typography';
 
 type AboutPageProps = {
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
   title: string;
   content: any;
   mission: any;
@@ -54,7 +55,11 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
   const dispatch = useDispatch();
   return (
     <>
-      <Seo title={props.title} />
+      <Seo
+        title={props.metaTitle}
+        description={props.metaDescription}
+        meta={[{ name: 'keywords', content: props.metaKeywords }]}
+      />
       <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage}>
         <PageContainer>
           <Row>
@@ -251,6 +256,9 @@ const AboutPage = ({
 
   return (
     <AboutPageTemplate
+      metaTitle={post.frontmatter.metaTitle}
+      metaDescription={post.frontmatter.metaDescription}
+      metaKeywords={post.frontmatter.metaKeywords}
       title={post.frontmatter.title}
       mission={post.frontmatter.mission}
       content={post.frontmatter.content}
@@ -268,6 +276,9 @@ export const aboutPageQuery = graphql`
     markdownRemark(frontmatter: { templateKey: { eq: "about-page" } }) {
       html
       frontmatter {
+        metaTitle
+        metaDescription
+        metaKeywords
         title
         heroImage {
           childImageSharp {

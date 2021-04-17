@@ -37,6 +37,9 @@ import useWindowSize from '../utils/useWindowSize';
 
 type AgentsPageProps = {
   title: string;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
   heroHeading: string;
   heroSubheading: string;
   heroImage: { childImageSharp: { fluid: FluidObject } };
@@ -119,7 +122,9 @@ const SectionImageWrapper = styled.div`
 export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
   heroImage,
   mobileHeroImage,
-  title,
+  metaTitle,
+  metaDescription,
+  metaKeywords,
   heroHeading,
   heroSubheading,
   mainpitch,
@@ -131,7 +136,11 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
 
   return (
     <div>
-      <Seo title={title} />
+      <Seo
+        title={metaTitle}
+        description={metaDescription}
+        meta={[{ name: 'keywords', content: metaKeywords }]}
+      />
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
         <PageContainer>
           <Row>
@@ -353,6 +362,9 @@ const AgentsPage = ({ data }: { data: { markdownRemark: { frontmatter: AgentsPag
 
   return (
     <AgentsPageTemplate
+      metaTitle={frontmatter.metaTitle}
+      metaDescription={frontmatter.metaDescription}
+      metaKeywords={frontmatter.metaKeywords}
       heroImage={frontmatter.heroImage}
       mobileHeroImage={frontmatter.mobileHeroImage}
       title={frontmatter.title}
@@ -373,6 +385,9 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { templateKey: { eq: "agents" } }) {
       frontmatter {
         title
+        metaTitle
+        metaDescription
+        metaKeywords
         heroImage {
           childImageSharp {
             fluid(maxWidth: 2048, quality: 60) {

@@ -1,6 +1,9 @@
 ---
 templateKey: about-page
 title: Our Mission
+metaTitle: Same Agent, Less Commission
+metaDescription: meta description goes here
+metaKeywords: meta keywords go here
 heroImage: /img/Keys-Door.jpeg
 mobileHeroImage: /img/Keys-Door.jpeg
 mission: >-

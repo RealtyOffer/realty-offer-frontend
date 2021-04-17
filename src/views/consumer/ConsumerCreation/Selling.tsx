@@ -81,7 +81,10 @@ const Selling: FunctionComponent<SellingProps> = () => {
 
   return (
     <ClientOnly>
-      <Seo title="Sell My Home" />
+      <Seo
+        title="Sell My Home"
+        description="Within 24 hours, top-rated certified and vetted agents in your area will simply offer to charge less commission to win your business!"
+      />
       <TimelineProgress
         items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}
         currentStep={2}

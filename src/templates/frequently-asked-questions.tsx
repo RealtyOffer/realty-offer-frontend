@@ -29,6 +29,9 @@ import { lightestGray } from '../styles/color';
 
 type FAQPageProps = {
   title: string;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
   heroHeading: string;
   heroSubheading: string;
   heroImage: { childImageSharp: { fluid: FluidObject } };
@@ -57,14 +60,20 @@ const HeroBox = styled.div`
 
 export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
   heroImage,
-  title,
   heroHeading,
   heroSubheading,
   consumerFaq,
   agentFaq,
+  metaTitle,
+  metaDescription,
+  metaKeywords,
 }) => (
   <div>
-    <Seo title={title} />
+    <Seo
+      title={metaTitle}
+      description={metaDescription}
+      meta={[{ name: 'keywords', content: metaKeywords }]}
+    />
     <HeroImage imgSrc={heroImage}>
       <HeroBox>
         <Heading inverse>{heroHeading}</Heading>
@@ -166,6 +175,9 @@ const FAQPage = ({ data }: { data: { markdownRemark: { frontmatter: FAQPageProps
 
   return (
     <FAQPageTemplate
+      metaTitle={frontmatter.metaTitle}
+      metaDescription={frontmatter.metaDescription}
+      metaKeywords={frontmatter.metaKeywords}
       heroImage={frontmatter.heroImage}
       title={frontmatter.title}
       heroHeading={frontmatter.heroHeading}
@@ -183,6 +195,9 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { templateKey: { eq: "frequently-asked-questions" } }) {
       frontmatter {
         title
+        metaTitle
+        metaDescription
+        metaKeywords
         heroImage {
           childImageSharp {
             fluid(maxWidth: 2048, quality: 60) {

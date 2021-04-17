@@ -1,16 +1,16 @@
 ---
 templateKey: index-page
 title: Same Agent, Less Commission
-metaTitle: Same Agent, Less Commission
-metaDescription: meta description goes here
-metaKeywords: meta keywords go here
+metaTitle: Buy or Sell a Home. Same Agent, Less Commission
+metaDescription: Need to buy or sell a home? You will receive bids from compatible real estate agents in your area. Completely Free, no contracts, no obligation, no awkward negotiation
+metaKeywords:
 heroImage: /img/shutterstock_image1_purchased.jpg
 mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
 heroHeading: Welcome to RealtyOffer
 heroSubheading: 'The one-stop shop for Buyer, Seller, and Agent'
 consumer:
   title: Why RealtyOffer?
-  subtitle: Do you need an agent that will do the right thing for you?
+  subtitle: Do you need a real estate agent that will do the right thing for you?
   body: >-
     Our goal is to make buying or selling a home, or getting a mortgage, as easy
     and stress-free as possible. Our Artifical Intelligence-Digitized platform
@@ -33,7 +33,7 @@ mainpitch:
         about it, RealtyOffer is completely FREE!
     - title: Step Two
       body: >-
-        Agents will receive your information and within 24 hours, agents have
+        Real estate agents will receive your information and within 24 hours, they have
         the opportunity to bid and win your business.
 
 
