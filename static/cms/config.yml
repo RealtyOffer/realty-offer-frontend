@@ -51,6 +51,9 @@ collections:
               widget: "hidden",
               default: "landing-page",
             }
+          - { label: "Meta Title", name: metaTitle, widget: string }
+          - { label: "Meta Description", name: metaDescription, widget: string }
+          - { label: "Meta Keywords", name: metaKeywords, widget: string }
           - { label: Title, name: title, widget: string }
           - { label: "Hero Image", name: heroImage, widget: image }
           - { label: HeroMobileImage, name: mobileHeroImage, widget: image }

@@ -1,6 +1,9 @@
 ---
 templateKey: index-page
 title: Same Agent, Less Commission
+metaTitle: Same Agent, Less Commission
+metaDescription: meta description goes here
+metaKeywords: meta keywords go here
 heroImage: /img/shutterstock_image1_purchased.jpg
 mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
 heroHeading: Welcome to RealtyOffer

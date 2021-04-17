@@ -37,6 +37,9 @@ import { RootState } from '../redux/ducks';
 import useWindowSize from '../utils/useWindowSize';
 
 type IndexPageProps = {
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
   title: string;
   heroHeading: string;
   heroSubheading: string;
@@ -106,7 +109,9 @@ const CarouselWrapper = styled.div`
 export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   heroImage,
   mobileHeroImage,
-  title,
+  metaTitle,
+  metaDescription,
+  metaKeywords,
   heroHeading,
   heroSubheading,
   consumer,
@@ -132,7 +137,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
 
   return (
     <div>
-      <Seo title={title} />
+      <Seo
+        title={metaTitle}
+        description={metaDescription}
+        meta={[{ name: 'keywords', content: metaKeywords }]}
+      />
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
         <HeroBox>
           <Heading inverse>{heroHeading}</Heading>
@@ -333,6 +342,9 @@ const IndexPage = ({ data }: { data: { markdownRemark: { frontmatter: IndexPageP
 
   return (
     <IndexPageTemplate
+      metaTitle={frontmatter.metaTitle}
+      metaDescription={frontmatter.metaDescription}
+      metaKeywords={frontmatter.metaKeywords}
       heroImage={frontmatter.heroImage}
       mobileHeroImage={frontmatter.mobileHeroImage}
       title={frontmatter.title}
@@ -351,6 +363,9 @@ export const pageQuery = graphql`
   query IndexPageTemplate {
     markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
       frontmatter {
+        metaTitle
+        metaDescription
+        metaKeywords
         title
         heroImage {
           childImageSharp {
