@@ -5,6 +5,7 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
+    siteUrl: 'https://realtyoffer.com',
     title: 'Realty Offer',
     description: 'Realty Offer',
     author: '@realtyoffer',
