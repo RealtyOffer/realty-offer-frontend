@@ -17,6 +17,7 @@ module.exports = {
     'gatsby-plugin-eslint',
     'gatsby-plugin-smoothscroll',
     'gatsby-plugin-advanced-sitemap',
+    'gatsby-plugin-robots-txt',
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {

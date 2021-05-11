@@ -2,7 +2,7 @@ import React, { useEffect, FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
-import { Link, navigate } from 'gatsby';
+import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -71,8 +71,9 @@ const Buying: FunctionComponent<BuyingProps> = () => {
   return (
     <ClientOnly>
       <Seo
-        title="Buy A Home"
-        description="Within 24 hours, multiple agents will offer part of their commission to be used towards your closing costs and pre-paid items. This means less money you bring to the closing table!"
+        title="Buying a home? - Connect with Real Estate Agents in Michigan"
+        description="Buy a home fast and with lower fees. Within 24 hours, multiple real estate agents will offer part of their commission so that you will bring les money to the closing table"
+        meta={[{ name: 'keywords', content: 'buying a home' }]}
       />
       <TimelineProgress
         items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}

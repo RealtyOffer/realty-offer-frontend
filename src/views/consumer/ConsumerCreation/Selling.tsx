@@ -82,8 +82,9 @@ const Selling: FunctionComponent<SellingProps> = () => {
   return (
     <ClientOnly>
       <Seo
-        title="Sell My Home"
-        description="Within 24 hours, top-rated certified and vetted agents in your area will simply offer to charge less commission to win your business!"
+        title="Selling a home? - Connect with Real Estate Agents in Michigan"
+        description="Sell a home fast and with lower fees. Within 24 hours, top-rated real estate agents in your area will simply offer to charge less commission to win your business"
+        meta={[{ name: 'keywords', content: 'selling a home a home' }]}
       />
       <TimelineProgress
         items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}

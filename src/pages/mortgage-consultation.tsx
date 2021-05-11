@@ -37,8 +37,15 @@ const MortgageConsultation: FunctionComponent<{}> = () => {
   return (
     <PageContainer>
       <Seo
-        title="Connect with a RealtyOffer Mortgage Specialist"
-        description="Need a mortgage specialist or second review? Our team at RealtyOffer has been helping new and existing homeowners for over 25 years!"
+        title="Need a Mortgage Pre-approval? Connect with a Mortgage Advisor Free"
+        description="Connect with a home lending advisor for free without having your personal information sold! We work with the top banks in the USA with over 25 years’ experience"
+        meta={[
+          {
+            name: 'keywords',
+            content:
+              'mortgage pre-approval, mortgage consultation, mortgage specialist, mortgage advisor, home lending advisor',
+          },
+        ]}
       />
       <Card
         cardTitle="Connect with a RealtyOffer Mortgage Specialist"
