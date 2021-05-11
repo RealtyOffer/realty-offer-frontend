@@ -4,7 +4,7 @@ metaTitle: Buy or Sell a Home. Same Agent, Less Commission
 metaDescription: Need to buy or sell a home? You will receive bids from
   compatible real estate agents in your area. Completely Free, no contracts, no
   obligation, no awkward negotiation
-metaKeywords: real estate
+metaKeywords: real estate agent, buy a home, sell a home
 title: Same Agent, Less Commission
 heroImage: /img/shutterstock_image1_purchased.jpg
 mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
