@@ -17,7 +17,13 @@ module.exports = {
     'gatsby-plugin-eslint',
     'gatsby-plugin-smoothscroll',
     'gatsby-plugin-advanced-sitemap',
-    'gatsby-plugin-robots-txt',
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://www.realtyoffer.com',
+        sitemap: 'https://realtyoffer.com/sitemap.xml',
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
