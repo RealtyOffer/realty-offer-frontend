@@ -19,6 +19,7 @@ type BoxProps = {
       fluid: FluidObject;
     };
   };
+  transparent?: boolean;
 };
 
 const renderShadow = (zindex: number) => {
@@ -44,8 +45,11 @@ const StyledBox = styled.div`
   text-align: ${(props: BoxProps) => props.textAlign};
   height: ${(props: BoxProps) => (props.height ? `${props.height}` : `calc(100% - ${baseSpacer})`)};
   background: ${(props: BoxProps) =>
+    // eslint-disable-next-line no-nested-ternary
     props.bgSrc
       ? `url(${props.bgSrc.childImageSharp.fluid.src}) center center / cover no-repeat`
+      : props.transparent
+      ? 'rgba(255,255,255,.9)'
       : white};
   ${(props: BoxProps) =>
     props.footer &&
@@ -82,6 +86,7 @@ const Box: FunctionComponent<BoxProps> = ({
   backgroundAccent,
   bgSrc,
   footer,
+  transparent,
   ...rest
 }) => (
   <StyledBox
@@ -91,6 +96,7 @@ const Box: FunctionComponent<BoxProps> = ({
     zindex={zindex}
     largePadding={largePadding}
     footer={footer}
+    transparent={transparent}
     {...rest}
   >
     {bgSrc && !backgroundAccent && <BackgroundImageOverlay>{children}</BackgroundImageOverlay>}

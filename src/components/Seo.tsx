@@ -8,33 +8,59 @@
 import React, { FunctionComponent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useStaticQuery, graphql } from 'gatsby';
+import { useLocation } from '@reach/router';
 
 type SeoType = {
   description?: string;
-  lang?: string;
   meta?: Array<{
     content: string;
     name: string;
   }>;
   title?: string;
+  lang?: string;
+  image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 };
 
-const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => {
+const Seo: FunctionComponent<SeoType> = ({
+  title,
+  description,
+  image,
+  lang,
+  meta,
+  imageWidth,
+  imageHeight,
+  children,
+}) => {
+  const { pathname } = useLocation();
   const { site } = useStaticQuery(
     graphql`
       query {
         site {
           siteMetadata {
             title
-            description
             author
+            defaultDescription: description
+            siteUrl: url
+            defaultImage: image
           }
         }
       }
     `
   );
 
-  const metaDescription = description || site.siteMetadata.description;
+  const { defaultTitle, defaultDescription, siteUrl, defaultImage } = site.siteMetadata;
+
+  const seo = {
+    title: title || defaultTitle,
+    description: description || defaultDescription,
+    image: `${siteUrl}${image || defaultImage}`,
+    url: `${siteUrl}${pathname}`,
+    imageWidth: imageWidth || 1920,
+    imageHeight: imageHeight || 1080,
+  };
+
   return (
     <Helmet
       htmlAttributes={{
@@ -44,16 +70,37 @@ const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => 
       titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
         {
+          property: 'og:url',
+          content: seo.url,
+        },
+        {
+          name: 'image',
+          content: seo.image,
+        },
+        {
+          property: 'og:image',
+          content: seo.image,
+        },
+        {
+          property: 'og:image:width',
+          content: seo.imageWidth,
+        },
+        {
+          property: 'og:image:height',
+          content: seo.imageHeight,
+        },
+        {
           name: 'description',
-          content: metaDescription,
+          content: seo.description,
         },
         {
           property: 'og:title',
-          content: title,
+          content: `${seo.title} | ${site.siteMetadata.title}`,
         },
+
         {
           property: 'og:description',
-          content: metaDescription,
+          content: seo.description,
         },
         {
           property: 'og:type',
@@ -69,15 +116,35 @@ const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => 
         },
         {
           name: 'twitter:title',
-          content: title,
+          content: `${seo.title} | ${site.siteMetadata.title}`,
         },
         {
           name: 'twitter:description',
-          content: metaDescription,
+          content: seo.description,
+        },
+        {
+          name: 'twitter:image',
+          content: seo.image,
+        },
+        {
+          name: 'apple-mobile-web-app-status-bar-style',
+          content: 'black-translucent',
+        },
+        {
+          name: 'apple-mobile-web-app-capable',
+          content: 'yes',
+        },
+        {
+          name: 'msapplication-TileColor',
+          content: '#0077CC',
         },
         {
           name: 'viewport',
           content: 'width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover',
+        },
+        {
+          'http-equiv': 'ScreenOrientation',
+          content: 'autoRotate:disabled',
         },
       ].concat(meta || [])}
       script={[
@@ -108,7 +175,9 @@ const Seo: FunctionComponent<SeoType> = ({ description, lang, meta, title }) => 
         fbq('track', 'PageView');`,
         },
       ]}
-    />
+    >
+      {children}
+    </Helmet>
   );
 };
 

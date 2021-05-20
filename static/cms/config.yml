@@ -22,19 +22,20 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - {
-          label: "Template Key",
-          name: "templateKey",
-          widget: "hidden",
-          default: "blog-post",
-        }
+      - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'blog-post' }
+      - { label: "Meta Title", name: metaTitle, widget: string }
+      - { label: "Meta Description", name: metaDescription, widget: string }
+      - { label: "Meta Keywords", name: metaKeywords, widget: string }
       - { label: Title, name: title, widget: string }
-      - { label: "Publish Date", name: date, widget: datetime }
+      - { label: 'Publish Date', name: date, widget: datetime }
       - { label: Description, name: description, widget: text }
-      - { label: "Featured Post", name: featuredpost, widget: boolean }
-      - { label: "Featured Image", name: featuredimage, widget: image }
+      - { label: 'Featured Post', name: featuredpost, widget: boolean, required: false }
+      - { label: 'Featured Image', name: featuredimage, widget: image }
       - { label: Body, name: body, widget: markdown }
       - { label: Tags, name: tags, widget: list }
+      - { label: 'Lead Form Title', name: leadFormTitle, widget: string }
+      - { label: 'Lead Form Body', name: leadFormBody, widget: text }
+      - { label: 'Lead Form CTA Text', name: leadFormCTAText, widget: string }
 
   - name: "pages"
     label: "Pages"
@@ -173,6 +174,19 @@ collections:
                   { label: LinkText, name: linkText, widget: string },
                 ],
             }
+      - file: "src/pages/blog/index.md"
+        label: "Blog"
+        name: "blog"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "blog-index-page",
+            }
+          - { label: Title, name: title, widget: string }
+          - { label: Body, name: body, widget: markdown }
+          - { label: HeroImage, name: heroImage, widget: image }
       - file: "src/pages/frequently-asked-questions.md"
         label: "FAQ Page"
         name: "frequently-asked-questions"

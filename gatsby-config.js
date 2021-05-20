@@ -9,6 +9,8 @@ module.exports = {
     title: 'Realty Offer',
     description: 'Realty Offer',
     author: '@realtyoffer',
+    url: 'https://realtyoffer.com',
+    image: '/img/young-man-on-sidewalk-using-a-black-iphone-6.png',
   },
   plugins: [
     'gatsby-plugin-typescript',
@@ -124,6 +126,7 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
+          'gatsby-remark-reading-time',
           {
             resolve: 'gatsby-remark-autolink-headers',
             options: {

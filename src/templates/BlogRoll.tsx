@@ -1,61 +1,60 @@
+/* eslint-disable react/display-name */
 import React, { FunctionComponent } from 'react';
-import { Link, graphql, StaticQuery } from 'gatsby';
+import { Link } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 
-import { Box, Row, Column, Heading, PreviewCompatibleImage, HorizontalRule } from '../components';
+import { Box, HorizontalRule, Heading, Row, Column, PreviewCompatibleImage } from '../components';
 
 type BlogRollProps = {
-  data: {
-    allMarkdownRemark: {
-      id: number;
+  posts: Array<{
+    node: {
+      excerpt: string;
       fields: {
+        readingTime: {
+          text: string;
+        };
         slug: string;
       };
-      date: string;
-      excerpt: string;
-      edges: Array<{
-        frontmatter: {
-          featuredimage: {
-            childImageSharp: {
-              fluid: FluidObject;
-            };
-          };
-          title: string;
-        };
-      }>;
+      frontmatter: {
+        featuredimage: { childImageSharp: { fluid: FluidObject } };
+        date: string;
+        description: string;
+        featuredpost: boolean;
+        title: string;
+      };
     };
-  };
-  count: number;
+  }>;
 };
 
-const BlogRoll: FunctionComponent<BlogRollProps> = ({ data }) => {
-  const { edges: posts } = data.allMarkdownRemark;
-
+const BlogRoll: FunctionComponent<BlogRollProps> = ({ posts }) => {
   return (
     <Row>
       {posts &&
         posts.map(({ node: post }: any) => (
           <Column md={4} key={post.id}>
             <Box>
-              {post.frontmatter.featuredimage && (
-                <PreviewCompatibleImage
-                  imageInfo={{
-                    image: post.frontmatter.featuredimage,
-                    alt: `featured image thumbnail for post ${post.frontmatter.title}`,
-                  }}
-                />
-              )}
-              <small>{post.frontmatter.date}</small>
-              <Heading as="h1" styledAs="subtitle">
-                <Link className="title has-text-primary is-size-4" to={post.fields.slug}>
-                  {post.frontmatter.title}
-                </Link>
-              </Heading>
-              <HorizontalRule />
-              <p>{post.excerpt}</p>
-              <Link className="button" to={post.fields.slug}>
-                Keep Reading
-              </Link>
+              <div style={{ textAlign: 'left' }}>
+                {post.frontmatter.featuredimage && (
+                  <Link to={post.fields.slug}>
+                    <PreviewCompatibleImage
+                      imageInfo={{
+                        image: post.frontmatter.featuredimage,
+                        alt: `featured image thumbnail for post ${post.frontmatter.title}`,
+                      }}
+                      style={{ height: 200 }}
+                    />
+                  </Link>
+                )}
+                <small>
+                  {post.frontmatter.date} - {post.fields.readingTime.text}
+                </small>
+                <Heading as="h2" noMargin>
+                  <Link to={post.fields.slug}>{post.frontmatter.title}</Link>
+                </Heading>
+                <HorizontalRule compact />
+
+                <small style={{ fontStyle: 'italic' }}>{post.frontmatter.description}</small>
+              </div>
             </Box>
           </Column>
         ))}
@@ -63,40 +62,4 @@ const BlogRoll: FunctionComponent<BlogRollProps> = ({ data }) => {
   );
 };
 
-// eslint-disable-next-line react/display-name
-export default () => (
-  <StaticQuery
-    query={graphql`
-      query BlogRollQuery {
-        allMarkdownRemark(
-          sort: { order: DESC, fields: [frontmatter___date] }
-          filter: { frontmatter: { templateKey: { eq: "blog-post" } } }
-        ) {
-          edges {
-            node {
-              excerpt(pruneLength: 400)
-              id
-              fields {
-                slug
-              }
-              frontmatter {
-                title
-                templateKey
-                date(formatString: "MMMM DD, YYYY")
-                featuredpost
-                featuredimage {
-                  childImageSharp {
-                    fluid(maxWidth: 400, quality: 60) {
-                      ...GatsbyImageSharpFluid
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `}
-    render={(data: any, count: number) => <BlogRoll data={data} count={count} />}
-  />
-);
+export default BlogRoll;

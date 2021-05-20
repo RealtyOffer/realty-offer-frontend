@@ -16,7 +16,7 @@ import { headingsFontFamily, fontFamilySansSerif } from './typography';
 const CssReset = createGlobalStyle`
   html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
   body{margin:0}
-  article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}
+  article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}
   audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
   audio:not([controls]){display:none;height:0}[hidden],template{display:none}
   a{background-color:transparent}
@@ -72,7 +72,7 @@ const CssReset = createGlobalStyle`
     font-display: swap;
     /* https://www.codementor.io/@ricardozea/100-responsive-typography-system-using-a-modular-scale-s5rhft58g */
     font-size: calc(12px + .35vw); /* Responsive base font size */
-    line-height: calc(12px + 1.05vw); /* Responsive Vertical Rhythm */
+    line-height: calc(18px + 1.05vw); /* Responsive Vertical Rhythm */
     color: ${textColor};
     overflow-x: hidden;
   }

@@ -6,7 +6,7 @@ import Card from './Card';
 import ClientOnly from './ClientOnly';
 import Column from './Column';
 import ConsumerListingCard from './ConsumerListingCard';
-import Content from './Content';
+import Content, { MarkdownContent, HTMLContent } from './Content';
 import Countdown from './Countdown';
 import CreditCard from './CreditCard';
 import EmptyListingsView from './EmptyListingsView';
@@ -30,13 +30,16 @@ import MortgagePartnerForm from './MortgagePartnerForm';
 import Navbar from './Navbar';
 import NegativeMarginContainer from './NegativeMarginContainer';
 import PageContainer from './PageContainer';
+import Pill from './Pill';
 import PreviewCompatibleImage from './PreviewCompatibleImage';
 import PrivateRoute from './PrivateRoute';
 import ProgressBar from './ProgressBar';
+import RelatedBlogPost from './RelatedBlogPost';
 import Row from './Row';
 import Seo from './Seo';
-import SubNav from './SubNav';
+import Share from './Share';
 import SiteMetadata from './SiteMetadata';
+import SubNav from './SubNav';
 import Table from './Table';
 import Testimonial from './Testimonial';
 import TimelineProgress from './TimelineProgress';
@@ -62,6 +65,7 @@ export {
   HeroImage,
   Heading,
   HorizontalRule,
+  HTMLContent,
   IconCheckbox,
   Image,
   Input,
@@ -70,17 +74,21 @@ export {
   ListingCardsLoader,
   LoadingPage,
   Modal,
+  MarkdownContent,
   MortgagePartnerForm,
   Navbar,
   NegativeMarginContainer,
   PageContainer,
+  Pill,
   PreviewCompatibleImage,
   PrivateRoute,
   ProgressBar,
+  RelatedBlogPost,
   Row,
   Seo,
-  SubNav,
+  Share,
   SiteMetadata,
+  SubNav,
   Table,
   Testimonial,
   TimelineProgress,

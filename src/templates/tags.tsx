@@ -1,11 +1,16 @@
 import React, { FunctionComponent } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Link, graphql } from 'gatsby';
+import { FluidObject } from 'gatsby-image';
 
-import { PageContainer, Box, Heading } from '../components';
+import { PageContainer, Box, Heading, Seo, HeroImage } from '../components';
 
 type TagRouteProps = {
   data: {
+    markdownRemark: {
+      frontmatter: {
+        heroImage: { childImageSharp: { fluid: FluidObject } };
+      };
+    };
     allMarkdownRemark: {
       totalCount: number;
       edges: Array<{
@@ -38,21 +43,29 @@ const TagRoute: FunctionComponent<TagRouteProps> = ({ data, pageContext }) => {
     </li>
   ));
   const { tag } = pageContext;
-  const { title } = data.site.siteMetadata;
   const { totalCount } = data.allMarkdownRemark;
   const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with “${tag}”`;
 
   return (
-    <PageContainer>
-      <Helmet title={`${tag} | ${title}`} />
-      <Box>
-        <Heading>{tagHeader}</Heading>
-        <ul>{postLinks}</ul>
-        <p>
-          <Link to="/tags/">Browse all tags</Link>
-        </p>
-      </Box>
-    </PageContainer>
+    <>
+      <HeroImage imgSrc={data.markdownRemark.frontmatter.heroImage}>
+        <PageContainer>
+          <Heading as="h1" inverse align="center">
+            Posts tagged {tag}
+          </Heading>
+        </PageContainer>
+      </HeroImage>
+      <PageContainer>
+        <Seo title={`Posts tagged ${tag}`} />
+        <Box>
+          <Heading>{tagHeader}</Heading>
+          <ul>{postLinks}</ul>
+          <p>
+            <Link to="/tags/">Browse all tags</Link>
+          </p>
+        </Box>
+      </PageContainer>
+    </>
   );
 };
 
@@ -60,11 +73,6 @@ export default TagRoute;
 
 export const tagPageQuery = graphql`
   query TagPage($tag: String) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMarkdownRemark(
       limit: 1000
       sort: { fields: [frontmatter___date], order: DESC }
@@ -78,6 +86,17 @@ export const tagPageQuery = graphql`
           }
           frontmatter {
             title
+          }
+        }
+      }
+    }
+    markdownRemark(frontmatter: { templateKey: { eq: "tags-index-page" } }) {
+      frontmatter {
+        heroImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
           }
         }
       }

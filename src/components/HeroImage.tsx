@@ -18,10 +18,13 @@ type HeroImageProps = {
       fluid: FluidObject;
     };
   };
+  removeFromFlow?: boolean;
 };
 
 const HeroImageWrapper = styled.div`
-  position: relative;
+  position: ${(props: { removeFromFlow?: boolean; aspectRatio: number }) =>
+    props.removeFromFlow ? 'absolute' : 'relative'};
+${(props) => props.removeFromFlow && `left: 0; right: 0;`}
   margin-top: -${baseSpacer};
   min-height: ${(props: { aspectRatio: number }) => `calc(100vw / ${props.aspectRatio})`};
   @media only screen and (min-width: ${breakpoints.sm}) {
@@ -46,11 +49,17 @@ const ChildrenWrapper = styled.div`
   }
 `;
 
-const HeroImage: FunctionComponent<HeroImageProps> = ({ imgSrc, children, mobileImgSrc }) => {
+const HeroImage: FunctionComponent<HeroImageProps> = ({
+  imgSrc,
+  children,
+  mobileImgSrc,
+  removeFromFlow,
+}) => {
   const size = useWindowSize();
 
   return (
     <HeroImageWrapper
+      removeFromFlow={removeFromFlow}
       aspectRatio={
         size.isExtraSmallScreen && mobileImgSrc
           ? mobileImgSrc.childImageSharp.fluid.aspectRatio
