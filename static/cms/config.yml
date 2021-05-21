@@ -54,7 +54,7 @@ collections:
               label: "Template Key",
               name: "templateKey",
               widget: "hidden",
-              default: "landing-page",
+              default: "index-page",
             }
           - { label: "Meta Title", name: metaTitle, widget: string }
           - { label: "Meta Description", name: metaDescription, widget: string }
@@ -107,90 +107,6 @@ collections:
                 { label: Avatar, name: avatar, widget: image },
               ],
           }
-      - file: "src/pages/landing.md"
-        label: "Landing Page"
-        name: "landing"
-        fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "landing-page",
-            }
-          - { label: Title, name: title, widget: string }
-          - { label: "Hero Image", name: heroImage, widget: image }
-          - { label: "Hero Heading", name: heroHeading, widget: string }
-          - { label: "Hero Subheading", name: heroSubheading, widget: string }
-          - {
-              label: Consumer,
-              name: consumer,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                  { label: Body, name: body, widget: markdown },
-                  { label: CTA, name: cta, widget: string },
-                  { label: Icon, name: icon, widget: image },
-                ],
-            }
-          - {
-              label: Agent,
-              name: agent,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                  { label: Body, name: body, widget: markdown },
-                  { label: CTA, name: cta, widget: string },
-                  { label: Icon, name: icon, widget: image },
-                ],
-            }
-          - {
-              label: Mainpitch,
-              name: mainpitch,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                  {
-                    label: Steps,
-                    name: steps,
-                    widget: list,
-                    fields:
-                      [
-                        { label: Title, name: title, widget: string },
-                        { label: Text, name: body, widget: markdown },
-                        { label: Image, name: image, widget: image },
-                      ],
-                  },
-                ],
-            }
-          - {
-              label: SecondPitch,
-              name: secondpitch,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                  { label: Text, name: body, widget: markdown },
-                  { label: Image, name: image, widget: image },
-                  { label: Link, name: link, widget: string },
-                  { label: LinkText, name: linkText, widget: string },
-                ],
-            }
-      - file: "src/pages/blog/index.md"
-        label: "Blog"
-        name: "blog"
-        fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "blog-index-page",
-            }
-          - { label: Title, name: title, widget: string }
-          - { label: Body, name: body, widget: markdown }
-          - { label: HeroImage, name: heroImage, widget: image }
       - file: "src/pages/frequently-asked-questions.md"
         label: "FAQ Page"
         name: "frequently-asked-questions"
