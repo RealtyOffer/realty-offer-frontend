@@ -2,8 +2,12 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
+import styled from 'styled-components';
 
 import { Box, HorizontalRule, Heading, Row, Column, PreviewCompatibleImage } from '../components';
+import { brandPrimary, brandTertiary, white } from '../styles/color';
+import { baseAndAHalfSpacer, baseSpacer, doubleSpacer, halfSpacer } from '../styles/size';
+import { z1Shadow } from '../styles/mixins';
 
 type BlogRollProps = {
   posts: Array<{
@@ -21,10 +25,50 @@ type BlogRollProps = {
         description: string;
         featuredpost: boolean;
         title: string;
+        category: 'agent' | 'consumer';
       };
     };
   }>;
 };
+
+const Ribbon = styled.span`
+  width: auto;
+  height: ${doubleSpacer};
+  line-height: ${doubleSpacer};
+  padding-left: ${baseSpacer};
+  padding-right: ${halfSpacer};
+  position: absolute;
+  left: -${halfSpacer};
+  top: ${baseAndAHalfSpacer};
+  background: ${brandPrimary};
+  color: ${white};
+  text-transform: uppercase;
+  box-shadow: ${z1Shadow};
+  letter-spacing: 1px;
+  z-index: 1;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+  }
+  &:before {
+    height: 0;
+    width: 0;
+    top: -9px;
+    left: 0;
+    border-bottom: 9px solid ${brandTertiary};
+    border-left: 9px solid transparent;
+  }
+  &:after {
+    height: 0;
+    width: 0;
+    right: -14.5px;
+    border-top: ${baseSpacer} solid transparent;
+    border-bottom: ${baseSpacer} solid transparent;
+    border-left: 15px solid ${brandPrimary};
+  }
+`;
 
 const BlogRoll: FunctionComponent<BlogRollProps> = ({ posts }) => {
   return (
@@ -32,7 +76,10 @@ const BlogRoll: FunctionComponent<BlogRollProps> = ({ posts }) => {
       {posts &&
         posts.map(({ node: post }: any) => (
           <Column md={4} key={post.id}>
-            <Box>
+            <Box style={{ position: 'relative' }}>
+              <Ribbon>
+                <small>{post.frontmatter.category} News</small>
+              </Ribbon>
               <div style={{ textAlign: 'left' }}>
                 {post.frontmatter.featuredimage && (
                   <Link to={post.fields.slug}>
