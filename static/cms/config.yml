@@ -303,3 +303,17 @@ collections:
                 { label: Avatar, name: avatar, widget: image },
               ],
           }
+      - file: "src/pages/blog/index.md"
+        label: "Blog"
+        name: "blog"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "blog-index-page",
+            }
+          - { label: Alert, name: alert, widget: string }
+          - { label: Title, name: title, widget: hidden }
+          - { label: Body, name: body, widget: hidden }
+          - { label: HeroImage, name: heroImage, widget: hidden }
