@@ -5,6 +5,7 @@ metaDescription: Need Real Estate Buyer or Seller Leads? - We've Got Them.
   RealtyOffer will connect you with real clients, while removing the upfront
   awkward negotiation
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
+category: agent
 title: blog page test 2
 date: 2021-05-20T03:20:13.590Z
 description: short little description about the blog post goes here and is used as the excerpt on the blog roll

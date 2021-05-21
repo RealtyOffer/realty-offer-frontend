@@ -42,6 +42,7 @@ type RelatedPostType = {
   frontmatter: {
     date: string;
     description: string;
+    category: 'consumer' | 'agent';
     title: string;
     featuredimage: {
       childImageSharp: {
@@ -61,6 +62,7 @@ type BlogPostProps = {
   contentComponent: any;
   date: string;
   tags: Array<string>;
+  category: 'consumer' | 'agent';
   title: string;
   description: string;
   readingTime: {
@@ -316,6 +318,7 @@ const BlogPost = ({ data, pageContext }: { data: any; pageContext: any }) => {
       contentComponent={HTMLContent}
       date={post.frontmatter.date}
       tags={post.frontmatter.tags}
+      category={post.frontmatter.category}
       title={post.frontmatter.title}
       featuredimage={post.frontmatter.featuredimage}
       readingTime={post.fields.readingTime}
@@ -345,6 +348,7 @@ export const pageQuery = graphql`
         metaDescription
         metaKeywords
         date(formatString: "MMMM DD, YYYY")
+        category
         title
         description
         tags

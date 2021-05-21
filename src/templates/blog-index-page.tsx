@@ -104,6 +104,7 @@ const BlogIndexPage = ({
             description: string;
             featuredpost: boolean;
             title: string;
+            category: string;
           };
         };
       }>;
@@ -152,6 +153,7 @@ export const blogIndexPageQuery = graphql`
             description
             date(formatString: "MMMM DD, YYYY")
             featuredpost
+            category
             featuredimage {
               childImageSharp {
                 fluid(maxWidth: 400) {
