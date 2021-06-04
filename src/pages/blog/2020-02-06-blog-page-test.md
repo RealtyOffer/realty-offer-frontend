@@ -12,8 +12,9 @@ description: short little description about the blog post goes here and is used 
 featuredpost: false
 featuredimage: /img/shutterstock_image1_purchased.jpg
 tags:
-  - Mortage
+  - Mortgage
   - Real Estate Agents
+  - Real Estate Market Trends
 leadFormTitle: Learn more today
 leadFormBody: Interested in learning more?
 leadFormCTAText: Submit
