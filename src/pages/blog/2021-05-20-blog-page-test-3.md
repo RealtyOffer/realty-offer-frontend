@@ -12,10 +12,9 @@ description: short little description about the blog post goes here and is used 
 featuredpost: false
 featuredimage: /img/index-jumbotron copy.png
 tags:
-  - realty offer
-  - real estate
-  - agent
-  - mortgages
+  - Foreclosure
+  - Real Estate Market Trends
+  - Real Estate Tips
 leadFormTitle: Learn more today
 leadFormBody: Interested in learning more?
 leadFormCTAText: Submit

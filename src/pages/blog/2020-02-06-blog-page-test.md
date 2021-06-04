@@ -12,10 +12,8 @@ description: short little description about the blog post goes here and is used 
 featuredpost: false
 featuredimage: /img/shutterstock_image1_purchased.jpg
 tags:
-  - realty offer
-  - real estate
-  - agent
-  - mortgages
+  - Mortage
+  - Real Estate Agents
 leadFormTitle: Learn more today
 leadFormBody: Interested in learning more?
 leadFormCTAText: Submit

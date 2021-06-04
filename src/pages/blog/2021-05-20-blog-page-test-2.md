@@ -12,10 +12,9 @@ description: short little description about the blog post goes here and is used 
 featuredpost: false
 featuredimage: /img/Keys-Door.jpeg
 tags:
-  - realty offer
-  - real estate
-  - agent
-  - mortgages
+  - Residential
+  - Commercial
+  - Mortgage
 leadFormTitle: Learn more today
 leadFormBody: Interested in learning more?
 leadFormCTAText: Submit

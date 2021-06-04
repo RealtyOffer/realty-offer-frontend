@@ -36,7 +36,19 @@ collections:
       - { label: 'Featured Post', name: featuredpost, widget: boolean, required: false }
       - { label: 'Featured Image', name: featuredimage, widget: image }
       - { label: Body, name: body, widget: markdown }
-      - { label: Tags, name: tags, widget: list }
+      - { label: Tags, name: tags, widget: select, multiple: true, min: 1, options:
+          [
+          "Real Estate Agents",
+          "Home Buying",
+          "Home Selling",
+          "Foreclosure",
+          "Real Estate Market Trends",
+          "Real Estate Tips",
+          "Residential",
+          "Commercial",
+          "Mortgage",
+          ]
+        }
       - { label: 'Lead Form Title', name: leadFormTitle, widget: string }
       - { label: 'Lead Form Body', name: leadFormBody, widget: text }
       - { label: 'Lead Form CTA Text', name: leadFormCTAText, widget: string }
@@ -304,8 +316,8 @@ collections:
               ],
           }
       - file: "src/pages/blog/index.md"
-        label: "Blog"
-        name: "blog"
+        label: "Blog Index Page"
+        name: "blog-index-page"
         fields:
           - {
               label: "Template Key",
