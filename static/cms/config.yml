@@ -203,6 +203,34 @@ collections:
                   { label: Avatar, name: avatar, widget: image },
                 ],
             }
+      - file: "src/pages/press.md"
+        label: "Press"
+        name: "press"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "press-page",
+            }
+          - { label: "Meta Title", name: metaTitle, widget: string }
+          - { label: "Meta Description", name: metaDescription, widget: string }
+          - { label: "Meta Keywords", name: metaKeywords, widget: string }
+          - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
+          - {
+            label: "Press Item",
+            name: pressItems,
+            widget: list,
+            fields:
+              [
+                { label: Date, name: date, widget: date, format: 'MMM Do YY' },
+                { label: Title, name: title, widget: string },
+                { label: Excerpt, name: excerpt, widget: text },
+                { label: Link, name: link, widget: string },
+              ],
+          }
       - file: "src/pages/terms.md"
         label: "Terms"
         name: "terms"

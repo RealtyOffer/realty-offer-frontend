@@ -91,14 +91,18 @@ const Footer = () => (
             CONNECT WITH US
           </Heading>
           <p>
-            <SocialLink href="https://www.facebook.com/RealtyOffer" target="_blank" rel="noopener">
+            <SocialLink
+              href="https://www.facebook.com/RealtyOffer"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaFacebookSquare color="#3b5998" />
               <HiddenText>Facebook</HiddenText>
             </SocialLink>
             <SocialLink
               href="https://www.linkedin.com/company/realtyoffer/"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <FaLinkedin color="#0077b5" />
               <HiddenText>LinkedIn</HiddenText>
@@ -106,7 +110,7 @@ const Footer = () => (
             <SocialLink
               href="https://www.youtube.com/channel/UCA2Lxd_nxREIZ7ruAzq18Ag"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <FaYoutubeSquare color="#ff0000" />
               <HiddenText>Youtube</HiddenText>
@@ -114,12 +118,16 @@ const Footer = () => (
             <SocialLink
               href="https://www.instagram.com/realtyofferus/"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <FaInstagram color="#405de6" />
               <HiddenText>Instagram</HiddenText>
             </SocialLink>
-            <SocialLink href="https://twitter.com/realtyoffer1" target="_blank" rel="noopener">
+            <SocialLink
+              href="https://twitter.com/realtyoffer1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaTwitterSquare color="#1da1f2" />
               <HiddenText>Twitter</HiddenText>
             </SocialLink>
@@ -183,6 +191,9 @@ const Footer = () => (
           </Heading>
           <p>
             <Link to="/about">About Us</Link>
+          </p>
+          <p>
+            <Link to="/press">Press</Link>
           </p>
           <p>
             <Link to="/privacy">Privacy Policy</Link>
