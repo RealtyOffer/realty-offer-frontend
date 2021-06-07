@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
 import { Formik, Field, Form } from 'formik';
@@ -33,7 +33,7 @@ type AboutPageProps = {
   title: string;
   content: any;
   mission: any;
-  heroImage: { childImageSharp: { fluid: FluidObject } };
+  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
   mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
   teamMembers: Array<{
     name: string;
@@ -59,6 +59,9 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
         title={props.metaTitle}
         description={props.metaDescription}
         meta={[{ name: 'keywords', content: props.metaKeywords }]}
+        image={props.heroImage.childImageSharp.fixed.src}
+        imageWidth={props.heroImage.childImageSharp.fixed.width}
+        imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
       <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage}>
         <PageContainer>
@@ -282,8 +285,11 @@ export const aboutPageQuery = graphql`
         title
         heroImage {
           childImageSharp {
-            fluid(maxWidth: 2048, quality: 60) {
+            fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
         }

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
@@ -42,7 +42,7 @@ type AgentsPageProps = {
   metaKeywords: string;
   heroHeading: string;
   heroSubheading: string;
-  heroImage: { childImageSharp: { fluid: FluidObject } };
+  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
   mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
   mainpitch: {
     title: string;
@@ -140,6 +140,9 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
         title={metaTitle}
         description={metaDescription}
         meta={[{ name: 'keywords', content: metaKeywords }]}
+        image={heroImage.childImageSharp.fixed.src}
+        imageWidth={heroImage.childImageSharp.fixed.width}
+        imageHeight={heroImage.childImageSharp.fixed.height}
       />
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
         <PageContainer>
@@ -390,8 +393,11 @@ export const pageQuery = graphql`
         metaKeywords
         heroImage {
           childImageSharp {
-            fluid(maxWidth: 2048, quality: 60) {
+            fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
         }

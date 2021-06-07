@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { graphql, Link } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 import styled from 'styled-components';
 import {
   FaLinkedin,
@@ -36,7 +36,7 @@ type PressPageProps = {
   metaDescription: string;
   metaKeywords: string;
   title: string;
-  heroImage: { childImageSharp: { fluid: FluidObject } };
+  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
   mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
   pressItems: Array<{
     title: string;
@@ -71,6 +71,9 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
         title={props.metaTitle}
         description={props.metaDescription}
         meta={[{ name: 'keywords', content: props.metaKeywords }]}
+        image={props.heroImage.childImageSharp.fixed.src}
+        imageWidth={props.heroImage.childImageSharp.fixed.width}
+        imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
       <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage}>
         <PageContainer>
@@ -281,8 +284,11 @@ export const pressPageQuery = graphql`
         }
         heroImage {
           childImageSharp {
-            fluid(maxWidth: 2048, quality: 60) {
+            fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
         }

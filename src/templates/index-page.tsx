@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { graphql, navigate } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
@@ -43,7 +43,7 @@ type IndexPageProps = {
   title: string;
   heroHeading: string;
   heroSubheading: string;
-  heroImage: { childImageSharp: { fluid: FluidObject } };
+  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
   mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
   consumer: {
     title: string;
@@ -141,6 +141,9 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
         title={metaTitle}
         description={metaDescription}
         meta={[{ name: 'keywords', content: metaKeywords }]}
+        image={heroImage.childImageSharp.fixed.src}
+        imageWidth={heroImage.childImageSharp.fixed.width}
+        imageHeight={heroImage.childImageSharp.fixed.height}
       />
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
         <HeroBox>
@@ -369,8 +372,11 @@ export const pageQuery = graphql`
         title
         heroImage {
           childImageSharp {
-            fluid(maxWidth: 2048, quality: 60) {
+            fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
         }

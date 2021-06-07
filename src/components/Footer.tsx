@@ -170,24 +170,18 @@ const Footer = () => (
           <p>
             <Link to="/mortgage-consultation">Mortgage Consultation</Link>
           </p>
-          <p>
-            <Link to="/frequently-asked-questions">FAQs</Link>
-          </p>
-        </Column>
-        <Column sm={4} md={2}>
+          <br />
           <Heading as="h5" inverse>
             AGENTS
           </Heading>
           <p>
             <Link to="/agents">Become an Agent</Link>
           </p>
-          <p>
-            <Link to="/frequently-asked-questions">FAQs</Link>
-          </p>
+          <br />
         </Column>
         <Column sm={4} md={2}>
           <Heading as="h5" inverse>
-            CONTACT US
+            COMPANY
           </Heading>
           <p>
             <Link to="/about">About Us</Link>
@@ -201,8 +195,21 @@ const Footer = () => (
           <p>
             <Link to="/terms">Terms of Use</Link>
           </p>
+
+          <br />
+        </Column>
+        <Column sm={4} md={2}>
+          <Heading as="h5" inverse>
+            CONTACT
+          </Heading>
           <p>
-            <Link to="/contact">Contact</Link>
+            <Link to="/contact">Send a Message</Link>
+          </p>
+          <p>
+            <a href="tel:+12489152654">(248) 915-2654</a>
+          </p>
+          <p>
+            <Link to="/frequently-asked-questions">FAQs</Link>
           </p>
         </Column>
       </Row>

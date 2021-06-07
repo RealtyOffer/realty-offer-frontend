@@ -1,19 +1,24 @@
 import React, { FunctionComponent } from 'react';
 import { kebabCase } from 'lodash';
 import { Link, graphql } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 
 import { PageContainer, Box, Heading, Seo, HeroImage } from '../components';
 
 type TagsIndexProps = {
   title: string;
   group: Array<{ fieldValue: string; totalCount: number }>;
-  heroImage: { childImageSharp: { fluid: FluidObject } };
+  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
 };
 
 export const TagsIndexTemplate: FunctionComponent<TagsIndexProps> = (props) => (
   <>
-    <Seo title={props.title} />
+    <Seo
+      title={props.title}
+      image={props.heroImage.childImageSharp.fixed.src}
+      imageWidth={props.heroImage.childImageSharp.fixed.width}
+      imageHeight={props.heroImage.childImageSharp.fixed.height}
+    />
     <HeroImage imgSrc={props.heroImage}>
       <PageContainer>
         <Heading as="h1" inverse align="center">
@@ -70,8 +75,11 @@ export const tagPageQuery = graphql`
       frontmatter {
         heroImage {
           childImageSharp {
-            fluid {
+            fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
         }

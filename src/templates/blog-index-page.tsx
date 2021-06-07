@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { FluidObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 
 import { Button, HeroImage, Seo, PageContainer, Heading, FlexContainer } from '../components';
 import BlogRoll from './BlogRoll';
 
 type BlogIndexProps = {
   title: string;
-  heroImage: { childImageSharp: { fluid: FluidObject } };
+  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
   pageContext: {
     currentPage: number;
     limit: number;
@@ -43,7 +43,12 @@ export const BlogIndexTemplate: FunctionComponent<BlogIndexProps> = (props) => {
   const nextPage = (currentPage + 1).toString();
   return (
     <>
-      <Seo title={props.title} />
+      <Seo
+        title={props.title}
+        image={props.heroImage.childImageSharp.fixed.src}
+        imageWidth={props.heroImage.childImageSharp.fixed.width}
+        imageHeight={props.heroImage.childImageSharp.fixed.height}
+      />
       <HeroImage imgSrc={props.heroImage}>
         <PageContainer>
           <Heading as="h1" inverse align="center">
@@ -171,8 +176,11 @@ export const blogIndexPageQuery = graphql`
         title
         heroImage {
           childImageSharp {
-            fluid(maxWidth: 2048, quality: 60) {
+            fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
         }

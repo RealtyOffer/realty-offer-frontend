@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Link, graphql } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 
 import { PageContainer, Box, Heading, Seo, HeroImage } from '../components';
 
@@ -8,7 +8,7 @@ type TagRouteProps = {
   data: {
     markdownRemark: {
       frontmatter: {
-        heroImage: { childImageSharp: { fluid: FluidObject } };
+        heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
       };
     };
     allMarkdownRemark: {
@@ -56,7 +56,12 @@ const TagRoute: FunctionComponent<TagRouteProps> = ({ data, pageContext }) => {
         </PageContainer>
       </HeroImage>
       <PageContainer>
-        <Seo title={`Posts tagged ${tag}`} />
+        <Seo
+          title={`Posts tagged ${tag}`}
+          image={data.markdownRemark.frontmatter.heroImage.childImageSharp.fixed.src}
+          imageWidth={data.markdownRemark.frontmatter.heroImage.childImageSharp.fixed.width}
+          imageHeight={data.markdownRemark.frontmatter.heroImage.childImageSharp.fixed.height}
+        />
         <Box>
           <Heading>{tagHeader}</Heading>
           <ul>{postLinks}</ul>
@@ -94,8 +99,11 @@ export const tagPageQuery = graphql`
       frontmatter {
         heroImage {
           childImageSharp {
-            fluid {
+            fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
         }
