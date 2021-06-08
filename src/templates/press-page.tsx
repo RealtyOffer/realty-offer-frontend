@@ -156,9 +156,7 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                       />
                     </p>
                     <p>
-                      <Button type="link" to="/img/logo-blue-with-white.png" color="text">
-                        Download
-                      </Button>
+                      <a href="/img/logo-blue-with-white.png">Download</a>
                     </p>
                     <p>
                       <img
@@ -168,14 +166,10 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                       />
                     </p>
                     <p>
-                      <Button type="link" to="/img/logo-white-with-blue.png" color="text">
-                        Download
-                      </Button>
+                      <a href="/img/logo-white-with-blue.png">Download</a>
                     </p>
                     <p>
-                      <Button type="link" to="/img/logo.eps" color="primaryOutline">
-                        Download .eps version
-                      </Button>
+                      <a href="/img/logo.eps">Download .eps version</a>
                     </p>
                   </div>
                   <HorizontalRule />
