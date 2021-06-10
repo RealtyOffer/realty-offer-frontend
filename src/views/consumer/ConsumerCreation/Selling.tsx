@@ -2,7 +2,7 @@ import React, { useEffect, FunctionComponent, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Formik, Field, Form } from 'formik';
 import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
-import { Link, navigate } from 'gatsby';
+import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {

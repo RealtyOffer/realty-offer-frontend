@@ -27,7 +27,6 @@ import {
   Column,
   Row,
   HorizontalRule,
-  Button,
 } from '../components';
 import { brandPrimary } from '../styles/color';
 

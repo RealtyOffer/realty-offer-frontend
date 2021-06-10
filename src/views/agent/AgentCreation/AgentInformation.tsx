@@ -34,6 +34,7 @@ import { createOptionsFromManagedDropdownList } from '../../../utils/createOptio
 import { getUserCities } from '../../../redux/ducks/user';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { reformattedPhoneForFortis } from '../../../utils/phoneNumber';
+import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
 
 type AgentInformationProps = {};
 
@@ -158,6 +159,23 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                     })
                   ).then((response: ActionResponseType) => {
                     if (response && !response.error) {
+                      postFormUrlEncoded('new-agent-account-created', {
+                        subject: `New Agent Account Created: ${auth.firstName} ${auth.lastName}`,
+                        firstName: auth.firstName,
+                        lastName: auth.lastName,
+                        email: auth.email,
+                        phoneNumber: auth.phoneNumber,
+                        isPilotUser: agent.signupData.isPilotUser,
+                        agentId: values.agentId,
+                        brokerName: values.brokerName,
+                        brokerAddressLine1: values.brokerAddressLine1,
+                        brokerAddressLine2: values.brokerAddressLine2,
+                        brokerCity: values.brokerCity,
+                        brokerZip: values.brokerZip,
+                        brokerState: 'MI',
+                        brokerPhoneNumber: values.brokerPhoneNumber,
+                        brokerEmail: values.brokerEmail,
+                      });
                       if (agent && agent.signupData.isPilotUser) {
                         dispatch(
                           captureAgentSignupData({
@@ -177,8 +195,25 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
               });
             }}
           >
-            {({ isSubmitting, isValid, ...rest }) => (
-              <Form>
+            {({ isSubmitting, isValid, setFieldValue, ...rest }) => (
+              <Form
+                name="new-agent-account-created"
+                method="post"
+                netlify-honeypot="bot-field"
+                data-netlify="true"
+                onBlur={() =>
+                  setFieldValue(
+                    'subject',
+                    `New Agent Account Created: ${auth.firstName} ${auth.lastName}`
+                  )
+                }
+              >
+                <input type="hidden" name="form-name" value="new-agent-account-created" />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value={`New Agent Account Created: ${auth.firstName} ${auth.lastName}`}
+                />
                 <Heading as="h5">Agent Information</Heading>
                 <Row>
                   <Column md={8}>

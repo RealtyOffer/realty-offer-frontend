@@ -23,6 +23,7 @@ import {
   requiredPhoneNumber,
   requiredPassword,
   passwordRulesString,
+  requiredField,
 } from '../../../utils/validations';
 import { createUser } from '../../../redux/ducks/auth';
 import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
@@ -51,13 +52,15 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
     dispatch(getHomeTypesList());
   }, []);
 
-  const initialValues: CreateUserFormValues = {
+  const initialValues: CreateUserFormValues & { referralSource: string; otherSource: string } = {
     firstName: '',
     lastName: '',
     phoneNumber: '',
     email: '',
     password: '',
     role: 'Consumer',
+    referralSource: '',
+    otherSource: '',
   };
 
   const toggleUnsavedChangesModal = () => {
@@ -93,6 +96,8 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 phoneNumber: values.phoneNumber,
                 email: values.email,
                 role: 'Consumer',
+                referralSource: values.referralSource,
+                otherSource: values.otherSource,
               });
             }
             dispatch(
@@ -125,74 +130,72 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         type: 'success',
                       })
                     );
-                    if (consumer.listing?.freeMortgageConsult) {
-                      if (window && window.analytics) {
-                        window.analytics.track(`Free Mortgage Consultation Form completed`, {});
-                      }
-                      postFormUrlEncoded('free-mortgage-consultation', {
-                        type: consumer?.listing?.type,
-                        buyingCities: isBuyer
-                          ? Array(consumer?.listing?.buyingCities?.map((city) => city.name))
-                              .toString()
-                              .replace(/,/g, ', ')
-                          : 'not a buyer',
-                        sellersCity: isSeller
-                          ? consumer?.listing?.sellersCity?.name
+
+                    postFormUrlEncoded('new-consumer-account-created', {
+                      type: consumer?.listing?.type,
+                      buyingCities: isBuyer
+                        ? Array(consumer?.listing?.buyingCities?.map((city) => city.name))
+                            .toString()
+                            .replace(/,/g, ', ')
+                        : 'not a buyer',
+                      sellersCity: isSeller ? consumer?.listing?.sellersCity?.name : 'not a seller',
+                      sellingPriceRange:
+                        isSeller &&
+                        priceRangesList.length > 0 &&
+                        consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
+                          ? getDropdownListText(
+                              priceRangesList,
+                              String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
+                            )
                           : 'not a seller',
-                        sellingPriceRange:
-                          isSeller &&
-                          priceRangesList.length > 0 &&
-                          consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
-                            ? getDropdownListText(
-                                priceRangesList,
-                                String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
-                              )
-                            : 'not a seller',
-                        buyingPriceRange:
-                          isBuyer && priceRangesList.length > 0
-                            ? getDropdownListText(
-                                priceRangesList,
-                                String(consumer.listing.buyingPriceRangeId)
-                              )
-                            : 'not a buyer',
-                        buyerTypeOfHomeId:
-                          isBuyer && homeTypesList.length > 0
-                            ? getDropdownListText(
-                                homeTypesList,
-                                String(consumer.listing.buyerTypeOfHomeId)
-                              )
-                            : 'not a buyer',
-                        sellerTypeOfHomeId:
-                          isSeller &&
-                          homeTypesList.length > 0 &&
-                          consumer?.listing?.sellerTypeOfHomeId
-                            ? getDropdownListText(
-                                homeTypesList,
-                                String(consumer.listing.sellerTypeOfHomeId)
-                              )
-                            : 'not a seller',
-                        sellersMortgageBalanceId:
-                          isSeller &&
-                          priceRangesList.length > 0 &&
-                          consumer?.listing?.sellersMortgageBalanceId
-                            ? getDropdownListText(
-                                priceRangesList,
-                                String(consumer.listing.sellersMortgageBalanceId)
-                              )
-                            : 'not a seller',
-                        preApproved: consumer.listing.preApproved
+                      buyingPriceRange:
+                        isBuyer && priceRangesList.length > 0 && consumer.listing
+                          ? getDropdownListText(
+                              priceRangesList,
+                              String(consumer.listing.buyingPriceRangeId)
+                            )
+                          : 'not a buyer',
+                      buyerTypeOfHomeId:
+                        isBuyer && homeTypesList.length > 0 && consumer.listing
+                          ? getDropdownListText(
+                              homeTypesList,
+                              String(consumer.listing.buyerTypeOfHomeId)
+                            )
+                          : 'not a buyer',
+                      sellerTypeOfHomeId:
+                        isSeller &&
+                        homeTypesList.length > 0 &&
+                        consumer?.listing?.sellerTypeOfHomeId
+                          ? getDropdownListText(
+                              homeTypesList,
+                              String(consumer.listing.sellerTypeOfHomeId)
+                            )
+                          : 'not a seller',
+                      sellersMortgageBalanceId:
+                        isSeller &&
+                        priceRangesList.length > 0 &&
+                        consumer?.listing?.sellersMortgageBalanceId
+                          ? getDropdownListText(
+                              priceRangesList,
+                              String(consumer.listing.sellersMortgageBalanceId)
+                            )
+                          : 'not a seller',
+                      preApproved:
+                        consumer.listing && consumer.listing.preApproved
                           ? 'yes, pre-approved'
                           : 'no, not pre-approved',
-                        freeMortgageConsult: consumer.listing.freeMortgageConsult
+                      freeMortgageConsult:
+                        consumer.listing && consumer.listing.freeMortgageConsult
                           ? 'yes, wants free mortgage consultation'
                           : 'no, does not want free mortgage consultation',
-                        firstName: values.firstName,
-                        lastName: values.lastName,
-                        email: values.email,
-                        phoneNumber: values.phoneNumber,
-                        subject: `Mortgage Consultation Request: ${values.firstName} ${values.lastName}`,
-                      });
-                    }
+                      firstName: values.firstName,
+                      lastName: values.lastName,
+                      email: values.email,
+                      phoneNumber: values.phoneNumber,
+                      subject: `New Consumer Account Created: ${values.firstName} ${values.lastName}`,
+                      referralSource: values.referralSource,
+                      otherSource: values.otherSource,
+                    });
                   }
                 });
                 navigate('/consumer/verify-email');
@@ -200,24 +203,24 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
             });
           }}
         >
-          {({ isSubmitting, isValid, values, setFieldValue }) => (
+          {({ isSubmitting, isValid, values, setFieldValue, ...rest }) => (
             <Form
-              name="free-mortgage-consultation"
+              name="new-consumer-account-created"
               method="post"
               netlify-honeypot="bot-field"
               data-netlify="true"
               onBlur={() =>
                 setFieldValue(
                   'subject',
-                  `Mortgage Consultation Request: ${values.firstName} ${values.lastName}`
+                  `New Consumer Account Created: ${values.firstName} ${values.lastName}`
                 )
               }
             >
-              <input type="hidden" name="form-name" value="free-mortgage-consultation" />
+              <input type="hidden" name="form-name" value="new-consumer-account-created" />
               <input
                 type="hidden"
                 name="subject"
-                value={`Mortgage Consultation Request: ${values.firstName} ${values.lastName}`}
+                value={`New Consumer Account Created: ${values.firstName} ${values.lastName}`}
               />
               <Row>
                 <Column xs={6}>
@@ -226,7 +229,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                     type="text"
                     name="firstName"
                     label="First Name"
-                    validate={requiredSelect}
+                    validate={requiredField}
                     required
                   />
                 </Column>
@@ -236,7 +239,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                     type="text"
                     name="lastName"
                     label="Last Name"
-                    validate={requiredSelect}
+                    validate={requiredField}
                     required
                   />
                 </Column>
@@ -266,6 +269,30 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 helpText={passwordRulesString}
                 validate={requiredPassword}
                 required
+              />
+              <Field
+                as={Input}
+                type="select"
+                name="referralSource"
+                options={[
+                  { value: 'Google', label: 'Google' },
+                  { value: 'Social Media', label: 'Social Media' },
+                  { value: 'Radio', label: 'Radio' },
+                  { value: 'TV', label: 'TV' },
+                  { value: 'Print', label: 'Print' },
+                  { value: 'Word of Mouth', label: 'Word of Mouth' },
+                  { value: 'Other', label: 'Other' },
+                ]}
+                label="How did you hear about RealtyOffer?"
+                validate={requiredSelect}
+                required
+                {...rest}
+              />
+              <Field
+                as={Input}
+                type="text"
+                name="otherSource"
+                label="Other or Referral Source Name"
               />
               <HorizontalRule />
               <Button

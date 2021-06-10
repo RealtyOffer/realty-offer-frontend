@@ -102,12 +102,12 @@ const NetlifyForms: FunctionComponent<{}> = () => (
     <Formik initialValues={{}} onSubmit={() => undefined}>
       {() => (
         <Form
-          name="free-mortgage-consultation"
+          name="new-consumer-account-created"
           method="post"
           netlify-honeypot="bot-field"
           data-netlify="true"
         >
-          <input type="hidden" name="form-name" value="free-mortgage-consultation" />
+          <input type="hidden" name="form-name" value="new-consumer-account-created" />
           {[
             'type',
             'buyingCities',
@@ -128,6 +128,39 @@ const NetlifyForms: FunctionComponent<{}> = () => (
             'email',
             'phoneNumber',
             'subject',
+            'referralSource',
+            'otherSource',
+          ].map((name) => (
+            <input type="hidden" name={name} value="" key={name} />
+          ))}
+        </Form>
+      )}
+    </Formik>
+    <Formik initialValues={{}} onSubmit={() => undefined}>
+      {() => (
+        <Form
+          name="new-agent-account-created"
+          method="post"
+          netlify-honeypot="bot-field"
+          data-netlify="true"
+        >
+          <input type="hidden" name="form-name" value="new-agent-account-created" />
+          {[
+            'subject',
+            'firstName',
+            'lastName',
+            'email',
+            'phoneNumber',
+            'isPilotUser',
+            'agentId',
+            'brokerName',
+            'brokerAddressLine1',
+            'brokerAddressLine2',
+            'brokerCity',
+            'brokerZip',
+            'brokerState',
+            'brokerPhoneNumber',
+            'brokerEmail',
           ].map((name) => (
             <input type="hidden" name={name} value="" key={name} />
           ))}
