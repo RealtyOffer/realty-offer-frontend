@@ -130,72 +130,75 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         type: 'success',
                       })
                     );
-
-                    postFormUrlEncoded('new-consumer-account-created', {
-                      type: consumer?.listing?.type,
-                      buyingCities: isBuyer
-                        ? Array(consumer?.listing?.buyingCities?.map((city) => city.name))
-                            .toString()
-                            .replace(/,/g, ', ')
-                        : 'not a buyer',
-                      sellersCity: isSeller ? consumer?.listing?.sellersCity?.name : 'not a seller',
-                      sellingPriceRange:
-                        isSeller &&
-                        priceRangesList.length > 0 &&
-                        consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
-                          ? getDropdownListText(
-                              priceRangesList,
-                              String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
-                            )
-                          : 'not a seller',
-                      buyingPriceRange:
-                        isBuyer && priceRangesList.length > 0 && consumer.listing
-                          ? getDropdownListText(
-                              priceRangesList,
-                              String(consumer.listing.buyingPriceRangeId)
-                            )
+                    if (process.env.GATSBY_ENVIRONMENT !== 'DEVELOP') {
+                      postFormUrlEncoded('new-consumer-account-created', {
+                        type: consumer?.listing?.type,
+                        buyingCities: isBuyer
+                          ? Array(consumer?.listing?.buyingCities?.map((city) => city.name))
+                              .toString()
+                              .replace(/,/g, ', ')
                           : 'not a buyer',
-                      buyerTypeOfHomeId:
-                        isBuyer && homeTypesList.length > 0 && consumer.listing
-                          ? getDropdownListText(
-                              homeTypesList,
-                              String(consumer.listing.buyerTypeOfHomeId)
-                            )
-                          : 'not a buyer',
-                      sellerTypeOfHomeId:
-                        isSeller &&
-                        homeTypesList.length > 0 &&
-                        consumer?.listing?.sellerTypeOfHomeId
-                          ? getDropdownListText(
-                              homeTypesList,
-                              String(consumer.listing.sellerTypeOfHomeId)
-                            )
+                        sellersCity: isSeller
+                          ? consumer?.listing?.sellersCity?.name
                           : 'not a seller',
-                      sellersMortgageBalanceId:
-                        isSeller &&
-                        priceRangesList.length > 0 &&
-                        consumer?.listing?.sellersMortgageBalanceId
-                          ? getDropdownListText(
-                              priceRangesList,
-                              String(consumer.listing.sellersMortgageBalanceId)
-                            )
-                          : 'not a seller',
-                      preApproved:
-                        consumer.listing && consumer.listing.preApproved
-                          ? 'yes, pre-approved'
-                          : 'no, not pre-approved',
-                      freeMortgageConsult:
-                        consumer.listing && consumer.listing.freeMortgageConsult
-                          ? 'yes, wants free mortgage consultation'
-                          : 'no, does not want free mortgage consultation',
-                      firstName: values.firstName,
-                      lastName: values.lastName,
-                      email: values.email,
-                      phoneNumber: values.phoneNumber,
-                      subject: `New Consumer Account Created: ${values.firstName} ${values.lastName}`,
-                      referralSource: values.referralSource,
-                      otherSource: values.otherSource,
-                    });
+                        sellingPriceRange:
+                          isSeller &&
+                          priceRangesList.length > 0 &&
+                          consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.sellersListingPriceInMindPriceRangeInMindId)
+                              )
+                            : 'not a seller',
+                        buyingPriceRange:
+                          isBuyer && priceRangesList.length > 0 && consumer.listing
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.buyingPriceRangeId)
+                              )
+                            : 'not a buyer',
+                        buyerTypeOfHomeId:
+                          isBuyer && homeTypesList.length > 0 && consumer.listing
+                            ? getDropdownListText(
+                                homeTypesList,
+                                String(consumer.listing.buyerTypeOfHomeId)
+                              )
+                            : 'not a buyer',
+                        sellerTypeOfHomeId:
+                          isSeller &&
+                          homeTypesList.length > 0 &&
+                          consumer?.listing?.sellerTypeOfHomeId
+                            ? getDropdownListText(
+                                homeTypesList,
+                                String(consumer.listing.sellerTypeOfHomeId)
+                              )
+                            : 'not a seller',
+                        sellersMortgageBalanceId:
+                          isSeller &&
+                          priceRangesList.length > 0 &&
+                          consumer?.listing?.sellersMortgageBalanceId
+                            ? getDropdownListText(
+                                priceRangesList,
+                                String(consumer.listing.sellersMortgageBalanceId)
+                              )
+                            : 'not a seller',
+                        preApproved:
+                          consumer.listing && consumer.listing.preApproved
+                            ? 'yes, pre-approved'
+                            : 'no, not pre-approved',
+                        freeMortgageConsult:
+                          consumer.listing && consumer.listing.freeMortgageConsult
+                            ? 'yes, wants free mortgage consultation'
+                            : 'no, does not want free mortgage consultation',
+                        firstName: values.firstName,
+                        lastName: values.lastName,
+                        email: values.email,
+                        phoneNumber: values.phoneNumber,
+                        subject: `New Consumer Account Created: ${values.firstName} ${values.lastName}`,
+                        referralSource: values.referralSource,
+                        otherSource: values.otherSource,
+                      });
+                    }
                   }
                 });
                 navigate('/consumer/verify-email');
