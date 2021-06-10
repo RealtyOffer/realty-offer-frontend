@@ -1,9 +1,9 @@
 ---
 templateKey: about-page
-title: Our Mission
 metaTitle: Same Agent, Less Commission
 metaDescription: meta description goes here
 metaKeywords: meta keywords go here
+title: Our Mission
 heroImage: /img/Keys-Door.jpeg
 mobileHeroImage: /img/Keys-Door.jpeg
 mission: >-
@@ -17,19 +17,15 @@ mission: >-
   struggle to close a deal.
 
 
-  The solution is RealtyOffer, the one-stop-shop for the buyer, seller, and
-  agent. RealtyOffer will connect the consumer with the agent, while removing
-  the upfront negotiation. Our AI-Digitized platform will be the first of its
-  kind to enable savings for all parties involved in a real estate transaction:
-  the seller, the buyer, and the agent.
+  The solution is RealtyOffer, the one-stop-shop for the buyer, seller, and agent. **[RealtyOffer](https://realtyoffer.com/)** will connect the consumer with the agent, while removing the upfront negotiation. Our AI-Digitized platform will be the first of its kind to enable savings for all parties involved in a real estate transaction: the seller, the buyer, and the agent.
 content: >-
-  We intend to help the 90% of agents who can't find consistency in the real
-  estate business and educate the 90% of consumers that are unaware of certain
-  incentives they can take advantge of. Agents will have consistent
-  opportunities at their fingertips without needing to spend thousands on wasted
-  marketing. Agents simply offer the charge less commission to sell a home or
-  offer part of their commission to a consumer that wants to purchase a home;
-  pure savings for all parties involved.
+  We intend to help the 90% of **[agents](https://realtyoffer.com/agents)** who
+  can't find consistency in the real estate business and educate the 90% of
+  consumers that are unaware of certain incentives they can take advantage of.
+  Agents will have consistent opportunities at their fingertips without needing
+  to spend thousands on wasted marketing. Agents simply offer the charge less
+  commission to sell a home or offer part of their commission to a consumer that
+  wants to purchase a home; pure savings for all parties involved.
 
 
   Welcome to RealtyOffer!
