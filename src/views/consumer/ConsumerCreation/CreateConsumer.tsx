@@ -288,6 +288,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 ]}
                 label="How did you hear about RealtyOffer?"
                 validate={requiredSelect}
+                setFieldValue={setFieldValue}
                 required
                 {...rest}
               />

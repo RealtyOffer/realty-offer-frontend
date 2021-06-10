@@ -1,1 +1,21 @@
-{"applinks":{"apps":[],"details":[{"appID":"77G5PM49AS.org.reactjs.native.example.Realty-Offer","paths":["NOT /_/*","/*"]},{"appID":"77G5PM49AS.com.realtyoffernative","paths":["NOT /_/*","/*"]}]}}
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "77G5PM49AS.org.reactjs.native.example.Realty-Offer",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "77G5PM49AS.com.realtyoffernative",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      }
+    ]
+  }
+}
