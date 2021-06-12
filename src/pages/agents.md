@@ -67,7 +67,7 @@ thirdpitch:
 
     * Must be an agent for at least 12 months
 
-    * Must have closed 6 transactions, three of which you were representing the seller
+    * Must have closed 12 transactions, six of which you were representing the seller
 
     * No penalties
 
