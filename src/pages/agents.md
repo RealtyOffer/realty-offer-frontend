@@ -26,10 +26,17 @@ mainpitch:
     commission for a sale, or offer part of your commission for a purchase...
     the amount is up to you. Everyone wins..."
   steps:
-    - title: Subscribe to your favorite cities or counties...
-      body: Subscribe to your favorite cities or counties... Through an AI-Digitized
+    - title: Subscribe to your favorite cities/counties OR Bid For Free!
+      body: >-
+        Subscribe to your favorite cities or counties... Through an AI-Digitized
         platform, RealtyOffer will send you serious clients that are ready to
-        buy, sell, or **both**!
+        buy, sell, or **both**! Pricing varies based on area.
+
+
+        OR
+
+
+        RealtyOffer also gives you the option to **BID FOR FREE** and purchase each individual lead you are awarded, for a $295 fee.
     - title: Bid your best...
       body: "The automated bidding works two ways: choose to discount your commission
         for a sale or offer part of your commission for a purchase, allowing the
