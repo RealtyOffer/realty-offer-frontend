@@ -30,6 +30,9 @@ mainpitch:
         you with compatible agents, while removing the upfront negotiation.
 
 
+        Your personal/contact information remains confidential until you choose the agent you'd like to work with. **We NEVER share or sell your personal info!** 
+
+
         No contracts, no obligation, no awkward negotiation... and the best part about it, RealtyOffer is **completely FREE!**
     - title: Step Two
       body: >-
