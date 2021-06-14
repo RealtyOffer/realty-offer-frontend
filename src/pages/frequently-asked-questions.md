@@ -63,7 +63,7 @@ consumerFaq:
         mortgage affiliates will guide you step-by-step for a free pre-approval.
         There is no up-front cost for this service.
     - question: As a consumer, am I obligated to use the agent I have chosen?
-      answer: no. After a bid is awarded, a client has the ability to meet or discuss
+      answer: No. After a bid is awarded, a client has the ability to meet or discuss
         with their chosen agent in private. It is up to you and the agent to
         make the choice of moving forward with a contract. RealtyOffer simply
         empowers the consumer and removes the upfront negotiation, in order to
