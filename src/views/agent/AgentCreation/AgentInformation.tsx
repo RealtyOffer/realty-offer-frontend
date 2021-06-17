@@ -237,6 +237,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       validate={requiredField}
                       required
                       disabled
+                      setFieldValue={setFieldValue}
                       options={createOptionsFromManagedDropdownList(statesList)}
                       {...rest}
                     />
@@ -247,6 +248,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   type="select"
                   name="genderId"
                   label="Gender"
+                  setFieldValue={setFieldValue}
                   options={createOptionsFromManagedDropdownList(gendersList)}
                   validate={requiredSelect}
                   required
@@ -330,6 +332,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                       label="State"
                       validate={requiredField}
                       required
+                      setFieldValue={setFieldValue}
                       options={createOptionsFromManagedDropdownList(statesList)}
                       {...rest}
                     />
