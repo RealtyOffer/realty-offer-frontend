@@ -91,9 +91,11 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
           <p>
             <Link to="/">Home</Link> &gt; FAQs
           </p>
-          <Heading styledAs="title">Frequently Asked Questions (FAQs)</Heading>
+          <Heading styledAs="title" as="h2">
+            Frequently Asked Questions (FAQs)
+          </Heading>
           <br />
-          <Heading as="h2" styledAs="subtitle">
+          <Heading as="h3" styledAs="subtitle">
             Consumers looking to buy or sell FAQs
           </Heading>
           <HorizontalRule />
@@ -103,7 +105,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
                 <AccordionItemHeading>
                   <AccordionItemButton>
                     <FlexContainer justifyContent="space-between" alignItems="center">
-                      <Heading as="h6" noMargin>
+                      <Heading as="h4" noMargin>
                         {item.question}
                       </Heading>
                       <AccordionItemState>
@@ -128,7 +130,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
             ))}
           </Accordion>
           <br />
-          <Heading as="h2" styledAs="subtitle">
+          <Heading as="h3" styledAs="subtitle">
             Agent FAQs
           </Heading>
           <HorizontalRule />
@@ -138,7 +140,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
                 <AccordionItemHeading>
                   <AccordionItemButton>
                     <FlexContainer justifyContent="space-between" alignItems="center">
-                      <Heading as="h6" noMargin>
+                      <Heading as="h4" noMargin>
                         {item.question}
                       </Heading>
                       <AccordionItemState>

@@ -19,7 +19,10 @@ export const PilotTermsTemplate: FunctionComponent<PilotTermsProps> = ({
 
   return (
     <PageContainer>
-      <Seo title={title} />
+      <Seo
+        title={title}
+        description="Terms and conditions on your Pilot usage of Realty Offer services for buying and selling homes in Michigan, United States."
+      />
       <Heading id="top">{title}</Heading>
       <Box largePadding>
         <PageContent content={content} />

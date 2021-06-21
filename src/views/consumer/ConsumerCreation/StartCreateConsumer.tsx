@@ -53,14 +53,17 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
 
   return (
     <ClientOnly>
-      <Seo title="Ready to buy or sell a home?" />
+      <Seo
+        title="Ready to buy or sell a home?"
+        description="Ready to buy or sell a home? Sign up or log in now and start your journey with us. Visit the page to let us know more about the home you’re looking to sell or buy."
+      />
       <TimelineProgress
         items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}
         currentStep={1}
       />
       <Card
         fullWidth
-        cardTitle="Let's Get Started"
+        cardTitle="Let's Get Started Creating Your Account"
         cardSubtitle="Ready to buy or sell a home? Start by selecting what you are looking to do below."
       >
         <Row>

@@ -38,7 +38,10 @@ export const Feedback: FunctionComponent<FeedbackProps> = (props) => {
 
   return (
     <PageContainer>
-      <Seo title="Feedback" />
+      <Seo
+        title="Feedback"
+        description="Provide our team with valuable feedback by filling out our form. Your feedback can help us improve our services and provide a better customer experience."
+      />
 
       <Card
         cardTitle="Pilot Feedback"

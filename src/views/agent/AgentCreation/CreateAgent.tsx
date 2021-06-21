@@ -54,7 +54,10 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
 
   return (
     <>
-      <Seo title="Sign Up" />
+      <Seo
+        title="Sign Up"
+        description="Create an account or sign up on Realty Offer. We help you sell your home as easy and stress-free as possible. Fill up the signup form to know how we can help you."
+      />
       <TimelineProgress
         items={
           location.pathname.includes('pilot')
@@ -70,7 +73,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
         }
         currentStep={1}
       />
-      <Card cardTitle="Sign Up!" cardSubtitle="Tell Us About Yourself">
+      <Card cardTitle="Sign Up As An Agent Today" cardSubtitle="Tell Us About Yourself">
         <Formik
           validateOnMount
           initialValues={initialValues}

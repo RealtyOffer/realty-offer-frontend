@@ -19,7 +19,10 @@ export const TermsTemplate: FunctionComponent<TermsProps> = ({
 
   return (
     <PageContainer>
-      <Seo title={title} />
+      <Seo
+        title={title}
+        description="Terms and conditions on your usage of Realty Offer services for buying and selling homes in Michigan, United States."
+      />
       <Heading id="top">{title}</Heading>
       <Box largePadding>
         <PageContent content={content} />

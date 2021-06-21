@@ -1,6 +1,6 @@
 ---
 templateKey: agents
-metaTitle: "Real Estate Buyer & Seller Leads. "
+metaTitle: Real Estate Buyer & Seller Leads
 metaDescription: Need Real Estate Buyer or Seller Leads? - We've Got Them.
   RealtyOffer will connect you with real clients, while removing the upfront
   awkward negotiation
@@ -19,12 +19,12 @@ mainpitch:
   title: Here is how it works!
   youtubeVideoId: R9jCqtpG770
   image: /img/Simulator Screen Shot - iPhone 11 - 2020-10-26 at 11.56.52.png
-  description: "RealtyOffer will connect you with serious clients, while removing
+  description: 'RealtyOffer will connect you with serious clients, while removing
     the upfront awkward negotiation. Instead of spending thousands of dollars on
     wasted real estate leads, agents will have the opportunity to simply bid for
     their next client. The bidding works two ways: choose to discount your
     commission for a sale, or offer part of your commission for a purchase...
-    the amount is up to you. Everyone wins..."
+    the amount is up to you. Everyone wins...'
   steps:
     - title: Subscribe to your favorite cities/counties OR Bid For Free!
       body: >-
@@ -38,10 +38,10 @@ mainpitch:
 
         RealtyOffer also gives you the option to **BID FOR FREE** and purchase each individual lead you are awarded, for a $295 fee.
     - title: Bid your best...
-      body: "The automated bidding works two ways: choose to discount your commission
+      body: 'The automated bidding works two ways: choose to discount your commission
         for a sale or offer part of your commission for a purchase, allowing the
         consumer to use the proceeds towards their closing costs and pre-paid
-        items. The amount is up to you!"
+        items. The amount is up to you!'
     - body: Within 24 hours, clients will choose their best offer and connect with a
         compatible agent in seconds. All through your smartphone.
       title: Client Selects Winning Agent

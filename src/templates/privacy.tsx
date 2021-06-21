@@ -19,7 +19,10 @@ export const PrivacyTemplate: FunctionComponent<PrivacyProps> = ({
 
   return (
     <PageContainer>
-      <Seo title={title} />
+      <Seo
+        title={title}
+        description="This Privacy Notice applies to the use of the Realty Offer Services by consumers and professionals acting as real estate agents."
+      />
       <Heading>{title}</Heading>
       <Box largePadding>
         <PageContent content={content} />

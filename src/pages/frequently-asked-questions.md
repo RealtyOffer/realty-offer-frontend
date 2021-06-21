@@ -1,9 +1,7 @@
 ---
 templateKey: frequently-asked-questions
 metaTitle: Learn more about RealtyOffer
-metaDescription: Need to buy or sell a home? You will receive bids from
-  compatible real estate agents in your area. Completely Free, no contracts, no
-  obligation, no awkward negotiation
+metaDescription: Frequently asked questions about how Realty Offer can help you to sell or buy a home.
 metaKeywords: real estate agent, buy a home, sell a home
 title: Learn more about RealtyOffer
 heroImage: /img/shutterstock_image2_purchased_landing-page.jpg

@@ -37,7 +37,7 @@ const MortgageConsultation: FunctionComponent<{}> = () => {
   return (
     <PageContainer>
       <Seo
-        title="Need a Mortgage Pre-approval? Connect with a Mortgage Advisor Free"
+        title="Connect with a Mortgage Advisor"
         description="Connect with a home lending advisor for free without having your personal information sold! We work with the top banks in the USA with over 25 years’ experience"
         meta={[
           {

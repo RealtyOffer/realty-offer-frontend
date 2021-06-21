@@ -34,7 +34,10 @@ const Contact: FunctionComponent<ContactProps> = () => {
 
   return (
     <PageContainer>
-      <Seo title="Contact Us" />
+      <Seo
+        title="Contact Us"
+        description="Do you have questions about buying a house or selling your home to a Realty Offer? Feel free to contact us via phone, email or fill out our contact us form. Contact us today."
+      />
       <Card cardTitle="Contact Us">
         <Formik
           validateOnMount
