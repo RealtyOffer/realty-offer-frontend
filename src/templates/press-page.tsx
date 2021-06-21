@@ -99,7 +99,9 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                   <Row>
                     <Column xs={8}>
                       <Heading as="h3" styledAs="subtitle">
-                        {item.title}
+                        <a href={item.link} target="_blank" rel="noopener noreferrer">
+                          {item.title}
+                        </a>
                       </Heading>
                     </Column>
                     <Column xs={4}>
@@ -107,11 +109,6 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                     </Column>
                   </Row>
                   <p>{item.excerpt}</p>
-                  <p>
-                    <a href={item.link} target="_blank" rel="noopener noreferrer">
-                      Read More
-                    </a>
-                  </p>
                   <HorizontalRule />
                 </article>
               ))}
