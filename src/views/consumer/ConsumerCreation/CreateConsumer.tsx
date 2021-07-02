@@ -138,10 +138,19 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                               .toString()
                               .replace(/,/g, ', ')
                           : 'not a buyer',
+                        sellersAddressLine1: isSeller
+                          ? consumer?.listing?.sellersAddressLine1
+                          : 'not a seller',
+                        sellersAddressLine2: isSeller
+                          ? consumer?.listing?.sellersAddressLine2
+                          : 'not a seller',
                         sellersCity: isSeller
                           ? consumer?.listing?.sellersCity?.name
                           : 'not a seller',
-                        sellingPriceRange:
+                        sellersTimeline: isSeller
+                          ? consumer?.listing?.sellersTimeline
+                          : 'not a seller',
+                        sellersListingPriceInMind:
                           isSeller &&
                           priceRangesList.length > 0 &&
                           consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
