@@ -150,7 +150,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                         sellersTimeline: isSeller
                           ? consumer?.listing?.sellersTimeline
                           : 'not a seller',
-                        sellersListingPriceInMind:
+                        sellersListingPriceInMindPriceRangeInMindId:
                           isSeller &&
                           priceRangesList.length > 0 &&
                           consumer?.listing?.sellersListingPriceInMindPriceRangeInMindId
