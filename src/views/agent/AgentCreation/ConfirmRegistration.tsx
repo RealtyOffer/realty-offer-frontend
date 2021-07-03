@@ -20,9 +20,11 @@ import { RootState } from '../../../redux/ducks';
 import { clearAgentSignupData, updateAgentProfile } from '../../../redux/ducks/agent';
 import numberWithCommas from '../../../utils/numberWithCommas';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
+import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
 
 const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
   const agent = useSelector((state: RootState) => state.agent);
+  const auth = useSelector((state: RootState) => state.auth);
   const fortis = useSelector((state: RootState) => state.fortis);
   const dispatch = useDispatch();
 
@@ -38,6 +40,26 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
   }, []);
 
   const completeSignup = () => {
+    if (process.env.GATSBY_ENVIRONMENT !== 'DEVELOP') {
+      postFormUrlEncoded('new-agent-account-created', {
+        subject: `New Agent Account Created: ${auth.firstName} ${auth.lastName}`,
+        firstName: auth.firstName,
+        lastName: auth.lastName,
+        email: auth.email,
+        phoneNumber: auth.phoneNumber,
+        isPilotUser: agent.signupData.isPilotUser,
+        agentId: agent.agentId,
+        brokerName: agent.brokerName,
+        brokerAddressLine1: agent.brokerAddressLine1,
+        brokerAddressLine2: agent.brokerAddressLine2,
+        brokerCity: agent.brokerCity,
+        brokerZip: agent.brokerZip,
+        brokerState: 'MI',
+        brokerPhoneNumber: agent.brokerPhoneNumber,
+        brokerEmail: agent.brokerEmail,
+        subscriberType,
+      });
+    }
     if (agent.isPilotUser) {
       dispatch(clearAgentSignupData());
       dispatch(

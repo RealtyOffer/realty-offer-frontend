@@ -161,6 +161,7 @@ const NetlifyForms: FunctionComponent<{}> = () => (
             'brokerState',
             'brokerPhoneNumber',
             'brokerEmail',
+            'subscriberType',
           ].map((name) => (
             <input type="hidden" name={name} value="" key={name} />
           ))}
