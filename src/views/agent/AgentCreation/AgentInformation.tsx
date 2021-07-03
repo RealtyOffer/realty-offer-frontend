@@ -34,7 +34,6 @@ import { createOptionsFromManagedDropdownList } from '../../../utils/createOptio
 import { getUserCities } from '../../../redux/ducks/user';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { reformattedPhoneForFortis } from '../../../utils/phoneNumber';
-import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
 
 type AgentInformationProps = {};
 
@@ -159,25 +158,6 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                     })
                   ).then((response: ActionResponseType) => {
                     if (response && !response.error) {
-                      // if (process.env.GATSBY_ENVIRONMENT !== 'DEVELOP') {
-                      //   postFormUrlEncoded('new-agent-account-created', {
-                      //     subject: `New Agent Account Created: ${auth.firstName} ${auth.lastName}`,
-                      //     firstName: auth.firstName,
-                      //     lastName: auth.lastName,
-                      //     email: auth.email,
-                      //     phoneNumber: auth.phoneNumber,
-                      //     isPilotUser: agent.signupData.isPilotUser,
-                      //     agentId: values.agentId,
-                      //     brokerName: values.brokerName,
-                      //     brokerAddressLine1: values.brokerAddressLine1,
-                      //     brokerAddressLine2: values.brokerAddressLine2,
-                      //     brokerCity: values.brokerCity,
-                      //     brokerZip: values.brokerZip,
-                      //     brokerState: 'MI',
-                      //     brokerPhoneNumber: values.brokerPhoneNumber,
-                      //     brokerEmail: values.brokerEmail,
-                      //   });
-                      // }
                       if (agent && agent.signupData.isPilotUser) {
                         dispatch(
                           captureAgentSignupData({

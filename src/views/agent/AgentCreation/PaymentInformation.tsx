@@ -42,7 +42,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     const receiveMessage = (event: MessageEvent) => {
       // Make sure the value for allowed matches the domain of the iFrame you are embedding.
       const allowed =
-        process.env.GATSBY_SITE_URL === 'https://develop.realtyoffer.com'
+        process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
           ? process.env.GATSBY_DEV_FORTISPAY_API_URL
           : process.env.GATSBY_FORTISPAY_API_URL;
       // Verify sender's identity
@@ -111,13 +111,13 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
     return () => window.removeEventListener('message', receiveMessage);
   }, []); // Empty array ensures that effect is only run on mount and unmount
 
-  const encryptionKey = (process.env.GATSBY_SITE_URL === 'https://develop.realtyoffer.com'
+  const encryptionKey = (process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
     ? process.env.GATSBY_DEV_FORTISPAY_HPP_ENCRYPTION_KEY
     : process.env.GATSBY_FORTISPAY_HPP_ENCRYPTION_KEY) as string;
 
   const hostedPaymentPageConfig = {
     id:
-      process.env.GATSBY_SITE_URL === 'https://develop.realtyoffer.com'
+      process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
         ? process.env.GATSBY_DEV_FORTISPAY_HPP_ID
         : process.env.GATSBY_FORTISPAY_HPP_ID,
     stylesheet_url: 'https://realtyoffer.com/css/fortis.css',
@@ -155,11 +155,11 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const encryptedData = CryptoJS.AES.encrypt(stringifiedConfig, encryptionKey).toString();
   const encodedData = encodeURIComponent(encryptedData);
   const url = `${
-    process.env.GATSBY_SITE_URL === 'https://develop.realtyoffer.com'
+    process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
       ? process.env.GATSBY_DEV_FORTISPAY_API_URL
       : process.env.GATSBY_FORTISPAY_API_URL
   }/hostedpaymentpage?id=${
-    process.env.GATSBY_SITE_URL === 'https://develop.realtyoffer.com'
+    process.env.GATSBY_ENVIRONMENT === 'DEVELOP'
       ? process.env.GATSBY_DEV_FORTISPAY_HPP_ID
       : process.env.GATSBY_FORTISPAY_HPP_ID
   }&data=${encodedData}`;
