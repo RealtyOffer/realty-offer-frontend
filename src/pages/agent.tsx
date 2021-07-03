@@ -200,7 +200,6 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           <LoadingPage path="/" />
           <LoadingPage path="/loading" />
           <CreateAgent path="/sign-up" />
-          <CreateAgent path="/pilot" />
           <VerifyEmail path="/verify-email" />
           <AgentInformation path="/agent-information" />
           <BusinessInformation path="/business-information" />
