@@ -73,6 +73,7 @@ export type CreateUserFormValues = {
   lastName: string;
   phoneNumber: string;
   email: string;
+  confirmEmail: string;
   password: string;
   role: 'Consumer' | 'Agent';
 };

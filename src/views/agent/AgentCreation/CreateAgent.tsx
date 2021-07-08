@@ -48,6 +48,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
     lastName: '',
     phoneNumber: '',
     email: '',
+    confirmEmail: '',
     password: '',
     role: 'Agent',
   };
@@ -75,6 +76,12 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
       />
       <Card cardTitle="Sign Up As An Agent Today" cardSubtitle="Tell Us About Yourself">
         <Formik
+          validate={(values) => {
+            if (values.email && values.confirmEmail && values.confirmEmail !== values.email) {
+              return { confirmEmail: 'Email address does not match the above' };
+            }
+            return {};
+          }}
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
@@ -168,6 +175,14 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                 type="email"
                 name="email"
                 label="Email Address"
+                validate={requiredEmail}
+                required
+              />
+              <Field
+                as={Input}
+                type="email"
+                name="confirmEmail"
+                label="Confirm Email Address"
                 validate={requiredEmail}
                 required
               />

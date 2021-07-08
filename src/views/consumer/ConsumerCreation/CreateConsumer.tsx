@@ -57,6 +57,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
     lastName: '',
     phoneNumber: '',
     email: '',
+    confirmEmail: '',
     password: '',
     role: 'Consumer',
     referralSource: '',
@@ -79,6 +80,12 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
       />
       <Card cardTitle="Create Account" cardSubtitle="Tell Us About Yourself">
         <Formik
+          validate={(values) => {
+            if (values.email && values.confirmEmail && values.confirmEmail !== values.email) {
+              return { confirmEmail: 'Email address does not match the above' };
+            }
+            return {};
+          }}
           validateOnMount
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
@@ -270,6 +277,14 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
                 type="email"
                 name="email"
                 label="Email Address"
+                validate={requiredEmail}
+                required
+              />
+              <Field
+                as={Input}
+                type="email"
+                name="confirmEmail"
+                label="Confirm Email Address"
                 validate={requiredEmail}
                 required
               />
