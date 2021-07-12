@@ -27,7 +27,8 @@ mainpitch:
     - title: Step One
       body: >-
         Fill in some simple information, sit back and RealtyOffer will connect
-        you with compatible agents, while removing the upfront negotiation.
+        you with compatible **[agents](https://realtyoffer.com/agents)**, while
+        removing the upfront negotiation.
 
 
         Your personal/contact information remains confidential until you choose the agent you'd like to work with. **We NEVER share or sell your personal info!** 
