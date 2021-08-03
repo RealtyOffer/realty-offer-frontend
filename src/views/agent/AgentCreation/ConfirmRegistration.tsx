@@ -136,7 +136,11 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <>
-      <Seo title="Confirm Registration" />
+      <Seo title="Confirm Registration">
+        <script type="text/javascript">
+          {window.gtag('event', 'conversion', { send_to: 'AW-325206149/Qr8MCIrrt-ECEIWBiZsB' })}
+        </script>
+      </Seo>
       <TimelineProgress
         items={
           agent && agent.isPilotUser

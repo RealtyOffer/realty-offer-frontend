@@ -30,6 +30,7 @@ declare global {
     __INITIAL_STATE__: string;
     beforeinstallprompt: BeforeInstallPromptEvent;
     google?: any;
+    gtag?: any;
     instgrm: any;
   }
 }

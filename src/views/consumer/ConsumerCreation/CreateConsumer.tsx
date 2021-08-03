@@ -73,7 +73,12 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
 
   return (
     <ClientOnly>
-      <Seo title="Ready to buy or sell a home?" />
+      <Seo title="Ready to buy or sell a home?">
+        <script type="text/javascript">
+          {/* eslint-disable-next-line @typescript-eslint/camelcase */}
+          {window.gtag('event', 'conversion', { send_to: 'AW-325206149/Qr8MCIrrt-ECEIWBiZsB' })}
+        </script>
+      </Seo>
       <TimelineProgress
         items={['Get Started', 'Create Listing', 'Create Account', 'Verify Email']}
         currentStep={3}
