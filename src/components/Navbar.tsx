@@ -349,13 +349,15 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     <>
       <Eyebrow>
         <PageContainer>
-          <FlexContainer justifyContent={size.isSmallScreen ? 'center' : 'flex-end'}>
-            <small>
-              <strong>Questions? Contact Us: </strong>{' '}
-              <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
-              <a href="tel:+12489152654">(248) 915-2654</a>
-            </small>
-          </FlexContainer>
+          <ClientOnly>
+            <FlexContainer justifyContent={size.isSmallScreen ? 'center' : 'flex-end'}>
+              <small>
+                <strong>Questions? Contact Us: </strong>{' '}
+                <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
+                <a href="tel:+12489152654">(248) 915-2654</a>
+              </small>
+            </FlexContainer>
+          </ClientOnly>
         </PageContainer>
       </Eyebrow>
       <StyledNavbar role="navigation" aria-label="main-navigation">
