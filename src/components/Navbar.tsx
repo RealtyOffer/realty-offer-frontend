@@ -50,6 +50,15 @@ import unauthenticatedNavigationItems from '../utils/unauthenticatedNavigationIt
 
 type NavbarProps = {};
 
+const Eyebrow = styled.div`
+  background: ${brandTertiary};
+  color: ${white};
+
+  & a {
+    color: ${white};
+  }
+`;
+
 const StyledNavbar = styled.nav`
   background: ${brandPrimary};
   color: ${white};
@@ -337,254 +346,268 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   };
 
   return (
-    <StyledNavbar role="navigation" aria-label="main-navigation">
-      <ClientOnly>
+    <>
+      <Eyebrow>
         <PageContainer>
-          <FlexContainer
-            justifyContent={
-              (auth.isLoggedIn && auth.roles.includes('Consumer')) ||
-              (!size.isSmallScreen && auth.isLoggedIn && auth.roles.includes('Agent')) ||
-              (!size.isSmallScreen && !auth.isLoggedIn)
-                ? 'space-between'
-                : 'center'
-            }
-            height={quadrupleSpacer}
-          >
-            {size.isSmallScreen && !isLoggedInConsumer && (
-              <StyledMenuToggle>
-                <Hamburger
-                  label="menu"
-                  color={white}
-                  toggled={menuIsOpen}
-                  toggle={() => setMenuIsOpen(!menuIsOpen)}
-                />
-              </StyledMenuToggle>
-            )}
-            <StyledLogoLink
-              to={
-                // eslint-disable-next-line no-nested-ternary
-                isLoggedInAgent
-                  ? '/agent/listings/new'
-                  : isLoggedInConsumer
-                  ? '/consumer/listing'
-                  : '/'
+          <FlexContainer justifyContent={size.isSmallScreen ? 'center' : 'flex-end'}>
+            <small>
+              <strong>Questions? Contact Us: </strong>{' '}
+              <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
+              <a href="tel:+12489152654">(248) 915-2654</a>
+            </small>
+          </FlexContainer>
+        </PageContainer>
+      </Eyebrow>
+      <StyledNavbar role="navigation" aria-label="main-navigation">
+        <ClientOnly>
+          <PageContainer>
+            <FlexContainer
+              justifyContent={
+                (auth.isLoggedIn && auth.roles.includes('Consumer')) ||
+                (!size.isSmallScreen && auth.isLoggedIn && auth.roles.includes('Agent')) ||
+                (!size.isSmallScreen && !auth.isLoggedIn)
+                  ? 'space-between'
+                  : 'center'
               }
-              title="Logo"
+              height={quadrupleSpacer}
             >
-              <img src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} /> RealtyOffer
-              <sup>&#8482;</sup>
-            </StyledLogoLink>
-            {false && ( // size.isSmallScreen && ( // TODO when notifications are ready
-              <>
-                {shouldShowMenuToggle && (
-                  <FlexContainer>
-                    <div style={{ position: 'relative', marginRight: halfSpacer }}>
-                      <Link to="/agent/notifications">
-                        <FaRegBell size={doubleSpacer} color={white} />
-                        <NotificationDot isSmallScreen={Boolean(size.isSmallScreen)} />
-                      </Link>
-                    </div>
-                  </FlexContainer>
-                )}
-              </>
-            )}
-
-            <StyledMenu
-              id="navMenu"
-              isLoggedIn={auth.isLoggedIn}
-              isSmallScreen={Boolean(size.isSmallScreen)}
-              menuIsOpen={menuIsOpen}
-            >
-              {menuItemsToRender().length > 0 &&
-                menuItemsToRender().map((navItem) => (
-                  <Link
-                    key={navItem.name}
-                    to={navItem.path}
-                    activeClassName="active"
-                    onClick={() => toggleMenu()}
-                    getProps={isCurrentlyActive}
-                  >
-                    {navItem.name}
-                  </Link>
-                ))}
-              {size.isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
-                <>
-                  <Link to="/consumer/start" onClick={() => toggleMenu()}>
-                    <FaSearch /> Find An Agent
-                  </Link>
-                  <Link to="/login" onClick={() => toggleMenu()}>
-                    <FaSignInAlt /> Sign In
-                  </Link>
-                </>
+              {size.isSmallScreen && !isLoggedInConsumer && (
+                <StyledMenuToggle>
+                  <Hamburger
+                    label="menu"
+                    color={white}
+                    toggled={menuIsOpen}
+                    toggle={() => setMenuIsOpen(!menuIsOpen)}
+                  />
+                </StyledMenuToggle>
               )}
-              {size.isSmallScreen && isInSignupProcess && (
-                <Link to="/logout" onClick={() => toggleMenu()}>
-                  <FaSignOutAlt /> Exit Signup
-                </Link>
-              )}
-              {size.isSmallScreen && isLoggedInAgent && (
+              <StyledLogoLink
+                to={
+                  // eslint-disable-next-line no-nested-ternary
+                  isLoggedInAgent
+                    ? '/agent/listings/new'
+                    : isLoggedInConsumer
+                    ? '/consumer/listing'
+                    : '/'
+                }
+                title="Logo"
+              >
+                <img src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} />{' '}
+                RealtyOffer
+                <sup>&#8482;</sup>
+              </StyledLogoLink>
+              {false && ( // size.isSmallScreen && ( // TODO when notifications are ready
                 <>
-                  <HorizontalRule />
-                  <Link to="/" onClick={toggleSubMenu}>
-                    Account {subMenuIsOpen ? <FaCaretUp /> : <FaCaretDown />}
-                  </Link>
-                  {subMenuIsOpen &&
-                    secondaryNavigation.map((navItem) => (
-                      <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
-                        {getIcon(navItem.icon as string)} {navItem.name}
-                      </Link>
-                    ))}
-                  <HorizontalRule />
-                  {auth.roles.includes('Admin') && (
-                    <>
-                      <Link to="/admin/banners" onClick={() => toggleMenu()}>
-                        <FaUserLock /> Admin
-                      </Link>
-                      <HorizontalRule />
-                    </>
+                  {shouldShowMenuToggle && (
+                    <FlexContainer>
+                      <div style={{ position: 'relative', marginRight: halfSpacer }}>
+                        <Link to="/agent/notifications">
+                          <FaRegBell size={doubleSpacer} color={white} />
+                          <NotificationDot isSmallScreen={Boolean(size.isSmallScreen)} />
+                        </Link>
+                      </div>
+                    </FlexContainer>
                   )}
-                  <Link
-                    to="/"
-                    onClick={() => {
-                      toggleMenu();
-                      dispatch(logout());
-                      if (window && window.analytics) {
-                        window.analytics.track('Logout', {
-                          location: 'StyledMenu',
-                        });
-                      }
-                    }}
-                  >
-                    <FaSignOutAlt /> Log Out
-                  </Link>
                 </>
               )}
-            </StyledMenu>
-            {!size.isSmallScreen && isLoggedInAgent && !isInSignupProcess && (
-              <FlexContainer>
-                {false && ( //
-                  <>
-                    <StyledDropdownWrapper
-                      onClick={() => setNotificationsDropdownOpen(!notificationsDropdownOpen)}
-                      data-tip="Notifications"
-                      data-for="notifications"
-                      ref={notificationsNode}
+
+              <StyledMenu
+                id="navMenu"
+                isLoggedIn={auth.isLoggedIn}
+                isSmallScreen={Boolean(size.isSmallScreen)}
+                menuIsOpen={menuIsOpen}
+              >
+                {menuItemsToRender().length > 0 &&
+                  menuItemsToRender().map((navItem) => (
+                    <Link
+                      key={navItem.name}
+                      to={navItem.path}
+                      activeClassName="active"
+                      onClick={() => toggleMenu()}
+                      getProps={isCurrentlyActive}
                     >
-                      <FaBell size={baseAndAHalfSpacer} />
-                      <NotificationDot isSmallScreen={false} />
-                      {notificationsDropdownOpen && (
-                        <StyledDropdown>
-                          <Link to="/">Notification text goes here</Link>
-                          <Link to="/">Notification text goes here</Link>
-                          <Link to="/">Notification text goes here</Link>
-                        </StyledDropdown>
-                      )}
-                    </StyledDropdownWrapper>
-                    <ReactTooltip
-                      id="notifications"
-                      place="bottom"
-                      type="dark"
-                      effect="solid"
-                      className="tooltip"
-                      disable={notificationsDropdownOpen}
-                      delayShow={500}
-                      offset={{ top: 16 }}
-                    />
+                      {navItem.name}
+                    </Link>
+                  ))}
+                {size.isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
+                  <>
+                    <Link to="/consumer/start" onClick={() => toggleMenu()}>
+                      <FaSearch /> Find An Agent
+                    </Link>
+                    <Link to="/login" onClick={() => toggleMenu()}>
+                      <FaSignInAlt /> Sign In
+                    </Link>
                   </>
                 )}
-
-                <StyledDropdownWrapper
-                  onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                  data-tip="Profile & Settings"
-                  data-for="profile"
-                  ref={profileNode}
-                >
-                  Hi, {auth.firstName}&nbsp;&nbsp;
-                  <Avatar src={user.avatar} gravatarEmail={auth.email} />
-                  &nbsp;&nbsp;
-                  {profileDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
-                  {profileDropdownOpen && (
-                    <StyledDropdown>
-                      {secondaryNavigation.map((navItem) => (
-                        <Link key={navItem.name} to={navItem.path}>
+                {size.isSmallScreen && isInSignupProcess && (
+                  <Link to="/logout" onClick={() => toggleMenu()}>
+                    <FaSignOutAlt /> Exit Signup
+                  </Link>
+                )}
+                {size.isSmallScreen && isLoggedInAgent && (
+                  <>
+                    <HorizontalRule />
+                    <Link to="/" onClick={toggleSubMenu}>
+                      Account {subMenuIsOpen ? <FaCaretUp /> : <FaCaretDown />}
+                    </Link>
+                    {subMenuIsOpen &&
+                      secondaryNavigation.map((navItem) => (
+                        <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
                           {getIcon(navItem.icon as string)} {navItem.name}
                         </Link>
                       ))}
-                      {auth.roles.includes('Admin') && (
+                    <HorizontalRule />
+                    {auth.roles.includes('Admin') && (
+                      <>
                         <Link to="/admin/banners" onClick={() => toggleMenu()}>
                           <FaUserLock /> Admin
                         </Link>
-                      )}
-                      <Link
-                        to="/"
-                        onClick={() => {
-                          dispatch(logout());
-                          if (window && window.analytics) {
-                            window.analytics.track('Logout', {
-                              location: 'StyledDropdown',
-                            });
-                          }
-                        }}
+                        <HorizontalRule />
+                      </>
+                    )}
+                    <Link
+                      to="/"
+                      onClick={() => {
+                        toggleMenu();
+                        dispatch(logout());
+                        if (window && window.analytics) {
+                          window.analytics.track('Logout', {
+                            location: 'StyledMenu',
+                          });
+                        }
+                      }}
+                    >
+                      <FaSignOutAlt /> Log Out
+                    </Link>
+                  </>
+                )}
+              </StyledMenu>
+              {!size.isSmallScreen && isLoggedInAgent && !isInSignupProcess && (
+                <FlexContainer>
+                  {false && ( //
+                    <>
+                      <StyledDropdownWrapper
+                        onClick={() => setNotificationsDropdownOpen(!notificationsDropdownOpen)}
+                        data-tip="Notifications"
+                        data-for="notifications"
+                        ref={notificationsNode}
                       >
-                        <FaSignOutAlt /> Log Out
-                      </Link>
-                    </StyledDropdown>
+                        <FaBell size={baseAndAHalfSpacer} />
+                        <NotificationDot isSmallScreen={false} />
+                        {notificationsDropdownOpen && (
+                          <StyledDropdown>
+                            <Link to="/">Notification text goes here</Link>
+                            <Link to="/">Notification text goes here</Link>
+                            <Link to="/">Notification text goes here</Link>
+                          </StyledDropdown>
+                        )}
+                      </StyledDropdownWrapper>
+                      <ReactTooltip
+                        id="notifications"
+                        place="bottom"
+                        type="dark"
+                        effect="solid"
+                        className="tooltip"
+                        disable={notificationsDropdownOpen}
+                        delayShow={500}
+                        offset={{ top: 16 }}
+                      />
+                    </>
                   )}
-                </StyledDropdownWrapper>
-                <ReactTooltip
-                  id="profile"
-                  place="bottom"
-                  type="dark"
-                  effect="solid"
-                  className="tooltip"
-                  disable={profileDropdownOpen}
-                  delayShow={500}
-                  offset={{ top: 16 }}
-                />
-              </FlexContainer>
-            )}
-            {isLoggedInConsumer && (
-              <Link
-                to="/"
-                onClick={() => {
-                  dispatch(logout());
-                  if (window && window.analytics) {
-                    window.analytics.track('Logout', {
-                      location: 'Consumer Nav',
-                    });
-                  }
-                }}
-                style={{ color: white }}
-              >
-                <FaSignOutAlt />
-                Log Out
-              </Link>
-            )}
-            {!auth.isLoggedIn && !size.isSmallScreen && !isInSignupProcess && (
-              <div>
-                <Button
-                  type="link"
-                  to="/consumer/start"
-                  rightspacer
-                  color="inverseOutline"
-                  iconLeft={<FaSearch />}
+
+                  <StyledDropdownWrapper
+                    onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                    data-tip="Profile & Settings"
+                    data-for="profile"
+                    ref={profileNode}
+                  >
+                    Hi, {auth.firstName}&nbsp;&nbsp;
+                    <Avatar src={user.avatar} gravatarEmail={auth.email} />
+                    &nbsp;&nbsp;
+                    {profileDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
+                    {profileDropdownOpen && (
+                      <StyledDropdown>
+                        {secondaryNavigation.map((navItem) => (
+                          <Link key={navItem.name} to={navItem.path}>
+                            {getIcon(navItem.icon as string)} {navItem.name}
+                          </Link>
+                        ))}
+                        {auth.roles.includes('Admin') && (
+                          <Link to="/admin/banners" onClick={() => toggleMenu()}>
+                            <FaUserLock /> Admin
+                          </Link>
+                        )}
+                        <Link
+                          to="/"
+                          onClick={() => {
+                            dispatch(logout());
+                            if (window && window.analytics) {
+                              window.analytics.track('Logout', {
+                                location: 'StyledDropdown',
+                              });
+                            }
+                          }}
+                        >
+                          <FaSignOutAlt /> Log Out
+                        </Link>
+                      </StyledDropdown>
+                    )}
+                  </StyledDropdownWrapper>
+                  <ReactTooltip
+                    id="profile"
+                    place="bottom"
+                    type="dark"
+                    effect="solid"
+                    className="tooltip"
+                    disable={profileDropdownOpen}
+                    delayShow={500}
+                    offset={{ top: 16 }}
+                  />
+                </FlexContainer>
+              )}
+              {isLoggedInConsumer && (
+                <Link
+                  to="/"
+                  onClick={() => {
+                    dispatch(logout());
+                    if (window && window.analytics) {
+                      window.analytics.track('Logout', {
+                        location: 'Consumer Nav',
+                      });
+                    }
+                  }}
+                  style={{ color: white }}
                 >
-                  Find An Agent
+                  <FaSignOutAlt />
+                  Log Out
+                </Link>
+              )}
+              {!auth.isLoggedIn && !size.isSmallScreen && !isInSignupProcess && (
+                <div>
+                  <Button
+                    type="link"
+                    to="/consumer/start"
+                    rightspacer
+                    color="inverseOutline"
+                    iconLeft={<FaSearch />}
+                  >
+                    Find An Agent
+                  </Button>
+                  <Button type="link" to="/login" color="tertiary" iconLeft={<FaSignInAlt />}>
+                    Sign In
+                  </Button>
+                </div>
+              )}
+              {!size.isSmallScreen && isInSignupProcess && (
+                <Button type="link" to="/logout" color="inverseOutline" iconLeft={<FaSignOutAlt />}>
+                  Exit Signup
                 </Button>
-                <Button type="link" to="/login" color="tertiary" iconLeft={<FaSignInAlt />}>
-                  Sign In
-                </Button>
-              </div>
-            )}
-            {!size.isSmallScreen && isInSignupProcess && (
-              <Button type="link" to="/logout" color="inverseOutline" iconLeft={<FaSignOutAlt />}>
-                Exit Signup
-              </Button>
-            )}
-          </FlexContainer>
-        </PageContainer>
-      </ClientOnly>
-    </StyledNavbar>
+              )}
+            </FlexContainer>
+          </PageContainer>
+        </ClientOnly>
+      </StyledNavbar>
+    </>
   );
 };
 
