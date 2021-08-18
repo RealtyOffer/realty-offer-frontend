@@ -3,7 +3,7 @@ templateKey: blog-post
 metaTitle: Realtyoffer provides high quality real estate leads
 metaDescription: Like almost all businesses, real estate agents are spending a
   large amount of money on marketing online and offline hoping to generate high
-  quality leads
+  quality leads.
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 category: agent
 title: Realtyoffer provides high quality real estate leads
