@@ -184,6 +184,9 @@ const Footer = () => (
             COMPANY
           </Heading>
           <p>
+            <Link to="/blog">Blog</Link>
+          </p>
+          <p>
             <Link to="/about">About Us</Link>
           </p>
           <p>
