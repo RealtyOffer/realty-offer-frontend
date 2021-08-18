@@ -1,9 +1,9 @@
 ---
 templateKey: blog-post
 metaTitle: Buy your dream house using mortgage preapproval
-metaDescription: "Millions of people choose to buy a new home every year. If you
+metaDescription: Millions of people choose to buy a new home every year. If you
   are interested in becoming one of these people, you will likely need to get a
-  mortgage. "
+  mortgage.
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 category: consumer
 title: Buy your dream house using mortgage preapproval
