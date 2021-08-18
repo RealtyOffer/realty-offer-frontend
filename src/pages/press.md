@@ -8,6 +8,14 @@ title: Home Buyers & Sellers all love us. Top agents do too. So does the press.
 heroImage: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x.png
 mobileHeroImage: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x copy.png
 pressItems:
+  - date: Aug 18th 21
+    link: https://medium.com/authority-magazine/women-leaders-of-real-estate-thea-tuto-of-realtyoffer-on-the-5-things-you-need-to-succeed-in-the-16b16efe88f9
+    title: "Women Leaders Of Real Estate: Thea Tuto of RealtyOffer On The 5 Things
+      You Need To Succeed In The Real Estate Industry"
+    excerpt: Thea Tuto is co-founder and chief executive officer of RealtyOffer, the
+      first automated bidding platform of its kind, designed to educate and
+      empower consumers looking to buy or sell a home and connect them with
+      top-rated certified agents.
   - date: June 2, 2021
     title: "DBusiness: RealtyOffer Launches Digital Home Buying and Selling Process
       Through New Bidding Platform"
