@@ -8,6 +8,11 @@ title: Home Buyers & Sellers all love us. Top agents do too. So does the press.
 heroImage: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x.png
 mobileHeroImage: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x copy.png
 pressItems:
+  - date: Aug 23rd 21
+    title: "Thea Tuto of RealtyOffer: “Maintain Relationships”"
+    excerpt: Maintain Relationships — Treat your clients like they are your friends,
+      and referrals will come your way.
+    link: https://thriveglobal.com/stories/thea-tuto-of-realtyoffer-maintain-relationships/
   - date: Aug 18th 21
     link: https://medium.com/authority-magazine/women-leaders-of-real-estate-thea-tuto-of-realtyoffer-on-the-5-things-you-need-to-succeed-in-the-16b16efe88f9
     title: "Women Leaders Of Real Estate: Thea Tuto of RealtyOffer On The 5 Things
