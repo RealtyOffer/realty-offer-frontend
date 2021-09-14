@@ -1,6 +1,6 @@
 ---
 templateKey: blog-post
-metaTitle: Sell a home
+metaTitle: Sell A Home
 metaDescription: Millions of people choose to buy a new home every year. If you
   are interested in becoming one of these people, you will likely need to get a
   mortgage.
