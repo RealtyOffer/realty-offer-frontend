@@ -68,6 +68,7 @@ const Footer = () => (
         <br />
         <br />
         <small>Same Agent, Less Commission</small>
+        <small>Agents that will earn less for your business</small>
       </LogoLink>
 
       <Row>
