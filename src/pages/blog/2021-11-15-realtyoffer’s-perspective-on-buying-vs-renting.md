@@ -9,7 +9,7 @@ title: RealtyOffer’s Perspective on Buying Vs Renting
 date: 2021-11-15T05:50:07.374Z
 description: Buying a home is one of the most important decisions that you will
   ever make in your lifetime.
-featuredpost: true
+featuredpost: false
 featuredimage: /img/perspective-on-buying.jpg
 tags:
   - Mortgage
