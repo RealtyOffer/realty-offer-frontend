@@ -29,9 +29,9 @@ This Privacy Notice applies to the use of the Services (as defined below), inclu
 
 This Privacy Notice applies to personal information collected by RealtyOffer™ a Next Eye, Inc company through the RealtyOffer™ family of websites, and mobile apps, mobile-optimized websites and other applications and/or electronic media (such as emails RealtyOffer™ sends) (collectively, the “Services”). This includes, but is not limited to:
 
-- <https://www.realtyoffer.com>
-- <https://www.realtyspect.com>
-- <https://www.realtycert.com>
+- [RealtyOffer](https://www.realtyoffer.com)
+- [RealtySpect](https://www.realtyspect.com)
+- [RealtyCert](https://www.realtycert.com)
 
 ## INFORMATION WE COLLECT AND OBTAIN
 
@@ -125,9 +125,9 @@ You also have choices about whether cookies and other similar technologies are p
 
 We may use third-party analytics services on our Services, such as Google Analytics. The analytics providers that administer these services use technologies such as cookies, web beacons and similar technologies to help us analyze your use of the Services. To learn more about how to opt out of Google Analytics and similar services, please visit the links below:
 
-- Google Analytics: https://tools.google.com/dlpage/gaoptout
-- Adobe Analytics: https://cross-device-privacy.adobe.com/
-- Hotjar: https://www.hotjar.com/legal/compliance/opt-out
+- [Google Analytics](https://tools.google.com/dlpage/gaoptout)
+- [Adobe Analytics](https://cross-device-privacy.adobe.com/)
+- [Hotjar](https://www.hotjar.com/legal/compliance/opt-out)
 
 ### ACCESSING, CORRECTING, AND DELETING YOUR PERSONAL INFORMATION
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IconContext } from 'react-icons';
 import Modal from 'react-modal';
 import '@fontsource/lato';
+import { Helmet } from 'react-helmet-async';
 
 import Footer from './Footer';
 import Navbar from './Navbar';
@@ -32,27 +33,41 @@ const PageBody = styled.div`
   }
 `;
 
-type LayoutProps = { element: any };
+type LayoutProps = { element: any; props: any };
 
 Modal.setAppElement('#___gatsby');
 
-const Layout: FunctionComponent<LayoutProps> = ({ element }) => (
-  <>
-    <CssReset />
-    <IconContext.Provider value={{ style: { fontSize: '.85em' } }}>
-      <GlobalAlerts />
-      <LayoutWrapper>
-        <Navbar />
-        <PageBody>
-          <PageContainer>
-            <GlobalBanners />
-          </PageContainer>
-          <ErrorBoundary>{element}</ErrorBoundary>
-        </PageBody>
-        <Footer />
-      </LayoutWrapper>
-    </IconContext.Provider>
-  </>
-);
+const Layout: FunctionComponent<LayoutProps> = ({ element, props }) => {
+  const siteUrl = `https://realtyoffer.com${props.location.pathname || '/'}${
+    props.location.search
+  }${props.location.hash}`;
+  return (
+    <>
+      <Helmet
+        link={[
+          {
+            rel: 'canonical',
+            key: siteUrl,
+            href: siteUrl,
+          },
+        ]}
+      />
+      <CssReset />
+      <IconContext.Provider value={{ style: { fontSize: '.85em' } }}>
+        <GlobalAlerts />
+        <LayoutWrapper>
+          <Navbar />
+          <PageBody>
+            <PageContainer>
+              <GlobalBanners />
+            </PageContainer>
+            <ErrorBoundary>{element}</ErrorBoundary>
+          </PageBody>
+          <Footer />
+        </LayoutWrapper>
+      </IconContext.Provider>
+    </>
+  );
+};
 
 export default Layout;
