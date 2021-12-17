@@ -45,6 +45,9 @@ export type NotificationSettingsType = {
   phoneNumberConfirmed: boolean;
   forceResendPhoneCode: boolean;
   forceResendEmailCode: boolean;
+  emailConfirmationCode: string;
+  phoneNumberConfirmationCode: string;
+  deviceType: string;
 };
 
 export type ConfirmDeviceType = {

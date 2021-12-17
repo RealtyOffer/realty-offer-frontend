@@ -214,7 +214,7 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                   }
                 );
               }
-              if (!values.emailConfirmationCode && !values.phoneNumberConfirmationCode)
+              if (!values.emailConfirmationCode && !values.phoneNumberConfirmationCode) {
                 return dispatch(updateUserNotificationSettings({ ...values })).then(
                   (
                     response:
@@ -227,6 +227,8 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                     }
                   }
                 );
+              }
+              return null;
             }}
           >
             {({ values }) => (
@@ -430,25 +432,28 @@ const ConsumerNotifications: FunctionComponent<ConsumerNotificationsProps> = () 
                   {initialValues &&
                     productAlerts &&
                     productAlerts.map((productAlert) => (
-                      <Row key={productAlert.id}>
-                        <Column md={6}>{productAlert.description}</Column>
-                        <Column md={1}>
-                          <Field
-                            as={IconCheckbox}
-                            icon="email"
-                            checked={values[productAlert.notificationName]?.email ?? false}
-                            name={`${productAlert.notificationName}.email`}
-                          />
-                        </Column>
-                        <Column md={1}>
-                          <Field
-                            as={IconCheckbox}
-                            icon="sms"
-                            checked={values[productAlert.notificationName]?.sms ?? false}
-                            name={`${productAlert.notificationName}.sms`}
-                          />
-                        </Column>
-                      </Row>
+                      <Fragment key={productAlert.id}>
+                        <Row key={productAlert.id}>
+                          <Column md={6}>{productAlert.description}</Column>
+                          <Column md={1}>
+                            <Field
+                              as={IconCheckbox}
+                              icon="email"
+                              checked={values[productAlert.notificationName]?.email ?? false}
+                              name={`${productAlert.notificationName}.email`}
+                            />
+                          </Column>
+                          <Column md={1}>
+                            <Field
+                              as={IconCheckbox}
+                              icon="sms"
+                              checked={values[productAlert.notificationName]?.sms ?? false}
+                              name={`${productAlert.notificationName}.sms`}
+                            />
+                          </Column>
+                        </Row>
+                        <HorizontalRule />
+                      </Fragment>
                     ))}
                   <AutoSave />
                 </Form>

@@ -75,8 +75,7 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
     <ClientOnly>
       <Seo title="Ready to buy or sell a home?">
         <script type="text/javascript">
-          {/* eslint-disable-next-line @typescript-eslint/camelcase */}
-          {window.gtag('event', 'conversion', { send_to: 'AW-325206149/Qr8MCIrrt-ECEIWBiZsB' })}
+          {`window.gtag('event', 'conversion', { send_to: 'AW-325206149/Qr8MCIrrt-ECEIWBiZsB' })`}
         </script>
       </Seo>
       <TimelineProgress

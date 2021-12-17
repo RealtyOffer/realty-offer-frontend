@@ -138,7 +138,7 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
     <>
       <Seo title="Confirm Registration">
         <script type="text/javascript">
-          {window.gtag('event', 'conversion', { send_to: 'AW-325206149/Qr8MCIrrt-ECEIWBiZsB' })}
+          {`window.gtag('event', 'conversion', { send_to: 'AW-325206149/Qr8MCIrrt-ECEIWBiZsB' })`}
         </script>
       </Seo>
       <TimelineProgress
