@@ -1,12 +1,8 @@
 ---
 templateKey: blog-post
 metaTitle: Important Considerations before Selling a House in Michigan
-metaDescription: "Owning a home in Michigan may be one of your most significant
-  investments of all time. But, when it is time to sell your house, using a real
-  estate agent offers many benefits. It helps you get win-win sale solutions for
-  your specific circumstances. But, if you wish to go ahead with the sale by
-  owner concept, here are some considerations to keep in mind before selling a
-  house in Michigan. "
+metaDescription: Owning a home in Michigan may be one of your most significant
+  investments of all time.
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 category: consumer
 title: Important Considerations before Selling a House in Michigan
