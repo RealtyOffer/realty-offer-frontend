@@ -15,7 +15,7 @@ tags:
   - Real Estate Tips
   - Home Selling
   - Mortgage
-leadFormTitle: Learn more today
+leadFormTitle: "Learn more today "
 leadFormBody: Interested in learning more?
 leadFormCTAText: Submit
 ---
