@@ -7,12 +7,8 @@ metaKeywords: real estate leads, real estate buyer leads, real estate seller lea
 category: consumer
 title: Important Considerations before Selling a House in Michigan
 date: 2022-01-18T07:40:50.411Z
-description: "Owning a home in Michigan may be one of your most significant
-  investments of all time. But, when it is time to sell your house, using a real
-  estate agent offers many benefits. It helps you get win-win sale solutions for
-  your specific circumstances. But, if you wish to go ahead with the sale by
-  owner concept, here are some considerations to keep in mind before selling a
-  house in Michigan. "
+description: Owning a home in Michigan may be one of your most significant
+  investments of all time.
 featuredimage: /img/buying-a-house.jpg
 tags:
   - Real Estate Market Trends
