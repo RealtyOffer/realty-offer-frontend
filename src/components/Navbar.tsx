@@ -13,8 +13,6 @@ import {
   FaCreditCard,
   FaUser,
   FaSignOutAlt,
-  FaSignInAlt,
-  FaSearch,
 } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import ReactTooltip from 'react-tooltip';
@@ -40,7 +38,7 @@ import {
   threeQuarterSpacer,
 } from '../styles/size';
 import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
-import { fontSizeH4, fontSizeH6 } from '../styles/typography';
+import { fontSizeH4, fontSizeH6, fontSizeSmall } from '../styles/typography';
 import { logout } from '../redux/ducks/auth';
 import { RootState } from '../redux/ducks';
 import logo from '../images/logo.svg';
@@ -50,12 +48,20 @@ import unauthenticatedNavigationItems from '../utils/unauthenticatedNavigationIt
 
 type NavbarProps = {};
 
-const Eyebrow = styled.div`
-  background: ${brandTertiary};
+const ContactInfo = styled.div`
   color: ${white};
+  line-height: 1.5;
+  margin-right: ${baseSpacer};
+  font-size: ${(props: { small?: boolean }) => (props.small ? fontSizeSmall : 'inherit')};
 
-  & a {
+  & a,
+  & a:hover,
+  & a:focus {
+    font-size: 75%;
     color: ${white};
+  }
+  & strong {
+    display: block;
   }
 `;
 
@@ -235,6 +241,33 @@ const NotificationDot = styled.div`
     props.isSmallScreen ? `left: ${baseSpacer};` : `right: ${threeQuarterSpacer};`}
 `;
 
+const SubNav = styled.div`
+  background: ${white};
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  box-shadow: ${z1Shadow};
+`;
+
+const SubNavLink = styled(Link)`
+  color: ${brandTertiary};
+  padding: ${halfSpacer} ${doubleSpacer};
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    color: ${brandPrimary};
+    position: relative;
+    &:before {
+      content: '';
+      border-bottom: 2px solid ${brandPrimary};
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+`;
+
 const Navbar: FunctionComponent<NavbarProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const agent = useSelector((state: RootState) => state.agent);
@@ -334,10 +367,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     return [];
   };
 
-  const isCurrentlyActive = ({ isCurrent }: { isCurrent: boolean }) => {
-    return isCurrent ? { className: 'active' } : {};
-  };
-
   const getIcon = (icon: string) => {
     if (icon === 'user') return <FaUser />;
     if (icon === 'credit-card') return <FaCreditCard />;
@@ -347,19 +376,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   return (
     <>
-      <Eyebrow>
-        <PageContainer>
-          <ClientOnly>
-            <FlexContainer justifyContent={size.isSmallScreen ? 'center' : 'flex-end'}>
-              <small>
-                <strong>Questions? Contact Us: </strong>{' '}
-                <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
-                <a href="tel:+12489152654">(248) 915-2654</a>
-              </small>
-            </FlexContainer>
-          </ClientOnly>
-        </PageContainer>
-      </Eyebrow>
       <StyledNavbar role="navigation" aria-label="main-navigation">
         <ClientOnly>
           <PageContainer>
@@ -419,26 +435,23 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 isSmallScreen={Boolean(size.isSmallScreen)}
                 menuIsOpen={menuIsOpen}
               >
-                {menuItemsToRender().length > 0 &&
-                  menuItemsToRender().map((navItem) => (
-                    <Link
-                      key={navItem.name}
-                      to={navItem.path}
-                      activeClassName="active"
-                      onClick={() => toggleMenu()}
-                      getProps={isCurrentlyActive}
-                    >
-                      {navItem.name}
-                    </Link>
-                  ))}
                 {size.isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
                   <>
-                    <Link to="/consumer/start" onClick={() => toggleMenu()}>
-                      <FaSearch /> Find An Agent
-                    </Link>
+                    {menuItemsToRender().length > 0 &&
+                      menuItemsToRender().map((navItem) => (
+                        <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
+                          {navItem.name}
+                        </Link>
+                      ))}
                     <Link to="/login" onClick={() => toggleMenu()}>
-                      <FaSignInAlt /> Sign In
+                      Log In
                     </Link>
+                    <HorizontalRule compact />
+                    <ContactInfo>
+                      <strong>Questions? Contact Us</strong>
+                      <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
+                      <a href="tel:+12489152654">(248) 915-2654</a>
+                    </ContactInfo>
                   </>
                 )}
                 {size.isSmallScreen && isInSignupProcess && (
@@ -585,20 +598,16 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </Link>
               )}
               {!auth.isLoggedIn && !size.isSmallScreen && !isInSignupProcess && (
-                <div>
-                  <Button
-                    type="link"
-                    to="/consumer/start"
-                    rightspacer
-                    color="inverseOutline"
-                    iconLeft={<FaSearch />}
-                  >
-                    Find An Agent
+                <FlexContainer>
+                  <ContactInfo small>
+                    <strong>Questions? Contact Us</strong>
+                    <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
+                    <a href="tel:+12489152654">(248) 915-2654</a>
+                  </ContactInfo>
+                  <Button type="link" to="/login" color="tertiary">
+                    Log In
                   </Button>
-                  <Button type="link" to="/login" color="tertiary" iconLeft={<FaSignInAlt />}>
-                    Sign In
-                  </Button>
-                </div>
+                </FlexContainer>
               )}
               {!size.isSmallScreen && isInSignupProcess && (
                 <Button type="link" to="/logout" color="inverseOutline" iconLeft={<FaSignOutAlt />}>
@@ -609,6 +618,25 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           </PageContainer>
         </ClientOnly>
       </StyledNavbar>
+      {!size.isSmallScreen && !isInSignupProcess && !isLoggedInAgent && !isLoggedInConsumer && (
+        <SubNav>
+          <PageContainer>
+            <FlexContainer>
+              {menuItemsToRender().length > 0 &&
+                menuItemsToRender().map((navItem) => (
+                  <SubNavLink
+                    key={navItem.name}
+                    to={navItem.path}
+                    activeClassName="active"
+                    onClick={() => toggleMenu()}
+                  >
+                    {navItem.name}
+                  </SubNavLink>
+                ))}
+            </FlexContainer>
+          </PageContainer>
+        </SubNav>
+      )}
     </>
   );
 };
