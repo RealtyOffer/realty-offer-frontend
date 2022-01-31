@@ -4,10 +4,7 @@ import { graphql, navigate } from 'gatsby';
 import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
-import Slider from 'react-rangeslider';
-import 'react-rangeslider/lib/index.css';
 import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import * as FaIcon from 'react-icons/fa';
@@ -24,6 +21,7 @@ import {
   Testimonial,
   FlexContainer,
   PreviewCompatibleImage,
+  SavingsCalculator,
 } from '../components';
 
 import {
@@ -36,15 +34,12 @@ import {
 } from '../styles/size';
 import {
   brandPrimary,
-  brandPrimaryAccentLight,
   brandTertiary,
-  brandTertiaryHover,
   lightestGray,
   lightGray,
   textColor,
   white,
 } from '../styles/color';
-import numberWithCommas from '../utils/numberWithCommas';
 import { RootState } from '../redux/ducks';
 import { z1Shadow } from '../styles/mixins';
 import { fontSizeSmall } from '../styles/typography';
@@ -118,31 +113,6 @@ const CarouselContent = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-`;
-
-const SlidderWrapper = styled.div`
-  text-align: center;
-  & .rangeslider {
-    box-shadow: none;
-    background-color: ${brandPrimaryAccentLight};
-    margin-bottom: ${doubleSpacer};
-  }
-
-  & .rangeslider-horizontal .rangeslider__fill {
-    background-color: ${brandTertiaryHover};
-    box-shadow: none;
-  }
-
-  & .rangeslider .rangeslider__handle {
-    background: ${brandTertiaryHover};
-    border-color: ${brandTertiaryHover};
-    box-shadow: none;
-    outline: none;
-  }
-
-  & .rangeslider-horizontal .rangeslider__handle:after {
-    content: none;
-  }
 `;
 
 const CarouselWrapper = styled.div`
@@ -231,8 +201,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   testimonials,
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
-  const [sellRange, setSellRange] = useState(250000);
-  const [buyRange, setBuyRange] = useState(350000);
+
   const [activeCarouselItem, setActiveCarouselItem] = useState(0);
   const [activeCalculator, setActiveCalculator] = useState(0);
 
@@ -422,92 +391,9 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
               </div>
             </Column>
           </Row>
-          {activeCalculator === 0 && (
-            <Box>
-              <SlidderWrapper>
-                <Heading as="h4" align="center">
-                  Buying Your Home
-                </Heading>
-                <p>
-                  <small>
-                    On average, RealtyOffer&trade; customers save 1.0%* when buying a new home using
-                    a RealtyOffer&trade; Agent.
-                  </small>
-                </p>
-                <Heading as="h4" styledAs="subtitle" noMargin>
-                  Estimated Savings:{' '}
-                  {`$${numberWithCommas(buyRange * 0.01)} - $${numberWithCommas(buyRange * 0.02)}`}
-                </Heading>
-                <Slider
-                  min={100000}
-                  max={2000000}
-                  step={50000}
-                  value={buyRange}
-                  tooltip={false}
-                  labels={{
-                    100000: '$100k',
-                    500000: '$500k',
-                    1000000: '$1M',
-                    1500000: '$1.5M',
-                    2000000: '$2M',
-                  }}
-                  onChange={(value) => setBuyRange(value)}
-                />
-                <p>
-                  <small>
-                    <em>Estimated Purchase Price</em>
-                  </small>
-                </p>
-                <Button type="link" to="/buy">
-                  Buy a Home
-                </Button>
-              </SlidderWrapper>
-            </Box>
-          )}
-          {activeCalculator === 1 && (
-            <Box>
-              <Heading as="h4" align="center">
-                Selling Your Home
-              </Heading>
-              <SlidderWrapper>
-                <p>
-                  <small>
-                    On average, RealtyOffer&trade; customers save 2-3%* when selling their home
-                    using a RealtyOffer&trade; Agent.
-                  </small>
-                </p>
-                <Heading as="h4" styledAs="subtitle" noMargin>
-                  Estimated Savings:{' '}
-                  {`$${numberWithCommas(sellRange * 0.02)} - $${numberWithCommas(
-                    sellRange * 0.03
-                  )}`}
-                </Heading>
-                <Slider
-                  min={100000}
-                  max={2000000}
-                  step={50000}
-                  value={sellRange}
-                  tooltip={false}
-                  labels={{
-                    100000: '$100k',
-                    500000: '$500k',
-                    1000000: '$1M',
-                    1500000: '$1.5M',
-                    2000000: '$2M',
-                  }}
-                  onChange={(value) => setSellRange(value)}
-                />
-                <p>
-                  <small>
-                    <em>Estimated Selling Price</em>
-                  </small>
-                </p>
-                <Button type="link" to="/sell">
-                  Sell a Home
-                </Button>
-              </SlidderWrapper>
-            </Box>
-          )}
+          <Box>
+            <SavingsCalculator type={activeCalculator === 0 ? 'buying' : 'selling'} />
+          </Box>
           <p style={{ textAlign: 'center', opacity: 0.8 }}>
             <small>
               <em>

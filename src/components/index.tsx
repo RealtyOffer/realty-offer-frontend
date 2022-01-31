@@ -36,6 +36,7 @@ import PrivateRoute from './PrivateRoute';
 import ProgressBar from './ProgressBar';
 import RelatedBlogPost from './RelatedBlogPost';
 import Row from './Row';
+import SavingsCalculator from './SavingsCalculator';
 import Seo from './Seo';
 import Share from './Share';
 import SiteMetadata from './SiteMetadata';
@@ -85,6 +86,7 @@ export {
   ProgressBar,
   RelatedBlogPost,
   Row,
+  SavingsCalculator,
   Seo,
   Share,
   SiteMetadata,

@@ -148,6 +148,57 @@ collections:
                 { label: Avatar, name: avatar, widget: image },
               ],
           }
+      - file: "src/pages/buy.md"
+        label: "Buy Page"
+        name: "buy"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "buy",
+            }
+          - { label: "Meta Title", name: metaTitle, widget: string }
+          - { label: "Meta Description", name: metaDescription, widget: string }
+          - { label: "Meta Keywords", name: metaKeywords, widget: string }
+          - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
+          - { label: "Hero Heading", name: heroHeading, widget: string }
+          - { label: "Hero Sub Heading", name: heroSubheading, widget: string }
+          - { label: "Section 1 Heading", name: sectionOneHeading, widget: string }
+          - { label: "Section 1 Sub Heading", name: sectionOneSubheading, widget: string }
+          - { label: "Section 1 Image", name: sectionOneimage, widget: image }
+          - { label: "Section 1 Content", name: sectionOneContent, widget: string }
+          - { label: "Section 2 Heading", name: sectionTwoHeading, widget: string }
+          - { label: "Section 2 Sub Heading", name: sectionTwoSubheading, widget: string }
+          - { label: "Section 2 Image", name: sectionTwoimage, widget: image }
+          - { label: "Section 2 Content", name: sectionTwoContent, widget: string }
+          - { label: "Section 3 Heading", name: sectionThreeHeading, widget: string }
+          - {
+            label: "Section 3 List Items",
+            name: sectionThreeList,
+            widget: list,
+            fields: [
+              { label: "Text", name: text, widget: string },
+              { label: 'Icon', name: icon, widget: string, hint: 'Copy an icon name from https://react-icons.github.io/react-icons/icons?name=fa'},
+            ],
+          }
+          - { label: "Section 4 Heading", name: sectionFourHeading, widget: string }
+          - { label: "Section 4 Subheading", name: sectionFourSubheading, widget: string }
+          - {
+            label: "Testimonial",
+            name: testimonials,
+            widget: list,
+            fields:
+              [
+                { label: Quote, name: quote, widget: string },
+                { label: Author, name: author, widget: string },
+                { label: From, name: from, widget: string },
+                { label: Avatar, name: avatar, widget: image },
+                { label: Saved, name: saved, widget: string },
+              ],
+          }
       - file: "src/pages/frequently-asked-questions.md"
         label: "FAQ Page"
         name: "frequently-asked-questions"

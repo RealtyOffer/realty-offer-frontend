@@ -43,6 +43,7 @@ sectionOne:
     content: >-
       Fill in some simple information, sit back and RealtyOffer™ will connect you with a certified and vetted agent, while removing the upfront negotiation.
 
+
       Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
     callToActionLink: /consumer/start
     callToActionText: Get Started Now
@@ -52,6 +53,7 @@ sectionOne:
     content: >-
       Local agents have 24 hours to bid to win your business. 
 
+
       Want more information about how the bidding works, and how much money you can save?
     callToActionLink: /
     callToActionText: Learn More Now
@@ -60,6 +62,7 @@ sectionOne:
     heading: Connect with your new agent
     content: >-
       Within 24 hours you will be able to review the top three bids from compatible agents in your area. Choose the best offer and simply get connected, while removing the upfront awkward negotiation. 
+
 
       Want more information about the agents that work with RealtyOffer™?
     callToActionLink: /frequently-asked-questions

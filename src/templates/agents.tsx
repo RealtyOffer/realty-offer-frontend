@@ -4,7 +4,6 @@ import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { LiteYoutubeEmbed } from 'react-lite-yt-embed';
 

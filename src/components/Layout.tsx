@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons';
 import Modal from 'react-modal';
 import '@fontsource/lato';
 import { Helmet } from 'react-helmet-async';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Footer from './Footer';
 import Navbar from './Navbar';
