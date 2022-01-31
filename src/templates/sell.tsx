@@ -33,7 +33,7 @@ import {
 import { brandPrimary, lightestGray, white } from '../styles/color';
 import useWindowSize from '../utils/useWindowSize';
 
-type BuyPageProps = {
+type SellPageProps = {
   title: string;
   metaTitle: string;
   metaDescription: string;
@@ -84,7 +84,7 @@ const SectionCarouselWrapper = styled.div`
   }
 `;
 
-export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
+export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
   heroImage,
   mobileHeroImage,
   metaTitle,
@@ -157,7 +157,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
           </Row>
           <ReactMarkdown source={sectionOneContent} />
           <Box>
-            <SavingsCalculator type="buying" />
+            <SavingsCalculator type="selling" />
           </Box>
         </PageContainer>
       </section>
@@ -249,7 +249,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
                     <Column xs={8} xsOffset={2} sm={8} smOffset={2}>
                       <Row>
                         {arr.map((item) => (
-                          <Column xs={4} key={item.author}>
+                          <Column md={4} key={item.author}>
                             <Box>
                               <FlexContainer justifyContent="flex-start">
                                 <Avatar
@@ -331,17 +331,17 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
   );
 };
 
-const BuyPage = ({ data }: { data: { markdownRemark: { frontmatter: BuyPageProps } } }) => {
+const SellPage = ({ data }: { data: { markdownRemark: { frontmatter: SellPageProps } } }) => {
   const { frontmatter } = data.markdownRemark;
 
-  return <BuyPageTemplate {...frontmatter} />;
+  return <SellPageTemplate {...frontmatter} />;
 };
 
-export default BuyPage;
+export default SellPage;
 
 export const pageQuery = graphql`
-  query BuyPageTemplate {
-    markdownRemark(frontmatter: { templateKey: { eq: "buy" } }) {
+  query SellPageTemplate {
+    markdownRemark(frontmatter: { templateKey: { eq: "sell" } }) {
       frontmatter {
         title
         metaTitle
