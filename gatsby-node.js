@@ -92,7 +92,7 @@ exports.createPages = ({ actions, graphql }) => {
         const { id } = edge.node;
 
         if (edge.node.frontmatter.templateKey === 'blog-index-page') {
-          const postsPerPage = 6;
+          const postsPerPage = 15;
           const numPages = Math.ceil(blogPosts.length / postsPerPage);
 
           Array.from({ length: numPages }).forEach((p, i) => {

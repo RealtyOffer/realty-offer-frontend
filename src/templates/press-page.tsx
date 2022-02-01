@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { graphql, Link } from 'gatsby';
 import { FixedObject, FluidObject } from 'gatsby-image';
 import styled from 'styled-components';
@@ -8,12 +8,13 @@ import {
   FaInstagram,
   FaTwitterSquare,
   FaFacebookSquare,
+  FaChevronLeft,
+  FaChevronRight,
 } from 'react-icons/fa';
 
 import {
   baseSpacer,
   doubleSpacer,
-  breakpoints,
   baseSpacerUnit,
   borderRadius,
   baseAndAHalfSpacer,
@@ -27,8 +28,9 @@ import {
   Column,
   Row,
   HorizontalRule,
+  FlexContainer,
 } from '../components';
-import { brandPrimary } from '../styles/color';
+import { brandPrimary, lightestGray, textColor } from '../styles/color';
 
 type PressPageProps = {
   metaTitle: string;
@@ -45,14 +47,6 @@ type PressPageProps = {
   }>;
 };
 
-const HeroBox = styled.div`
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: ${baseSpacer};
-  @media only screen and (min-width: ${breakpoints.sm}) {
-    padding: ${doubleSpacer};
-  }
-`;
-
 const Swatch = styled.span`
   width: ${baseAndAHalfSpacer};
   height: ${baseAndAHalfSpacer};
@@ -63,7 +57,45 @@ const Swatch = styled.span`
   vertical-align: middle;
 `;
 
+const PageButton = styled.div<{ disabled: boolean }>`
+  padding: 0 ${baseSpacer};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  color: ${(props) => (props.disabled ? lightestGray : textColor)};
+`;
+
 export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const totalCount = props.pressItems.length;
+  const totalPageCount = Math.ceil(totalCount / pageSize);
+  const canGoPrevious = currentPage >= 2;
+  const canGoNext = currentPage < totalPageCount;
+
+  const onPrevious = () => {
+    if (canGoPrevious) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const onNext = () => {
+    if (canGoNext) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const renderPagination = () => (
+    <FlexContainer justifyContent="flex-end">
+      Viewing {currentPage === 1 ? currentPage : pageSize * (currentPage - 1) + 1} -{' '}
+      {currentPage * pageSize > totalCount ? totalCount : currentPage * pageSize} of {totalCount}
+      <PageButton onClick={onPrevious} disabled={!canGoPrevious}>
+        <FaChevronLeft />
+      </PageButton>
+      <PageButton onClick={onNext} disabled={!canGoNext}>
+        <FaChevronRight />
+      </PageButton>
+    </FlexContainer>
+  );
+
   return (
     <>
       <Seo
@@ -74,44 +106,39 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
         imageWidth={props.heroImage.childImageSharp.fixed.width}
         imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage}>
-        <PageContainer>
-          <Row>
-            <Column md={6} mdOffset={3}>
-              <HeroBox>
-                <small>PRESS</small>
-                <Heading inverse>{props.title}</Heading>
-              </HeroBox>
-            </Column>
-          </Row>
-        </PageContainer>
-      </HeroImage>
+      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} />
       <section style={{ padding: `${doubleSpacer} 0` }}>
         <PageContainer>
           <Row>
             <Column md={7} lg={8}>
-              <Heading as="h2" styledAs="title">
-                Recent News
+              <Heading as="h1" styledAs="title">
+                Press Releases
               </Heading>
+              <Heading as="h5">{props.title}</Heading>
+              {renderPagination()}
               <HorizontalRule />
-              {props.pressItems.map((item) => (
-                <article key={item.link}>
-                  <Row>
-                    <Column xs={8}>
-                      <Heading as="h3" styledAs="subtitle">
-                        <a href={item.link} target="_blank" rel="noopener noreferrer">
-                          {item.title}
-                        </a>
-                      </Heading>
-                    </Column>
-                    <Column xs={4}>
-                      <p style={{ textAlign: 'right' }}>{item.date}</p>
-                    </Column>
-                  </Row>
-                  <p>{item.excerpt}</p>
-                  <HorizontalRule />
-                </article>
-              ))}
+              {props.pressItems
+                .slice(
+                  currentPage === 1 ? 0 : pageSize * (currentPage - 1),
+                  currentPage * pageSize > totalCount ? totalCount : currentPage * pageSize
+                )
+                .map((item) => (
+                  <article key={item.link}>
+                    <p>
+                      <small>{item.date}</small>
+                    </p>
+                    <Heading as="h3" styledAs="subtitle">
+                      <a href={item.link} target="_blank" rel="noopener noreferrer">
+                        {item.title}
+                      </a>
+                    </Heading>
+
+                    <p>{item.excerpt}</p>
+                    <HorizontalRule />
+                  </article>
+                ))}
+              {renderPagination()}
+              <br />
             </Column>
             <Column md={4} lg={3} mdOffset={1} lgOffset={1}>
               <div>
@@ -128,6 +155,8 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                     <strong>Get in touch:</strong>
                     <br />
                     <Link to="/contact">Send us a message</Link>
+                    <br />
+                    <a href="tel:+12489152654">(248) 915-2654</a>
                   </p>
                   <br />
                   <br />
