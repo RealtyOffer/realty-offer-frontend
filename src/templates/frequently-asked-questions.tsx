@@ -15,7 +15,7 @@ import { FaChevronCircleUp, FaChevronCircleDown, FaFilter } from 'react-icons/fa
 
 import { Box, Button, FlexContainer, HeroImage, Heading, PageContainer, Seo } from '../components';
 
-import { doubleSpacer, baseSpacer, tripleSpacer } from '../styles/size';
+import { doubleSpacer, baseSpacer, decupleSpacer } from '../styles/size';
 import { brandPrimary, brandTertiary } from '../styles/color';
 
 type FAQPageProps = {
@@ -62,7 +62,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
         imageHeight={heroImage.childImageSharp.fixed.height}
       />
       <HeroImage imgSrc={heroImage} />
-      <section style={{ padding: `${tripleSpacer} 0` }}>
+      <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
           <Heading styledAs="title">{heroHeading}</Heading>
           <Heading as="h5">{heroSubheading}</Heading>

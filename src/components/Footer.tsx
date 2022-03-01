@@ -70,7 +70,6 @@ const Footer = () => (
           <br />
           <small>Same Agent, Less Commission</small>
           <br />
-          <small>Agents that will earn less for your business</small>
         </LogoLink>
 
         <Row>
@@ -99,7 +98,7 @@ const Footer = () => (
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaFacebookSquare color="#3b5998" />
+                <FaFacebookSquare color="#ffffff" />
                 <HiddenText>Facebook</HiddenText>
               </SocialLink>
               <SocialLink
@@ -107,7 +106,7 @@ const Footer = () => (
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaLinkedin color="#0077b5" />
+                <FaLinkedin color="#ffffff" />
                 <HiddenText>LinkedIn</HiddenText>
               </SocialLink>
               <SocialLink
@@ -115,7 +114,7 @@ const Footer = () => (
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaYoutubeSquare color="#ff0000" />
+                <FaYoutubeSquare color="#ffffff" />
                 <HiddenText>Youtube</HiddenText>
               </SocialLink>
               <SocialLink
@@ -123,7 +122,7 @@ const Footer = () => (
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaInstagram color="#405de6" />
+                <FaInstagram color="#ffffff" />
                 <HiddenText>Instagram</HiddenText>
               </SocialLink>
               <SocialLink
@@ -131,7 +130,7 @@ const Footer = () => (
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaTwitterSquare color="#1da1f2" />
+                <FaTwitterSquare color="#ffffff" />
                 <HiddenText>Twitter</HiddenText>
               </SocialLink>
             </p>

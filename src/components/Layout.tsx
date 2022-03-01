@@ -16,6 +16,7 @@ import GlobalBanners from './GlobalBanners';
 import PageContainer from './PageContainer';
 import ErrorBoundary from './ErrorBoundary';
 import CssReset from '../styles/cssReset';
+import AwardBanner from './AwardBanner';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -28,6 +29,8 @@ const PageBody = styled.div`
   background-color: ${offWhite};
   flex: 1;
   padding: ${baseSpacer} 0;
+  position: relative;
+
   @media only screen and (min-width: ${breakpoints.sm}) {
     padding: ${doubleSpacer} 0;
   }
@@ -58,6 +61,9 @@ const Layout: FunctionComponent<LayoutProps> = ({ element, props }) => {
         <LayoutWrapper>
           <Navbar />
           <PageBody>
+            {(props.location.pathname === '/' || props.location.pathname === '/partners') && (
+              <AwardBanner />
+            )}
             <PageContainer>
               <GlobalBanners />
             </PageContainer>

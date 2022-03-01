@@ -14,7 +14,7 @@ import {
 
 import {
   baseSpacer,
-  doubleSpacer,
+  decupleSpacer,
   baseSpacerUnit,
   borderRadius,
   baseAndAHalfSpacer,
@@ -107,7 +107,7 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
         imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
       <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} />
-      <section style={{ padding: `${doubleSpacer} 0` }}>
+      <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
           <Row>
             <Column md={7} lg={8}>

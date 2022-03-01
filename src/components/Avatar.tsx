@@ -9,6 +9,7 @@ import {
   doubleSpacer,
   sextupleSpacer,
   quadrupleSpacer,
+  decupleSpacer,
 } from '../styles/size';
 import { lightestGray } from '../styles/color';
 import PreviewCompatibleImage from './PreviewCompatibleImage';
@@ -19,7 +20,7 @@ type AvatarProps = {
         childImageSharp: { fluid: FluidObject };
       }
     | string;
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   gravatarEmail: string;
   bottomMargin?: boolean;
   style?: CSSProperties;
@@ -37,6 +38,9 @@ const renderSize = (size: AvatarProps['size']) => {
   }
   if (size === 'lg') {
     return sextupleSpacer;
+  }
+  if (size === 'xl') {
+    return decupleSpacer;
   }
   return doubleSpacer;
 };

@@ -36,6 +36,8 @@ import {
   halfSpacer,
   tripleSpacer,
   threeQuarterSpacer,
+  decupleSpacer,
+  quarterSpacer,
 } from '../styles/size';
 import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
 import { fontSizeH4, fontSizeH6, fontSizeSmall } from '../styles/typography';
@@ -70,6 +72,8 @@ const StyledNavbar = styled.nav`
   color: ${white};
   position: relative;
   height: ${quadrupleSpacer};
+  z-index: 2;
+  position: relative;
 
   & .tooltip {
     padding: 0 ${halfSpacer};
@@ -84,12 +88,34 @@ const StyledNavbar = styled.nav`
 `;
 
 const StyledLogoLink = styled(Link)`
+  height: ${quadrupleSpacer};
   color: ${white};
+  position: relative;
+  padding-left: ${tripleSpacer};
+  line-height: calc(${tripleSpacer} + 6px);
+  width: calc(${decupleSpacer} + ${tripleSpacer});
 
   &:hover,
   &:focus {
     color: ${white};
   }
+`;
+
+const StyledLogoImg = styled.img`
+  position: absolute;
+  top: ${baseSpacer};
+  left: 0;
+`;
+
+const StyledTagline = styled.span`
+  color: ${white};
+  position: absolute;
+  left: ${tripleSpacer};
+  right: 0;
+  top: calc(${doubleSpacer} + ${quarterSpacer});
+  line-height: 1;
+  font-size: ${threeQuarterSpacer};
+  width: ${decupleSpacer};
 `;
 
 const StyledDropdown = styled.div`
@@ -245,7 +271,7 @@ const SubNav = styled.div`
   background: ${white};
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 3;
   box-shadow: ${z1Shadow};
 `;
 
@@ -410,9 +436,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 }
                 title="Logo"
               >
-                <img src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} />{' '}
+                <StyledLogoImg src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} />{' '}
                 RealtyOffer
                 <sup>&#8482;</sup>
+                <StyledTagline>Same Agent, Less Commission</StyledTagline>
               </StyledLogoLink>
               {false && ( // size.isSmallScreen && ( // TODO when notifications are ready
                 <>

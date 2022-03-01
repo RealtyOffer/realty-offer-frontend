@@ -29,7 +29,7 @@ import {
   breakpoints,
   doubleSpacer,
   halfSpacer,
-  quadrupleSpacer,
+  decupleSpacer,
   tripleSpacer,
 } from '../styles/size';
 import {
@@ -281,7 +281,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
       </CarouselNavigationBackground>
       <section
         id="start"
-        style={{ padding: `${tripleSpacer} 0`, background: white, marginBottom: doubleSpacer }}
+        style={{ padding: `${decupleSpacer} 0`, background: white, marginBottom: doubleSpacer }}
       >
         <PageContainer>
           <Heading as="h3" styledAs="title" align="center">
@@ -345,7 +345,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
         </SectionCarouselWrapper>
       </section>
 
-      <section style={{ padding: `${tripleSpacer} 0` }}>
+      <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
           <Heading as="h2" styledAs="title" align="center">
             {sectionTwoHeading}
@@ -407,7 +407,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
         </PageContainer>
       </section>
       <section
-        style={{ padding: `${tripleSpacer} 0`, backgroundColor: white, textAlign: 'center' }}
+        style={{ padding: `${decupleSpacer} 0`, backgroundColor: white, textAlign: 'center' }}
       >
         <PageContainer>
           <Heading as="h4" styledAs="title" align="center">
@@ -446,7 +446,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
         </SectionCarouselWrapper>
       </section>
       {false && ( // TODO: testimonials
-        <section style={{ padding: `${doubleSpacer} 0` }}>
+        <section style={{ padding: `${decupleSpacer} 0` }}>
           <PageContainer>
             <Heading as="h4" styledAs="title" align="center">
               Testimonials
@@ -469,7 +469,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
       )}
       <section
         style={{
-          padding: `${quadrupleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           textAlign: 'center',
           backgroundColor: brandPrimary,
           marginBottom: `-${doubleSpacer}`,
@@ -487,7 +487,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
       </section>
       <section
         style={{
-          padding: `${quadrupleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           backgroundColor: lightestGray,
           marginBottom: `-${doubleSpacer}`,
         }}

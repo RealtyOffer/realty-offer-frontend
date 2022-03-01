@@ -1,9 +1,9 @@
 ---
 templateKey: about-page
 metaTitle: Same Agent, Less Commission
-metaDescription: meta description goes here
-metaKeywords: meta keywords go here
-title: Our Mission
+metaDescription: Meet the RealtyOffer™ Team
+metaKeywords: The real estate industry has not changed in 100 years.
+title: Meet the RealtyOffer™ Team
 heroImage: /img/Keys-Door.jpeg
 mobileHeroImage: /img/Keys-Door.jpeg
 mission: >-
@@ -17,7 +17,7 @@ mission: >-
   struggle to close a deal.
 
 
-  The solution is RealtyOffer, the one-stop-shop for the buyer, seller, and agent. **[RealtyOffer](https://realtyoffer.com/)** will connect the consumer with the agent, while removing the upfront negotiation. Our AI-Digitized platform will be the first of its kind to enable savings for all parties involved in a real estate transaction: the seller, the buyer, and the agent.
+  The solution is RealtyOffer, the one-stop-shop for the buyer, seller, and agent. **[RealtyOffer™](https://realtyoffer.com/)** will connect the consumer with the agent, while removing the upfront negotiation. Our AI-Digitized platform will be the first of its kind to enable savings for all parties involved in a real estate transaction: the seller, the buyer, and the agent.
 content: >-
   We intend to help the 90% of **[agents](https://realtyoffer.com/agents)** who
   can't find consistency in the real estate business and educate the 90% of
@@ -28,38 +28,34 @@ content: >-
   wants to purchase a home; pure savings for all parties involved.
 
 
-  Welcome to RealtyOffer!
+  Welcome to RealtyOffer™!
 teamMembers:
   - name: Thea Ramadan
-    title: Founder & CEO
+    title: CEO & Founder
     bio: bio tbd
-    avatar: /img/hamishguylookingout.png
-  - name: Khalil Ramadan
-    title: Founder & CEO
-    bio: bio tbd
-    avatar: /img/hamishguylookingout.png
+    avatar: /img/team-thea.png
   - name: Danny Beydoun
-    title: Founder & CEO
+    title: Partner & COO
     bio: bio tbd
-    avatar: /img/hamishguylookingout.png
+    avatar: /img/team-danny.png
   - name: Keith Hearns
-    title: Founder & CEO
-    bio: bio tbd
-    avatar: /img/hamishguylookingout.png
-  - name: Marc Miller
-    title: Founder & CEO
-    bio: bio tbd
-    avatar: /img/hamishguylookingout.png
+    title: Partner & Designer in Chief
+    bio: >-
+      Keith has spent the last 15 years as a UX Consultant in Metro Detroit.
+
+      Keith has worked to help companies across multiple different industries, including e-commerce, utilities, healthcare, financial, and automative with their UX needs, ranging from simple design updates, to complete digital transformations.
+
+      In his free time, Keith spends most of this time with his kids, and can be found watching 1 of the 3 participate in sports on any given field or gym throughout Michigan.
+    avatar: /img/team-keith.png
   - name: Tony Mamo
-    title: Founder & CEO
-    bio: bio tbd
-    avatar: /img/hamishguylookingout.png
-  - name: Mario Suau
-    title: Founder & CEO
-    bio: bio tbd
-    avatar: /img/hamishguylookingout.png
+    title: Senior Software Engineer
+    bio: >-
+      Tony is a software engineer with UX/UI designer skills, with over 15 years of professional experience, specializing in architecting scalable, maintainable front end systems paired with easy to use and beautiful looking interfaces. He is devoted to working on projects that move the world forward through innovative software. Tony has industry experience within recruitment, healthcare, e-commerce, logistics, and non-profit charity environments. 
+
+      Based out of Metro Detroit, outside of his work life he is a woodworker, photographer, musician, foodie, adventurer, husband, and dad.
+    avatar: /img/team-tony.jpg
   - name: Mark Duhaime
-    title: Founder & CEO
+    title: Partner
     bio: bio tbd
     avatar: /img/hamishguylookingout.png
 ---

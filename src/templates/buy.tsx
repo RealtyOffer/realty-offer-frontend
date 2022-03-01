@@ -23,13 +23,7 @@ import {
   FlexContainer,
 } from '../components';
 
-import {
-  doubleSpacer,
-  quadrupleSpacer,
-  halfSpacer,
-  tripleSpacer,
-  baseSpacer,
-} from '../styles/size';
+import { doubleSpacer, decupleSpacer, halfSpacer, tripleSpacer, baseSpacer } from '../styles/size';
 import { brandPrimary, lightestGray, white } from '../styles/color';
 import useWindowSize from '../utils/useWindowSize';
 
@@ -135,7 +129,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
           </Row>
         </PageContainer>
       </HeroImage>
-      <section style={{ padding: `${tripleSpacer} 0`, backgroundColor: lightestGray }}>
+      <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: lightestGray }}>
         <PageContainer>
           <Row>
             <Column md={8}>
@@ -163,7 +157,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
       </section>
       <section
         style={{
-          padding: `${tripleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           backgroundColor: white,
         }}
       >
@@ -193,7 +187,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
         </PageContainer>
       </section>
 
-      <section style={{ padding: `${tripleSpacer} 0`, backgroundColor: lightestGray }}>
+      <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: lightestGray }}>
         <PageContainer>
           <Heading as="h2" align="center">
             {sectionThreeHeading}
@@ -225,7 +219,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
 
       <section
         style={{
-          padding: `${tripleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           backgroundColor: white,
         }}
       >
@@ -293,7 +287,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
 
       <section
         style={{
-          padding: `${quadrupleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           textAlign: 'center',
           backgroundColor: brandPrimary,
           marginBottom: `-${doubleSpacer}`,

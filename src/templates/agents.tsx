@@ -20,7 +20,7 @@ import {
   PreviewCompatibleImage,
 } from '../components';
 
-import { baseSpacer, doubleSpacer, quadrupleSpacer, breakpoints, halfSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer, decupleSpacer, breakpoints, halfSpacer } from '../styles/size';
 import {
   brandPrimary,
   brandPrimaryAccentLight,
@@ -160,7 +160,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
           </Row>
         </PageContainer>
       </HeroImage>
-      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: brandPrimaryAccentLight }}>
+      <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: brandPrimaryAccentLight }}>
         <PageContainer>
           <Row>
             <Column md={8} mdOffset={2}>
@@ -195,7 +195,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       </section>
       <section
         style={{
-          padding: `${doubleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           backgroundColor: lightestGray,
           color: brandTertiary,
         }}
@@ -250,7 +250,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
         </PageContainer>
       </section>
 
-      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: white }}>
+      <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: white }}>
         <PageContainer>
           <Row>
             <Column md={8}>
@@ -280,7 +280,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
 
       <section
         style={{
-          padding: `${doubleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           backgroundColor: lightestGray,
           color: brandTertiary,
         }}
@@ -313,7 +313,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       </section>
 
       {false && ( // TODO: testimonials
-        <section style={{ padding: `${doubleSpacer} 0` }}>
+        <section style={{ padding: `${decupleSpacer} 0` }}>
           <PageContainer>
             <Heading as="h4" styledAs="title" align="center">
               Testimonials
@@ -336,7 +336,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       )}
       <section
         style={{
-          padding: `${quadrupleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           textAlign: 'center',
           backgroundColor: brandPrimary,
           marginBottom: `-${doubleSpacer}`,
