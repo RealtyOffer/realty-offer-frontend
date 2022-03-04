@@ -2,7 +2,7 @@ backend:
   name: github
   repo: RealtyOffer/realty-offer-frontend
   api_root: https://api.github.com
-  branch: master
+  branch: develop
   commit_messages:
     create: "Create {{collection}} “{{slug}}”"
     update: "Update {{collection}} “{{slug}}”"
@@ -168,7 +168,7 @@ collections:
           - { label: "Hero Sub Heading", name: heroSubheading, widget: string }
           - { label: "Section 1 Heading", name: sectionOneHeading, widget: string }
           - { label: "Section 1 Sub Heading", name: sectionOneSubheading, widget: string }
-          - { label: "Section 1 Image", name: sectionOneimage, widget: image }
+          - { label: "Section 1 Image", name: sectionOneImage, widget: image }
           - { label: "Section 1 Content", name: sectionOneContent, widget: string }
           - { label: "Section 2 Heading", name: sectionTwoHeading, widget: string }
           - { label: "Section 2 Sub Heading", name: sectionTwoSubheading, widget: string }
@@ -310,6 +310,42 @@ collections:
                 { label: Link, name: link, widget: string },
               ],
           }
+      - file: "src/pages/partners.md"
+        label: "Partners"
+        name: "partners"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "partners-page",
+            }
+          - { label: "Meta Title", name: metaTitle, widget: string }
+          - { label: "Meta Description", name: metaDescription, widget: string }
+          - { label: "Meta Keywords", name: metaKeywords, widget: string }
+          - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
+          - { label: HeroHeading, name: heroHeading, widget: string }
+          - { label: HeroSubheading, name: heroSubheading, widget: string }
+          - { label: "Section One Heading", name: sectionOneHeading, widget: string }
+          - { label: "Section One Content", name: sectionOneContent, widget: markdown }
+          - { label: "Youtube Video ID", name: youtubeVideoId, widget: string }
+          - { label: "Section Two Heading", name: sectionTwoHeading, widget: string }
+          - {
+            label: "Section Two Cards",
+            name: sectionTwoCards,
+            widget: list,
+            fields:
+              [
+                { label: Heading, name: heading, widget: string },
+                { label: Content, name: content, widget: markdown },
+              ],
+          }
+          - { label: "Section Three Heading", name: sectionThreeHeading, widget: string }
+          - { label: "Section Three Content", name: sectionThreeContent, widget: markdown }
+          - { label: "Lead Form Title", name: leadFormTitle, widget: string }
+          - { label: "Lead Form Body", name: leadFormBody, widget: string }
       - file: "src/pages/terms.md"
         label: "Terms"
         name: "terms"
@@ -364,53 +400,34 @@ collections:
           - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
           - { label: "Hero Heading", name: heroHeading, widget: string }
           - { label: "Hero Subheading", name: heroSubheading, widget: markdown }
+          - { label: "Section 1 Heading", name: sectionOneHeading, widget: string }
+          - { label: "Section 1 SubHeading", name: sectionOneSubheading, widget: string }
+          - { label: "Section 1 Image", name: sectionOneImage, widget: image }
+          - { label: "Section 1 Content", name: sectionOneContent, widget: string }
+          - { label: "Section 2 Heading", name: sectionTwoHeading, widget: string }
           - {
-              label: Mainpitch,
-              name: mainpitch,
-              widget: object,
+              label: "Section 2 Steps",
+              name: sectionTwoSteps,
+              widget: list,
               fields:
                 [
-                  { label: Title, name: title, widget: string },
-                  { label: Video URL, name: youtubeVideoId, widget: string },
-                  { label: Description, name: description, widget: markdown },
+                  { label: heading, name: heading, widget: string },
+                  { label: content, name: content, widget: string },
                   { label: Image, name: image, widget: image},
-                  { label: Call To Action text, name: ctaText, widget: string },
-                  {
-                    label: Steps,
-                    name: steps,
-                    widget: list,
-                    fields:
-                      [
-                        { label: Title, name: title, widget: string },
-                        { label: Text, name: body, widget: markdown },
-                      ],
-                  },
                 ],
             }
-          - {
-            label: SecondPitch,
-            name: secondpitch,
-            widget: object,
-            fields:
-              [
-                { label: Title, name: title, widget: string },
-                { label: Description, name: description, widget: markdown },
-                { label: Image, name: image, widget: image},
-                { label: Call To Action text, name: ctaText, widget: string },
-              ],
-          }
-          - {
-            label: ThirdPitch,
-            name: thirdpitch,
-            widget: object,
-            fields:
-              [
-                { label: Title, name: title, widget: string },
-                { label: Description, name: description, widget: markdown },
-                { label: Image, name: image, widget: image},
-                { label: Call To Action text, name: ctaText, widget: string },
-              ],
-          }
+          - { label: "Section 3 Heading", name: sectionThreeHeading, widget: string }
+          - { label: "Section 3 Content", name: sectionThreeContent, widget: markdown }
+          - { label: "Section 3 Row One", name: sectionThreeRowOne, widget: string }
+          - { label: "Section 3 Row Two", name: sectionThreeRowTwo, widget: string }
+          - { label: "Section 4 Heading", name: sectionFourHeading, widget: string }
+          - { label: "Section 4 Content", name: sectionFourContent, widget: markdown }
+          - { label: "Section 4 Image", name: sectionFourImage, widget: image }
+          - { label: "Section 5 Heading", name: sectionFiveHeading, widget: string }
+          - { label: "Section 5 Content", name: sectionFiveContent, widget: markdown }
+          - { label: "Section 5 Background Image", name: sectionFiveBackgroundImage, widget: image }
+          - { label: "Section 6 Heading", name: sectionSixHeading, widget: string }
+          - { label: "Section 6 Subheading", name: sectionSixSubheading, widget: string }
           - {
             label: "Testimonial",
             name: testimonials,
@@ -419,7 +436,9 @@ collections:
               [
                 { label: Quote, name: quote, widget: string },
                 { label: Author, name: author, widget: string },
+                { label: From, name: from, widget: string },
                 { label: Avatar, name: avatar, widget: image },
+                { label: Saved, name: saved, widget: string },
               ],
           }
       - file: "src/pages/blog/index.md"

@@ -102,10 +102,15 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
 }) => {
   const size = useWindowSize();
 
-  const numberOfTestimonialsPerSlide = size.isSmallScreen ? 1 : 3;
-  const testimonialsArray = new Array(Math.ceil(testimonials.length / numberOfTestimonialsPerSlide))
-    .fill([])
-    .map(() => testimonials.splice(0, numberOfTestimonialsPerSlide));
+  const chunkedTestimonials = (arr: SellPageProps['testimonials']) => {
+    const chunkSize = size.isSmallScreen ? 1 : 3;
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      const chunk = arr.slice(i, i + chunkSize);
+      res.push(chunk);
+    }
+    return res;
+  };
 
   return (
     <div>
@@ -227,7 +232,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
           <Heading as="h2" styledAs="title" align="center">
             {sectionFourHeading}
           </Heading>
-          <Heading as="h2" styledAs="subtitle" align="center">
+          <Heading as="h3" styledAs="subtitle" align="center">
             {sectionFourSubheading}
           </Heading>
           <br />
@@ -236,7 +241,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
               nextIcon={<FaIcon.FaChevronRight color={brandPrimary} size={doubleSpacer} />}
               prevIcon={<FaIcon.FaChevronLeft color={brandPrimary} size={doubleSpacer} />}
             >
-              {testimonialsArray.map((arr, index) => (
+              {chunkedTestimonials(testimonials).map((arr, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <Carousel.Item key={`carousel-logo+${index}`}>
                   <Row>
@@ -308,7 +313,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
                 <Heading as="h6" align="center" inverse>
                   Ready to get paid to Buy or Sell your home?
                 </Heading>
-                <Button type="link" to="/agent/sign-up" color="tertiary">
+                <Button type="link" to="/consumer/start" color="tertiary">
                   Get Started Now
                 </Button>
                 <br />

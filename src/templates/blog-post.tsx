@@ -126,7 +126,7 @@ export const BlogPostTemplate: FunctionComponent<BlogPostProps> = (props) => {
       <HeroImage imgSrc={props.featuredimage} removeFromFlow />
       <PageContainer>
         <Row>
-          <Column md={8} lg={9}>
+          <Column md={8}>
             <Box largePadding height="auto" transparent>
               <div>
                 <FlexContainer justifyContent="space-between">
@@ -201,8 +201,8 @@ export const BlogPostTemplate: FunctionComponent<BlogPostProps> = (props) => {
               )}
             </Box>
           </Column>
-          <Column md={4} lg={3}>
-            <div>
+          <Column md={4}>
+            <div style={{ position: 'sticky', top: 100 }}>
               <Box transparent>
                 <Heading as="h3">{props.leadFormTitle}</Heading>
                 <p>{props.leadFormBody}</p>

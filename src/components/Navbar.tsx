@@ -358,20 +358,21 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const isLoggedInAgent = auth.isLoggedIn && agent.agentId !== '';
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
   const shouldShowMenuToggle = isLoggedInAgent && size.isSmallScreen;
-  // list of routes that are part of sign up process for either agnet or consumer
+  // list of routes that are part of sign up process for either agent or consumer
   const signupPagesArr = [
-    'sign-up',
-    'agent-information',
-    'verify-email',
-    'business-information',
-    'payment-information',
-    'confirm-registration',
-    'start',
-    'selling',
-    'buying',
-    'pilot',
+    '/agent/sign-up',
+    '/agent/agent-information',
+    '/agent/verify-email',
+    '/consumer/verify-email',
+    '/agent/business-information',
+    '/agent/payment-information',
+    '/agent/confirm-registration',
+    '/consumer/start',
+    '/consumer/selling',
+    '/consumer/buying',
+    '/agent/pilot',
   ];
-  const isInSignupProcess = signupPagesArr.some((route) => location.pathname.includes(route));
+  const isInSignupProcess = signupPagesArr.some((route) => route === location.pathname);
 
   const menuItemsToRender = () => {
     if (auth.isLoading || agent.isLoading) {
