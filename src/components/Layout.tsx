@@ -61,9 +61,10 @@ const Layout: FunctionComponent<LayoutProps> = ({ element, props }) => {
         <LayoutWrapper>
           <Navbar />
           <PageBody>
-            {(props.location.pathname === '/' || props.location.pathname === '/partners') && (
-              <AwardBanner />
-            )}
+            {(props.location.pathname === '' ||
+              props.location.pathname === '/' ||
+              props.location.pathname === '/partners' ||
+              props.location.pathname === '/partners/') && <AwardBanner />}
             <PageContainer>
               <GlobalBanners />
             </PageContainer>
