@@ -7,7 +7,7 @@ metaDescription: Need to buy or sell a home? You will receive bids from
 metaKeywords: real estate agent, buy a home, sell a home
 title: Same Agent, Less Commission
 heroCarousel:
-  - heroImage: /img/shutterstock_image1_purchased.jpg
+  - heroImage: /img/realtyoffer-main-hero-img-house.jpg
     heroHeading: Need Down Payment Assistance?
     heroContent: Our vetted realtors will not only find you the perfect house, but will put part of their commission toward your purchase!
     heroCTA: Learn More About Buying a New Home
