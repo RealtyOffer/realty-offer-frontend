@@ -42,7 +42,7 @@ sectionOne:
     heading: Complete a Simple Form
     content: >-
       Fill in some simple information, sit back and RealtyOffer™ will connect you with a certified and vetted agent, while removing the upfront negotiation.
-      
+
       Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
     callToActionLink: /consumer/start
     callToActionText: Get Started Now
@@ -51,14 +51,14 @@ sectionOne:
     heading: Agents Bid to Win Your Business
     content: >-
       Within 24 hours, RealtyOffer™ will allow top-rated agents in your area the opportunity to bid and win your business.
-The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means less money you bring to the closing table.
+      The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means less money you bring to the closing table.
     callToActionLink: /
     callToActionText: Learn More Now
   - mainImage: /img/sectionOne - 3.png
     secondaryImage: /img/sectionOne - secondary 3.png
     heading: Choose Your Winning Agent
     content: >-
-      Within 24 hours you will be able to review the top three bids from compatible agents in your area. Choose the best offer and simply get connected, while removing the upfront awkward negotiation. 
+      Within 24 hours you will be able to review the top three bids from compatible agents in your area. Choose the best offer and simply get connected, while removing the upfront awkward negotiation.
 
     callToActionLink: /frequently-asked-questions
     callToActionText: Learn More Now
@@ -98,12 +98,12 @@ sectionFiveCards:
     heading: Buying a Home
     content: Save on closing costs!
     callToActionText: Learn more about buying a home
-    callToActionLink: /
+    callToActionLink: /buy
   - image: /img/sellingAHome.png
     heading: Selling Your Home
     content: Reduced agent commission rates!
     callToActionText: Learn more about selling your home
-    callToActionLink: /
+    callToActionLink: /sell
   - image: /img/becomeAnAgent.png
     heading: Become an Agent
     content: Love making money, want more clients?
