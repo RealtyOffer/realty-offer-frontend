@@ -127,6 +127,8 @@ const CarouselBackground = styled.div`
   height: 400px;
   background-image: ${(props: { imgSrc: CarouselItemType['heroImage'] }) =>
     `url('${props.imgSrc.childImageSharp.fluid.src}')`};
+  background-repeat: no-repeat;
+  background-size: 100%;
 `;
 
 const GradientOverlay = styled.div`
