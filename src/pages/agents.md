@@ -6,7 +6,7 @@ metaDescription: Need Real Estate Buyer or Seller Leads? - We've Got Them.
   awkward negotiation
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 title: Same Agent, Less Commission
-heroImage: /img/RO-Beach-Image-1440-500 copy 3.png
+heroImage: /img/realtyoffer-agents-hero-image.jpg
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: Brokers & Agents... Do you love making money?
 heroSubheading: >-
