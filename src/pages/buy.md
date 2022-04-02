@@ -4,7 +4,7 @@ metaTitle: Looking to Buy a New Home?
 metaDescription: Our vetted realtors will not only find you the perfect house, but will put part of their commission toward your purchase!
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 title: Looking to Buy a New Home?
-heroImage: /img/RO-Beach-Image-1440-500 copy 3.png
+heroImage: /img/realtyoffer-buy-hero-image.png
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: Looking to Buy a New Home?
 heroSubheading: >-
