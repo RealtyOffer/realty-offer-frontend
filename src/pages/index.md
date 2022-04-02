@@ -14,23 +14,23 @@ heroCarousel:
     heroLink: /buy
     heroNavText: Buying A Home
     heroNavIcon: FaHome
-  - heroImage: /img/shutterstock_image1_purchased.jpg
+  - heroImage: /img/realtyoffer-main-hero-img-house.jpg
     heroHeading: Need to Sell Your Home? Worried About High Commission Costs?
     heroContent: RealtyOffer™ will allow top-rated agents in your area to reduce their commission in order to represent you!
     heroCTA: Learn More About Selling Your Home
     heroLink: /sell
     heroNavText: Selling A Home
     heroNavIcon: FaDollarSign
-  - heroImage: /img/shutterstock_image1_purchased.jpg
-    heroHeading: Welcome to RealtyOffer3
-    heroContent: asdf3
+  - heroImage: /img/realtyoffer-main-hero-img-house.jpg
+    heroHeading: Love Making Money, and Want to Earn More Clients?
+    heroContent: RealtyOffer™ allows agents to offer a portion of their commission in order to win new clients.
     heroCTA: Learn More About Becoming an Agent
     heroLink: /agents
     heroNavText: Become an Agent
     heroNavIcon: FaUserTie
-  - heroImage: /img/shutterstock_image1_purchased.jpg
-    heroHeading: Welcome to RealtyOffer4
-    heroContent: asdf4
+  - heroImage: /img/realtyoffer-main-hero-img-house.jpg
+    heroHeading: Interested in Becoming a RealtyOffer™ Partner?
+    heroContent: Whether you are looking to invest, market, or join the team, we are here to talk.
     heroCTA: Learn More About Becoming a Partner
     heroLink: /partners
     heroNavText: Become a Partner
