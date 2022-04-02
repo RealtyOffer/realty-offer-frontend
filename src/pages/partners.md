@@ -4,8 +4,8 @@ metaTitle: Same Agent, Less Commission
 metaDescription: Become a RealtyOffer™ Partner
 metaKeywords: The real estate industry has not changed in 100 years.
 title: Partners & Investors
-heroImage: /img/Keys-Door.jpeg
-mobileHeroImage: /img/Keys-Door.jpeg
+heroImage: /img/realtyoffer-partners-hero-image.jpg
+mobileHeroImage: /img/realtyoffer-partners-hero-image.jpg
 heroHeading: Partners & Investors
 heroSubheading: >-
   lorem ipsum
