@@ -4,7 +4,7 @@ metaTitle: Save thousands of dollars when selling your home
 metaDescription: Our vetted realtors will not only help you sell your house, but will offer part of their commission to win your business!
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 title: Save thousands of dollars when selling your home
-heroImage: /img/RO-Beach-Image-1440-500 copy 3.png
+heroImage: /img/realtyoffer-sell-hero-image.jpg
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: ''
 heroSubheading: ''
