@@ -6,36 +6,40 @@ metaKeywords: real estate leads, real estate buyer leads, real estate seller lea
 title: Save thousands of dollars when selling your home
 heroImage: /img/realtyoffer-sell-hero-image.jpg
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
-heroHeading: ''
-heroSubheading: ''
-sectionOneHeading: Save thousands of dollars when selling your home
+heroHeading: “Same agent, Less commission”
+heroSubheading: Need to sell your home and worried about paying high commission?
+
+RealtyOffer™ will allow agents in your area to bid lower commission rates to win your business!Completely free.
+sectionOneHeading: Ready to Save Thousands of Dollars?
 sectionOneSubheading: Save 1.5% when listing with a RealtyOffer™ agent
 sectionOneImage: /img/sellingAHome.png
 sectionOneContent: >-
-  When selling your home the conventional way, you typically pay 6% commission (3% to the listing agent, and 3% to the buyer's agent).
+  Within 24 hours you will receive the lowest commission offers to list and sell your home. Our clients are saving up to two percent off the typical commissions agents usually charge, which in turn is saving thousands of dollars!
 
+Use the calculator below to see how much a RealtyOffer™ agent can save you.
 
-  RealtyOffer™ agents will bid to win your business by reducing the commission they are willing to take when listing your home saving you thousands of dollars. Use the calculator below to estimate how much you can save by using a RealtyOffer™ agent.
-sectionTwoHeading: Why you should work with a RealtyOffer™ Agent to help sell your home
+No contracts, No obligation, No awkward negotiation
+sectionTwoHeading: Why Work with RealtyOffer™?
 sectionTwoSubheading: Finding the right Real Estate Agent
 sectionTwoImage: /img/buyingAHome.png
 sectionTwoContent: >-
-  Real estate agents take the stress out of the experience by providing sellers with knowledge of the market and skills in the negotiation process. Furthermore, agents' expertise and skill are provided to sellers without charge.
+  For over 100 years, the real estate industry has not been changed. Same documents, same agent, and same commission structure! RealtyOffer™ is meant to empower and educate the consumer. Our licensed and vetted agents will do the right thing for you.
 
+Experience, guidance, trust and most of all, reduced commission guaranteed! RealtyOffer™ agents remove the stress from the experience of selling a home by providing market knowledge and expertise in the negotiation process. RealtyOffer™ will not only connect you with a top local agent, but we will also make sure you receive the best deal possible, as our agents bid to win!
 
-  RealtyOffer™ will not only help you find the best local agent, but will also make sure you receive the best deal possible as our Agents bid to win your business.
+Within 24 hours, RealtyOffer™ will allow top agents in your area to simply “Bid” lower commission to win your business – this means more money in your pocket at the closing.
 sectionThreeHeading: RealtyOffer™ Agents are the top agents in your area
 sectionThreeList:
-  - text: All RealtyOffer™ Agents have been in the business for at least 2 years, and have closed 12 listings in the last year.
+  - text: Experience is a must! Our local agents are licensed and vetted. All agents must have closed at least 12 transactions in the past year and have a license in good standing with the state and realtor associations.
     icon: FaClock
-  - text: RealtyOffer™ makes sure to match you with Agents who specialize in buying and selling homes within your price range
+  - text: RealtyOffer™ allows AI software to connect you with specialized agents in your area, that have the most experience with selling or buying a home.
     icon: FaFileInvoiceDollar
-  - text: TODO
+  - text: No contracts, no obligation, no awkward negotiation. RealtyOffer™ empowers and educates the consumer – if you are not happy with your agent, simply cancel and start over. Completely free!
     icon: FaUsers
-  - text: RealtyOffer™ makes sure that all Agents bidding in a city are knowledgable in that area, and is actively working within the city.
+  - text: Need a live consultant, RealtyOffer™ will answer and guide you with any questions you have. Our founders have over 25 years of experience in the Real Estate industry.
     icon: FaMapMarkedAlt
-sectionFourHeading: Don't take our word for it. Read what previous customers have to say!
-sectionFourSubheading: Average customer saves $5,450
+sectionFourHeading: We Love Our Clients!
+sectionFourSubheading: Average savings, over $7,000
 testimonials:
   - quote: Quote here
     author: Person 1
