@@ -1,31 +1,29 @@
 ---
 templateKey: buy
 metaTitle: Looking to Buy a New Home?
-metaDescription: Our vetted realtors will not only find you the perfect house, but will put part of their commission toward your purchase!
+metaDescription: RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs!
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 title: Looking to Buy a New Home?
 heroImage: /img/realtyoffer-buy-hero-image.jpg
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: Looking to Buy a New Home?
 heroSubheading: >-
-  Our vetted realtors will not only find you the perfect house, but will put part of their commission toward your purchase!
-sectionOneHeading: Need help with your down payment?
-sectionOneSubheading: Receive up to 1.5% of the purchase price back to be used at closing
+ RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs! Welcome to RealtyOffer™
+sectionOneHeading: Need help with Closing Costs?
+sectionOneSubheading: RealtyOffer™ agents are ready to help. How? Simple. When purchasing a home, agents typically recevie half of the commission during the sale, if not more. RealtyOffer™ agents are willing to contribute part of their commission to be applied towards your closing costs. This means less money you bring to the table! 
 sectionOneImage: /img/buyingAHome.png
 sectionOneContent: >-
-  How is this possible? Well, as a buyer, your agent is only paid a commission if you close on a new home, and the commission that they receive is paid through the purchasing price of the house. So, it's technically the seller who pays for your representation.
-
-
-  A conventional buyer's agent receives 3% commission from the seller. RealtyOffer™ agents bid to win your business by offering a portion of that 3% commission to be given back to you at closing.
-sectionTwoHeading: Why you should work with a RealtyOffer™ Agent to help with the purchase of your new home
-sectionTwoSubheading: Finding the right Real Estate Agent
+How Much?
+RealtyOffer™ clients have been receiving an average of 1% to 1.5% from our agents to be applied towards closing costs.
+Example: $400,000 sale = $4,000 to $6,000 contributed towards your closing costs! See how much you can save below.
+sectionTwoHeading: The New Way to Buy or Sell a Home
+sectionTwoSubheading: 
 sectionTwoImage: /img/sellingAHome.png
 sectionTwoContent: >-
-  Real estate agents take the stress out of the experience by providing buyers with knowledge of the market and skills in the negotiation process. Furthermore, agents' expertise and skill are provided to buyers without charge.
+  Purchasing a home is often the largest transaction a consumer will make in their lifetime. To this day, consumers are lost throughout the process. Sellers are paying too much commission, while there are no incentives to the buyer. Welcome to RealtyOffer™
+  RealtyOffer™ will connect the consumer with the agent, while removing the negotiation out of the way. Our proprietary bidding platform is the first of its kind. RealtyOffer™ has automated the process of buying and selling a home while educating and saving the consumer thousands of dollars. RealtyOffer™ will allow agents to offer a percentage of their commission in order to pay for your upfront closing costs. Imagine getting paid to purchase a home!
 
-
-  RealtyOffer™ will not only help you find the best local agent, but will also make sure you receive the best deal possible as our Agents bid to win your business.
-sectionThreeHeading: RealtyOffer™ Agents are the top agents in your area
+sectionThreeHeading: Top Local Agents in Your Area
 sectionThreeList:
   - text: All RealtyOffer™ Agents have been in the business for at least 2 years, and have closed 12 listings in the last year.
     icon: FaClock
