@@ -13,9 +13,11 @@ sectionOneHeading: Need help with Closing Costs?
 sectionOneSubheading: RealtyOffer™ agents are ready to help. How? Simple. When purchasing a home, agents typically recevie half of the commission during the sale, if not more. RealtyOffer™ agents are willing to contribute part of their commission to be applied towards your closing costs. This means less money you bring to the table! 
 sectionOneImage: /img/buyingAHome.png
 sectionOneContent: >-
-How Much?
-RealtyOffer™ clients have been receiving an average of 1% to 1.5% from our agents to be applied towards closing costs.
-Example: $400,000 sale = $4,000 to $6,000 contributed towards your closing costs! See how much you can save below.
+  How Much?
+  
+  RealtyOffer™ clients have been receiving an average of 1% to 1.5% from our agents to be applied towards closing costs.
+  
+  Example: $400,000 sale = $4,000 to $6,000 contributed towards your closing costs! See how much you can save below.
 sectionTwoHeading: The New Way to Buy or Sell a Home
 sectionTwoSubheading: 
 sectionTwoImage: /img/sellingAHome.png
