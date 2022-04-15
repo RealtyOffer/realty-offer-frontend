@@ -1,4 +1,5 @@
 const unauthenticatedNavigationItems = [
+  { name: 'Home', path: '/' },
   { name: 'Buy', path: '/buy' },
   { name: 'Sell', path: '/sell' },
   { name: 'Agents', path: '/agents' },

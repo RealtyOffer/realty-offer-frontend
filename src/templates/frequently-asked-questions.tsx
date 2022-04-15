@@ -13,7 +13,17 @@ import {
 } from 'react-accessible-accordion';
 import { FaChevronCircleUp, FaChevronCircleDown, FaFilter } from 'react-icons/fa';
 
-import { Box, Button, FlexContainer, HeroImage, Heading, PageContainer, Seo } from '../components';
+import {
+  Box,
+  Button,
+  FlexContainer,
+  HeroImage,
+  Heading,
+  PageContainer,
+  Seo,
+  Row,
+  Column,
+} from '../components';
 
 import { doubleSpacer, baseSpacer, decupleSpacer } from '../styles/size';
 import { brandPrimary, brandTertiary } from '../styles/color';
@@ -61,12 +71,20 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
         imageWidth={heroImage.childImageSharp.fixed.width}
         imageHeight={heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={heroImage} />
+      <HeroImage imgSrc={heroImage} hasOverlay>
+        <PageContainer>
+          <Row>
+            <Column md={7}>
+              <Heading styledAs="title">{heroHeading}</Heading>
+              <Heading as="h6">
+                <ReactMarkdown source={heroSubheading} />
+              </Heading>
+            </Column>
+          </Row>
+        </PageContainer>
+      </HeroImage>
       <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
-          <Heading styledAs="title">{heroHeading}</Heading>
-          <Heading as="h5">{heroSubheading}</Heading>
-
           <p style={{ margin: `${doubleSpacer} 0` }}>
             <FaFilter /> <span style={{ marginRight: baseSpacer }}>Filter By:</span>
             <Button

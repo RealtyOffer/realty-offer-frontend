@@ -54,6 +54,7 @@ typings/
 # dotenv environment variable files
 .env.development
 .env.production
+.env
 
 # gatsby files
 .cache/
@@ -73,3 +74,6 @@ yarn-error.log
 # misc
 dist
 .idea
+
+# Local Netlify folder
+.netlify

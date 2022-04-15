@@ -33,7 +33,7 @@ type BlogRollProps = {
         description: string;
         featuredpost: boolean;
         title: string;
-        category: 'agent' | 'consumer';
+        category: string;
       };
     };
   }>;

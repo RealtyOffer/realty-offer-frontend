@@ -122,14 +122,14 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
         imageWidth={heroImage.childImageSharp.fixed.width}
         imageHeight={heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
+      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
             <Column md={7}>
-              <Heading inverse as="h1">
-                {heroHeading}
+              <Heading styledAs="title">{heroHeading}</Heading>
+              <Heading as="h6">
+                <ReactMarkdown source={heroSubheading} />
               </Heading>
-              <ReactMarkdown source={heroSubheading} />
             </Column>
           </Row>
         </PageContainer>
@@ -144,6 +144,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
               <Heading as="h3" styledAs="subtitle">
                 {sectionOneSubheading}
               </Heading>
+              <ReactMarkdown source={sectionOneContent} />
             </Column>
             <Column md={4}>
               <PreviewCompatibleImage
@@ -154,7 +155,6 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
               />
             </Column>
           </Row>
-          <ReactMarkdown source={sectionOneContent} />
           <Box>
             <SavingsCalculator type="selling" />
           </Box>

@@ -21,14 +21,7 @@ import {
   Avatar,
 } from '../components';
 
-import {
-  baseSpacer,
-  doubleSpacer,
-  decupleSpacer,
-  breakpoints,
-  halfSpacer,
-  tripleSpacer,
-} from '../styles/size';
+import { baseSpacer, doubleSpacer, decupleSpacer, halfSpacer, tripleSpacer } from '../styles/size';
 import {
   brandDanger,
   brandPrimary,
@@ -89,14 +82,6 @@ type AgentsPageProps = {
     };
   }>;
 };
-
-const HeroBox = styled.div`
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: ${halfSpacer};
-  @media only screen and (min-width: ${breakpoints.sm}) {
-    padding: ${doubleSpacer};
-  }
-`;
 
 const Badge = styled.div`
   margin-right: ${baseSpacer};
@@ -180,43 +165,17 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
         imageWidth={heroImage.childImageSharp.fixed.width}
         imageHeight={heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
+      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
-            <Column lg={9}>
-              <HeroBox>
-                <Heading inverse as="h1">
-                  {heroHeading}
-                </Heading>
+            <Column md={7}>
+              <Heading styledAs="title">{heroHeading}</Heading>
+              <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />
-                <Button type="link" to="/agent/sign-up">
-                  Become an Agent
-                </Button>
-                <br />
-                <br />
-                <FlexContainer flexDirection="row" justifyContent="flex-start">
-                  <Badge>
-                    <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
-                      <img
-                        src={appleAppStoreBadge}
-                        height={40}
-                        width={122}
-                        alt="Download on Apple App Store"
-                      />
-                    </a>
-                  </Badge>
-                  <Badge>
-                    <a href="https://play.google.com/store/apps/details?id=com.realtyoffernative">
-                      <img
-                        src={googlePlayStoreBadge}
-                        height={40}
-                        width={122}
-                        alt="Download on Google Play Store"
-                      />
-                    </a>
-                  </Badge>
-                </FlexContainer>
-              </HeroBox>
+              </Heading>
+              <Button type="link" to="/agent/sign-up">
+                Become an Agent
+              </Button>
             </Column>
           </Row>
         </PageContainer>

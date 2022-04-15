@@ -3,12 +3,11 @@ import { graphql } from 'gatsby';
 import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LiteYoutubeEmbed } from 'react-lite-yt-embed';
-import styled from 'styled-components';
 import { Field, Form, Formik } from 'formik';
 import { FaCaretRight } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 
-import { doubleSpacer, decupleSpacer, tripleSpacer, halfSpacer, breakpoints } from '../styles/size';
+import { doubleSpacer, decupleSpacer, tripleSpacer } from '../styles/size';
 import {
   HeroImage,
   PageContainer,
@@ -50,14 +49,6 @@ type PartnerPageProps = {
   leadFormBody: string;
 };
 
-const HeroBox = styled.div`
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: ${halfSpacer};
-  @media only screen and (min-width: ${breakpoints.sm}) {
-    padding: ${doubleSpacer};
-  }
-`;
-
 export const PartnerPageTemplate: FunctionComponent<PartnerPageProps> = (props) => {
   const size = useWindowSize();
   const dispatch = useDispatch();
@@ -78,13 +69,17 @@ export const PartnerPageTemplate: FunctionComponent<PartnerPageProps> = (props) 
         imageWidth={props.heroImage.childImageSharp.fixed.width}
         imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage}>
-        <HeroBox>
-          <Heading inverse as="h1">
-            {props.heroHeading}
-          </Heading>
-          <ReactMarkdown source={props.heroSubheading} />
-        </HeroBox>
+      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} hasOverlay>
+        <PageContainer>
+          <Row>
+            <Column md={7}>
+              <Heading styledAs="title">{props.heroHeading}</Heading>
+              <Heading as="h6">
+                <ReactMarkdown source={props.heroSubheading} />
+              </Heading>
+            </Column>
+          </Row>
+        </PageContainer>
       </HeroImage>
       <section style={{ padding: `${doubleSpacer} 0 ${decupleSpacer}` }}>
         <PageContainer>

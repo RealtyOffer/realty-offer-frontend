@@ -3,7 +3,16 @@ import { graphql } from 'gatsby';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { FixedObject, FluidObject } from 'gatsby-image';
 
-import { Button, HeroImage, Seo, PageContainer, Heading, FlexContainer } from '../components';
+import {
+  Button,
+  HeroImage,
+  Seo,
+  PageContainer,
+  Heading,
+  FlexContainer,
+  Row,
+  Column,
+} from '../components';
 import BlogRoll from './BlogRoll';
 
 type BlogIndexProps = {
@@ -30,6 +39,7 @@ type BlogIndexProps = {
         description: string;
         featuredpost: boolean;
         title: string;
+        category: string;
       };
     };
   }>;
@@ -49,11 +59,13 @@ export const BlogIndexTemplate: FunctionComponent<BlogIndexProps> = (props) => {
         imageWidth={props.heroImage.childImageSharp.fixed.width}
         imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={props.heroImage}>
+      <HeroImage imgSrc={props.heroImage} hasOverlay>
         <PageContainer>
-          <Heading as="h1" inverse align="center">
-            {props.title}
-          </Heading>
+          <Row>
+            <Column md={7}>
+              <Heading styledAs="title">{props.title}</Heading>
+            </Column>
+          </Row>
         </PageContainer>
       </HeroImage>
 

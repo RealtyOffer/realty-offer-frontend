@@ -19,6 +19,7 @@ type HeroImageProps = {
     };
   };
   removeFromFlow?: boolean;
+  hasOverlay?: boolean;
 };
 
 const HeroImageWrapper = styled.div`
@@ -42,11 +43,16 @@ const ChildrenWrapper = styled.div`
   align-items: center;
   height: 100%;
   color: ${white};
+`;
 
-  & h1,
-  & p {
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
-  }
+const GradientOverlay = styled.div`
+  background: rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 80%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 const HeroImage: FunctionComponent<HeroImageProps> = ({
@@ -54,6 +60,7 @@ const HeroImage: FunctionComponent<HeroImageProps> = ({
   children,
   mobileImgSrc,
   removeFromFlow,
+  hasOverlay,
 }) => {
   const size = useWindowSize();
 
@@ -61,7 +68,7 @@ const HeroImage: FunctionComponent<HeroImageProps> = ({
     <HeroImageWrapper
       removeFromFlow={removeFromFlow}
       aspectRatio={
-        size.isExtraSmallScreen && mobileImgSrc
+        size.isSmallScreen && mobileImgSrc
           ? mobileImgSrc.childImageSharp.fluid.aspectRatio
           : imgSrc.childImageSharp.fluid.aspectRatio
       }
@@ -69,10 +76,11 @@ const HeroImage: FunctionComponent<HeroImageProps> = ({
       <ClientOnly>
         <PreviewCompatibleImage
           imageInfo={{
-            image: size.isExtraSmallScreen && mobileImgSrc ? mobileImgSrc : imgSrc,
+            image: size.isSmallScreen && mobileImgSrc ? mobileImgSrc : imgSrc,
             alt: '',
           }}
         />
+        {hasOverlay && <GradientOverlay />}
       </ClientOnly>
       <ChildrenWrapper>{children}</ChildrenWrapper>
     </HeroImageWrapper>
