@@ -14,8 +14,10 @@ sectionOneSubheading: RealtyOffer™ agents are ready to help. How? Simple. When
 sectionOneImage: /img/buyingAHome.png
 sectionOneContent: >-
   How Much?
+    
   
   RealtyOffer™ clients have been receiving an average of 1% to 1.5% from our agents to be applied towards closing costs.
+    
   
   Example: $400,000 sale = $4,000 to $6,000 contributed towards your closing costs! See how much you can save below.
 sectionTwoHeading: The New Way to Buy or Sell a Home
