@@ -176,6 +176,10 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
               <Heading as="h3" styledAs="subtitle">
                 {sectionTwoSubheading}
               </Heading>
+              <ReactMarkdown source={sectionTwoContent} />
+              <Button type="link" to="/consumer/start">
+                Find your RealtyOffer&trade; Agent
+              </Button>
             </Column>
             <Column md={4}>
               <PreviewCompatibleImage
@@ -186,10 +190,6 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
               />
             </Column>
           </Row>
-          <ReactMarkdown source={sectionTwoContent} />
-          <Button type="link" to="/consumer/start">
-            Find your RealtyOffer&trade; Agent
-          </Button>
         </PageContainer>
       </section>
 
