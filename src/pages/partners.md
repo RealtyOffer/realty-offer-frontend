@@ -14,8 +14,6 @@ sectionOneContent: >-
   Next eye inc. (RealtyOffer™) is a tech company based in Delaware with offices located in Northville, MI. Consisting of real estate services, founded by Thea Tuto & Co. “Nexteye inc”. The objective of RealtyOffer™ is to streamline and disrupt the real estate industry. We intend to help the 90% of agents who can’t find consistency and educate and empower the 90% of consumers that are unaware of certain incentives they can take advantage of. Agents will have consistent opportunities without needing to spend thousands on wasted marketing. Agents simply offer less commission to sell a home or offer part of your commission to a consumer to purchase a home; pure savings to all parties involved. 
 youtubeVideoId: R9jCqtpG770
 sectionTwoHeading: Why Invest
-sectionTwoContent: >-
-RealtyOffer™ will connect the consumer with the agent, while removing the upfront negotiation. Our proprietary bidding platform will be the first of its kind. RealtyOffer™ is preparing to disrupt the industry through innovation and technology. 
 sectionTwoCards:
   - heading: title
     content: string
