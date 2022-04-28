@@ -31,13 +31,14 @@ content: >-
   Welcome to RealtyOffer™!
 teamMembers:
   - name: Thea Ramadan
-    title: CEO & Founder
-    bio: bio tbd
+    title: Co-Founder & CEO
+    bio: >-
+    Thea Tuto is co-founder and chief executive officer of RealtyOffer, the first automated bidding platform of its kind, designed to educate and empower consumers looking to buy or sell a home and connect them with top-rated certified agents. 
+
+Since becoming a licensed real estate agent in 2015, Thea has represented hundreds of buyers and sellers in southeast Michigan. Her experience as an agent led her to want to modernize and streamline the real estate transaction process for buyers, sellers and agents, fueling the creation of RealtyOffer, which launched in 2021.
+
+Thea attended Wayne State University in Detroit and she currently resides in Northville, Michigan with her husband and three daughters.
     avatar: /img/team-thea.png
-  - name: Danny Beydoun
-    title: Partner & COO
-    bio: bio tbd
-    avatar: /img/team-danny.png
   - name: Keith Hearns
     title: Partner & Designer in Chief
     bio: >-
@@ -50,7 +51,7 @@ teamMembers:
   - name: Tony Mamo
     title: Senior Software Engineer
     bio: >-
-      Tony is a software engineer with UX/UI designer skills, with over 15 years of professional experience, specializing in architecting scalable, maintainable front end systems paired with easy to use and beautiful looking interfaces. He is devoted to working on projects that move the world forward through innovative software. Tony has industry experience within recruitment, healthcare, e-commerce, logistics, and non-profit charity environments. 
+      Tony is a software engineer with UX/UI designer skills, with over 15 years of professional experience, specializing in architecting scalable, maintainable front end systems paired with easy to use and beautiful looking interfaces. He is devoted to working on projects that move the world forward through innovative software. Tony has industry experience within recruitment, healthcare, e-commerce, logistics, and non-profit charity environments.
 
       Based out of Metro Detroit, outside of his work life he is a woodworker, photographer, musician, foodie, adventurer, husband, and dad.
     avatar: /img/team-tony.jpg
