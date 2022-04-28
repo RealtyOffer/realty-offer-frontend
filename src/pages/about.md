@@ -4,8 +4,8 @@ metaTitle: Same Agent, Less Commission
 metaDescription: Meet the RealtyOffer™ Team
 metaKeywords: The real estate industry has not changed in 100 years.
 title: Meet the RealtyOffer™ Team
-heroImage: /img/Keys-Door.jpeg
-mobileHeroImage: /img/Keys-Door.jpeg
+heroImage: /img/about-us-hero-img.jpg
+mobileHeroImage: /img/about-us-hero-img.jpg
 mission: >-
   The real estate industry has not changed in 100 years. Purchasing a home is
   often the largest transaction a consumer will make in their lifetime, and yet
@@ -34,11 +34,11 @@ teamMembers:
     title: Co-Founder & CEO
     bio: >-
       Thea Tuto is co-founder and chief executive officer of RealtyOffer, the first automated bidding platform of its kind, designed to educate and empower consumers looking to buy or sell a home and connect them with top-rated certified agents.
-    
-    
+
+
       Since becoming a licensed real estate agent in 2015, Thea has represented hundreds of buyers and sellers in southeast Michigan. Her experience as an agent led her to want to modernize and streamline the real estate transaction process for buyers, sellers and agents, fueling the creation of RealtyOffer, which launched in 2021.
-    
-    
+
+
       Thea attended Wayne State University in Detroit and she currently resides in Northville, Michigan with her husband and three daughters.
     avatar: /img/team-thea.png
   - name: Keith Hearns

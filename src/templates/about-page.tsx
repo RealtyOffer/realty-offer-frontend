@@ -4,7 +4,17 @@ import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 
 import { doubleSpacer, decupleSpacer } from '../styles/size';
-import { HeroImage, PageContainer, Seo, Box, Heading, FlexContainer, Avatar } from '../components';
+import {
+  HeroImage,
+  PageContainer,
+  Seo,
+  Box,
+  Heading,
+  FlexContainer,
+  Avatar,
+  Row,
+  Column,
+} from '../components';
 import { fontSizeH6 } from '../styles/typography';
 
 type AboutPageProps = {
@@ -35,10 +45,17 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
         imageWidth={props.heroImage.childImageSharp.fixed.width}
         imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} hasOverlay />
+      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} hasOverlay>
+        <PageContainer>
+          <Row>
+            <Column md={7}>
+              <Heading styledAs="title">{props.title}</Heading>
+            </Column>
+          </Row>
+        </PageContainer>
+      </HeroImage>
       <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
-          <Heading as="h1">{props.title}</Heading>
           <div style={{ fontSize: fontSizeH6 }}>
             <ReactMarkdown source={props.mission} />
           </div>
