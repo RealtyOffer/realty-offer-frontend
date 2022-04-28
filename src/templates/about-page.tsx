@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 
-import { doubleSpacer, decupleSpacer, tripleSpacer } from '../styles/size';
+import { doubleSpacer, decupleSpacer } from '../styles/size';
 import { HeroImage, PageContainer, Seo, Box, Heading, FlexContainer, Avatar } from '../components';
 import { fontSizeH6 } from '../styles/typography';
 
@@ -35,11 +35,11 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
         imageWidth={props.heroImage.childImageSharp.fixed.width}
         imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} />
+      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} hasOverlay />
       <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
           <Heading as="h1">{props.title}</Heading>
-          <div style={{ fontSize: fontSizeH6, columns: `24rem auto`, columnGap: tripleSpacer }}>
+          <div style={{ fontSize: fontSizeH6 }}>
             <ReactMarkdown source={props.mission} />
           </div>
           <br />
