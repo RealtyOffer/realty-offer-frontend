@@ -37,7 +37,7 @@ heroCarousel:
     heroNavIcon: FaHandsHelping
 sectionOneHeading: Wondering How it Works?
 sectionOne:
-  - mainImage: /img/sectionOne - 1.png
+  - mainImage: /img/mobile-consumer-registration.png
     secondaryImage: /img/sectionOne - secondary 1.png
     heading: Complete a Simple Form
     content: >-
@@ -46,7 +46,7 @@ sectionOne:
       Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
     callToActionLink: /consumer/start
     callToActionText: Get Started Now
-  - mainImage: /img/sectionOne - 2.png
+  - mainImage: /img/mobile-app-bid-page.png
     secondaryImage: /img/sectionOne - secondary 2.png
     heading: Agents Bid to Win Your Business
     content: >-
@@ -54,7 +54,7 @@ sectionOne:
       The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means less money you bring to the closing table.
     callToActionLink: /
     callToActionText: Learn More Now
-  - mainImage: /img/sectionOne - 3.png
+  - mainImage: /img/mobile-app-awarded-bid-details.png
     secondaryImage: /img/sectionOne - secondary 3.png
     heading: Choose Your Winning Agent
     content: >-
