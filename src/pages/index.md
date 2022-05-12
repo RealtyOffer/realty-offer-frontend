@@ -64,6 +64,14 @@ sectionOne:
     callToActionText: Learn More Now
 sectionTwoHeading: Agents Bid for My Business?
 sectionTwoContent: In order to win your business agents can choose to reduce their commission on the sale of your home, or on the purchase of a new home, the agent can contribute part of their commission to be used towards your closing costs--this means less money that you bring to the table!
+sectionTwoListHeading: >-
+  Agents can also provide additional money to be used on things like:
+sectionTwoListItems:
+  - item: Moving Costs
+  - item: Compliance Feeds
+  - item: Photography
+  - item: Inspection Feeds
+  - item: And more...
 sectionThreeHeading: How Much Money Can I Save?
 sectionThreeContent: Estimate how much money you can save by using the calculators below. RealtyOffer™ is a completely free platform--No contracts, No obligations, and No awkward negotiations
 sectionFourHeading: Why RealtyOffer™?
