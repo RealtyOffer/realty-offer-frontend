@@ -10,18 +10,18 @@ heroHeading: Looking to Buy a New Home?
 heroSubheading: >-
  RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs! Welcome to RealtyOffer™
 sectionOneHeading: Need help with Closing Costs?
-sectionOneSubheading: RealtyOffer™ agents are ready to help. How? Simple. When purchasing a home, agents typically recevie half of the commission during the sale, if not more. RealtyOffer™ agents are willing to contribute part of their commission to be applied towards your closing costs. This means less money you bring to the table! 
+sectionOneSubheading: RealtyOffer™ agents are ready to help. How? Simple. When purchasing a home, agents typically recevie half of the commission during the sale, if not more. RealtyOffer™ agents are willing to contribute part of their commission to be applied towards your closing costs. This means less money you bring to the table!
 sectionOneImage: /img/buyingAHome.png
 sectionOneContent: >-
   How Much?
-    
-  
+
+
   RealtyOffer™ clients have been receiving an average of 1% to 1.5% from our agents to be applied towards closing costs.
-    
-  
+
+
   Example: $400,000 sale = $4,000 to $6,000 contributed towards your closing costs! See how much you can save below.
 sectionTwoHeading: The New Way to Buy or Sell a Home
-sectionTwoSubheading: 
+sectionTwoSubheading:
 sectionTwoImage: /img/sellingAHome.png
 sectionTwoContent: >-
   Purchasing a home is often the largest transaction a consumer will make in their lifetime. To this day, consumers are lost throughout the process. Sellers are paying too much commission, while there are no incentives to the buyer. Welcome to RealtyOffer™
@@ -29,13 +29,13 @@ sectionTwoContent: >-
 
 sectionThreeHeading: Top Local Agents in Your Area
 sectionThreeList:
-  - text: All RealtyOffer™ Agents have been in the business for at least 2 years, and have closed 12 listings in the last year.
+  - text: Experience is a must! Our local agents are licensed and vetted. All agents must have closed at least 12 transactions in the past year and have a license in good standing with the state and realtor associations.
     icon: FaClock
-  - text: RealtyOffer™ makes sure to match you with Agents who specialize in buying and selling homes within your price range
+  - text: RealtyOffer™ allows AI software to connect you with specialized agents in your area, that have the most experience with selling or buying a home.
     icon: FaFileInvoiceDollar
-  - text: TODO
+  - text:No contracts, no obligation, no awkward negotiation. RealtyOffer™ empowers and educates the consumer – if you are not happy with your agent, simply cancel and start over. Completely free!
     icon: FaUsers
-  - text: RealtyOffer™ makes sure that all Agents bidding in a city are knowledgable in that area, and is actively working within the city.
+  - text: Need a live consultant, RealtyOffer™ will answer and guide you with any questions you have. Our founders have over 25 years of experience in the Real Estate industry.
     icon: FaMapMarkedAlt
 sectionFourHeading: Don't take our word for it. Read what previous customers have to say!
 sectionFourSubheading: Average customer saves $5,450
