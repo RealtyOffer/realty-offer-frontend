@@ -33,7 +33,7 @@ sectionThreeList:
     icon: FaClock
   - text: RealtyOffer™ allows AI software to connect you with specialized agents in your area, that have the most experience with selling or buying a home.
     icon: FaFileInvoiceDollar
-  - text:No contracts, no obligation, no awkward negotiation. RealtyOffer™ empowers and educates the consumer – if you are not happy with your agent, simply cancel and start over. Completely free!
+  - text: No contracts, no obligation, no awkward negotiation. RealtyOffer™ empowers and educates the consumer – if you are not happy with your agent, simply cancel and start over. Completely free!
     icon: FaUsers
   - text: Need a live consultant, RealtyOffer™ will answer and guide you with any questions you have. Our founders have over 25 years of experience in the Real Estate industry.
     icon: FaMapMarkedAlt
