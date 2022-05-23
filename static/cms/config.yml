@@ -332,16 +332,7 @@ collections:
           - { label: "Section One Content", name: sectionOneContent, widget: markdown }
           - { label: "Youtube Video ID", name: youtubeVideoId, widget: string }
           - { label: "Section Two Heading", name: sectionTwoHeading, widget: string }
-          - {
-            label: "Section Two Cards",
-            name: sectionTwoCards,
-            widget: list,
-            fields:
-              [
-                { label: Heading, name: heading, widget: string },
-                { label: Content, name: content, widget: markdown },
-              ],
-          }
+          - { label: "Section Two Content", name: sectionTwoContent, widget: markdown }
           - { label: "Section Three Heading", name: sectionThreeHeading, widget: string }
           - { label: "Section Three Content", name: sectionThreeContent, widget: markdown }
           - { label: "Lead Form Title", name: leadFormTitle, widget: string }

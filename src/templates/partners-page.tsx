@@ -39,10 +39,7 @@ type PartnerPageProps = {
   sectionOneContent: string;
   youtubeVideoId: string;
   sectionTwoHeading: string;
-  sectionTwoCards: Array<{
-    heading: string;
-    content: string;
-  }>;
+  sectionTwoContent: string;
   sectionThreeHeading: string;
   sectionThreeContent: string;
   leadFormTitle: string;
@@ -99,22 +96,21 @@ export const PartnerPageTemplate: FunctionComponent<PartnerPageProps> = (props) 
               />
               <br />
               <br />
-
-              <Heading as="h1">{props.sectionTwoHeading}</Heading>
-              <Row>
-                {props.sectionTwoCards.map((card) => (
-                  <Column sm={6} key={card.heading}>
-                    <Box>
-                      <Heading as="h2">{card.heading}</Heading>
-                      <ReactMarkdown source={card.content} />
-                    </Box>
-                  </Column>
-                ))}
-              </Row>
+              <Heading as="h2" styledAs="title">
+                Why Invest
+              </Heading>
+              <Heading as="h3" styledAs="subtitle">
+                {props.sectionTwoHeading}
+              </Heading>
+              <div style={{ fontSize: fontSizeH6, columns: `24rem auto`, columnGap: tripleSpacer }}>
+                <ReactMarkdown source={props.sectionTwoContent} />
+              </div>
               <br />
               <br />
 
-              <Heading as="h1">{props.sectionThreeHeading}</Heading>
+              <Heading as="h3" styledAs="subtitle">
+                {props.sectionThreeHeading}
+              </Heading>
               <div style={{ fontSize: fontSizeH6, columns: `24rem auto`, columnGap: tripleSpacer }}>
                 <ReactMarkdown source={props.sectionThreeContent} />
               </div>
@@ -274,10 +270,7 @@ export const partnerPageQuery = graphql`
         sectionOneContent
         youtubeVideoId
         sectionTwoHeading
-        sectionTwoCards {
-          heading
-          content
-        }
+        sectionTwoContent
         sectionThreeHeading
         sectionThreeContent
         leadFormTitle
