@@ -81,7 +81,7 @@ const SavingsCalculator = (props: SavingsCalculatorProps): JSX.Element => {
             <em>Estimated {props.type === 'buying' ? 'Purchase' : 'Selling'} Price</em>
           </small>
         </p>
-        <Button type="link" to={props.type === 'buying' ? '/buy' : '/sell'}>
+        <Button type="link" to={props.type === 'buying' ? '/buy' : '/sell'} color="tertiary">
           {props.type === 'buying' ? 'Buy A Home' : 'Sell Your Home'}
         </Button>
       </SlidderWrapper>

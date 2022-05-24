@@ -1,6 +1,7 @@
 import { Link } from '@reach/router';
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { graphql, navigate } from 'gatsby';
+import scrollTo from 'gatsby-plugin-smoothscroll';
 import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
@@ -22,6 +23,7 @@ import {
   FlexContainer,
   PreviewCompatibleImage,
   SavingsCalculator,
+  HeroImage,
 } from '../components';
 
 import {
@@ -31,10 +33,12 @@ import {
   halfSpacer,
   decupleSpacer,
   tripleSpacer,
+  quadrupleSpacer,
 } from '../styles/size';
 import {
   brandPrimary,
   brandTertiary,
+  brandTertiaryHover,
   lightestGray,
   lightGray,
   textColor,
@@ -42,13 +46,8 @@ import {
 } from '../styles/color';
 import { RootState } from '../redux/ducks';
 import { z1Shadow } from '../styles/mixins';
-import { fontSizeSmall } from '../styles/typography';
 
-type CarouselItemType = {
-  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
-  heroHeading: string;
-  heroContent: string;
-  heroCTA: string;
+type HeroNavItemType = {
   heroLink: string;
   heroNavText: string;
   heroNavIcon: IconType;
@@ -68,7 +67,12 @@ type IndexPageProps = {
   metaDescription: string;
   metaKeywords: string;
   title: string;
-  heroCarousel: CarouselItemType[];
+  heroHeading: string;
+  heroSubheading: string;
+  heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
+  mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
+  heroCTA: string;
+  heroNav: HeroNavItemType[];
   sectionOneHeading: string;
   sectionOne: SectionOneType[];
   sectionTwoHeading: string;
@@ -107,38 +111,12 @@ type IndexPageProps = {
   }>;
 };
 
-const CarouselContent = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-
 const CarouselWrapper = styled.div`
   isolation: isolate;
   margin-top: -${baseSpacer};
   @media only screen and (min-width: ${breakpoints.sm}) {
     margin-top: -${doubleSpacer};
   }
-`;
-
-const CarouselBackground = styled.div`
-  height: 400px;
-  background-image: ${(props: { imgSrc: CarouselItemType['heroImage'] }) =>
-    `url('${props.imgSrc.childImageSharp.fluid.src}')`};
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
-const GradientOverlay = styled.div`
-  background: rgb(255, 255, 255);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 80%);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 `;
 
 const CarouselNavigationBackground = styled.div`
@@ -151,15 +129,18 @@ const CarouselNavigation = styled.div`
   justify-content: center;
 `;
 
-const CarouselNavigationItem = styled.div<{ active: boolean }>`
+const CarouselNavigationItem = styled(Link)`
   padding: ${baseSpacer};
   text-align: center;
-  background: ${(props) => (props.active ? brandTertiary : 'inherit')};
-  color: ${(props) => (props.active ? white : 'inherit')};
+  color: ${brandTertiary};
   border-right: 1px solid ${lightGray};
   flex: 1;
   &:first-of-type {
     border-left: 1px solid ${lightGray};
+  }
+  &:hover,
+  &:focus {
+    color: ${brandTertiaryHover};
   }
 `;
 
@@ -184,13 +165,16 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
   metaTitle,
   metaDescription,
   metaKeywords,
-  heroCarousel,
+  heroImage,
+  mobileHeroImage,
+  heroHeading,
+  heroSubheading,
+  heroCTA,
+  heroNav,
   sectionOneHeading,
   sectionOne,
   sectionTwoHeading,
   sectionTwoContent,
-  sectionTwoListHeading,
-  sectionTwoListItems,
   sectionThreeHeading,
   sectionThreeContent,
   sectionFourHeading,
@@ -204,7 +188,6 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
 
-  const [activeCarouselItem, setActiveCarouselItem] = useState(0);
   const [activeCalculator, setActiveCalculator] = useState(0);
 
   useEffect(() => {
@@ -229,52 +212,40 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
         title={metaTitle}
         description={metaDescription}
         meta={[{ name: 'keywords', content: metaKeywords }]}
-        image={heroCarousel[0].heroImage.childImageSharp.fixed.src}
-        imageWidth={heroCarousel[0].heroImage.childImageSharp.fixed.width}
-        imageHeight={heroCarousel[0].heroImage.childImageSharp.fixed.height}
+        image={heroImage.childImageSharp.fixed.src}
+        imageWidth={heroImage.childImageSharp.fixed.width}
+        imageHeight={heroImage.childImageSharp.fixed.height}
       />
-      <CarouselWrapper>
-        <Carousel fade indicators={false} controls={false} activeIndex={activeCarouselItem}>
-          {heroCarousel.map((heroItem) => (
-            <Carousel.Item key={heroItem.heroHeading}>
-              <CarouselBackground imgSrc={heroItem.heroImage} />
-              <GradientOverlay />
-              <CarouselContent>
-                <FlexContainer justifyContent="center" alignItems="center" height="100%">
-                  <PageContainer>
-                    <Row>
-                      <Column xs={8} sm={6}>
-                        <Heading styledAs="title">{heroItem.heroHeading}</Heading>
-                        <Heading as="h6">{heroItem.heroContent}</Heading>
-                        <Button type="link" to={heroItem.heroLink} rightspacer>
-                          {heroItem.heroCTA}
-                        </Button>
-                      </Column>
-                    </Row>
-                  </PageContainer>
-                </FlexContainer>
-              </CarouselContent>
-            </Carousel.Item>
-          ))}
-        </Carousel>
-      </CarouselWrapper>
+      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
+        <PageContainer>
+          <Row>
+            <Column md={7}>
+              <Heading styledAs="title">{heroHeading}</Heading>
+              <Heading as="h6">
+                <ReactMarkdown source={heroSubheading} />
+              </Heading>
+              <Button type="button" onClick={() => scrollTo('#start')} color="tertiary">
+                {heroCTA}
+              </Button>
+            </Column>
+          </Row>
+        </PageContainer>
+      </HeroImage>
+
       <CarouselNavigationBackground>
         <PageContainer>
           <CarouselNavigation>
-            {heroCarousel.map((heroItem, index) => {
+            {heroNav.map((heroItem) => {
               const Icon = FaIcon[heroItem.heroNavIcon];
               return (
-                <CarouselNavigationItem
-                  role="button"
-                  tabIndex={0}
-                  key={heroItem.heroNavText}
-                  onClick={() => setActiveCarouselItem(index)}
-                  onKeyPress={() => setActiveCarouselItem(index)}
-                  active={activeCarouselItem === index}
-                >
+                <CarouselNavigationItem to={heroItem.heroLink} key={heroItem.heroNavText}>
                   <Icon size={doubleSpacer} style={{ margin: halfSpacer }} />
                   <br />
                   {heroItem.heroNavText}
+                  <br />
+                  <small>
+                    Learn more <FaChevronRight />
+                  </small>
                 </CarouselNavigationItem>
               );
             })}
@@ -291,84 +262,65 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           </Heading>
         </PageContainer>
 
-        <SectionCarouselWrapper>
-          <Carousel
-            nextIcon={<FaChevronRight color={brandPrimary} size={doubleSpacer} />}
-            prevIcon={<FaChevronLeft color={brandPrimary} size={doubleSpacer} />}
-          >
-            {sectionOne.map((item) => (
-              <Carousel.Item key={item.heading}>
-                <Row>
-                  <Column xs={8} xsOffset={2} sm={8} smOffset={2}>
-                    <Row>
-                      <Column md={6}>
-                        <FlexContainer justifyContent="center" alignItems="center" height="100%">
-                          <PreviewCompatibleImage
-                            imageInfo={{
-                              image: item.mainImage.childImageSharp.fluid.src,
-                              alt: '',
-                            }}
-                          />
-                        </FlexContainer>
-                      </Column>
-                      <Column md={6}>
-                        <FlexContainer
-                          justifyContent="center"
-                          alignItems="center"
-                          height="100%"
-                          flexWrap="nowrap"
-                          flexDirection="column"
-                        >
-                          <div style={{ height: 200, width: 200, margin: '0 auto' }}>
-                            <PreviewCompatibleImage
-                              imageInfo={{
-                                image: item.secondaryImage.childImageSharp.fluid.src,
-                                alt: '',
-                              }}
-                            />
-                          </div>
-                          <Heading as="h2" styledAs="subtitle">
-                            {item.heading}
-                          </Heading>
+        {sectionOne.map((item, index) => (
+          <Row key={item.callToActionLink} style={{ marginTop: quadrupleSpacer }}>
+            <Column md={6} xsOrder={index % 2 === 0 ? 0 : 1}>
+              <FlexContainer justifyContent="center" alignItems="center" height="100%">
+                <PreviewCompatibleImage
+                  imageInfo={{
+                    image: item.mainImage.childImageSharp.fluid.src,
+                    alt: '',
+                  }}
+                />
+              </FlexContainer>
+            </Column>
+            <Column md={4} mdOffset={index % 2 === 0 ? 0 : 2} xsOrder={index % 2 === 0 ? 1 : 0}>
+              <FlexContainer
+                height="100%"
+                flexWrap="nowrap"
+                flexDirection="column"
+                alignItems="flex-start"
+              >
+                <Heading as="h4">0{index + 1}</Heading>
+                <Heading as="h2" styledAs="subtitle">
+                  {item.heading}
+                </Heading>
 
-                          <ReactMarkdown source={item.content} />
+                <ReactMarkdown source={item.content} />
 
-                          <Button type="link" to={item.callToActionLink} block color="tertiary">
-                            {item.callToActionText}
-                          </Button>
-                        </FlexContainer>
-                      </Column>
-                    </Row>
-                  </Column>
-                </Row>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </SectionCarouselWrapper>
+                <Button
+                  type="link"
+                  to={item.callToActionLink}
+                  color={index % 2 === 0 ? 'tertiary' : 'primary'}
+                >
+                  {item.callToActionText}
+                </Button>
+              </FlexContainer>
+            </Column>
+          </Row>
+        ))}
+      </section>
+
+      <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: brandTertiary }}>
+        <PageContainer>
+          <Row>
+            <Column md={8} mdOffset={2}>
+              <div style={{ textAlign: 'center' }}>
+                <Heading as="h2" align="center" inverse>
+                  {sectionTwoHeading}
+                </Heading>
+                <p style={{ color: white }}>{sectionTwoContent}</p>
+              </div>
+            </Column>
+          </Row>
+        </PageContainer>
       </section>
 
       <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
-          <Heading as="h2" styledAs="title" align="center">
-            {sectionTwoHeading}
-          </Heading>
           <Row>
-            <Column lg={10} lgOffset={1}>
+            <Column md={8} mdOffset={2}>
               <div style={{ textAlign: 'center' }}>
-                <p>{sectionTwoContent}</p>
-                <p>{sectionTwoListHeading}</p>
-                <ul style={{ marginBottom: tripleSpacer }}>
-                  {sectionTwoListItems.map((item) => (
-                    <li key={item.item} style={{ display: 'inline-block', padding: baseSpacer }}>
-                      <FaIcon.FaCircle
-                        color={brandPrimary}
-                        style={{ verticalAlign: 'initial', marginRight: halfSpacer }}
-                        size={fontSizeSmall}
-                      />{' '}
-                      {item.item}
-                    </li>
-                  ))}
-                </ul>
                 <Heading as="h2" styledAs="subtitle" align="center">
                   {sectionThreeHeading}
                 </Heading>
@@ -396,16 +348,20 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           <Box>
             <SavingsCalculator type={activeCalculator === 0 ? 'buying' : 'selling'} />
           </Box>
-          <p style={{ textAlign: 'center', opacity: 0.8 }}>
-            <small>
-              <em>
-                * The above averages are based on our current customer deals. These numbers can be
-                lower, and or higher depending on the listing. The average Selling commission for a
-                home listed at $200,000 will be a lot higher than that of a home listed for
-                $1,000,000.
-              </em>
-            </small>
-          </p>
+          <Row>
+            <Column md={8} mdOffset={2}>
+              <p style={{ textAlign: 'center', opacity: 0.8 }}>
+                <small>
+                  <em>
+                    * The above averages are based on our current customer deals. These numbers can
+                    be lower, and or higher depending on the listing. The average Selling commission
+                    for a home listed at $200,000 will be a lot higher than that of a home listed
+                    for $1,000,000.
+                  </em>
+                </small>
+              </p>
+            </Column>
+          </Row>
         </PageContainer>
       </section>
       <section
@@ -549,20 +505,27 @@ export const pageQuery = graphql`
         metaDescription
         metaKeywords
         title
-        heroCarousel {
-          heroImage {
-            childImageSharp {
-              fluid(maxWidth: 2400, quality: 60) {
-                ...GatsbyImageSharpFluid
-              }
-              fixed(width: 1080, quality: 60) {
-                ...GatsbyImageSharpFixed
-              }
+        heroImage {
+          childImageSharp {
+            fluid(maxWidth: 2400, quality: 60) {
+              ...GatsbyImageSharpFluid
+            }
+            fixed(width: 1080, quality: 60) {
+              ...GatsbyImageSharpFixed
             }
           }
-          heroHeading
-          heroContent
-          heroCTA
+        }
+        mobileHeroImage {
+          childImageSharp {
+            fluid(maxWidth: 512, quality: 40) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        heroHeading
+        heroSubheading
+        heroCTA
+        heroNav {
           heroLink
           heroNavText
           heroNavIcon

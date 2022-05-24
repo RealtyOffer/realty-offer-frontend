@@ -72,16 +72,17 @@ collections:
           - { label: "Meta Description", name: metaDescription, widget: string }
           - { label: "Meta Keywords", name: metaKeywords, widget: string }
           - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
+          - { label: "Hero Heading", name: heroHeading, widget: string }
+          - { label: "Hero Sub Heading", name: heroSubheading, widget: string }
+          - { label: "Hero CTA", name: heroCTA, widget: string }
           - {
-            label: "Hero Carousel",
-            name: heroCarousel,
+            label: "Hero Nav",
+            name: heroNav,
             widget: list,
             fields:
               [
-                { label: "Hero Image", name: heroImage, widget: image },
-                { label: "Hero Heading", name: heroHeading, widget: string },
-                { label: "Hero Content", name: heroContent, widget: string },
-                { label: "Hero CTA Text", name: heroCTA, widget: string },
                 { label: "Hero CTA Link", name: heroLink, widget: string },
                 { label: "Hero Carousel Nav Text", name: heroNavText, widget: string },
                 { label: "Hero Carousel Nav Icon", name: heroNavIcon, widget: string, hint: 'Copy an icon name from https://react-icons.github.io/react-icons/icons?name=fa' },
