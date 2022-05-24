@@ -200,7 +200,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
               />
             </Column>
           </Row>
-          <div style={{ fontSize: fontSizeH6, columns: `24rem auto`, columnGap: tripleSpacer }}>
+          <div style={{ fontSize: fontSizeH6 }}>
             <ReactMarkdown source={sectionOneContent} />
           </div>
         </PageContainer>
