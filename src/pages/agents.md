@@ -8,10 +8,9 @@ metaKeywords: real estate leads, real estate buyer leads, real estate seller lea
 title: Same Agent, Less Commission
 heroImage: /img/realtyoffer-agents-hero-image.jpg
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
-heroHeading: Brokers & Agents... Do you love making money?
+heroHeading: Brokers & Agents, ready to grow your business?
 heroSubheading: >-
-  Do you spend thousands of dollars per month on marketing, hoping it will bring
-  you leads, that just don't go anywhere?
+  Are you looking for consistency?
 
 
   Welcome to RealtyOffer™! The one-stop shop for the buyer, seller, and agent.
@@ -22,13 +21,13 @@ sectionOneContent: >-
   RealtyOffer™ will connect you with serious clients. Instead of spending thousands of dollars on wasted real estate leads, agents will have the opportunity to simply bid for their next client.
 
 
-  The bidding works two ways: choose to discount your commission for a sale, or offer part of your commission for a purchase – the amount is up to you.
+  The bidding works two ways: agents can choose to discount their commission for a sale or offer part of their commission as a contribution toward client closings costs on a purchase – the amount offered is up to the agent.
 sectionTwoHeading: Here's how it works
 sectionTwoSteps:
-  - heading: Client Creates Listing
+  - heading: Client Creates Lead
     image: /img/agents-how-it-works-1.png
     content: >-
-      A buyer/seller completes a short form, answering questions about their home, or the home they are looking to purchase
+      A buyer/seller completes a short form, answering questions about their home, or criteria for the home they are looking to purchase.
   - heading: Local Agents Are Notified
     image: /img/agents-how-it-works-2.png
     content: >-
@@ -36,14 +35,14 @@ sectionTwoSteps:
   - heading: Agents Place Bids
     image: /img/agents-how-it-works-3.png
     content: >-
-      All agents who work in the area that the listing is created within are notified that a new listing is available to bid on. Agents have 24 hours to place a bid.
+      All agents who work in the area that the lead is created within are notified that a new lead is available to bid on. Agents have 24 hours to place their bid.
   - heading: Customer Selects a Winner
     image: /img/agents-how-it-works-4.png
     content: >-
-      The client is presented with the top 3 agents. Once an agent is selected, the clients information is shared with the winning agent.
+      The client is presented with the top 3 bids. Once a bid is selected, contact information is provided to the client and to the winning agent.
 sectionThreeHeading: How Much Does It Cost?
 sectionThreeContent: >-
-  asdf
+  Check out our pricing structure below. If you have any questions, you can reach us via the chat box, or by emailing us at info@realtyoffer.com.
 sectionThreeRowOne: Full access to bid on all listings within the RealtyOffer™ platform.
 sectionThreeRowTwo: If you are awarded a bid, you will have to a pay a one-time fee of $295.
 sectionThreeRowThree: Unlimited matches at no additional cost. Each city has a monthly subscription fee that ranges from $199 to $995.
@@ -57,13 +56,11 @@ sectionFourContent: >-
 
   - Must be an agent for at least 12 months
 
-  - Must have closed 6 transactions, 3 of which you were representing the seller
+  - Must have closed 6 transactions, 3 of which must be listings
 
-  - No penalties
+  - License must be in good standing in the State of Michigan
 
-  - Licensed in the State of Michigan
-
-  - Active membership with a realtor association ***
+  - Active membership with a realtor association within the state of Michigan
 sectionFiveHeading: Now available for iOS and Android
 sectionFiveContent: >-
   RealtyOffer™ makes bidding easy. Agents can bid in seconds from the palm of their hands.
