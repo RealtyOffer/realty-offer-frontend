@@ -15,7 +15,7 @@ heroSubheading: >-
 
   Welcome to RealtyOffer™! The one-stop shop for the buyer, seller, and agent.
 sectionOneHeading: Do you spend thousands of dollars per month on marketing?
-sectionOneSubheading: Stop paying up front – only pay when you receive a new client
+sectionOneSubheading: Stop paying up front – only pay when you receive a new client!
 sectionOneImage: /img/agents-page-section-one-image.png
 sectionOneContent: >-
   RealtyOffer™ will connect you with serious clients. Instead of spending thousands of dollars on wasted real estate leads, agents will have the opportunity to simply bid for their next client.
@@ -32,17 +32,17 @@ sectionTwoSteps:
     image: /img/agents-how-it-works-2.png
     content: >-
       All agents who work in the area that the listing is created within are notified that a new listing is available to bid on. Agents have 24 hours to place a bid.
-  - heading: Agents Place Bids
-    image: /img/agents-how-it-works-3.png
-    content: >-
-      All agents who work in the area that the lead is created within are notified that a new lead is available to bid on. Agents have 24 hours to place their bid.
+  # - heading: Agents Place Bids
+  #   image: /img/agents-how-it-works-3.png
+  #   content: >-
+  #     All agents who work in the area that the lead is created within are notified that a new lead is available to bid on. Agents have 24 hours to place their bid.
   - heading: Customer Selects a Winner
     image: /img/agents-how-it-works-4.png
     content: >-
       The client is presented with the top 3 bids. Once a bid is selected, contact information is provided to the client and to the winning agent.
 sectionThreeHeading: How Much Does It Cost?
 sectionThreeContent: >-
-  Check out our pricing structure below. If you have any questions, you can reach us via the chat box, or by emailing us at info@realtyoffer.com.
+  Check out our pricing structure below. If you have any questions, you can reach us via the chat box, by emailing us at info@realtyoffer.com, or call us at (248) 915-2654.
 sectionThreeRowOne: Full access to bid on all listings within the RealtyOffer™ platform.
 sectionThreeRowTwo: If you are awarded a bid, you will have to a pay a one-time fee of $295.
 sectionThreeRowThree: Unlimited matches at no additional cost. Each city has a monthly subscription fee that ranges from $199 to $995.

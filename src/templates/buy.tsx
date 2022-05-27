@@ -220,6 +220,15 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
           </Row>
           <br />
           <br />
+          <Heading as="h3" align="center">
+            Questions?
+          </Heading>
+          <p style={{ textAlign: 'center' }}>
+            Chat with one of our live consultants to get answers, or call us at{' '}
+            <a href="tel:+12489152654">(248) 915-2654</a>.
+          </p>
+          <br />
+          <br />
         </PageContainer>
       </section>
 

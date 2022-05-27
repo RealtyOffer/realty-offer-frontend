@@ -9,7 +9,7 @@ title: Important Considerations before Selling a House in Michigan
 date: 2022-01-18T07:40:50.411Z
 description: Owning a home in Michigan may be one of your most significant
   investments of all time.
-featuredimage: /img/shutterstock_image1_purchased.jpg
+featuredimage: /img/unsplash7.jpg
 tags:
   - Real Estate Market Trends
   - Real Estate Tips

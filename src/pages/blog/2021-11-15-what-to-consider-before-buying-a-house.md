@@ -9,7 +9,7 @@ title: What to consider before buying a house
 date: 2021-11-15T06:13:04.119Z
 description: Buying a home is one of the most important decisions that you will
   ever make in your lifetime.
-featuredimage: /img/shutterstock_image1_purchased.jpg
+featuredimage: /img/unsplash6.jpg
 tags:
   - Mortgage
   - Real Estate Agents

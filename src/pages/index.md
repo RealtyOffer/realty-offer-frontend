@@ -22,8 +22,8 @@ heroNav:
   - heroLink: /agents
     heroNavText: Become an Agent
     heroNavIcon: FaUserTie
-  - heroLink: /partners
-    heroNavText: Become a Partner
+  - heroLink: /investors
+    heroNavText: Become an Investor
     heroNavIcon: FaHandsHelping
 sectionOneHeading: Wondering How it Works?
 sectionOne:
@@ -31,7 +31,7 @@ sectionOne:
     secondaryImage: /img/sectionOne - secondary 1.png
     heading: Complete a Simple Form
     content: >-
-      Fill in some simple information, sit back and RealtyOffer™ will connect you with a certified and vetted agent, while removing the upfront negotiation.
+      Fill in some simple information, sit back and RealtyOffer™ will connect you with a licensed and vetted agent, while removing the upfront negotiation.
 
       Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
     callToActionLink: /consumer/start
@@ -41,19 +41,18 @@ sectionOne:
     heading: Agents Bid to Win Your Business
     content: >-
       Within 24 hours, RealtyOffer™ will allow top-rated agents in your area the opportunity to bid and win your business.
-      The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means less money you bring to the closing table.
+      The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means you bring less money to the closing table.
     callToActionLink: /
     callToActionText: Learn More Now
   - mainImage: /img/mobile-app-awarded-bid-details.png
     secondaryImage: /img/sectionOne - secondary 3.png
     heading: Choose Your Winning Agent
     content: >-
-      Within 24 hours you will be able to review the top three bids from compatible agents in your area. Choose the best offer and simply get connected, while removing the upfront awkward negotiation.
-
+      Within 24 hours you will be able to review the top 3 bids received from agents in your area. Choose the best offer, and simply get connected.
     callToActionLink: /frequently-asked-questions
     callToActionText: Learn More Now
 sectionTwoHeading: Agents Bid for My Business?
-sectionTwoContent: In order to win your business agents can choose to reduce their commission on the sale of your home, or on the purchase of a new home, the agent can contribute part of their commission to be used towards your closing costs--this means less money that you bring to the table!
+sectionTwoContent: In order to win your business, agents can choose to reduce their commission on the sale of your home. When purchasing a new home, agents can choose to contribute part of their commission toward your closing costs--this means you bring less money to the closing table.
 sectionTwoListHeading: >-
   Agents can also provide additional money to be used on things like:
 sectionTwoListItems:
@@ -66,7 +65,7 @@ sectionThreeHeading: How Much Money Can I Save?
 sectionThreeContent: Estimate how much money you can save by using the calculators below. RealtyOffer™ is a completely free platform--No contracts, No obligations, and No awkward negotiations
 sectionFourHeading: Why RealtyOffer™?
 sectionFourContent: >-
-  Our goal is to make buying or selling a home or getting a mortgage as easy and stress free as possible. Our AI digitized platform is designed to educate & empower the consumer and connect you with top-rated certified agents while saving thousands of dollars in the process.
+  Our goal is to make buying or selling a home as easy and stress-free as possible.Our AI digitized platform is designed to educate and empower the consumer, and connect them with top-rated agents, while saving thousands of dollars in the process.
 sectionFourLogosHeading: Our Agents work with the following Brokers
 sectionFourLogos:
   - logo: /img/broker1.png
@@ -100,10 +99,10 @@ sectionFiveCards:
     callToActionText: See more information about becoming an agent
     callToActionLink: /agents
   - image: /img/becomeAPartner.png
-    heading: Become a Partner
+    heading: Become an Investor
     content: Grow with RealtyOffer™
-    callToActionText: Find out the benefits of becoming a partner
-    callToActionLink: /partners
+    callToActionText: Find out the benefits of becoming a investor
+    callToActionLink: /investors
 testimonials:
   - quote: Quote here
     author: Person 1

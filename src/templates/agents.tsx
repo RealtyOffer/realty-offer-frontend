@@ -220,7 +220,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
           <br />
           <Row>
             {sectionTwoSteps.map((step, index) => (
-              <Column key={step.heading} sm={6} lg={3}>
+              <Column key={step.heading} sm={6} md={4}>
                 <Box largePadding>
                   <PreviewCompatibleImage
                     imageInfo={{
@@ -228,6 +228,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                       alt: '',
                     }}
                   />
+                  <br />
                   <Heading as="h4">
                     {index + 1}. {step.heading}
                   </Heading>

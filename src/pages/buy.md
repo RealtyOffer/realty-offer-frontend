@@ -8,9 +8,9 @@ heroImage: /img/realtyoffer-buy-hero-image.jpg
 mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
 heroHeading: Looking to Buy a New Home?
 heroSubheading: >-
- RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs! Welcome to RealtyOffer™
+  RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs! Welcome to RealtyOffer™
 sectionOneHeading: Need help with Closing Costs?
-sectionOneSubheading: RealtyOffer™ agents are ready to help. How? Simple. When purchasing a home, agents typically recevie half of the commission during the sale, if not more. RealtyOffer™ agents are willing to contribute part of their commission to be applied towards your closing costs. This means less money you bring to the table!
+sectionOneSubheading: RealtyOffer™ agents are ready to help by contributing part of their commission toward your closing costs. This means you bring less money to the closing table!
 sectionOneImage: /img/buyingAHome.png
 sectionOneContent: >-
   How Much?
@@ -24,8 +24,7 @@ sectionTwoHeading: The New Way to Buy or Sell a Home
 sectionTwoSubheading:
 sectionTwoImage: /img/sellingAHome.png
 sectionTwoContent: >-
-  Purchasing a home is often the largest transaction a consumer will make in their lifetime. To this day, consumers are lost throughout the process. Sellers are paying too much commission, while there are no incentives to the buyer. Welcome to RealtyOffer™
-  RealtyOffer™ will connect the consumer with the agent, while removing the negotiation out of the way. Our proprietary bidding platform is the first of its kind. RealtyOffer™ has automated the process of buying and selling a home while educating and saving the consumer thousands of dollars. RealtyOffer™ will allow agents to offer a percentage of their commission in order to pay for your upfront closing costs. Imagine getting paid to purchase a home!
+  Purchasing a home is often the largest transaction a consumer will make in their lifetime. To this day, consumers are lost throughout the process. Sellers are paying too much commission, while there are no incentives to the buyer. RealtyOffer™ will connect the consumer with the agent, saving them money while avoiding the awkward negotiation. Our proprietary bidding platform is the first of its kind. RealtyOffer™ has automated the process of buying and selling a home while educating and saving the consumer thousands of dollars. RealtyOffer™ will allow agents to offer a percentage of their commission in order to pay for your upfront closing costs. Imagine getting paid to purchase a home!
 
 sectionThreeHeading: Top Local Agents in Your Area
 sectionThreeList:

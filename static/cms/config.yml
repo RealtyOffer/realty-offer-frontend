@@ -311,15 +311,15 @@ collections:
                 { label: Link, name: link, widget: string },
               ],
           }
-      - file: "src/pages/partners.md"
-        label: "Partners"
-        name: "partners"
+      - file: "src/pages/investors.md"
+        label: "Investors"
+        name: "investors"
         fields:
           - {
               label: "Template Key",
               name: "templateKey",
               widget: "hidden",
-              default: "partners-page",
+              default: "investors-page",
             }
           - { label: "Meta Title", name: metaTitle, widget: string }
           - { label: "Meta Description", name: metaDescription, widget: string }

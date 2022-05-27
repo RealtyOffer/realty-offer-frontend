@@ -281,7 +281,6 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                 flexDirection="column"
                 alignItems="flex-start"
               >
-                <Heading as="h4">0{index + 1}</Heading>
                 <Heading as="h2" styledAs="subtitle">
                   {item.heading}
                 </Heading>
@@ -377,10 +376,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           <p>{sectionFourLogosHeading}</p>
         </PageContainer>
         <SectionCarouselWrapper>
-          <Carousel
-            nextIcon={<FaChevronRight color={brandPrimary} size={doubleSpacer} />}
-            prevIcon={<FaChevronLeft color={brandPrimary} size={doubleSpacer} />}
-          >
+          <Carousel slide>
             {logosArray.map((logos, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <Carousel.Item key={`carousel-logo+${index}`}>

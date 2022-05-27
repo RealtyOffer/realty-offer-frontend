@@ -74,13 +74,13 @@ const Footer = () => (
 
         <Row>
           <Column md={6} lg={5}>
-            <p style={{ lineHeight: 1.2 }}>
+            {/* <p style={{ lineHeight: 1.2 }}>
               <small>
                 Need to buy or sell a home? Need a mortgage consultation or second review? Our
                 directors at RealtyOffer have been helping new and existing homeowners for over 25
                 years!
               </small>
-            </p>
+            </p> */}
             <p style={{ lineHeight: 1.2 }}>
               <small>
                 Our goal is to make buying/selling a home, or getting a mortgage, as easy and
@@ -169,9 +169,9 @@ const Footer = () => (
             <p>
               <Link to="/consumer/start">Buy or Sell</Link>
             </p>
-            <p>
+            {/* <p>
               <Link to="/mortgage-consultation">Mortgage Consultation</Link>
-            </p>
+            </p> */}
             <br />
             <Heading as="h5" inverse>
               AGENTS

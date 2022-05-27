@@ -115,7 +115,9 @@ const BlogRoll: FunctionComponent<BlogRollProps> = ({ posts }) => {
                 </Heading>
                 <HorizontalRule />
 
-                <small style={{ fontStyle: 'italic' }}>{post.frontmatter.description}</small>
+                <small style={{ fontStyle: 'italic', display: 'block', marginBottom: baseSpacer }}>
+                  {post.frontmatter.description}
+                </small>
               </div>
             </Box>
           </Column>

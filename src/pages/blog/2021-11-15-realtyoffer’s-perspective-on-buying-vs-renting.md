@@ -10,7 +10,7 @@ date: 2021-11-15T05:50:07.374Z
 description: Buying a home is one of the most important decisions that you will
   ever make in your lifetime.
 featuredpost: false
-featuredimage: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x.png
+featuredimage: /img/unsplash5.jpg
 tags:
   - Mortgage
   - Real Estate Agents

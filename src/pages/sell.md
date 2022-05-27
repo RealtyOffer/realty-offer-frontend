@@ -11,9 +11,9 @@ heroSubheading: >-
   Need to sell your home and worried about paying high commission?
 
 
-  RealtyOffer™ will allow agents in your area to bid lower commission rates to win your business!Completely free.
+  RealtyOffer™ will allow agents in your area to bid lower commission rates to win your business! Completely free.
 sectionOneHeading: Ready to Save Thousands of Dollars?
-sectionOneSubheading: Save 1.5% when listing with a RealtyOffer™ agent
+sectionOneSubheading: Save up to 1.5% when listing with a RealtyOffer™ agent
 sectionOneImage: /img/sellingAHome.png
 sectionOneContent: >-
   Within 24 hours you will receive the lowest commission offers to list and sell your home. Our clients are saving up to two percent off the typical commissions agents usually charge, which in turn is saving thousands of dollars!
