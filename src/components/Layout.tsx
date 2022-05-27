@@ -17,6 +17,7 @@ import PageContainer from './PageContainer';
 import ErrorBoundary from './ErrorBoundary';
 import CssReset from '../styles/cssReset';
 import AwardBanner from './AwardBanner';
+import ClientOnly from './ClientOnly';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -64,7 +65,11 @@ const Layout: FunctionComponent<LayoutProps> = ({ element, props }) => {
             {(props.location.pathname === '' ||
               props.location.pathname === '/' ||
               props.location.pathname === '/investors' ||
-              props.location.pathname === '/investors/') && <AwardBanner />}
+              props.location.pathname === '/investors/') && (
+              <ClientOnly>
+                <AwardBanner />
+              </ClientOnly>
+            )}
             <PageContainer>
               <GlobalBanners />
             </PageContainer>
