@@ -373,7 +373,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
         </section>
       </HeroImage>
 
-      <section
+      {/* <section
         style={{
           padding: `${decupleSpacer} 0`,
           backgroundColor: white,
@@ -440,7 +440,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             </Carousel>
           </SectionCarouselWrapper>
         </PageContainer>
-      </section>
+      </section> */}
       <section
         style={{
           padding: `${decupleSpacer} 0`,
@@ -470,7 +470,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
               </FlexContainer>
             </Column>
             <Column md={6}>
-              <LiteYoutubeEmbed id="USvuAqJF3Is" isMobile={Boolean(size.isSmallScreen)} lazyImage />
+              <LiteYoutubeEmbed id="R9jCqtpG770" isMobile={Boolean(size.isSmallScreen)} lazyImage />
             </Column>
           </Row>
         </PageContainer>

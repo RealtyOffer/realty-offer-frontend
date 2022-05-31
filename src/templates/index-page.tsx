@@ -260,44 +260,53 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           <Heading as="h3" styledAs="title" align="center">
             {sectionOneHeading}
           </Heading>
-        </PageContainer>
-
-        {sectionOne.map((item, index) => (
-          <Row key={item.callToActionLink} style={{ marginTop: quadrupleSpacer }}>
-            <Column md={6} xsOrder={index % 2 === 0 ? 0 : 1}>
-              <FlexContainer justifyContent="center" alignItems="center" height="100%">
-                <PreviewCompatibleImage
-                  imageInfo={{
-                    image: item.mainImage.childImageSharp.fluid.src,
-                    alt: '',
-                  }}
-                />
-              </FlexContainer>
-            </Column>
-            <Column md={4} mdOffset={index % 2 === 0 ? 0 : 2} xsOrder={index % 2 === 0 ? 1 : 0}>
-              <FlexContainer
-                height="100%"
-                flexWrap="nowrap"
-                flexDirection="column"
-                alignItems="flex-start"
-              >
-                <Heading as="h2" styledAs="subtitle">
-                  {item.heading}
-                </Heading>
-
-                <ReactMarkdown source={item.content} />
-
-                <Button
-                  type="link"
-                  to={item.callToActionLink}
-                  color={index % 2 === 0 ? 'tertiary' : 'primary'}
+          {sectionOne.map((item, index) => (
+            <Row key={item.callToActionLink} style={{ marginTop: quadrupleSpacer }}>
+              <Column md={6} xsOrder={index % 2 === 0 ? 2 : 1} mdOrder={index % 2 === 0 ? 1 : 2}>
+                <FlexContainer
+                  justifyContent="center"
+                  alignItems="center"
+                  height="100%"
+                  style={{ padding: tripleSpacer }}
                 >
-                  {item.callToActionText}
-                </Button>
-              </FlexContainer>
-            </Column>
-          </Row>
-        ))}
+                  <PreviewCompatibleImage
+                    imageInfo={{
+                      image: item.mainImage.childImageSharp.fluid.src,
+                      alt: '',
+                    }}
+                  />
+                </FlexContainer>
+              </Column>
+              <Column
+                md={4}
+                mdOffset={index % 2 === 0 ? 1 : 2}
+                xsOrder={index % 2 === 0 ? 2 : 1}
+                mdOrder={index % 2 === 0 ? 2 : 1}
+              >
+                <FlexContainer
+                  height="100%"
+                  flexWrap="nowrap"
+                  flexDirection="column"
+                  alignItems="flex-start"
+                >
+                  <Heading as="h2" styledAs="subtitle">
+                    {item.heading}
+                  </Heading>
+
+                  <ReactMarkdown source={item.content} />
+
+                  <Button
+                    type="link"
+                    to={item.callToActionLink}
+                    color={index % 2 === 0 ? 'tertiary' : 'primary'}
+                  >
+                    {item.callToActionText}
+                  </Button>
+                </FlexContainer>
+              </Column>
+            </Row>
+          ))}{' '}
+        </PageContainer>
       </section>
 
       <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: brandTertiary }}>

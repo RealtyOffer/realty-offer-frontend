@@ -222,7 +222,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
         </PageContainer>
       </section>
 
-      <section
+      {/* <section
         style={{
           padding: `${decupleSpacer} 0`,
           backgroundColor: white,
@@ -288,7 +288,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
             </Carousel>
           </SectionCarouselWrapper>
         </PageContainer>
-      </section>
+      </section> */}
 
       <section
         style={{
