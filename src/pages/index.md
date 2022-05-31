@@ -27,26 +27,26 @@ heroNav:
     heroNavIcon: FaHandsHelping
 sectionOneHeading: Wondering How it Works?
 sectionOne:
-  - mainImage: /img/mobile-consumer-registration.png
+  - mainImage: /img/realtyoffer-step1-image.jpg
     secondaryImage: /img/sectionOne - secondary 1.png
-    heading: Complete a Simple Form
+    heading: 01 Complete a Simple Form
     content: >-
       Fill in some simple information, sit back and RealtyOffer™ will connect you with a licensed and vetted agent, while removing the upfront negotiation.
 
       Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
     callToActionLink: /consumer/start
     callToActionText: Get Started Now
-  - mainImage: /img/mobile-app-bid-page.png
+  - mainImage: /img/realtyoffer-step2-image.jpg
     secondaryImage: /img/sectionOne - secondary 2.png
-    heading: Agents Bid to Win Your Business
+    heading: 02 Agents Bid to Win Your Business
     content: >-
       Within 24 hours, RealtyOffer™ will allow top-rated agents in your area the opportunity to bid and win your business.
       The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means you bring less money to the closing table.
     callToActionLink: /
     callToActionText: Learn More Now
-  - mainImage: /img/mobile-app-awarded-bid-details.png
+  - mainImage: /img/realtyoffer-step3-image.jpg
     secondaryImage: /img/sectionOne - secondary 3.png
-    heading: Choose Your Winning Agent
+    heading: 03 Choose Your Winning Agent
     content: >-
       Within 24 hours you will be able to review the top 3 bids received from agents in your area. Choose the best offer, and simply get connected.
     callToActionLink: /frequently-asked-questions
