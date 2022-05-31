@@ -68,18 +68,11 @@ sectionFourContent: >-
   Our goal is to make buying or selling a home as easy and stress-free as possible.Our AI digitized platform is designed to educate and empower the consumer, and connect them with top-rated agents, while saving thousands of dollars in the process.
 sectionFourLogosHeading: Our Agents work with the following Brokers
 sectionFourLogos:
-  - logo: /img/broker1.png
-  - logo: /img/broker2.png
-  - logo: /img/broker3.png
-  - logo: /img/broker4.png
-  - logo: /img/broker1.png
-  - logo: /img/broker2.png
-  - logo: /img/broker3.png
-  - logo: /img/broker4.png
-  - logo: /img/broker1.png
-  - logo: /img/broker2.png
-  - logo: /img/broker3.png
-  - logo: /img/broker4.png
+  - logo: /img/broker-berkshirehathawayhomeservices-logo.jpg
+  - logo: /img/broker-century21-logo.jpg
+  - logo: /img/broker-kellerwilliams-logo.jpg
+  - logo: /img/broker-realestateone-logo.png
+  - logo: /img/broker-remax-logo.jpg
 sectionFiveHeading: Want to Learn More?
 sectionFiveContent: Need more information about Buying or Selling your home? Or just want to hear from previous clients, click below to learn more.
 sectionFiveCards:
