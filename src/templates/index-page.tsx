@@ -395,9 +395,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                       {logos.map((item, i) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <Column xs={3} key={item.logo.childImageSharp.fixed.src + i}>
-                          <PreviewCompatibleImage
-                            imageInfo={{ image: item.logo.childImageSharp.fixed.src, alt: '' }}
-                          />
+                          <div style={{ padding: doubleSpacer }}>
+                            <PreviewCompatibleImage
+                              imageInfo={{ image: item.logo.childImageSharp.fixed.src, alt: '' }}
+                            />
+                          </div>
                         </Column>
                       ))}
                     </Row>
