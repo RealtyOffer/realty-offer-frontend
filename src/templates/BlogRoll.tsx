@@ -87,7 +87,7 @@ const BlogRoll: FunctionComponent<BlogRollProps> = ({ posts }) => {
             <Box
               style={{ position: 'relative' }}
               footer={
-                <Button type="link" to={post.fields.slug} block>
+                <Button type="link" to={post.fields.slug} block color="tertiary">
                   View Full Article
                 </Button>
               }

@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import React from 'react';
 import { brandTertiary } from '../styles/color';
-import { halfSpacer, octupleSpacer, doubleSpacer } from '../styles/size';
+import { halfSpacer, octupleSpacer, doubleSpacer, breakpoints } from '../styles/size';
 
 const KeyframesDrop = keyframes`
   0% {
@@ -13,6 +13,7 @@ const KeyframesDrop = keyframes`
 `;
 
 const StyledAwardBanner = styled.div`
+  display: none;
   position: absolute;
   z-index: 1;
   width: 150px;
@@ -21,7 +22,11 @@ const StyledAwardBanner = styled.div`
   right: ${doubleSpacer};
   top: -350px;
   text-align: center;
-  animation: ${KeyframesDrop} forwards 0.8s 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  @media only screen and (min-width: ${breakpoints.sm}) {
+    display: block;
+    animation: ${KeyframesDrop} forwards 0.8s 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
 
   & img {
     filter: brightness(1000%);

@@ -41,6 +41,7 @@ import {
   brandTertiaryHover,
   lightestGray,
   lightGray,
+  offWhite,
   textColor,
   white,
 } from '../styles/color';
@@ -122,22 +123,29 @@ const CarouselWrapper = styled.div`
 const CarouselNavigationBackground = styled.div`
   background: ${lightestGray};
   box-shadow: ${z1Shadow};
-`;
 
-const CarouselNavigation = styled.div`
-  display: flex;
-  justify-content: center;
+  & > div > div > div:first-of-type {
+    border-left: 1px solid ${lightGray};
+  }
+  & > div > div > div {
+    border-right: 1px solid ${lightGray};
+    border-bottom: 1px solid ${lightGray};
+    &:hover,
+    &:focus {
+      background: ${offWhite};
+    }
+  }
 `;
 
 const CarouselNavigationItem = styled(Link)`
   padding: ${baseSpacer};
   text-align: center;
   color: ${brandTertiary};
-  border-right: 1px solid ${lightGray};
-  flex: 1;
-  &:first-of-type {
-    border-left: 1px solid ${lightGray};
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   &:hover,
   &:focus {
     color: ${brandTertiaryHover};
@@ -234,22 +242,24 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
 
       <CarouselNavigationBackground>
         <PageContainer>
-          <CarouselNavigation>
+          <Row>
             {heroNav.map((heroItem) => {
               const Icon = FaIcon[heroItem.heroNavIcon];
               return (
-                <CarouselNavigationItem to={heroItem.heroLink} key={heroItem.heroNavText}>
-                  <Icon size={doubleSpacer} style={{ margin: halfSpacer }} />
-                  <br />
-                  {heroItem.heroNavText}
-                  <br />
-                  <small>
-                    Learn more <FaChevronRight />
-                  </small>
-                </CarouselNavigationItem>
+                <Column key={heroItem.heroNavText} xs={6} sm={3}>
+                  <CarouselNavigationItem to={heroItem.heroLink}>
+                    <Icon size={doubleSpacer} style={{ margin: halfSpacer }} />
+                    <br />
+                    {heroItem.heroNavText}
+                    <br />
+                    <small>
+                      Learn more <FaChevronRight />
+                    </small>
+                  </CarouselNavigationItem>
+                </Column>
               );
             })}
-          </CarouselNavigation>
+          </Row>
         </PageContainer>
       </CarouselNavigationBackground>
       <section
@@ -572,7 +582,7 @@ export const pageQuery = graphql`
         sectionFourLogos {
           logo {
             childImageSharp {
-              fixed(width: 300, quality: 60) {
+              fixed(width: 200, quality: 60) {
                 ...GatsbyImageSharpFixed
               }
             }
