@@ -29,7 +29,7 @@ sectionOneHeading: Wondering How it Works?
 sectionOne:
   - mainImage: /img/realtyoffer-step1-image.jpg
     secondaryImage: /img/sectionOne - secondary 1.png
-    heading: 01 Complete a Simple Form
+    heading: Complete a Simple Form
     content: >-
       Fill in some simple information, sit back and RealtyOffer™ will connect you with a licensed and vetted agent, while removing the upfront negotiation.
 
@@ -38,7 +38,7 @@ sectionOne:
     callToActionText: Get Started Now
   - mainImage: /img/realtyoffer-step2-image.jpg
     secondaryImage: /img/sectionOne - secondary 2.png
-    heading: 02 Agents Bid to Win Your Business
+    heading: Agents Bid to Win Your Business
     content: >-
       Within 24 hours, RealtyOffer™ will allow top-rated agents in your area the opportunity to bid and win your business.
       The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means you bring less money to the closing table.
@@ -46,7 +46,7 @@ sectionOne:
     callToActionText: Learn More Now
   - mainImage: /img/realtyoffer-step3-image.jpg
     secondaryImage: /img/sectionOne - secondary 3.png
-    heading: 03 Choose Your Winning Agent
+    heading: Choose Your Winning Agent
     content: >-
       Within 24 hours you will be able to review the top 3 bids received from agents in your area. Choose the best offer, and simply get connected.
     callToActionLink: /frequently-asked-questions
@@ -65,7 +65,7 @@ sectionThreeHeading: How Much Money Can I Save?
 sectionThreeContent: Estimate how much money you can save by using the calculators below. RealtyOffer™ is a completely free platform--No contracts, No obligations, and No awkward negotiations
 sectionFourHeading: Why RealtyOffer™?
 sectionFourContent: >-
-  Our goal is to make buying or selling a home as easy and stress-free as possible.Our AI digitized platform is designed to educate and empower the consumer, and connect them with top-rated agents, while saving thousands of dollars in the process.
+  Our goal is to make buying or selling a home as easy and stress-free as possible. Our AI digitized platform is designed to educate and empower the consumer, and connect them with top-rated agents, while saving thousands of dollars in the process.
 sectionFourLogosHeading: Our Agents work with the following Brokers
 sectionFourLogos:
   - logo: /img/broker-berkshirehathawayhomeservices-logo.jpg
