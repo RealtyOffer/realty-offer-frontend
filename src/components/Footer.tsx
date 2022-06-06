@@ -83,10 +83,9 @@ const Footer = () => (
             </p> */}
             <p style={{ lineHeight: 1.2 }}>
               <small>
-                Our goal is to make buying/selling a home, or getting a mortgage, as easy and
-                stress-free as possible. Whether this is your first home or tenth, RealtyOffer
-                utilizes the latest technology to connect you with top-rated certified and vetted
-                agents. Completely free!
+                Our goal is to make buying/selling a home as easy and stress-free as possible.
+                Whether this is your first home or tenth, RealtyOffer utilizes the latest technology
+                to connect you with top-rated certified and vetted agents. Completely free!
               </small>
             </p>
             <Heading as="h4" inverse>

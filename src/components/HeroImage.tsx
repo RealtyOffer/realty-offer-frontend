@@ -43,6 +43,15 @@ const ChildrenWrapper = styled.div`
   align-items: center;
   height: 100%;
   color: ${white};
+
+  & h1,
+  & h6 p {
+    display: inline;
+    background-color: ${white};
+    padding: 0.1em 0.2em 0.1em 0;
+    box-shadow: 0.2em 0 0 #fff, -0.2em 0 0 #fff;
+    line-height: 1.7;
+  }
 `;
 
 const GradientOverlay = styled.div`

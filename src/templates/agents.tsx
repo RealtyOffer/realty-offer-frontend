@@ -168,7 +168,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
-            <Column md={7}>
+            <Column md={10}>
               <Heading styledAs="title">{heroHeading}</Heading>
               <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />

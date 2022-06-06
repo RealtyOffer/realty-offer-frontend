@@ -7,7 +7,7 @@ metaDescription: Need Real Estate Buyer or Seller Leads? - We've Got Them.
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 title: Same Agent, Less Commission
 heroImage: /img/realtyoffer-agents-hero-image.jpg
-mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
+mobileHeroImage: /img/realtyoffer-agents-hero-image-mobile.jpg
 heroHeading: Brokers & Agents, ready to grow your business?
 heroSubheading: >-
   Are you looking for consistency?
