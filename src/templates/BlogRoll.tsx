@@ -4,7 +4,15 @@ import { Link } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 import styled from 'styled-components';
 
-import { Box, HorizontalRule, Heading, Row, Column, PreviewCompatibleImage } from '../components';
+import {
+  Box,
+  HorizontalRule,
+  Heading,
+  Row,
+  Column,
+  PreviewCompatibleImage,
+  Button,
+} from '../components';
 import { brandPrimary, brandTertiary, white } from '../styles/color';
 import { baseAndAHalfSpacer, baseSpacer, doubleSpacer, halfSpacer } from '../styles/size';
 import { z1Shadow } from '../styles/mixins';
@@ -25,7 +33,7 @@ type BlogRollProps = {
         description: string;
         featuredpost: boolean;
         title: string;
-        category: 'agent' | 'consumer';
+        category: string;
       };
     };
   }>;
@@ -76,7 +84,14 @@ const BlogRoll: FunctionComponent<BlogRollProps> = ({ posts }) => {
       {posts &&
         posts.map(({ node: post }: any) => (
           <Column md={4} key={post.id}>
-            <Box style={{ position: 'relative' }}>
+            <Box
+              style={{ position: 'relative' }}
+              footer={
+                <Button type="link" to={post.fields.slug} block color="tertiary">
+                  View Full Article
+                </Button>
+              }
+            >
               <Ribbon>
                 <small>{post.frontmatter.category} News</small>
               </Ribbon>
@@ -92,15 +107,17 @@ const BlogRoll: FunctionComponent<BlogRollProps> = ({ posts }) => {
                     />
                   </Link>
                 )}
-                <small>
+                <small style={{ display: 'block', margin: `${baseSpacer} 0` }}>
                   {post.frontmatter.date} - {post.fields.readingTime.text}
                 </small>
                 <Heading as="h2" noMargin>
                   <Link to={post.fields.slug}>{post.frontmatter.title}</Link>
                 </Heading>
-                <HorizontalRule compact />
+                <HorizontalRule />
 
-                <small style={{ fontStyle: 'italic' }}>{post.frontmatter.description}</small>
+                <small style={{ fontStyle: 'italic', display: 'block', marginBottom: baseSpacer }}>
+                  {post.frontmatter.description}
+                </small>
               </div>
             </Box>
           </Column>

@@ -11,7 +11,7 @@ date: 2021-08-18T06:15:28.865Z
 description: Like almost all businesses, real estate agents are spending a large
   amount of money on marketing online and offline hoping to generate high
   quality leads.
-featuredimage: /img/shutterstock_image1_purchased.jpg
+featuredimage: /img/unsplash3.jpg
 tags:
   - Mortgage
   - Real Estate Agents

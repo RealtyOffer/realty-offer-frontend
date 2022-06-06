@@ -69,7 +69,6 @@ const CssReset = createGlobalStyle`
 
   body {
     font-family: ${fontFamilySansSerif};
-    font-display: swap;
     /* https://www.codementor.io/@ricardozea/100-responsive-typography-system-using-a-modular-scale-s5rhft58g */
     font-size: calc(12px + .35vw); /* Responsive base font size */
     line-height: calc(18px + 1.05vw); /* Responsive Vertical Rhythm */

@@ -4,15 +4,16 @@ metaTitle: Learn more about RealtyOffer
 metaDescription: Frequently asked questions about how Realty Offer can help you to sell or buy a home.
 metaKeywords: real estate agent, buy a home, sell a home
 title: Learn more about RealtyOffer
-heroImage: /img/shutterstock_image2_purchased_landing-page.jpg
-heroHeading: Learn more about RealtyOffer
+heroImage: /img/faq.jpg
+mobileHeroImage: /img/faq-mobile.jpg
+heroHeading: Learn more about RealtyOffer™
 heroSubheading: Explore our frequently asked questions below to learn more about
-  how RealtyOffer can help
+  how RealtyOffer™ can help.
 consumerFaq:
   items:
-    - question: Does RealtyOffer charge me anything for this service?
+    - question: Does RealtyOffer™ charge me anything for this service?
       answer: No. Our service is completely free to you!
-    - question: How does RealtyOffer benefit?
+    - question: How does RealtyOffer™ benefit?
       answer: Our agents pay a transaction or monthly subscription fee in order to
         receive the opportunity to compete and win your business.
     - question: What kind of experience does your company have?
@@ -47,7 +48,7 @@ consumerFaq:
         sometimes this happens, it is never guaranteed.
     - question: Do you sell every type of home?
       answer: No. At this time, we do not have a mobile or manufactured home division.
-    - question: Are there any contracts that I need to sign with RealtyOffer?
+    - question: Are there any contracts that I need to sign with RealtyOffer™?
       answer: No. The questionnaire we require is a simple and non-binding agreement
         to use our service. It is up to you to sign a binding agreement with the
         agent you choose, after the criteria match and bidding process occurs.
@@ -63,7 +64,7 @@ consumerFaq:
     - question: As a consumer, am I obligated to use the agent I have chosen?
       answer: No. After a bid is awarded, a client has the ability to meet or discuss
         with their chosen agent in private. It is up to you and the agent to
-        make the choice of moving forward with a contract. RealtyOffer simply
+        make the choice of moving forward with a contract. RealtyOffer™ simply
         empowers the consumer and removes the upfront negotiation, in order to
         save you thousands of dollars.
     - question: Will my personal information shared?
@@ -71,13 +72,13 @@ consumerFaq:
         personal information with third parties.
 agentFaq:
   items:
-    - question: What is RealtyOffer?
+    - question: What is RealtyOffer™?
       answer: We are an AI-Digitized marketing platform designed to connect the
         everyday consumer with an agent that is looking to increase their client
-        base and brand awareness. RealtyOffer realizes there is a gap between
+        base and brand awareness. RealtyOffer™ realizes there is a gap between
         knowledge to the consumer, and potential opportunities to the up and
         coming agent.
-    - question: What is the cost to become a member of RealtyOffer?
+    - question: What is the cost to become a member of RealtyOffer™?
       answer: >-
         Here’s how it works: After a vetting process, agents can begin to bid on
         consumer leads. Once an agent is awarded the lead, they have two
@@ -109,24 +110,24 @@ agentFaq:
     - question: How does my freemium subscription work?
       answer: >-
         Select agents are chosen from state to state to participate in a
-        ***RealtyOffer Pilot program.*** With this program agents are permitted
+        ***RealtyOffer™ Pilot program.*** With this program agents are permitted
         to bid at an unlimited capacity.
 
 
-        If a bid is awarded and a sale or purchase is consummated, **RealtyOffer will charge a $595 marketing fee from the agents credit card on file, a binding agreement will be required during the freemium opportunity.**
+        If a bid is awarded and a sale or purchase is consummated, **RealtyOffer™ will charge a $595 marketing fee from the agents credit card on file, a binding agreement will be required during the freemium opportunity.**
 
 
         At anytime agents will have the ability to simply subscribe to any city of choice and avoid a $595 marketing fee per *"**Closed"***transaction.
     - question: Is there a guarantee the consumer will choose my services after I am
         awarded a bid?
       answer: >-
-        There is no guarantee. RealtyOffer is designed to connect a serious
+        There is no guarantee. RealtyOffer™ is designed to connect a serious
         client with a serious agent. Clients and agents have a  mutual choice
         after meeting, if they would like to move forward. 
 
 
         The objective is for the agent to sign their agreement with the client after the awkward negotiation has been done through our proprietary bidding platform.
-    - question: Is there a contract that an agent needs to sign with RealtyOffer?
+    - question: Is there a contract that an agent needs to sign with RealtyOffer™?
       answer: >-
         Yes.
 
@@ -134,7 +135,7 @@ agentFaq:
         There will be a subscription contract, as well as a non-compete contract.
 
 
-        Agents will have direct information about a client and it’s very easy to circumvent the system. Our proprietary technology is able to track all home sales. Only awarded agents are allowed to contact the home buyer or seller after an initial connection through RealtyOffer.
+        Agents will have direct information about a client and it’s very easy to circumvent the system. Our proprietary technology is able to track all home sales. Only awarded agents are allowed to contact the home buyer or seller after an initial connection through RealtyOffer™.
     - question: Is there a review rating for the agent?
       answer: >-
         Yes.
@@ -148,9 +149,9 @@ agentFaq:
 
         The consumer will receive the system’s top 3 choices that bid the least commission or meet the consumers matching criteria. It is up to the consumer to choose from there.
     - question: Does a consumer pay anything during the process?
-      answer: RealtyOffer is totally free to the consumer that utilizes the bidding
+      answer: RealtyOffer™ is totally free to the consumer that utilizes the bidding
         platform.
-    - question: What happens if I cancel my subscription to use RealtyOffer?
+    - question: What happens if I cancel my subscription to use RealtyOffer™?
       answer: You have the right to cancel a subscription at any time. Monthly
         subscriptions are paid in advance, agents have the ability to cancel
         their monthly subscription right before their next billing cycle.
@@ -164,5 +165,5 @@ agentFaq:
         Your privacy is very important to us. Your personal information will NEVER be shared to third parties.
 
 
-        **RealtyOffer** reserves the right to cancel at anytime.
+        **RealtyOffer™** reserves the right to cancel at anytime.
 ---

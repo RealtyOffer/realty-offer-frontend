@@ -4,8 +4,7 @@ import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import * as FaIcon from 'react-icons/fa';
 import { LiteYoutubeEmbed } from 'react-lite-yt-embed';
 
 import {
@@ -17,23 +16,27 @@ import {
   Heading,
   PageContainer,
   Seo,
-  Testimonial,
   PreviewCompatibleImage,
+  Box,
+  Avatar,
 } from '../components';
 
-import { baseSpacer, doubleSpacer, quadrupleSpacer, breakpoints, halfSpacer } from '../styles/size';
+import { baseSpacer, doubleSpacer, decupleSpacer, halfSpacer, tripleSpacer } from '../styles/size';
 import {
+  brandDanger,
   brandPrimary,
   brandPrimaryAccentLight,
+  brandSuccess,
   brandTertiary,
-  brandTertiaryHover,
+  headingsColor,
   lightestGray,
-  textColor,
   white,
 } from '../styles/color';
 import appleAppStoreBadge from '../images/apple-app-store-black.svg';
 import googlePlayStoreBadge from '../images/google-play-store-black.svg';
 import useWindowSize from '../utils/useWindowSize';
+import { baseBorderLightStyle } from '../styles/mixins';
+import { fontSizeH6 } from '../styles/typography';
 
 type AgentsPageProps = {
   title: string;
@@ -44,44 +47,34 @@ type AgentsPageProps = {
   heroSubheading: string;
   heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
   mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
-  mainpitch: {
-    title: string;
-    description: string;
-    ctaText: string;
-    youtubeVideoId: string;
-    image: {
-      childImageSharp: {
-        fluid: FluidObject;
-      };
-    };
-    steps: Array<{
-      title: string;
-      body: any;
-    }>;
-  };
-  secondpitch: {
-    title: string;
-    description: string;
-    ctaText: string;
-    image: {
-      childImageSharp: {
-        fluid: FluidObject;
-      };
-    };
-  };
-  thirdpitch: {
-    title: string;
-    description: string;
-    ctaText: string;
-    image: {
-      childImageSharp: {
-        fluid: FluidObject;
-      };
-    };
-  };
+  sectionOneHeading: string;
+  sectionOneSubheading: string;
+  sectionOneImage: { childImageSharp: { fluid: FluidObject } };
+  sectionOneContent: string;
+  sectionTwoHeading: string;
+  sectionTwoSteps: Array<{
+    heading: string;
+    image: { childImageSharp: { fluid: FluidObject } };
+    content: string;
+  }>;
+  sectionThreeHeading: string;
+  sectionThreeContent: string;
+  sectionThreeRowOne: string;
+  sectionThreeRowTwo: string;
+  sectionThreeRowThree: string;
+  sectionFourHeading: string;
+  sectionFourImage: { childImageSharp: { fluid: FluidObject } };
+  sectionFourContent: string;
+  sectionFiveHeading: string;
+  sectionFiveContent: string;
+  sectionFiveBackgroundImage: { childImageSharp: { fluid: FluidObject } };
+  sectionSixHeading: string;
+  sectionSixSubheading: string;
   testimonials: Array<{
     quote: string;
     author: string;
+    from: string;
+    saved: string;
     avatar: {
       childImageSharp: {
         fluid: FluidObject;
@@ -90,32 +83,34 @@ type AgentsPageProps = {
   }>;
 };
 
-const HeroBox = styled.div`
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: ${halfSpacer};
-  @media only screen and (min-width: ${breakpoints.sm}) {
-    padding: ${doubleSpacer};
-  }
-`;
-
-const CarouselWrapper = styled.div`
-  & .carousel-indicators li {
-    background-color: ${textColor};
-  }
-`;
-
 const Badge = styled.div`
   margin-right: ${baseSpacer};
 `;
 
-const SectionImageWrapper = styled.div`
-  max-width: 250px;
-  margin: 0 auto;
-  overflow: hidden;
-  margin-bottom: ${doubleSpacer};
+const SectionCarouselWrapper = styled.div`
+  isolation: isolate;
+  & .carousel-indicators {
+    bottom: -${tripleSpacer};
+    & li {
+      margin: ${halfSpacer};
+      border: 1px solid ${brandPrimary};
+      width: ${halfSpacer};
+      height: ${halfSpacer};
+      border-radius: ${halfSpacer};
+      &.active {
+        background-color: ${brandPrimary};
+      }
+    }
+  }
+`;
 
-  @media only screen and (min-width: ${breakpoints.md}) {
-    max-width: initial;
+const SimpleTable = styled.table`
+  table-layout: fixed;
+  & th,
+  & td {
+    border: ${baseBorderLightStyle};
+    padding: ${halfSpacer};
+    width: 33%;
   }
 `;
 
@@ -127,12 +122,38 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
   metaKeywords,
   heroHeading,
   heroSubheading,
-  mainpitch,
-  secondpitch,
-  thirdpitch,
+  sectionOneHeading,
+  sectionOneSubheading,
+  sectionOneContent,
+  sectionOneImage,
+  sectionTwoHeading,
+  sectionTwoSteps,
+  sectionThreeHeading,
+  sectionThreeContent,
+  sectionThreeRowOne,
+  sectionThreeRowTwo,
+  sectionThreeRowThree,
+  sectionFourHeading,
+  sectionFourContent,
+  sectionFourImage,
+  sectionFiveHeading,
+  sectionFiveContent,
+  sectionFiveBackgroundImage,
+  sectionSixHeading,
+  sectionSixSubheading,
   testimonials,
 }) => {
   const size = useWindowSize();
+
+  const chunkedTestimonials = (arr: AgentsPageProps['testimonials']) => {
+    const chunkSize = size.isSmallScreen ? 1 : 3;
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      const chunk = arr.slice(i, i + chunkSize);
+      res.push(chunk);
+    }
+    return res;
+  };
 
   return (
     <div>
@@ -144,216 +165,318 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
         imageWidth={heroImage.childImageSharp.fixed.width}
         imageHeight={heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage}>
+      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
-            <Column lg={5} lgOffset={7}>
-              <HeroBox>
-                <Heading inverse as="h1">
-                  {heroHeading}
-                </Heading>
+            <Column md={10}>
+              <Heading styledAs="title">{heroHeading}</Heading>
+              <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />
-                <Button type="link" to="/agent/sign-up">
-                  Get Started
-                </Button>
-              </HeroBox>
+              </Heading>
+              <Button type="link" to="/agent/sign-up">
+                Become an Agent
+              </Button>
             </Column>
           </Row>
         </PageContainer>
       </HeroImage>
-      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: brandPrimaryAccentLight }}>
+      <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: brandPrimaryAccentLight }}>
         <PageContainer>
           <Row>
-            <Column md={8} mdOffset={2}>
-              <Heading as="h2" styledAs="title" align="center">
-                App now available for iOS and Android
+            <Column sm={8}>
+              <Heading as="h2" styledAs="title">
+                {sectionOneHeading}
               </Heading>
-              <FlexContainer flexDirection="row">
-                <Badge>
-                  <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
-                    <img
-                      src={appleAppStoreBadge}
-                      height={40}
-                      width={122}
-                      alt="Download on Apple App Store"
-                    />
-                  </a>
-                </Badge>
-                <Badge>
-                  <a href="https://play.google.com/store/apps/details?id=com.realtyoffernative">
-                    <img
-                      src={googlePlayStoreBadge}
-                      height={40}
-                      width={122}
-                      alt="Download on Google Play Store"
-                    />
-                  </a>
-                </Badge>
-              </FlexContainer>
-            </Column>
-          </Row>
-        </PageContainer>
-      </section>
-      <section
-        style={{
-          padding: `${doubleSpacer} 0`,
-          backgroundColor: lightestGray,
-          color: brandTertiary,
-        }}
-      >
-        <PageContainer>
-          <Row>
-            <Column md={8} mdOffset={2}>
-              <Heading as="h2" styledAs="title" align="center">
-                {mainpitch.title}
+              <Heading as="h3" styledAs="subtitle">
+                {sectionOneSubheading}
               </Heading>
-              <div style={{ textAlign: 'center' }}>
-                <ReactMarkdown source={mainpitch.description} />
-              </div>
+            </Column>
+            <Column xs={8} xsOffset={2} sm={4}>
+              <PreviewCompatibleImage
+                imageInfo={{
+                  image: sectionOneImage.childImageSharp.fluid.src,
+                  alt: '',
+                }}
+              />
+              <br />
+              <br />
             </Column>
           </Row>
-          <Row>
-            <Column md={6}>
-              <div style={{ marginTop: doubleSpacer }}>
-                <LiteYoutubeEmbed
-                  id={mainpitch.youtubeVideoId}
-                  isMobile={Boolean(size.isSmallScreen)}
-                  lazyImage
-                />
-              </div>
-            </Column>
-            <Column md={6}>
-              {mainpitch.steps.map((step, index) => (
-                <div
-                  key={step.title}
-                  style={{
-                    marginLeft: doubleSpacer,
-                    paddingLeft: doubleSpacer,
-                    paddingBottom: baseSpacer,
-                    borderLeft: `2px solid ${brandTertiaryHover}`,
-                  }}
-                >
-                  <Heading as="h3" styledAs="subtitle" beforeContent={index + 1}>
-                    {step.title}
-                  </Heading>
-                  <ReactMarkdown source={step.body} />
-                </div>
-              ))}
-            </Column>
-          </Row>
-          <div style={{ textAlign: 'center' }}>
-            <br />
-            <br />
-            <Button type="link" to="/frequently-asked-questions">
-              {mainpitch.ctaText}
-            </Button>
+          <div style={{ fontSize: fontSizeH6 }}>
+            <ReactMarkdown source={sectionOneContent} />
           </div>
         </PageContainer>
       </section>
-
-      <section style={{ padding: `${doubleSpacer} 0`, backgroundColor: white }}>
+      <section
+        style={{
+          padding: `${decupleSpacer} 0`,
+          backgroundColor: lightestGray,
+          color: brandTertiary,
+        }}
+      >
         <PageContainer>
+          <Heading as="h2" styledAs="title" align="center">
+            {sectionTwoHeading}
+          </Heading>
+          <br />
+          <br />
           <Row>
-            <Column md={8}>
-              <Heading as="h2" styledAs="title">
-                {secondpitch.title}
-              </Heading>
-              <ReactMarkdown source={secondpitch.description} />
-              <Button type="link" to="/mortgage-consultation">
-                {secondpitch.ctaText}
-              </Button>
-              <br />
-              <br />
-            </Column>
-            <Column md={4}>
-              <SectionImageWrapper>
-                <PreviewCompatibleImage
-                  imageInfo={{
-                    image: secondpitch.image,
-                    alt: '',
-                  }}
-                />
-              </SectionImageWrapper>
-            </Column>
+            {sectionTwoSteps.map((step, index) => (
+              <Column key={step.heading} sm={6} md={4}>
+                <Box largePadding>
+                  <PreviewCompatibleImage
+                    imageInfo={{
+                      image: step.image.childImageSharp.fluid.src,
+                      alt: '',
+                    }}
+                  />
+                  <br />
+                  <Heading as="h4">
+                    {index + 1}. {step.heading}
+                  </Heading>
+                  <p>{step.content}</p>
+                </Box>
+              </Column>
+            ))}
           </Row>
+        </PageContainer>
+      </section>
+
+      <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: white }}>
+        <PageContainer>
+          <Heading as="h2" styledAs="title">
+            {sectionThreeHeading}
+          </Heading>
+          <ReactMarkdown source={sectionThreeContent} />
+          <SimpleTable>
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                  <strong>Free-mium Agent</strong>
+                </th>
+                <th style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                  <strong>Monthly Subscription</strong>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <small>{sectionThreeRowOne}</small>
+                </td>
+                <td align="center">
+                  <FaIcon.FaCheck color={brandSuccess} />
+                </td>
+                <td align="center">
+                  <FaIcon.FaCheck color={brandSuccess} />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{sectionThreeRowTwo}</small>
+                </td>
+                <td align="center">
+                  <FaIcon.FaCheck color={brandSuccess} />
+                </td>
+                <td align="center">
+                  <FaIcon.FaTimes color={brandDanger} />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{sectionThreeRowThree}</small>
+                </td>
+                <td align="center">
+                  <FaIcon.FaTimes color={brandDanger} />
+                </td>
+                <td align="center">
+                  <FaIcon.FaCheck color={brandSuccess} />
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td align="center">
+                  <Button type="link" to="/agent/sign-up" block>
+                    Free-mium Sign Up
+                  </Button>
+                </td>
+                <td align="center">
+                  <Button type="link" to="/agent/sign-up" block>
+                    Monthly Sign Up
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </SimpleTable>
         </PageContainer>
       </section>
 
       <section
         style={{
-          padding: `${doubleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           backgroundColor: lightestGray,
           color: brandTertiary,
         }}
       >
         <PageContainer>
           <Row>
-            <Column md={4} xsOrder={2} mdOrder={1}>
-              <SectionImageWrapper>
-                <PreviewCompatibleImage
-                  imageInfo={{
-                    image: thirdpitch.image,
-                    alt: '',
-                  }}
-                />
-              </SectionImageWrapper>
+            <Column xs={8} xsOffset={2} md={5}>
+              <PreviewCompatibleImage
+                imageInfo={{
+                  image: sectionFourImage.childImageSharp.fluid.src,
+                  alt: '',
+                }}
+              />
+              <br />
+              <br />
             </Column>
-            <Column md={8} xsOrder={1} mdOrder={2}>
-              <Heading as="h2" styledAs="title">
-                {thirdpitch.title}
-              </Heading>
-              <ReactMarkdown source={thirdpitch.description} />
-              <Button type="link" to="/agent/sign-up">
-                {thirdpitch.ctaText}
+            <Column md={6} mdOffset={1}>
+              <Heading as="h3">{sectionFourHeading}</Heading>
+              <ReactMarkdown source={sectionFourContent} />
+              <Button type="link" to="/agent/sign-up" block>
+                Become a RealtyOffer Agent
               </Button>
-              <br />
-              <br />
             </Column>
           </Row>
         </PageContainer>
       </section>
 
-      {false && ( // TODO: testimonials
-        <section style={{ padding: `${doubleSpacer} 0` }}>
+      <HeroImage imgSrc={sectionFiveBackgroundImage}>
+        <section style={{ padding: `${decupleSpacer} 0`, width: '100vw' }}>
           <PageContainer>
-            <Heading as="h4" styledAs="title" align="center">
-              Testimonials
-            </Heading>
-            <CarouselWrapper>
-              <Carousel
-                fade
-                nextIcon={<FaChevronRight color={textColor} />}
-                prevIcon={<FaChevronLeft color={textColor} />}
-              >
-                {testimonials.map((testimonial) => (
-                  <Carousel.Item key={testimonial.author}>
-                    <Testimonial testimonial={testimonial} />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
-            </CarouselWrapper>
+            <Row>
+              <Column xs={6} xsOffset={6}>
+                <Heading as="h2">{sectionFiveHeading}</Heading>
+                <div style={{ color: headingsColor }}>{sectionFiveContent}</div>
+                <FlexContainer flexDirection="row" justifyContent="flex-start">
+                  <Badge>
+                    <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
+                      <img
+                        src={appleAppStoreBadge}
+                        height={40}
+                        width={122}
+                        alt="Download on Apple App Store"
+                      />
+                    </a>
+                  </Badge>
+                  <Badge>
+                    <a href="https://play.google.com/store/apps/details?id=com.realtyoffernative">
+                      <img
+                        src={googlePlayStoreBadge}
+                        height={40}
+                        width={122}
+                        alt="Download on Google Play Store"
+                      />
+                    </a>
+                  </Badge>
+                </FlexContainer>
+              </Column>
+            </Row>
           </PageContainer>
         </section>
-      )}
+      </HeroImage>
+
+      {/* <section
+        style={{
+          padding: `${decupleSpacer} 0`,
+          backgroundColor: white,
+        }}
+      >
+        <PageContainer>
+          <Heading as="h2" styledAs="title" align="center">
+            {sectionSixHeading}
+          </Heading>
+          <Heading as="h3" styledAs="subtitle" align="center">
+            {sectionSixSubheading}
+          </Heading>
+          <br />
+          <br />
+          <SectionCarouselWrapper>
+            <Carousel
+              nextIcon={<FaIcon.FaChevronRight color={brandPrimary} size={doubleSpacer} />}
+              prevIcon={<FaIcon.FaChevronLeft color={brandPrimary} size={doubleSpacer} />}
+            >
+              {chunkedTestimonials(testimonials).map((arr, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Carousel.Item key={`carousel-logo+${index}`}>
+                  <Row>
+                    <Column xs={8} xsOffset={2} sm={8} smOffset={2}>
+                      <Row>
+                        {arr.map((item) => (
+                          <Column md={4} key={item.author}>
+                            <Box>
+                              <FlexContainer justifyContent="flex-start">
+                                <Avatar
+                                  src={item.avatar.childImageSharp.fluid.src}
+                                  bottomMargin
+                                  gravatarEmail=""
+                                />
+                                <div style={{ flex: 1, marginLeft: baseSpacer }}>
+                                  <Heading as="h6" noMargin>
+                                    {item.author}
+                                  </Heading>
+                                  <p>
+                                    <small>{item.from}</small>
+                                  </p>
+                                </div>
+                              </FlexContainer>
+                              <p>
+                                <FaIcon.FaQuoteLeft color={lightestGray} />
+                                <br />
+                                <em>{item.quote}</em>
+                                <br />
+                                <FaIcon.FaQuoteRight
+                                  style={{ float: 'right' }}
+                                  color={lightestGray}
+                                />
+                              </p>
+                              <br />
+                              <Heading as="h5">SAVED {item.saved}</Heading>
+                            </Box>
+                          </Column>
+                        ))}
+                      </Row>
+                    </Column>
+                  </Row>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </SectionCarouselWrapper>
+        </PageContainer>
+      </section> */}
       <section
         style={{
-          padding: `${quadrupleSpacer} 0`,
+          padding: `${decupleSpacer} 0`,
           textAlign: 'center',
           backgroundColor: brandPrimary,
           marginBottom: `-${doubleSpacer}`,
         }}
       >
         <PageContainer>
-          <Heading as="h2" align="center" inverse>
-            Welcome to RealtyOffer
-          </Heading>
-          <Heading as="h3" align="center" inverse>
-            Same Agent, Less Commission. <br />
-          </Heading>
-          {/* todo: agent/sign-up */}
-          <Button type="link" to="/agent/sign-up" color="tertiary">
-            Get Started Now
-          </Button>
+          <Row>
+            <Column md={6}>
+              <FlexContainer
+                height="100%"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+              >
+                <Heading as="h2" align="center" inverse>
+                  Welcome to RealtyOffer
+                </Heading>
+
+                <Button type="link" to="/agent/sign-up" color="tertiary">
+                  Get Started Now
+                </Button>
+                <br />
+                <br />
+              </FlexContainer>
+            </Column>
+            <Column md={6}>
+              <LiteYoutubeEmbed id="R9jCqtpG770" isMobile={Boolean(size.isSmallScreen)} lazyImage />
+            </Column>
+          </Row>
         </PageContainer>
       </section>
     </div>
@@ -363,22 +486,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
 const AgentsPage = ({ data }: { data: { markdownRemark: { frontmatter: AgentsPageProps } } }) => {
   const { frontmatter } = data.markdownRemark;
 
-  return (
-    <AgentsPageTemplate
-      metaTitle={frontmatter.metaTitle}
-      metaDescription={frontmatter.metaDescription}
-      metaKeywords={frontmatter.metaKeywords}
-      heroImage={frontmatter.heroImage}
-      mobileHeroImage={frontmatter.mobileHeroImage}
-      title={frontmatter.title}
-      heroHeading={frontmatter.heroHeading}
-      heroSubheading={frontmatter.heroSubheading}
-      mainpitch={frontmatter.mainpitch}
-      secondpitch={frontmatter.secondpitch}
-      thirdpitch={frontmatter.thirdpitch}
-      testimonials={frontmatter.testimonials}
-    />
-  );
+  return <AgentsPageTemplate {...frontmatter} />;
 };
 
 export default AgentsPage;
@@ -410,50 +518,58 @@ export const pageQuery = graphql`
         }
         heroHeading
         heroSubheading
-        mainpitch {
-          title
-          youtubeVideoId
-          description
-          ctaText
+        sectionOneHeading
+        sectionOneSubheading
+        sectionOneImage {
+          childImageSharp {
+            fluid(maxWidth: 512, quality: 40) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        sectionOneContent
+        sectionTwoHeading
+        sectionTwoSteps {
+          heading
           image {
             childImageSharp {
-              fluid(maxWidth: 300, quality: 60) {
+              fluid(maxWidth: 512, quality: 40) {
                 ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
-          steps {
-            title
-            body
-          }
+          content
         }
-        secondpitch {
-          title
-          description
-          ctaText
-          image {
-            childImageSharp {
-              fluid(maxWidth: 300, quality: 60) {
-                ...GatsbyImageSharpFluid_withWebp
-              }
+        sectionThreeHeading
+        sectionThreeContent
+        sectionThreeRowOne
+        sectionThreeRowTwo
+        sectionThreeRowThree
+        sectionFourHeading
+        sectionFourImage {
+          childImageSharp {
+            fluid(maxWidth: 512, quality: 40) {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }
-        thirdpitch {
-          title
-          description
-          ctaText
-          image {
-            childImageSharp {
-              fluid(maxWidth: 300, quality: 60) {
-                ...GatsbyImageSharpFluid_withWebp
-              }
+        sectionFourContent
+        sectionFiveHeading
+        sectionFiveContent
+        sectionFiveBackgroundImage {
+          childImageSharp {
+            fluid(maxWidth: 2400, quality: 60) {
+              ...GatsbyImageSharpFluid
             }
           }
         }
+        sectionSixHeading
+        sectionSixSubheading
         testimonials {
           quote
           author
+          from
+          saved
           avatar {
             childImageSharp {
               fluid(maxWidth: 300, quality: 60) {

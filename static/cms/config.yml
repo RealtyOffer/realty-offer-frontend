@@ -2,7 +2,7 @@ backend:
   name: github
   repo: RealtyOffer/realty-offer-frontend
   api_root: https://api.github.com
-  branch: master
+  branch: develop
   commit_messages:
     create: "Create {{collection}} “{{slug}}”"
     update: "Update {{collection}} “{{slug}}”"
@@ -75,39 +75,69 @@ collections:
           - { label: "Hero Image", name: heroImage, widget: image }
           - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
           - { label: "Hero Heading", name: heroHeading, widget: string }
-          - { label: "Hero Subheading", name: heroSubheading, widget: string }
+          - { label: "Hero Sub Heading", name: heroSubheading, widget: string }
+          - { label: "Hero CTA", name: heroCTA, widget: string }
           - {
-              label: Consumer,
-              name: consumer,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                  { label: SubTitle, name: subtitle, widget: string },
-                  { label: Body, name: body, widget: markdown },
-                ],
-            }
-          
+            label: "Hero Nav",
+            name: heroNav,
+            widget: list,
+            fields:
+              [
+                { label: "Hero CTA Link", name: heroLink, widget: string },
+                { label: "Hero Carousel Nav Text", name: heroNavText, widget: string },
+                { label: "Hero Carousel Nav Icon", name: heroNavIcon, widget: string, hint: 'Copy an icon name from https://react-icons.github.io/react-icons/icons?name=fa' },
+              ],
+          }
+          - { label: "Section 1 Heading", name: sectionOneHeading, widget: string }
           - {
-              label: Mainpitch,
-              name: mainpitch,
-              widget: object,
-              fields:
-                [
-                  { label: Title, name: title, widget: string },
-                   { label: Video URL, name: youtubeVideoId, widget: string },
-                  {
-                    label: Steps,
-                    name: steps,
-                    widget: list,
-                    fields:
-                      [
-                        { label: Title, name: title, widget: string },
-                        { label: Text, name: body, widget: markdown },
-                      ],
-                  },
-                ],
-            }
+            label: "Section 1",
+            name: sectionOne,
+            widget: list,
+            fields:
+              [
+                { label: "Main Image", name: mainImage, widget: image },
+                { label: "Secondary Image", name: secondaryImage, widget: image },
+                { label: "Heading", name: heading, widget: string },
+                { label: "Content", name: content, widget: string },
+                { label: "CTA Text", name: callToActionText, widget: string },
+                { label: "CTA Link", name: callToActionLink, widget: string },
+                
+              ],
+          }
+          - { label: "Section 2 Heading", name: sectionTwoHeading, widget: string }
+          - { label: "Section 2 Content", name: sectionTwoContent, widget: string }
+          - { label: "Section 2 List Heading", name: sectionTwoListHeading, widget: string }
+          - {
+            label: "Section 2 List Items",
+            name: sectionTwoListItems,
+            widget: list,
+            fields: [{ label: "Item", name: item, widget: string }],
+          }
+          - { label: "Section 3 Heading", name: sectionThreeHeading, widget: string }
+          - { label: "Section 3 Content", name: sectionThreeContent, widget: string }
+          - { label: "Section 4 Heading", name: sectionFourHeading, widget: string }
+          - { label: "Section 4 Content", name: sectionFourContent, widget: string }
+          - { label: "Section 4 Logos Heading", name: sectionFourLogosHeading, widget: string }
+          - {
+            label: "Section 4 Logos",
+            name: sectionFourLogos,
+            widget: list,
+            fields: [{ label: "Logo", name: logo, widget: image }],
+          }
+          - { label: "Section 5 Heading", name: sectionFiveHeading, widget: string }
+          - { label: "Section 5 Content", name: sectionFiveContent, widget: string }
+          - {
+            label: "Section 5 Cards",
+            name: sectionFiveCards,
+            widget: list,
+            fields: [
+              { label: "Image", name: image, widget: image },
+              { label: "Heading", name: heading, widget: string },
+              { label: "Content", name: content, widget: string },
+              { label: "CTA Text", name: callToActionText, widget: string },
+              { label: "CTA Link", name: callToActionLink, widget: string },
+            ],
+          }
           - {
             label: "Testimonial",
             name: testimonials,
@@ -117,6 +147,57 @@ collections:
                 { label: Quote, name: quote, widget: string },
                 { label: Author, name: author, widget: string },
                 { label: Avatar, name: avatar, widget: image },
+              ],
+          }
+      - file: "src/pages/buy.md"
+        label: "Buy Page"
+        name: "buy"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "buy",
+            }
+          - { label: "Meta Title", name: metaTitle, widget: string }
+          - { label: "Meta Description", name: metaDescription, widget: string }
+          - { label: "Meta Keywords", name: metaKeywords, widget: string }
+          - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
+          - { label: "Hero Heading", name: heroHeading, widget: string }
+          - { label: "Hero Sub Heading", name: heroSubheading, widget: string }
+          - { label: "Section 1 Heading", name: sectionOneHeading, widget: string }
+          - { label: "Section 1 Sub Heading", name: sectionOneSubheading, widget: string }
+          - { label: "Section 1 Image", name: sectionOneImage, widget: image }
+          - { label: "Section 1 Content", name: sectionOneContent, widget: string }
+          - { label: "Section 2 Heading", name: sectionTwoHeading, widget: string }
+          - { label: "Section 2 Sub Heading", name: sectionTwoSubheading, widget: string }
+          - { label: "Section 2 Image", name: sectionTwoimage, widget: image }
+          - { label: "Section 2 Content", name: sectionTwoContent, widget: string }
+          - { label: "Section 3 Heading", name: sectionThreeHeading, widget: string }
+          - {
+            label: "Section 3 List Items",
+            name: sectionThreeList,
+            widget: list,
+            fields: [
+              { label: "Text", name: text, widget: string },
+              { label: 'Icon', name: icon, widget: string, hint: 'Copy an icon name from https://react-icons.github.io/react-icons/icons?name=fa'},
+            ],
+          }
+          - { label: "Section 4 Heading", name: sectionFourHeading, widget: string }
+          - { label: "Section 4 Subheading", name: sectionFourSubheading, widget: string }
+          - {
+            label: "Testimonial",
+            name: testimonials,
+            widget: list,
+            fields:
+              [
+                { label: Quote, name: quote, widget: string },
+                { label: Author, name: author, widget: string },
+                { label: From, name: from, widget: string },
+                { label: Avatar, name: avatar, widget: image },
+                { label: Saved, name: saved, widget: string },
               ],
           }
       - file: "src/pages/frequently-asked-questions.md"
@@ -134,6 +215,7 @@ collections:
           - { label: "Meta Keywords", name: metaKeywords, widget: string }
           - { label: Title, name: title, widget: string }
           - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
           - { label: "Hero Heading", name: heroHeading, widget: string }
           - { label: "Hero Subheading", name: heroSubheading, widget: string }
           - {
@@ -230,6 +312,33 @@ collections:
                 { label: Link, name: link, widget: string },
               ],
           }
+      - file: "src/pages/investors.md"
+        label: "Investors"
+        name: "investors"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "investors-page",
+            }
+          - { label: "Meta Title", name: metaTitle, widget: string }
+          - { label: "Meta Description", name: metaDescription, widget: string }
+          - { label: "Meta Keywords", name: metaKeywords, widget: string }
+          - { label: Title, name: title, widget: string }
+          - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
+          - { label: HeroHeading, name: heroHeading, widget: string }
+          - { label: HeroSubheading, name: heroSubheading, widget: string }
+          - { label: "Section One Heading", name: sectionOneHeading, widget: string }
+          - { label: "Section One Content", name: sectionOneContent, widget: markdown }
+          - { label: "Youtube Video ID", name: youtubeVideoId, widget: string }
+          - { label: "Section Two Heading", name: sectionTwoHeading, widget: string }
+          - { label: "Section Two Content", name: sectionTwoContent, widget: markdown }
+          - { label: "Section Three Heading", name: sectionThreeHeading, widget: string }
+          - { label: "Section Three Content", name: sectionThreeContent, widget: markdown }
+          - { label: "Lead Form Title", name: leadFormTitle, widget: string }
+          - { label: "Lead Form Body", name: leadFormBody, widget: string }
       - file: "src/pages/terms.md"
         label: "Terms"
         name: "terms"
@@ -284,53 +393,34 @@ collections:
           - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
           - { label: "Hero Heading", name: heroHeading, widget: string }
           - { label: "Hero Subheading", name: heroSubheading, widget: markdown }
+          - { label: "Section 1 Heading", name: sectionOneHeading, widget: string }
+          - { label: "Section 1 SubHeading", name: sectionOneSubheading, widget: string }
+          - { label: "Section 1 Image", name: sectionOneImage, widget: image }
+          - { label: "Section 1 Content", name: sectionOneContent, widget: string }
+          - { label: "Section 2 Heading", name: sectionTwoHeading, widget: string }
           - {
-              label: Mainpitch,
-              name: mainpitch,
-              widget: object,
+              label: "Section 2 Steps",
+              name: sectionTwoSteps,
+              widget: list,
               fields:
                 [
-                  { label: Title, name: title, widget: string },
-                  { label: Video URL, name: youtubeVideoId, widget: string },
-                  { label: Description, name: description, widget: markdown },
+                  { label: heading, name: heading, widget: string },
+                  { label: content, name: content, widget: string },
                   { label: Image, name: image, widget: image},
-                  { label: Call To Action text, name: ctaText, widget: string },
-                  {
-                    label: Steps,
-                    name: steps,
-                    widget: list,
-                    fields:
-                      [
-                        { label: Title, name: title, widget: string },
-                        { label: Text, name: body, widget: markdown },
-                      ],
-                  },
                 ],
             }
-          - {
-            label: SecondPitch,
-            name: secondpitch,
-            widget: object,
-            fields:
-              [
-                { label: Title, name: title, widget: string },
-                { label: Description, name: description, widget: markdown },
-                { label: Image, name: image, widget: image},
-                { label: Call To Action text, name: ctaText, widget: string },
-              ],
-          }
-          - {
-            label: ThirdPitch,
-            name: thirdpitch,
-            widget: object,
-            fields:
-              [
-                { label: Title, name: title, widget: string },
-                { label: Description, name: description, widget: markdown },
-                { label: Image, name: image, widget: image},
-                { label: Call To Action text, name: ctaText, widget: string },
-              ],
-          }
+          - { label: "Section 3 Heading", name: sectionThreeHeading, widget: string }
+          - { label: "Section 3 Content", name: sectionThreeContent, widget: markdown }
+          - { label: "Section 3 Row One", name: sectionThreeRowOne, widget: string }
+          - { label: "Section 3 Row Two", name: sectionThreeRowTwo, widget: string }
+          - { label: "Section 4 Heading", name: sectionFourHeading, widget: string }
+          - { label: "Section 4 Content", name: sectionFourContent, widget: markdown }
+          - { label: "Section 4 Image", name: sectionFourImage, widget: image }
+          - { label: "Section 5 Heading", name: sectionFiveHeading, widget: string }
+          - { label: "Section 5 Content", name: sectionFiveContent, widget: markdown }
+          - { label: "Section 5 Background Image", name: sectionFiveBackgroundImage, widget: image }
+          - { label: "Section 6 Heading", name: sectionSixHeading, widget: string }
+          - { label: "Section 6 Subheading", name: sectionSixSubheading, widget: string }
           - {
             label: "Testimonial",
             name: testimonials,
@@ -339,7 +429,9 @@ collections:
               [
                 { label: Quote, name: quote, widget: string },
                 { label: Author, name: author, widget: string },
+                { label: From, name: from, widget: string },
                 { label: Avatar, name: avatar, widget: image },
+                { label: Saved, name: saved, widget: string },
               ],
           }
       - file: "src/pages/blog/index.md"
@@ -356,3 +448,4 @@ collections:
           - { label: Title, name: title, widget: hidden }
           - { label: Body, name: body, widget: hidden }
           - { label: HeroImage, name: heroImage, widget: hidden }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }

@@ -13,8 +13,6 @@ import {
   FaCreditCard,
   FaUser,
   FaSignOutAlt,
-  FaSignInAlt,
-  FaSearch,
 } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import ReactTooltip from 'react-tooltip';
@@ -38,9 +36,11 @@ import {
   halfSpacer,
   tripleSpacer,
   threeQuarterSpacer,
+  decupleSpacer,
+  quarterSpacer,
 } from '../styles/size';
 import { z1Shadow, z4Shadow, baseBorderStyle } from '../styles/mixins';
-import { fontSizeH4, fontSizeH6 } from '../styles/typography';
+import { fontSizeH4, fontSizeH6, fontSizeSmall } from '../styles/typography';
 import { logout } from '../redux/ducks/auth';
 import { RootState } from '../redux/ducks';
 import logo from '../images/logo.svg';
@@ -50,12 +50,20 @@ import unauthenticatedNavigationItems from '../utils/unauthenticatedNavigationIt
 
 type NavbarProps = {};
 
-const Eyebrow = styled.div`
-  background: ${brandTertiary};
+const ContactInfo = styled.div`
   color: ${white};
+  line-height: 1.5;
+  margin-right: ${baseSpacer};
+  font-size: ${(props: { small?: boolean }) => (props.small ? fontSizeSmall : 'inherit')};
 
-  & a {
+  & a,
+  & a:hover,
+  & a:focus {
+    font-size: 75%;
     color: ${white};
+  }
+  & strong {
+    display: block;
   }
 `;
 
@@ -64,6 +72,8 @@ const StyledNavbar = styled.nav`
   color: ${white};
   position: relative;
   height: ${quadrupleSpacer};
+  z-index: 2;
+  position: relative;
 
   & .tooltip {
     padding: 0 ${halfSpacer};
@@ -78,12 +88,34 @@ const StyledNavbar = styled.nav`
 `;
 
 const StyledLogoLink = styled(Link)`
+  height: ${quadrupleSpacer};
   color: ${white};
+  position: relative;
+  padding-left: ${tripleSpacer};
+  line-height: calc(${tripleSpacer} + 6px);
+  width: calc(${decupleSpacer} + ${tripleSpacer});
 
   &:hover,
   &:focus {
     color: ${white};
   }
+`;
+
+const StyledLogoImg = styled.img`
+  position: absolute;
+  top: ${baseSpacer};
+  left: 0;
+`;
+
+const StyledTagline = styled.span`
+  color: ${white};
+  position: absolute;
+  left: ${tripleSpacer};
+  right: 0;
+  top: calc(${doubleSpacer} + ${quarterSpacer});
+  line-height: 1;
+  font-size: ${threeQuarterSpacer};
+  width: ${decupleSpacer};
 `;
 
 const StyledDropdown = styled.div`
@@ -235,6 +267,33 @@ const NotificationDot = styled.div`
     props.isSmallScreen ? `left: ${baseSpacer};` : `right: ${threeQuarterSpacer};`}
 `;
 
+const SubNav = styled.div`
+  background: ${white};
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  box-shadow: ${z1Shadow};
+`;
+
+const SubNavLink = styled(Link)`
+  color: ${brandTertiary};
+  padding: ${halfSpacer} ${doubleSpacer};
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    color: ${brandPrimary};
+    position: relative;
+    &:before {
+      content: '';
+      border-bottom: 2px solid ${brandPrimary};
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+`;
+
 const Navbar: FunctionComponent<NavbarProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const agent = useSelector((state: RootState) => state.agent);
@@ -299,20 +358,21 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const isLoggedInAgent = auth.isLoggedIn && agent.agentId !== '';
   const isLoggedInConsumer = auth.isLoggedIn && auth.roles.includes('Consumer');
   const shouldShowMenuToggle = isLoggedInAgent && size.isSmallScreen;
-  // list of routes that are part of sign up process for either agnet or consumer
+  // list of routes that are part of sign up process for either agent or consumer
   const signupPagesArr = [
-    'sign-up',
-    'agent-information',
-    'verify-email',
-    'business-information',
-    'payment-information',
-    'confirm-registration',
-    'start',
-    'selling',
-    'buying',
-    'pilot',
+    '/agent/sign-up',
+    '/agent/agent-information',
+    '/agent/verify-email',
+    '/consumer/verify-email',
+    '/agent/business-information',
+    '/agent/payment-information',
+    '/agent/confirm-registration',
+    '/consumer/start',
+    '/consumer/selling',
+    '/consumer/buying',
+    '/agent/pilot',
   ];
-  const isInSignupProcess = signupPagesArr.some((route) => location.pathname.includes(route));
+  const isInSignupProcess = signupPagesArr.some((route) => route === location.pathname);
 
   const menuItemsToRender = () => {
     if (auth.isLoading || agent.isLoading) {
@@ -334,10 +394,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     return [];
   };
 
-  const isCurrentlyActive = ({ isCurrent }: { isCurrent: boolean }) => {
-    return isCurrent ? { className: 'active' } : {};
-  };
-
   const getIcon = (icon: string) => {
     if (icon === 'user') return <FaUser />;
     if (icon === 'credit-card') return <FaCreditCard />;
@@ -347,19 +403,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   return (
     <>
-      <Eyebrow>
-        <PageContainer>
-          <ClientOnly>
-            <FlexContainer justifyContent={size.isSmallScreen ? 'center' : 'flex-end'}>
-              <small>
-                <strong>Questions? Contact Us: </strong>{' '}
-                <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
-                <a href="tel:+12489152654">(248) 915-2654</a>
-              </small>
-            </FlexContainer>
-          </ClientOnly>
-        </PageContainer>
-      </Eyebrow>
       <StyledNavbar role="navigation" aria-label="main-navigation">
         <ClientOnly>
           <PageContainer>
@@ -394,9 +437,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 }
                 title="Logo"
               >
-                <img src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} />{' '}
+                <StyledLogoImg src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} />{' '}
                 RealtyOffer
                 <sup>&#8482;</sup>
+                <StyledTagline>Same Agent, Less Commission</StyledTagline>
               </StyledLogoLink>
               {false && ( // size.isSmallScreen && ( // TODO when notifications are ready
                 <>
@@ -419,26 +463,23 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 isSmallScreen={Boolean(size.isSmallScreen)}
                 menuIsOpen={menuIsOpen}
               >
-                {menuItemsToRender().length > 0 &&
-                  menuItemsToRender().map((navItem) => (
-                    <Link
-                      key={navItem.name}
-                      to={navItem.path}
-                      activeClassName="active"
-                      onClick={() => toggleMenu()}
-                      getProps={isCurrentlyActive}
-                    >
-                      {navItem.name}
-                    </Link>
-                  ))}
                 {size.isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
                   <>
-                    <Link to="/consumer/start" onClick={() => toggleMenu()}>
-                      <FaSearch /> Find An Agent
-                    </Link>
+                    {menuItemsToRender().length > 0 &&
+                      menuItemsToRender().map((navItem) => (
+                        <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
+                          {navItem.name}
+                        </Link>
+                      ))}
                     <Link to="/login" onClick={() => toggleMenu()}>
-                      <FaSignInAlt /> Sign In
+                      Log In
                     </Link>
+                    <HorizontalRule compact />
+                    <ContactInfo>
+                      <strong>Questions? Contact Us</strong>
+                      <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
+                      <a href="tel:+12489152654">(248) 915-2654</a>
+                    </ContactInfo>
                   </>
                 )}
                 {size.isSmallScreen && isInSignupProcess && (
@@ -585,20 +626,16 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </Link>
               )}
               {!auth.isLoggedIn && !size.isSmallScreen && !isInSignupProcess && (
-                <div>
-                  <Button
-                    type="link"
-                    to="/consumer/start"
-                    rightspacer
-                    color="inverseOutline"
-                    iconLeft={<FaSearch />}
-                  >
-                    Find An Agent
+                <FlexContainer>
+                  <ContactInfo small>
+                    <strong>Questions? Contact Us</strong>
+                    <a href="mailto:info@realtyoffer.com">info@realtyoffer.com</a> |{' '}
+                    <a href="tel:+12489152654">(248) 915-2654</a>
+                  </ContactInfo>
+                  <Button type="link" to="/login" color="tertiary">
+                    Log In
                   </Button>
-                  <Button type="link" to="/login" color="tertiary" iconLeft={<FaSignInAlt />}>
-                    Sign In
-                  </Button>
-                </div>
+                </FlexContainer>
               )}
               {!size.isSmallScreen && isInSignupProcess && (
                 <Button type="link" to="/logout" color="inverseOutline" iconLeft={<FaSignOutAlt />}>
@@ -609,6 +646,27 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           </PageContainer>
         </ClientOnly>
       </StyledNavbar>
+      {!size.isSmallScreen && !isInSignupProcess && !isLoggedInAgent && !isLoggedInConsumer && (
+        <ClientOnly>
+          <SubNav>
+            <PageContainer>
+              <FlexContainer>
+                {menuItemsToRender().length > 0 &&
+                  menuItemsToRender().map((navItem) => (
+                    <SubNavLink
+                      key={navItem.name}
+                      to={navItem.path}
+                      activeClassName="active"
+                      onClick={() => toggleMenu()}
+                    >
+                      {navItem.name}
+                    </SubNavLink>
+                  ))}
+              </FlexContainer>
+            </PageContainer>
+          </SubNav>
+        </ClientOnly>
+      )}
     </>
   );
 };

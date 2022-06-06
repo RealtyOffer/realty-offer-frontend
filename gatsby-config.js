@@ -57,7 +57,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-mailchimp',
       options: {
-        endpoint: process.env.GATSBY_MAILCHIMP_ENDPOINT,
+        endpoint:
+          'https://realtyoffer.us7.list-manage.com/subscribe/post?u=5caeac576870824b24baa7608&amp;id=aecfb5f101',
       },
     },
     {

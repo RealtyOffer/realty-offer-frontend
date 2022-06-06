@@ -11,7 +11,7 @@ date: 2021-08-18T06:05:19.628Z
 description: 'Millions of people choose to buy a new home every year. If you are
   interested in becoming one of these people, you will likely need to get a
   mortgage. '
-featuredimage: /img/chastity-cortijo-98we9hwwjiq-unsplash-2x.png
+featuredimage: /img/unsplash2.jpg
 tags:
   - Mortgage
   - Real Estate Agents
