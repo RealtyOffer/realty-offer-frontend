@@ -183,7 +183,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: brandPrimaryAccentLight }}>
         <PageContainer>
           <Row>
-            <Column md={8}>
+            <Column sm={8}>
               <Heading as="h2" styledAs="title">
                 {sectionOneHeading}
               </Heading>
@@ -191,13 +191,15 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 {sectionOneSubheading}
               </Heading>
             </Column>
-            <Column md={4}>
+            <Column xs={8} xsOffset={2} sm={4}>
               <PreviewCompatibleImage
                 imageInfo={{
                   image: sectionOneImage.childImageSharp.fluid.src,
                   alt: '',
                 }}
               />
+              <br />
+              <br />
             </Column>
           </Row>
           <div style={{ fontSize: fontSizeH6 }}>
@@ -319,13 +321,15 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
       >
         <PageContainer>
           <Row>
-            <Column md={5}>
+            <Column xs={8} xsOffset={2} md={5}>
               <PreviewCompatibleImage
                 imageInfo={{
                   image: sectionFourImage.childImageSharp.fluid.src,
                   alt: '',
                 }}
               />
+              <br />
+              <br />
             </Column>
             <Column md={6} mdOffset={1}>
               <Heading as="h3">{sectionFourHeading}</Heading>

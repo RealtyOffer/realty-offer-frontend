@@ -137,7 +137,7 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
       <section style={{ padding: `${decupleSpacer} 0`, backgroundColor: lightestGray }}>
         <PageContainer>
           <Row>
-            <Column md={8}>
+            <Column sm={8}>
               <Heading as="h2" styledAs="title">
                 {sectionOneHeading}
               </Heading>
@@ -146,13 +146,15 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
               </Heading>
               <ReactMarkdown source={sectionOneContent} />
             </Column>
-            <Column md={4}>
+            <Column xs={8} xsOffset={2} sm={4}>
               <PreviewCompatibleImage
                 imageInfo={{
                   image: sectionOneImage.childImageSharp.fluid.src,
                   alt: '',
                 }}
               />
+              <br />
+              <br />
             </Column>
           </Row>
 
