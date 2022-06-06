@@ -647,23 +647,25 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         </ClientOnly>
       </StyledNavbar>
       {!size.isSmallScreen && !isInSignupProcess && !isLoggedInAgent && !isLoggedInConsumer && (
-        <SubNav>
-          <PageContainer>
-            <FlexContainer>
-              {menuItemsToRender().length > 0 &&
-                menuItemsToRender().map((navItem) => (
-                  <SubNavLink
-                    key={navItem.name}
-                    to={navItem.path}
-                    activeClassName="active"
-                    onClick={() => toggleMenu()}
-                  >
-                    {navItem.name}
-                  </SubNavLink>
-                ))}
-            </FlexContainer>
-          </PageContainer>
-        </SubNav>
+        <ClientOnly>
+          <SubNav>
+            <PageContainer>
+              <FlexContainer>
+                {menuItemsToRender().length > 0 &&
+                  menuItemsToRender().map((navItem) => (
+                    <SubNavLink
+                      key={navItem.name}
+                      to={navItem.path}
+                      activeClassName="active"
+                      onClick={() => toggleMenu()}
+                    >
+                      {navItem.name}
+                    </SubNavLink>
+                  ))}
+              </FlexContainer>
+            </PageContainer>
+          </SubNav>
+        </ClientOnly>
       )}
     </>
   );
