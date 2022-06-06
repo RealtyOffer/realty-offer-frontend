@@ -5,6 +5,7 @@ metaDescription: Frequently asked questions about how Realty Offer can help you 
 metaKeywords: real estate agent, buy a home, sell a home
 title: Learn more about RealtyOffer
 heroImage: /img/faq.jpg
+mobileHeroImage: /img/faq-mobile.jpg
 heroHeading: Learn more about RealtyOffer™
 heroSubheading: Explore our frequently asked questions below to learn more about
   how RealtyOffer™ can help.

@@ -18,6 +18,7 @@ import BlogRoll from './BlogRoll';
 type BlogIndexProps = {
   title: string;
   heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
+  mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
   pageContext: {
     currentPage: number;
     limit: number;
@@ -59,7 +60,7 @@ export const BlogIndexTemplate: FunctionComponent<BlogIndexProps> = (props) => {
         imageWidth={props.heroImage.childImageSharp.fixed.width}
         imageHeight={props.heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={props.heroImage} hasOverlay>
+      <HeroImage imgSrc={props.heroImage} mobileImgSrc={props.mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
             <Column md={7}>
@@ -138,6 +139,7 @@ const BlogIndexPage = ({
     <BlogIndexTemplate
       title={post.frontmatter.title}
       heroImage={post.frontmatter.heroImage}
+      mobileHeroImage={post.frontmatter.mobileHeroImage}
       pageContext={pageContext}
       posts={all.edges}
     />
@@ -193,6 +195,13 @@ export const blogIndexPageQuery = graphql`
             }
             fixed(width: 1080, quality: 60) {
               ...GatsbyImageSharpFixed
+            }
+          }
+        }
+        mobileHeroImage {
+          childImageSharp {
+            fluid(maxWidth: 512, quality: 40) {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }

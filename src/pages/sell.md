@@ -5,7 +5,7 @@ metaDescription: Our vetted realtors will not only help you sell your house, but
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 title: Save thousands of dollars when selling your home
 heroImage: /img/realtyoffer-sell-hero-image.jpg
-mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
+mobileHeroImage: /img/realtyoffer-sell-hero-image-mobile.jpg
 heroHeading: “Same agent, Less commission”
 heroSubheading: >-
   Need to sell your home and worried about paying high commission?

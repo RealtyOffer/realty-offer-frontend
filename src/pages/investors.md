@@ -5,7 +5,7 @@ metaDescription: Become a RealtyOffer™ Partner
 metaKeywords: The real estate industry has not changed in 100 years.
 title: Partners & Investors
 heroImage: /img/realtyoffer-partners-hero-image.jpg
-mobileHeroImage: /img/realtyoffer-partners-hero-image.jpg
+mobileHeroImage: /img/realtyoffer-partners-hero-image-mobile.jpg
 heroHeading: Partners & Investors
 heroSubheading: >-
   Welcome to the Future!

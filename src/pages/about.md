@@ -5,7 +5,7 @@ metaDescription: Meet the RealtyOffer™ Team
 metaKeywords: The real estate industry has not changed in 100 years.
 title: Meet the RealtyOffer™ Team
 heroImage: /img/about-us-hero-img.jpg
-mobileHeroImage: /img/about-us-hero-img.jpg
+mobileHeroImage: /img/about-us-hero-img-mobile.jpg
 mission: >-
   The real estate industry has not changed in 100 years. Purchasing a home is
   often the largest transaction a consumer will make in their lifetime, and yet

@@ -215,6 +215,7 @@ collections:
           - { label: "Meta Keywords", name: metaKeywords, widget: string }
           - { label: Title, name: title, widget: string }
           - { label: "Hero Image", name: heroImage, widget: image }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }
           - { label: "Hero Heading", name: heroHeading, widget: string }
           - { label: "Hero Subheading", name: heroSubheading, widget: string }
           - {
@@ -447,3 +448,4 @@ collections:
           - { label: Title, name: title, widget: hidden }
           - { label: Body, name: body, widget: hidden }
           - { label: HeroImage, name: heroImage, widget: hidden }
+          - { label: HeroMobileImage, name: mobileHeroImage, widget: image }

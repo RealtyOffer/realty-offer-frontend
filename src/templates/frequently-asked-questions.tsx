@@ -36,6 +36,7 @@ type FAQPageProps = {
   heroHeading: string;
   heroSubheading: string;
   heroImage: { childImageSharp: { fluid: FluidObject; fixed: FixedObject } };
+  mobileHeroImage: { childImageSharp: { fluid: FluidObject } };
   consumerFaq: {
     items: Array<{
       question: string;
@@ -52,6 +53,7 @@ type FAQPageProps = {
 
 export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
   heroImage,
+  mobileHeroImage,
   heroHeading,
   heroSubheading,
   consumerFaq,
@@ -71,7 +73,7 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
         imageWidth={heroImage.childImageSharp.fixed.width}
         imageHeight={heroImage.childImageSharp.fixed.height}
       />
-      <HeroImage imgSrc={heroImage} hasOverlay>
+      <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
             <Column md={7}>
@@ -235,6 +237,13 @@ export const pageQuery = graphql`
             }
             fixed(width: 1080, quality: 60) {
               ...GatsbyImageSharpFixed
+            }
+          }
+        }
+        mobileHeroImage {
+          childImageSharp {
+            fluid(maxWidth: 512, quality: 40) {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }

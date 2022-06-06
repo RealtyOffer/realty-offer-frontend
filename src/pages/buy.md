@@ -5,7 +5,7 @@ metaDescription: RealtyOffer™ will connect you with top-rated agents in your a
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
 title: Looking to Buy a New Home?
 heroImage: /img/realtyoffer-buy-hero-image.jpg
-mobileHeroImage: /img/RO-Beach-Image-1440-500 copy.png
+mobileHeroImage: /img/realtyoffer-buy-hero-image-mobile.jpg
 heroHeading: Looking to Buy a New Home?
 heroSubheading: >-
   RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs! Welcome to RealtyOffer™
