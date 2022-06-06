@@ -24,6 +24,7 @@ import {
   PreviewCompatibleImage,
   SavingsCalculator,
   HeroImage,
+  ClientOnly,
 } from '../components';
 
 import {
@@ -394,31 +395,33 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           </Heading>
           <p>{sectionFourLogosHeading}</p>
         </PageContainer>
-        <SectionCarouselWrapper>
-          <Carousel slide>
-            {logosArray.map((logos, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Carousel.Item key={`carousel-logo+${index}`}>
-                <Row>
-                  <Column xs={8} xsOffset={2} sm={8} smOffset={2}>
-                    <Row>
-                      {logos.map((item, i) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <Column xs={3} key={item.logo.childImageSharp.fixed.src + i}>
-                          <div style={{ padding: doubleSpacer }}>
-                            <PreviewCompatibleImage
-                              imageInfo={{ image: item.logo.childImageSharp.fixed.src, alt: '' }}
-                            />
-                          </div>
-                        </Column>
-                      ))}
-                    </Row>
-                  </Column>
-                </Row>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </SectionCarouselWrapper>
+        <ClientOnly>
+          <SectionCarouselWrapper>
+            <Carousel slide>
+              {logosArray.map((logos, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Carousel.Item key={`carousel-logo+${index}`}>
+                  <Row>
+                    <Column xs={8} xsOffset={2} sm={8} smOffset={2}>
+                      <Row>
+                        {logos.map((item, i) => (
+                          // eslint-disable-next-line react/no-array-index-key
+                          <Column xs={3} key={item.logo.childImageSharp.fixed.src + i}>
+                            <div style={{ padding: doubleSpacer }}>
+                              <PreviewCompatibleImage
+                                imageInfo={{ image: item.logo.childImageSharp.fixed.src, alt: '' }}
+                              />
+                            </div>
+                          </Column>
+                        ))}
+                      </Row>
+                    </Column>
+                  </Row>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </SectionCarouselWrapper>
+        </ClientOnly>
       </section>
       {false && ( // TODO: testimonials
         <section style={{ padding: `${decupleSpacer} 0` }}>
