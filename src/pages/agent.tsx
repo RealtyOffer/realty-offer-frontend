@@ -233,9 +233,11 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
           <NotFoundPage default />
         </Router>
       </ErrorBoundary>
-      <FeedbackLink to="/feedback" state={{ pathname: props.location.pathname }}>
-        <FaBullhorn /> Feedback
-      </FeedbackLink>
+      {auth.isLoggedIn && (
+        <FeedbackLink to="/feedback" state={{ pathname: props.location.pathname }}>
+          <FaBullhorn /> Feedback
+        </FeedbackLink>
+      )}
     </PageContainer>
   );
 };
