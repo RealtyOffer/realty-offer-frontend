@@ -49,8 +49,8 @@ sectionOne:
     heading: Choose Your Winning Agent
     content: >-
       Within 24 hours you will be able to review the top 3 bids received from agents in your area. Choose the best offer, and simply get connected.
-    callToActionLink: /frequently-asked-questions
-    callToActionText: Learn More Now
+    callToActionLink: /consumer/start
+    callToActionText: Get Started Now
 sectionTwoHeading: Agents Bid for My Business?
 sectionTwoContent: In order to win your business, agents can choose to reduce their commission on the sale of your home. When purchasing a new home, agents can choose to contribute part of their commission toward your closing costs--this means you bring less money to the closing table.
 sectionTwoListHeading: >-

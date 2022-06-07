@@ -306,13 +306,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
 
                   <ReactMarkdown source={item.content} />
 
-                  <Button
-                    type="link"
-                    to={item.callToActionLink}
-                    color={index % 2 === 0 ? 'tertiary' : 'primary'}
-                  >
-                    {item.callToActionText}
-                  </Button>
+                  {index === 2 && (
+                    <Button type="link" to={item.callToActionLink} color="primary">
+                      {item.callToActionText}
+                    </Button>
+                  )}
                 </FlexContainer>
               </Column>
             </Row>
