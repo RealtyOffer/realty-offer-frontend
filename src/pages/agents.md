@@ -65,6 +65,7 @@ sectionFiveHeading: Now available for iOS and Android
 sectionFiveContent: >-
   RealtyOffer™ makes bidding easy. Agents can bid in seconds from the palm of their hands.
 sectionFiveBackgroundImage: /img/RO-Beach-Image-1440-500 copy 3.png
+sectionFiveBackgroundImageMobile: /img/RO-Beach-Image-1440-500 copy.png
 sectionSixHeading: Don't take our word for it. Read what previous customers have to say!
 sectionSixSubheading: Average customer saves $5,450
 testimonials:

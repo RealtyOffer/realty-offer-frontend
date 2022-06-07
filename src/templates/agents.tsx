@@ -21,7 +21,14 @@ import {
   Avatar,
 } from '../components';
 
-import { baseSpacer, doubleSpacer, decupleSpacer, halfSpacer, tripleSpacer } from '../styles/size';
+import {
+  baseSpacer,
+  doubleSpacer,
+  decupleSpacer,
+  halfSpacer,
+  tripleSpacer,
+  breakpoints,
+} from '../styles/size';
 import {
   brandDanger,
   brandPrimary,
@@ -68,6 +75,7 @@ type AgentsPageProps = {
   sectionFiveHeading: string;
   sectionFiveContent: string;
   sectionFiveBackgroundImage: { childImageSharp: { fluid: FluidObject } };
+  sectionFiveBackgroundImageMobile: { childImageSharp: { fluid: FluidObject } };
   sectionSixHeading: string;
   sectionSixSubheading: string;
   testimonials: Array<{
@@ -104,13 +112,31 @@ const SectionCarouselWrapper = styled.div`
   }
 `;
 
+const TableWrapper = styled.div`
+  overflow: scroll;
+`;
+
 const SimpleTable = styled.table`
   table-layout: fixed;
+  width: 200vw;
+
+  & th:first-of-type,
+  & td:first-of-type {
+    width: 200px;
+  }
+
   & th,
   & td {
     border: ${baseBorderLightStyle};
     padding: ${halfSpacer};
-    width: 33%;
+  }
+
+  @media only screen and (min-width: ${breakpoints.sm}) {
+    width: 100%;
+    & th,
+    & td {
+      width: auto;
+    }
   }
 `;
 
@@ -139,6 +165,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
   sectionFiveHeading,
   sectionFiveContent,
   sectionFiveBackgroundImage,
+  sectionFiveBackgroundImageMobile,
   sectionSixHeading,
   sectionSixSubheading,
   testimonials,
@@ -248,67 +275,69 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             {sectionThreeHeading}
           </Heading>
           <ReactMarkdown source={sectionThreeContent} />
-          <SimpleTable>
-            <thead>
-              <tr>
-                <th>&nbsp;</th>
-                <th style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                  <strong>Free-mium Agent</strong>
-                </th>
-                <th style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                  <strong>Monthly Subscription</strong>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <small>{sectionThreeRowOne}</small>
-                </td>
-                <td align="center">
-                  <FaIcon.FaCheck color={brandSuccess} />
-                </td>
-                <td align="center">
-                  <FaIcon.FaCheck color={brandSuccess} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <small>{sectionThreeRowTwo}</small>
-                </td>
-                <td align="center">
-                  <FaIcon.FaCheck color={brandSuccess} />
-                </td>
-                <td align="center">
-                  <FaIcon.FaTimes color={brandDanger} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <small>{sectionThreeRowThree}</small>
-                </td>
-                <td align="center">
-                  <FaIcon.FaTimes color={brandDanger} />
-                </td>
-                <td align="center">
-                  <FaIcon.FaCheck color={brandSuccess} />
-                </td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td align="center">
-                  <Button type="link" to="/agent/sign-up" block>
-                    Free-mium Sign Up
-                  </Button>
-                </td>
-                <td align="center">
-                  <Button type="link" to="/agent/sign-up" block>
-                    Monthly Sign Up
-                  </Button>
-                </td>
-              </tr>
-            </tbody>
-          </SimpleTable>
+          <TableWrapper>
+            <SimpleTable>
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                    <strong>Free-mium Agent</strong>
+                  </th>
+                  <th style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                    <strong>Monthly Subscription</strong>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <small>{sectionThreeRowOne}</small>
+                  </td>
+                  <td align="center">
+                    <FaIcon.FaCheck color={brandSuccess} />
+                  </td>
+                  <td align="center">
+                    <FaIcon.FaCheck color={brandSuccess} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>{sectionThreeRowTwo}</small>
+                  </td>
+                  <td align="center">
+                    <FaIcon.FaCheck color={brandSuccess} />
+                  </td>
+                  <td align="center">
+                    <FaIcon.FaTimes color={brandDanger} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>{sectionThreeRowThree}</small>
+                  </td>
+                  <td align="center">
+                    <FaIcon.FaTimes color={brandDanger} />
+                  </td>
+                  <td align="center">
+                    <FaIcon.FaCheck color={brandSuccess} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td align="center">
+                    <Button type="link" to="/agent/sign-up" block color="primaryOutline">
+                      Sign Up
+                    </Button>
+                  </td>
+                  <td align="center">
+                    <Button type="link" to="/agent/sign-up" block>
+                      Get Started
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            </SimpleTable>
+          </TableWrapper>
         </PageContainer>
       </section>
 
@@ -342,13 +371,19 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
         </PageContainer>
       </section>
 
-      <HeroImage imgSrc={sectionFiveBackgroundImage}>
-        <section style={{ padding: `${decupleSpacer} 0`, width: '100vw' }}>
+      <section style={{}}>
+        <HeroImage
+          imgSrc={sectionFiveBackgroundImage}
+          mobileImgSrc={sectionFiveBackgroundImageMobile}
+          hasOverlay={Boolean(size.isSmallScreen)}
+        >
           <PageContainer>
             <Row>
-              <Column xs={6} xsOffset={6}>
+              <Column md={6} mdOffset={6}>
                 <Heading as="h2">{sectionFiveHeading}</Heading>
-                <div style={{ color: headingsColor }}>{sectionFiveContent}</div>
+                <div style={{ color: headingsColor, marginBottom: doubleSpacer }}>
+                  {sectionFiveContent}
+                </div>
                 <FlexContainer flexDirection="row" justifyContent="flex-start">
                   <Badge>
                     <a href="https://apps.apple.com/us/app/realtyoffer/id1531733131">
@@ -374,8 +409,8 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
               </Column>
             </Row>
           </PageContainer>
-        </section>
-      </HeroImage>
+        </HeroImage>
+      </section>
 
       {/* <section
         style={{
@@ -560,6 +595,13 @@ export const pageQuery = graphql`
           childImageSharp {
             fluid(maxWidth: 2400, quality: 60) {
               ...GatsbyImageSharpFluid
+            }
+          }
+        }
+        sectionFiveBackgroundImageMobile {
+          childImageSharp {
+            fluid(maxWidth: 512, quality: 40) {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }

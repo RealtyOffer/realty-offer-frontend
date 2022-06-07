@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState } from 'react';
 import { graphql } from 'gatsby';
 import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
-
 import {
   Accordion,
   AccordionItem,
@@ -12,6 +11,7 @@ import {
   AccordionItemState,
 } from 'react-accessible-accordion';
 import { FaChevronCircleUp, FaChevronCircleDown, FaFilter } from 'react-icons/fa';
+import styled from 'styled-components';
 
 import {
   Box,
@@ -33,7 +33,6 @@ import {
   quarterSpacer,
 } from '../styles/size';
 import { brandPrimary, brandTertiary } from '../styles/color';
-import styled from 'styled-components';
 
 type FAQPageProps = {
   title: string;
