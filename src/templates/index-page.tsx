@@ -397,26 +397,28 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
         </PageContainer>
         <ClientOnly>
           <SectionCarouselWrapper>
-            <Carousel slide>
+            <Carousel slide controls={false}>
               {logosArray.map((logos, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <Carousel.Item key={`carousel-logo+${index}`}>
-                  <Row>
-                    <Column xs={8} xsOffset={2} sm={8} smOffset={2}>
-                      <Row>
-                        {logos.map((item, i) => (
-                          // eslint-disable-next-line react/no-array-index-key
-                          <Column xs={3} key={item.logo.childImageSharp.fixed.src + i}>
-                            <div style={{ padding: doubleSpacer }}>
-                              <PreviewCompatibleImage
-                                imageInfo={{ image: item.logo.childImageSharp.fixed.src, alt: '' }}
-                              />
-                            </div>
-                          </Column>
-                        ))}
-                      </Row>
-                    </Column>
-                  </Row>
+                  <div>
+                    <Row>
+                      {logos.map((item, i) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <Column xs={6} md={3} key={item.logo.childImageSharp.fixed.src + i}>
+                          <div>
+                            <PreviewCompatibleImage
+                              imageInfo={{
+                                image: item.logo.childImageSharp.fixed.src,
+                                alt: '',
+                              }}
+                              style={{ width: '100%', maxWidth: 100 }}
+                            />
+                          </div>
+                        </Column>
+                      ))}
+                    </Row>
+                  </div>
                 </Carousel.Item>
               ))}
             </Carousel>
@@ -488,7 +490,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                     height="100%"
                     alignItems="flex-start"
                   >
-                    <div style={{ height: 350 }}>
+                    <div>
                       <PreviewCompatibleImage
                         imageInfo={{ image: card.image.childImageSharp.fixed.src, alt: '' }}
                       />
