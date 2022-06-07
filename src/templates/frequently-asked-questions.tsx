@@ -25,8 +25,15 @@ import {
   Column,
 } from '../components';
 
-import { doubleSpacer, baseSpacer, decupleSpacer } from '../styles/size';
+import {
+  doubleSpacer,
+  baseSpacer,
+  decupleSpacer,
+  borderRadius,
+  quarterSpacer,
+} from '../styles/size';
 import { brandPrimary, brandTertiary } from '../styles/color';
+import styled from 'styled-components';
 
 type FAQPageProps = {
   title: string;
@@ -50,6 +57,25 @@ type FAQPageProps = {
     }>;
   };
 };
+
+const ButtonGroup = styled.div`
+  display: inline;
+  margin-left: ${baseSpacer};
+  & button {
+    padding: ${quarterSpacer} ${baseSpacer};
+  }
+  & button:first-child {
+    border-radius: ${borderRadius} 0 0 ${borderRadius};
+  }
+  & button:nth-child(2) {
+    border-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+  & button:last-child {
+    border-radius: 0 ${borderRadius} ${borderRadius} 0;
+  }
+`;
 
 export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
   heroImage,
@@ -88,31 +114,30 @@ export const FAQPageTemplate: FunctionComponent<FAQPageProps> = ({
       <section style={{ padding: `${decupleSpacer} 0` }}>
         <PageContainer>
           <p style={{ margin: `${doubleSpacer} 0` }}>
-            <FaFilter /> <span style={{ marginRight: baseSpacer }}>Filter By:</span>
-            <Button
-              type="button"
-              onClick={() => setFilter('all')}
-              rightspacer
-              color={filter === 'all' ? 'primary' : 'primaryOutline'}
-            >
-              All
-            </Button>
-            <Button
-              type="button"
-              onClick={() => setFilter('agents')}
-              color={filter === 'agents' ? 'primary' : 'primaryOutline'}
-              rightspacer
-            >
-              Agents
-            </Button>
-            <Button
-              type="button"
-              onClick={() => setFilter('consumers')}
-              rightspacer
-              color={filter === 'consumers' ? 'primary' : 'primaryOutline'}
-            >
-              Consumers
-            </Button>
+            <FaFilter /> <span>Filter By:</span>
+            <ButtonGroup>
+              <Button
+                type="button"
+                onClick={() => setFilter('all')}
+                color={filter === 'all' ? 'primary' : 'primaryOutline'}
+              >
+                All
+              </Button>
+              <Button
+                type="button"
+                onClick={() => setFilter('agents')}
+                color={filter === 'agents' ? 'primary' : 'primaryOutline'}
+              >
+                Agents
+              </Button>
+              <Button
+                type="button"
+                onClick={() => setFilter('consumers')}
+                color={filter === 'consumers' ? 'primary' : 'primaryOutline'}
+              >
+                Consumers
+              </Button>
+            </ButtonGroup>
           </p>
 
           <Accordion allowZeroExpanded>
