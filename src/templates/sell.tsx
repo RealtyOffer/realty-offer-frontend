@@ -125,11 +125,14 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
-            <Column md={7}>
+            <Column lg={7}>
               <Heading styledAs="title">{heroHeading}</Heading>
               <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />
               </Heading>
+              <Button type="link" to="/consumer/start" color="tertiary">
+                Get Started
+              </Button>
             </Column>
           </Row>
         </PageContainer>

@@ -233,8 +233,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
               <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />
               </Heading>
-              <Button type="button" onClick={() => scrollTo('#start')} color="tertiary">
+              <Button type="button" onClick={() => scrollTo('#start')} color="tertiary" rightspacer>
                 {heroCTA}
+              </Button>
+              <Button type="link" to="/consumer/start" color="primary">
+                Get Started
               </Button>
             </Column>
           </Row>
