@@ -1,6 +1,6 @@
 ---
 templateKey: blog-post
-metaTitle: Sell A Home
+metaTitle: Selling A Home in Michigan
 metaDescription: Millions of people choose to buy a new home every year. If you
   are interested in becoming one of these people, you will likely need to get a
   mortgage.
@@ -8,9 +8,9 @@ metaKeywords: real estate leads, real estate buyer leads, real estate seller lea
 category: consumer
 title: Sell A Home
 date: 2021-09-13T05:58:01.961Z
-description: 'Millions of people choose to buy a new home every year. If you are
+description: "Millions of people choose to buy a new home every year. If you are
   interested in becoming one of these people, you will likely need to get a
-  mortgage. '
+  mortgage. "
 featuredpost: true
 featuredimage: /img/unsplash4.jpg
 tags:
