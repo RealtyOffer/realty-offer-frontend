@@ -33,7 +33,10 @@ teamMembers:
   - name: Thea Tuto
     title: Co-Founder & CEO
     bio: >-
-      Thea Tuto is co-founder and chief executive officer of RealtyOffer, the first automated bidding platform of its kind, designed to educate and empower consumers looking to buy or sell a home and connect them with top-rated certified agents.
+      Thea Tuto is co-founder and chief executive officer of RealtyOffer, the
+      first automated bidding platform of its kind, designed to educate and
+      empower consumers looking to buy or sell a home and connect them with
+      top-rated certified agents.
 
 
       Since becoming a licensed real estate agent in 2015, Thea has represented hundreds of buyers and sellers in southeast Michigan. Her experience as an agent led her to want to modernize and streamline the real estate transaction process for buyers, sellers and agents, fueling the creation of RealtyOffer, which launched in 2021.
@@ -55,7 +58,13 @@ teamMembers:
   - name: Tony Mamo
     title: Senior Software Engineer
     bio: >-
-      Tony is a software engineer with UX/UI designer skills, with over 15 years of professional experience, specializing in architecting scalable, maintainable front end systems paired with easy to use and beautiful looking interfaces. He is devoted to working on projects that move the world forward through innovative software. Tony has industry experience within recruitment, healthcare, e-commerce, logistics, and non-profit charity environments.
+      Tony is a software engineer with UX/UI designer skills, with over 15 years
+      of professional experience, specializing in architecting scalable,
+      maintainable front end systems paired with easy to use and beautiful
+      looking interfaces. He is devoted to working on projects that move the
+      world forward through innovative software. Tony has industry experience
+      within recruitment, healthcare, e-commerce, logistics, and non-profit
+      charity environments.
 
 
       Based out of Metro Detroit, outside of his work life he is a woodworker, photographer, musician, foodie, adventurer, husband, and dad.
@@ -63,12 +72,18 @@ teamMembers:
   - name: Mark Duhaime
     title: Partner
     bio: >-
-      Mark is the founder of Galileo Insights, a group of technology and product thinkers who help start-ups accelerate their maturity in product, process, operations and culture. Mark brings teams and systems together into one cohesive system that shifts the organizational mindset from start-up chaos, to thoughtful focus on product maturity and market acceptance. The team uses Fortune disciplines to add just the right amount of structure without becoming bureacratic. 
+      Mark is the founder of Galileo Insights, a group of technology and product
+      thinkers who help start-ups accelerate their maturity in product, process,
+      operations and culture. Mark brings teams and systems together into one
+      cohesive system that shifts the organizational mindset from start-up
+      chaos, to thoughtful focus on product maturity and market acceptance. The
+      team uses Fortune disciplines to add just the right amount of structure
+      without becoming bureacratic. 
 
 
       Mark and his team specialize in modern software development methods including lean and agile to provide teams the structure required to be credible with investors and potential acquirers. Mark has deep vertical understanding of both HealthCare and Manufacturing.
 
 
       Mark is the former CIO of Optum, a Healthcare Services Company. Prior to that, as SVP of Application Development at UnitedHealth Group, he led a multi-national team of 10,000 software developers and matured their transition to Agile Development. He also was the Executive Director of Application Development at Ford where he spent 20+ years delivering technology to product development, finance, purchasing and in-vehicle entertainment.
-    avatar: /img/hamishguylookingout.png
+    avatar: /img/mark-duhaime-headshot.png
 ---
