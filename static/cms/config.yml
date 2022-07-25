@@ -2,7 +2,7 @@ backend:
   name: github
   repo: RealtyOffer/realty-offer-frontend
   api_root: https://api.github.com
-  branch: develop
+  branch: master
   commit_messages:
     create: "Create {{collection}} “{{slug}}”"
     update: "Update {{collection}} “{{slug}}”"
