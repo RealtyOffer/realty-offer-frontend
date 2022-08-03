@@ -103,6 +103,7 @@ export type BidType = {
 
 export type AgentSignupDataType = {
   isPilotUser?: boolean;
+  referralSource?: string;
   cities?: Array<CityType>;
   total?: number;
 };

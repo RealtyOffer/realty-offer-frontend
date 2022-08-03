@@ -58,6 +58,7 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
         brokerPhoneNumber: agent.brokerPhoneNumber,
         brokerEmail: agent.brokerEmail,
         subscriberType,
+        referralSource: agent.signupData.referralSource,
       });
     }
     if (agent.isPilotUser) {

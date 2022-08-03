@@ -25,6 +25,7 @@ import {
   requiredPhoneNumber,
   requiredPassword,
   passwordRulesString,
+  requiredSelect,
 } from '../../../utils/validations';
 import { createUser } from '../../../redux/ducks/auth';
 import { CreateUserFormValues } from '../../../redux/ducks/auth.d';
@@ -43,7 +44,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const auth = useSelector((state: RootState) => state.auth);
-  const initialValues: CreateUserFormValues = {
+  const initialValues: CreateUserFormValues & { referralSource: string } = {
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -51,6 +52,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
     confirmEmail: '',
     password: '',
     role: 'Agent',
+    referralSource: '',
   };
 
   return (
@@ -103,11 +105,13 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                   phoneNumber: values.phoneNumber,
                   email: values.email,
                   role: 'Agent',
+                  referralSource: values.referralSource,
                 });
               }
               dispatch(
                 captureAgentSignupData({
                   isPilotUser: location.pathname.includes('pilot'),
+                  referralSource: values.referralSource,
                 })
               );
               dispatch(
@@ -131,7 +135,7 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
             }
           }}
         >
-          {({ isSubmitting, isValid, handleSubmit }) => (
+          {({ isSubmitting, isValid, handleSubmit, setFieldValue, ...rest }) => (
             <Form>
               {location.pathname.includes('pilot') && (
                 <Alert
@@ -194,6 +198,25 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                 helpText={passwordRulesString}
                 validate={requiredPassword}
                 required
+              />
+              <Field
+                as={Input}
+                type="select"
+                name="referralSource"
+                options={[
+                  { value: 'Google', label: 'Google' },
+                  { value: 'Social Media', label: 'Social Media' },
+                  { value: 'Radio', label: 'Radio' },
+                  { value: 'TV', label: 'TV' },
+                  { value: 'Print', label: 'Print' },
+                  { value: 'Word of Mouth', label: 'Word of Mouth' },
+                  { value: 'Other', label: 'Other' },
+                ]}
+                label="How did you hear about RealtyOffer?"
+                validate={requiredSelect}
+                setFieldValue={setFieldValue}
+                required
+                {...rest}
               />
               <HorizontalRule />
               <Button
