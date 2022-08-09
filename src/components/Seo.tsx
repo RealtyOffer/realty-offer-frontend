@@ -180,6 +180,14 @@ const Seo: FunctionComponent<SeoType> = ({
         fbq('init', '180914303755621');
         fbq('track', 'PageView');`,
         },
+        {
+          type: 'text/javascript',
+          innerHTML: ` document.querySelector('img[src="https://i.ytimg.com/vi_webp/USvuAqJF3Is/maxresdefault.webp"]').addEventListener('click', function() {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-10961963802/VITvCMqQoNMDEJqWieso'
+            });
+          })`,
+        },
       ]}
     >
       {children}
