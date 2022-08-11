@@ -121,7 +121,17 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
         image={heroImage.childImageSharp.fixed.src}
         imageWidth={heroImage.childImageSharp.fixed.width}
         imageHeight={heroImage.childImageSharp.fixed.height}
-      />
+      >
+        <script type="text/javascript">
+          {`
+            document.querySelector('img[src="https://i.ytimg.com/vi_webp/USvuAqJF3Is/maxresdefault.webp"]').addEventListener('click', function() {
+              gtag('event', 'conversion', {
+                'send_to': 'AW-10961963802/VITvCMqQoNMDEJqWieso'
+              });
+            })
+          `}
+        </script>
+      </Seo>
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>
