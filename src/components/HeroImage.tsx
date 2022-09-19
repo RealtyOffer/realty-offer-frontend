@@ -84,6 +84,7 @@ const HeroImage: FunctionComponent<HeroImageProps> = ({
     >
       <ClientOnly>
         <PreviewCompatibleImage
+          width="400px"
           imageInfo={{
             image: size.isSmallScreen && mobileImgSrc ? mobileImgSrc : imgSrc,
             alt: '',

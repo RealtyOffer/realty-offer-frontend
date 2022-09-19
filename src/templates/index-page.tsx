@@ -284,6 +284,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                   style={{ padding: tripleSpacer }}
                 >
                   <PreviewCompatibleImage
+                    width="400px"
+                    height="452px"
                     imageInfo={{
                       image: item.mainImage.childImageSharp.fluid.src,
                       alt: '',
@@ -409,6 +411,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                         <Column xs={6} md={3} key={item.logo.childImageSharp.fixed.src + i}>
                           <div>
                             <PreviewCompatibleImage
+                              width="100px"
+                              height="100px"
                               imageInfo={{
                                 image: item.logo.childImageSharp.fixed.src,
                                 alt: '',
@@ -483,7 +487,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
           <br />
           <Row>
             {sectionFiveCards.map((card) => (
-              <Column xs={6} md={3} key={card.heading}>
+              <Column sm={6} lg={3} key={card.heading}>
                 <Box>
                   <FlexContainer
                     justifyContent="space-between"
@@ -491,10 +495,13 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                     height="100%"
                     alignItems="flex-start"
                   >
-                    <div>
-                      <PreviewCompatibleImage
-                        imageInfo={{ image: card.image.childImageSharp.fixed.src, alt: '' }}
-                      />
+                    <div style={{ width: '100%' }}>
+                      <div style={{ margin: '0 auto', textAlign: 'center', width: '100%' }}>
+                        <PreviewCompatibleImage
+                          width="200px"
+                          imageInfo={{ image: card.image.childImageSharp.fixed.src, alt: '' }}
+                        />
+                      </div>
                       <br />
                       <br />
                       <Heading as="h6">{card.heading}</Heading>

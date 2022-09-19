@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import Img, { FluidObject, FixedObject } from 'gatsby-image';
 
@@ -9,14 +10,18 @@ export type FluidImageType = {
 
 export type FixedImageType = {
   childImageSharp: {
-    fluid: FixedObject;
+    fixed: FixedObject;
   };
 };
 
 const PreviewCompatibleImage = ({
   imageInfo,
+  width = '100%',
+  height = 'auto',
   ...rest
 }: {
+  width?: string;
+  height?: string;
   imageInfo: {
     image: FluidImageType | FixedImageType | string;
     alt?: string;
@@ -24,7 +29,10 @@ const PreviewCompatibleImage = ({
   // eslint-disable-next-line react/require-default-props
   style?: React.CSSProperties;
 }) => {
-  const imageStyle = { width: '100%' };
+  const imageStyle = {
+    width,
+    height,
+  };
   const { alt = '', image } = imageInfo;
 
   const isFluidImage =
@@ -42,6 +50,8 @@ const PreviewCompatibleImage = ({
         style={imageStyle}
         fluid={(image as FluidImageType).childImageSharp.fluid}
         alt={alt}
+        critical
+        loading="eager"
         {...rest}
       />
     );
@@ -53,6 +63,8 @@ const PreviewCompatibleImage = ({
         style={imageStyle}
         fixed={(image as FixedImageType).childImageSharp.fixed}
         alt={alt}
+        critical
+        loading="eager"
         {...rest}
       />
     );
