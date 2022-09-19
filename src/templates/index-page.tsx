@@ -417,7 +417,6 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                                 image: item.logo.childImageSharp.fixed.src,
                                 alt: '',
                               }}
-                              style={{ width: '100%', maxWidth: 100 }}
                             />
                           </div>
                         </Column>
@@ -499,6 +498,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                       <div style={{ margin: '0 auto', textAlign: 'center', width: '100%' }}>
                         <PreviewCompatibleImage
                           width="200px"
+                          height="148px"
                           imageInfo={{ image: card.image.childImageSharp.fixed.src, alt: '' }}
                         />
                       </div>
@@ -606,7 +606,7 @@ export const pageQuery = graphql`
         sectionFiveCards {
           image {
             childImageSharp {
-              fixed(width: 300, quality: 60) {
+              fixed(width: 400, quality: 60) {
                 ...GatsbyImageSharpFixed
               }
             }

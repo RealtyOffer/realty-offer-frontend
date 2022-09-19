@@ -49,6 +49,7 @@ const PreviewCompatibleImage = ({
       <Img
         style={imageStyle}
         fluid={(image as FluidImageType).childImageSharp.fluid}
+        imgStyle={imageStyle}
         alt={alt}
         critical
         loading="eager"
@@ -61,6 +62,7 @@ const PreviewCompatibleImage = ({
     return (
       <Img
         style={imageStyle}
+        imgStyle={imageStyle}
         fixed={(image as FixedImageType).childImageSharp.fixed}
         alt={alt}
         critical
