@@ -18,10 +18,12 @@ const PreviewCompatibleImage = ({
   imageInfo,
   width = '100%',
   height = 'auto',
+  loading = 'lazy',
   ...rest
 }: {
   width?: string;
   height?: string;
+  loading?: 'eager' | 'lazy';
   imageInfo: {
     image: FluidImageType | FixedImageType | string;
     alt?: string;
@@ -47,6 +49,7 @@ const PreviewCompatibleImage = ({
         imgStyle={imageStyle}
         fluid={(image as FluidImageType).childImageSharp.fluid}
         alt={alt}
+        loading={loading}
         {...rest}
       />
     );
@@ -58,6 +61,7 @@ const PreviewCompatibleImage = ({
         style={imageStyle}
         fixed={(image as FixedImageType).childImageSharp.fixed}
         alt={alt}
+        loading={loading}
         {...rest}
       />
     );
