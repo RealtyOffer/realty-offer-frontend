@@ -221,7 +221,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             <Column xs={8} xsOffset={2} sm={4}>
               <PreviewCompatibleImage
                 imageInfo={{
-                  image: sectionOneImage.childImageSharp.fluid.src,
+                  image: sectionOneImage,
                   alt: '',
                 }}
               />
@@ -253,7 +253,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 <Box largePadding>
                   <PreviewCompatibleImage
                     imageInfo={{
-                      image: step.image.childImageSharp.fluid.src,
+                      image: step.image,
                       alt: '',
                     }}
                   />
@@ -353,7 +353,7 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             <Column xs={8} xsOffset={2} md={5}>
               <PreviewCompatibleImage
                 imageInfo={{
-                  image: sectionFourImage.childImageSharp.fluid.src,
+                  image: sectionFourImage,
                   alt: '',
                 }}
               />

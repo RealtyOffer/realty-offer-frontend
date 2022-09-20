@@ -275,7 +275,8 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
             {sectionOneHeading}
           </Heading>
           {sectionOne.map((item, index) => (
-            <Row key={item.callToActionLink} style={{ marginTop: quadrupleSpacer }}>
+            // eslint-disable-next-line react/no-array-index-key
+            <Row key={item.callToActionLink + index} style={{ marginTop: quadrupleSpacer }}>
               <Column md={6} xsOrder={index % 2 === 0 ? 2 : 1} mdOrder={index % 2 === 0 ? 1 : 2}>
                 <FlexContainer
                   justifyContent="center"
@@ -287,7 +288,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                     width="400px"
                     height="452px"
                     imageInfo={{
-                      image: item.mainImage.childImageSharp.fluid.src,
+                      image: item.mainImage,
                       alt: '',
                     }}
                   />
@@ -414,7 +415,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                               width="100px"
                               height="100px"
                               imageInfo={{
-                                image: item.logo.childImageSharp.fixed.src,
+                                image: item.logo,
                                 alt: '',
                               }}
                             />
@@ -499,7 +500,7 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                         <PreviewCompatibleImage
                           width="200px"
                           height="148px"
-                          imageInfo={{ image: card.image.childImageSharp.fixed.src, alt: '' }}
+                          imageInfo={{ image: card.image, alt: '' }}
                         />
                       </div>
                       <br />
@@ -564,8 +565,8 @@ export const pageQuery = graphql`
         sectionOne {
           mainImage {
             childImageSharp {
-              fluid(maxWidth: 1000, quality: 60) {
-                ...GatsbyImageSharpFluid
+              fixed(width: 800, quality: 60) {
+                ...GatsbyImageSharpFixed
               }
             }
           }

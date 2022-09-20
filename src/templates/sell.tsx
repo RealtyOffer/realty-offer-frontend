@@ -165,7 +165,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
             <Column xs={8} xsOffset={2} sm={4}>
               <PreviewCompatibleImage
                 imageInfo={{
-                  image: sectionOneImage.childImageSharp.fluid.src,
+                  image: sectionOneImage,
                   alt: '',
                 }}
               />
@@ -201,7 +201,7 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
             <Column md={4}>
               <PreviewCompatibleImage
                 imageInfo={{
-                  image: sectionTwoImage.childImageSharp.fluid.src,
+                  image: sectionTwoImage,
                   alt: '',
                 }}
               />

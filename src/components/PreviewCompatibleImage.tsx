@@ -29,10 +29,7 @@ const PreviewCompatibleImage = ({
   // eslint-disable-next-line react/require-default-props
   style?: React.CSSProperties;
 }) => {
-  const imageStyle = {
-    width,
-    height,
-  };
+  const imageStyle = { width, height };
   const { alt = '', image } = imageInfo;
 
   const isFluidImage =
@@ -47,12 +44,9 @@ const PreviewCompatibleImage = ({
   if (typeof image !== 'string' && isFluidImage) {
     return (
       <Img
-        style={imageStyle}
-        fluid={(image as FluidImageType).childImageSharp.fluid}
         imgStyle={imageStyle}
+        fluid={(image as FluidImageType).childImageSharp.fluid}
         alt={alt}
-        critical
-        loading="eager"
         {...rest}
       />
     );
@@ -62,11 +56,8 @@ const PreviewCompatibleImage = ({
     return (
       <Img
         style={imageStyle}
-        imgStyle={imageStyle}
         fixed={(image as FixedImageType).childImageSharp.fixed}
         alt={alt}
-        critical
-        loading="eager"
         {...rest}
       />
     );
