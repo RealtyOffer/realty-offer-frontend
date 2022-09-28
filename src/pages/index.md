@@ -8,9 +8,8 @@ metaKeywords: real estate agent, buy a home, sell a home
 title: Same Agent, Less Commission
 heroImage: /img/realtyoffer-main-hero-img-house.jpg
 mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
-heroHeading: Ready to Make a Move?
-heroSubheading: >-
-  RealtyOffer™ connects Buyers & Sellers with the top-rated Agents in their area.
+heroHeading: Ready to make a move and need down payment assistance?
+heroSubheading: RealtyOffer™ connects Buyers & Sellers with the top-rated Agents in their area.
 heroCTA: Learn More About How It Works
 heroNav:
   - heroLink: /buy
@@ -31,7 +30,9 @@ sectionOne:
     secondaryImage: /img/sectionOne - secondary 1.png
     heading: Complete a Simple Form
     content: >-
-      Fill in some simple information, sit back and RealtyOffer™ will connect you with a licensed and vetted agent, while removing the upfront negotiation.
+      Fill in some simple information, sit back and RealtyOffer™ will connect
+      you with a licensed and vetted agent, while removing the upfront
+      negotiation.
 
       Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
     callToActionLink: /consumer/start
@@ -39,22 +40,26 @@ sectionOne:
   - mainImage: /img/realtyoffer-step2-image.jpg
     secondaryImage: /img/sectionOne - secondary 2.png
     heading: Agents Bid to Win Your Business
-    content: >-
-      Within 24 hours, RealtyOffer™ will allow top-rated agents in your area the opportunity to bid and win your business.
-      The bidding works two ways: Agents simply discount their commission in order to sell your home or offer part of their commission towards your closing costs when you purchase a home – this means you bring less money to the closing table.
+    content: "Within 24 hours, RealtyOffer™ will allow top-rated agents in your area
+      the opportunity to bid and win your business. The bidding works two ways:
+      Agents simply discount their commission in order to sell your home or
+      offer part of their commission towards your closing costs when you
+      purchase a home – this means you bring less money to the closing table."
     callToActionLink: /
     callToActionText: Learn More Now
   - mainImage: /img/realtyoffer-step3-image.jpg
     secondaryImage: /img/sectionOne - secondary 3.png
     heading: Choose Your Winning Agent
-    content: >-
-      Within 24 hours you will be able to review the top 3 bids received from agents in your area. Choose the best offer, and simply get connected.
+    content: Within 24 hours you will be able to review the top 3 bids received from
+      agents in your area. Choose the best offer, and simply get connected.
     callToActionLink: /consumer/start
     callToActionText: Get Started Now
 sectionTwoHeading: Agents Bid for My Business?
-sectionTwoContent: In order to win your business, agents can choose to reduce their commission on the sale of your home. When purchasing a new home, agents can choose to contribute part of their commission toward your closing costs--this means you bring less money to the closing table.
-sectionTwoListHeading: >-
-  Agents can also provide additional money to be used on things like:
+sectionTwoContent: In order to win your business, agents can choose to reduce
+  their commission on the sale of your home. When purchasing a new home, agents
+  can choose to contribute part of their commission toward your closing
+  costs--this means you bring less money to the closing table.
+sectionTwoListHeading: "Agents can also provide additional money to be used on things like:"
 sectionTwoListItems:
   - item: Moving Costs
   - item: Compliance Feeds
@@ -62,10 +67,14 @@ sectionTwoListItems:
   - item: Inspection Feeds
   - item: And more...
 sectionThreeHeading: How Much Money Can I Save?
-sectionThreeContent: Estimate how much money you can save by using the calculators below. RealtyOffer™ is a completely free platform--No contracts, No obligations, and No awkward negotiations
+sectionThreeContent: Estimate how much money you can save by using the
+  calculators below. RealtyOffer™ is a completely free platform--No contracts,
+  No obligations, and No awkward negotiations
 sectionFourHeading: Why RealtyOffer™?
-sectionFourContent: >-
-  Our goal is to make buying or selling a home as easy and stress-free as possible. Our AI digitized platform is designed to educate and empower the consumer, and connect them with top-rated agents, while saving thousands of dollars in the process.
+sectionFourContent: Our goal is to make buying or selling a home as easy and
+  stress-free as possible. Our AI digitized platform is designed to educate and
+  empower the consumer, and connect them with top-rated agents, while saving
+  thousands of dollars in the process.
 sectionFourLogosHeading: Our Agents work with the following Brokers
 sectionFourLogos:
   - logo: /img/broker-berkshirehathawayhomeservices-logo.jpg
@@ -74,7 +83,8 @@ sectionFourLogos:
   - logo: /img/broker-realestateone-logo.png
   - logo: /img/broker-remax-logo.jpg
 sectionFiveHeading: Want to Learn More?
-sectionFiveContent: Need more information about Buying or Selling your home? Or just want to hear from previous clients, click below to learn more.
+sectionFiveContent: Need more information about Buying or Selling your home? Or
+  just want to hear from previous clients, click below to learn more.
 sectionFiveCards:
   - image: /img/buyingAHome.png
     heading: Buying a Home
