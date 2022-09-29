@@ -8,7 +8,7 @@ metaKeywords: real estate agent, buy a home, sell a home
 title: Same Agent, Less Commission
 heroImage: /img/realtyoffer-main-hero-img-house.jpg
 mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
-heroHeading: Ready to Make a Move?
+heroHeading: Need Down Payment Assistance?
 heroSubheading: RealtyOffer™ connects Buyers & Sellers with the top-rated Agents in their area.
 heroCTA: Learn More About How It Works
 heroNav:
