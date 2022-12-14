@@ -124,14 +124,20 @@ export const BuyPageTemplate: FunctionComponent<BuyPageProps> = ({
         script={[
           {
             type: 'text/javascript',
-            innerHTML: `const ytImg = document.querySelector('img[src="https://i.ytimg.com/vi_webp/USvuAqJF3Is/maxresdefault.webp"]');
-            if (ytImg) {
-              ytImg.addEventListener('click', function() {
-                gtag('event', 'conversion', {
-                  'send_to': 'AW-10961963802/VITvCMqQoNMDEJqWieso'
+            innerHTML: `
+            function checkForImg() {
+              const ytImg = document.querySelector('img[src="https://i.ytimg.com/vi_webp/USvuAqJF3Is/maxresdefault.webp"]');
+              if (ytImg) {
+                ytImg.addEventListener('click', function() {
+                  gtag('event', 'conversion', {
+                    'send_to': 'AW-10961963802/VITvCMqQoNMDEJqWieso'
+                  });
                 });
-              });
-            }`,
+              }
+            }
+
+            setTimeout(checkForImg, 1000);
+            `,
           },
         ]}
       />
