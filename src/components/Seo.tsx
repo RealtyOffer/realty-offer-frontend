@@ -147,29 +147,19 @@ const Seo: FunctionComponent<SeoType> = ({
           content: 'autoRotate:disabled',
         },
       ].concat(meta || [])}
-      script={[
-        {
-          src: 'https://www.googletagmanager.com/gtag/js?id=G-ZMBNYQ44PK',
-          async: true,
-          type: 'text/javascript',
-        },
-        {
-          src: 'https://www.googletagmanager.com/gtag/js?id=AW-325206149',
-          async: true,
-          type: 'text/javascript',
-        },
-        {
-          type: 'text/javascript',
-          innerHTML: `window.dataLayer = window.dataLayer || [];
+    >
+      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-ZMBNYQ44PK" async />
+      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=AW-325206149" async />
+      <script type="text/javascript">
+          window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
           gtag('config', 'G-ZMBNYQ44PK');
-          gtag('config', 'AW-325206149');`,
-        },
-        {
-          type: 'text/javascript',
-          innerHTML: `!function(f,b,e,v,n,t,s)
+          gtag('config', 'AW-325206149');
+      </script>
+      <script type="text/javascript">
+        !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
         if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -178,10 +168,8 @@ const Seo: FunctionComponent<SeoType> = ({
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '180914303755621');
-        fbq('track', 'PageView');`,
-        },
-      ]}
-    >
+        fbq('track', 'PageView');
+      </script>
       {children}
     </Helmet>
   );
