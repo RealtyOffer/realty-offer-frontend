@@ -121,20 +121,20 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
         image={heroImage.childImageSharp.fixed.src}
         imageWidth={heroImage.childImageSharp.fixed.width}
         imageHeight={heroImage.childImageSharp.fixed.height}
-      >
-        <script type="text/javascript">
-          {`
-            const ytImg = document.querySelector('img[src="https://i.ytimg.com/vi_webp/USvuAqJF3Is/maxresdefault.webp"]');
+        script={[
+          {
+            type: 'text/javascript',
+            innerHTML: `const ytImg = document.querySelector('img[src="https://i.ytimg.com/vi_webp/USvuAqJF3Is/maxresdefault.webp"]');
             if (ytImg) {
               ytImg.addEventListener('click', function() {
                 gtag('event', 'conversion', {
                   'send_to': 'AW-10961963802/VITvCMqQoNMDEJqWieso'
                 });
               });
-            }
-          `}
-        </script>
-      </Seo>
+            }`,
+          },
+        ]}
+      />
       <HeroImage imgSrc={heroImage} mobileImgSrc={mobileHeroImage} hasOverlay>
         <PageContainer>
           <Row>

@@ -21,6 +21,12 @@ type SeoType = {
   image?: string;
   imageWidth?: number;
   imageHeight?: number;
+  script?: Array<{
+    innerHTML?: string;
+    src?: string;
+    type?: string;
+    async?: boolean;
+  }>;
 };
 
 const Seo: FunctionComponent<SeoType> = ({
@@ -32,6 +38,7 @@ const Seo: FunctionComponent<SeoType> = ({
   imageWidth,
   imageHeight,
   children,
+  script,
 }) => {
   const { pathname } = useLocation();
   const { site } = useStaticQuery(
@@ -147,19 +154,29 @@ const Seo: FunctionComponent<SeoType> = ({
           content: 'autoRotate:disabled',
         },
       ].concat(meta || [])}
-    >
-      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-ZMBNYQ44PK" async></script>
-      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=AW-325206149" async></script>
-      <script type="text/javascript">
-          `window.dataLayer = window.dataLayer || [];
+      script={[
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-ZMBNYQ44PK',
+          async: true,
+          type: 'text/javascript',
+        },
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=AW-325206149',
+          async: true,
+          type: 'text/javascript',
+        },
+        {
+          type: 'text/javascript',
+          innerHTML: `window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
           gtag('config', 'G-ZMBNYQ44PK');
-          gtag('config', 'AW-325206149');`
-      </script>
-      <script type="text/javascript">
-        !function(f,b,e,v,n,t,s)
+          gtag('config', 'AW-325206149');`,
+        },
+        {
+          type: 'text/javascript',
+          innerHTML: `!function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
         if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -168,8 +185,10 @@ const Seo: FunctionComponent<SeoType> = ({
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '180914303755621');
-        fbq('track', 'PageView');
-      </script>
+        fbq('track', 'PageView');`,
+        },
+      ].concat(script || [])}
+    >
       {children}
     </Helmet>
   );
