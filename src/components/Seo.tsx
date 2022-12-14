@@ -151,12 +151,12 @@ const Seo: FunctionComponent<SeoType> = ({
       <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-ZMBNYQ44PK" async></script>
       <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=AW-325206149" async></script>
       <script type="text/javascript">
-          window.dataLayer = window.dataLayer || [];
+          `window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
           gtag('config', 'G-ZMBNYQ44PK');
-          gtag('config', 'AW-325206149');
+          gtag('config', 'AW-325206149');`
       </script>
       <script type="text/javascript">
         !function(f,b,e,v,n,t,s)
