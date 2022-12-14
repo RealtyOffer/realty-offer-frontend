@@ -148,8 +148,8 @@ const Seo: FunctionComponent<SeoType> = ({
         },
       ].concat(meta || [])}
     >
-      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-ZMBNYQ44PK" async />
-      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=AW-325206149" async />
+      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-ZMBNYQ44PK" async></script>
+      <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=AW-325206149" async></script>
       <script type="text/javascript">
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
