@@ -187,6 +187,25 @@ const Seo: FunctionComponent<SeoType> = ({
         fbq('init', '180914303755621');
         fbq('track', 'PageView');`,
         },
+        {
+          type: 'text/javascript',
+          innerHTML: `window.addEventListener('load', function(){
+    document.addEventListener('click',function(e){
+      if(event.target.closest('a') && event.target.closest('a').innerText.includes('Get Started')){
+        gtag('event', 'conversion', {'send_to': 'AW-10961963802/9iBfCO-v6YUYEJqWieso'});
+      }
+      if(event.target.closest('button') && event.target.closest('button').innerText.includes('Sell Your Home') && window.location.pathname.includes('/consumer/start')){
+        gtag('event', 'conversion', {'send_to': 'AW-10961963802/bHpaCIbb6YUYEJqWieso'});
+      }
+      if(event.target.closest('button') && event.target.closest('button').innerText.includes('Buy A Home') && window.location.pathname.includes('/consumer/start')){
+        gtag('event', 'conversion', {'send_to': 'AW-10961963802/bHpaCIbb6YUYEJqWieso'});
+      }
+      if(event.target.closest('button') && event.target.closest('button').innerText.includes('Buy & Sell A Home') && window.location.pathname.includes('/consumer/start')){
+        gtag('event', 'conversion', {'send_to': 'AW-10961963802/DYzgCOed5IUYEJqWieso'});
+      }
+    });
+  });`,
+        }
       ].concat(script || [])}
     >
       {children}
