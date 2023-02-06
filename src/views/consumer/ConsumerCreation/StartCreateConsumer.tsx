@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { FaCaretRight } from 'react-icons/fa';
@@ -81,7 +82,13 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
                 </p>
                 <Button
                   type="button"
-                  onClick={() => setCustomerType('seller')}
+                  onClick={() => {
+                    setCustomerType('seller');
+
+                    window.gtag('event', 'conversion', {
+                      send_to: 'AW-10961963802/bHpaCIbb6YUYEJqWieso',
+                    });
+                  }}
                   block
                   iconRight={<FaCaretRight />}
                 >
@@ -105,7 +112,12 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
                 </p>
                 <Button
                   type="button"
-                  onClick={() => setCustomerType('buyer')}
+                  onClick={() => {
+                    setCustomerType('buyer');
+                    window.gtag('event', 'conversion', {
+                      send_to: 'AW-10961963802/bHpaCIbb6YUYEJqWieso',
+                    });
+                  }}
                   block
                   iconRight={<FaCaretRight />}
                 >
@@ -129,7 +141,12 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
                 </p>
                 <Button
                   type="button"
-                  onClick={() => setCustomerType('buyerSeller')}
+                  onClick={() => {
+                    setCustomerType('buyerSeller');
+                    window.gtag('event', 'conversion', {
+                      send_to: 'AW-10961963802/DYzgCOed5IUYEJqWieso',
+                    });
+                  }}
                   block
                   iconRight={<FaCaretRight />}
                 >

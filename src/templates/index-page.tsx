@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Link } from '@reach/router';
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { graphql, navigate } from 'gatsby';
@@ -236,7 +237,16 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
               <Button type="button" onClick={() => scrollTo('#start')} color="tertiary" rightspacer>
                 {heroCTA}
               </Button>
-              <Button type="link" to="/consumer/start" color="primary">
+              <Button
+                type="link"
+                to="/consumer/start"
+                color="primary"
+                onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }
+              >
                 Get Started
               </Button>
             </Column>
@@ -313,7 +323,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                   <ReactMarkdown source={item.content} />
 
                   {index === 2 && (
-                    <Button type="link" to={item.callToActionLink} color="primary">
+                    <Button type="link" to={item.callToActionLink} color="primary" onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }>
                       {item.callToActionText}
                     </Button>
                   )}
@@ -465,7 +479,16 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
             Welcome to RealtyOffer&trade;
           </Heading>
           <p style={{ color: white }}>Ready to get paid to Buy or Sell your home?</p>
-          <Button type="link" to="/consumer/start" color="tertiary">
+          <Button
+            type="link"
+            to="/consumer/start"
+            color="tertiary"
+            onClick={() =>
+              window.gtag('event', 'conversion', {
+                send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+              })
+            }
+          >
             Get Started Now
           </Button>
         </PageContainer>
@@ -508,7 +531,11 @@ export const IndexPageTemplate: FunctionComponent<IndexPageProps> = ({
                       <Heading as="h6">{card.heading}</Heading>
                       <p>{card.content}</p>
                     </div>
-                    <Link to={card.callToActionLink}>{card.callToActionText} &rarr;</Link>
+                    <Link to={card.callToActionLink} onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }>{card.callToActionText} &rarr;</Link>
                   </FlexContainer>
                 </Box>
               </Column>

@@ -149,7 +149,11 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
               <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />
               </Heading>
-              <Button type="link" to="/consumer/start" color="tertiary">
+              <Button type="link" to="/consumer/start" color="tertiary" onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }>
                 Get Started
               </Button>
             </Column>
@@ -337,7 +341,11 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
                 <Heading as="h6" align="center" inverse>
                   Ready to get paid to Buy or Sell your home?
                 </Heading>
-                <Button type="link" to="/consumer/start" color="tertiary">
+                <Button type="link" to="/consumer/start" color="tertiary" onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }>
                   Get Started Now
                 </Button>
                 <br />

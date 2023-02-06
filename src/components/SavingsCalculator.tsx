@@ -81,7 +81,11 @@ const SavingsCalculator = (props: SavingsCalculatorProps): JSX.Element => {
             <em>Estimated {props.type === 'buying' ? 'Purchase' : 'Selling'} Price</em>
           </small>
         </p>
-        <Button type="link" to="/consumer/start" color="tertiary">
+        <Button type="link" to="/consumer/start" color="tertiary" onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }>
           Get Started
         </Button>
       </SlidderWrapper>

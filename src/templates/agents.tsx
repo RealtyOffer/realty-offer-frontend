@@ -330,7 +330,11 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                     </Button>
                   </td>
                   <td align="center">
-                    <Button type="link" to="/agent/sign-up" block>
+                    <Button type="link" to="/agent/sign-up" block onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }>
                       Get Started
                     </Button>
                   </td>
@@ -501,7 +505,11 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                   Welcome to RealtyOffer
                 </Heading>
 
-                <Button type="link" to="/agent/sign-up" color="tertiary">
+                <Button type="link" to="/agent/sign-up" color="tertiary" onClick={() =>
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                  })
+                }>
                   Get Started Now
                 </Button>
                 <br />
