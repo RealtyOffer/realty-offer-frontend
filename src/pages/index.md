@@ -1,5 +1,5 @@
 ---
-templateKey: buy
+templateKey: index-page
 metaTitle: Looking to Buy a New Home?
 metaDescription: RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs!
 metaKeywords: real estate leads, real estate buyer leads, real estate seller leads

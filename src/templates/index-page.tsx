@@ -402,7 +402,7 @@ export default BuyPage;
 
 export const pageQuery = graphql`
   query BuyPageTemplate {
-    markdownRemark(frontmatter: { templateKey: { eq: "buy" } }) {
+    markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
       frontmatter {
         title
         metaTitle
