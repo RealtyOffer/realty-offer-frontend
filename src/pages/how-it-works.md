@@ -1,5 +1,6 @@
 ---
-templateKey: index-page
+# copy of index.md
+templateKey: how-it-works-page
 metaTitle: Buy or Sell a Home. Same Agent, Less Commission
 metaDescription: Need to buy or sell a home? You will receive bids from
   compatible real estate agents in your area. Completely Free, no contracts, no

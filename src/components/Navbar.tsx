@@ -440,7 +440,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 <StyledLogoImg src={logo} alt="Realty Offer" height={doubleSpacer} width={41.41} />{' '}
                 RealtyOffer
                 <sup>&#8482;</sup>
-                <StyledTagline>Same Agent, Less Commission</StyledTagline>
+                {/* <StyledTagline>Same Agent, Less Commission</StyledTagline> */}
+                <StyledTagline>Get Paid to Buy a Home</StyledTagline>
               </StyledLogoLink>
               {false && ( // size.isSmallScreen && ( // TODO when notifications are ready
                 <>

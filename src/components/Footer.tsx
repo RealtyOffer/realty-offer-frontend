@@ -68,7 +68,8 @@ const Footer = () => (
           <sup>&#8482;</sup>
           <br />
           <br />
-          <small>Same Agent, Less Commission</small>
+          {/* <small>Same Agent, Less Commission</small> */}
+          <small>Get Paid to Buy a Home</small>
           <br />
         </LogoLink>
 
@@ -166,8 +167,15 @@ const Footer = () => (
               CONSUMERS
             </Heading>
             <p>
-              <Link to="/consumer/start">Buy or Sell</Link>
+              <Link to="/how-it-works">How it Works</Link>
             </p>
+            <p>
+              <Link to="/">For Buyers</Link>
+            </p>
+            <p>
+              <Link to="/sell">For Sellers</Link>
+            </p>
+
             {/* <p>
               <Link to="/mortgage-consultation">Mortgage Consultation</Link>
             </p> */}
@@ -182,24 +190,23 @@ const Footer = () => (
           </Column>
           <Column sm={4} md={2}>
             <Heading as="h5" inverse>
-              COMPANY
+              ABOUT
             </Heading>
             <p>
-              <Link to="/blog">Blog</Link>
+              <Link to="/blog">News</Link>
             </p>
             <p>
               <Link to="/about">About Us</Link>
             </p>
             <p>
+              <Link to="/investors">For Investors</Link>
+            </p>
+            <p>
               <Link to="/press">Press</Link>
             </p>
             <p>
-              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/frequently-asked-questions">FAQs</Link>
             </p>
-            <p>
-              <Link to="/terms">Terms of Use</Link>
-            </p>
-
             <br />
           </Column>
           <Column sm={4} md={2}>
@@ -212,8 +219,15 @@ const Footer = () => (
             <p>
               <a href="tel:+12489152654">(248) 915-2654</a>
             </p>
+            <br />
+            <Heading as="h5" inverse>
+              LEGAL
+            </Heading>
             <p>
-              <Link to="/frequently-asked-questions">FAQs</Link>
+              <Link to="/privacy">Privacy Policy</Link>
+            </p>
+            <p>
+              <Link to="/terms">Terms of Use</Link>
             </p>
           </Column>
         </Row>

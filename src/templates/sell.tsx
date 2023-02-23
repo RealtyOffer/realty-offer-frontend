@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import { FixedObject, FluidObject } from 'gatsby-image';
 import ReactMarkdown from 'react-markdown/with-html';
-import styled from 'styled-components';
-import Carousel from 'react-bootstrap/Carousel';
+// import styled from 'styled-components';
+// import Carousel from 'react-bootstrap/Carousel';
 import * as FaIcon from 'react-icons/fa';
 import { IconType } from 'react-icons';
 import { LiteYoutubeEmbed } from 'react-lite-yt-embed';
@@ -18,12 +19,18 @@ import {
   Seo,
   PreviewCompatibleImage,
   SavingsCalculator,
-  Avatar,
+  // Avatar,
   Box,
   FlexContainer,
 } from '../components';
 
-import { doubleSpacer, decupleSpacer, halfSpacer, tripleSpacer, baseSpacer } from '../styles/size';
+import {
+  doubleSpacer,
+  decupleSpacer,
+  // halfSpacer,
+  // tripleSpacer,
+  // baseSpacer
+} from '../styles/size';
 import { brandPrimary, lightestGray, white } from '../styles/color';
 import useWindowSize from '../utils/useWindowSize';
 
@@ -61,22 +68,22 @@ type SellPageProps = {
   }>;
 };
 
-const SectionCarouselWrapper = styled.div`
-  isolation: isolate;
-  & .carousel-indicators {
-    bottom: -${tripleSpacer};
-    & li {
-      margin: ${halfSpacer};
-      border: 1px solid ${brandPrimary};
-      width: ${halfSpacer};
-      height: ${halfSpacer};
-      border-radius: ${halfSpacer};
-      &.active {
-        background-color: ${brandPrimary};
-      }
-    }
-  }
-`;
+// const SectionCarouselWrapper = styled.div`
+//   isolation: isolate;
+//   & .carousel-indicators {
+//     bottom: -${tripleSpacer};
+//     & li {
+//       margin: ${halfSpacer};
+//       border: 1px solid ${brandPrimary};
+//       width: ${halfSpacer};
+//       height: ${halfSpacer};
+//       border-radius: ${halfSpacer};
+//       &.active {
+//         background-color: ${brandPrimary};
+//       }
+//     }
+//   }
+// `;
 
 export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
   heroImage,
@@ -96,21 +103,21 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
   sectionTwoContent,
   sectionThreeHeading,
   sectionThreeList,
-  sectionFourHeading,
-  sectionFourSubheading,
-  testimonials,
+  // sectionFourHeading,
+  // sectionFourSubheading,
+  // testimonials,
 }) => {
   const size = useWindowSize();
 
-  const chunkedTestimonials = (arr: SellPageProps['testimonials']) => {
-    const chunkSize = size.isSmallScreen ? 1 : 3;
-    const res = [];
-    for (let i = 0; i < arr.length; i += chunkSize) {
-      const chunk = arr.slice(i, i + chunkSize);
-      res.push(chunk);
-    }
-    return res;
-  };
+  // const chunkedTestimonials = (arr: SellPageProps['testimonials']) => {
+  //   const chunkSize = size.isSmallScreen ? 1 : 3;
+  //   const res = [];
+  //   for (let i = 0; i < arr.length; i += chunkSize) {
+  //     const chunk = arr.slice(i, i + chunkSize);
+  //     res.push(chunk);
+  //   }
+  //   return res;
+  // };
 
   return (
     <div>
@@ -149,11 +156,16 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
               <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />
               </Heading>
-              <Button type="link" to="/consumer/start" color="tertiary" onClick={() =>
+              <Button
+                type="link"
+                to="/consumer/start"
+                color="tertiary"
+                onClick={() =>
                   window.gtag('event', 'conversion', {
                     send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
                   })
-                }>
+                }
+              >
                 Get Started
               </Button>
             </Column>
@@ -341,11 +353,16 @@ export const SellPageTemplate: FunctionComponent<SellPageProps> = ({
                 <Heading as="h6" align="center" inverse>
                   Ready to get paid to Buy or Sell your home?
                 </Heading>
-                <Button type="link" to="/consumer/start" color="tertiary" onClick={() =>
-                  window.gtag('event', 'conversion', {
-                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
-                  })
-                }>
+                <Button
+                  type="link"
+                  to="/consumer/start"
+                  color="tertiary"
+                  onClick={() =>
+                    window.gtag('event', 'conversion', {
+                      send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                    })
+                  }
+                >
                   Get Started Now
                 </Button>
                 <br />

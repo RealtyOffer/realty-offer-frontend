@@ -116,7 +116,8 @@ module.exports = {
       options: {
         name: 'realty offer',
         short_name: 'realty offer',
-        description: 'Same Agent, Less Commission',
+        // description: 'Same Agent, Less Commission',
+        description: 'Get Paid to Buy or Sell a Home with Realty Offer',
         lang: 'en',
         start_url: '/',
         scope: '/',

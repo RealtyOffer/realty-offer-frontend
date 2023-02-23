@@ -63,24 +63,34 @@ export const AboutPageTemplate: FunctionComponent<AboutPageProps> = (props) => {
           <br />
           {props.teamMembers.map((member) => (
             <Box key={member.name} largePadding>
-              <FlexContainer justifyContent="flex-start" flexWrap="nowrap">
-                <Avatar
-                  src={member.avatar}
-                  size="lg"
-                  gravatarEmail=""
-                  style={{ marginRight: doubleSpacer }}
-                />
-                <div style={{ textAlign: 'center' }}>
-                  <Heading as="h3" styledAs="title" noMargin>
-                    {member.name}
-                  </Heading>
-                  <Heading as="h4" styledAs="subtitle">
-                    {member.title}
-                  </Heading>
+              <FlexContainer justifyContent="flex-start" alignItems="flex-start">
+                <div
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  <FlexContainer flexWrap="nowrap" flexDirection="column">
+                    <Avatar
+                      src={member.avatar.childImageSharp.fluid.src}
+                      size="lg"
+                      gravatarEmail=""
+                      style={{ marginRight: doubleSpacer }}
+                    />
+                    <div style={{ marginRight: doubleSpacer, marginTop: doubleSpacer }}>
+                      <Heading as="h3" styledAs="title" noMargin align="center">
+                        {member.name}
+                      </Heading>
+                      <Heading as="h4" styledAs="subtitle" align="center">
+                        {member.title}
+                      </Heading>
+                    </div>
+                  </FlexContainer>
+                </div>
+
+                <div style={{ flex: 2 }}>
+                  <ReactMarkdown source={member.bio} />
                 </div>
               </FlexContainer>
-              <br />
-              <ReactMarkdown source={member.bio} />
             </Box>
           ))}
         </PageContainer>
