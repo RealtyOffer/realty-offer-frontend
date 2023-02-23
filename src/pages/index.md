@@ -1,116 +1,67 @@
 ---
-templateKey: index-page
-metaTitle: Buy or Sell a Home. Same Agent, Less Commission
-metaDescription: Need to buy or sell a home? You will receive bids from
-  compatible real estate agents in your area. Completely Free, no contracts, no
-  obligation, no awkward negotiation.
-metaKeywords: real estate agent, buy a home, sell a home
-title: Same Agent, Less Commission
-heroImage: /img/realtyoffer-main-hero-img-house.jpg
-mobileHeroImage: /img/shutterstock_image1_purchased copy.jpg
-heroHeading: Need Down Payment Assistance?
-heroSubheading: RealtyOffer™ connects Buyers & Sellers with the top-rated Agents in their area.
-heroCTA: Learn More About How It Works
-heroNav:
-  - heroLink: /buy
-    heroNavText: Buying A Home
-    heroNavIcon: FaHome
-  - heroLink: /sell
-    heroNavText: Selling A Home
-    heroNavIcon: FaDollarSign
-  - heroLink: /agents
-    heroNavText: Become an Agent
-    heroNavIcon: FaUserTie
-  - heroLink: /investors
-    heroNavText: Become an Investor
-    heroNavIcon: FaHandsHelping
-sectionOneHeading: Wondering How it Works?
-sectionOne:
-  - mainImage: /img/realtyoffer-step1-image.jpg
-    secondaryImage: /img/sectionOne - secondary 1.png
-    heading: Complete a Simple Form
-    content: >-
-      Fill in some simple information, sit back and RealtyOffer™ will connect
-      you with a licensed and vetted agent, while removing the upfront
-      negotiation.
+templateKey: buy
+metaTitle: Looking to Buy a New Home?
+metaDescription: RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs!
+metaKeywords: real estate leads, real estate buyer leads, real estate seller leads
+title: Looking to Buy a New Home?
+heroImage: /img/realtyoffer-buy-hero-image.jpg
+mobileHeroImage: /img/realtyoffer-buy-hero-image-mobile.jpg
+heroHeading: Looking to Buy a New Home?
+heroSubheading: >-
+  RealtyOffer™ will connect you with top-rated agents in your area who will contribute part of their commission towards your closing costs! Welcome to RealtyOffer™
+sectionOneHeading: Need help with Closing Costs?
+sectionOneSubheading: RealtyOffer™ agents are ready to help by contributing part of their commission toward your closing costs. This means you bring less money to the closing table!
+sectionOneImage: /img/buyingAHome.png
+sectionOneContent: >-
+  How Much?
 
-      Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
-    callToActionLink: /consumer/start
-    callToActionText: Get Started Now
-  - mainImage: /img/realtyoffer-step2-image.jpg
-    secondaryImage: /img/sectionOne - secondary 2.png
-    heading: Agents Bid to Win Your Business
-    content: 'Within 24 hours, RealtyOffer™ will allow top-rated agents in your area
-      the opportunity to bid and win your business. The bidding works two ways:
-      Agents simply discount their commission in order to sell your home or
-      offer part of their commission towards your closing costs when you
-      purchase a home – this means you bring less money to the closing table.'
-    callToActionLink: /
-    callToActionText: Learn More Now
-  - mainImage: /img/realtyoffer-step3-image.jpg
-    secondaryImage: /img/sectionOne - secondary 3.png
-    heading: Choose Your Winning Agent
-    content: Within 24 hours you will be able to review the top 3 bids received from
-      agents in your area. Choose the best offer, and simply get connected.
-    callToActionLink: /consumer/start
-    callToActionText: Get Started Now
-sectionTwoHeading: Agents Bid for My Business?
-sectionTwoContent: In order to win your business, agents can choose to reduce
-  their commission on the sale of your home. When purchasing a new home, agents
-  can choose to contribute part of their commission toward your closing
-  costs--this means you bring less money to the closing table.
-sectionTwoListHeading: 'Agents can also provide additional money to be used on things like:'
-sectionTwoListItems:
-  - item: Moving Costs
-  - item: Compliance Feeds
-  - item: Photography
-  - item: Inspection Feeds
-  - item: And more...
-sectionThreeHeading: How Much Money Can I Save?
-sectionThreeContent: Estimate how much money you can save by using the
-  calculators below. RealtyOffer™ is a completely free platform--No contracts,
-  No obligations, and No awkward negotiations
-sectionFourHeading: Why RealtyOffer™?
-sectionFourContent: Our goal is to make buying or selling a home as easy and
-  stress-free as possible. Our AI digitized platform is designed to educate and
-  empower the consumer, and connect them with top-rated agents, while saving
-  thousands of dollars in the process.
-sectionFourLogosHeading: Our Agents work with the following Brokers
-sectionFourLogos:
-  - logo: /img/broker-berkshirehathawayhomeservices-logo.jpg
-  - logo: /img/broker-century21-logo.jpg
-  - logo: /img/broker-kellerwilliams-logo.jpg
-  - logo: /img/broker-realestateone-logo.png
-  - logo: /img/broker-remax-logo.jpg
-sectionFiveHeading: Want to Learn More?
-sectionFiveContent: Need more information about Buying or Selling your home? Or
-  just want to hear from previous clients, click below to learn more.
-sectionFiveCards:
-  - image: /img/buyingAHome.png
-    heading: Buying a Home
-    content: Save on closing costs!
-    callToActionText: Learn more about buying a home
-    callToActionLink: /buy
-  - image: /img/sellingAHome.png
-    heading: Selling Your Home
-    content: Reduced agent commission rates!
-    callToActionText: Learn more about selling your home
-    callToActionLink: /sell
-  - image: /img/becomeAnAgent.png
-    heading: Become an Agent
-    content: Love making money, want more clients?
-    callToActionText: See more information about becoming an agent
-    callToActionLink: /agents
-  - image: /img/becomeAPartner.png
-    heading: Become an Investor
-    content: Grow with RealtyOffer™
-    callToActionText: Find out the benefits of becoming a investor
-    callToActionLink: /investors
+
+  RealtyOffer™ clients have been receiving an average of 1% to 1.5% from our agents to be applied towards closing costs.
+
+
+  Example: $400,000 sale = $4,000 to $6,000 contributed towards your closing costs! See how much you can save below.
+sectionTwoHeading: The New Way to Buy or Sell a Home
+sectionTwoSubheading:
+sectionTwoImage: /img/sellingAHome.png
+sectionTwoContent: >-
+  Purchasing a home is often the largest transaction a consumer will make in their lifetime. To this day, consumers are lost throughout the process. Sellers are paying too much commission, while there are no incentives to the buyer. RealtyOffer™ will connect the consumer with the agent, saving them money while avoiding the awkward negotiation. Our proprietary bidding platform is the first of its kind. RealtyOffer™ has automated the process of buying and selling a home while educating and saving the consumer thousands of dollars. RealtyOffer™ will allow agents to offer a percentage of their commission in order to pay for your upfront closing costs. Imagine getting paid to purchase a home!
+
+sectionThreeHeading: Top Local Agents in Your Area
+sectionThreeList:
+  - text: Experience is a must! Our local agents are licensed and vetted. All agents must have closed at least 12 transactions in the past year and have a license in good standing with the state and realtor associations.
+    icon: FaClock
+  - text: RealtyOffer™ allows AI software to connect you with specialized agents in your area, that have the most experience with selling or buying a home.
+    icon: FaFileInvoiceDollar
+  - text: No contracts, no obligation, no awkward negotiation. RealtyOffer™ empowers and educates the consumer – if you are not happy with your agent, simply cancel and start over. Completely free!
+    icon: FaUsers
+  - text: Need a live consultant, RealtyOffer™ will answer and guide you with any questions you have. Our founders have over 25 years of experience in the Real Estate industry.
+    icon: FaMapMarkedAlt
+sectionFourHeading: Don't take our word for it. Read what previous customers have to say!
+sectionFourSubheading: Average customer saves $5,450
 testimonials:
   - quote: Quote here
     author: Person 1
+    from: Redford, MI
     avatar: /img/hamishguylookingout.png
-  - quote: Another here
+    saved: $7,500
+  - quote: Quote here
     author: Person 2
+    from: Redford, MI
     avatar: /img/hamishguylookingout.png
+    saved: $7,500
+  - quote: Quote here
+    author: Person 3
+    from: Redford, MI
+    avatar: /img/hamishguylookingout.png
+    saved: $7,500
+  - quote: Quote here
+    author: Person 4
+    from: Redford, MI
+    avatar: /img/hamishguylookingout.png
+    saved: $7,500
+  - quote: Quote here
+    author: Person 5
+    from: Redford, MI
+    avatar: /img/hamishguylookingout.png
+    saved: $7,500
 ---
