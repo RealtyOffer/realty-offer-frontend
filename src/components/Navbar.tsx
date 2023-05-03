@@ -416,7 +416,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               }
               height={quadrupleSpacer}
             >
-              {size.isSmallScreen && (
+              {size.isSmallScreen && !isLoggedInConsumer && (
                 <StyledMenuToggle>
                   <Hamburger
                     label="menu"
