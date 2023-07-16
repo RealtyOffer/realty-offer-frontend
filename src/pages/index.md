@@ -20,11 +20,13 @@ sectionOneContent: >-
 
 
   Example: $400,000 sale = $4,000 to $6,000 contributed towards your closing costs! See how much you can save below.
-sectionTwoHeading: The New Way to Buy or Sell a Home
+sectionTwoHeading: Buying a Home?
 sectionTwoSubheading:
 sectionTwoImage: /img/sellingAHome.png
 sectionTwoContent: >-
-  Purchasing a home is often the largest transaction a consumer will make in their lifetime. To this day, consumers are lost throughout the process. Sellers are paying too much commission, while there are no incentives to the buyer. RealtyOffer™ will connect the consumer with the agent, saving them money while avoiding the awkward negotiation. Our proprietary bidding platform is the first of its kind. RealtyOffer™ has automated the process of buying and selling a home while educating and saving the consumer thousands of dollars. RealtyOffer™ will allow agents to offer a percentage of their commission in order to pay for your upfront closing costs. Imagine getting paid to purchase a home!
+  Receive up to $15,000 towards your down payment, when purchasing with a RealtyOffer™ agent. 
+  
+  No Contracts, No Obligation, No Awkward Negotiation.
 
 sectionThreeHeading: Top Local Agents in Your Area
 sectionThreeList:
