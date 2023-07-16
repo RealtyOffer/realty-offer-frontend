@@ -24,7 +24,8 @@ sectionTwoHeading: Buying a Home?
 sectionTwoSubheading:
 sectionTwoImage: /img/sellingAHome.png
 sectionTwoContent: >-
-  Receive up to $15,000 towards your down payment, when purchasing with a RealtyOffer™ agent. 
+  Receive up to $15,000 towards your down payment, when purchasing with a RealtyOffer™ agent.  
+  
   
   No Contracts, No Obligation, No Awkward Negotiation.
 
