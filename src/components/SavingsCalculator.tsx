@@ -52,7 +52,7 @@ const SavingsCalculator = (props: SavingsCalculatorProps): JSX.Element => {
           <small>
             {props.type === 'buying'
               ? 'On average, Realtyoffer™ customers receive $7,000 to $12,000 when buying a new home using a Realtyoffer™ agent'
-              : ' On average, RealtyOffer™ customers save 2-3%* when selling their home using a RealtyOffer™ Agent.'}
+              : ' On average, RealtyOffer™ customers save up to $30,000 when listing their home using a RealtyOffer™'}
           </small>
         </p>
         <Heading as="h4" styledAs="subtitle" noMargin>
