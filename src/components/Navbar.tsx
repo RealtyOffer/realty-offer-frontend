@@ -1,4 +1,11 @@
-import React, { useState, FunctionComponent, useRef, useEffect, SyntheticEvent } from 'react';
+import React, {
+  useMemo,
+  useState,
+  FunctionComponent,
+  useRef,
+  useEffect,
+  SyntheticEvent,
+} from 'react';
 import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -374,7 +381,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   ];
   const isInSignupProcess = signupPagesArr.some((route) => route === location.pathname);
 
-  const menuItemsToRender = () => {
+  const menuItemsToRender = useMemo(() => {
     if (auth.isLoading || agent.isLoading) {
       return [];
     }
@@ -392,7 +399,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
       return unauthenticatedNavigationItems;
     }
     return [];
-  };
+  }, [auth, agent, isLoggedInAgent, isLoggedInConsumer, isInSignupProcess]);
 
   const getIcon = (icon: string) => {
     if (icon === 'user') return <FaUser />;
@@ -466,8 +473,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               >
                 {size.isSmallScreen && !auth.isLoggedIn && !isInSignupProcess && (
                   <>
-                    {menuItemsToRender().length > 0 &&
-                      menuItemsToRender().map((navItem) => (
+                    {menuItemsToRender.length > 0 &&
+                      menuItemsToRender.map((navItem) => (
                         <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
                           {navItem.name}
                         </Link>
@@ -647,13 +654,13 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           </PageContainer>
         </ClientOnly>
       </StyledNavbar>
-      {!size.isSmallScreen && !isInSignupProcess && !isLoggedInAgent && !isLoggedInConsumer && (
+      {!size.isSmallScreen && !isInSignupProcess && (
         <ClientOnly>
           <SubNav>
             <PageContainer>
               <FlexContainer>
-                {menuItemsToRender().length > 0 &&
-                  menuItemsToRender().map((navItem) => (
+                {menuItemsToRender.length > 0 &&
+                  menuItemsToRender.map((navItem) => (
                     <SubNavLink
                       key={navItem.name}
                       to={navItem.path}
