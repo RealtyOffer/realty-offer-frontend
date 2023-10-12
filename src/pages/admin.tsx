@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { Router } from '@reach/router';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { navigate } from 'gatsby';
 import { PageContainer, Box, Column, Row, SubNav, Heading, PrivateRoute } from '../components';
 import adminNavigationitems from '../utils/adminNavigationItems';
 
@@ -18,6 +18,7 @@ import NotFoundPage from './404';
 import { RootState } from '../redux/ducks';
 import { getAgentProfile } from '../redux/ducks/agent';
 import { getUserAvatar } from '../redux/ducks/user';
+import { addAlert } from '../redux/ducks/globalAlerts';
 
 const AdminApp: FunctionComponent<{}> = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -28,6 +29,18 @@ const AdminApp: FunctionComponent<{}> = () => {
     if (auth.isLoggedIn && !agent.agentId && !agent.isLoading) {
       dispatch(getAgentProfile());
       dispatch(getUserAvatar());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!auth.isLoading && !auth.isLoggedIn) {
+      navigate('/login');
+      dispatch(
+        addAlert({
+          type: 'danger',
+          message: 'Please log in to access that page',
+        })
+      );
     }
   }, []);
 
@@ -58,7 +71,7 @@ const AdminApp: FunctionComponent<{}> = () => {
                 allowedRole="Admin"
               />
               <PrivateRoute component={Reports} path="/reports" allowedRole="Admin" />
-              <PrivateRoute component={NotFoundPage} path="/" allowedRole="Admin" />
+              <NotFoundPage default />
             </Router>
           </Box>
         </Column>
