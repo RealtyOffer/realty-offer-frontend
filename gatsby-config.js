@@ -20,7 +20,7 @@ module.exports = {
     'gatsby-plugin-smoothscroll',
     {
       resolve: 'gatsby-plugin-advanced-sitemap',
-      exclude: ['/admin', '/admin/*'],
+      exclude: ['/admin', '/admin/*', '/consumer', '/consumer/*', '/agent', '/agent/*'],
     },
     {
       resolve: 'gatsby-plugin-robots-txt',

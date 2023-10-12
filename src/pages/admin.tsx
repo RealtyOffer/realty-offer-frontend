@@ -58,7 +58,7 @@ const AdminApp: FunctionComponent<{}> = () => {
                 allowedRole="Admin"
               />
               <PrivateRoute component={Reports} path="/reports" allowedRole="Admin" />
-              <NotFoundPage default />
+              <PrivateRoute component={NotFoundPage} path="/" allowedRole="Admin" />
             </Router>
           </Box>
         </Column>
