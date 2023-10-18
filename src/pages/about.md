@@ -19,7 +19,7 @@ mission: >-
 
   The solution is RealtyOffer, the one-stop-shop for the buyer, seller, and agent. **[RealtyOffer™](https://realtyoffer.com/)** will connect the consumer with the agent, while removing the upfront negotiation. Our AI-Digitized platform will be the first of its kind to enable savings for all parties involved in a real estate transaction: the seller, the buyer, and the agent.
 content: >-
-  We intend to help the 90% of **[agents](https://realtyoffer.com/agents)** who
+  We intend to help the 90% of **[agents](https://realtyoffer.com/agents/)** who
   can't find consistency in the real estate business and educate the 90% of
   consumers that are unaware of certain incentives they can take advantage of.
   Agents will have consistent opportunities at their fingertips without needing

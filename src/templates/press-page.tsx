@@ -154,7 +154,7 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                   <p>
                     <strong>Get in touch:</strong>
                     <br />
-                    <Link to="/contact">Send us a message</Link>
+                    <Link to="/contact/">Send us a message</Link>
                     <br />
                     <a href="tel:+12489152654">(248) 915-2654</a>
                   </p>
@@ -202,7 +202,7 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                   <HorizontalRule />
                   <Heading as="h4">About Us</Heading>
                   <p>
-                    Learn more about our <Link to="/about">mission and objectives</Link>
+                    Learn more about our <Link to="/about/">mission and objectives</Link>
                   </p>
                   <HorizontalRule />
                   <Heading as="h4">Follow Us</Heading>

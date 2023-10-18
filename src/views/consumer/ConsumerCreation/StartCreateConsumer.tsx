@@ -157,7 +157,7 @@ const StartCreateConsumer: FunctionComponent<StartCreateConsumerProps> = () => {
           </Column>
         </Row>
         <p style={{ textAlign: 'center' }}>
-          Already have an account? <Link to="/login">Log In Now</Link>
+          Already have an account? <Link to="/login/">Log In Now</Link>
         </p>
       </Card>
     </ClientOnly>

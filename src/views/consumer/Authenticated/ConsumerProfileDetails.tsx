@@ -117,7 +117,7 @@ const ConsumerProfileDetails: FunctionComponent<ConsumerProfileDetailsProps> = (
                     required
                     helpText={
                       <span>
-                        <Link to="/contact">Contact us</Link> to update your account&apos;s email
+                        <Link to="/contact/">Contact us</Link> to update your account&apos;s email
                         address
                       </span>
                     }

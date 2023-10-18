@@ -12,16 +12,16 @@ heroHeading: Need Down Payment Assistance?
 heroSubheading: RealtyOffer™ connects Buyers & Sellers with the top-rated Agents in their area.
 heroCTA: Learn More About How It Works
 heroNav:
-  - heroLink: /buy
+  - heroLink: /buy/
     heroNavText: Buying A Home
     heroNavIcon: FaHome
-  - heroLink: /sell
+  - heroLink: /sell/
     heroNavText: Selling A Home
     heroNavIcon: FaDollarSign
-  - heroLink: /agents
+  - heroLink: /agents/
     heroNavText: Become an Agent
     heroNavIcon: FaUserTie
-  - heroLink: /investors
+  - heroLink: /investors/
     heroNavText: Become an Investor
     heroNavIcon: FaHandsHelping
 sectionOneHeading: Wondering How it Works?
@@ -35,7 +35,7 @@ sectionOne:
       negotiation.
 
       Need more information? Browse the site to learn more about [Buying a Home](/buy) or [Selling Your Home](/sell).
-    callToActionLink: /consumer/start
+    callToActionLink: /consumer/start/
     callToActionText: Get Started Now
   - mainImage: /img/realtyoffer-step2-image.jpg
     secondaryImage: /img/sectionOne - secondary 2.png
@@ -52,7 +52,7 @@ sectionOne:
     heading: Choose Your Winning Agent
     content: Within 24 hours you will be able to review the top 3 bids received from
       agents in your area. Choose the best offer, and simply get connected.
-    callToActionLink: /consumer/start
+    callToActionLink: /consumer/start/
     callToActionText: Get Started Now
 sectionTwoHeading: Agents Bid for My Business?
 sectionTwoContent: In order to win your business, agents can choose to reduce
@@ -90,22 +90,22 @@ sectionFiveCards:
     heading: Buying a Home
     content: Save on closing costs!
     callToActionText: Learn more about buying a home
-    callToActionLink: /buy
+    callToActionLink: /buy/
   - image: /img/sellingAHome.png
     heading: Selling Your Home
     content: Reduced agent commission rates!
     callToActionText: Learn more about selling your home
-    callToActionLink: /sell
+    callToActionLink: /sell/
   - image: /img/becomeAnAgent.png
     heading: Become an Agent
     content: Love making money, want more clients?
     callToActionText: See more information about becoming an agent
-    callToActionLink: /agents
+    callToActionLink: /agents/
   - image: /img/becomeAPartner.png
     heading: Become an Investor
     content: Grow with RealtyOffer™
     callToActionText: Find out the benefits of becoming a investor
-    callToActionLink: /investors
+    callToActionLink: /investors/
 testimonials:
   - quote: Quote here
     author: Person 1

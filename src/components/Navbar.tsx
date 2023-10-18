@@ -437,9 +437,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 to={
                   // eslint-disable-next-line no-nested-ternary
                   isLoggedInAgent
-                    ? '/agent/listings/new'
+                    ? '/agent/listings/new/'
                     : isLoggedInConsumer
-                    ? '/consumer/listing'
+                    ? '/consumer/listing/'
                     : '/'
                 }
                 title="Logo"
@@ -455,7 +455,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   {shouldShowMenuToggle && (
                     <FlexContainer>
                       <div style={{ position: 'relative', marginRight: halfSpacer }}>
-                        <Link to="/agent/notifications">
+                        <Link to="/agent/notifications/">
                           <FaRegBell size={doubleSpacer} color={white} />
                           <NotificationDot isSmallScreen={Boolean(size.isSmallScreen)} />
                         </Link>
@@ -479,7 +479,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                           {navItem.name}
                         </Link>
                       ))}
-                    <Link to="/login" onClick={() => toggleMenu()}>
+                    <Link to="/login/" onClick={() => toggleMenu()}>
                       Log In
                     </Link>
                     <HorizontalRule compact />
@@ -491,7 +491,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   </>
                 )}
                 {size.isSmallScreen && isInSignupProcess && (
-                  <Link to="/logout" onClick={() => toggleMenu()}>
+                  <Link to="/logout/" onClick={() => toggleMenu()}>
                     <FaSignOutAlt /> Exit Signup
                   </Link>
                 )}
@@ -510,7 +510,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     <HorizontalRule />
                     {auth.roles.includes('Admin') && (
                       <>
-                        <Link to="/admin/banners" onClick={() => toggleMenu()}>
+                        <Link to="/admin/banners/" onClick={() => toggleMenu()}>
                           <FaUserLock /> Admin
                         </Link>
                         <HorizontalRule />
@@ -584,7 +584,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                           </Link>
                         ))}
                         {auth.roles.includes('Admin') && (
-                          <Link to="/admin/banners" onClick={() => toggleMenu()}>
+                          <Link to="/admin/banners/" onClick={() => toggleMenu()}>
                             <FaUserLock /> Admin
                           </Link>
                         )}

@@ -319,7 +319,7 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     <>
       <FlexContainer justifyContent="space-between">
         <p>
-          <Link to={`/agent/listings/${pathType}`}>
+          <Link to={`/agent/listings/${pathType}/`}>
             Back to {pathType.charAt(0).toUpperCase() + pathType.slice(1)} Listings
           </Link>
         </p>

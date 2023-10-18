@@ -167,13 +167,13 @@ const Footer = () => (
               CONSUMERS
             </Heading>
             <p>
-              <Link to="/how-it-works">How it Works</Link>
+              <Link to="/how-it-works/">How it Works</Link>
             </p>
             <p>
               <Link to="/">For Buyers</Link>
             </p>
             <p>
-              <Link to="/sell">For Sellers</Link>
+              <Link to="/sell/">For Sellers</Link>
             </p>
 
             {/* <p>
@@ -184,7 +184,7 @@ const Footer = () => (
               AGENTS
             </Heading>
             <p>
-              <Link to="/agents">Become an Agent</Link>
+              <Link to="/agents/">Become an Agent</Link>
             </p>
             <br />
           </Column>
@@ -193,19 +193,19 @@ const Footer = () => (
               ABOUT
             </Heading>
             <p>
-              <Link to="/blog">News</Link>
+              <Link to="/blog/">News</Link>
             </p>
             <p>
-              <Link to="/about">About Us</Link>
+              <Link to="/about/">About Us</Link>
             </p>
             <p>
-              <Link to="/investors">For Investors</Link>
+              <Link to="/investors/">For Investors</Link>
             </p>
             <p>
-              <Link to="/press">Press</Link>
+              <Link to="/press/">Press</Link>
             </p>
             <p>
-              <Link to="/frequently-asked-questions">FAQs</Link>
+              <Link to="/frequently-asked-questions/">FAQs</Link>
             </p>
             <br />
           </Column>
@@ -214,7 +214,7 @@ const Footer = () => (
               CONTACT
             </Heading>
             <p>
-              <Link to="/contact">Send a Message</Link>
+              <Link to="/contact/">Send a Message</Link>
             </p>
             <p>
               <a href="tel:+12489152654">(248) 915-2654</a>
@@ -224,10 +224,10 @@ const Footer = () => (
               LEGAL
             </Heading>
             <p>
-              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/privacy/">Privacy Policy</Link>
             </p>
             <p>
-              <Link to="/terms">Terms of Use</Link>
+              <Link to="/terms/">Terms of Use</Link>
             </p>
           </Column>
         </Row>

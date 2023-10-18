@@ -146,7 +146,7 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
             message: 'Your last transaction was declined. Please visit the',
             type: 'danger',
             dismissable: true,
-            callToActionLink: '/agent/account/billing',
+            callToActionLink: '/agent/account/billing/',
             callToActionLinkText: 'Billing page to update your payment method',
           })
         );
