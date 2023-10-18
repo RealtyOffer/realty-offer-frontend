@@ -194,7 +194,9 @@ export const PressPageTemplate: FunctionComponent<PressPageProps> = (props) => {
                       <a href="/img/logo-white-with-blue.png">Download</a>
                     </p>
                     <p>
-                      <a href="/img/logo.eps">Download .eps version</a>
+                      <a href="/img/logo.eps" download rel="nofollow">
+                        Download .eps version
+                      </a>
                     </p>
                   </div>
                   <HorizontalRule />
