@@ -25,6 +25,7 @@ import { verifyEmail, resendSignupEmail } from '../redux/ducks/auth';
 import { requiredField, requiredEmail } from '../utils/validations';
 import { ActionResponseType } from '../redux/constants';
 import { RootState } from '../redux/ducks';
+import trackEvent from '../utils/analytics';
 
 declare const document: Document;
 
@@ -82,6 +83,7 @@ const VerifyEmail: FunctionComponent<VerifyEmailType & RouteComponentProps> = ()
                     setSubmitting(false);
                     if (response && !response.error) {
                       setVerified(true);
+                      trackEvent('Email verification form submitted', values);
                     }
                   });
                 }}

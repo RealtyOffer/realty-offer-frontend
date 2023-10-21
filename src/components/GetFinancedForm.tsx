@@ -9,6 +9,7 @@ import { addAlert } from '../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 import { RootState } from '../redux/ducks';
 import { getDropdownListText } from '../utils/dropdownUtils';
+import trackEvent from '../utils/analytics';
 
 type GetFinancedFormProps = {};
 
@@ -71,11 +72,7 @@ const GetFinancedForm: FunctionComponent<GetFinancedFormProps> = () => {
                     type: 'success',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track(`${formName} completed`, {
-                    ...values,
-                  });
-                }
+                trackEvent(`${formName} completed`, values);
                 setShowForm(false);
               })
               .catch(() => {
@@ -86,11 +83,7 @@ const GetFinancedForm: FunctionComponent<GetFinancedFormProps> = () => {
                     type: 'danger',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track(`${formName} failure`, {
-                    ...values,
-                  });
-                }
+                trackEvent(`${formName} failure`, values);
               });
           }}
         >

@@ -9,6 +9,7 @@ import { Card, Button, HorizontalRule, Input, Row, Column, PageContainer } from 
 import { requiredField, requiredEmail, requiredPhoneNumber } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
+import trackEvent from '../utils/analytics';
 
 type AgentLandingFormProps = {};
 
@@ -53,11 +54,9 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     type: 'success',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track('Agent Landing Form completed', {
-                    ...valuesWithSubject,
-                  });
-                }
+                trackEvent('Agent Landing Form completed', {
+                  ...valuesWithSubject,
+                });
               })
               .catch(() => {
                 dispatch(
@@ -66,11 +65,10 @@ const AgentLandingForm: FunctionComponent<AgentLandingFormProps> = () => {
                     type: 'danger',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track('Agent Landing Form failure', {
-                    ...valuesWithSubject,
-                  });
-                }
+
+                trackEvent('Agent Landing Form failure', {
+                  ...valuesWithSubject,
+                });
               });
           }}
         >

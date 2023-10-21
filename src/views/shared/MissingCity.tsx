@@ -28,6 +28,7 @@ import { RootState } from '../../redux/ducks';
 import { createOptionsFromManagedDropdownList } from '../../utils/createOptionsFromArray';
 import { getDropdownListText } from '../../utils/dropdownUtils';
 import { getPriceRangesList, getStatesList } from '../../redux/ducks/dropdowns';
+import trackEvent from '../../utils/analytics';
 
 type MissingCityFormValues = {
   firstName: string;
@@ -149,11 +150,10 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     type: 'success',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track(`Missing City Form completed`, {
-                    ...postingValues,
-                  });
-                }
+
+                trackEvent(`Missing City Form completed`, {
+                  ...postingValues,
+                });
               })
               .catch(() => {
                 dispatch(
@@ -162,11 +162,10 @@ const MissingCity: FunctionComponent<Props & RouteComponentProps> = () => {
                     type: 'danger',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track(`Missing City Form failure`, {
-                    ...postingValues,
-                  });
-                }
+
+                trackEvent(`Missing City Form failure`, {
+                  ...postingValues,
+                });
               })
               .finally(() => {
                 setSubmitting(false);

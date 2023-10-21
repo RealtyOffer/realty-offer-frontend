@@ -36,6 +36,7 @@ import { captureAgentSignupData } from '../../../redux/ducks/agent';
 import { RootState } from '../../../redux/ducks';
 import { baseBorderStyle } from '../../../styles/mixins';
 import { baseSpacer } from '../../../styles/size';
+import trackEvent from '../../../utils/analytics';
 
 type CreateAgentProps = {} & RouteComponentProps;
 
@@ -98,16 +99,16 @@ const CreateAgent: FunctionComponent<CreateAgentProps> = () => {
                 PHONE: values.phoneNumber,
                 'group[78807][2]': '2',
               });
-              if (window && window.analytics) {
-                window.analytics.track('Agent Signup', {
-                  firstName: values.firstName,
-                  lastName: values.lastName,
-                  phoneNumber: values.phoneNumber,
-                  email: values.email,
-                  role: 'Agent',
-                  referralSource: values.referralSource,
-                });
-              }
+
+              trackEvent('Agent Signup', {
+                firstName: values.firstName,
+                lastName: values.lastName,
+                phoneNumber: values.phoneNumber,
+                email: values.email,
+                role: 'Agent',
+                referralSource: values.referralSource,
+              });
+
               dispatch(
                 captureAgentSignupData({
                   isPilotUser: location.pathname.includes('pilot'),

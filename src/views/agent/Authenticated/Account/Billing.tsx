@@ -39,6 +39,7 @@ import { getUserCounties, getUserCities } from '../../../../redux/ducks/user';
 import numberWithCommas from '../../../../utils/numberWithCommas';
 import AddNewCityToSubscription from './AddNewCityToSubscription';
 import { FortispayAccountvaultResponseType } from '../../../../redux/ducks/fortis.d';
+import trackEvent from '../../../../utils/analytics';
 
 type BillingProps = {} & RouteComponentProps;
 
@@ -89,11 +90,10 @@ const Billing: FunctionComponent<BillingProps> = () => {
           dispatch(updateAgentProfile({ ...agent, fortispayAccountVaultId: id })).then(
             (res: ActionResponseType) => {
               if (res && !res.error) {
-                if (window && window.analytics) {
-                  window.analytics.track('Agent updated default payment method', {
-                    user: auth.email,
-                  });
-                }
+                trackEvent('Agent updated default payment method', {
+                  user: auth.email,
+                });
+
                 dispatch(
                   addAlert({
                     type: 'success',
@@ -112,11 +112,10 @@ const Billing: FunctionComponent<BillingProps> = () => {
   const deleteAccountVault = (id: string) => {
     dispatch(deleteFortispayAccountvault({ id })).then((response: ActionResponseType) => {
       if (response && !response.error) {
-        if (window && window.analytics) {
-          window.analytics.track('Agent removed payment method', {
-            user: auth.email,
-          });
-        }
+        trackEvent('Agent removed payment method', {
+          user: auth.email,
+        });
+
         dispatch(
           addAlert({
             type: 'success',

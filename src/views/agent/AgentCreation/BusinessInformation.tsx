@@ -29,6 +29,7 @@ import { captureAgentSignupData, updateAgentProfile } from '../../../redux/ducks
 import { RootState } from '../../../redux/ducks';
 import { logout } from '../../../redux/ducks/auth';
 import { brandSuccess } from '../../../styles/color';
+import trackEvent from '../../../utils/analytics';
 
 type BusinessInformationProps = {} & RouteComponentProps;
 
@@ -52,11 +53,11 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
 
   const save = () => {
     dispatch(logout());
-    if (window && window.analytics) {
-      window.analytics.track('Logout', {
-        location: 'Business Information',
-      });
-    }
+
+    trackEvent('Logout', {
+      location: 'Business Information',
+    });
+
     navigate('/');
   };
 
@@ -326,6 +327,12 @@ const BusinessInformation: FunctionComponent<BusinessInformationProps> = () => {
                               fortispayRecurringAmount: newTotal(values),
                             })
                           );
+                          trackEvent('Agent Business Info Completed', {
+                            ...values,
+                            ...agent,
+                            cities: [...(allNewCitiesToBeAdded(values) || [])],
+                            fortispayRecurringAmount: newTotal(values),
+                          });
                           setSubmitting(false);
                           navigate('/agent/payment-information');
                         }}

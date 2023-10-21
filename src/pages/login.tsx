@@ -4,6 +4,7 @@ import { navigate } from 'gatsby';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDistance, isAfter } from 'date-fns';
 
+import trackEvent from '../utils/analytics';
 import { Alert, PageContainer, Button, Card, Input, HorizontalRule, Seo } from '../components';
 
 import { requiredField } from '../utils/validations';
@@ -64,11 +65,10 @@ const Login: FunctionComponent<LoginProps> = () => {
                 setSubmitting(false);
                 if ((response as ActionResponseType) && !(response as ActionResponseType).error) {
                   if ((response as LoginResponseType).payload.roles.includes('Agent')) {
-                    if (window && window.analytics) {
-                      window.analytics.track('Agent Login', {
-                        user: values.email,
-                      });
-                    }
+                    trackEvent('Agent Login', {
+                      user: values.email,
+                    });
+
                     if (user.location) {
                       dispatch(removeAttemptedPrivatePage());
                       navigate(user.location);
@@ -77,11 +77,10 @@ const Login: FunctionComponent<LoginProps> = () => {
                     }
                   }
                   if ((response as LoginResponseType).payload.roles.includes('Consumer')) {
-                    if (window && window.analytics) {
-                      window.analytics.track('Consumer Login', {
-                        user: values.email,
-                      });
-                    }
+                    trackEvent('Consumer Login', {
+                      user: values.email,
+                    });
+
                     if (user.location) {
                       dispatch(removeAttemptedPrivatePage());
                       navigate(user.location);

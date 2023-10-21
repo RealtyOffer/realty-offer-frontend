@@ -54,6 +54,7 @@ import logo from '../images/logo.svg';
 import useWindowSize from '../utils/useWindowSize';
 import { agentNavigationItems } from '../utils/agentNavigationItems';
 import unauthenticatedNavigationItems from '../utils/unauthenticatedNavigationItems';
+import trackEvent from '../utils/analytics';
 
 type NavbarProps = {};
 
@@ -521,11 +522,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                       onClick={() => {
                         toggleMenu();
                         dispatch(logout());
-                        if (window && window.analytics) {
-                          window.analytics.track('Logout', {
-                            location: 'StyledMenu',
-                          });
-                        }
+
+                        trackEvent('Logout', {
+                          location: 'StyledMenu',
+                        });
                       }}
                     >
                       <FaSignOutAlt /> Log Out
@@ -592,11 +592,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                           to="/"
                           onClick={() => {
                             dispatch(logout());
-                            if (window && window.analytics) {
-                              window.analytics.track('Logout', {
-                                location: 'StyledDropdown',
-                              });
-                            }
+
+                            trackEvent('Logout', {
+                              location: 'StyledDropdown',
+                            });
                           }}
                         >
                           <FaSignOutAlt /> Log Out
@@ -621,11 +620,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   to="/"
                   onClick={() => {
                     dispatch(logout());
-                    if (window && window.analytics) {
-                      window.analytics.track('Logout', {
-                        location: 'Consumer Nav',
-                      });
-                    }
+
+                    trackEvent('Logout', {
+                      location: 'Consumer Nav',
+                    });
                   }}
                   style={{ color: white }}
                 >

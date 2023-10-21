@@ -17,6 +17,7 @@ import {
 import { requiredEmail, requiredField } from '../utils/validations';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
+import trackEvent from '../utils/analytics';
 
 type ContactProps = {};
 
@@ -56,11 +57,10 @@ const Contact: FunctionComponent<ContactProps> = () => {
                     type: 'success',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track('Contact Form completed', {
-                    ...valuesWithSubject,
-                  });
-                }
+
+                trackEvent('Contact Form completed', {
+                  ...valuesWithSubject,
+                });
               })
               .catch(() => {
                 dispatch(
@@ -69,11 +69,10 @@ const Contact: FunctionComponent<ContactProps> = () => {
                     type: 'danger',
                   })
                 );
-                if (window && window.analytics) {
-                  window.analytics.track('Contact Form failure', {
-                    ...valuesWithSubject,
-                  });
-                }
+
+                trackEvent('Contact Form failure', {
+                  ...valuesWithSubject,
+                });
               })
               .finally(() => {
                 setSubmitting(false);

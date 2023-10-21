@@ -12,6 +12,7 @@ import {
 } from '../../../../redux/ducks/fortis';
 import { addAlert } from '../../../../redux/ducks/globalAlerts';
 import { FortispayTransactionResponseType } from '../../../../redux/ducks/fortis.d';
+import trackEvent from '../../../../utils/analytics';
 
 type AddNewCreditCardProps = {
   toggleModal: (value: boolean) => void;
@@ -39,9 +40,8 @@ const AddNewCreditCard: FunctionComponent<AddNewCreditCardProps> = (props) => {
 
       // AVS Good means card has been validated with issuer to be legit
       if (response && response.avs === 'GOOD') {
-        if (window && window.analytics) {
-          window.analytics.track('Agent added new payment method', {});
-        }
+        trackEvent('Agent added new payment method', {});
+
         dispatch(
           addAlert({
             type: 'success',

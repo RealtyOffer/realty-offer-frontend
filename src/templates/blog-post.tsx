@@ -31,6 +31,7 @@ import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 import { brandTertiary } from '../styles/color';
 import { fontFamilySerif } from '../styles/typography';
 import { halfSpacer, quadrupleSpacer, quarterSpacer } from '../styles/size';
+import trackEvent from '../utils/analytics';
 
 type RelatedPostType = {
   fields: {
@@ -223,12 +224,11 @@ export const BlogPostTemplate: FunctionComponent<BlogPostProps> = (props) => {
                             type: 'success',
                           })
                         );
-                        if (window && window.analytics) {
-                          window.analytics.track('Blog Post Lead Form completed', {
-                            ...valuesWithSubject,
-                            blogPost: props.title,
-                          });
-                        }
+
+                        trackEvent('Blog Post Lead Form completed', {
+                          ...valuesWithSubject,
+                          blogPost: props.title,
+                        });
                       })
                       .catch(() => {
                         dispatch(
@@ -237,12 +237,11 @@ export const BlogPostTemplate: FunctionComponent<BlogPostProps> = (props) => {
                             type: 'danger',
                           })
                         );
-                        if (window && window.analytics) {
-                          window.analytics.track('Blog Post Lead Form failure', {
-                            ...valuesWithSubject,
-                            blogPost: props.title,
-                          });
-                        }
+
+                        trackEvent('Blog Post Lead Form failure', {
+                          ...valuesWithSubject,
+                          blogPost: props.title,
+                        });
                       })
                       .finally(() => {
                         setSubmitting(false);

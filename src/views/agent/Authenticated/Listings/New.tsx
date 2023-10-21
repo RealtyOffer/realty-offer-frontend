@@ -23,6 +23,7 @@ import {
 import { RootState } from '../../../../redux/ducks';
 import { getUserCounties } from '../../../../redux/ducks/user';
 import useWindowSize from '../../../../utils/useWindowSize';
+import trackEvent from '../../../../utils/analytics';
 
 const NewListings: FunctionComponent<RouteComponentProps> = () => {
   const agent = useSelector((state: RootState) => state.agent);
@@ -103,11 +104,10 @@ const NewListings: FunctionComponent<RouteComponentProps> = () => {
         validateOnMount
         initialValues={initialValues}
         onSubmit={(values, { resetForm }) => {
-          if (window && window.analytics) {
-            window.analytics.track('Agent updated filter', {
-              ...values,
-            });
-          }
+          trackEvent('Agent updated filter', {
+            ...values,
+          });
+
           if (initialValues.countyFilter !== values.countyFilter) {
             dispatch(changeCountyFilter(values.countyFilter));
           }

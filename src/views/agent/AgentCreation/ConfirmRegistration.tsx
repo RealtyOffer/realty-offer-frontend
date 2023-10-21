@@ -21,6 +21,7 @@ import { clearAgentSignupData, updateAgentProfile } from '../../../redux/ducks/a
 import numberWithCommas from '../../../utils/numberWithCommas';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
+import trackEvent from '../../../utils/analytics';
 
 const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
   const agent = useSelector((state: RootState) => state.agent);
@@ -32,9 +33,11 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
 
   useEffect(() => {
     if (!agent.fortispayContactId) {
+      trackEvent('Agent redirect from confirm to agent info', agent);
       navigate('/agent/agent-information');
     }
     if (!agent.isPilotUser && !agent.fortispayAccountVaultId) {
+      trackEvent('Agent redirect from confirm to payment info', agent);
       navigate('/agent/payment-information');
     }
   }, []);
@@ -63,6 +66,7 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
     }
     if (agent.isPilotUser) {
       dispatch(clearAgentSignupData());
+      trackEvent('Agent confirmed account', agent);
       dispatch(
         addAlert({
           type: 'success',
@@ -73,6 +77,7 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
       navigate('/agent/listings/new');
     } else if (subscriberType === 'payAsYouGo' && agent.fortispayAccountVaultId) {
       dispatch(clearAgentSignupData());
+      trackEvent('Agent confirmed account', agent);
       dispatch(
         addAlert({
           type: 'success',
@@ -86,6 +91,7 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
       agent.fortispayAccountVaultId &&
       agent.fortispayRecurringAmount
     ) {
+      trackEvent('Agent confirmed account', agent);
       dispatch(
         createFortispayRecurring({
           account_vault_id: agent.fortispayAccountVaultId,
@@ -96,6 +102,7 @@ const ConfirmRegistration: FunctionComponent<RouteComponentProps> = () => {
         })
       ).then((response: ActionResponseType) => {
         if (response && !response.error) {
+          trackEvent('Agent created recurring fortispay', agent);
           dispatch(
             updateAgentProfile({
               ...agent,

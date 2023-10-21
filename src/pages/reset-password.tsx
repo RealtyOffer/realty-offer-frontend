@@ -15,6 +15,7 @@ import { ActionResponseType } from '../redux/constants';
 import { resetPassword } from '../redux/ducks/auth';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import { RootState } from '../redux/ducks';
+import trackEvent from '../utils/analytics';
 
 type ResetPasswordProps = {};
 
@@ -85,11 +86,10 @@ const ResetPassword: FunctionComponent<ResetPasswordProps> = () => {
             ).then((response: ActionResponseType) => {
               setSubmitting(false);
               if (response && !response.error) {
-                if (window && window.analytics) {
-                  window.analytics.track('Reset Password', {
-                    user: values.email,
-                  });
-                }
+                trackEvent('Reset Password', {
+                  user: values.email,
+                });
+
                 dispatch(
                   addAlert({
                     type: 'success',

@@ -36,6 +36,7 @@ import { reformattedPhoneForCognito } from '../../../utils/phoneNumber';
 import postFormUrlEncoded from '../../../utils/postFormUrlEncoded';
 import { getDropdownListText } from '../../../utils/dropdownUtils';
 import { getPriceRangesList, getHomeTypesList } from '../../../redux/ducks/dropdowns';
+import trackEvent from '../../../utils/analytics';
 
 type CreateConsumerProps = {} & RouteComponentProps;
 
@@ -99,18 +100,18 @@ const CreateConsumer: FunctionComponent<CreateConsumerProps> = () => {
               PHONE: values.phoneNumber,
               'group[78807][1]': '1',
             });
-            if (window && window.analytics) {
-              window.analytics.track('Consumer Signup', {
-                ...consumer.listing,
-                firstName: values.firstName,
-                lastName: values.lastName,
-                phoneNumber: values.phoneNumber,
-                email: values.email,
-                role: 'Consumer',
-                referralSource: values.referralSource,
-                otherSource: values.otherSource,
-              });
-            }
+
+            trackEvent('Consumer Signup', {
+              ...consumer.listing,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              phoneNumber: values.phoneNumber,
+              email: values.email,
+              role: 'Consumer',
+              referralSource: values.referralSource,
+              otherSource: values.otherSource,
+            });
+
             dispatch(
               createUser({
                 ...values,

@@ -14,6 +14,7 @@ import {
 import { changePassword } from '../../../../redux/ducks/auth';
 import { RootState } from '../../../../redux/ducks';
 import { ActionResponseType } from '../../../../redux/constants';
+import trackEvent from '../../../../utils/analytics';
 
 type AgentSecurityProps = {} & RouteComponentProps;
 
@@ -37,11 +38,10 @@ const AgentSecurity: FunctionComponent<AgentSecurityProps> = () => {
           onSubmit={(values, { setSubmitting }) => {
             dispatch(changePassword(values)).then((response: ActionResponseType) => {
               if (response && !response.error) {
-                if (window && window.analytics) {
-                  window.analytics.track('Agent updated password', {
-                    user: auth.email,
-                  });
-                }
+                trackEvent('Agent updated password', {
+                  user: auth.email,
+                });
+
                 setTimeout(() => {
                   setShowPasswordForm(false);
                 }, 2000);

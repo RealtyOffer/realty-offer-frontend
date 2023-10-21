@@ -30,7 +30,6 @@ import {
   requiredBuyersAgentCommissionAmount,
   requiredBrokerComplianceAmount,
   requiredPreInspectionAmount,
-  requiredPreCertifyAmount,
   requiredPhotographyAmount,
   requiredBuyerCommissionAmount,
   requiredInspectionAmount,
@@ -44,7 +43,6 @@ import {
   helpTextBuyerCommissionAmount,
   helpTextPhotographyAmount,
   helpTextMovingCompanyAmount,
-  helpTextPreCertifyAmount,
   helpTextPreInspectionAmount,
   helpTextListingAgentCommissionAmount,
   helpTextBuyersAgentCommissionAmount,
@@ -76,6 +74,7 @@ import { baseBorderStyle } from '../../../../styles/mixins';
 import { baseSpacer, quadrupleSpacer } from '../../../../styles/size';
 import useWindowSize from '../../../../utils/useWindowSize';
 import { lightestGray } from '../../../../styles/color';
+import trackEvent from '../../../../utils/analytics';
 
 type ListingDetailsProps = {
   listingId?: string;
@@ -243,11 +242,10 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
     if (activeBid && activeBid.id) {
       dispatch(deleteBidById(Number(activeBid.id))).then((response: ActionResponseType) => {
         if (response && !response.error) {
-          if (window && window.analytics) {
-            window.analytics.track('Agent deleted bid', {
-              ...activeBid,
-            });
-          }
+          trackEvent('Agent deleted bid', {
+            ...activeBid,
+          });
+
           addAlert({
             type: 'success',
             message: 'Successfully removed your bid',
@@ -302,11 +300,10 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
   }
 
   if (!listing || !props.listingId) {
-    if (window && window.analytics) {
-      window.analytics.track('Listing not found', {
-        route: window.location.pathname,
-      });
-    }
+    trackEvent('Listing not found', {
+      route: window.location.pathname,
+    });
+
     return (
       <EmptyListingsView
         title="Sorry, we couldn't find that listing. Please try again."
@@ -422,23 +419,22 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
               initialValues={pathType === 'new' ? newInitialValues : existingBidInitialValues}
               onSubmit={(values) => {
                 if (values.saveBidDetails) {
-                  if (window && window.analytics) {
-                    window.analytics.track('Agent saved bid defaults', {
-                      user: auth.email,
-                      bidDefaults: {
-                        sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
-                        buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
-                        buyerInspectionAmount: Number(values.buyerInspectionAmount),
-                        sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
-                        buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
-                        sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
-                        sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
-                        sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
-                        buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
-                        buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
-                      },
-                    });
-                  }
+                  trackEvent('Agent saved bid defaults', {
+                    user: auth.email,
+                    bidDefaults: {
+                      sellerBrokerComplianceAmount: Number(values.sellerBrokerComplianceAmount),
+                      buyerHomeWarrantyAmount: Number(values.buyerHomeWarrantyAmount),
+                      buyerInspectionAmount: Number(values.buyerInspectionAmount),
+                      sellerPreInspectionAmount: Number(values.sellerPreInspectionAmount),
+                      buyerBrokerComplianceAmount: Number(values.buyerBrokerComplianceAmount),
+                      sellerPreCertifyAmount: Number(values.sellerPreCertifyAmount),
+                      sellerMovingCompanyAmount: Number(values.sellerMovingCompanyAmount),
+                      sellerPhotographyAmount: Number(values.sellerPhotographyAmount),
+                      buyerAppraisalAmount: Number(values.buyerAppraisalAmount),
+                      buyerMovingCompanyAmount: Number(values.buyerMovingCompanyAmount),
+                    },
+                  });
+
                   dispatch(
                     updateAgentProfile({
                       ...agent,
@@ -480,14 +476,10 @@ const ListingDetails: FunctionComponent<ListingDetailsProps> = (props) => {
                     : updateAgentBid({ ...formattedValues, id: agent.activeBid?.id })
                 ).then((response: ActionResponseType) => {
                   if (response && !response.error) {
-                    if (window && window.analytics) {
-                      window.analytics.track(
-                        pathType === 'new' ? 'Agent submitted bid' : 'Agent updated bid',
-                        {
-                          ...formattedValues,
-                        }
-                      );
-                    }
+                    trackEvent(pathType === 'new' ? 'Agent submitted bid' : 'Agent updated bid', {
+                      ...formattedValues,
+                    });
+
                     dispatch(
                       addAlert({
                         message:

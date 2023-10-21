@@ -36,6 +36,7 @@ import { ActionResponseType } from '../../../../redux/constants';
 import ListingAlerts from './NotificationsForms/ListingAlerts';
 import AccountAlerts from './NotificationsForms/AccountAlerts';
 import ProductAlerts from './NotificationsForms/ProductAlerts';
+import trackEvent from '../../../../utils/analytics';
 
 type AgentNotificationsProps = {} & RouteComponentProps;
 
@@ -83,9 +84,9 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
         forceResendEmailCode: true,
       })
     );
-    if (window && window.analytics) {
-      window.analytics.track('Agent requested new email confirmation code', {});
-    }
+
+    trackEvent('Agent requested new email confirmation code', {});
+
     setEmailCodeSent(true);
     setTimeout(() => {
       setEmailCodeSent(false);
@@ -100,9 +101,9 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
         forceResendPhoneCode: true,
       })
     );
-    if (window && window.analytics) {
-      window.analytics.track('Agent requested new phone confirmation code', {});
-    }
+
+    trackEvent('Agent requested new phone confirmation code', values);
+
     setPhoneCodeSent(true);
     setTimeout(() => {
       setPhoneCodeSent(false);
@@ -146,9 +147,8 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       | { error: boolean; payload: NotificationSettingsType }
                   ) => {
                     if (response && !response.error) {
-                      if (window && window.analytics) {
-                        window.analytics.track('Agent confirmed new email address', {});
-                      }
+                      trackEvent('Agent confirmed new email address', values);
+
                       setSubmitting(false);
                       resetForm({
                         values: { ...(response.payload as typeof settingsInitialValues) },
@@ -170,9 +170,8 @@ const AgentNotifications: FunctionComponent<AgentNotificationsProps> = () => {
                       | { error: boolean; payload: NotificationSettingsType }
                   ) => {
                     if (response && !response.error) {
-                      if (window && window.analytics) {
-                        window.analytics.track('Agent confirmed new phone number', {});
-                      }
+                      trackEvent('Agent confirmed new phone number', {});
+
                       setSubmitting(false);
                       resetForm({
                         values: { ...(response.payload as typeof settingsInitialValues) },

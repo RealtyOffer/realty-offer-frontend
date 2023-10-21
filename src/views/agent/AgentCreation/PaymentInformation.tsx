@@ -23,6 +23,7 @@ import {
 } from '../../../components';
 import { RootState } from '../../../redux/ducks';
 import { ActionResponseType } from '../../../redux/constants';
+import trackEvent from '../../../utils/analytics';
 
 const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
 
   useEffect(() => {
     if (!agent.fortispayContactId) {
+      trackEvent('Agent redirect from payment info to agent info', agent);
       navigate('/agent/agent-information');
     }
   }, []);
@@ -52,9 +54,8 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
 
       // AVS Good means card has been validated with issuer to be legit
       if (response && response.avs === 'GOOD') {
-        if (window && window.analytics) {
-          window.analytics.track('Agent added new payment method', {});
-        }
+        trackEvent('Agent added new payment method', {});
+
         dispatch(getFortispayTransactions({ contact_id: agent.fortispayContactId as string })).then(
           (transactionsResponse: { payload: Array<FortispayTransactionResponseType> }) => {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -72,6 +73,10 @@ const PaymentInformation: FunctionComponent<RouteComponentProps> = () => {
                     message: 'Successfully added new payment method',
                   })
                 );
+                trackEvent('Agent completed payment info', {
+                  ...agent,
+                  fortispayAccountVaultId: recentTransaction.account_vault_id,
+                });
                 navigate('/agent/confirm-registration');
               }
             });

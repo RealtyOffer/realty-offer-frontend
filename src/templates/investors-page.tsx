@@ -25,6 +25,7 @@ import useWindowSize from '../utils/useWindowSize';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 import { addAlert } from '../redux/ducks/globalAlerts';
 import { requiredEmail, requiredField, requiredPhoneNumber } from '../utils/validations';
+import trackEvent from '../utils/analytics';
 
 type PartnerPageProps = {
   metaTitle: string;
@@ -137,11 +138,10 @@ export const PartnerPageTemplate: FunctionComponent<PartnerPageProps> = (props) 
                               type: 'success',
                             })
                           );
-                          if (window && window.analytics) {
-                            window.analytics.track('Investors Lead Form completed', {
-                              ...valuesWithSubject,
-                            });
-                          }
+
+                          trackEvent('Investors Lead Form completed', {
+                            ...valuesWithSubject,
+                          });
                         })
                         .catch(() => {
                           dispatch(
@@ -150,11 +150,10 @@ export const PartnerPageTemplate: FunctionComponent<PartnerPageProps> = (props) 
                               type: 'danger',
                             })
                           );
-                          if (window && window.analytics) {
-                            window.analytics.track('Investors Lead Form failure', {
-                              ...valuesWithSubject,
-                            });
-                          }
+
+                          trackEvent('Investors Lead Form failure', {
+                            ...valuesWithSubject,
+                          });
                         })
                         .finally(() => {
                           setSubmitting(false);

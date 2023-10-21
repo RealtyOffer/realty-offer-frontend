@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import { FixedObject, FluidObject } from 'gatsby-image';
@@ -44,6 +45,7 @@ import googlePlayStoreBadge from '../images/google-play-store-black.svg';
 import useWindowSize from '../utils/useWindowSize';
 import { baseBorderLightStyle } from '../styles/mixins';
 import { fontSizeH6 } from '../styles/typography';
+import trackEvent from '../utils/analytics';
 
 type AgentsPageProps = {
   title: string;
@@ -200,7 +202,13 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
               <Heading as="h6">
                 <ReactMarkdown source={heroSubheading} />
               </Heading>
-              <Button type="link" to="/agent/sign-up">
+              <Button
+                type="link"
+                to="/agent/sign-up"
+                onClick={() =>
+                  trackEvent('Agent Sign Up button clicked', { location: 'Agents page hero image' })
+                }
+              >
                 Become an Agent
               </Button>
             </Column>
@@ -325,16 +333,35 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                 <tr>
                   <td>&nbsp;</td>
                   <td align="center">
-                    <Button type="link" to="/agent/sign-up" block color="primaryOutline">
+                    <Button
+                      type="link"
+                      to="/agent/sign-up"
+                      block
+                      color="primaryOutline"
+                      onClick={() =>
+                        trackEvent('Agent Sign Up button clicked', {
+                          location: 'Agents page table - Free-mium Agent',
+                        })
+                      }
+                    >
                       Sign Up
                     </Button>
                   </td>
                   <td align="center">
-                    <Button type="link" to="/agent/sign-up" block onClick={() =>
-                  window.gtag('event', 'conversion', {
-                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
-                  })
-                }>
+                    <Button
+                      type="link"
+                      to="/agent/sign-up"
+                      block
+                      onClick={() => {
+                        window.gtag('event', 'conversion', {
+                          // eslint-disable-next-line @typescript-eslint/camelcase
+                          send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                        });
+                        trackEvent('Agent Sign Up button clicked', {
+                          location: 'Agents page table - Monthly Agent',
+                        });
+                      }}
+                    >
                       Get Started
                     </Button>
                   </td>
@@ -367,7 +394,16 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
             <Column md={6} mdOffset={1}>
               <Heading as="h3">{sectionFourHeading}</Heading>
               <ReactMarkdown source={sectionFourContent} />
-              <Button type="link" to="/agent/sign-up" block>
+              <Button
+                type="link"
+                to="/agent/sign-up"
+                block
+                onClick={() =>
+                  trackEvent('Agent Sign Up button clicked', {
+                    location: 'Agents page - last section with image',
+                  })
+                }
+              >
                 Become a RealtyOffer Agent
               </Button>
             </Column>
@@ -505,11 +541,19 @@ export const AgentsPageTemplate: FunctionComponent<AgentsPageProps> = ({
                   Welcome to RealtyOffer
                 </Heading>
 
-                <Button type="link" to="/agent/sign-up" color="tertiary" onClick={() =>
-                  window.gtag('event', 'conversion', {
-                    send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
-                  })
-                }>
+                <Button
+                  type="link"
+                  to="/agent/sign-up"
+                  color="tertiary"
+                  onClick={() => {
+                    window.gtag('event', 'conversion', {
+                      send_to: 'AW-10961963802/9iBfCO-v6YUYEJqWieso',
+                    });
+                    trackEvent('Agent Sign Up button clicked', {
+                      location: 'Agents page - pre footer',
+                    });
+                  }}
+                >
                   Get Started Now
                 </Button>
                 <br />

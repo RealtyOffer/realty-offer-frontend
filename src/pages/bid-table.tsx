@@ -43,6 +43,7 @@ import { buyTotal, sellTotal } from '../utils/buyingAndSellingCalculator';
 import { RootState } from '../redux/ducks';
 import { getPriceRangesList } from '../redux/ducks/dropdowns';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
+import trackEvent from '../utils/analytics';
 
 type BidTableProps = {};
 
@@ -108,11 +109,10 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       type: 'success',
                     })
                   );
-                  if (window && window.analytics) {
-                    window.analytics.track(`Bid table completed`, {
-                      ...values,
-                    });
-                  }
+
+                  trackEvent(`Bid table completed`, {
+                    ...values,
+                  });
                 })
                 .catch(() => {
                   dispatch(
@@ -121,11 +121,10 @@ const BidTable: FunctionComponent<BidTableProps> = () => {
                       type: 'danger',
                     })
                   );
-                  if (window && window.analytics) {
-                    window.analytics.track(`Bid table failure`, {
-                      ...values,
-                    });
-                  }
+
+                  trackEvent(`Bid table failure`, {
+                    ...values,
+                  });
                 })
                 .finally(() => {
                   setSubmitting(false);

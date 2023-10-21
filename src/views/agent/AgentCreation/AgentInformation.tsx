@@ -34,6 +34,7 @@ import { createOptionsFromManagedDropdownList } from '../../../utils/createOptio
 import { getUserCities } from '../../../redux/ducks/user';
 import { addAlert } from '../../../redux/ducks/globalAlerts';
 import { reformattedPhoneForFortis } from '../../../utils/phoneNumber';
+import trackEvent from '../../../utils/analytics';
 
 type AgentInformationProps = {};
 
@@ -77,11 +78,11 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
 
   const save = () => {
     dispatch(logout());
-    if (window && window.analytics) {
-      window.analytics.track('Logout', {
-        location: 'Agent Information',
-      });
-    }
+
+    trackEvent('Logout', {
+      location: 'Agent Information',
+    });
+
     navigate('/');
   };
 
@@ -127,6 +128,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                 })
               ).then((res: ActionResponseType) => {
                 if (res && res.error) {
+                  trackEvent('Create Fortispay Contact Failure', { email: auth.email, ...values });
                   const fortispayError = Object.values(res.payload)[0];
                   dispatch(
                     addAlert({
@@ -136,6 +138,7 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                   );
                   setSubmitting(false);
                 } else if (res && !res.error) {
+                  trackEvent('Create Fortispay Contact Success', { email: auth.email, ...values });
                   dispatch(
                     createAgentProfile({
                       ...values,
@@ -158,6 +161,11 @@ const AgentInformation: FunctionComponent<AgentInformationProps & RouteComponent
                     })
                   ).then((response: ActionResponseType) => {
                     if (response && !response.error) {
+                      trackEvent('Create Aent Profile Success', {
+                        email: auth.email,
+                        ...values,
+                        ...agent,
+                      });
                       if (agent && agent.signupData.isPilotUser) {
                         dispatch(
                           captureAgentSignupData({

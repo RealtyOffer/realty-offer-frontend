@@ -28,6 +28,7 @@ import { updateAgentProfile } from '../../../../redux/ducks/agent';
 import { getLanguagesList, getGendersList, getStatesList } from '../../../../redux/ducks/dropdowns';
 import { reformattedPhoneForCognito, formatPhoneNumberValue } from '../../../../utils/phoneNumber';
 import { createOptionsFromManagedDropdownList } from '../../../../utils/createOptionsFromArray';
+import trackEvent from '../../../../utils/analytics';
 
 type AgentProfileProps = {} & RouteComponentProps;
 
@@ -99,9 +100,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
               phoneNumber: reformattedPhoneForCognito(values.phoneNumber),
             })
           ).then(() => {
-            if (window && window.analytics) {
-              window.analytics.track('Agent updated cognito info', { ...values });
-            }
+            trackEvent('Agent updated cognito info', { ...values });
             setSubmitting(false);
           });
         }}
@@ -184,9 +183,7 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 bidDefaults: { ...agent.bidDefaults },
               })
             ).then(() => {
-              if (window && window.analytics) {
-                window.analytics.track('Agent updated Agent Profile Info', { ...agent, ...values });
-              }
+              trackEvent('Agent updated Agent Profile Info', { ...agent, ...values });
               setSubmitting(false);
             });
           }}
@@ -302,12 +299,11 @@ const AgentProfile: FunctionComponent<AgentProfileProps> = () => {
                 agentLanguages: (values.agentLanguages as Array<string>)?.map((val) => Number(val)),
               })
             ).then(() => {
-              if (window && window.analytics) {
-                window.analytics.track('Agent updated Agent Profile Info', {
-                  ...agent,
-                  ...values,
-                });
-              }
+              trackEvent('Agent updated Agent Profile Info', {
+                ...agent,
+                ...values,
+              });
+
               setSubmitting(false);
             });
           }}

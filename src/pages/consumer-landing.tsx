@@ -28,6 +28,7 @@ import { RootState } from '../redux/ducks';
 import { createOptionsFromManagedDropdownList } from '../utils/createOptionsFromArray';
 import postFormUrlEncoded from '../utils/postFormUrlEncoded';
 import { getDropdownListText } from '../utils/dropdownUtils';
+import trackEvent from '../utils/analytics';
 
 const ConsumerLandingForm: FunctionComponent<{}> = () => {
   const priceRangesList = useSelector((state: RootState) => state.dropdowns.priceRanges);
@@ -90,11 +91,10 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                         type: 'success',
                       })
                     );
-                    if (window && window.analytics) {
-                      window.analytics.track('Consumer Landing Form completed', {
-                        ...valuesWithSubject,
-                      });
-                    }
+
+                    trackEvent('Consumer Landing Form completed', {
+                      ...valuesWithSubject,
+                    });
                   })
                   .catch(() => {
                     dispatch(
@@ -103,11 +103,10 @@ const ConsumerLandingForm: FunctionComponent<{}> = () => {
                         type: 'danger',
                       })
                     );
-                    if (window && window.analytics) {
-                      window.analytics.track('Consumer Landing Form failure', {
-                        ...valuesWithSubject,
-                      });
-                    }
+
+                    trackEvent('Consumer Landing Form failure', {
+                      ...valuesWithSubject,
+                    });
                   })
                   .finally(() => {
                     setSubmitting(false);

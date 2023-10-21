@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import { FixedObject } from 'gatsby-image';
 
 import { PreviewCompatibleImage } from '.';
+import trackEvent from '../utils/analytics';
 
 type RelatedBlogPostProps = {
   type: 'next' | 'prev';
@@ -32,11 +33,9 @@ const RelatedBlogPost: FunctionComponent<RelatedBlogPostProps> = (props) => {
       <Link
         to={props.post.fields.slug}
         onClick={() => {
-          if (window && window.analytics) {
-            window.analytics.track('Related Blog Post Image Click', {
-              post: props.post.frontmatter.title,
-            });
-          }
+          trackEvent('Related Blog Post Image Click', {
+            post: props.post.frontmatter.title,
+          });
         }}
       >
         <PreviewCompatibleImage
@@ -52,11 +51,9 @@ const RelatedBlogPost: FunctionComponent<RelatedBlogPostProps> = (props) => {
         <Link
           to={props.post.fields.slug}
           onClick={() => {
-            if (window && window.analytics) {
-              window.analytics.track('Related Blog Post Text Click', {
-                post: props.post.frontmatter.title,
-              });
-            }
+            trackEvent('Related Blog Post Text Click', {
+              post: props.post.frontmatter.title,
+            });
           }}
         >
           {props.post.frontmatter.title}
