@@ -70,7 +70,7 @@
     "gatsby-remark-relative-images": "^0.3.0",
     "gatsby-remark-responsive-iframe": "^2.4.17",
     "gatsby-source-filesystem": "^2.1.55",
-    "gatsby-transformer-remark": "^2.6.58",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^2.3.18",
     "hamburger-react": "^2.4.0",
     "html2canvas": "^1.0.0-rc.7",
