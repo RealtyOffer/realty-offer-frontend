@@ -23,6 +23,7 @@ import NotFoundPage from './404';
 
 import { ErrorBoundary, PageContainer, PrivateRoute, LoadingPage } from '../components';
 import { getAgentProfile, updateAgentIsInGoodStanding } from '../redux/ducks/agent';
+import { logout } from '../redux/ducks/auth';
 import {
   getUserSiteBanners,
   getUserAvatar,
@@ -92,6 +93,9 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
         navigate('/agent/loading');
       }
       dispatch(getAgentProfile()).then((response: ActionResponseType) => {
+        if (!response || !response.payload) {
+          dispatch(logout());
+        }
         if (response && !response.error && response.payload.agentId) {
           dispatch(getUserAvatar());
           dispatch(getUserNotificationSettings());
@@ -101,19 +105,20 @@ const AgentApp: FunctionComponent<{ location: WindowLocation }> = (props) => {
             navigate('/agent/listings/new');
           }
         }
-        if (!response.payload.agentId || !response.payload.fortispayContactId) {
+        if (!response?.payload?.agentId || !response?.payload?.fortispayContactId) {
           navigate('/agent/agent-information');
         } else if (
-          !response.payload.cities.length &&
-          !response.payload.fortispayAccountVaultId &&
-          !response.payload.isPilotUser
+          response &&
+          !response.payload?.cities?.length &&
+          !response.payload?.fortispayAccountVaultId &&
+          !response.payload?.isPilotUser
         ) {
           navigate('/agent/business-information');
         } else if (
           response &&
-          response.payload.cities.length > 0 &&
-          !response.payload.fortispayRecurringId &&
-          !response.payload.isPilotUser
+          response.payload?.cities?.length > 0 &&
+          !response.payload?.fortispayRecurringId &&
+          !response.payload?.isPilotUser
         ) {
           navigate('/agent/confirm-registration');
         } else if (props.location.pathname === '/agent') {

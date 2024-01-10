@@ -31,6 +31,7 @@ export default (store: { dispatch: Function }) => (next: any) => (action: Action
     // or not to determine routing upon login
     // also ignore GET_USER_AVATAR_REQUEST because they may not have a photo yet
     if (
+      action.payload.status < 500 &&
       action.error &&
       action.type !== 'GET_AGENT_PROFILE_FAILURE' &&
       action.type !== 'GET_USER_AVATAR_FAILURE' &&

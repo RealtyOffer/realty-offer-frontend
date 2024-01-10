@@ -279,7 +279,7 @@ const SubNav = styled.div`
   background: ${white};
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 1;
   box-shadow: ${z1Shadow};
 `;
 
