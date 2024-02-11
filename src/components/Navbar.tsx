@@ -498,6 +498,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 )}
                 {size.isSmallScreen && isLoggedInAgent && (
                   <>
+                    {primaryNavigation.map((navItem) => (
+                      <Link key={navItem.name} to={navItem.path} onClick={() => toggleMenu()}>
+                        {getIcon(navItem.icon as string)} {navItem.name}
+                      </Link>
+                    ))}
                     <HorizontalRule />
                     <Link to="/" onClick={toggleSubMenu}>
                       Account {subMenuIsOpen ? <FaCaretUp /> : <FaCaretDown />}
